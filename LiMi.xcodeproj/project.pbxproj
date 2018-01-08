@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E169B2003548C006CC5B9 /* AppDelegate.swift */; };
+		680E169E2003548C006CC5B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E169D2003548C006CC5B9 /* ViewController.swift */; };
+		680E16A12003548C006CC5B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E169F2003548C006CC5B9 /* Main.storyboard */; };
+		680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 680E16A22003548C006CC5B9 /* Assets.xcassets */; };
+		680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */; };
+		680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16B02003548D006CC5B9 /* LiMiTests.swift */; };
+		680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16BB2003548D006CC5B9 /* LiMiUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		680E16AD2003548D006CC5B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 680E16902003548C006CC5B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 680E16972003548C006CC5B9;
+			remoteInfo = LiMi;
+		};
+		680E16B82003548D006CC5B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 680E16902003548C006CC5B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 680E16972003548C006CC5B9;
+			remoteInfo = LiMi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		680E16982003548C006CC5B9 /* LiMi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiMi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		680E169B2003548C006CC5B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		680E169D2003548C006CC5B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		680E16A02003548C006CC5B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		680E16A22003548C006CC5B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		680E16A52003548C006CC5B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		680E16A72003548C006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		680E16AC2003548D006CC5B9 /* LiMiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		680E16B02003548D006CC5B9 /* LiMiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiTests.swift; sourceTree = "<group>"; };
+		680E16B22003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		680E16B72003548D006CC5B9 /* LiMiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		680E16BB2003548D006CC5B9 /* LiMiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiUITests.swift; sourceTree = "<group>"; };
+		680E16BD2003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		680E16952003548C006CC5B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16A92003548D006CC5B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16B42003548D006CC5B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		680E168F2003548C006CC5B9 = {
+			isa = PBXGroup;
+			children = (
+				680E169A2003548C006CC5B9 /* LiMi */,
+				680E16AF2003548D006CC5B9 /* LiMiTests */,
+				680E16BA2003548D006CC5B9 /* LiMiUITests */,
+				680E16992003548C006CC5B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		680E16992003548C006CC5B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				680E16982003548C006CC5B9 /* LiMi.app */,
+				680E16AC2003548D006CC5B9 /* LiMiTests.xctest */,
+				680E16B72003548D006CC5B9 /* LiMiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		680E169A2003548C006CC5B9 /* LiMi */ = {
+			isa = PBXGroup;
+			children = (
+				680E169B2003548C006CC5B9 /* AppDelegate.swift */,
+				680E169D2003548C006CC5B9 /* ViewController.swift */,
+				680E169F2003548C006CC5B9 /* Main.storyboard */,
+				680E16A22003548C006CC5B9 /* Assets.xcassets */,
+				680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */,
+				680E16A72003548C006CC5B9 /* Info.plist */,
+			);
+			path = LiMi;
+			sourceTree = "<group>";
+		};
+		680E16AF2003548D006CC5B9 /* LiMiTests */ = {
+			isa = PBXGroup;
+			children = (
+				680E16B02003548D006CC5B9 /* LiMiTests.swift */,
+				680E16B22003548D006CC5B9 /* Info.plist */,
+			);
+			path = LiMiTests;
+			sourceTree = "<group>";
+		};
+		680E16BA2003548D006CC5B9 /* LiMiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				680E16BB2003548D006CC5B9 /* LiMiUITests.swift */,
+				680E16BD2003548D006CC5B9 /* Info.plist */,
+			);
+			path = LiMiUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		680E16972003548C006CC5B9 /* LiMi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 680E16C02003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMi" */;
+			buildPhases = (
+				680E16942003548C006CC5B9 /* Sources */,
+				680E16952003548C006CC5B9 /* Frameworks */,
+				680E16962003548C006CC5B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiMi;
+			productName = LiMi;
+			productReference = 680E16982003548C006CC5B9 /* LiMi.app */;
+			productType = "com.apple.product-type.application";
+		};
+		680E16AB2003548D006CC5B9 /* LiMiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 680E16C32003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMiTests" */;
+			buildPhases = (
+				680E16A82003548D006CC5B9 /* Sources */,
+				680E16A92003548D006CC5B9 /* Frameworks */,
+				680E16AA2003548D006CC5B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				680E16AE2003548D006CC5B9 /* PBXTargetDependency */,
+			);
+			name = LiMiTests;
+			productName = LiMiTests;
+			productReference = 680E16AC2003548D006CC5B9 /* LiMiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		680E16B62003548D006CC5B9 /* LiMiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 680E16C62003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMiUITests" */;
+			buildPhases = (
+				680E16B32003548D006CC5B9 /* Sources */,
+				680E16B42003548D006CC5B9 /* Frameworks */,
+				680E16B52003548D006CC5B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				680E16B92003548D006CC5B9 /* PBXTargetDependency */,
+			);
+			name = LiMiUITests;
+			productName = LiMiUITests;
+			productReference = 680E16B72003548D006CC5B9 /* LiMiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		680E16902003548C006CC5B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = dev.liufeng;
+				TargetAttributes = {
+					680E16972003548C006CC5B9 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					680E16AB2003548D006CC5B9 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 680E16972003548C006CC5B9;
+					};
+					680E16B62003548D006CC5B9 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 680E16972003548C006CC5B9;
+					};
+				};
+			};
+			buildConfigurationList = 680E16932003548C006CC5B9 /* Build configuration list for PBXProject "LiMi" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 680E168F2003548C006CC5B9;
+			productRefGroup = 680E16992003548C006CC5B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				680E16972003548C006CC5B9 /* LiMi */,
+				680E16AB2003548D006CC5B9 /* LiMiTests */,
+				680E16B62003548D006CC5B9 /* LiMiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		680E16962003548C006CC5B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
+				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
+				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16AA2003548D006CC5B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16B52003548D006CC5B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		680E16942003548C006CC5B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				680E169E2003548C006CC5B9 /* ViewController.swift in Sources */,
+				680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16A82003548D006CC5B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		680E16B32003548D006CC5B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		680E16AE2003548D006CC5B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 680E16972003548C006CC5B9 /* LiMi */;
+			targetProxy = 680E16AD2003548D006CC5B9 /* PBXContainerItemProxy */;
+		};
+		680E16B92003548D006CC5B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 680E16972003548C006CC5B9 /* LiMi */;
+			targetProxy = 680E16B82003548D006CC5B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		680E169F2003548C006CC5B9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				680E16A02003548C006CC5B9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				680E16A52003548C006CC5B9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		680E16BE2003548D006CC5B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		680E16BF2003548D006CC5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		680E16C12003548D006CC5B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		680E16C22003548D006CC5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		680E16C42003548D006CC5B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiMi.app/LiMi";
+			};
+			name = Debug;
+		};
+		680E16C52003548D006CC5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiMi.app/LiMi";
+			};
+			name = Release;
+		};
+		680E16C72003548D006CC5B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiMi;
+			};
+			name = Debug;
+		};
+		680E16C82003548D006CC5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LiMiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiMi;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		680E16932003548C006CC5B9 /* Build configuration list for PBXProject "LiMi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				680E16BE2003548D006CC5B9 /* Debug */,
+				680E16BF2003548D006CC5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		680E16C02003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				680E16C12003548D006CC5B9 /* Debug */,
+				680E16C22003548D006CC5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		680E16C32003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				680E16C42003548D006CC5B9 /* Debug */,
+				680E16C52003548D006CC5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		680E16C62003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				680E16C72003548D006CC5B9 /* Debug */,
+				680E16C82003548D006CC5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 680E16902003548C006CC5B9 /* Project object */;
+}
