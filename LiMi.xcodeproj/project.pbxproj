@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		154F7BF0CA49C907952B513A /* Pods_LiMi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */; };
 		680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E169B2003548C006CC5B9 /* AppDelegate.swift */; };
 		680E169E2003548C006CC5B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E169D2003548C006CC5B9 /* ViewController.swift */; };
 		680E16A12003548C006CC5B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E169F2003548C006CC5B9 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		163DFD0BCD6641E07C1DD996 /* Pods-LiMi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiMi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiMi/Pods-LiMi.debug.xcconfig"; sourceTree = "<group>"; };
 		680E16982003548C006CC5B9 /* LiMi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiMi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		680E169B2003548C006CC5B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		680E169D2003548C006CC5B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +49,8 @@
 		680E16B72003548D006CC5B9 /* LiMiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		680E16BB2003548D006CC5B9 /* LiMiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiUITests.swift; sourceTree = "<group>"; };
 		680E16BD2003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiMi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiMi/Pods-LiMi.release.xcconfig"; sourceTree = "<group>"; };
+		B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiMi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				154F7BF0CA49C907952B513A /* Pods_LiMi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		005EAA1A4DA684DB47FF2248 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		680E168F2003548C006CC5B9 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +94,8 @@
 				680E16AF2003548D006CC5B9 /* LiMiTests */,
 				680E16BA2003548D006CC5B9 /* LiMiUITests */,
 				680E16992003548C006CC5B9 /* Products */,
+				DABACF67EF964D554735F2B2 /* Pods */,
+				005EAA1A4DA684DB47FF2248 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +140,15 @@
 			path = LiMiUITests;
 			sourceTree = "<group>";
 		};
+		DABACF67EF964D554735F2B2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				163DFD0BCD6641E07C1DD996 /* Pods-LiMi.debug.xcconfig */,
+				8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 680E16C02003548D006CC5B9 /* Build configuration list for PBXNativeTarget "LiMi" */;
 			buildPhases = (
+				596E2B13EBAB3A4CB2033C9B /* [CP] Check Pods Manifest.lock */,
 				680E16942003548C006CC5B9 /* Sources */,
 				680E16952003548C006CC5B9 /* Frameworks */,
 				680E16962003548C006CC5B9 /* Resources */,
+				33064E4D776D16F80502E95D /* [CP] Embed Pods Frameworks */,
+				BDCB1A6C7AC950CBE905E1FC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,6 +280,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		33064E4D776D16F80502E95D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiMi/Pods-LiMi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		596E2B13EBAB3A4CB2033C9B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BDCB1A6C7AC950CBE905E1FC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiMi/Pods-LiMi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		680E16942003548C006CC5B9 /* Sources */ = {
@@ -424,12 +499,15 @@
 		};
 		680E16C12003548D006CC5B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 163DFD0BCD6641E07C1DD996 /* Pods-LiMi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D3S69X27U7;
 				INFOPLIST_FILE = LiMi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -438,12 +516,15 @@
 		};
 		680E16C22003548D006CC5B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D3S69X27U7;
 				INFOPLIST_FILE = LiMi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
