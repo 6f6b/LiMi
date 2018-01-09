@@ -15,6 +15,34 @@
 		680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */; };
 		680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16B02003548D006CC5B9 /* LiMiTests.swift */; };
 		680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16BB2003548D006CC5B9 /* LiMiUITests.swift */; };
+		689DF77F20045C7A007FAE9C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF77E20045C7A007FAE9C /* NavigationController.swift */; };
+		689DF78120045CA6007FAE9C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78020045CA6007FAE9C /* TabBarController.swift */; };
+		689DF78B20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
+		689DF78C20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
+		689DF78D20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
+		689DF78F20045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
+		689DF79020045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
+		689DF79120045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
+		689DF79720045D7D007FAE9C /* MsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79620045D7D007FAE9C /* MsgController.swift */; };
+		689DF79820045D7D007FAE9C /* MsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79620045D7D007FAE9C /* MsgController.swift */; };
+		689DF79920045D7D007FAE9C /* MsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79620045D7D007FAE9C /* MsgController.swift */; };
+		689DF79B20045DAB007FAE9C /* PersonCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79A20045DAB007FAE9C /* PersonCenterController.swift */; };
+		689DF79C20045DAB007FAE9C /* PersonCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79A20045DAB007FAE9C /* PersonCenterController.swift */; };
+		689DF79D20045DAB007FAE9C /* PersonCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF79A20045DAB007FAE9C /* PersonCenterController.swift */; };
+		689DF7A520047808007FAE9C /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7A420047808007FAE9C /* test.swift */; };
+		689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7A62004793D007FAE9C /* LoginRegister.storyboard */; };
+		689DF7A92004798C007FAE9C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7A82004798C007FAE9C /* LoginController.swift */; };
+		689DF7AB20048CAC007FAE9C /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7AA20048CAC007FAE9C /* Helper.swift */; };
+		689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */; };
+		689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7AD2004975A007FAE9C /* FinishPersonInfoController.xib */; };
+		689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B020049FF3007FAE9C /* IdentityAuthInfoController.swift */; };
+		689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7B22004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib */; };
+		689DF7B52004A304007FAE9C /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B42004A304007FAE9C /* View.swift */; };
+		689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */; };
+		689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */; };
+		689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */; };
+		689DF7BD2004B494007FAE9C /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7BC2004B494007FAE9C /* Macro.swift */; };
+		689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +77,26 @@
 		680E16B72003548D006CC5B9 /* LiMiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		680E16BB2003548D006CC5B9 /* LiMiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiUITests.swift; sourceTree = "<group>"; };
 		680E16BD2003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		689DF77E20045C7A007FAE9C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		689DF78020045CA6007FAE9C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		689DF78A20045D35007FAE9C /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
+		689DF78E20045D53007FAE9C /* CircleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleController.swift; sourceTree = "<group>"; };
+		689DF79620045D7D007FAE9C /* MsgController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgController.swift; sourceTree = "<group>"; };
+		689DF79A20045DAB007FAE9C /* PersonCenterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterController.swift; sourceTree = "<group>"; };
+		689DF7A420047808007FAE9C /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		689DF7A62004793D007FAE9C /* LoginRegister.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginRegister.storyboard; sourceTree = "<group>"; };
+		689DF7A82004798C007FAE9C /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		689DF7AA20048CAC007FAE9C /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishPersonInfoController.swift; sourceTree = "<group>"; };
+		689DF7AD2004975A007FAE9C /* FinishPersonInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinishPersonInfoController.xib; sourceTree = "<group>"; };
+		689DF7B020049FF3007FAE9C /* IdentityAuthInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoController.swift; sourceTree = "<group>"; };
+		689DF7B22004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityAuthInfoHeaderView.xib; sourceTree = "<group>"; };
+		689DF7B42004A304007FAE9C /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoHeaderView.swift; sourceTree = "<group>"; };
+		689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthStateController.swift; sourceTree = "<group>"; };
+		689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityAuthStateController.xib; sourceTree = "<group>"; };
+		689DF7BC2004B494007FAE9C /* Macro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
+		689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSchoolController.swift; sourceTree = "<group>"; };
 		8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiMi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiMi/Pods-LiMi.release.xcconfig"; sourceTree = "<group>"; };
 		B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiMi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,8 +160,19 @@
 		680E169A2003548C006CC5B9 /* LiMi */ = {
 			isa = PBXGroup;
 			children = (
+				689DF77620045C33007FAE9C /* 首页 */,
+				689DF76E20045C33007FAE9C /* 圈子 */,
+				689DF77A20045C34007FAE9C /* 消息 */,
+				689DF77220045C33007FAE9C /* 我的 */,
+				689DF79E2004750A007FAE9C /* 登录&注册相关 */,
 				680E169B2003548C006CC5B9 /* AppDelegate.swift */,
 				680E169D2003548C006CC5B9 /* ViewController.swift */,
+				689DF77E20045C7A007FAE9C /* NavigationController.swift */,
+				689DF78020045CA6007FAE9C /* TabBarController.swift */,
+				689DF7B42004A304007FAE9C /* View.swift */,
+				689DF7AA20048CAC007FAE9C /* Helper.swift */,
+				689DF7BC2004B494007FAE9C /* Macro.swift */,
+				689DF7A420047808007FAE9C /* test.swift */,
 				680E169F2003548C006CC5B9 /* Main.storyboard */,
 				680E16A22003548C006CC5B9 /* Assets.xcassets */,
 				680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */,
@@ -138,6 +197,175 @@
 				680E16BD2003548D006CC5B9 /* Info.plist */,
 			);
 			path = LiMiUITests;
+			sourceTree = "<group>";
+		};
+		689DF76E20045C33007FAE9C /* 圈子 */ = {
+			isa = PBXGroup;
+			children = (
+				689DF76F20045C33007FAE9C /* Controller */,
+				689DF77020045C33007FAE9C /* Model */,
+				689DF77120045C33007FAE9C /* View */,
+			);
+			path = "圈子";
+			sourceTree = "<group>";
+		};
+		689DF76F20045C33007FAE9C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				689DF78E20045D53007FAE9C /* CircleController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		689DF77020045C33007FAE9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		689DF77120045C33007FAE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		689DF77220045C33007FAE9C /* 我的 */ = {
+			isa = PBXGroup;
+			children = (
+				689DF77320045C33007FAE9C /* Controller */,
+				689DF77420045C33007FAE9C /* Model */,
+				689DF77520045C33007FAE9C /* View */,
+			);
+			path = "我的";
+			sourceTree = "<group>";
+		};
+		689DF77320045C33007FAE9C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				689DF79A20045DAB007FAE9C /* PersonCenterController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		689DF77420045C33007FAE9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		689DF77520045C33007FAE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		689DF77620045C33007FAE9C /* 首页 */ = {
+			isa = PBXGroup;
+			children = (
+				689DF77720045C33007FAE9C /* Controller */,
+				689DF77820045C33007FAE9C /* Model */,
+				689DF77920045C33007FAE9C /* View */,
+			);
+			path = "首页";
+			sourceTree = "<group>";
+		};
+		689DF77720045C33007FAE9C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				689DF78A20045D35007FAE9C /* HomePageController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		689DF77820045C33007FAE9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		689DF77920045C33007FAE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		689DF77A20045C34007FAE9C /* 消息 */ = {
+			isa = PBXGroup;
+			children = (
+				689DF77B20045C34007FAE9C /* Controller */,
+				689DF77C20045C34007FAE9C /* Model */,
+				689DF77D20045C34007FAE9C /* View */,
+			);
+			path = "消息";
+			sourceTree = "<group>";
+		};
+		689DF77B20045C34007FAE9C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				689DF79620045D7D007FAE9C /* MsgController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		689DF77C20045C34007FAE9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		689DF77D20045C34007FAE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		689DF79E2004750A007FAE9C /* 登录&注册相关 */ = {
+			isa = PBXGroup;
+			children = (
+				689DF79F2004750A007FAE9C /* Controller */,
+				689DF7A22004750A007FAE9C /* View */,
+				689DF7A12004750A007FAE9C /* Model */,
+			);
+			path = "登录&注册相关";
+			sourceTree = "<group>";
+		};
+		689DF79F2004750A007FAE9C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				689DF7A82004798C007FAE9C /* LoginController.swift */,
+				689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */,
+				689DF7AD2004975A007FAE9C /* FinishPersonInfoController.xib */,
+				689DF7B020049FF3007FAE9C /* IdentityAuthInfoController.swift */,
+				689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */,
+				689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */,
+				689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		689DF7A12004750A007FAE9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		689DF7A22004750A007FAE9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				689DF7A62004793D007FAE9C /* LoginRegister.storyboard */,
+				689DF7B22004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib */,
+				689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DABACF67EF964D554735F2B2 /* Pods */ = {
@@ -260,8 +488,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
+				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
+				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
+				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
+				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,8 +566,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689DF7AB20048CAC007FAE9C /* Helper.swift in Sources */,
+				689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */,
+				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
+				689DF7BD2004B494007FAE9C /* Macro.swift in Sources */,
 				680E169E2003548C006CC5B9 /* ViewController.swift in Sources */,
+				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
+				689DF78B20045D35007FAE9C /* HomePageController.swift in Sources */,
+				689DF79B20045DAB007FAE9C /* PersonCenterController.swift in Sources */,
+				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
+				689DF7A520047808007FAE9C /* test.swift in Sources */,
+				689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */,
+				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
+				689DF78120045CA6007FAE9C /* TabBarController.swift in Sources */,
+				689DF78F20045D53007FAE9C /* CircleController.swift in Sources */,
+				689DF77F20045C7A007FAE9C /* NavigationController.swift in Sources */,
 				680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */,
+				689DF7B52004A304007FAE9C /* View.swift in Sources */,
+				689DF7A92004798C007FAE9C /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +591,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689DF79020045D53007FAE9C /* CircleController.swift in Sources */,
+				689DF79820045D7D007FAE9C /* MsgController.swift in Sources */,
 				680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */,
+				689DF78C20045D35007FAE9C /* HomePageController.swift in Sources */,
+				689DF79C20045DAB007FAE9C /* PersonCenterController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +603,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689DF79120045D53007FAE9C /* CircleController.swift in Sources */,
+				689DF79920045D7D007FAE9C /* MsgController.swift in Sources */,
 				680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */,
+				689DF78D20045D35007FAE9C /* HomePageController.swift in Sources */,
+				689DF79D20045DAB007FAE9C /* PersonCenterController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IdentityAuthStateController" customModule="LiMi" customModuleProvider="target">
+            <connections>
+                <outlet property="stateBtn" destination="udd-r3-zLq" id="5sa-gm-3bx"/>
+                <outlet property="stateImg" destination="yfy-uo-R0k" id="SsC-ks-GqK"/>
+                <outlet property="stateInfo" destination="ZMI-EV-cFA" id="sjD-D6-3DG"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tijiao" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-uo-R0k">
+                    <rect key="frame" x="137" y="95" width="100" height="100"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已提交认证，预计5~10分钟" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMI-EV-cFA">
+                    <rect key="frame" x="93.5" y="220" width="188" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udd-r3-zLq">
+                    <rect key="frame" x="52.5" y="578" width="270" height="40"/>
+                    <color key="backgroundColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="BOV-r6-ehZ"/>
+                        <constraint firstAttribute="width" constant="270" id="H2G-RT-k1M"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="返回首页">
+                        <color key="titleColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="dealTapStateBtn:" destination="-1" eventType="touchUpInside" id="q40-8e-cQM"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ZMI-EV-cFA" firstAttribute="top" secondItem="yfy-uo-R0k" secondAttribute="bottom" constant="25" id="9ib-S3-ckv"/>
+                <constraint firstItem="yfy-uo-R0k" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="75" id="DKN-ks-0XQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="udd-r3-zLq" secondAttribute="bottom" constant="49" id="RxM-Aa-9mV"/>
+                <constraint firstItem="ZMI-EV-cFA" firstAttribute="centerX" secondItem="yfy-uo-R0k" secondAttribute="centerX" id="aSq-Y6-KAo"/>
+                <constraint firstItem="udd-r3-zLq" firstAttribute="centerX" secondItem="ZMI-EV-cFA" secondAttribute="centerX" id="kSa-9a-fSF"/>
+                <constraint firstItem="yfy-uo-R0k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qwv-5q-I3b"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tijiao" width="100" height="100"/>
+    </resources>
+</document>
