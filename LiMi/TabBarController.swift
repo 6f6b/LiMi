@@ -13,17 +13,17 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let homePageController = HomePageController()
-        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "", tbSelectedImg: "")
+        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "icon_shouye", tbSelectedImg: "icon_shouye_highlight")
         let circleController = CircleController()
-         self.addControllerWith(controller: circleController, title: "圈子", tbImg: "", tbSelectedImg: "")
+         self.addControllerWith(controller: circleController, title: "圈子", tbImg: "icon_quanzi", tbSelectedImg: "icon_quanzi_highlight")
         
         let blankController = ViewController()
-        self.addControllerWith(controller: blankController, title: "", tbImg: "btn_boy_pre", tbSelectedImg: "btn_boy_pre")
+        self.addControllerWith(controller: blankController, title: "", tbImg: "icon_fabu", tbSelectedImg: "icon_fabu")
         
         let msgController = MsgController()
-         self.addControllerWith(controller: msgController, title: "消息", tbImg: "", tbSelectedImg: "")
-        let personCenterController = PersonCenterController()
-         self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "", tbSelectedImg: "")
+         self.addControllerWith(controller: msgController, title: "消息", tbImg: "icon_xiaoxi", tbSelectedImg: "icon_xiaoxi_highlight")
+        let personCenterController = Helper.getViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
+        self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "icon_wode", tbSelectedImg: "icon_wode_highlight")
         self.delegate = self
     }
 
@@ -31,11 +31,13 @@ class TabBarController: UITabBarController {
         super.didReceiveMemoryWarning()
     }
 
-    func addControllerWith(controller:ViewController!,title:String!,tbImg:String!,tbSelectedImg:String!){
+    func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!){
         controller.title = title
         let navController = NavigationController(rootViewController: controller)
         navController.tabBarItem.image = UIImage.init(named: tbImg)?.withRenderingMode(.alwaysOriginal)
         navController.tabBarItem.selectedImage = UIImage.init(named: tbSelectedImg)?.withRenderingMode(.alwaysOriginal)
+        navController.tabBarItem.title = nil
+        navController.tabBarItem.imageInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: -5, right: 0)
         self.addChildViewController(navController)
     }
     

@@ -16,7 +16,10 @@ class LoginController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.getVertificationCodeBtn.layer.cornerRadius = 12
+        self.getVertificationCodeBtn.clipsToBounds = true
+        self.getVertificationCodeBtn.layer.borderWidth = 1
+        self.getVertificationCodeBtn.layer.borderColor = RGBA(r: 47, g: 213, b: 233, a: 1).cgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,4 +47,9 @@ class LoginController: ViewController {
         let finishPersonInfoController = FinishPersonInfoController()
         self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
     }
+    
+    @IBAction func dealRequestVertificationCode(_ sender: Any) {
+//        moyaProvider.request(.init(url: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>), completion: <#T##Completion##Completion##(Result<Response, MoyaError>) -> Void#>)
+    }
+
 }

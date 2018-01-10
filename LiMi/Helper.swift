@@ -8,6 +8,14 @@
 
 import Foundation
 import SwiftyUserDefaults
+enum StoryBoardName {
+    case homePage
+    case circle
+    case msg
+    case personalCenter
+    case loginRegister
+    case main
+}
 class Helper {
     /** 单一入口 */
     static let shareInstance = Helper()
@@ -39,8 +47,29 @@ class Helper {
 //    }
     
     /** 从storyboard获取ViewController */
-    static func getViewControllerFrom(sbName:String,sbID:String) -> UIViewController {
-        let sb = UIStoryboard.init(name: sbName, bundle: nil)
+    static func getViewControllerFrom(sbName:StoryBoardName,sbID:String) -> UIViewController {
+        var name  = ""
+        switch sbName {
+        case .homePage:
+            name = "HomePage"
+            break
+        case .circle:
+            name = "Circle"
+            break
+        case .msg:
+            name = "Msg"
+            break
+        case .personalCenter:
+            name = "PersonalCenter"
+            break
+        case .loginRegister:
+            name = "LoginRegister"
+            break
+        case .main:
+            name = "Main"
+            break
+        }
+        let sb = UIStoryboard.init(name: name, bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: sbID)
         return vc
     }
@@ -50,6 +79,10 @@ class Helper {
             return view
         }
         return nil
+    }
+    
+    static func logOut(){
+        //
     }
     /** 清理图片缓存 */
 //    static func clearCacheWith(Type:ClearCacheType){

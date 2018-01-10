@@ -52,7 +52,7 @@ class FinishPersonInfoController: ViewController {
             SVProgressHUD.showError(withStatus: "请输入姓名")
             return
         }
-        let identityAuthInfoController = Helper.getViewControllerFrom(sbName: "LoginRegister", sbID: "IdentityAuthInfoController")
+        let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController")
         self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
     }
 }
