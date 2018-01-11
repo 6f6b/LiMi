@@ -56,7 +56,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="这里输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f0n-j3-J0m">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="15708456403" placeholder="这里输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f0n-j3-J0m">
                                                 <rect key="frame" x="45" y="0.0" width="225" height="34"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

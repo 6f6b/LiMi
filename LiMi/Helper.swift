@@ -29,6 +29,28 @@ class Helper {
         return Defaults[key].string
     }
 
+    static func saveUserId(userId:Int?){
+        UserDefaults.standard.setValue(userId, forKey: "userId")
+    }
+    
+    static func getUserId()->Int?{
+        if let userId = UserDefaults.standard.value(forKey: "userId") as? Int{
+            return userId
+        }
+        return nil
+    }
+    
+    static func saveToken(token:String?){
+        UserDefaults.standard.setValue(token, forKey: "token")
+    }
+    
+    static func getToken()->String?{
+        if let token =  UserDefaults.standard.value(forKey: "token") as? String{
+            return token
+        }
+        return nil
+    }
+    
     /** 设置和取布尔值 */
     static func setBoolValue(key: String, token : Bool) {
         Defaults[key] = token

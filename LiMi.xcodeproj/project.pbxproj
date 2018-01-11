@@ -48,7 +48,11 @@
 		689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA1720061BC8007FAE9C /* APIManager.swift */; };
 		689DFA1D20061C42007FAE9C /* MoyaExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA1A20061C42007FAE9C /* MoyaExtension.swift */; };
 		689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA1B20061C42007FAE9C /* NetWorkConfig.swift */; };
-		689DFA1F20061C42007FAE9C /* SFRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA1C20061C42007FAE9C /* SFRootViewModel.swift */; };
+		689DFA2420071EA6007FAE9C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2320071EA6007FAE9C /* Extensions.swift */; };
+		689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA27200731C8007FAE9C /* LoginModel.swift */; };
+		689DFA2A20073407007FAE9C /* CommonInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2920073407007FAE9C /* CommonInfoModel.swift */; };
+		689DFA2C20073454007FAE9C /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2B20073454007FAE9C /* BaseModel.swift */; };
+		689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -401,7 +405,11 @@
 		689DFA1720061BC8007FAE9C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		689DFA1A20061C42007FAE9C /* MoyaExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaExtension.swift; sourceTree = "<group>"; };
 		689DFA1B20061C42007FAE9C /* NetWorkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWorkConfig.swift; sourceTree = "<group>"; };
-		689DFA1C20061C42007FAE9C /* SFRootViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFRootViewModel.swift; sourceTree = "<group>"; };
+		689DFA2320071EA6007FAE9C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		689DFA27200731C8007FAE9C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		689DFA2920073407007FAE9C /* CommonInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInfoModel.swift; sourceTree = "<group>"; };
+		689DFA2B20073454007FAE9C /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpAuthCodeModel.swift; sourceTree = "<group>"; };
 		8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiMi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiMi/Pods-LiMi.release.xcconfig"; sourceTree = "<group>"; };
 		B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiMi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -768,6 +776,9 @@
 				680E169D2003548C006CC5B9 /* ViewController.swift */,
 				689DF77E20045C7A007FAE9C /* NavigationController.swift */,
 				689DF78020045CA6007FAE9C /* TabBarController.swift */,
+				689DFA2920073407007FAE9C /* CommonInfoModel.swift */,
+				689DFA2B20073454007FAE9C /* BaseModel.swift */,
+				689DFA2320071EA6007FAE9C /* Extensions.swift */,
 				689DF7B42004A304007FAE9C /* View.swift */,
 				689DF7AA20048CAC007FAE9C /* Helper.swift */,
 				689DF7BC2004B494007FAE9C /* Macro.swift */,
@@ -955,6 +966,8 @@
 		689DF7A12004750A007FAE9C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				689DFA27200731C8007FAE9C /* LoginModel.swift */,
+				689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -976,7 +989,6 @@
 				689DFA1620061BC8007FAE9C /* ParameterGenerators.swift */,
 				689DFA1A20061C42007FAE9C /* MoyaExtension.swift */,
 				689DFA1B20061C42007FAE9C /* NetWorkConfig.swift */,
-				689DFA1C20061C42007FAE9C /* SFRootViewModel.swift */,
 			);
 			name = "网络请求相关";
 			path = "LiMi/网络请求相关";
@@ -1197,10 +1209,14 @@
 				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
 				689DF78120045CA6007FAE9C /* TabBarController.swift in Sources */,
 				689DF78F20045D53007FAE9C /* CircleController.swift in Sources */,
+				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
 				689DF77F20045C7A007FAE9C /* NavigationController.swift in Sources */,
-				689DFA1F20061C42007FAE9C /* SFRootViewModel.swift in Sources */,
+				689DFA2A20073407007FAE9C /* CommonInfoModel.swift in Sources */,
+				689DFA2C20073454007FAE9C /* BaseModel.swift in Sources */,
 				680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
+				689DFA2420071EA6007FAE9C /* Extensions.swift in Sources */,
+				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				689DF7B52004A304007FAE9C /* View.swift in Sources */,
 				689DF7A92004798C007FAE9C /* LoginController.swift in Sources */,
 				689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */,

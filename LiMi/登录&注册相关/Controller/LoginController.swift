@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+import ObjectMapper
+import Moya
 
 class LoginController: ViewController {
     @IBOutlet weak var phoneNum: UITextField!
@@ -44,12 +47,40 @@ class LoginController: ViewController {
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
-        let finishPersonInfoController = FinishPersonInfoController()
-        self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        let login = Login(phone: self.phoneNum.text, code: self.veritificationCode.text)
+        _ = moyaProvider.rx.request(.targetWith(target: login)).subscribe(onSuccess: { (response) in
+            do {
+                let model = try response.mapObject(LoginModel.self)
+                if model.commonInfoModel?.flag == successState{
+                    let finishPersonInfoController = FinishPersonInfoController()
+                    finishPersonInfoController.userIdParameters = model.id
+                    finishPersonInfoController.tokenParameters = model.token
+                    self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
+                }
+                SVProgressHUD.showResultWith(model: model)
+            }
+            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+            if let model = try? response.mapObject(BaseModel.self){
+                SVProgressHUD.showResultWith(model: model)
+            }
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
     @IBAction func dealRequestVertificationCode(_ sender: Any) {
-//        moyaProvider.request(.init(url: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>), completion: <#T##Completion##Completion##(Result<Response, MoyaError>) -> Void#>)
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
+        _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
+            do {
+                let model = try response.mapObject(TmpAuthCodeModel.self)
+                SVProgressHUD.showSuccessWith(msg: model.code)
+            }
+            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
 
 }

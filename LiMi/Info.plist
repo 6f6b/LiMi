@@ -45,5 +45,24 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+    
+    <key>NSCameraUsageDescription</key>
+    <string>LiMi想使用你的相机</string>
+    <key>NSContactsUsageDescription</key>
+    <string>LiMi想使用你的联系人</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>LiMi想使用你的地理位置以确定你与对方的距离</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>LiMi想使用你的地理位置以确定你与对方的距离</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>LiMi想使用您的麦克风</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>LiMi想使用你的相册以上传照片</string>
+    
 </dict>
 </plist>

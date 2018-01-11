@@ -9,49 +9,181 @@
 import Foundation
 import Moya
 
-// MARK: - 参数生成器协议
-protocol ParameterGeneratorProtocol {
-    //默认网络配置参数
-    var baseURL: URL{get}   //服务器地址
-    var method: Moya.Method {get}    //请求方式
-    var parameterEncoding: ParameterEncoding {get}    //参数编码方式
-    var task: Task{get}
-    var sampleData: Data{get}
-    
-    //请求路径
-    var path:String!{get}
-    
-    //网络请求参数，自定义
-    
-    //参数字典生成函数
-    func parameters()->[String:Any]?
-}
-
 
 // MARK: - 相关参数体
-//1获取验证码
-struct RequestVertificationCode:ParameterGeneratorProtocol{
-    var baseURL: URL {return URL(string: serviceAddress)!}   //服务器地址
-    var method: Moya.Method {return .post}    //请求方式
-    var parameterEncoding: ParameterEncoding {return URLEncoding.default}    //参数编码方式
-    var task: Task {return .requestPlain}
-    var sampleData: Data {return "".data(using: String.Encoding.utf8)!}
+let serverAddress = "http://app.taoke80.com"
 
-    var path:String!{return "/index.php/apps/Sms/startSendSms"}
+protocol ParametersProtocol {
+    func parameters()->[String:Any]
+}
 
+//1注册登录短信发送接口
+struct RequestAuthCode:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/Sms/startSendSms" }
+    
+    //参数体
     var phone:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["phone":phone]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
-    func parameters()->[String:Any]?{
+//2登录接口
+struct Login:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/login" }
+    
+    var phone:String?
+    var code:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["phone":phone,
+                             "code":code]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//3 注册页面大学列表【川内】
+struct SchoolList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/user/collegeSchoolList" }
+    
+    var id:String?
+    var token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["id":id,
+                             "token":token]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//4 注册时身份认证接口
+struct RegisterForID:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/user/perfectUserInfo" }
+    
+    var id:String?
+    var token:String?
+    var true_name:String?
+    var sex:String?
+    var college:String?
+    var school:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["id":id,
+                             "token":token,
+                             "true_name":true_name,
+                             "sex":sex,
+                             "college":college,
+                             "school":school,
+                             ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//7 头像上传通用接口
+struct HeadImgUpLoad:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task {
+        if let unPackImgs = self.imgs{
+            var datas = [MultipartFormData]()
+            for img in unPackImgs{
+                if let data = UIImageJPEGRepresentation(img, 0.5){
+                    let img = MultipartFormData(provider: .data(data), name: "file", fileName: "", mimeType: "image/jpeg")
+                    datas.append(img)
+                }
+            }
+            return .uploadCompositeMultipart(datas, urlParameters: self.parameters())
+        }
+        return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default)
+    }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/uploadUserHeadImg" }
+    
+    //用户标识ID
+    var id:String?
+    var token:String?
+    //上传的图片数组
+    var imgs:[UIImage]?
+    
+    func parameters()->[String:Any]{
         var tmpParamters = [String:Any]()
-        tmpParamters["phone"] = phone
-
+        tmpParamters["id"] = id
+        tmpParamters["token"] = token
         return handleRequestParameters(parameters: tmpParamters)
     }
 }
 
+//12 注册是完善 真实姓名和性别接口
+struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/perfectUserBasicInfo" }
+    
+    var id:String?
+    var token:String?
+    var true_name:String?
+    var sex:String?
+//    var college:String?
+//    var school:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["id":id,
+                             "token":token,
+                             "true_name":true_name,
+                             "sex":sex,
+                             ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+
+
+
+
+
+
+
 
 // MARK: - 相关枚举
-
 //收藏类型
 enum CollectType:Int{
     case collect = 1

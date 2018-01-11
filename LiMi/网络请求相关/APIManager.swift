@@ -22,68 +22,49 @@ class DefaultAlamofireManager: Alamofire.SessionManager {
     }()
 }
 
-//moya管理网络请求
-let moyaProvider = MoyaProvider<APIManger>(manager: DefaultAlamofireManager.sharedManager)
-let disposeBag = DisposeBag()
-
-enum APIManger{
-    case managerWith(parameterGenerator:ParameterGeneratorProtocol)
+public enum LiMiAPI {
+    case targetWith(target:TargetType)
 }
 
-extension APIManger: TargetType {
-    var headers: [String : String]? {
-        return nil
-    }
-    
-    //服务器地址
+extension LiMiAPI: TargetType {
     public var baseURL: URL {
         switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.baseURL
+        case .targetWith(let target):
+            return target.baseURL
         }
     }
-    //请求方式
+    public var path: String {
+        switch self {
+        case .targetWith(let target):
+            return target.path
+        }
+    }
     public var method: Moya.Method {
         switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.method
-        }
-    }
-    //参数编码方式
-    public var parameterEncoding: ParameterEncoding {
-        switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.parameterEncoding
+        case .targetWith(let target):
+            return target.method
         }
     }
     public var task: Task {
         switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.task
+        case .targetWith(let target):
+            return target.task
+        }
+    }
+    public var validate: Bool {
+        switch self {
+        case .targetWith(let target):
+            return target.validate
         }
     }
     public var sampleData: Data {
         switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.sampleData
+        case .targetWith(let target):
+            return target.sampleData
         }
     }
-    
-    //请求地址
-    public var path: String {
-        switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.path
-        }
+    public var headers: [String: String]? {
+        return nil
     }
-    
-    //请求参数
-    public var parameters: [String : Any]? {
-        switch self {
-        case .managerWith(let parameterGenerator):
-            return parameterGenerator.parameters()
-        }
-    }
-    
 }
 

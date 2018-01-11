@@ -37,6 +37,8 @@ class PersonCenterController: UITableViewController {
     
     //点击退出登录
     @IBAction func dealTapLogOut(_ sender: Any) {
+        Helper.saveToken(token: nil)
+        Helper.saveUserId(userId: nil)
         let logVC = Helper.getViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
         let logNav = NavigationController(rootViewController: logVC)
         self.navigationController?.tabBarController?.present(logNav, animated: true, completion: nil)

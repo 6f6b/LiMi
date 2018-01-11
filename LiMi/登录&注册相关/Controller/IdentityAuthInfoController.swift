@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Moya
+import SVProgressHUD
 
 class IdentityAuthInfoController: UITableViewController {
     @IBOutlet weak var headImg: UIImageView!
@@ -20,6 +22,9 @@ class IdentityAuthInfoController: UITableViewController {
     var isShowNotice = true
     //是否从个人中心跳转而来
     var isFromPersonalCenter = false
+    
+    var sexParameter:Int?
+    var nameParameter:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +41,26 @@ class IdentityAuthInfoController: UITableViewController {
         sumbitBtn.sizeToFit()
         sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
+        
+        requestDatas()
     }
 
+    func requestDatas(){
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        if let userId = Helper.getUserId(),let token = Helper.getToken(){
+            let schoolList = SchoolList(id: userId.stringValue(), token: token)
+            _ = moyaProvider.rx.request(.targetWith(target: schoolList)).subscribe(onSuccess: { (response) in
+                do {
+                    let model = try response.mapObject(TmpAuthCodeModel.self)
+                    SVProgressHUD.showSuccessWith(msg: model.code)
+                }
+                catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+            }, onError: { (error) in
+                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            })
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
