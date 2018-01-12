@@ -51,6 +51,13 @@ class Helper {
         return nil
     }
     
+    static func loginServiceToMainController(loginRootController:UIViewController?){
+        if let tbController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
+            tbController.selectedIndex = 0
+        }
+        loginRootController?.dismiss(animated: true, completion: nil)
+    }
+    
     /** 设置和取布尔值 */
     static func setBoolValue(key: String, token : Bool) {
         Defaults[key] = token
@@ -60,13 +67,13 @@ class Helper {
         return Defaults[key].bool
     }
     
-//    static func setRegister(token : Bool) {
-//        Defaults["register"] = token
-//    }
-//    
-//    static func getRegister() -> Bool {
-//        return Defaults["register"].bool!
-//    }
+    static func setRegister(token : Bool) {
+        Defaults["register"] = token
+    }
+    
+    static func getRegister() -> Bool {
+        return Defaults["register"].bool!
+    }
     
     /** 从storyboard获取ViewController */
     static func getViewControllerFrom(sbName:StoryBoardName,sbID:String) -> UIViewController {

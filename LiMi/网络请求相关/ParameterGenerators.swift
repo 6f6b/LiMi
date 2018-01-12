@@ -17,7 +17,7 @@ protocol ParametersProtocol {
     func parameters()->[String:Any]
 }
 
-//1注册登录短信发送接口
+//MARK: 1注册登录短信发送接口（已完成）
 struct RequestAuthCode:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -37,7 +37,7 @@ struct RequestAuthCode:TargetType,ParametersProtocol{
     }
 }
 
-//2登录接口
+//MARK: 2登录接口（已完成）
 struct Login:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -58,28 +58,28 @@ struct Login:TargetType,ParametersProtocol{
     }
 }
 
-//3 注册页面大学列表【川内】
-struct SchoolList:TargetType,ParametersProtocol{
-    var baseURL: URL { return URL.init(string: serverAddress)! }
-    //单元测试
-    var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
-    var validate: Bool { return true }
-    var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/user/collegeSchoolList" }
-    
-    var id:String?
-    var token:String?
-    
-    func parameters() -> [String : Any] {
-        let tmpParameters = ["id":id,
-                             "token":token]
-        return handleRequestParameters(parameters: tmpParameters)
-    }
-}
+////3 注册页面大学列表【川内】(弃用)
+//struct SchoolList:TargetType,ParametersProtocol{
+//    var baseURL: URL { return URL.init(string: serverAddress)! }
+//    //单元测试
+//    var sampleData: Data { return "".data(using: .utf8)! }
+//    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+//    var validate: Bool { return true }
+//    var headers: [String: String]? { return nil }
+//    var method: Moya.Method { return .post }
+//    var path: String { return "/index.php/apps/user/collegeSchoolList" }
+//
+//    var id:String?
+//    var token:String?
+//
+//    func parameters() -> [String : Any] {
+//        let tmpParameters = ["id":id,
+//                             "token":token]
+//        return handleRequestParameters(parameters: tmpParameters)
+//    }
+//}
 
-//4 注册时身份认证接口
+//MARK: 4 注册时身份认证接口（已完成）
 struct RegisterForID:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -90,26 +90,21 @@ struct RegisterForID:TargetType,ParametersProtocol{
     var method: Moya.Method { return .post }
     var path: String { return "/index.php/apps/user/perfectUserInfo" }
     
-    var id:String?
-    var token:String?
-    var true_name:String?
-    var sex:String?
     var college:String?
     var school:String?
+    var grade:String?
     
     func parameters() -> [String : Any] {
-        let tmpParameters = ["id":id,
-                             "token":token,
-                             "true_name":true_name,
-                             "sex":sex,
+        let tmpParameters = [
                              "college":college,
                              "school":school,
+                             "grade":grade
                              ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
 
-//7 头像上传通用接口
+//MARK: 7 头像上传通用接口（已完成）
 struct HeadImgUpLoad:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -132,21 +127,16 @@ struct HeadImgUpLoad:TargetType,ParametersProtocol{
     var method: Moya.Method { return .post }
     var path: String { return "/index.php/apps/User/uploadUserHeadImg" }
     
-    //用户标识ID
-    var id:String?
-    var token:String?
     //上传的图片数组
     var imgs:[UIImage]?
     
     func parameters()->[String:Any]{
-        var tmpParamters = [String:Any]()
-        tmpParamters["id"] = id
-        tmpParamters["token"] = token
+        let tmpParamters = [String:Any]()
         return handleRequestParameters(parameters: tmpParamters)
     }
 }
 
-//12 注册是完善 真实姓名和性别接口
+//MARK: 12 注册是完善 真实姓名和性别接口（已完成）
 struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -156,7 +146,7 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String { return "/index.php/apps/User/perfectUserBasicInfo" }
-    
+
     var id:String?
     var token:String?
     var true_name:String?
@@ -165,14 +155,92 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
 //    var school:String?
     
     func parameters() -> [String : Any] {
-        let tmpParameters = ["id":id,
-                             "token":token,
-                             "true_name":true_name,
-                             "sex":sex,
-                             ]
+        let tmpParameters = [
+            "id":id,
+            "token":token,
+            "true_name":true_name,
+            "sex":sex,
+            ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
+
+
+//MARK: 13 返回大学列表通用接口（已完成）
+struct CollegeList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/User/collegeList"
+    }
+    
+    var provinceID:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "provinceID":provinceID
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: 14 返回二级学院通用接口（已完成）
+struct AcademyList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/User/schoolList"
+    }
+    
+    var collegeID:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "collegeID":collegeID
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+//MARK: 15 返回年级列表通用接口（已完成）
+struct GradeList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/User/gradeList"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["":""]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

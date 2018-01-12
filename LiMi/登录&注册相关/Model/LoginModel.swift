@@ -12,8 +12,8 @@ import ObjectMapper
 class LoginModel: BaseModel {
     var id:Int?
     var token:String?
-    var status:String?
-    var identity_time:String?
+    var user_info_status:String?
+    var identity_status:String?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -23,8 +23,8 @@ class LoginModel: BaseModel {
         super.mapping(map: map)
         id<-map["data.id"]
         token<-map["data.token"]
-        status<-map["data.status"]
-        identity_time<-map["data.identity_time"]
+        user_info_status<-map["data.user_info_status"]
+        user_info_status<-map["data.user_info_status"]
     }
 }
 

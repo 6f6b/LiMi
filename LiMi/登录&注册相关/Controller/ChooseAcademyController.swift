@@ -11,13 +11,14 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class ChooseSchoolController: ViewController {
+class ChooseAcademyController: ViewController {
     var tableView:UITableView!
-    var chooseBlock:((CollegeModel?)->Void)?
-    var dataArray:[CollegeModel]!
+    var collegeId:Int?
+    var chooseAcademyBlock:((AcademyModel?)->Void)?
+    var dataArray:[AcademyModel]!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "选择学校"
+        self.title = "选择学院"
         var frame = self.view.bounds
         frame.size.height -= 64
         self.tableView = UITableView(frame: frame)
@@ -26,7 +27,7 @@ class ChooseSchoolController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "CollegeCell", bundle: nil), forCellReuseIdentifier: "CollegeCell")
-        dataArray = [CollegeModel]()
+        dataArray = [AcademyModel]()
         self.requestData()
     }
     
@@ -38,16 +39,16 @@ class ChooseSchoolController: ViewController {
     
     func requestData(){
         let moyaProvider = MoyaProvider<LiMiAPI>()
-        let collegeList = CollegeList(provinceID: "510000")
+        let collegeList = AcademyList(collegeID: self.collegeId?.stringValue())
         
         _ = moyaProvider.rx.request(.targetWith(target: collegeList)).subscribe(onSuccess: { (response) in
-            let collegeContainerModel = Mapper<CollegeContainerModel>().map(jsonData: response.data)
-            if let colleges = collegeContainerModel?.colleges{
-                self.dataArray = colleges
+            let academyContainerModel = Mapper<AcademyContainerModel>().map(jsonData: response.data)
+            if let academys = academyContainerModel?.academies{
+                self.dataArray = academys
                 self.tableView.reloadData()
             }
-//            self.handle(collegeModels: collegeContainerModel?.colleges)
-            SVProgressHUD.showErrorWith(model: collegeContainerModel)
+            //            self.handle(collegeModels: collegeContainerModel?.colleges)
+            SVProgressHUD.showErrorWith(model: academyContainerModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -64,7 +65,7 @@ class ChooseSchoolController: ViewController {
             dataArray.add(sectionDic)
         }
         //添加元素
-//        NSMutableArray
+        //        NSMutableArray
         if let collegeModels = collegeModels{
             for collegeModel in collegeModels{
                 if let collegeName = collegeModel.name{
@@ -92,7 +93,7 @@ class ChooseSchoolController: ViewController {
     
 }
 
-extension ChooseSchoolController:UITableViewDelegate,UITableViewDataSource{
+extension ChooseAcademyController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -106,16 +107,17 @@ extension ChooseSchoolController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollegeCell", for: indexPath) as! CollegeCell
-        cell.configWithTitle(title: self.dataArray[indexPath.row].name)
+       cell.configWithTitle(title: self.dataArray[indexPath.row].name)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let chooseBlock = self.chooseBlock{
-            chooseBlock(self.dataArray[indexPath.row])
+        if let chooseAcademyBlock = self.chooseAcademyBlock{
+            chooseAcademyBlock(self.dataArray[indexPath.row])
         }
         self.navigationController?.popViewController(animated: true)
     }
 }
+
 

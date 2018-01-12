@@ -10,16 +10,16 @@ import Foundation
 import ObjectMapper
 
 class CommonInfoModel:Mappable{
-    var flag : String?
-    var status:Int?
+    var status:String?
     var msg:String?
+    var code:String?
     
     required init?(map: Map) {
         self.mapping(map: map)
     }
     
     func mapping(map: Map) {
-        flag  <- map["flag"]
+        code  <- map["code"]
         status   <- map["status"]
         msg   <- map["msg"]
     }

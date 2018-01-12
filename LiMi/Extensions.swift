@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SVProgressHUD
+import ObjectMapper
 
 //extension UIButton{
 //    func isUsable(){
@@ -152,24 +153,26 @@ extension SVProgressHUD{
     }
     //只显示错误信息
     static func showErrorWith(model:BaseModel?){
-        if let flag  = model?.commonInfoModel?.flag{
-            if flag != successState{
+        if let status  = model?.commonInfoModel?.status{
+            if status != successState{
                 SVProgressHUD.showErrorWith(msg: model?.commonInfoModel?.msg)
-            }
-        }
+            }else{SVProgressHUD.dismiss()}
+        }else{SVProgressHUD.dismiss()}
     }
     //只显示成功信息
     static func showSuccessWith(model:BaseModel?){
-        if let flag  = model?.commonInfoModel?.flag{
-            if flag == successState{
+        if let status  = model?.commonInfoModel?.status{
+            if status == successState{
                 SVProgressHUD.showSuccessWith(msg: model?.commonInfoModel?.msg)
-            }
-        }
+            }else{SVProgressHUD.dismiss()}
+        }else{SVProgressHUD.dismiss()}
     }
     //显示自定义错误信息
     static func showErrorWith(msg:String?){
         if let msg = msg{
             SVProgressHUD.showError(withStatus: msg)
+        }else{
+            SVProgressHUD.dismiss()
         }
         SVProgressHUD.dismiss(withDelay: 1.5)
     }
@@ -177,6 +180,8 @@ extension SVProgressHUD{
     static func showSuccessWith(msg:String?){
         if let msg = msg{
             SVProgressHUD.showSuccess(withStatus: msg)
+        }else{
+            SVProgressHUD.dismiss()
         }
         SVProgressHUD.dismiss(withDelay: 1.5)
     }
@@ -235,5 +240,18 @@ extension Date{
 //        }
 //        return ""
 //    }
+}
+
+extension Mapper{
+    public func map(jsonData: Data?) -> N? {
+        if let data = jsonData{
+            do{
+                if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers){
+                    return self.map(JSONObject: json)
+                }else{return nil}
+            }
+        }
+        return nil
+    }
 }
 

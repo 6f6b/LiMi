@@ -53,6 +53,13 @@
 		689DFA2A20073407007FAE9C /* CommonInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2920073407007FAE9C /* CommonInfoModel.swift */; };
 		689DFA2C20073454007FAE9C /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2B20073454007FAE9C /* BaseModel.swift */; };
 		689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */; };
+		689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA2F20089E59007FAE9C /* CollegeContainerModel.swift */; };
+		689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA312008B4E9007FAE9C /* CollegeCell.swift */; };
+		689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689DFA322008B4E9007FAE9C /* CollegeCell.xib */; };
+		689DFA362008B6DF007FAE9C /* ChooseAcademyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA352008B6DF007FAE9C /* ChooseAcademyController.swift */; };
+		689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA372008B728007FAE9C /* AcademyContainerModel.swift */; };
+		689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */; };
+		689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -410,6 +417,13 @@
 		689DFA2920073407007FAE9C /* CommonInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInfoModel.swift; sourceTree = "<group>"; };
 		689DFA2B20073454007FAE9C /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpAuthCodeModel.swift; sourceTree = "<group>"; };
+		689DFA2F20089E59007FAE9C /* CollegeContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeContainerModel.swift; sourceTree = "<group>"; };
+		689DFA312008B4E9007FAE9C /* CollegeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeCell.swift; sourceTree = "<group>"; };
+		689DFA322008B4E9007FAE9C /* CollegeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollegeCell.xib; sourceTree = "<group>"; };
+		689DFA352008B6DF007FAE9C /* ChooseAcademyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAcademyController.swift; sourceTree = "<group>"; };
+		689DFA372008B728007FAE9C /* AcademyContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademyContainerModel.swift; sourceTree = "<group>"; };
+		689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGradeController.swift; sourceTree = "<group>"; };
+		689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeContainerModel.swift; sourceTree = "<group>"; };
 		8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiMi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiMi/Pods-LiMi.release.xcconfig"; sourceTree = "<group>"; };
 		B1CB40229075E3EA0D9FCA3F /* Pods_LiMi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiMi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -959,6 +973,8 @@
 				689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */,
 				689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */,
 				689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */,
+				689DFA352008B6DF007FAE9C /* ChooseAcademyController.swift */,
+				689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -968,6 +984,9 @@
 			children = (
 				689DFA27200731C8007FAE9C /* LoginModel.swift */,
 				689DFA2D20074572007FAE9C /* TmpAuthCodeModel.swift */,
+				689DFA2F20089E59007FAE9C /* CollegeContainerModel.swift */,
+				689DFA372008B728007FAE9C /* AcademyContainerModel.swift */,
+				689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -978,6 +997,8 @@
 				689DF7A62004793D007FAE9C /* LoginRegister.storyboard */,
 				689DF7B22004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib */,
 				689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */,
+				689DFA312008B4E9007FAE9C /* CollegeCell.swift */,
+				689DFA322008B4E9007FAE9C /* CollegeCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1120,6 +1141,7 @@
 				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
+				689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1196,8 +1218,11 @@
 				689DF7AB20048CAC007FAE9C /* Helper.swift in Sources */,
 				689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
+				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
+				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
 				689DF7C72005F9C4007FAE9C /* PersonInfoController.swift in Sources */,
 				689DF7BD2004B494007FAE9C /* Macro.swift in Sources */,
+				689DFA362008B6DF007FAE9C /* ChooseAcademyController.swift in Sources */,
 				680E169E2003548C006CC5B9 /* ViewController.swift in Sources */,
 				689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */,
 				689DFA1D20061C42007FAE9C /* MoyaExtension.swift in Sources */,
@@ -1214,12 +1239,15 @@
 				689DFA2A20073407007FAE9C /* CommonInfoModel.swift in Sources */,
 				689DFA2C20073454007FAE9C /* BaseModel.swift in Sources */,
 				680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */,
+				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				689DFA2420071EA6007FAE9C /* Extensions.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
+				689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */,
 				689DF7B52004A304007FAE9C /* View.swift in Sources */,
 				689DF7A92004798C007FAE9C /* LoginController.swift in Sources */,
 				689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */,
+				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
 				689DFA1820061BC8007FAE9C /* ParameterGenerators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

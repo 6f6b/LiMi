@@ -11,7 +11,6 @@ import ObjectMapper
 
 class BaseModel:Mappable{
     var commonInfoModel:CommonInfoModel?
-    var stats:Int?
     required init?(map: Map) {
     }
     

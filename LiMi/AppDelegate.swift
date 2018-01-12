@@ -25,13 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardShareManager.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
         keyboardShareManager.keyboardDistanceFromTextField = 10 //输入框距离键盘的距离
         
-        if let _ = Helper.getUserId(),let _ = Helper.getToken(){
-            self.window?.rootViewController = TabBarController()
-        }else{
-            let logVC = Helper.getViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
-            let logNav = NavigationController(rootViewController: logVC)
-            self.window?.rootViewController = logNav
-        }
+//        if let _ = Helper.getUserId(),let _ = Helper.getToken(){
+        self.window?.rootViewController = TabBarController()
+//        }else{
+//            let logVC = Helper.getViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
+//            let logNav = NavigationController(rootViewController: logVC)
+//            self.window?.rootViewController = logNav
+//        }
         return true
     }
 

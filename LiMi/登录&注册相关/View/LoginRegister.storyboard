@@ -560,7 +560,7 @@
                     </tableView>
                     <connections>
                         <outlet property="academy" destination="jX7-8q-1as" id="Czg-Iz-QeJ"/>
-                        <outlet property="age" destination="AyF-ky-xze" id="5IU-sf-mBm"/>
+                        <outlet property="grade" destination="AyF-ky-xze" id="5Vg-b0-tPv"/>
                         <outlet property="headImg" destination="l21-YQ-zWQ" id="vXX-re-o2B"/>
                         <outlet property="school" destination="Gr6-3d-f0u" id="VNk-Wh-RXR"/>
                         <outlet property="sex" destination="lpQ-64-6RH" id="CRy-kS-fcu"/>

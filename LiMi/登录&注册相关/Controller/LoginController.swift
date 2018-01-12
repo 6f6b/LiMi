@@ -42,28 +42,36 @@ class LoginController: ViewController {
     }
     //取消登录
     @IBAction func dealCancelLogin(_ sender: Any) {
+        Helper.loginServiceToMainController(loginRootController: self.navigationController)
         self.dismiss(animated: true, completion: nil)
     }
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
+        SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let login = Login(phone: self.phoneNum.text, code: self.veritificationCode.text)
         _ = moyaProvider.rx.request(.targetWith(target: login)).subscribe(onSuccess: { (response) in
-            do {
-                let model = try response.mapObject(LoginModel.self)
-                if model.commonInfoModel?.flag == successState{
+            let loginModel = Mapper<LoginModel>().map(jsonData: response.data)
+            if loginModel?.user_info_status == "0"{
+                    //跳转性别、姓名填写界面
                     let finishPersonInfoController = FinishPersonInfoController()
-                    finishPersonInfoController.userIdParameters = model.id
-                    finishPersonInfoController.tokenParameters = model.token
+                    finishPersonInfoController.loginModel = loginModel
                     self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
+            }else{
+                //存储userid、token
+                Helper.saveUserId(userId: loginModel?.id)
+                Helper.saveToken(token: loginModel?.token)
+                if loginModel?.user_info_status == "1"{
+                    //进入大学信息填写界面
+                    let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                    self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                 }
-                SVProgressHUD.showResultWith(model: model)
+                if loginModel?.user_info_status == "2"{
+                    Helper.loginServiceToMainController(loginRootController: self.navigationController)
+                }
             }
-            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
-            if let model = try? response.mapObject(BaseModel.self){
-                SVProgressHUD.showResultWith(model: model)
-            }
+            SVProgressHUD.showErrorWith(model: loginModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -73,11 +81,9 @@ class LoginController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
-            do {
-                let model = try response.mapObject(TmpAuthCodeModel.self)
-                SVProgressHUD.showSuccessWith(msg: model.code)
+            if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
+                SVProgressHUD.showSuccess(withStatus: authCodeModel.code)
             }
-            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })

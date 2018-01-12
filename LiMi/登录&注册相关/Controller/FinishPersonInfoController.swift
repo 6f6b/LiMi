@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import Moya
 import TZImagePickerController
+import ObjectMapper
 
 class FinishPersonInfoController: ViewController {
     @IBOutlet weak var realName: UITextField!
@@ -19,8 +20,8 @@ class FinishPersonInfoController: ViewController {
     @IBOutlet weak var headImgBtn: UIButton!
     var imagePickerVc:TZImagePickerController?
     var headImg:UIImage?
-    var userIdParameters:Int?
-    var tokenParameters:String?
+    
+    var loginModel:LoginModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,21 +60,22 @@ class FinishPersonInfoController: ViewController {
     }
     
     func uploadWith(img:UIImage){
-                SVProgressHUD.show(withStatus: "正在上传..")
-                let moyaProvider = MoyaProvider<LiMiAPI>()
-                let headImgUpLoad = HeadImgUpLoad(id: self.userIdParameters?.stringValue(), token: tokenParameters, imgs: [img])
-                _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
-                    do {
-                        let model = try response.mapObject(BaseModel.self)
-                        if model.commonInfoModel?.flag == successState{
-                            self.headImgBtn.setImage(self.headImg, for: .normal)
-                        }
-                        SVProgressHUD.showResultWith(model: model)
+            SVProgressHUD.show(withStatus: "正在上传..")
+            let moyaProvider = MoyaProvider<LiMiAPI>()
+        
+            let headImgUpLoad = HeadImgUpLoad(imgs: [img])
+            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
+                do {
+                    let model = try response.mapObject(BaseModel.self)
+                    if model.commonInfoModel?.status == successState{
+                        self.headImgBtn.setImage(self.headImg, for: .normal)
                     }
-                    catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
-                }, onError: { (error) in
-                    SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-                })
+                    SVProgressHUD.showResultWith(model: model)
+                }
+                catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+            }, onError: { (error) in
+                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            })
     }
     
     //下一步
@@ -91,22 +93,17 @@ class FinishPersonInfoController: ViewController {
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let sex = self.girlPreImg.isHidden ? 1:0
-        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: userIdParameters?.stringValue(), token: tokenParameters, true_name: self.realName.text, sex: sex.stringValue())
+        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id?.stringValue(), token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: registerFinishNameAndSex)).subscribe(onSuccess: { (response) in
-            do {
-                let model = try response.mapObject(TmpAuthCodeModel.self)
-                if model.commonInfoModel?.flag == successState{
-                    SVProgressHUD.dismiss()
-                    let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                    identityAuthInfoController.sexParameter = self.girlPreImg.isHidden ? 1:0
-                    identityAuthInfoController.nameParameter = self.realName.text
-                    self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
-                }else{
-                    SVProgressHUD.showResultWith(model: model)
-                }
-                
+            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            if baseModel?.commonInfoModel?.status == successState{
+                //存储userid和token
+                Helper.saveUserId(userId: self.loginModel?.id)
+                Helper.saveToken(token: self.loginModel?.token)
+                let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
             }
-            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+            SVProgressHUD.showErrorWith(model: baseModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })

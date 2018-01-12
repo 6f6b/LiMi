@@ -17,14 +17,16 @@ class IdentityAuthInfoController: UITableViewController {
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
-    @IBOutlet weak var age: UILabel!
+    @IBOutlet weak var grade: UILabel!
+    
+    var collegeModel:CollegeModel?
+    var academyModel:AcademyModel?
+    var gradeModel:GradeModel?
+    
     //是否显示notice
     var isShowNotice = true
     //是否从个人中心跳转而来
     var isFromPersonalCenter = false
-    
-    var sexParameter:Int?
-    var nameParameter:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,23 +44,18 @@ class IdentityAuthInfoController: UITableViewController {
         sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
         
-        requestDatas()
+        self.school.text = nil
+        self.academy.text = nil
+        self.grade.text = nil
+        
+        //从个人中心界面来则请求数据
+        if isFromPersonalCenter{
+            requestDatas()
+        }
     }
 
     func requestDatas(){
-        let moyaProvider = MoyaProvider<LiMiAPI>()
-        if let userId = Helper.getUserId(),let token = Helper.getToken(){
-            let schoolList = SchoolList(id: userId.stringValue(), token: token)
-            _ = moyaProvider.rx.request(.targetWith(target: schoolList)).subscribe(onSuccess: { (response) in
-                do {
-                    let model = try response.mapObject(TmpAuthCodeModel.self)
-                    SVProgressHUD.showSuccessWith(msg: model.code)
-                }
-                catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
-            }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-            })
-        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,14 +73,21 @@ class IdentityAuthInfoController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
+    //提交
     @objc func dealSumbit(){
         let identityAuthStateController = IdentityAuthStateController()
         self.navigationController?.pushViewController(identityAuthStateController, animated: true)
     }
     
     @objc func dealNotNow(){
-        self.navigationController?.popViewController(animated: true)
+        if isFromPersonalCenter{
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            //返回主界面
+            Helper.loginServiceToMainController(loginRootController: self.navigationController)
+        }
     }
+    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -130,10 +134,55 @@ class IdentityAuthInfoController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0{
-            let chooseSchoolController = ChooseSchoolController()
-            self.navigationController?.pushViewController(chooseSchoolController, animated: true)
+        if isFromPersonalCenter && indexPath.section == 0{
+            if indexPath.row == 0{}
+            if indexPath.row == 1{}
+            if indexPath.row == 2{}
+        }else{
+            if indexPath.row == 0{
+                self.toChooseCollege()
+            }
+            if indexPath.row == 1{
+                self.toChooseAcademy()
+            }
+            if indexPath.row == 2{
+                self.toChooseGrade()
+            }
         }
     }
 
+}
+
+extension IdentityAuthInfoController{
+    func toChooseCollege(){
+        let chooseSchoolController = ChooseSchoolController()
+        chooseSchoolController.chooseBlock = {(collegeModel) in
+            self.school.text = collegeModel?.name
+            self.collegeModel = collegeModel
+        }
+        self.navigationController?.pushViewController(chooseSchoolController, animated: true)
+    }
+    
+    func toChooseAcademy(){
+        if let collegeId = self.collegeModel?.coid{
+            let chooseAcademyController = ChooseAcademyController()
+            chooseAcademyController.collegeId = collegeId
+            chooseAcademyController.chooseAcademyBlock = {(academyModel) in
+                self.academy.text = academyModel?.name
+                self.academyModel = academyModel
+            }
+            self.navigationController?.pushViewController(chooseAcademyController, animated: true)
+        }else{
+            SVProgressHUD.showErrorWith(msg: "请先选择大学")
+        }
+    }
+    
+    func toChooseGrade(){
+        let chooseGradeController = ChooseGradeController()
+        chooseGradeController.chooseGradeBlock = {(gradeModel) in
+            self.grade.text = gradeModel?.name
+            self.gradeModel = gradeModel
+        }
+        self.navigationController?.pushViewController(chooseGradeController, animated: true)
+    }
 }
