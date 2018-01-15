@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Moya
+import ObjectMapper
+import SVProgressHUD
+import Kingfisher
 
 class PersonCenterController: UITableViewController {
     @IBOutlet weak var headImgBtn: UIButton!
@@ -18,6 +22,7 @@ class PersonCenterController: UITableViewController {
     @IBOutlet weak var trendsNum: UILabel!
     @IBOutlet weak var logOutBtn: UIButton!
     
+    var personCenterModel:PersonCenterModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,11 @@ class PersonCenterController: UITableViewController {
         self.logOutBtn.clipsToBounds = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -44,7 +54,55 @@ class PersonCenterController: UITableViewController {
         self.navigationController?.tabBarController?.present(logNav, animated: true, completion: nil)
     }
     
+    func requestData() {
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let personCenter = PersonCenter()
+        _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
+            let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+            self.refreshUIWith(model: personCenterModel)
+            SVProgressHUD.showErrorWith(model: personCenterModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
     
+    func refreshUIWith(model:PersonCenterModel?){
+        self.personCenterModel = model
+        if let headPic = personCenterModel?.user_info?.head_pic{
+            self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
+        self.userName.text = self.personCenterModel?.user_info?.true_name
+        self.userInfo.text = self.personCenterModel?.user_info?.college
+    }
+    
+    func checkIdentityInfoWith(identityStatus:Int?){
+        //0 ：未认证   1：认证中  2：认证完成  3：认证失败
+        if let identityStatus = identityStatus{
+            if identityStatus == 2{
+                let identityAuthInfoWithSexAndNameController = Helper.getViewControllerFrom(sbName: .personalCenter, sbID: "IdentityAuthInfoWithSexAndNameController") as! IdentityAuthInfoWithSexAndNameController
+                self.navigationController?.pushViewController(identityAuthInfoWithSexAndNameController, animated: true)
+                return
+            }
+            if identityStatus == 1{
+                let identityAuthStateController = IdentityAuthStateController()
+                identityAuthStateController.state = .inProcessing
+                identityAuthStateController.isFromPersonCenter = true
+                self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+            }
+            if identityStatus == 2{
+                let identityAuthStateController = IdentityAuthStateController()
+                identityAuthStateController.state = .finished
+                identityAuthStateController.isFromPersonCenter = true
+                self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+            }
+            if identityStatus == 3{
+                let identityAuthStateController = IdentityAuthStateController()
+                identityAuthStateController.state = .finished
+                identityAuthStateController.isFromPersonCenter = true
+                self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+            }
+        }
+    }
     
     // MARK: - Table view data source
 
@@ -85,9 +143,7 @@ class PersonCenterController: UITableViewController {
         }
         if indexPath.section == 1{
             if indexPath.row == 0{
-                let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister, sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                identityAuthInfoController.isFromPersonalCenter = true
-                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+                self.checkIdentityInfoWith(identityStatus: self.personCenterModel?.is_access?.identity_status)
             }
         }
         if indexPath.section == 2{

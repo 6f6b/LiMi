@@ -49,11 +49,11 @@ class LoginController: ViewController {
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
         SVProgressHUD.show(withStatus: nil)
-        let moyaProvider = MoyaProvider<LiMiAPI>()
+         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let login = Login(phone: self.phoneNum.text, code: self.veritificationCode.text)
         _ = moyaProvider.rx.request(.targetWith(target: login)).subscribe(onSuccess: { (response) in
             let loginModel = Mapper<LoginModel>().map(jsonData: response.data)
-            if loginModel?.user_info_status == "0"{
+            if loginModel?.user_info_status == 0{
                     //跳转性别、姓名填写界面
                     let finishPersonInfoController = FinishPersonInfoController()
                     finishPersonInfoController.loginModel = loginModel
@@ -62,12 +62,12 @@ class LoginController: ViewController {
                 //存储userid、token
                 Helper.saveUserId(userId: loginModel?.id)
                 Helper.saveToken(token: loginModel?.token)
-                if loginModel?.user_info_status == "1"{
+                if loginModel?.user_info_status == 1{
                     //进入大学信息填写界面
                     let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
                     self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                 }
-                if loginModel?.user_info_status == "2"{
+                if loginModel?.user_info_status == 2{
                     Helper.loginServiceToMainController(loginRootController: self.navigationController)
                 }
             }
@@ -78,7 +78,7 @@ class LoginController: ViewController {
     }
     
     @IBAction func dealRequestVertificationCode(_ sender: Any) {
-        let moyaProvider = MoyaProvider<LiMiAPI>()
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){

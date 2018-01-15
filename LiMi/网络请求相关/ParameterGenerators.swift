@@ -59,25 +59,6 @@ struct Login:TargetType,ParametersProtocol{
 }
 
 ////3 注册页面大学列表【川内】(弃用)
-//struct SchoolList:TargetType,ParametersProtocol{
-//    var baseURL: URL { return URL.init(string: serverAddress)! }
-//    //单元测试
-//    var sampleData: Data { return "".data(using: .utf8)! }
-//    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
-//    var validate: Bool { return true }
-//    var headers: [String: String]? { return nil }
-//    var method: Moya.Method { return .post }
-//    var path: String { return "/index.php/apps/user/collegeSchoolList" }
-//
-//    var id:String?
-//    var token:String?
-//
-//    func parameters() -> [String : Any] {
-//        let tmpParameters = ["id":id,
-//                             "token":token]
-//        return handleRequestParameters(parameters: tmpParameters)
-//    }
-//}
 
 //MARK: 4 注册时身份认证接口（已完成）
 struct RegisterForID:TargetType,ParametersProtocol{
@@ -100,6 +81,55 @@ struct RegisterForID:TargetType,ParametersProtocol{
                              "school":school,
                              "grade":grade
                              ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: 5 个人中心—身份认证—保存身份认证信息（已完成）
+struct CenterPerfectUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/user/centerPerfectUserInfo" }
+
+     var type:String?   //0查看身份信息 1保存身份信息
+     var true_name:String?
+     var sex:String?    //0：女 1：男
+    
+    var college:String?
+    var school:String?
+    var grade:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "true_name":true_name,
+            "sex":sex,
+            "college":college,
+            "school":school,
+            "grade":grade
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: 6 个人中心—身份认证—查看身份认证信息（已完成）
+struct CenterShowUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/user/centerShowUserInfo" }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["":""]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -136,6 +166,75 @@ struct HeadImgUpLoad:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: 8认证状态查看【5分钟后查看会变为 已认证】（弃用）
+
+//MARK: 9个人信息列表（对接中）
+struct UserInfoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/infolist" }
+    
+    var id:String?
+    var token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "id":id,
+            "token":token
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: 10编辑个人信息姓名性别（对接中）
+struct EditUsrInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/edituser" }
+    
+    var id:String?
+    var token:String?
+    var filed:String?
+    var value:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "id":id,
+            "token":token,
+            "filed":filed,
+            "value":value
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: 11我的个人中心（已完成）
+struct PersonCenter:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String { return "/index.php/apps/User/mycenter" }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["":""]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 //MARK: 12 注册是完善 真实姓名和性别接口（已完成）
 struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -151,8 +250,6 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var token:String?
     var true_name:String?
     var sex:String?
-//    var college:String?
-//    var school:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [

@@ -15,6 +15,12 @@
 		680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */; };
 		680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16B02003548D006CC5B9 /* LiMiTests.swift */; };
 		680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16BB2003548D006CC5B9 /* LiMiUITests.swift */; };
+		688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */; };
+		688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */; };
+		688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C89200C866200BB5DF7 /* UserInfoModel.swift */; };
+		688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */; };
+		688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */; };
+		688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */; };
 		689DF77F20045C7A007FAE9C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF77E20045C7A007FAE9C /* NavigationController.swift */; };
 		689DF78120045CA6007FAE9C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78020045CA6007FAE9C /* TabBarController.swift */; };
 		689DF78B20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
@@ -94,6 +100,12 @@
 		680E16B72003548D006CC5B9 /* LiMiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		680E16BB2003548D006CC5B9 /* LiMiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiUITests.swift; sourceTree = "<group>"; };
 		680E16BD2003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoWithSexAndNameController.swift; sourceTree = "<group>"; };
+		688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterModel.swift; sourceTree = "<group>"; };
+		688A4C89200C866200BB5DF7 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityStatusModel.swift; sourceTree = "<group>"; };
+		688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherExtension.swift; sourceTree = "<group>"; };
+		688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityInfoModel.swift; sourceTree = "<group>"; };
 		689DF77E20045C7A007FAE9C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		689DF78020045CA6007FAE9C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		689DF78A20045D35007FAE9C /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
@@ -793,6 +805,7 @@
 				689DFA2920073407007FAE9C /* CommonInfoModel.swift */,
 				689DFA2B20073454007FAE9C /* BaseModel.swift */,
 				689DFA2320071EA6007FAE9C /* Extensions.swift */,
+				688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */,
 				689DF7B42004A304007FAE9C /* View.swift */,
 				689DF7AA20048CAC007FAE9C /* Helper.swift */,
 				689DF7BC2004B494007FAE9C /* Macro.swift */,
@@ -870,6 +883,7 @@
 			children = (
 				689DF7C42005EE1F007FAE9C /* PersonCenterController.swift */,
 				689DF7C62005F9C4007FAE9C /* PersonInfoController.swift */,
+				688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -877,6 +891,10 @@
 		689DF77420045C33007FAE9C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */,
+				688A4C89200C866200BB5DF7 /* UserInfoModel.swift */,
+				688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */,
+				688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1217,6 +1235,7 @@
 			files = (
 				689DF7AB20048CAC007FAE9C /* Helper.swift in Sources */,
 				689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */,
+				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
 				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
@@ -1241,12 +1260,17 @@
 				680E169C2003548C006CC5B9 /* AppDelegate.swift in Sources */,
 				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
+				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
 				689DFA2420071EA6007FAE9C /* Extensions.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */,
 				689DF7B52004A304007FAE9C /* View.swift in Sources */,
+				688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */,
+				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
+				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
 				689DF7A92004798C007FAE9C /* LoginController.swift in Sources */,
 				689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */,
+				688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */,
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
 				689DFA1820061BC8007FAE9C /* ParameterGenerators.swift in Sources */,
 			);

@@ -16,11 +16,13 @@ class IdentityAuthStateController: ViewController {
     @IBOutlet weak var stateInfo: UILabel!
     @IBOutlet weak var stateBtn: UIButton!
     var state:IdentityAuthState = .inProcessing
+    var isFromPersonCenter = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "身份认证"
         self.stateBtn.layer.cornerRadius = 20
         self.stateBtn.clipsToBounds = true
+        self.refreshUIWith(state: self.state)
     }
 
     func refreshUIWith(state:IdentityAuthState){
@@ -31,7 +33,7 @@ class IdentityAuthStateController: ViewController {
             self.stateBtn.setTitle("返回首页", for: .normal)
             break
         case .finished:
-            self.stateImg.image = UIImage.init(named: "tongguo")
+            self.stateImg.image = UIImage.init(named: "tonguo")
             self.stateInfo.text = "身份认证已通过"
             self.stateBtn.setTitle("开启互助之旅", for: .normal)
             break
@@ -44,7 +46,11 @@ class IdentityAuthStateController: ViewController {
     
 
     @IBAction func dealTapStateBtn(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        if isFromPersonCenter{
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            Helper.loginServiceToMainController(loginRootController: self.navigationController)
+        }
     }
     
 }

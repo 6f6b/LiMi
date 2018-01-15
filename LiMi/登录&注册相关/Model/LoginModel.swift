@@ -12,8 +12,8 @@ import ObjectMapper
 class LoginModel: BaseModel {
     var id:Int?
     var token:String?
-    var user_info_status:String?
-    var identity_status:String?
+    var user_info_status:Int?
+    var identity_status:Int?
     
     required init?(map: Map) {
         super.init(map: map)

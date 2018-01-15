@@ -11,15 +11,16 @@ import Moya
 import SVProgressHUD
 import ObjectMapper
 
-class IdentityAuthInfoController: UITableViewController {
+class IdentityAuthInfoWithSexAndNameController: UITableViewController {
+    @IBOutlet weak var headImg: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var sex: UILabel!
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
     @IBOutlet weak var grade: UILabel!
     
-    var collegeModel:CollegeModel?
-    var academyModel:AcademyModel?
-    var gradeModel:GradeModel?
+    var identityInfoModel:IdentityInfoModel?
     
     //是否显示notice
     var isShowNotice = true
@@ -29,7 +30,6 @@ class IdentityAuthInfoController: UITableViewController {
         self.title = "身份认证"
         self.tableView.estimatedRowHeight = 100
         self.tableView.estimatedSectionHeaderHeight = 100
-        self.tableView.backgroundColor = UIColor.white
         
         let sumbitBtn = UIButton.init(type: .custom)
         let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
@@ -41,7 +41,8 @@ class IdentityAuthInfoController: UITableViewController {
         self.school.text = nil
         self.academy.text = nil
         self.grade.text = nil
-
+        
+        requestDatas()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,13 +59,41 @@ class IdentityAuthInfoController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    
+    //MARK: - misc
+    
+    func requestDatas(){
+        SVProgressHUD.show(withStatus: nil)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let centerShowUserInfo = CenterShowUserInfo()
+        _ = moyaProvider.rx.request(.targetWith(target: centerShowUserInfo)).subscribe(onSuccess: { (response) in
+            let identityInfoModel = Mapper<IdentityInfoModel>().map(jsonData: response.data)
+            self.refreshUIWith(model: identityInfoModel)
+            SVProgressHUD.showResultWith(model: identityInfoModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    func refreshUIWith(model:IdentityInfoModel?){
+        self.identityInfoModel = model
+        if let headImg = model?.head_pic{
+            self.headImg.kf.setImage(with: URL.init(string: headImg), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
+        self.userName.text = model?.true_name
+        self.sex.text = model?.sex
+        self.school.text = model?.college?.name
+        self.academy.text = model?.school?.name
+        self.grade.text = model?.grade?.name
+    }
+    
     //提交
     @objc func dealSumbit(){
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let registerForId = RegisterForID(college: self.collegeModel?.coid?.stringValue(), school: self.academyModel?.scid?.stringValue(), grade: self.gradeModel?.id?.stringValue())
-        _ = moyaProvider.rx.request(.targetWith(target: registerForId)).subscribe(onSuccess: { (response) in
+        let centerPerfectUserInfo = CenterPerfectUserInfo(type: "1", true_name: self.identityInfoModel?.true_name, sex: "1", college: self.identityInfoModel?.college?.coid?.stringValue(), school: self.identityInfoModel?.school?.scid?.stringValue(), grade: self.identityInfoModel?.grade?.id?.stringValue())
+        _ = moyaProvider.rx.request(.targetWith(target: centerPerfectUserInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
                 let identityAuthStateController = IdentityAuthStateController()
@@ -77,20 +106,19 @@ class IdentityAuthInfoController: UITableViewController {
     }
     
     @objc func dealNotNow(){
-        //返回主界面
-        Helper.loginServiceToMainController(loginRootController: self.navigationController)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3{return UITableViewAutomaticDimension}
         return 54
@@ -109,6 +137,7 @@ class IdentityAuthInfoController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0{return 7}
         return 0.001
     }
     
@@ -116,39 +145,41 @@ class IdentityAuthInfoController: UITableViewController {
         if section == 0 && self.isShowNotice{return UITableViewAutomaticDimension}
         return 0.001
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0{
-            self.toChooseCollege()
-        }
-        if indexPath.row == 1{
-            self.toChooseAcademy()
-        }
-        if indexPath.row == 2{
-            self.toChooseGrade()
+        if indexPath.section == 1{
+            if indexPath.row == 0{
+                self.toChooseCollege()
+            }
+            if indexPath.row == 1{
+                self.toChooseAcademy()
+            }
+            if indexPath.row == 2{
+                self.toChooseGrade()
+            }
         }
     }
-
+    
 }
 
-extension IdentityAuthInfoController{
+extension IdentityAuthInfoWithSexAndNameController{
     func toChooseCollege(){
         let chooseSchoolController = ChooseSchoolController()
         chooseSchoolController.chooseBlock = {(collegeModel) in
             self.school.text = collegeModel?.name
-            self.collegeModel = collegeModel
+            self.identityInfoModel?.college = collegeModel
         }
         self.navigationController?.pushViewController(chooseSchoolController, animated: true)
     }
     
     func toChooseAcademy(){
-        if let collegeId = self.collegeModel?.coid{
+        if let collegeId = self.identityInfoModel?.college?.coid{
             let chooseAcademyController = ChooseAcademyController()
             chooseAcademyController.collegeId = collegeId
             chooseAcademyController.chooseAcademyBlock = {(academyModel) in
                 self.academy.text = academyModel?.name
-                self.academyModel = academyModel
+                self.identityInfoModel?.school = academyModel
             }
             self.navigationController?.pushViewController(chooseAcademyController, animated: true)
         }else{
@@ -160,8 +191,9 @@ extension IdentityAuthInfoController{
         let chooseGradeController = ChooseGradeController()
         chooseGradeController.chooseGradeBlock = {(gradeModel) in
             self.grade.text = gradeModel?.name
-            self.gradeModel = gradeModel
+            self.identityInfoModel?.grade = gradeModel
         }
         self.navigationController?.pushViewController(chooseGradeController, animated: true)
     }
 }
+
