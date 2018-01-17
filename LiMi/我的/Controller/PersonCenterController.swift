@@ -15,6 +15,7 @@ import Kingfisher
 class PersonCenterController: UITableViewController {
     @IBOutlet weak var headImgBtn: UIButton!
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var sexImg: UIImageView!
     @IBOutlet weak var userInfo: UILabel!
     @IBOutlet weak var authState: UILabel!
     @IBOutlet weak var myCash: UILabel!
@@ -29,6 +30,16 @@ class PersonCenterController: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.logOutBtn.layer.cornerRadius = 5
         self.logOutBtn.clipsToBounds = true
+        self.headImgBtn.layer.cornerRadius = 35
+        self.headImgBtn.clipsToBounds = true
+        
+        self.userName.text = nil
+        self.sexImg.image = nil
+        self.userInfo.text = nil
+        self.authState.text = nil
+//        self.myCash.text = nil
+//        self.demandNum.text = nil
+//        self.trendsNum.text = nil
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,13 +58,21 @@ class PersonCenterController: UITableViewController {
     
     //点击退出登录
     @IBAction func dealTapLogOut(_ sender: Any) {
-        Helper.saveToken(token: nil)
-        Helper.saveUserId(userId: nil)
-        let logVC = Helper.getViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
-        let logNav = NavigationController(rootViewController: logVC)
-        self.navigationController?.tabBarController?.present(logNav, animated: true, completion: nil)
+        let alertVC = UIAlertController.init(title: "确认退出登录？", message: nil, preferredStyle: .alert)
+        let actionOK = UIAlertAction.init(title: "确定", style: .default) {_ in
+            Defaults[.userId] = nil
+            Defaults[.userToken] = nil
+            let logVC = GetViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
+            let logNav = NavigationController(rootViewController: logVC)
+            self.navigationController?.tabBarController?.present(logNav, animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        alertVC.addAction(actionOK)
+        alertVC.addAction(actionCancel)
+        self.present(alertVC, animated: true, completion: nil)
     }
     
+    //请求服务器数据
     func requestData() {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let personCenter = PersonCenter()
@@ -66,20 +85,37 @@ class PersonCenterController: UITableViewController {
         })
     }
     
+    //刷新界面
     func refreshUIWith(model:PersonCenterModel?){
         self.personCenterModel = model
         if let headPic = personCenterModel?.user_info?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
+        if model?.user_info?.sex == "女"{
+            self.sexImg.image = UIImage.init(named: "girl")
+        }else{
+            self.sexImg.image = UIImage.init(named: "boy")
+        }
         self.userName.text = self.personCenterModel?.user_info?.true_name
-        self.userInfo.text = self.personCenterModel?.user_info?.college
+        if let college = model?.user_info?.college,let academy = model?.user_info?.school{
+            self.userInfo.text = "\(college)|\(academy)"
+        }else{self.userInfo.text = "个人资料待认证"}
+        //0 ：未认证   1：认证中  2：认证完成  3：认证失败
+        if let identity_status = model?.is_access?.identity_status{
+            var statusInfo = "未认证"
+            if identity_status == 0{statusInfo = "未认证"}
+            if identity_status == 1{statusInfo = "认证中"}
+            if identity_status == 2{statusInfo = "认证通过"}
+            if identity_status == 3{statusInfo = "认证失败"}
+            self.authState.text = statusInfo
+        }
     }
     
     func checkIdentityInfoWith(identityStatus:Int?){
         //0 ：未认证   1：认证中  2：认证完成  3：认证失败
         if let identityStatus = identityStatus{
-            if identityStatus == 2{
-                let identityAuthInfoWithSexAndNameController = Helper.getViewControllerFrom(sbName: .personalCenter, sbID: "IdentityAuthInfoWithSexAndNameController") as! IdentityAuthInfoWithSexAndNameController
+            if identityStatus == 0{
+                let identityAuthInfoWithSexAndNameController = GetViewControllerFrom(sbName: .personalCenter, sbID: "IdentityAuthInfoWithSexAndNameController") as! IdentityAuthInfoWithSexAndNameController
                 self.navigationController?.pushViewController(identityAuthInfoWithSexAndNameController, animated: true)
                 return
             }
@@ -88,24 +124,26 @@ class PersonCenterController: UITableViewController {
                 identityAuthStateController.state = .inProcessing
                 identityAuthStateController.isFromPersonCenter = true
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+                return
             }
             if identityStatus == 2{
                 let identityAuthStateController = IdentityAuthStateController()
                 identityAuthStateController.state = .finished
                 identityAuthStateController.isFromPersonCenter = true
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+                return
             }
             if identityStatus == 3{
                 let identityAuthStateController = IdentityAuthStateController()
                 identityAuthStateController.state = .finished
                 identityAuthStateController.isFromPersonCenter = true
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+                return
             }
         }
     }
     
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -137,7 +175,7 @@ class PersonCenterController: UITableViewController {
         
         if indexPath.section == 0{
             if indexPath.row == 0{
-                let personInfoController = Helper.getViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
+                let personInfoController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
                 self.navigationController?.pushViewController(personInfoController, animated: true)
             }
         }

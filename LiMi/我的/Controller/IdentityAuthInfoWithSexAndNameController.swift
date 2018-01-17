@@ -10,6 +10,7 @@ import UIKit
 import Moya
 import SVProgressHUD
 import ObjectMapper
+import TZImagePickerController
 
 class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     @IBOutlet weak var headImg: UIImageView!
@@ -19,7 +20,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     //学院
     @IBOutlet weak var academy: UILabel!
     @IBOutlet weak var grade: UILabel!
-    
+    var imagePickerVc:TZImagePickerController?
     var identityInfoModel:IdentityInfoModel?
     
     //是否显示notice
@@ -38,6 +39,10 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
         
+        self.headImg.layer.cornerRadius = 19.5
+        self.headImg.clipsToBounds = true
+        self.userName.text = nil
+        self.sex.text = nil
         self.school.text = nil
         self.academy.text = nil
         self.grade.text = nil
@@ -62,15 +67,13 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     
     
     //MARK: - misc
-    
     func requestDatas(){
-        SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let centerShowUserInfo = CenterShowUserInfo()
         _ = moyaProvider.rx.request(.targetWith(target: centerShowUserInfo)).subscribe(onSuccess: { (response) in
             let identityInfoModel = Mapper<IdentityInfoModel>().map(jsonData: response.data)
             self.refreshUIWith(model: identityInfoModel)
-            SVProgressHUD.showResultWith(model: identityInfoModel)
+            SVProgressHUD.showErrorWith(model: identityInfoModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -79,7 +82,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     func refreshUIWith(model:IdentityInfoModel?){
         self.identityInfoModel = model
         if let headImg = model?.head_pic{
-            self.headImg.kf.setImage(with: URL.init(string: headImg), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
+            self.headImg.kf.setImage(with: URL.init(string: headImg), placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         self.userName.text = model?.true_name
         self.sex.text = model?.sex
@@ -90,6 +93,21 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     
     //提交
     @objc func dealSumbit(){
+        //检测学校是否为空
+        if self.identityInfoModel?.college?.coid == nil{
+            SVProgressHUD.showErrorWith(msg: "请选择学校")
+            return
+        }
+        //检测学院是否为空
+        if self.identityInfoModel?.school?.scid == nil{
+            SVProgressHUD.showErrorWith(msg: "请选择学院")
+            return
+        }
+        //检测年级是否为空
+        if self.identityInfoModel?.grade?.id == nil{
+            SVProgressHUD.showErrorWith(msg: "请选择年级")
+            return
+        }
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let centerPerfectUserInfo = CenterPerfectUserInfo(type: "1", true_name: self.identityInfoModel?.true_name, sex: "1", college: self.identityInfoModel?.college?.coid?.stringValue(), school: self.identityInfoModel?.school?.scid?.stringValue(), grade: self.identityInfoModel?.grade?.id?.stringValue())
@@ -97,9 +115,10 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
                 let identityAuthStateController = IdentityAuthStateController()
+                identityAuthStateController.isFromPersonCenter = true
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            SVProgressHUD.showErrorWith(model: resultModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -109,6 +128,55 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func dealTapToSelectImg(){
+        self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
+        self.imagePickerVc?.allowCrop = true
+        var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
+        rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
+        self.imagePickerVc?.cropRect = rect
+        self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+            let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
+            let localImgUrl = GenerateImgUrlWith(img: compressImg)
+            self.uploadImgWith(imgUrl: localImgUrl)
+        }
+        self.present(self.imagePickerVc!, animated: true, completion: nil)
+    }
+    
+    func dealToAlterUserName(){
+        let alterUserNameController = AlterUserNameController()
+        alterUserNameController.initialUserName = self.identityInfoModel?.true_name
+        alterUserNameController.alterUserNameBlock = {(name) in
+            self.userName.text = name
+        }
+        self.navigationController?.pushViewController(alterUserNameController, animated: true)
+    }
+    
+    func dealToAlterUserSex(){
+        let alterUserSexController = AlterUserSexController()
+        alterUserSexController.alterUserSexBlock = {(sex) in
+            self.sex.text = sex
+        }
+        self.navigationController?.pushViewController(alterUserSexController, animated: true)
+    }
+    
+    func uploadImgWith(imgUrl:URL?){
+        SVProgressHUD.show(withStatus: "正在上传..")
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        
+        let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: nil, token: nil)
+        _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
+            do {
+                let model = try response.mapObject(BaseModel.self)
+                if model.commonInfoModel?.status == successState{
+                    self.headImg.kf.setImage(with: imgUrl, placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
+                }
+                SVProgressHUD.showResultWith(model: model)
+            }
+            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -126,7 +194,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isShowNotice && section == 0{
-            let headerView = Helper.getViewFromXib(name: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
+            let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
             headerView.deleteBlock = {
                 self.isShowNotice = false
                 tableView.reloadData()
@@ -148,16 +216,15 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0{
+            if indexPath.row == 0{self.dealTapToSelectImg()}
+            if indexPath.row == 1{self.dealToAlterUserName()}
+            if indexPath.row == 2{self.dealToAlterUserSex()}
+        }
         if indexPath.section == 1{
-            if indexPath.row == 0{
-                self.toChooseCollege()
-            }
-            if indexPath.row == 1{
-                self.toChooseAcademy()
-            }
-            if indexPath.row == 2{
-                self.toChooseGrade()
-            }
+            if indexPath.row == 0{self.toChooseCollege()}
+            if indexPath.row == 1{self.toChooseAcademy()}
+            if indexPath.row == 2{self.toChooseGrade()}
         }
     }
     
@@ -169,6 +236,8 @@ extension IdentityAuthInfoWithSexAndNameController{
         chooseSchoolController.chooseBlock = {(collegeModel) in
             self.school.text = collegeModel?.name
             self.identityInfoModel?.college = collegeModel
+            self.identityInfoModel?.school = nil
+            self.refreshUIWith(model: self.identityInfoModel)
         }
         self.navigationController?.pushViewController(chooseSchoolController, animated: true)
     }
@@ -197,3 +266,6 @@ extension IdentityAuthInfoWithSexAndNameController{
     }
 }
 
+extension IdentityAuthInfoWithSexAndNameController:TZImagePickerControllerDelegate{
+    
+}

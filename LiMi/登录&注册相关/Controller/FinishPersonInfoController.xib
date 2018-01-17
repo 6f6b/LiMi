@@ -27,6 +27,10 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQn-q7-pYc">
                     <rect key="frame" x="152.5" y="95" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="TQa-Q5-21U"/>
+                        <constraint firstAttribute="height" constant="70" id="r5F-rP-zlD"/>
+                    </constraints>
                     <state key="normal" image="touxiang"/>
                     <connections>
                         <action selector="dealTapHeadImg:" destination="-1" eventType="touchUpInside" id="xJh-Zp-qS3"/>
@@ -38,7 +42,7 @@
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入真实姓名" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-mx-HeX">
                             <rect key="frame" x="0.0" y="0.0" width="270" height="50"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1S-SS-UW6">

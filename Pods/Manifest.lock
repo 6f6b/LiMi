@@ -3,6 +3,7 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - IQKeyboardManagerSwift (5.0.4)
   - Kingfisher (4.2.0)
+  - Masonry (1.1.0)
   - MJRefresh (3.1.15)
   - Moya/Core (10.0.0):
     - Alamofire (~> 4.1)
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - IQKeyboardManagerSwift
   - Kingfisher
+  - Masonry
   - MJRefresh (~> 3.1.12)
   - Moya/RxSwift
   - ObjectMapper
@@ -37,6 +39,7 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
   Moya: adb58b0f4e58430db43cc6e2f6ebab1836501186
   ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
@@ -48,6 +51,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
 
-PODFILE CHECKSUM: ed4fc246ca29380255eb1054aa5935422e2a22b7
+PODFILE CHECKSUM: 89c71e94e0ea71870ce7b67c02e8f28955127590
 
 COCOAPODS: 1.2.0

@@ -61,6 +61,21 @@ class IdentityAuthInfoController: UITableViewController {
 
     //提交
     @objc func dealSumbit(){
+        if(self.collegeModel == nil){
+            //显示错误警告
+            SVProgressHUD.showErrorWith(msg: "请选择学校")
+            return
+        }
+        if(self.academy == nil){
+            //显示错误警告
+            SVProgressHUD.showErrorWith(msg: "请选择学院")
+            return
+        }
+        if(self.grade == nil){
+            //显示错误警告
+            SVProgressHUD.showErrorWith(msg: "请选择年级")
+            return
+        }
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let registerForId = RegisterForID(college: self.collegeModel?.coid?.stringValue(), school: self.academyModel?.scid?.stringValue(), grade: self.gradeModel?.id?.stringValue())
@@ -70,7 +85,7 @@ class IdentityAuthInfoController: UITableViewController {
                 let identityAuthStateController = IdentityAuthStateController()
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            SVProgressHUD.showErrorWith(model: resultModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -78,7 +93,7 @@ class IdentityAuthInfoController: UITableViewController {
     
     @objc func dealNotNow(){
         //返回主界面
-        Helper.loginServiceToMainController(loginRootController: self.navigationController)
+        LoginServiceToMainController(loginRootController: self.navigationController)
     }
     
     
@@ -98,7 +113,7 @@ class IdentityAuthInfoController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isShowNotice && section == 0{
-            let headerView = Helper.getViewFromXib(name: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
+            let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
             headerView.deleteBlock = {
                 self.isShowNotice = false
                 tableView.reloadData()
@@ -138,6 +153,8 @@ extension IdentityAuthInfoController{
         chooseSchoolController.chooseBlock = {(collegeModel) in
             self.school.text = collegeModel?.name
             self.collegeModel = collegeModel
+            self.academyModel = nil
+            self.academy.text = nil
         }
         self.navigationController?.pushViewController(chooseSchoolController, animated: true)
     }

@@ -14,5 +14,6 @@ target ‘LiMi' do
 	pod 'TZImagePickerController'
 	pod 'ObjectMapper'
 	pod 'SwiftyUserDefaults'
+    pod 'Masonry'
 #   pod 'Moya/RxSwift'
 end

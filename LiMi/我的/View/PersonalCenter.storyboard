@@ -44,8 +44,8 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bigright" translatesAutoresizingMaskIntoConstraints="NO" id="Hnd-F0-1av">
                                                             <rect key="frame" x="330" y="20.5" width="15" height="28"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="张学友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmV-xJ-AVU">
-                                                            <rect key="frame" x="91" y="10" width="52" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="张学友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmV-xJ-AVU">
+                                                            <rect key="frame" x="86" y="10" width="52" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -56,6 +56,9 @@
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="boy" translatesAutoresizingMaskIntoConstraints="NO" id="foQ-th-zzi">
+                                                            <rect key="frame" x="153" y="8" width="13" height="23"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -63,9 +66,11 @@
                                                         <constraint firstItem="hPP-Hu-13f" firstAttribute="top" secondItem="SmV-xJ-AVU" secondAttribute="bottom" constant="10" id="HRm-df-gbt"/>
                                                         <constraint firstItem="sPQ-OQ-nAI" firstAttribute="leading" secondItem="4Bk-MN-dGH" secondAttribute="leading" id="Lqu-ff-taj"/>
                                                         <constraint firstAttribute="bottom" secondItem="sPQ-OQ-nAI" secondAttribute="bottom" constant="25" id="QRs-5U-gxz"/>
+                                                        <constraint firstItem="foQ-th-zzi" firstAttribute="centerY" secondItem="SmV-xJ-AVU" secondAttribute="centerY" id="Ra0-IY-c6G"/>
                                                         <constraint firstItem="Hnd-F0-1av" firstAttribute="centerY" secondItem="sPQ-OQ-nAI" secondAttribute="centerY" id="lm6-fJ-amq"/>
                                                         <constraint firstItem="SmV-xJ-AVU" firstAttribute="top" secondItem="4Bk-MN-dGH" secondAttribute="top" constant="40" id="s2U-uY-Y9e"/>
                                                         <constraint firstItem="SmV-xJ-AVU" firstAttribute="leading" secondItem="sPQ-OQ-nAI" secondAttribute="trailing" constant="16" id="sZe-BF-un6"/>
+                                                        <constraint firstItem="foQ-th-zzi" firstAttribute="leading" secondItem="SmV-xJ-AVU" secondAttribute="trailing" constant="15" id="tGn-vg-T9p"/>
                                                         <constraint firstAttribute="trailing" secondItem="Hnd-F0-1av" secondAttribute="trailing" id="tKx-e2-Vo9"/>
                                                         <constraint firstItem="sPQ-OQ-nAI" firstAttribute="top" secondItem="4Bk-MN-dGH" secondAttribute="top" constant="25" id="ttd-qJ-yGV"/>
                                                     </constraints>
@@ -509,6 +514,7 @@
                         <outlet property="headImgBtn" destination="sPQ-OQ-nAI" id="imf-VO-eWP"/>
                         <outlet property="logOutBtn" destination="dhI-nR-wo3" id="dGx-jt-X22"/>
                         <outlet property="myCash" destination="e4B-Z3-22Y" id="2MD-9o-GBO"/>
+                        <outlet property="sexImg" destination="foQ-th-zzi" id="mpL-SV-BbK"/>
                         <outlet property="trendsNum" destination="1DC-Op-fUR" id="EWd-A6-gqs"/>
                         <outlet property="userInfo" destination="hPP-Hu-13f" id="7Ci-k3-Ule"/>
                         <outlet property="userName" destination="SmV-xJ-AVU" id="8Kl-HV-0UA"/>
@@ -516,7 +522,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OSU-nW-Vj4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47" y="14"/>
+            <point key="canvasLocation" x="-47.200000000000003" y="13.943028485757123"/>
         </scene>
         <!--Person Info Controller-->
         <scene sceneID="9qg-li-BEY">
@@ -799,7 +805,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1U-M0-vfG">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="年纪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoW-0v-aN2">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="年级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoW-0v-aN2">
                                                             <rect key="frame" x="0.0" y="13.5" width="31" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -838,8 +844,8 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="academy" destination="jGF-rM-S69" id="kMi-74-aa7"/>
-                        <outlet property="age" destination="Dt0-Wu-iB4" id="Khk-96-K9Z"/>
+                        <outlet property="academy" destination="uBM-cE-4HP" id="t8J-QO-F0h"/>
+                        <outlet property="grade" destination="Dt0-Wu-iB4" id="ome-2V-SfS"/>
                         <outlet property="headImg" destination="2wk-P3-ubv" id="sWf-T5-8ZY"/>
                         <outlet property="school" destination="aOd-cp-EDT" id="RMn-i7-d1n"/>
                         <outlet property="sex" destination="O1t-1c-joD" id="17G-I9-TZ1"/>
@@ -1203,6 +1209,7 @@
     </scenes>
     <resources>
         <image name="bigright" width="15" height="28"/>
+        <image name="boy" width="15" height="15"/>
         <image name="dongtai" width="24" height="23"/>
         <image name="fankui" width="23" height="23"/>
         <image name="guanyu" width="25" height="22"/>

@@ -49,7 +49,7 @@ class IdentityAuthStateController: ViewController {
         if isFromPersonCenter{
             self.navigationController?.popViewController(animated: true)
         }else{
-            Helper.loginServiceToMainController(loginRootController: self.navigationController)
+            LoginServiceToMainController(loginRootController: self.navigationController)
         }
     }
     

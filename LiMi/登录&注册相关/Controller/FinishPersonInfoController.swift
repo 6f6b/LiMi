@@ -11,6 +11,7 @@ import SVProgressHUD
 import Moya
 import TZImagePickerController
 import ObjectMapper
+import Kingfisher
 
 class FinishPersonInfoController: ViewController {
     @IBOutlet weak var realName: UITextField!
@@ -19,8 +20,6 @@ class FinishPersonInfoController: ViewController {
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var headImgBtn: UIButton!
     var imagePickerVc:TZImagePickerController?
-    var headImg:UIImage?
-    
     var loginModel:LoginModel?
 
     override func viewDidLoad() {
@@ -28,7 +27,8 @@ class FinishPersonInfoController: ViewController {
         self.title = "完善个人信息"
         self.nextBtn.layer.cornerRadius = 20
         self.nextBtn.clipsToBounds = true
-
+        self.headImgBtn.layer.cornerRadius = 35
+        self.headImgBtn.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,25 +50,28 @@ class FinishPersonInfoController: ViewController {
     
     @IBAction func dealTapHeadImg(_ sender: Any) {
         self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
+        self.imagePickerVc?.allowCrop = true
+        var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
+        rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
+        self.imagePickerVc?.cropRect = rect
         self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
-            if let loadImg = photos?.first{
-                self.headImg = loadImg
-                self.uploadWith(img: loadImg)
-            }
+            let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
+            let localImgUrl = GenerateImgUrlWith(img: compressImg)
+            self.uploadImgWith(imgUrl: localImgUrl)
         }
         self.present(self.imagePickerVc!, animated: true, completion: nil)
     }
     
-    func uploadWith(img:UIImage){
+    func uploadImgWith(imgUrl:URL?){
             SVProgressHUD.show(withStatus: "正在上传..")
             let moyaProvider = MoyaProvider<LiMiAPI>()
         
-            let headImgUpLoad = HeadImgUpLoad(imgs: [img])
+            let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: self.loginModel?.id?.stringValue(), token: self.loginModel?.token)
             _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
                 do {
                     let model = try response.mapObject(BaseModel.self)
                     if model.commonInfoModel?.status == successState{
-                        self.headImgBtn.setImage(self.headImg, for: .normal)
+                        self.headImgBtn?.kf.setImage(with: imgUrl, for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
                     }
                     SVProgressHUD.showResultWith(model: model)
                 }
@@ -86,7 +89,7 @@ class FinishPersonInfoController: ViewController {
             return
         }
         //判断是否填写了姓名
-        if isEmpty(textField: self.realName){
+        if IsEmpty(textField: self.realName){
             SVProgressHUD.showError(withStatus: "请输入姓名")
             return
         }
@@ -98,9 +101,9 @@ class FinishPersonInfoController: ViewController {
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
                 //存储userid和token
-                Helper.saveUserId(userId: self.loginModel?.id)
-                Helper.saveToken(token: self.loginModel?.token)
-                let identityAuthInfoController = Helper.getViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                Defaults[.userId] = self.loginModel?.id
+                Defaults[.userToken] = self.loginModel?.token
+                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
                 self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
             }
             SVProgressHUD.showErrorWith(model: baseModel)
