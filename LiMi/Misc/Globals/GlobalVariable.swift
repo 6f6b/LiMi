@@ -42,7 +42,7 @@ let APP_VERSION = "1.0.5"
 //let IMEI = AppUntils.readUUIDFromKeyChain()
 
 //APP 主题色
-let APP_TITLE_COLOR = RGBA(r: 71, g: 154, b: 220, a: 1)
+let APP_THEME_COLOR = RGBA(r: 47, g: 196, b: 233, a: 1)
 
 //cell背景色
 let CELL_BACKGROUND_COLOR = RGBA(r: 241, g: 247, b: 254, a: 1)

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import SVProgressHUD
-import ObjectMapper
-import Moya
+//import SVProgressHUD
+//import ObjectMapper
+//import Moya
 
 class ViewController: UIViewController {
 

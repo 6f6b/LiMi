@@ -2,7 +2,7 @@
 //  LoginController.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/1/17.
+//  Created by dev.liufeng on 2018/1/18.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
@@ -11,15 +11,13 @@ import SVProgressHUD
 import ObjectMapper
 import Moya
 
-class LoginController: UITableViewController {
+class LoginController: ViewController {
     @IBOutlet weak var phoneNum: UITextField!
     @IBOutlet weak var veritificationCode: UITextField!
     @IBOutlet weak var errorMsg: UILabel!   //用来显示错误信息
     @IBOutlet weak var getVertificationCodeBtn: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.estimatedRowHeight = 200
         self.getVertificationCodeBtn.layer.cornerRadius = 12
         self.getVertificationCodeBtn.clipsToBounds = true
         self.getVertificationCodeBtn.layer.borderWidth = 1
@@ -29,6 +27,11 @@ class LoginController: UITableViewController {
         }
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - misc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
@@ -41,9 +44,6 @@ class LoginController: UITableViewController {
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     //取消登录
     @IBAction func dealCancelLogin(_ sender: Any) {
         LoginServiceToMainController(loginRootController: self.navigationController)
@@ -126,16 +126,5 @@ class LoginController: UITableViewController {
             SVProgressHUD.dismiss()
             //SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
-    }
-
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
     }
 }

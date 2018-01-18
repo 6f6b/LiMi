@@ -15,5 +15,9 @@ target ‘LiMi' do
 	pod 'ObjectMapper'
 	pod 'SwiftyUserDefaults'
     pod 'Masonry'
+    pod 'YYText'
+    pod 'YYImage'
+#    pod 'PageMenu'
+#    pod 'SPPageMenu'
 #   pod 'Moya/RxSwift'
 end

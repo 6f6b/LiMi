@@ -66,7 +66,7 @@ class FinishPersonInfoController: ViewController {
             SVProgressHUD.show(withStatus: "正在上传..")
             let moyaProvider = MoyaProvider<LiMiAPI>()
         
-            let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: self.loginModel?.id?.stringValue(), token: self.loginModel?.token)
+        let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: self.loginModel?.id, token: self.loginModel?.token)
             _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
                 do {
                     let model = try response.mapObject(BaseModel.self)
@@ -96,7 +96,7 @@ class FinishPersonInfoController: ViewController {
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let sex = self.girlPreImg.isHidden ? 1:0
-        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id?.stringValue(), token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
+        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id, token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: registerFinishNameAndSex)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{

@@ -155,14 +155,14 @@ struct HeadImgUpLoad:TargetType,ParametersProtocol{
     
     //上传的图片数组
     var headImgUrl:URL?
-    var id:String?
+    var id:Int?
     var token:String? 
     
     func parameters()->[String:Any]{
         let tmpParamters = [
             "id":id,
             "token":token
-                            ]
+            ] as [String : Any]
         return handleRequestParameters(parameters: tmpParamters)
     }
 }
@@ -236,7 +236,7 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var method: Moya.Method { return .post }
     var path: String { return "/index.php/apps/User/perfectUserBasicInfo" }
 
-    var id:String?
+    var id:Int?
     var token:String?
     var true_name:String?
     var sex:String?
@@ -247,7 +247,7 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
             "token":token,
             "true_name":true_name,
             "sex":sex,
-            ]
+            ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }

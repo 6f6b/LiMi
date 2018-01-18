@@ -22,11 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setMinimumDismissTimeInterval(2)
         
         let keyboardShareManager = IQKeyboardManager.sharedManager()
+        keyboardShareManager.enable = true
         keyboardShareManager.shouldResignOnTouchOutside = true  //控制点击背景是否收起键盘
-        keyboardShareManager.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
         keyboardShareManager.keyboardDistanceFromTextField = 10 //输入框距离键盘的距离
         
         self.window?.rootViewController = TabBarController()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(logOut), name: Notification.Name.init("logout"), object: nil)
         return true
     }
 
@@ -46,6 +48,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
     }
 
-
+    //MARK: - Notification
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+    }
+    
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
+    }
+    
+    //MARK - Open Url
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        return false
+    }
+    
+    //MARK: - misc
+    @objc func logOut(){
+        Defaults[.userId] = nil //置空本地userid
+        Defaults[.userToken] = nil  //指控本地usertoken
+        let loginController = LoginController()
+        let logNav = NavigationController(rootViewController: loginController)
+        self.window?.rootViewController?.present(logNav, animated: true, completion: nil)
+    }
 }
 

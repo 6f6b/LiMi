@@ -10,5 +10,6 @@
 #define LiMi_Bridging_Header_h
 
 #import "DataPickerView.h"
-
+#import <YYText/YYText.h>
+#import <YYImage/YYImage.h>
 #endif /* LiMi_Bridging_Header_h */

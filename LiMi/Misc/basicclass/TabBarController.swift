@@ -53,9 +53,7 @@ extension TabBarController:UITabBarControllerDelegate{
             if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
                 return true
             }else{
-                let logVC = GetViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
-                let logNav = NavigationController(rootViewController: logVC)
-                self.present(logNav, animated: true, completion: nil)
+                NotificationCenter.default.post(name: Notification.Name.init("logout"), object: self, userInfo: nil)
                 return false
             }
         }

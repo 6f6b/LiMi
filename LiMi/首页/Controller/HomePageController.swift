@@ -2,7 +2,7 @@
 //  HomePageController.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/1/9.
+//  Created by dev.liufeng on 2018/1/18.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
@@ -12,8 +12,11 @@ class HomePageController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let trendsListController = TrendsListController()
+        self.addChildViewController(trendsListController)
+        let trendsListControllerView = trendsListController.view
+        trendsListControllerView?.frame = self.view.bounds
+        self.view.addSubview(trendsListControllerView!)
     }
 
     override func didReceiveMemoryWarning() {

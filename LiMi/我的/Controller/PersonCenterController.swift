@@ -60,11 +60,7 @@ class PersonCenterController: UITableViewController {
     @IBAction func dealTapLogOut(_ sender: Any) {
         let alertVC = UIAlertController.init(title: "确认退出登录？", message: nil, preferredStyle: .alert)
         let actionOK = UIAlertAction.init(title: "确定", style: .default) {_ in
-            Defaults[.userId] = nil
-            Defaults[.userToken] = nil
-            let logVC = GetViewControllerFrom(sbName: .loginRegister, sbID: "LoginController")
-            let logNav = NavigationController(rootViewController: logVC)
-            self.navigationController?.tabBarController?.present(logNav, animated: true, completion: nil)
+            NotificationCenter.default.post(name: Notification.Name.init("logout"), object: self, userInfo: nil)
         }
         let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         alertVC.addAction(actionOK)
@@ -78,6 +74,7 @@ class PersonCenterController: UITableViewController {
         let personCenter = PersonCenter()
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+            HandleResultWith(model: personCenterModel)
             self.refreshUIWith(model: personCenterModel)
             SVProgressHUD.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
@@ -182,6 +179,10 @@ class PersonCenterController: UITableViewController {
         if indexPath.section == 1{
             if indexPath.row == 0{
                 self.checkIdentityInfoWith(identityStatus: self.personCenterModel?.is_access?.identity_status)
+            }
+            if indexPath.row == 1{
+                let myCashController = MyCashController()
+                self.navigationController?.pushViewController(myCashController, animated: true)
             }
         }
         if indexPath.section == 2{

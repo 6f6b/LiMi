@@ -33,7 +33,26 @@
 		6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888089B200DF7E900BC6AE9 /* DefaultsKeysExtension.swift */; };
 		688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688808A0200F1E0300BC6AE9 /* DataPickerView.m */; };
 		688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688808A2200F1E0300BC6AE9 /* PickerView.m */; };
-		688808B1200F52EB00BC6AE9 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808B0200F52EB00BC6AE9 /* LoginController.swift */; };
+		688808B82010331300BC6AE9 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808B62010331300BC6AE9 /* LoginController.swift */; };
+		688808B92010331300BC6AE9 /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808B72010331300BC6AE9 /* LoginController.xib */; };
+		688808BB201056CA00BC6AE9 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808BA201056CA00BC6AE9 /* RequestHandler.swift */; };
+		688808BE20106CF800BC6AE9 /* MyCashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808BC20106CF800BC6AE9 /* MyCashController.swift */; };
+		688808BF20106CF800BC6AE9 /* MyCashController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808BD20106CF800BC6AE9 /* MyCashController.xib */; };
+		688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C02010744300BC6AE9 /* TransactionRecordController.swift */; };
+		688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C12010744300BC6AE9 /* TransactionRecordController.xib */; };
+		688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */; };
+		688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */; };
+		688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C8201081CD00BC6AE9 /* TrendsListController.swift */; };
+		688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C9201081CD00BC6AE9 /* TrendsListController.xib */; };
+		688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CC2010829F00BC6AE9 /* HomePageController.swift */; };
+		688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CE201083BC00BC6AE9 /* TrendsCell.swift */; };
+		688808D9201084B300BC6AE9 /* TrendsWithVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808D8201084B300BC6AE9 /* TrendsWithVideoCell.swift */; };
+		688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */; };
+		688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DC2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift */; };
+		688808DF2010853000BC6AE9 /* TrendsWithPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DE2010853000BC6AE9 /* TrendsWithPictureCell.swift */; };
+		688808E12010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808E02010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift */; };
+		688808E32010921300BC6AE9 /* TrendsTopToolsContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808E22010921300BC6AE9 /* TrendsTopToolsContainView.swift */; };
+		688808E52010922F00BC6AE9 /* TrendsBottomToolsContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808E42010922F00BC6AE9 /* TrendsBottomToolsContainView.swift */; };
 		688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */; };
 		688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */; };
 		688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C89200C866200BB5DF7 /* UserInfoModel.swift */; };
@@ -45,9 +64,6 @@
 		688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */; };
 		688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */; };
 		688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */; };
-		689DF78B20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
-		689DF78C20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
-		689DF78D20045D35007FAE9C /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78A20045D35007FAE9C /* HomePageController.swift */; };
 		689DF78F20045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
 		689DF79020045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
 		689DF79120045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
@@ -133,7 +149,26 @@
 		688808A1200F1E0300BC6AE9 /* PickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerView.h; sourceTree = "<group>"; };
 		688808A2200F1E0300BC6AE9 /* PickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerView.m; sourceTree = "<group>"; };
 		688808A8200F1ED900BC6AE9 /* LiMi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiMi-Bridging-Header.h"; sourceTree = "<group>"; };
-		688808B0200F52EB00BC6AE9 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		688808B62010331300BC6AE9 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		688808B72010331300BC6AE9 /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
+		688808BA201056CA00BC6AE9 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
+		688808BC20106CF800BC6AE9 /* MyCashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCashController.swift; sourceTree = "<group>"; };
+		688808BD20106CF800BC6AE9 /* MyCashController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCashController.xib; sourceTree = "<group>"; };
+		688808C02010744300BC6AE9 /* TransactionRecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRecordController.swift; sourceTree = "<group>"; };
+		688808C12010744300BC6AE9 /* TransactionRecordController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionRecordController.xib; sourceTree = "<group>"; };
+		688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRecordCell.swift; sourceTree = "<group>"; };
+		688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionRecordCell.xib; sourceTree = "<group>"; };
+		688808C8201081CD00BC6AE9 /* TrendsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsListController.swift; sourceTree = "<group>"; };
+		688808C9201081CD00BC6AE9 /* TrendsListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrendsListController.xib; sourceTree = "<group>"; };
+		688808CC2010829F00BC6AE9 /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
+		688808CE201083BC00BC6AE9 /* TrendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCell.swift; sourceTree = "<group>"; };
+		688808D8201084B300BC6AE9 /* TrendsWithVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithVideoCell.swift; sourceTree = "<group>"; };
+		688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithTextCell.swift; sourceTree = "<group>"; };
+		688808DC2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithTextAndPictrueCell.swift; sourceTree = "<group>"; };
+		688808DE2010853000BC6AE9 /* TrendsWithPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithPictureCell.swift; sourceTree = "<group>"; };
+		688808E02010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithTextAndVideoCell.swift; sourceTree = "<group>"; };
+		688808E22010921300BC6AE9 /* TrendsTopToolsContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTopToolsContainView.swift; sourceTree = "<group>"; };
+		688808E42010922F00BC6AE9 /* TrendsBottomToolsContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsBottomToolsContainView.swift; sourceTree = "<group>"; };
 		688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoWithSexAndNameController.swift; sourceTree = "<group>"; };
 		688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterModel.swift; sourceTree = "<group>"; };
 		688A4C89200C866200BB5DF7 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
@@ -145,7 +180,6 @@
 		688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserNameController.xib; sourceTree = "<group>"; };
 		688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterUserSexController.swift; sourceTree = "<group>"; };
 		688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserSexController.xib; sourceTree = "<group>"; };
-		689DF78A20045D35007FAE9C /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
 		689DF78E20045D53007FAE9C /* CircleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleController.swift; sourceTree = "<group>"; };
 		689DF79620045D7D007FAE9C /* MsgController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgController.swift; sourceTree = "<group>"; };
 		689DF7A62004793D007FAE9C /* LoginRegister.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginRegister.storyboard; sourceTree = "<group>"; };
@@ -975,6 +1009,10 @@
 				688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */,
 				688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */,
 				688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */,
+				688808BC20106CF800BC6AE9 /* MyCashController.swift */,
+				688808BD20106CF800BC6AE9 /* MyCashController.xib */,
+				688808C02010744300BC6AE9 /* TransactionRecordController.swift */,
+				688808C12010744300BC6AE9 /* TransactionRecordController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -995,6 +1033,8 @@
 			isa = PBXGroup;
 			children = (
 				689DF7C22005EBB6007FAE9C /* PersonalCenter.storyboard */,
+				688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */,
+				688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1012,7 +1052,9 @@
 		689DF77720045C33007FAE9C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				689DF78A20045D35007FAE9C /* HomePageController.swift */,
+				688808CC2010829F00BC6AE9 /* HomePageController.swift */,
+				688808C8201081CD00BC6AE9 /* TrendsListController.swift */,
+				688808C9201081CD00BC6AE9 /* TrendsListController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1027,6 +1069,14 @@
 		689DF77920045C33007FAE9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				688808E22010921300BC6AE9 /* TrendsTopToolsContainView.swift */,
+				688808E42010922F00BC6AE9 /* TrendsBottomToolsContainView.swift */,
+				688808CE201083BC00BC6AE9 /* TrendsCell.swift */,
+				688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */,
+				688808DE2010853000BC6AE9 /* TrendsWithPictureCell.swift */,
+				688808DC2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift */,
+				688808D8201084B300BC6AE9 /* TrendsWithVideoCell.swift */,
+				688808E02010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1076,7 +1126,8 @@
 		689DF79F2004750A007FAE9C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				688808B0200F52EB00BC6AE9 /* LoginController.swift */,
+				688808B62010331300BC6AE9 /* LoginController.swift */,
+				688808B72010331300BC6AE9 /* LoginController.xib */,
 				689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */,
 				689DF7AD2004975A007FAE9C /* FinishPersonInfoController.xib */,
 				689DF7B020049FF3007FAE9C /* IdentityAuthInfoController.swift */,
@@ -1119,6 +1170,7 @@
 				689DFA1720061BC8007FAE9C /* APIManager.swift */,
 				689DFA1620061BC8007FAE9C /* ParameterGenerators.swift */,
 				689DFA1B20061C42007FAE9C /* NetWorkConfig.swift */,
+				688808BA201056CA00BC6AE9 /* RequestHandler.swift */,
 			);
 			name = "网络请求相关";
 			path = "LiMi/Misc/网络请求相关";
@@ -1243,18 +1295,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */,
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
+				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
+				688808BF20106CF800BC6AE9 /* MyCashController.xib in Resources */,
 				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
+				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
 				6888086B200DF0F200BC6AE9 /* Info.plist in Resources */,
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
 				689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
+				688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */,
 				689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */,
 				68880886200DF19300BC6AE9 /* ViewController.swift in Sources */,
 				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
@@ -1342,20 +1400,25 @@
 				689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */,
 				6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
+				688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */,
 				68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */,
-				689DF78B20045D35007FAE9C /* HomePageController.swift in Sources */,
 				688A4C95200DD12E00BB5DF7 /* AlterUserNameController.swift in Sources */,
 				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
 				689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */,
+				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
 				688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */,
 				68880898200DF53000BC6AE9 /* GlobalVariable.swift in Sources */,
+				688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */,
+				688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */,
 				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
+				688808D9201084B300BC6AE9 /* TrendsWithVideoCell.swift in Sources */,
+				688808E32010921300BC6AE9 /* TrendsTopToolsContainView.swift in Sources */,
 				689DF78F20045D53007FAE9C /* CircleController.swift in Sources */,
 				6888089A200DF53B00BC6AE9 /* GlobalFunction.swift in Sources */,
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
+				688808B82010331300BC6AE9 /* LoginController.swift in Sources */,
 				6888087F200DF19300BC6AE9 /* CommonInfoModel.swift in Sources */,
-				688808B1200F52EB00BC6AE9 /* LoginController.swift in Sources */,
 				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
@@ -1372,11 +1435,18 @@
 				68880883200DF19300BC6AE9 /* TabBarController.swift in Sources */,
 				689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */,
 				68880882200DF19300BC6AE9 /* NavigationController.swift in Sources */,
+				688808DF2010853000BC6AE9 /* TrendsWithPictureCell.swift in Sources */,
 				688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */,
+				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
 				68880893200DF41500BC6AE9 /* ObjectMapperExtension.swift in Sources */,
+				688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */,
+				688808E52010922F00BC6AE9 /* TrendsBottomToolsContainView.swift in Sources */,
 				6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */,
 				689DFA1820061BC8007FAE9C /* ParameterGenerators.swift in Sources */,
+				688808BE20106CF800BC6AE9 /* MyCashController.swift in Sources */,
+				688808E12010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift in Sources */,
+				688808BB201056CA00BC6AE9 /* RequestHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,7 +1457,6 @@
 				689DF79020045D53007FAE9C /* CircleController.swift in Sources */,
 				689DF79820045D7D007FAE9C /* MsgController.swift in Sources */,
 				680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */,
-				689DF78C20045D35007FAE9C /* HomePageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1398,7 +1467,6 @@
 				689DF79120045D53007FAE9C /* CircleController.swift in Sources */,
 				689DF79920045D7D007FAE9C /* MsgController.swift in Sources */,
 				680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */,
-				689DF78D20045D35007FAE9C /* HomePageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1555,7 +1623,7 @@
 				INFOPLIST_FILE = LiMi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi2018.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1574,7 +1642,7 @@
 				INFOPLIST_FILE = LiMi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi2018.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
