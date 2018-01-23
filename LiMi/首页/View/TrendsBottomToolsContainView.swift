@@ -17,6 +17,8 @@ class TrendsBottomToolsContainView: UIView {
     var commentNum:UILabel! //评论数量
     var grayBar:UIView! //底部灰色长条
 
+    var tapThumbUpBtnBlock:(()->Void)?
+    var tapCommentBtnBlock:(()->Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -52,6 +54,7 @@ class TrendsBottomToolsContainView: UIView {
         self.thumbsUpBtn = UIButton()
         self.topToolsContainView.addSubview(self.thumbsUpBtn)
         self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_nor"), for: .normal)
+        self.thumbsUpBtn.addTarget(self, action: #selector(dealTapThumbUpBtn), for: .touchUpInside)
         self.thumbsUpBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.viewNum)
             make.left.equalTo(self.topToolsContainView).offset(150)
@@ -70,6 +73,7 @@ class TrendsBottomToolsContainView: UIView {
         self.commentBtn = UIButton()
         self.topToolsContainView.addSubview(self.commentBtn)
         self.commentBtn.setImage(UIImage.init(named: "icon_pinglun"), for: .normal)
+        self.commentBtn.addTarget(self, action: #selector(dealTapCommentBtn), for: .touchUpInside)
         self.commentBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.thumbsUpBtn)
             make.left.equalTo(self.thumbsUpBtn).offset(80)
@@ -90,4 +94,19 @@ class TrendsBottomToolsContainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - misc
+    
+    /// 点赞
+    @objc func dealTapThumbUpBtn(){
+        if let _tapThumbUpBtnBlock = self.tapThumbUpBtnBlock{
+            _tapThumbUpBtnBlock()
+        }
+    }
+    
+    /// 评论
+    @objc func dealTapCommentBtn(){
+        if let _tapCommentBtnBlock = self.tapCommentBtnBlock{
+            _tapCommentBtnBlock()
+        }
+    }
 }

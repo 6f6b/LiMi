@@ -13,6 +13,7 @@ class TrendsListController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "我的动态"
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 100
@@ -43,7 +44,52 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath)
+        let trendCell = cellFor(indexPath: indexPath,tableView: tableView)
+        trendCell.trendsTopToolsContainView.tapHeadBtnBlock = {
+            let userDetailsController = UserDetailsController()
+            self.navigationController?.pushViewController(userDetailsController, animated: true)
+        }
+        trendCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {
+            
+        }
+        trendCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+            let commentsWithTrendController = CommentsWithTrendController()
+            self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
+        }
+        trendCell.catchRedPacketBlock = {
+            let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
+            catchRedPacketView.frame = SCREEN_RECT
+            UIApplication.shared.keyWindow?.addSubview(catchRedPacketView)
+        }
+        return trendCell
+    }
+    
+    func cellFor(indexPath:IndexPath,tableView:UITableView)->TrendsCell{
+        var trendsCell:TrendsCell!
+        if indexPath.row == 0{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath) as! TrendsCell
+        }
+        if indexPath.row == 1{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithPictureCell", for: indexPath) as! TrendsCell
+        }
+        if indexPath.row == 2{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsCell
+        }
+        if indexPath.row == 3{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithVideoCell", for: indexPath) as! TrendsCell
+        }
+        if indexPath.row == 4{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndVideoCell", for: indexPath) as! TrendsCell
+        }else{
+            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath) as! TrendsCell
+        }
         return trendsCell
+    }
+    func registerTrendsCellFor(tableView:UITableView){
+        tableView.register(TrendsWithTextCell.self, forCellReuseIdentifier: "TrendsWithTextCell")
+        tableView.register(TrendsWithPictureCell.self, forCellReuseIdentifier: "TrendsWithPictureCell")
+        tableView.register(TrendsWithTextAndPictrueCell.self, forCellReuseIdentifier: "TrendsWithTextAndPictrueCell")
+        tableView.register(TrendsWithVideoCell.self, forCellReuseIdentifier: "TrendsWithVideoCell")
+        tableView.register(TrendsWithTextAndVideoCell.self, forCellReuseIdentifier: "TrendsWithTextAndVideoCell")
     }
 }

@@ -12,7 +12,7 @@ class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.setBackgroundImage(self.getNavBackImg(), for: .default)
+        self.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationBar.tintColor = UIColor.white
         self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
@@ -37,27 +37,6 @@ class NavigationController: UINavigationController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    
-    // MARK: - 返回一个渐变色图片
-    func getNavBackImg()->UIImage{
-        let layer = CAGradientLayer()
-        let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 64)
-        layer.frame = frame
-        layer.colors = [RGBA(r: 47, g: 196, b: 233, a: 1).cgColor,RGBA(r: 47, g: 196, b: 233, a: 1).cgColor]
-        layer.locations = [0.0, 1]
-        layer.startPoint = CGPoint.init(x: 0, y: 0)
-        layer.endPoint = CGPoint.init(x: 1, y: 1)
-        
-        let viewForImg = UIView.init(frame: frame)
-        viewForImg.layer.addSublayer(layer)
-        
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 1)
-        viewForImg.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return img!
     }
 
 }

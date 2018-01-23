@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+//        self.window?.backgroundColor = UIColor.white
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
@@ -24,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let keyboardShareManager = IQKeyboardManager.sharedManager()
         keyboardShareManager.enable = true
         keyboardShareManager.shouldResignOnTouchOutside = true  //控制点击背景是否收起键盘
-        keyboardShareManager.keyboardDistanceFromTextField = 10 //输入框距离键盘的距离
+        keyboardShareManager.keyboardDistanceFromTextField = 50 //输入框距离键盘的距离
         
         self.window?.rootViewController = TabBarController()
         

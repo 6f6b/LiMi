@@ -44,7 +44,7 @@ class PersonCenterController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestData()
+//        requestData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -188,6 +188,10 @@ class PersonCenterController: UITableViewController {
         if indexPath.section == 2{
             if indexPath.row == 0{
                 
+            }
+            if indexPath.row == 1{
+                let trendsListController = TrendsListController()
+                self.navigationController?.pushViewController(trendsListController, animated: true)
             }
         }
         if indexPath.section == 3{

@@ -180,6 +180,29 @@ func IsEmpty(textField:UITextField?)->Bool{
     }else{return true}
 }
 
+/// 根据传入颜色生成一张导航栏图片
+///
+/// - Parameter color: 传入颜色
+/// - Returns: 生成的图片
+func GetNavBackImg(color:UIColor)->UIImage{
+    let layer = CAGradientLayer()
+    let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 64)
+    layer.frame = frame
+    layer.colors = [color.cgColor,color.cgColor]
+    layer.locations = [0.0, 1]
+    layer.startPoint = CGPoint.init(x: 0, y: 0)
+    layer.endPoint = CGPoint.init(x: 1, y: 1)
+    
+    let viewForImg = UIView.init(frame: frame)
+    viewForImg.layer.addSublayer(layer)
+    
+    UIGraphicsBeginImageContextWithOptions(frame.size, false, 1)
+    viewForImg.layer.render(in: UIGraphicsGetCurrentContext()!)
+    let img = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return img!
+}
+
 //获取验证码按钮倒计时
 func MakeAuthCodeBtnCannotBeHandleWith(button:UIButton?){
     button?.isUserInteractionEnabled = false

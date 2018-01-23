@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="KGk-i7-Jjw" customClass="ReleaseContentOtherInputCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="351" height="66"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VdS-XH-VdE">
+                        <rect key="frame" x="0.0" y="0.0" width="351" height="65.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb_icon_bq" translatesAutoresizingMaskIntoConstraints="NO" id="VB2-dB-GLx">
+                                <rect key="frame" x="16" y="17.5" width="29" height="29"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加标签" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YS-Kl-bPA">
+                                <rect key="frame" x="50" y="24" width="57.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb_btn_you" translatesAutoresizingMaskIntoConstraints="NO" id="Yav-YO-j0V">
+                                <rect key="frame" x="328" y="27" width="7" height="12"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课程辅导" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXM-m3-neF">
+                                <rect key="frame" x="253.5" y="22.5" width="69.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Kp-40-CL4">
+                                <rect key="frame" x="16" y="64.5" width="319" height="1"/>
+                                <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="n43-ui-DDC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VB2-dB-GLx" firstAttribute="leading" secondItem="VdS-XH-VdE" secondAttribute="leading" constant="16" id="4ZV-Np-4WO"/>
+                            <constraint firstAttribute="trailing" secondItem="Yav-YO-j0V" secondAttribute="trailing" constant="16" id="4hq-qI-vej"/>
+                            <constraint firstItem="2YS-Kl-bPA" firstAttribute="leading" secondItem="VB2-dB-GLx" secondAttribute="trailing" constant="5" id="8dP-vr-JP4"/>
+                            <constraint firstItem="0Kp-40-CL4" firstAttribute="leading" secondItem="VdS-XH-VdE" secondAttribute="leading" constant="16" id="J0U-px-ITh"/>
+                            <constraint firstItem="2YS-Kl-bPA" firstAttribute="centerY" secondItem="VB2-dB-GLx" secondAttribute="centerY" id="Mc7-7S-cEo"/>
+                            <constraint firstAttribute="trailing" secondItem="0Kp-40-CL4" secondAttribute="trailing" constant="16" id="TSO-GL-23A"/>
+                            <constraint firstAttribute="bottom" secondItem="0Kp-40-CL4" secondAttribute="bottom" id="efd-oD-amj"/>
+                            <constraint firstItem="VB2-dB-GLx" firstAttribute="centerY" secondItem="VdS-XH-VdE" secondAttribute="centerY" id="kwG-Y2-jZw"/>
+                            <constraint firstItem="Yav-YO-j0V" firstAttribute="centerY" secondItem="LXM-m3-neF" secondAttribute="centerY" id="l1h-iS-emC"/>
+                            <constraint firstItem="Yav-YO-j0V" firstAttribute="centerY" secondItem="2YS-Kl-bPA" secondAttribute="centerY" id="tHm-PG-bgl"/>
+                            <constraint firstItem="Yav-YO-j0V" firstAttribute="leading" secondItem="LXM-m3-neF" secondAttribute="trailing" constant="5" id="v7w-HA-z0e"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VdS-XH-VdE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="R49-8H-glp"/>
+                    <constraint firstItem="VdS-XH-VdE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qUt-Gb-V3Y"/>
+                    <constraint firstAttribute="trailing" secondItem="VdS-XH-VdE" secondAttribute="trailing" id="raQ-Nm-AlZ"/>
+                    <constraint firstAttribute="bottom" secondItem="VdS-XH-VdE" secondAttribute="bottom" id="tC6-hd-ccr"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="leftImgV" destination="VB2-dB-GLx" id="ueW-5Z-ffD"/>
+                <outlet property="leftLabel" destination="2YS-Kl-bPA" id="7UB-CP-3be"/>
+                <outlet property="rightLabel" destination="LXM-m3-neF" id="xYT-7N-Hm3"/>
+            </connections>
+            <point key="canvasLocation" x="9.5" y="63"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="fb_btn_you" width="7" height="12"/>
+        <image name="fb_icon_bq" width="29" height="29"/>
+    </resources>
+</document>

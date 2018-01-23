@@ -12,6 +12,7 @@ class MyCashController: ViewController {
     @IBOutlet weak var balance: UILabel!
     @IBOutlet weak var rechargeBtn: UIButton!
     @IBOutlet weak var withdrawalBtn: UIButton!
+    @IBOutlet weak var setPayPwdBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +40,19 @@ class MyCashController: ViewController {
 
     //MARK: - misc
     @IBAction func dealRecharge(_ sender: Any) {
+        let rechargeController = RechargeController()
+        let rechargeNav = NavigationController(rootViewController: rechargeController)
+        self.present(rechargeNav, animated: true, completion: nil)
     }
     
     @IBAction func dealWithDrawal(_ sender: Any) {
     }
+    
+    @IBAction func dealToSetPayPassword(_ sender: Any) {
+        let setPayPasswordController = SetPayPasswordController()
+        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
+    }
+    
     
     @objc func dealToTransactionRecord(){
         let transactionRecordController = TransactionRecordController()

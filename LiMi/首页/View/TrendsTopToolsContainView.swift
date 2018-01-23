@@ -16,6 +16,9 @@ class TrendsTopToolsContainView: UIView {
     var moreOperationBtn:UIButton!   //更多操作按钮
     var releaseTime:UILabel!    //发布时间
     
+    var tapHeadBtnBlock:(()->Void)?
+    var tapMoreOperationBtnBlock:(()->Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,6 +27,7 @@ class TrendsTopToolsContainView: UIView {
         self.headImgBtn.layer.cornerRadius = 20
         self.headImgBtn.clipsToBounds = true
         self.headImgBtn.setImage(UIImage.init(named: "touxiang1"), for: .normal)
+        self.headImgBtn.addTarget(self, action: #selector(dealTapHeadBtn), for: .touchUpInside)
         self.headImgBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(9)
             make.left.equalTo(self).offset(12)
@@ -61,6 +65,7 @@ class TrendsTopToolsContainView: UIView {
         self.moreOperationBtn = UIButton()
         self.addSubview(self.moreOperationBtn)
         self.moreOperationBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)
+        self.moreOperationBtn.addTarget(self, action: #selector(dealTapMoreOperationBtn), for: .touchUpInside)
         self.moreOperationBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.sexImg)
             make.right.equalTo(self).offset(-12)
@@ -81,4 +86,17 @@ class TrendsTopToolsContainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - misc
+    /// 点击了头像
+   @objc func dealTapHeadBtn(){
+        if let _tapHeadBtnBlock = self.tapHeadBtnBlock{
+            _tapHeadBtnBlock()
+        }
+    }
+    
+    @objc func dealTapMoreOperationBtn(){
+        if let _tapMoreOperationBtnBlock = self.tapMoreOperationBtnBlock{
+            _tapMoreOperationBtnBlock()
+        }
+    }
 }

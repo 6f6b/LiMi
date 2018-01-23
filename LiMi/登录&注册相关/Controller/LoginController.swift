@@ -10,14 +10,18 @@ import UIKit
 import SVProgressHUD
 import ObjectMapper
 import Moya
+import IQKeyboardManagerSwift
 
 class LoginController: ViewController {
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var phoneNum: UITextField!
     @IBOutlet weak var veritificationCode: UITextField!
     @IBOutlet weak var errorMsg: UILabel!   //用来显示错误信息
     @IBOutlet weak var getVertificationCodeBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.heightConstraint.constant = SCREEN_HEIGHT-20
         self.getVertificationCodeBtn.layer.cornerRadius = 12
         self.getVertificationCodeBtn.clipsToBounds = true
         self.getVertificationCodeBtn.layer.borderWidth = 1
@@ -26,7 +30,7 @@ class LoginController: ViewController {
             self.phoneNum.text = phoneNum
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

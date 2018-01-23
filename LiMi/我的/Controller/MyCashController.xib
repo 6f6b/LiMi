@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="balance" destination="hCq-Li-Vlf" id="NCf-07-87p"/>
                 <outlet property="rechargeBtn" destination="6SJ-Fb-tEM" id="xLe-Bc-XvR"/>
+                <outlet property="setPayPwdBtn" destination="Kyi-NW-ulc" id="64Q-k4-DOb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="withdrawalBtn" destination="ct8-eV-dby" id="bgY-ZC-1D2"/>
             </connections>
@@ -70,6 +71,22 @@
                                 <action selector="dealWithDrawal:" destination="-1" eventType="touchUpInside" id="zgu-4C-lND"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kyi-NW-ulc">
+                            <rect key="frame" x="134" y="405" width="107" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="qab-vy-u57"/>
+                                <constraint firstAttribute="width" constant="107" id="xD1-eQ-U8y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="-21" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="96" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="设置支付密码" image="mm_btn_you">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="dealToSetPayPassword:" destination="-1" eventType="touchUpInside" id="gbS-2s-PjU"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -78,10 +95,13 @@
                         <constraint firstItem="hCq-Li-Vlf" firstAttribute="centerX" secondItem="5wR-WW-bWj" secondAttribute="centerX" id="I6j-4y-9fq"/>
                         <constraint firstItem="6SJ-Fb-tEM" firstAttribute="centerX" secondItem="5wR-WW-bWj" secondAttribute="centerX" id="LaI-oG-nDD"/>
                         <constraint firstItem="5wR-WW-bWj" firstAttribute="top" secondItem="Awp-KN-dMd" secondAttribute="top" constant="35" id="P9B-C0-bzm"/>
+                        <constraint firstItem="Kyi-NW-ulc" firstAttribute="centerX" secondItem="Awp-KN-dMd" secondAttribute="centerX" id="Pbb-Q8-Yyy"/>
                         <constraint firstItem="J0F-Hd-ewX" firstAttribute="centerX" secondItem="5wR-WW-bWj" secondAttribute="centerX" id="Pc9-QO-3qV"/>
+                        <constraint firstItem="ct8-eV-dby" firstAttribute="centerX" secondItem="Awp-KN-dMd" secondAttribute="centerX" id="Tp2-MU-eWE"/>
                         <constraint firstItem="J0F-Hd-ewX" firstAttribute="top" secondItem="hCq-Li-Vlf" secondAttribute="bottom" constant="10" id="Wkh-0n-1Qs"/>
                         <constraint firstItem="5wR-WW-bWj" firstAttribute="centerX" secondItem="Awp-KN-dMd" secondAttribute="centerX" id="YFS-ZF-JM4"/>
                         <constraint firstItem="6SJ-Fb-tEM" firstAttribute="top" secondItem="J0F-Hd-ewX" secondAttribute="bottom" constant="50" id="c6i-g0-UCy"/>
+                        <constraint firstItem="Kyi-NW-ulc" firstAttribute="top" secondItem="ct8-eV-dby" secondAttribute="bottom" constant="30" id="lvi-OA-pgp"/>
                         <constraint firstItem="ct8-eV-dby" firstAttribute="centerX" secondItem="5wR-WW-bWj" secondAttribute="centerX" id="uAW-ws-5jN"/>
                     </constraints>
                 </view>
@@ -97,6 +117,7 @@
         </view>
     </objects>
     <resources>
+        <image name="mm_btn_you" width="9" height="14"/>
         <image name="xj_pic_qianbao" width="125" height="105"/>
     </resources>
 </document>

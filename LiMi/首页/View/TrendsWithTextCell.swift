@@ -24,6 +24,7 @@ class TrendsWithTextCell: TrendsCell {
         self.contentText.numberOfLines = 0
         self.contentText.lineBreakMode = .byWordWrapping
         self.contentText.preferredMaxLayoutWidth = SCREEN_WIDTH-24
+        self.contentText.textVerticalAlignment = YYTextVerticalAlignment.top
     
         let tagImg = UIImage.init(named: "dt_bq")!
         let tagFrame = CGRect(x: 0, y: 0, width: tagImg.size.width, height: tagImg.size.height)
@@ -35,11 +36,12 @@ class TrendsWithTextCell: TrendsCell {
         let tagView = UIView(frame: tagFrame)
         tagView.addSubview(tagImgView)
         tagView.addSubview(tagLabel)
-//        let attributeTagStr = NSMutableAttributedString(string: "")
+        
+        let text = NSMutableAttributedString()
         let attachment = NSMutableAttributedString.yy_attachmentString(withContent: tagView, contentMode: .left, attachmentSize: tagFrame.size, alignTo: UIFont.systemFont(ofSize: 14), alignment: YYTextVerticalAlignment.center)
-//        attributeTagStr.append(attachment)
-        attachment.append(NSAttributedString.init(string: "hellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllvhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllv"))
-        self.contentText.attributedText = attachment
+        text.append(attachment)
+        text.append(NSAttributedString.init(string: "hellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllvhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllv"))
+        self.contentText.attributedText = text
         self.contentText.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
             make.left.equalTo(self.trendsContentContainView)
