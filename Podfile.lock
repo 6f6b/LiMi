@@ -1,4 +1,5 @@
 PODS:
+  - AGEmojiKeyboard (0.2.1)
   - Alamofire (4.5.1)
   - DZNEmptyDataSet (1.8.1)
   - IQKeyboardManagerSwift (5.0.4)
@@ -19,12 +20,14 @@ PODS:
   - SwiftyJSON (3.1.4)
   - SwiftyUserDefaults (3.0.0)
   - TZImagePickerController (1.9.3)
+  - XLPagerTabStrip (8.0.0)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
   - YYText (1.0.7)
 
 DEPENDENCIES:
+  - AGEmojiKeyboard
   - DZNEmptyDataSet
   - IQKeyboardManagerSwift
   - Kingfisher
@@ -37,10 +40,12 @@ DEPENDENCIES:
   - SwiftyJSON
   - SwiftyUserDefaults
   - TZImagePickerController
+  - XLPagerTabStrip (~> 8.0)
   - YYImage
   - YYText
 
 SPEC CHECKSUMS:
+  AGEmojiKeyboard: d5a01a4b0de30e1f1c2a121503ac36a79c7217ab
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
@@ -56,9 +61,10 @@ SPEC CHECKSUMS:
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
+  XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e8c0add11e7cac7099ff3ec4ad1ee9a4e2d21c58
+PODFILE CHECKSUM: 365413fa5052ba8ecf6e2bbc1003f9378c71b852
 
 COCOAPODS: 1.2.0

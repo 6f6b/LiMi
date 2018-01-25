@@ -1,14 +1,14 @@
 //
-//  UserDetailHeadCell.swift
+//  CatchRedPacketSuccessPersonCell.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/1/22.
+//  Created by dev.liufeng on 2018/1/23.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
 import UIKit
 
-class UserDetailHeadCell: UITableViewCell {
+class CatchRedPacketSuccessPersonCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -118,13 +118,13 @@ class TagListView: UIView {
             make.height.equalTo(self.collectionView.collectionViewLayout.collectionViewContentSize.height)
         }
         
-        UIView.animate(withDuration: 1) {
+//        UIView.animate(withDuration: 1) {
             self.topCoverViewHeightConstraint?.deactivate()
             self.bottomContainView.snp.makeConstraints({ (make) in
                 self.bottomContainViewBottomConstraint = make.bottom.equalTo(self).constraint
             })
             self.allSubViewsLayOutWith(superV: self)
-        }
+//        }
     }
     
     func allSubViewsLayOutWith(superV:UIView?){

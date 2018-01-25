@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="62" id="KGk-i7-Jjw" customClass="CatchRedPacketSuccessPersonCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjZ-KP-vdN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="X4N-cW-PgD">
+                                <rect key="frame" x="0.0" y="15" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JZy-pr-Ytl"/>
+                                    <constraint firstAttribute="width" constant="30" id="rba-Pk-NPW"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="张学友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Bn-Cp-9W4">
+                                <rect key="frame" x="42" y="23" width="37" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.86666666670000003" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="8.88元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPG-vM-OMH">
+                                <rect key="frame" x="282" y="23" width="38" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.99607843139999996" green="0.78039215689999997" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5Bn-Cp-9W4" firstAttribute="centerY" secondItem="X4N-cW-PgD" secondAttribute="centerY" id="JsC-Jm-5G5"/>
+                            <constraint firstItem="5Bn-Cp-9W4" firstAttribute="leading" secondItem="X4N-cW-PgD" secondAttribute="trailing" constant="12" id="RI0-D2-Z2y"/>
+                            <constraint firstAttribute="height" constant="40" id="d19-A1-pPl"/>
+                            <constraint firstAttribute="trailing" secondItem="UPG-vM-OMH" secondAttribute="trailing" id="gSo-hZ-mzG"/>
+                            <constraint firstItem="X4N-cW-PgD" firstAttribute="leading" secondItem="vjZ-KP-vdN" secondAttribute="leading" id="iTg-Wu-lik"/>
+                            <constraint firstItem="UPG-vM-OMH" firstAttribute="centerY" secondItem="5Bn-Cp-9W4" secondAttribute="centerY" id="kV8-6m-Dr6"/>
+                            <constraint firstItem="X4N-cW-PgD" firstAttribute="centerY" secondItem="vjZ-KP-vdN" secondAttribute="centerY" id="tkv-ZA-SOb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="vjZ-KP-vdN" secondAttribute="trailing" id="1vE-hf-NaV"/>
+                    <constraint firstAttribute="bottom" secondItem="vjZ-KP-vdN" secondAttribute="bottom" id="WlB-q8-O0E"/>
+                    <constraint firstItem="vjZ-KP-vdN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cue-eY-A78"/>
+                    <constraint firstItem="vjZ-KP-vdN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uhi-DD-jMp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="39" y="68"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="touxiang" width="70" height="70"/>
+    </resources>
+</document>

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        self.window?.backgroundColor = UIColor.white
+        self.window?.backgroundColor = APP_THEME_COLOR
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setMinimumDismissTimeInterval(2)

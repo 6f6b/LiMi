@@ -18,6 +18,13 @@ class CatchRedPacketView: UIView {
     
     @IBOutlet weak var openRedPacketContainView: UIView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.catchSuccessedUsersTableView.register(UINib.init(nibName: "CatchRedPacketSuccessPersonCell", bundle: nil), forCellReuseIdentifier: "CatchRedPacketSuccessPersonCell")
+        self.catchSuccessedUsersTableView.delegate = self
+        self.catchSuccessedUsersTableView.dataSource = self
+    }
+    
     //MARK: - misc
     @IBAction func dealCatch(_ sender: Any) {
         self.showWith(isSuccess: false)
@@ -35,5 +42,18 @@ class CatchRedPacketView: UIView {
         self.catchFaildContainView.isHidden = isSuccess
         self.catchSuccessContainView.isHidden = !isSuccess
         self.catchAmount.text = "100.00"
+    }
+}
+
+extension CatchRedPacketView:UITableViewDelegate,UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CatchRedPacketSuccessPersonCell", for: indexPath)
+        return cell
     }
 }

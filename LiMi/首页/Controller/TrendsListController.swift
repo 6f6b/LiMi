@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrendsListController: ViewController {
+class TrendsListController: ViewController{
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {

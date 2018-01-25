@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dt_bq" translatesAutoresizingMaskIntoConstraints="NO" id="cJq-L9-HUu">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-Tb-1gg">
                     <rect key="frame" x="0.0" y="20" width="375" height="230"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rOa-SY-Ix3">
+                            <rect key="frame" x="67" y="37" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="230" id="M5a-2P-ZjH"/>
-                        <constraint firstAttribute="width" secondItem="cJq-L9-HUu" secondAttribute="height" multiplier="75:46" id="evs-zh-UYE"/>
+                        <constraint firstAttribute="height" constant="230" id="0GX-dV-weV"/>
                     </constraints>
-                </imageView>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kL3-hr-iq4">
                     <rect key="frame" x="10" y="240" width="355" height="407"/>
                     <subviews>
@@ -66,24 +70,24 @@
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="cJq-L9-HUu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0h9-D1-Ys7"/>
                 <constraint firstItem="kL3-hr-iq4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="220" id="6f7-aK-Jgh"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cJq-L9-HUu" secondAttribute="trailing" id="LeF-bD-Z2o"/>
-                <constraint firstItem="cJq-L9-HUu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fPC-Ie-Jef"/>
+                <constraint firstItem="u3h-Tb-1gg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Dfu-dC-naW"/>
                 <constraint firstItem="kL3-hr-iq4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="iBU-VH-J0o"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kL3-hr-iq4" secondAttribute="bottom" constant="20" id="k7O-9D-uki"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kL3-hr-iq4" secondAttribute="trailing" constant="10" id="nnX-CG-iwA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="u3h-Tb-1gg" secondAttribute="trailing" id="oPq-MC-VTk"/>
+                <constraint firstItem="u3h-Tb-1gg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="rrU-5i-G5A"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="headImgV" destination="cJq-L9-HUu" id="yZV-PT-yTN"/>
-                <outlet property="headImgVHeightConstraint" destination="M5a-2P-ZjH" id="BdU-A8-f59"/>
+                <outlet property="headImgContainView" destination="u3h-Tb-1gg" id="49u-ph-L15"/>
+                <outlet property="headImgV" destination="rOa-SY-Ix3" id="3LR-zC-eSN"/>
+                <outlet property="userInfoContainView" destination="kL3-hr-iq4" id="0s4-zJ-Ip7"/>
             </connections>
             <point key="canvasLocation" x="-48.5" y="-4.5"/>
         </view>
     </objects>
     <resources>
-        <image name="dt_bq" width="65" height="20"/>
         <image name="girl" width="15" height="15"/>
         <image name="tonguo" width="100" height="100"/>
     </resources>

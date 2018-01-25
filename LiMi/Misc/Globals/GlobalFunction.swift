@@ -180,6 +180,14 @@ func IsEmpty(textField:UITextField?)->Bool{
     }else{return true}
 }
 
+//检测UITextView是否有字符串
+func IsEmpty(textView:UITextView?)->Bool{
+    if let text = textView?.text{
+        if text.lengthOfBytes(using: .utf8) == 0{return true}
+        return false
+    }else{return true}
+}
+
 /// 根据传入颜色生成一张导航栏图片
 ///
 /// - Parameter color: 传入颜色

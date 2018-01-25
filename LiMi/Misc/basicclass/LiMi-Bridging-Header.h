@@ -12,4 +12,7 @@
 #import "DataPickerView.h"
 #import <YYText/YYText.h>
 #import <YYImage/YYImage.h>
+#import "STInputBar.h"
+#import "STEmoji.h"
+#import "STEmojiKeyboard.h"
 #endif /* LiMi_Bridging_Header_h */

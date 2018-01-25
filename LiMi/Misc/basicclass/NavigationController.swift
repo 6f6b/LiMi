@@ -28,7 +28,7 @@ class NavigationController: UINavigationController {
             backBtn.addTarget(self, action: #selector(dealTapBack), for: .touchUpInside)
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
         }
-        super.pushViewController(viewController, animated: true)
+        super.pushViewController(viewController, animated: animated)
     }
     //导航栏返回按钮执行pop事件
     @objc func dealTapBack(){

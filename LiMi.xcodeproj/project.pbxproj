@@ -26,12 +26,35 @@
 		6825486A2015B6EF0033410A /* UserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682548682015B6EF0033410A /* UserDetailsController.swift */; };
 		6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682548692015B6EF0033410A /* UserDetailsController.xib */; };
 		6825486D2015B9180033410A /* CommentListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825486C2015B9180033410A /* CommentListHeaderView.swift */; };
-		682548702015C2FE0033410A /* UserDetailHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825486E2015C2FE0033410A /* UserDetailHeadCell.swift */; };
-		682548712015C2FE0033410A /* UserDetailHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6825486F2015C2FE0033410A /* UserDetailHeadCell.xib */; };
 		682548732015C46D0033410A /* UserDetailHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682548722015C46D0033410A /* UserDetailHeadView.swift */; };
 		682548752015C47E0033410A /* UserDetailHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682548742015C47E0033410A /* UserDetailHeadView.xib */; };
 		682548772015D96A0033410A /* PayPasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682548762015D96A0033410A /* PayPasswordInputView.swift */; };
 		682548792015D9730033410A /* PayPasswordInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682548782015D9730033410A /* PayPasswordInputView.xib */; };
+		68282CED2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282CEB2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift */; };
+		68282CEE2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282CEC2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib */; };
+		68282CF22016DC0A0003A0CD /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282CF02016DC0A0003A0CD /* CommentView.swift */; };
+		68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282CF12016DC0A0003A0CD /* CommentView.xib */; };
+		68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3B20170CA80003A0CD /* SlidingMenu.swift */; };
+		68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */; };
+		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
+		6862E50320197C840058B878 /* ConditionScreeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862E50220197C840058B878 /* ConditionScreeningView.swift */; };
+		6862E50520197C8E0058B878 /* ConditionScreeningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6862E50420197C8E0058B878 /* ConditionScreeningView.xib */; };
+		6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */; };
+		6862E50C201989A70058B878 /* ConditionScreeningCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862E50A201989A70058B878 /* ConditionScreeningCollectionCell.swift */; };
+		6862E50D201989A70058B878 /* ConditionScreeningCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6862E50B201989A70058B878 /* ConditionScreeningCollectionCell.xib */; };
+		6862E5242019BC130058B878 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5112019BC130058B878 /* emoji.json */; };
+		6862E5252019BC130058B878 /* keyboard_btn_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5122019BC130058B878 /* keyboard_btn_delete@2x.png */; };
+		6862E5262019BC130058B878 /* keyboard_btn_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5132019BC130058B878 /* keyboard_btn_delete@3x.png */; };
+		6862E5272019BC130058B878 /* keyboard_preview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5142019BC130058B878 /* keyboard_preview_bg@2x.png */; };
+		6862E5282019BC130058B878 /* keyboard_preview_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5152019BC130058B878 /* keyboard_preview_bg@3x.png */; };
+		6862E5292019BC130058B878 /* STEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5172019BC130058B878 /* STEmoji.m */; };
+		6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5192019BC130058B878 /* STEmojiCollectionView.m */; };
+		6862E52B2019BC130058B878 /* STEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6862E51B2019BC130058B878 /* STEmojiKeyboard.m */; };
+		6862E52C2019BC130058B878 /* btn_expression@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E51E2019BC130058B878 /* btn_expression@2x.png */; };
+		6862E52D2019BC130058B878 /* btn_expression@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E51F2019BC130058B878 /* btn_expression@3x.png */; };
+		6862E52E2019BC130058B878 /* btn_keyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5202019BC130058B878 /* btn_keyboard@2x.png */; };
+		6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5212019BC130058B878 /* btn_keyboard@3x.png */; };
+		6862E5302019BC130058B878 /* STInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5232019BC130058B878 /* STInputBar.m */; };
 		6888086B200DF0F200BC6AE9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68880860200DF0F100BC6AE9 /* Info.plist */; };
 		6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880873200DF19300BC6AE9 /* AppDelegate.swift */; };
 		6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880874200DF19300BC6AE9 /* BaseModel.swift */; };
@@ -132,6 +155,8 @@
 		689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA372008B728007FAE9C /* AcademyContainerModel.swift */; };
 		689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */; };
 		689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */; };
+		68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */; };
+		68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */; };
 		68F903872015E9EF00B3028B /* SelectPayWayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F903862015E9EF00B3028B /* SelectPayWayView.swift */; };
 		68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68F903882015E9FB00B3028B /* SelectPayWayView.xib */; };
 		68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9038A201610B700B3028B /* CatchRedPacketView.swift */; };
@@ -180,12 +205,39 @@
 		682548682015B6EF0033410A /* UserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsController.swift; sourceTree = "<group>"; };
 		682548692015B6EF0033410A /* UserDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailsController.xib; sourceTree = "<group>"; };
 		6825486C2015B9180033410A /* CommentListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListHeaderView.swift; sourceTree = "<group>"; };
-		6825486E2015C2FE0033410A /* UserDetailHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailHeadCell.swift; sourceTree = "<group>"; };
-		6825486F2015C2FE0033410A /* UserDetailHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailHeadCell.xib; sourceTree = "<group>"; };
 		682548722015C46D0033410A /* UserDetailHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailHeadView.swift; sourceTree = "<group>"; };
 		682548742015C47E0033410A /* UserDetailHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailHeadView.xib; sourceTree = "<group>"; };
 		682548762015D96A0033410A /* PayPasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPasswordInputView.swift; sourceTree = "<group>"; };
 		682548782015D9730033410A /* PayPasswordInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayPasswordInputView.xib; sourceTree = "<group>"; };
+		68282CEB2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRedPacketSuccessPersonCell.swift; sourceTree = "<group>"; };
+		68282CEC2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatchRedPacketSuccessPersonCell.xib; sourceTree = "<group>"; };
+		68282CF02016DC0A0003A0CD /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		68282CF12016DC0A0003A0CD /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
+		68282D3B20170CA80003A0CD /* SlidingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenu.swift; sourceTree = "<group>"; };
+		68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenuBar.swift; sourceTree = "<group>"; };
+		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
+		6862E50220197C840058B878 /* ConditionScreeningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreeningView.swift; sourceTree = "<group>"; };
+		6862E50420197C8E0058B878 /* ConditionScreeningView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConditionScreeningView.xib; sourceTree = "<group>"; };
+		6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreeningHeaderView.swift; sourceTree = "<group>"; };
+		6862E50A201989A70058B878 /* ConditionScreeningCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreeningCollectionCell.swift; sourceTree = "<group>"; };
+		6862E50B201989A70058B878 /* ConditionScreeningCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConditionScreeningCollectionCell.xib; sourceTree = "<group>"; };
+		6862E5112019BC130058B878 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
+		6862E5122019BC130058B878 /* keyboard_btn_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_btn_delete@2x.png"; sourceTree = "<group>"; };
+		6862E5132019BC130058B878 /* keyboard_btn_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_btn_delete@3x.png"; sourceTree = "<group>"; };
+		6862E5142019BC130058B878 /* keyboard_preview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_preview_bg@2x.png"; sourceTree = "<group>"; };
+		6862E5152019BC130058B878 /* keyboard_preview_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_preview_bg@3x.png"; sourceTree = "<group>"; };
+		6862E5162019BC130058B878 /* STEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STEmoji.h; sourceTree = "<group>"; };
+		6862E5172019BC130058B878 /* STEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STEmoji.m; sourceTree = "<group>"; };
+		6862E5182019BC130058B878 /* STEmojiCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STEmojiCollectionView.h; sourceTree = "<group>"; };
+		6862E5192019BC130058B878 /* STEmojiCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STEmojiCollectionView.m; sourceTree = "<group>"; };
+		6862E51A2019BC130058B878 /* STEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STEmojiKeyboard.h; sourceTree = "<group>"; };
+		6862E51B2019BC130058B878 /* STEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STEmojiKeyboard.m; sourceTree = "<group>"; };
+		6862E51E2019BC130058B878 /* btn_expression@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_expression@2x.png"; sourceTree = "<group>"; };
+		6862E51F2019BC130058B878 /* btn_expression@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_expression@3x.png"; sourceTree = "<group>"; };
+		6862E5202019BC130058B878 /* btn_keyboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_keyboard@2x.png"; sourceTree = "<group>"; };
+		6862E5212019BC130058B878 /* btn_keyboard@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_keyboard@3x.png"; sourceTree = "<group>"; };
+		6862E5222019BC130058B878 /* STInputBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputBar.h; sourceTree = "<group>"; };
+		6862E5232019BC130058B878 /* STInputBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STInputBar.m; sourceTree = "<group>"; };
 		68880860200DF0F100BC6AE9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68880873200DF19300BC6AE9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68880874200DF19300BC6AE9 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -576,6 +628,8 @@
 		689DFA372008B728007FAE9C /* AcademyContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademyContainerModel.swift; sourceTree = "<group>"; };
 		689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGradeController.swift; sourceTree = "<group>"; };
 		689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeContainerModel.swift; sourceTree = "<group>"; };
+		68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSelectTrendsTypeCell.swift; sourceTree = "<group>"; };
+		68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailSelectTrendsTypeCell.xib; sourceTree = "<group>"; };
 		68F903862015E9EF00B3028B /* SelectPayWayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPayWayView.swift; sourceTree = "<group>"; };
 		68F903882015E9FB00B3028B /* SelectPayWayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectPayWayView.xib; sourceTree = "<group>"; };
 		68F9038A201610B700B3028B /* CatchRedPacketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRedPacketView.swift; sourceTree = "<group>"; };
@@ -969,6 +1023,81 @@
 			path = LiMiUITests;
 			sourceTree = "<group>";
 		};
+		68282CEF2016DC0A0003A0CD /* 评论控件 */ = {
+			isa = PBXGroup;
+			children = (
+				68282CF02016DC0A0003A0CD /* CommentView.swift */,
+				68282CF12016DC0A0003A0CD /* CommentView.xib */,
+			);
+			path = "评论控件";
+			sourceTree = "<group>";
+		};
+		68282D3A20170C7A0003A0CD /* SlidingMenu */ = {
+			isa = PBXGroup;
+			children = (
+				68282D3B20170CA80003A0CD /* SlidingMenu.swift */,
+				68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */,
+				68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */,
+			);
+			path = SlidingMenu;
+			sourceTree = "<group>";
+		};
+		6862E50E2019BC130058B878 /* inputBar&emoji */ = {
+			isa = PBXGroup;
+			children = (
+				6862E50F2019BC130058B878 /* emoji keyboard */,
+				6862E51C2019BC130058B878 /* input bar */,
+			);
+			path = "inputBar&emoji";
+			sourceTree = "<group>";
+		};
+		6862E50F2019BC130058B878 /* emoji keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				6862E5102019BC130058B878 /* resource */,
+				6862E5162019BC130058B878 /* STEmoji.h */,
+				6862E5172019BC130058B878 /* STEmoji.m */,
+				6862E5182019BC130058B878 /* STEmojiCollectionView.h */,
+				6862E5192019BC130058B878 /* STEmojiCollectionView.m */,
+				6862E51A2019BC130058B878 /* STEmojiKeyboard.h */,
+				6862E51B2019BC130058B878 /* STEmojiKeyboard.m */,
+			);
+			path = "emoji keyboard";
+			sourceTree = "<group>";
+		};
+		6862E5102019BC130058B878 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				6862E5112019BC130058B878 /* emoji.json */,
+				6862E5122019BC130058B878 /* keyboard_btn_delete@2x.png */,
+				6862E5132019BC130058B878 /* keyboard_btn_delete@3x.png */,
+				6862E5142019BC130058B878 /* keyboard_preview_bg@2x.png */,
+				6862E5152019BC130058B878 /* keyboard_preview_bg@3x.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		6862E51C2019BC130058B878 /* input bar */ = {
+			isa = PBXGroup;
+			children = (
+				6862E51D2019BC130058B878 /* res */,
+				6862E5222019BC130058B878 /* STInputBar.h */,
+				6862E5232019BC130058B878 /* STInputBar.m */,
+			);
+			path = "input bar";
+			sourceTree = "<group>";
+		};
+		6862E51D2019BC130058B878 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				6862E51E2019BC130058B878 /* btn_expression@2x.png */,
+				6862E51F2019BC130058B878 /* btn_expression@3x.png */,
+				6862E5202019BC130058B878 /* btn_keyboard@2x.png */,
+				6862E5212019BC130058B878 /* btn_keyboard@3x.png */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
 		6888085B200DF0F100BC6AE9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,6 +1153,9 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				6862E50E2019BC130058B878 /* inputBar&emoji */,
+				68282D3A20170C7A0003A0CD /* SlidingMenu */,
+				68282CEF2016DC0A0003A0CD /* 评论控件 */,
 				6888089E200F1E0300BC6AE9 /* DataPickerView */,
 			);
 			path = Libs;
@@ -1226,10 +1358,17 @@
 				6825486420159D260033410A /* TrendCommentCell.swift */,
 				682548722015C46D0033410A /* UserDetailHeadView.swift */,
 				682548742015C47E0033410A /* UserDetailHeadView.xib */,
-				6825486E2015C2FE0033410A /* UserDetailHeadCell.swift */,
-				6825486F2015C2FE0033410A /* UserDetailHeadCell.xib */,
+				68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */,
+				68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */,
 				68F9038A201610B700B3028B /* CatchRedPacketView.swift */,
 				68F9038C201610C200B3028B /* CatchRedPacketView.xib */,
+				68282CEB2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift */,
+				68282CEC2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib */,
+				6862E50220197C840058B878 /* ConditionScreeningView.swift */,
+				6862E50420197C8E0058B878 /* ConditionScreeningView.xib */,
+				6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */,
+				6862E50A201989A70058B878 /* ConditionScreeningCollectionCell.swift */,
+				6862E50B201989A70058B878 /* ConditionScreeningCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1452,13 +1591,17 @@
 			files = (
 				688809052011A7DD00BC6AE9 /* ReleaseContentOtherInputCell.xib in Resources */,
 				688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */,
+				6862E5262019BC130058B878 /* keyboard_btn_delete@3x.png in Resources */,
 				6825486320157CFF0033410A /* TagCollectionCell.xib in Resources */,
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
+				6862E50520197C8E0058B878 /* ConditionScreeningView.xib in Resources */,
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
-				682548712015C2FE0033410A /* UserDetailHeadCell.xib in Resources */,
 				688808E92011852500BC6AE9 /* TrendsImageCollectionCell.xib in Resources */,
+				6862E5252019BC130058B878 /* keyboard_btn_delete@2x.png in Resources */,
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
+				6862E52C2019BC130058B878 /* btn_expression@2x.png in Resources */,
+				68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */,
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
 				688809092011ABBD00BC6AE9 /* ReleaseContentImgCollectionCell.xib in Resources */,
@@ -1467,22 +1610,32 @@
 				688808BF20106CF800BC6AE9 /* MyCashController.xib in Resources */,
 				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
 				688809152011E64000BC6AE9 /* RechargeController.xib in Resources */,
+				6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */,
 				68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
 				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
+				6862E5242019BC130058B878 /* emoji.json in Resources */,
 				6825485B20137BDC0033410A /* CommentsWithTrendController.xib in Resources */,
+				6862E5282019BC130058B878 /* keyboard_preview_bg@3x.png in Resources */,
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
+				6862E52D2019BC130058B878 /* btn_expression@3x.png in Resources */,
 				68254857201364450033410A /* RewardRedPacketController.xib in Resources */,
 				688809112011E5DB00BC6AE9 /* SetPayPasswordController.xib in Resources */,
 				6888086B200DF0F200BC6AE9 /* Info.plist in Resources */,
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
+				68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */,
 				689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */,
 				6888090D2011ABDF00BC6AE9 /* ReleaseContentAddImgCollectionCell.xib in Resources */,
 				68F9038D201610C200B3028B /* CatchRedPacketView.xib in Resources */,
+				6862E5272019BC130058B878 /* keyboard_preview_bg@2x.png in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
+				68282CEE2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib in Resources */,
+				6862E50D201989A70058B878 /* ConditionScreeningCollectionCell.xib in Resources */,
 				688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */,
+				6862E52E2019BC130058B878 /* btn_keyboard@2x.png in Resources */,
+				68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */,
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1570,16 +1723,23 @@
 				688808FC2011A78F00BC6AE9 /* ReleaseContentTextInputCell.swift in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
 				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
+				68282CED2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
+				6862E50C201989A70058B878 /* ConditionScreeningCollectionCell.swift in Sources */,
 				689DF7C72005F9C4007FAE9C /* PersonInfoController.swift in Sources */,
 				68880891200DF32F00BC6AE9 /* BasicDataTypeExtension.swift in Sources */,
 				689DFA362008B6DF007FAE9C /* ChooseAcademyController.swift in Sources */,
 				689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */,
 				68F903872015E9EF00B3028B /* SelectPayWayView.swift in Sources */,
 				6825486720159E990033410A /* CommentTopToolsContainView.swift in Sources */,
+				6862E52B2019BC130058B878 /* STEmojiKeyboard.m in Sources */,
+				6862E50320197C840058B878 /* ConditionScreeningView.swift in Sources */,
 				6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */,
+				68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */,
 				682548772015D96A0033410A /* PayPasswordInputView.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
+				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
+				6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */,
 				688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */,
 				68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */,
 				688808F920119F1900BC6AE9 /* ReleaseController.swift in Sources */,
@@ -1588,6 +1748,7 @@
 				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
 				689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */,
 				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
+				68282CF22016DC0A0003A0CD /* CommentView.swift in Sources */,
 				688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */,
 				68880898200DF53000BC6AE9 /* GlobalVariable.swift in Sources */,
 				688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */,
@@ -1599,12 +1760,12 @@
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
 				688808ED20118F8100BC6AE9 /* TrendsWithPictureCell.swift in Sources */,
 				688808E32010921300BC6AE9 /* TrendsTopToolsContainView.swift in Sources */,
+				6862E5292019BC130058B878 /* STEmoji.m in Sources */,
 				6888090C2011ABDF00BC6AE9 /* ReleaseContentAddImgCollectionCell.swift in Sources */,
 				6825486A2015B6EF0033410A /* UserDetailsController.swift in Sources */,
 				689DF78F20045D53007FAE9C /* CircleController.swift in Sources */,
 				6888089A200DF53B00BC6AE9 /* GlobalFunction.swift in Sources */,
 				688809082011ABBD00BC6AE9 /* ReleaseContentImgCollectionCell.swift in Sources */,
-				682548702015C2FE0033410A /* UserDetailHeadCell.swift in Sources */,
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
 				688808B82010331300BC6AE9 /* LoginController.swift in Sources */,
 				688808F12011900100BC6AE9 /* TrendsWithVideoCell.swift in Sources */,
@@ -1613,12 +1774,14 @@
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
 				688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */,
+				6862E5302019BC130058B878 /* STInputBar.m in Sources */,
 				68880885200DF19300BC6AE9 /* View.swift in Sources */,
 				68880880200DF19300BC6AE9 /* Helper.swift in Sources */,
 				68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */,
 				6888091820123A9900BC6AE9 /* DeleteController.swift in Sources */,
 				6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
+				68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */,
 				688809042011A7DD00BC6AE9 /* ReleaseContentOtherInputCell.swift in Sources */,
 				689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */,
 				688A4C92200D9E8400BB5DF7 /* UserInfoListModel.swift in Sources */,
@@ -1632,6 +1795,7 @@
 				688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */,
 				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
+				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
 				6825486220157CFF0033410A /* TagCollectionCell.swift in Sources */,
 				68880893200DF41500BC6AE9 /* ObjectMapperExtension.swift in Sources */,

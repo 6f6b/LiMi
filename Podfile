@@ -17,6 +17,8 @@ target ‘LiMi' do
     pod 'Masonry'
     pod 'YYText'
     pod 'YYImage'
+    pod 'XLPagerTabStrip', '~> 8.0'
+    pod 'AGEmojiKeyboard'
 #    pod 'PageMenu'
 #    pod 'SPPageMenu'
 #   pod 'Moya/RxSwift'
