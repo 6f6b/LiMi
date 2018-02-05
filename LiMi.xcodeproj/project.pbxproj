@@ -37,6 +37,30 @@
 		68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3B20170CA80003A0CD /* SlidingMenu.swift */; };
 		68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */; };
 		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
+		683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107B62024040A0060B109 /* TrendsCellFactory.swift */; };
+		683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BA2024338A0060B109 /* EmptyCommentCell.swift */; };
+		683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BB2024338A0060B109 /* EmptyCommentCell.xib */; };
+		683107C02024402C0060B109 /* EmptyTrendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BE2024402C0060B109 /* EmptyTrendsCell.swift */; };
+		683107C12024402C0060B109 /* EmptyTrendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BF2024402C0060B109 /* EmptyTrendsCell.xib */; };
+		6835824C201EC6A000798462 /* SkillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835824B201EC6A000798462 /* SkillModel.swift */; };
+		6835824E201EC75400798462 /* ScreeningConditionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835824D201EC75400798462 /* ScreeningConditionsModel.swift */; };
+		68358250201ED87C00798462 /* SexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835824F201ED87C00798462 /* SexModel.swift */; };
+		68358256201F03A200798462 /* MyTrendListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68358254201F03A200798462 /* MyTrendListController.swift */; };
+		68358257201F03A200798462 /* MyTrendListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68358255201F03A200798462 /* MyTrendListController.xib */; };
+		68358259201F18DD00798462 /* TransactonListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68358258201F18DD00798462 /* TransactonListModel.swift */; };
+		6835826F20200E2500798462 /* SkillListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835826E20200E2500798462 /* SkillListModel.swift */; };
+		683582742020507200798462 /* QNUploadTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683582732020507200798462 /* QNUploadTokenModel.swift */; };
+		6835827D2021593200798462 /* WithDrawalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835827B2021593200798462 /* WithDrawalController.swift */; };
+		6835827E2021593200798462 /* WithDrawalController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6835827C2021593200798462 /* WithDrawalController.xib */; };
+		683582812021647900798462 /* AlipayAcountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835827F2021647900798462 /* AlipayAcountController.swift */; };
+		683582822021647900798462 /* AlipayAcountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683582802021647900798462 /* AlipayAcountController.xib */; };
+		683582852021951300798462 /* PHAsset+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 683582842021951300798462 /* PHAsset+Extension.m */; };
+		68358288202199A000798462 /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 683582862021999F00798462 /* PHAsset+Utility.m */; };
+		6835828A2021AC1C00798462 /* LocalMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683582892021AC1C00798462 /* LocalMediaModel.swift */; };
+		6835828C202306A000798462 /* RedPacketResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835828B202306A000798462 /* RedPacketResultModel.swift */; };
+		68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECC201AC6E500D041CC /* TrendListModel.swift */; };
+		68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECE201AF86000D041CC /* CommentListModel.swift */; };
+		68629ED1201B29DF00D041CC /* UserDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ED0201B29DF00D041CC /* UserDetailModel.swift */; };
 		6862E50320197C840058B878 /* ConditionScreeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862E50220197C840058B878 /* ConditionScreeningView.swift */; };
 		6862E50520197C8E0058B878 /* ConditionScreeningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6862E50420197C8E0058B878 /* ConditionScreeningView.xib */; };
 		6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */; };
@@ -216,6 +240,32 @@
 		68282D3B20170CA80003A0CD /* SlidingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenu.swift; sourceTree = "<group>"; };
 		68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenuBar.swift; sourceTree = "<group>"; };
 		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
+		683107B62024040A0060B109 /* TrendsCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCellFactory.swift; sourceTree = "<group>"; };
+		683107BA2024338A0060B109 /* EmptyCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommentCell.swift; sourceTree = "<group>"; };
+		683107BB2024338A0060B109 /* EmptyCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCommentCell.xib; sourceTree = "<group>"; };
+		683107BE2024402C0060B109 /* EmptyTrendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTrendsCell.swift; sourceTree = "<group>"; };
+		683107BF2024402C0060B109 /* EmptyTrendsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTrendsCell.xib; sourceTree = "<group>"; };
+		6835824B201EC6A000798462 /* SkillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillModel.swift; sourceTree = "<group>"; };
+		6835824D201EC75400798462 /* ScreeningConditionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningConditionsModel.swift; sourceTree = "<group>"; };
+		6835824F201ED87C00798462 /* SexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SexModel.swift; sourceTree = "<group>"; };
+		68358254201F03A200798462 /* MyTrendListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTrendListController.swift; sourceTree = "<group>"; };
+		68358255201F03A200798462 /* MyTrendListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTrendListController.xib; sourceTree = "<group>"; };
+		68358258201F18DD00798462 /* TransactonListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactonListModel.swift; sourceTree = "<group>"; };
+		6835826E20200E2500798462 /* SkillListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListModel.swift; sourceTree = "<group>"; };
+		683582732020507200798462 /* QNUploadTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNUploadTokenModel.swift; sourceTree = "<group>"; };
+		6835827B2021593200798462 /* WithDrawalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawalController.swift; sourceTree = "<group>"; };
+		6835827C2021593200798462 /* WithDrawalController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithDrawalController.xib; sourceTree = "<group>"; };
+		6835827F2021647900798462 /* AlipayAcountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayAcountController.swift; sourceTree = "<group>"; };
+		683582802021647900798462 /* AlipayAcountController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlipayAcountController.xib; sourceTree = "<group>"; };
+		683582832021951200798462 /* PHAsset+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Extension.h"; sourceTree = "<group>"; };
+		683582842021951300798462 /* PHAsset+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Extension.m"; sourceTree = "<group>"; };
+		683582862021999F00798462 /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utility.m"; sourceTree = "<group>"; };
+		68358287202199A000798462 /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utility.h"; sourceTree = "<group>"; };
+		683582892021AC1C00798462 /* LocalMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMediaModel.swift; sourceTree = "<group>"; };
+		6835828B202306A000798462 /* RedPacketResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketResultModel.swift; sourceTree = "<group>"; };
+		68629ECC201AC6E500D041CC /* TrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendListModel.swift; sourceTree = "<group>"; };
+		68629ECE201AF86000D041CC /* CommentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListModel.swift; sourceTree = "<group>"; };
+		68629ED0201B29DF00D041CC /* UserDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailModel.swift; sourceTree = "<group>"; };
 		6862E50220197C840058B878 /* ConditionScreeningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreeningView.swift; sourceTree = "<group>"; };
 		6862E50420197C8E0058B878 /* ConditionScreeningView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConditionScreeningView.xib; sourceTree = "<group>"; };
 		6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreeningHeaderView.swift; sourceTree = "<group>"; };
@@ -1137,6 +1187,10 @@
 				6888088E200DF2B600BC6AE9 /* SVProgressHUDExtension.swift */,
 				68880892200DF41500BC6AE9 /* ObjectMapperExtension.swift */,
 				6888089B200DF7E900BC6AE9 /* DefaultsKeysExtension.swift */,
+				683582832021951200798462 /* PHAsset+Extension.h */,
+				683582842021951300798462 /* PHAsset+Extension.m */,
+				68358287202199A000798462 /* PHAsset+Utility.h */,
+				683582862021999F00798462 /* PHAsset+Utility.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1196,6 +1250,9 @@
 		688808F520119E7B00BC6AE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6835826E20200E2500798462 /* SkillListModel.swift */,
+				683582732020507200798462 /* QNUploadTokenModel.swift */,
+				683582892021AC1C00798462 /* LocalMediaModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1283,6 +1340,12 @@
 				6888090F2011E5DB00BC6AE9 /* SetPayPasswordController.xib */,
 				688809122011E64000BC6AE9 /* RechargeController.swift */,
 				688809132011E64000BC6AE9 /* RechargeController.xib */,
+				68358254201F03A200798462 /* MyTrendListController.swift */,
+				68358255201F03A200798462 /* MyTrendListController.xib */,
+				6835827B2021593200798462 /* WithDrawalController.swift */,
+				6835827C2021593200798462 /* WithDrawalController.xib */,
+				6835827F2021647900798462 /* AlipayAcountController.swift */,
+				683582802021647900798462 /* AlipayAcountController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1295,6 +1358,7 @@
 				688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */,
 				688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */,
 				688A4C91200D9E8400BB5DF7 /* UserInfoListModel.swift */,
+				68358258201F18DD00798462 /* TransactonListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1336,6 +1400,13 @@
 		689DF77820045C33007FAE9C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				68629ECC201AC6E500D041CC /* TrendListModel.swift */,
+				68629ECE201AF86000D041CC /* CommentListModel.swift */,
+				68629ED0201B29DF00D041CC /* UserDetailModel.swift */,
+				6835824D201EC75400798462 /* ScreeningConditionsModel.swift */,
+				6835824B201EC6A000798462 /* SkillModel.swift */,
+				6835824F201ED87C00798462 /* SexModel.swift */,
+				6835828B202306A000798462 /* RedPacketResultModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1345,6 +1416,7 @@
 			children = (
 				688808E22010921300BC6AE9 /* TrendsTopToolsContainView.swift */,
 				688808E42010922F00BC6AE9 /* TrendsBottomToolsContainView.swift */,
+				683107B62024040A0060B109 /* TrendsCellFactory.swift */,
 				688808CE201083BC00BC6AE9 /* TrendsCell.swift */,
 				688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */,
 				688808EC20118F8100BC6AE9 /* TrendsWithPictureCell.swift */,
@@ -1353,9 +1425,13 @@
 				688808E02010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift */,
 				688808E62011852500BC6AE9 /* TrendsImageCollectionCell.swift */,
 				688808E72011852500BC6AE9 /* TrendsImageCollectionCell.xib */,
+				683107BE2024402C0060B109 /* EmptyTrendsCell.swift */,
+				683107BF2024402C0060B109 /* EmptyTrendsCell.xib */,
 				6825486C2015B9180033410A /* CommentListHeaderView.swift */,
 				6825486620159E990033410A /* CommentTopToolsContainView.swift */,
 				6825486420159D260033410A /* TrendCommentCell.swift */,
+				683107BA2024338A0060B109 /* EmptyCommentCell.swift */,
+				683107BB2024338A0060B109 /* EmptyCommentCell.xib */,
 				682548722015C46D0033410A /* UserDetailHeadView.swift */,
 				682548742015C47E0033410A /* UserDetailHeadView.xib */,
 				68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */,
@@ -1598,6 +1674,7 @@
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
 				688808E92011852500BC6AE9 /* TrendsImageCollectionCell.xib in Resources */,
 				6862E5252019BC130058B878 /* keyboard_btn_delete@2x.png in Resources */,
+				68358257201F03A200798462 /* MyTrendListController.xib in Resources */,
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
 				6862E52C2019BC130058B878 /* btn_expression@2x.png in Resources */,
@@ -1614,6 +1691,7 @@
 				68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
 				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
+				6835827E2021593200798462 /* WithDrawalController.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
 				6862E5242019BC130058B878 /* emoji.json in Resources */,
 				6825485B20137BDC0033410A /* CommentsWithTrendController.xib in Resources */,
@@ -1627,6 +1705,7 @@
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
 				68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */,
 				689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */,
+				683582822021647900798462 /* AlipayAcountController.xib in Resources */,
 				6888090D2011ABDF00BC6AE9 /* ReleaseContentAddImgCollectionCell.xib in Resources */,
 				68F9038D201610C200B3028B /* CatchRedPacketView.xib in Resources */,
 				6862E5272019BC130058B878 /* keyboard_preview_bg@2x.png in Resources */,
@@ -1637,6 +1716,8 @@
 				6862E52E2019BC130058B878 /* btn_keyboard@2x.png in Resources */,
 				68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */,
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
+				683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */,
+				683107C12024402C0060B109 /* EmptyTrendsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1723,16 +1804,21 @@
 				688808FC2011A78F00BC6AE9 /* ReleaseContentTextInputCell.swift in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
 				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
+				6835824E201EC75400798462 /* ScreeningConditionsModel.swift in Sources */,
 				68282CED2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
 				6862E50C201989A70058B878 /* ConditionScreeningCollectionCell.swift in Sources */,
+				6835828C202306A000798462 /* RedPacketResultModel.swift in Sources */,
+				68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */,
 				689DF7C72005F9C4007FAE9C /* PersonInfoController.swift in Sources */,
+				6835827D2021593200798462 /* WithDrawalController.swift in Sources */,
 				68880891200DF32F00BC6AE9 /* BasicDataTypeExtension.swift in Sources */,
 				689DFA362008B6DF007FAE9C /* ChooseAcademyController.swift in Sources */,
 				689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */,
 				68F903872015E9EF00B3028B /* SelectPayWayView.swift in Sources */,
 				6825486720159E990033410A /* CommentTopToolsContainView.swift in Sources */,
 				6862E52B2019BC130058B878 /* STEmojiKeyboard.m in Sources */,
+				68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */,
 				6862E50320197C840058B878 /* ConditionScreeningView.swift in Sources */,
 				6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */,
 				68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */,
@@ -1740,22 +1826,29 @@
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
 				6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */,
+				68358259201F18DD00798462 /* TransactonListModel.swift in Sources */,
 				688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */,
 				68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */,
 				688808F920119F1900BC6AE9 /* ReleaseController.swift in Sources */,
 				6825485D2014D60F0033410A /* TagListController.swift in Sources */,
 				688A4C95200DD12E00BB5DF7 /* AlterUserNameController.swift in Sources */,
 				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
+				68358256201F03A200798462 /* MyTrendListController.swift in Sources */,
 				689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */,
 				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
 				68282CF22016DC0A0003A0CD /* CommentView.swift in Sources */,
+				683582742020507200798462 /* QNUploadTokenModel.swift in Sources */,
+				683582812021647900798462 /* AlipayAcountController.swift in Sources */,
 				688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */,
 				68880898200DF53000BC6AE9 /* GlobalVariable.swift in Sources */,
 				688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */,
+				68358288202199A000798462 /* PHAsset+Utility.m in Sources */,
 				688808E82011852500BC6AE9 /* TrendsImageCollectionCell.swift in Sources */,
 				682548732015C46D0033410A /* UserDetailHeadView.swift in Sources */,
+				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
 				6825485A20137BDC0033410A /* CommentsWithTrendController.swift in Sources */,
 				688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */,
+				68358250201ED87C00798462 /* SexModel.swift in Sources */,
 				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
 				688808ED20118F8100BC6AE9 /* TrendsWithPictureCell.swift in Sources */,
@@ -1767,17 +1860,20 @@
 				6888089A200DF53B00BC6AE9 /* GlobalFunction.swift in Sources */,
 				688809082011ABBD00BC6AE9 /* ReleaseContentImgCollectionCell.swift in Sources */,
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
+				6835826F20200E2500798462 /* SkillListModel.swift in Sources */,
 				688808B82010331300BC6AE9 /* LoginController.swift in Sources */,
 				688808F12011900100BC6AE9 /* TrendsWithVideoCell.swift in Sources */,
 				6888087F200DF19300BC6AE9 /* CommonInfoModel.swift in Sources */,
 				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
+				68629ED1201B29DF00D041CC /* UserDetailModel.swift in Sources */,
 				688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */,
 				6862E5302019BC130058B878 /* STInputBar.m in Sources */,
 				68880885200DF19300BC6AE9 /* View.swift in Sources */,
 				68880880200DF19300BC6AE9 /* Helper.swift in Sources */,
 				68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */,
+				683107C02024402C0060B109 /* EmptyTrendsCell.swift in Sources */,
 				6888091820123A9900BC6AE9 /* DeleteController.swift in Sources */,
 				6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
@@ -1789,14 +1885,18 @@
 				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
 				688809142011E64000BC6AE9 /* RechargeController.swift in Sources */,
+				6835824C201EC6A000798462 /* SkillModel.swift in Sources */,
+				683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */,
 				68880883200DF19300BC6AE9 /* TabBarController.swift in Sources */,
 				689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */,
 				68880882200DF19300BC6AE9 /* NavigationController.swift in Sources */,
+				6835828A2021AC1C00798462 /* LocalMediaModel.swift in Sources */,
 				688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */,
 				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
 				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
+				683582852021951300798462 /* PHAsset+Extension.m in Sources */,
 				6825486220157CFF0033410A /* TagCollectionCell.swift in Sources */,
 				68880893200DF41500BC6AE9 /* ObjectMapperExtension.swift in Sources */,
 				688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */,

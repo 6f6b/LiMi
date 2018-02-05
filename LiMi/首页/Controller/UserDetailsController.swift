@@ -7,33 +7,63 @@
 //
 
 import UIKit
+import MJRefresh
+import Moya
+import SVProgressHUD
+import ObjectMapper
 
 class UserDetailsController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var userDetailHeadView:UserDetailHeadView?
     var userDetailSelectTrendsTypeCell:UserDetailSelectTrendsTypeCell?
+    var userInfoModel:UserInfoModel?
+    var type = "skill"
+    var skillPage = 1
+    var actionPage = 1
+    var skillDataArray = [TrendModel]()
+    var actionDataArray = [TrendModel]()
+    var userId:Int?
+    var emptyInfo = "太低调了，还没有发需求"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+        let systemVersion = UIDevice.current.systemVersion
+        if SYSTEM_VERSION <= 11.0{
+            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        }else{
+            self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+        }
         self.tableView.estimatedRowHeight = 100
         self.tableView.estimatedSectionFooterHeight = 100
         self.tableView.estimatedSectionHeaderHeight = 100
-        self.registerTrendsCellFor(tableView: self.tableView)
+        registerTrendsCellFor(tableView: self.tableView)
+        self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
         
-        let moreBtn = UIButton.init(type: .custom)
-        moreBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
-        moreBtn.sizeToFit()
-        moreBtn.addTarget(self, action: #selector(dealMoreOperation(_:)), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreBtn)
+        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+            if self.type == "skill"{self.skillPage += 1}
+            if self.type == "action"{self.actionPage += 1}
+            self.loadData()
+        })
+        
+        if self.userId != Defaults[.userId]{
+            let moreBtn = UIButton.init(type: .custom)
+            moreBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
+            moreBtn.sizeToFit()
+            moreBtn.addTarget(self, action: #selector(dealMoreOperation(_:)), for: .touchUpInside)
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreBtn)
+        }
+        
+        loadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     
@@ -48,8 +78,82 @@ class UserDetailsController: ViewController {
     }
 
     //MARK: - misc
+    /// 更多操作
+    ///
+    /// - Parameters:
+    ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
+    ///   - trendModel: 动态模型
+    func dealMoreOperationWith(operationType:OperationType){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        var type:String? = nil
+        if operationType == .defriend{type = "black"}
+        if operationType == .delete{type = "delete"}
+        if operationType == .report{type = "report"}
+        if operationType == .sendMsg{type = "sendmsg"}
+        let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
+        _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
+            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: baseModel)
+            SVProgressHUD.showResultWith(model: baseModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     @objc func dealMoreOperation(_ sender: Any) {
+        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+            self.dealMoreOperationWith(operationType: .report)
+        })
+        let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+            self.dealMoreOperationWith(operationType: .defriend)
+        })
+        let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+            self.dealMoreOperationWith(operationType: .sendMsg)
+        })
+        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel)
         
+        actionController.addAction(actionReport)
+        actionController.addAction(actionDefriend)
+        actionController.addAction(actionSendMsg)
+        actionController.addAction(actionCancel)
+        
+        self.present(actionController, animated: true, completion: nil)
+    }
+    
+    func loadData(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let pageIndex = self.type == "action" ? self.actionPage : self.skillPage
+        let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type)
+        _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: { (response) in
+            let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
+            HandleResultWith(model: userDetailModel)
+            if let trends = userDetailModel?.action_list{
+                if self.type == "action"{
+                    if self.actionPage == 1{self.actionDataArray.removeAll()}
+                    for trend in trends{
+                        self.actionDataArray.append(trend)
+                    }
+                }
+                if self.type == "skill"{
+                    if self.skillPage == 1{self.skillDataArray.removeAll()}
+                    for trend in trends{
+                        self.skillDataArray.append(trend)
+                    }
+                }
+            }
+            self.userInfoModel = userDetailModel?.user
+            self.tableView.reloadData()
+            self.tableView.mj_footer.endRefreshing()
+            SVProgressHUD.showErrorWith(model: userDetailModel)
+        }, onError: { (error) in
+            self.tableView.mj_footer.endRefreshing()
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    @IBAction func dealLiao(_ sender: Any) {
+        SVProgressHUD.showInfo(withStatus: "起开，别撩我")
     }
     
 }
@@ -60,7 +164,10 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{return 1}
-        return 10
+        let dataArray = self.type == "action" ? self.actionDataArray :self.skillDataArray
+        if dataArray.count != 0{return dataArray.count}else{
+            return 1
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -77,8 +184,8 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
             if let _ = self.userDetailHeadView{}else{
                 self.userDetailHeadView = GET_XIB_VIEW(nibName: "UserDetailHeadView") as? UserDetailHeadView
                 self.userDetailHeadView?.headImgV?.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
-                self.userDetailHeadView?.headImgV?.image = UIImage.init(named: "renzheng")
             }
+            self.userDetailHeadView?.configWith(model: self.userInfoModel)
             return userDetailHeadView
         }
         return nil
@@ -89,54 +196,80 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             if let _ = self.userDetailSelectTrendsTypeCell{}else{
-                self.userDetailSelectTrendsTypeCell = GET_XIB_VIEW(nibName: "UserDetailSelectTrendsTypeCell") as! UserDetailSelectTrendsTypeCell
+                self.userDetailSelectTrendsTypeCell = GET_XIB_VIEW(nibName: "UserDetailSelectTrendsTypeCell") as? UserDetailSelectTrendsTypeCell
                 self.userDetailSelectTrendsTypeCell?.selectTrendsTypeBlock = {(type) in
-                    if type == .demand{print("选择需求")}
-                    if type == .trends{print("选择动态")}
+                    if type == .demand{
+                        self.type = "skill"
+                        self.emptyInfo = "太低调了，还没发需求"
+                        self.skillPage = 1
+                    }
+                    if type == .trends{
+                        self.type = "action"
+                        self.emptyInfo = "太低调了，还没发动态"
+                        self.actionPage = 1
+                    }
+                    print(self.type)
+                    self.loadData()
                 }
             }
             return self.userDetailSelectTrendsTypeCell!
         }
-        let trendCell = cellFor(indexPath: indexPath,tableView: tableView)
-        trendCell.trendsTopToolsContainView.tapHeadBtnBlock = {
+        
+        if indexPath.section == 1{
+            var dataArray = self.type == "action" ? self.actionDataArray : self.skillDataArray
+            if dataArray.count != 0{
+                if indexPath.row >= dataArray.count{
+                    return UITableViewCell()
+                }
+                let model = dataArray[indexPath.row]
+                let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
+                //点赞
+                trendsCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumUpBtn) in
+                    let trendModel = model
+                    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+                    let thumbUp = ThumbUp(action_id: trendModel.action_id?.stringValue())
+                    _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
+                        let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+                        HandleResultWith(model: resultModel)
+                        if resultModel?.commonInfoModel?.status == successState{
+                            thumUpBtn.isSelected = !thumUpBtn.isSelected
+                            if thumUpBtn.isSelected{
+                                trendModel.click_num! += 1
+                                trendModel.is_click = 1
+                            }else{
+                                trendModel.is_click = 0
+                                trendModel.click_num! -= 1
+                            }
+                            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                        }
+                        SVProgressHUD.showErrorWith(model: resultModel)
+                    }, onError: { (error) in
+                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                    })
+                }
+                //评论
+                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+                    let commentsWithTrendController = CommentsWithTrendController()
+                    commentsWithTrendController.trendModel = model
+                    self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
+                }
+                //抢红包
+                trendsCell.catchRedPacketBlock = {
+                    let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
+                    catchRedPacketView.closeBlock = {
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                    catchRedPacketView.showWith(trendModel: model)
+                }
+                return trendsCell
+            }
+            if dataArray.count == 0{
+                let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
+                emptyTrendsCell.configWith(info: self.emptyInfo)
+                return emptyTrendsCell
+            }
         }
-        trendCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {
-            
-        }
-        trendCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
-            let commentsWithTrendController = CommentsWithTrendController()
-            self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
-        }
-        return trendCell
-    }
-    
-    func cellFor(indexPath:IndexPath,tableView:UITableView)->TrendsCell{
-        var trendsCell:TrendsCell!
-        if indexPath.row == 0{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath) as! TrendsCell
-        }
-        if indexPath.row == 1{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithPictureCell", for: indexPath) as! TrendsCell
-        }
-        if indexPath.row == 2{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsCell
-        }
-        if indexPath.row == 3{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithVideoCell", for: indexPath) as! TrendsCell
-        }
-        if indexPath.row == 4{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndVideoCell", for: indexPath) as! TrendsCell
-        }else{
-            trendsCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath) as! TrendsCell
-        }
-        return trendsCell
-    }
-    func registerTrendsCellFor(tableView:UITableView){
-        tableView.register(TrendsWithTextCell.self, forCellReuseIdentifier: "TrendsWithTextCell")
-        tableView.register(TrendsWithPictureCell.self, forCellReuseIdentifier: "TrendsWithPictureCell")
-        tableView.register(TrendsWithTextAndPictrueCell.self, forCellReuseIdentifier: "TrendsWithTextAndPictrueCell")
-        tableView.register(TrendsWithVideoCell.self, forCellReuseIdentifier: "TrendsWithVideoCell")
-        tableView.register(TrendsWithTextAndVideoCell.self, forCellReuseIdentifier: "TrendsWithTextAndVideoCell")
+        return UITableViewCell()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -166,16 +299,16 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
 //            }
 //        }
         return
-//        let offsetY = -scrollView.contentOffset.y
-//        if offsetY > 0{
-//            let tmpX = -(SCREEN_WIDTH/230)*offsetY*0.5
-//            let tmpY = -offsetY
-//            let tmpW = SCREEN_WIDTH+(SCREEN_WIDTH/230)*offsetY
-//            let tmpH = 230 + offsetY
-//            self.userDetailHeadView?.headImgV?.frame = CGRect.init(x: tmpX, y: tmpY, width: tmpW, height: tmpH)
-//        }else{
-//            let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
-//            self.userDetailHeadView?.headImgV?.frame = frame
-//        }
+        let offsetY = -scrollView.contentOffset.y
+        if offsetY > 0{
+            let tmpX = -(SCREEN_WIDTH/230)*(offsetY*0.5)
+            let tmpY = -offsetY
+            let tmpW = SCREEN_WIDTH+(SCREEN_WIDTH/230)*offsetY
+            let tmpH = 230 + offsetY
+            self.userDetailHeadView?.headImgV?.frame = CGRect.init(x: tmpX, y: tmpY, width: tmpW, height: tmpH)
+        }else{
+            let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
+            self.userDetailHeadView?.headImgV?.frame = frame
+        }
     }
 }

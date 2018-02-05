@@ -25,15 +25,30 @@
                     <rect key="frame" x="0.0" y="-44" width="375" height="711"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-go-LtS">
+                    <rect key="frame" x="126.5" y="606" width="122" height="51"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="13" minY="-7" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="-7" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="撩一下" image="ziliao_icon_liao" backgroundImage="ziliao_btn_liao"/>
+                    <connections>
+                        <action selector="dealLiao:" destination="-1" eventType="touchUpInside" id="Tf5-Cj-vks"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="lhv-go-LtS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5sI-yC-SK9"/>
                 <constraint firstItem="XxP-pX-kY4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="I4Z-BE-mhJ"/>
                 <constraint firstItem="XxP-pX-kY4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-64" id="Sep-BZ-SvC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XxP-pX-kY4" secondAttribute="trailing" id="hKw-Kl-Ub1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XxP-pX-kY4" secondAttribute="bottom" id="tqp-XE-nzl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lhv-go-LtS" secondAttribute="bottom" constant="10" id="x2D-yL-SWR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
+    <resources>
+        <image name="ziliao_btn_liao" width="122" height="51"/>
+        <image name="ziliao_icon_liao" width="21" height="19"/>
+    </resources>
 </document>

@@ -15,4 +15,5 @@
 #import "STInputBar.h"
 #import "STEmoji.h"
 #import "STEmojiKeyboard.h"
+#import "PHAsset+Utility.h"
 #endif /* LiMi_Bridging_Header_h */

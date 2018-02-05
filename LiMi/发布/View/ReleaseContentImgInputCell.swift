@@ -11,7 +11,7 @@ import SnapKit
 
 class ReleaseContentImgInputCell: UITableViewCell {
     var collectionView:UICollectionView!
-    var imgArry = [UIImage]()
+    var imgArry = [LocalMediaModel]()
     var addImgBlock:(()->Void)?    //添加图片
     var deleteImgBlock:((Int)->Void)?   //删除图片
     var heightConstraint:Constraint?
@@ -55,7 +55,7 @@ class ReleaseContentImgInputCell: UITableViewCell {
     }
     
     //MARK: - misc
-    func configWith(imgArry:[UIImage]){
+    func configWith(imgArry:[LocalMediaModel]){
         self.imgArry = imgArry
         self.collectionView.reloadData()
         self.collectionView.snp.updateConstraints { (make) in
@@ -87,7 +87,7 @@ extension ReleaseContentImgInputCell:UICollectionViewDelegate,UICollectionViewDe
             return addImgCollectionCell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReleaseContentImgCollectionCell", for: indexPath) as! ReleaseContentImgCollectionCell
-        cell.configWith(img: self.imgArry[indexPath.row])
+        cell.configWith(mediaModel: self.imgArry[indexPath.row])
         cell.deleteBlock = {
             if let _deleteImgBlock = self.deleteImgBlock{
                 _deleteImgBlock(indexPath.row)

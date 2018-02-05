@@ -26,7 +26,7 @@ class AcademyModel: Mappable {
     var collegeID:Int?
     var name:String?
     var scid:Int?
-    
+    var isSelected = false
     required init?(map: Map) {
         
     }

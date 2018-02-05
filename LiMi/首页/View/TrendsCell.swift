@@ -11,12 +11,16 @@ import SnapKit
 
 class TrendsCell: UITableViewCell {
     var trendsContainView:UIView!   //最底层容器
-    /******************顶部工具栏******************/
+    
+    /// 顶部工具栏容器
     var trendsTopToolsContainView:TrendsTopToolsContainView!    //顶部工具栏容器
-    /******************发布内容区域******************/
+    
+    /// 发布内容区域
     var trendsContentContainView:UIView!
-     /******************底部工具栏******************/
+    
+    /// 底部工具栏容器
     var trendsBottomToolsContainView:TrendsBottomToolsContainView!    //底部工具容器
+    
     var redPacketBtn:UIButton!
     var  catchRedPacketBlock:(()->Void)?
     override func awakeFromNib() {
@@ -56,7 +60,7 @@ class TrendsCell: UITableViewCell {
         self.trendsBottomToolsContainView = TrendsBottomToolsContainView()
 //        self.trendsBottomToolsContainView.backgroundColor = UIColor.yellow
         self.trendsContainView.addSubview(self.trendsBottomToolsContainView)
-        self.trendsBottomToolsContainView.tapThumbUpBtnBlock = {
+        self.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumbUpBtn) in
             print("点击了点赞")
         }
         self.trendsBottomToolsContainView.tapCommentBtnBlock = {
@@ -83,9 +87,9 @@ class TrendsCell: UITableViewCell {
         self.redPacketBtn.setImage(UIImage.init(named: "btn_hongbao_1"), for: .normal)
         self.redPacketBtn.addTarget(self, action: #selector(dealCatchRedPacket), for: .touchUpInside)
         self.redPacketBtn.sizeToFit()
-        self.trendsContainView.addSubview(redPacketBtn)
+        self.trendsBottomToolsContainView.addSubview(redPacketBtn)
         self.redPacketBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.trendsBottomToolsContainView.snp.top).offset(-5)
+            make.bottom.equalTo(self.trendsBottomToolsContainView).offset(-15)
             make.right.equalTo(self.trendsContainView)
         }
     }
@@ -97,6 +101,27 @@ class TrendsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    
+    //MARK: - misc
+    func configWith(model:TrendModel?){
+        self.trendsTopToolsContainView.configWith(model: model)
+        if let _redType = model?.red_type{
+            self.redPacketBtn.isHidden = false
+            var imgName = "btn_hongbao_all"
+            if _redType == "0"{imgName = "btn_hongbao_girl"}  //女性专属
+            if _redType == "1"{imgName = "btn_hongbao_boy"}   //男性专属
+            if _redType == "2"{imgName = "btn_hongbao_all"}   //所有人都可领
+            if _redType == "3"{imgName = "btn_hongbao_qiangguo"}  //已经领过了
+            if _redType == "4"{imgName = "btn_hongbao_all"}  //过期
+            if _redType == "5"{imgName = "btn_hongbao_all"} //抢光了
+            if _redType == "null"{self.redPacketBtn.isHidden = true }   //没有红包
+            self.redPacketBtn.setImage(UIImage.init(named: imgName), for: .normal)
+        }else{
+          self.redPacketBtn.isHidden = true //没有红包
+        }
+        self.trendsBottomToolsContainView.configWith(model: model)
+    }
+    
     @objc func dealCatchRedPacket(){
         if let _catchRedPacketBlock = self.catchRedPacketBlock{
             _catchRedPacketBlock()

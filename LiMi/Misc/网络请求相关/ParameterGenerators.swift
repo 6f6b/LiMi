@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://47.97.218.145/limiapp/public"
+let serverAddress = "http://app.youhongtech.com/"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -139,29 +139,27 @@ struct HeadImgUpLoad:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
     var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task {
-        if let imgUrl =  self.headImgUrl{
-            var datas = [MultipartFormData]()
-            let imgData = MultipartFormData(provider: .file(imgUrl), name: "file", fileName: "hehe", mimeType: "image/png")
-            datas.append(imgData)
-            return .uploadCompositeMultipart(datas, urlParameters: self.parameters())
-        }
-        return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default)
-    }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String { return "/index.php/apps/User/uploadUserHeadImg" }
     
-    //上传的图片数组
-    var headImgUrl:URL?
     var id:Int?
-    var token:String? 
+    var token:String?
     
-    func parameters()->[String:Any]{
+    /// 图片地址
+    var image:String?
+    
+    /// 默认为head(头像)，back为背景图
+    var type:String? = "head"
+    
+    func parameters() -> [String : Any] {
         let tmpParamters = [
             "id":id,
-            "token":token
+            "token":token,
+            "images":image,
+            "type":type
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParamters)
     }
@@ -317,18 +315,368 @@ struct GradeList:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: 16 动态、发现列表-以及筛选之后的列表（已对接）
+struct TrendsList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Action/indexList"
+    }
+    var type:String?    //动态/action 发现/skill
+    var page:String?        //分页
+    var college_id:String?
+    var school_id:String?
+    var grade_id:String?
+    var sex:String?
+    var skill_id:String?    //skill
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "page":page,
+            "college_id":college_id,
+            "school_id":school_id,
+            "grade_id":grade_id,
+            "sex":sex,
+            "skill_id":skill_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: 17 显示评论列表（已对接）
+struct CommentList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Action/discussList"
+    }
+    
+    var action_id:String?
+    var page:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "action_id":action_id,
+            "page":page
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 18 添加评论处理接口（已对接）
+struct AddComment:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Action/discussAction"
+    }
+    
+    var action_id:String?
+    var content:String?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "action_id":action_id,
+            "content":content
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 19点赞处理接口（已对接）
+struct ThumbUp:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Action/clickAction"
+    }
+    
+    var action_id:String?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "action_id":action_id,
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 20 个人详情-点击头像
+struct UserDetails:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Action/myActionList"
+    }
+    
+    var page:Int?
+    var user_id:Int?
+    var type:String?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            "type":type,
+            "user_id":user_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 21 更多功能方法处理接口-举报-拉黑-聊天-删除
+struct MoreOperation:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Action/multiFunction"
+    }
+    
+    var type:String?
+    var action_id:Int?
+    var user_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "action_id":action_id,
+            "user_id":user_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 22 点击漏斗筛选条件显示
+struct ScreeningConditions:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Action/filtrateList"
+    }
 
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["":""]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 23 我的动态(已对接)
+struct MyTrends:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Action/myAction"
+    }
+    
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["page":page]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 24 设置支付密码(已对接)
+struct SetPayPassword:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/user/paymentCodeaction"
+    }
+    var code:String?
+    var password1:String?
+    var password2:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "code":code,
+            "password1":password1,
+            "password2":password2,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 25 设置支付密码(已对接)
+struct TransactonRcord:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/user/myrecord"
+    }
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 获取七牛云上传token（已对接）
+struct GetQNUploadToken:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Qiniuyun/getUploadToken"
+    }
+    var type:String = "image"
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+/******************************发布需求模块*************************************/
+//MARK: - 1发布动态（已对接）
+struct ReleaseTrends:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Publish/publishDynamic"
+    }
+    var red_token:String?   //红包
+    var skill_id:Int?    //标签
+    var content:String? //发布文字内容
+    var images:String?  //发布图片
+    var video:String?   //发布视频
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "red_token":red_token,
+            "skill_id":skill_id,
+            "content":content,
+            "images":images,
+            "video":video,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+//MARK: - 2.获取技能标签列表（已对接）
+struct SkillList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/Publish/skillList"
+    }
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+//3 塞入钱包    POST app.youhongtech.com/index.php/apps/Publish/sendRedpacket    郑元军    2018-02-01 14:32:16    新窗口打开修改删除
+//4 取消发布需求    POST app.youhongtech.com/index.php/apps/Publish/cancelDynamic    郑元军    2018-02-01 14:32:23    新窗口打开修改删除
+
+//MARK: - 5 领取红包
+struct GetRedPacked:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Publish/getRedPacked"
+    }
+    var red_token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "red_token":red_token,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 6 打开红包
+struct OpenRedPacked:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Publish/openRedPacked"
+    }
+    var red_token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "red_token":red_token,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 
 

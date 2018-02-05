@@ -64,6 +64,11 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="amount" destination="UPG-vM-OMH" id="wgG-E2-8qq"/>
+                <outlet property="headImgV" destination="X4N-cW-PgD" id="IxB-gF-QYG"/>
+                <outlet property="userName" destination="5Bn-Cp-9W4" id="gW6-us-cIm"/>
+            </connections>
             <point key="canvasLocation" x="39" y="68"/>
         </tableViewCell>
     </objects>

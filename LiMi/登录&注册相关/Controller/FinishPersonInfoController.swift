@@ -54,32 +54,45 @@ class FinishPersonInfoController: ViewController {
         var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
+        self.imagePickerVc?.autoDismiss = false
+        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+        }
         self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
             let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
-            let localImgUrl = GenerateImgUrlWith(img: compressImg)
-            self.uploadImgWith(imgUrl: localImgUrl)
+            self.uploadHeadImgWith(img: compressImg)
         }
         self.present(self.imagePickerVc!, animated: true, completion: nil)
     }
     
-    func uploadImgWith(imgUrl:URL?){
-            SVProgressHUD.show(withStatus: "正在上传..")
-            let moyaProvider = MoyaProvider<LiMiAPI>()
-        
-        let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: self.loginModel?.id, token: self.loginModel?.token)
-            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
-                do {
-                    let model = try response.mapObject(BaseModel.self)
-                    if model.commonInfoModel?.status == successState{
-                        self.headImgBtn?.kf.setImage(with: imgUrl, for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
-                    }
-                    SVProgressHUD.showResultWith(model: model)
-                }
-                catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
-            }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-            })
+    func uploadHeadImgWith(img:UIImage?){
+        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+            if let filePath = GenerateImgPathlWith(img: img){
+                let fileName = uploadFileName(type: .picture)
+                QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
+                    //开始上传服务器
+                    SVProgressHUD.show(withStatus: "正在上传..")
+                    let moyaProvider = MoyaProvider<LiMiAPI>()
+                    let headImgUpLoad = HeadImgUpLoad(id: self.loginModel?.id, token: self.loginModel?.token, image: "/"+str!, type: "head")
+                    _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
+                        do {
+                            let model = try response.mapObject(BaseModel.self)
+                            if model.commonInfoModel?.status == successState{
+                                self.headImgBtn.setImage(img, for: .normal)
+                            }
+                            SVProgressHUD.showResultWith(model: model)
+                        }
+                        catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                    }, onError: { (error) in
+                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                    })
+                    
+                }, option: nil)
+            }
+        }
     }
+
     
     //下一步
     @IBAction func dealTapNext(_ sender: Any) {

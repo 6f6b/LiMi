@@ -18,6 +18,13 @@ class UserInfoModel: BaseModel {
     var college:String?
     var grade:String?
     
+    var back_pic:String?
+    var user_id:Int?
+    
+    //红包
+    var money:Double?   //抢到的红包金额
+    var uid:String? //用户id
+    
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -31,5 +38,7 @@ class UserInfoModel: BaseModel {
         school<-map["school"]
         college<-map["college"]
         grade<-map["grade"]
+        back_pic<-map["back_pic"]
+        user_id<-map["user_id"]
     }
 }

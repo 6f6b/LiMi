@@ -91,5 +91,11 @@ class TrendCommentCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
+    
+    //MARK: - misc
+    func configWith(model:CommentModel?){
+        self.commentTopToolsContainView.configWith(commentModel: model)
+        self.comment.text = model?.content
+    }
 
 }

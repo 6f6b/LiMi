@@ -8,6 +8,9 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
+import ObjectMapper
+import Moya
 
 class TagListView: UIView {
     var topCoverView:UIView!   //顶部半透明覆盖
@@ -15,9 +18,10 @@ class TagListView: UIView {
     var infoLabel:UILabel!
     var collectionView:UICollectionView!    //标签容器
     var cancelBtn:UIButton! //取消按钮
-    var topCoverViewHeightConstraint:Constraint?
-    //var collectionViewBottomConstraint:Constraint?
-    var bottomContainViewBottomConstraint:Constraint?
+//    var topCoverViewHeightConstraint:Constraint?
+//    var bottomContainViewBottomConstraint:Constraint?
+    var dataArray = [SkillModel]()
+    var selectTagBlock:((SkillModel?)->Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.topCoverView = UIView()
@@ -29,7 +33,7 @@ class TagListView: UIView {
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
-            self.topCoverViewHeightConstraint = make.height.equalTo(SCREEN_HEIGHT).constraint
+//            self.topCoverViewHeightConstraint = make.height.equalTo(SCREEN_HEIGHT).constraint
         }
         
         self.bottomContainView = UIView()
@@ -41,6 +45,7 @@ class TagListView: UIView {
             make.top.equalTo(self.topCoverView.snp.bottom).offset(-10)
             make.left.equalTo(self)
             make.right.equalTo(self)
+            make.bottom.equalTo(self)
         }
         
         self.infoLabel = UILabel()
@@ -85,7 +90,7 @@ class TagListView: UIView {
             make.bottom.equalTo(self.bottomContainView).offset(-15)
         }
         
-        self.showTagList()
+        self.loadData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -98,44 +103,49 @@ class TagListView: UIView {
 //    }
     
     //MARK: -  misc
+    func loadData(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let skillList = SkillList()
+        _ = moyaProvider.rx.request(.targetWith(target: skillList)).subscribe(onSuccess: { (response) in
+            let skillListModel = Mapper<SkillListModel>().map(jsonData: response.data)
+            HandleResultWith(model: skillListModel)
+            if let skillModels = skillListModel?.skills{
+                for skillModel in skillModels{
+                    self.dataArray.append(skillModel)
+                }
+            }
+            self.collectionView.reloadData()
+            self.showTagList()
+            SVProgressHUD.showErrorWith(model: skillListModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     @objc func hiddenTagList(){
-        UIView.animate(withDuration: 1, animations: {
-            self.bottomContainViewBottomConstraint?.deactivate()
-            self.topCoverView.snp.makeConstraints { (make) in
-                self.topCoverViewHeightConstraint = make.height.equalTo(SCREEN_HEIGHT).constraint
-            }
-            self.allSubViewsLayOutWith(superV: self)
-        }) { (isCompleted) in
-            if isCompleted{
+//        UIView.animate(withDuration: 1, animations: {
+//            self.bottomContainViewBottomConstraint?.deactivate()
+//            self.topCoverView.snp.makeConstraints { (make) in
+//                self.topCoverViewHeightConstraint = make.height.equalTo(SCREEN_HEIGHT).constraint
+//            }
+//        }) { (isCompleted) in
+//            if isCompleted{
                 self.removeFromSuperview()
-            }
-        }
+//            }
+//        }
     }
     
     @objc func showTagList(){
-        self.collectionView.reloadData()
         self.collectionView.snp.makeConstraints { (make) in
             make.height.equalTo(self.collectionView.collectionViewLayout.collectionViewContentSize.height)
         }
         
 //        UIView.animate(withDuration: 1) {
-            self.topCoverViewHeightConstraint?.deactivate()
-            self.bottomContainView.snp.makeConstraints({ (make) in
-                self.bottomContainViewBottomConstraint = make.bottom.equalTo(self).constraint
-            })
-            self.allSubViewsLayOutWith(superV: self)
+//            self.topCoverViewHeightConstraint?.deactivate()
+//            self.bottomContainView.snp.makeConstraints({ (make) in
+//                self.bottomContainViewBottomConstraint = make.bottom.equalTo(self).constraint
+//            })
 //        }
-    }
-    
-    func allSubViewsLayOutWith(superV:UIView?){
-        if let subVs = superV?.subviews{
-            if subVs.count != 0{
-                for subV in subVs{
-                    subV.layoutIfNeeded()
-                    allSubViewsLayOutWith(superV: subV)
-                }
-            }else{return}
-        }else{return}
     }
 }
 
@@ -144,15 +154,19 @@ extension TagListView:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCollectionCell", for: indexPath) as! TagCollectionCell
+        tagCell.configWith(skillModel: self.dataArray[indexPath.row])
         return tagCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let _selectTagBlock = self.selectTagBlock{
+            _selectTagBlock(self.dataArray[indexPath.row])
+        }
+        self.hiddenTagList()
     }
 }

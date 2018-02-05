@@ -26,22 +26,6 @@ class TrendsWithTextCell: TrendsCell {
         self.contentText.preferredMaxLayoutWidth = SCREEN_WIDTH-24
         self.contentText.textVerticalAlignment = YYTextVerticalAlignment.top
     
-        let tagImg = UIImage.init(named: "dt_bq")!
-        let tagFrame = CGRect(x: 0, y: 0, width: tagImg.size.width, height: tagImg.size.height)
-        let tagImgView = UIImageView(image: tagImg)
-        tagImgView.sizeToFit()
-        let tagLabel = UILabel.init(frame: tagFrame)
-        tagLabel.textAlignment = .center
-        tagLabel.text = "标签啊"
-        let tagView = UIView(frame: tagFrame)
-        tagView.addSubview(tagImgView)
-        tagView.addSubview(tagLabel)
-        
-        let text = NSMutableAttributedString()
-        let attachment = NSMutableAttributedString.yy_attachmentString(withContent: tagView, contentMode: .left, attachmentSize: tagFrame.size, alignTo: UIFont.systemFont(ofSize: 14), alignment: YYTextVerticalAlignment.center)
-        text.append(attachment)
-        text.append(NSAttributedString.init(string: "hellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllvhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllhellllv"))
-        self.contentText.attributedText = text
         self.contentText.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
             make.left.equalTo(self.trendsContentContainView)
@@ -59,4 +43,30 @@ class TrendsWithTextCell: TrendsCell {
 
     }
 
+    //MARK: - misc
+    override func configWith(model: TrendModel?) {
+        super.configWith(model: model)
+        let text = NSMutableAttributedString()
+        if let tag = model?.skill{
+            let tagImg = UIImage.init(named: "dt_bq")!
+            let tagFrame = CGRect(x: 0, y: 0, width: tagImg.size.width, height: tagImg.size.height)
+            let tagImgView = UIImageView(image: tagImg)
+            tagImgView.sizeToFit()
+            let tagLabel = UILabel.init(frame: tagFrame)
+            tagLabel.textAlignment = .center
+            tagLabel.text = tag
+            tagLabel.font = UIFont.systemFont(ofSize: 12)
+            tagLabel.textColor = UIColor.white
+            let tagView = UIView(frame: tagFrame)
+            tagView.addSubview(tagImgView)
+            tagView.addSubview(tagLabel)
+            
+            let attachment = NSMutableAttributedString.yy_attachmentString(withContent: tagView, contentMode: .left, attachmentSize: tagFrame.size, alignTo: UIFont.systemFont(ofSize: 14), alignment: YYTextVerticalAlignment.center)
+            text.append(attachment)
+        }
+        if let _content = model?.content{
+            text.append(NSMutableAttributedString.init(string: "  \(_content)"))
+        }
+        self.contentText.attributedText = text
+    }
 }

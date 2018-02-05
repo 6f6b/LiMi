@@ -8,6 +8,10 @@
 
 import Foundation
 import UIKit
+import Moya
+import SVProgressHUD
+import ObjectMapper
+import AVFoundation
 
 enum StoryBoardName {
     case homePage
@@ -95,6 +99,14 @@ func IS_AuthCode(authCode:String?)->Bool{
 
 //压缩图片
 func CompressImgWith(img:UIImage?,maxKB:Double)->UIImage?{
+    if let _compressImgData = GetCompressImgDataWith(img: img, maxKB: maxKB){
+        let finalImg = UIImage.init(data: _compressImgData)
+        return finalImg
+    }else{return nil}
+}
+
+//生成图片压缩后的Data
+func GetCompressImgDataWith(img:UIImage?,maxKB:Double)->Data?{
     if let originalImg = img{
         //计算零压缩条件下的大小
         let tempData = UIImageJPEGRepresentation(originalImg, 1)
@@ -105,12 +117,13 @@ func CompressImgWith(img:UIImage?,maxKB:Double)->UIImage?{
         }
         //将Image图片转为JPEG格式的二进制数据
         let data = UIImageJPEGRepresentation(originalImg, CGFloat(compRatio))
-        let finalImg = UIImage.init(data: data!)
-        return finalImg
-    }else{return nil}
+        return data
+    }else{
+        return nil
+    }
 }
 
-//生成本地上传地址
+//生成本地上传Url
 func GenerateImgUrlWith(img:UIImage?)->URL?{
     if let unpackImg = img{
         let tempDir = NSTemporaryDirectory()
@@ -126,6 +139,29 @@ func GenerateImgUrlWith(img:UIImage?)->URL?{
             return nil
         }
         return fileUrl
+    }
+    return nil
+}
+
+//生成本地上传地址
+func GenerateImgPathlWith(img:UIImage?)->String?{
+    if let unpackImg = img{
+        let tempDir = NSTemporaryDirectory()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyymmddhhmmss"
+        let timeStr = dateFormatter.string(from: Date())
+        // 生成 "0000-9999" 4位验证码
+        let num = arc4random() % 10000
+        let randomStr = String.init(format: "%.4d", num)
+        let imgName = timeStr + randomStr + "i.png"
+        let imgPath = tempDir+imgName
+        let fileUrl = URL.init(fileURLWithPath: imgPath)
+        do{
+            try UIImageJPEGRepresentation(unpackImg, 1)?.write(to: fileUrl)
+        }catch{
+            return nil
+        }
+        return imgPath
     }
     return nil
 }
@@ -236,3 +272,80 @@ func MakeAuthCodeBtnCannotBeHandleWith(button:UIButton?){
         // Fallback on earlier versions
     }
 }
+
+
+/// 退出登录通知
+///
+/// - Parameter msg: 要现实的消息
+func PostLogOutNotificationWith(msg:String?){
+    let userInfo = ["msg":msg]
+    NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: userInfo)
+}
+
+/// 获取七牛云上传token
+///
+/// - Parameters:
+///   - type: token类别，图片、视频
+///   - onSuccess: 成功回调
+func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)?){
+    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+    var tokenType = "image"
+    if type == .video{
+        tokenType = "video"
+    }
+    let getQNUploadToken = GetQNUploadToken(type: tokenType)
+    _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
+        let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
+        HandleResultWith(model: qnUploadTokenModel)
+        SVProgressHUD.showErrorWith(model: qnUploadTokenModel)
+        if let _onSuccess = onSuccess{
+            _onSuccess(qnUploadTokenModel)
+        }
+    }, onError: { (error) in
+        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+    })
+}
+
+
+/// 上传文件名称
+///
+/// - Parameter type: 文件种类
+/// - Returns: 名称
+func uploadFileName(type:MediaType)->String{
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyymmdd"
+    let timeStr = dateFormatter.string(from: Date())
+    // 生成 "0000-9999" 4位验证码
+    let num = arc4random() % 10000
+    let randomNumber = String.init(format: "%.4d", num)
+    let timeStampStr = Date().timeIntervalSince1970.stringValue()
+    if type == .picture{
+        return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).png"
+    }
+    return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
+}
+
+func getThumnailImageWith(videoUrl:String?)->UIImage?{
+    if let _videoUrl = videoUrl{
+        let asset = AVURLAsset.init(url: URL.init(string: _videoUrl)!)
+        let gen = AVAssetImageGenerator.init(asset: asset)
+        gen.appliesPreferredTrackTransform = true
+        let time = CMTimeMake(Int64(0.0), 600)
+        var actualTime: CMTime = CMTimeMake(0, 0)
+        do{
+            let image = try gen.copyCGImage(at: time, actualTime: &actualTime)
+            let thumImg = UIImage.init(cgImage: image)
+            return thumImg
+        }catch{
+            
+        }
+        return nil
+    }
+    return nil
+}
+
+
+
+
+
+

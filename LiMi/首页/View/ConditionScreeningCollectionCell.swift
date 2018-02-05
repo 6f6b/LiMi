@@ -18,16 +18,16 @@ class ConditionScreeningCollectionCell: UICollectionViewCell {
         self.infoContainView.layer.cornerRadius = 4
         self.infoContainView.clipsToBounds = true
         
-        let tapG = UITapGestureRecognizer(target: self, action: #selector(dealTap))
-        self.infoContainView.addGestureRecognizer(tapG)
+//        let tapG = UITapGestureRecognizer(target: self, action: #selector(dealTap))
+//        self.infoContainView.addGestureRecognizer(tapG)
     }
     
     @objc func dealTap(){
-        if let _tapBlock = self.tapBlock{
-            _tapBlock()
-        }
-        self.isSelectedStatus = !self.isSelectedStatus
-        self.showWith(isSelectedStatus: self.isSelectedStatus)
+//        if let _tapBlock = self.tapBlock{
+//            _tapBlock()
+//        }
+//        self.isSelectedStatus = !self.isSelectedStatus
+//        self.showWith(isSelectedStatus: self.isSelectedStatus)
     }
     
     func showWith(isSelectedStatus:Bool){
@@ -41,4 +41,26 @@ class ConditionScreeningCollectionCell: UICollectionViewCell {
         }
     }
 
+    func configWith(collegeModel:CollegeModel?){
+        self.info.text = collegeModel?.name
+        self.showWith(isSelectedStatus: (collegeModel?.isSelected)!)
+    }
+    func configWith(academyModel:AcademyModel?){
+        self.info.text = academyModel?.name
+        self.showWith(isSelectedStatus: (academyModel?.isSelected)!)
+    }
+    func configWith(gradeModel:GradeModel?){
+        self.info.text = gradeModel?.name
+        self.showWith(isSelectedStatus: (gradeModel?.isSelected)!)
+
+    }
+    func configWith(sex:SexModel?){
+        self.info.text = sex?.sex
+        self.showWith(isSelectedStatus: (sex?.isSelected)!)
+
+    }
+    func configWith(skillModel:SkillModel?){
+        self.info.text = skillModel?.skill
+        self.showWith(isSelectedStatus: (skillModel?.isSelected)!)
+    }
 }

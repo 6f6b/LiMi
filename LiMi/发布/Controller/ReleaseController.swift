@@ -8,6 +8,16 @@
 
 import UIKit
 import TZImagePickerController
+import SVProgressHUD
+import Moya
+import ObjectMapper
+import Qiniu
+import QiniuUpload
+
+enum MediaType {
+    case picture
+    case video
+}
 
 class ReleaseController: ViewController {
     var releaseBtn:UIButton!
@@ -16,8 +26,13 @@ class ReleaseController: ViewController {
     var releaseContentImgInputCell:ReleaseContentImgInputCell!
     var releaseContentTagInputCell:ReleaseContentOtherInputCell!
     var releaseContentRedBagInputCell:ReleaseContentOtherInputCell!
-    var imgArr = [UIImage]()
+    var imgArr = [LocalMediaModel]()
+    var videoArr = [LocalMediaModel]()
     var imagePickerVc:TZImagePickerController?
+    var skillModel:SkillModel?
+    var qnUploadManager:QNUploadManager!
+    var phAsset:PHAsset?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "新动态"
@@ -35,6 +50,8 @@ class ReleaseController: ViewController {
         let releaseBtn = UIButton.init(type: .custom)
         releaseBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 25)
         self.releaseBtn = releaseBtn
+        self.releaseBtn.layer.cornerRadius = 3
+        self.releaseBtn.clipsToBounds = true
         self.makeReleaseBtn(isEnable: false)
         releaseBtn.addTarget(self, action: #selector(dealRelease), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: releaseBtn)
@@ -47,32 +64,61 @@ class ReleaseController: ViewController {
         self.tableView.dataSource = self
         
         self.releaseContentTextInputCell = GET_XIB_VIEW(nibName: "ReleaseContentTextInputCell") as! ReleaseContentTextInputCell
+        self.releaseContentTextInputCell.selectionStyle = .none
+        self.releaseContentTextInputCell.textChangeBlock = {_ in
+            self.RefreshReleasBtnEnable()
+        }
         self.releaseContentImgInputCell = ReleaseContentImgInputCell()
+        self.releaseContentImgInputCell.selectionStyle = .none
         self.releaseContentImgInputCell.addImgBlock = {
+            if self.videoArr.count >= 1{
+                SVProgressHUD.showInfo(withStatus: "最多选择一个视频")
+                return
+            }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
+            self.imagePickerVc?.autoDismiss = false
+            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+                self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            }
+            if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
             self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
-                if let _imgs = photos{
-                    for img in _imgs{
-                        self.imgArr.append(img)
-                    }
-                }
+                self.videoArr.removeAll()
+                self.uploadImgsWith(imgs: photos)
                 self.tableView.reloadData()
+                self.RefreshReleasBtnEnable()
+            }
+            self.imagePickerVc?.didFinishPickingVideoHandle = {(img,other) in
+                self.imgArr.removeAll()
+                self.uploadVideoWith(phAsset: other as? PHAsset, preImg: img)
+                self.tableView.reloadData()
+                self.RefreshReleasBtnEnable()
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
         self.releaseContentImgInputCell.deleteImgBlock = {(index) in
-            self.imgArr.remove(at: index)
+            if self.imgArr.count != 0{
+                self.imgArr.remove(at: index)
+            }else{
+                self.videoArr.remove(at: index)
+            }
             self.tableView.reloadData()
         }
         self.releaseContentTagInputCell = GET_XIB_VIEW(nibName: "ReleaseContentOtherInputCell") as! ReleaseContentOtherInputCell
+        self.releaseContentTagInputCell.selectionStyle = .none
         self.releaseContentTagInputCell.leftLabel.text = "添加标签"
         self.releaseContentTagInputCell.leftImgV.image = UIImage.init(named: "fb_icon_bq")
         self.releaseContentTagInputCell.rightLabel.text = nil
         self.releaseContentRedBagInputCell = GET_XIB_VIEW(nibName: "ReleaseContentOtherInputCell") as! ReleaseContentOtherInputCell
+        self.releaseContentRedBagInputCell.selectionStyle = .none
         self.releaseContentRedBagInputCell.leftLabel.text = "打赏红包"
         self.releaseContentRedBagInputCell.leftImgV.image = UIImage.init(named: "fb_icon_hb")
         self.releaseContentRedBagInputCell.rightLabel.text = nil
         
+        //国内https上传
+        let qnConfig = QNConfiguration.build { (builder) in
+            builder?.setZone(QNFixedZone.zone0())
+        }
+        self.qnUploadManager = QNUploadManager(configuration: qnConfig)
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +138,95 @@ class ReleaseController: ViewController {
     }
 
     //MARK: - misc
+    func uploadImgsWith(imgs:[UIImage?]?){
+        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+            if let _token = tokenModel?.token{
+                var files = [QiniuFile]()
+                if let  _imgs = imgs{
+                    for img in _imgs{
+                        let filePath = GenerateImgPathlWith(img: img)
+                        let file = QiniuFile.init(path: filePath!)
+                        file?.key = uploadFileName(type: .picture)
+                        files.append(file!)
+                    }
+                    let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
+                    uploader.maxConcurrentNumber = 3
+                    uploader.files = files
+                    SVProgressHUD.show(withStatus: "处理中")
+                    uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
+                        let imgName = dic["key"] as? String
+                        var localMediaModel = LocalMediaModel.init()
+                        localMediaModel.imgName = imgName
+                        localMediaModel.img = imgs![index]
+                        self.imgArr.append(localMediaModel)
+                        print("successIndex\(index)")
+                        print("successDic\(dic)")
+                    }, uploadOneFileFailedHandler: { (index, error) in
+                        print("failedIndex\(index)")
+                        print("error:\(error?.localizedDescription)")
+                    }, uploadOneFileProgressHandler: { (index, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
+                        print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
+                    }, uploadAllFilesComplete: {
+                        print("uploadOver")
+                        SVProgressHUD.dismiss()
+                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                        self.tableView.reloadData()
+                        self.RefreshReleasBtnEnable()
+                    })
+                }
+            }
+        }
+    }
+    
+    //上传视频
+    func uploadVideoWith(phAsset:PHAsset?,preImg:UIImage?){
+        self.phAsset = phAsset
+        GetQiNiuUploadToken(type: .video) { (qnUploadToken) in
+            if let _token = qnUploadToken?.token{
+                SVProgressHUD.setStatus(nil)
+                let progressBlock:QNUpProgressHandler = {(str,flo) in
+                    SVProgressHUD.showProgress(flo)
+                }
+                let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
+                    return false
+                })
+                let fileName = uploadFileName(type: .video)
+                self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
+                    var localMediaModel = LocalMediaModel.init()
+                    localMediaModel.imgName = str
+                    localMediaModel.img = preImg
+                    self.videoArr.append(localMediaModel)
+                    SVProgressHUD.dismiss()
+                    self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                    self.tableView.reloadData()
+                    self.RefreshReleasBtnEnable()
+                }, option: option)
+            }
+        }
+    }
+    
+    func generateMediaParameterWith(medias:[LocalMediaModel])->String{
+        var str = ""
+        for media in medias{
+            if let imgName = media.imgName{
+                str += "/" + imgName
+                str += ","
+            }
+        }
+        if str.lengthOfBytes(using: String.Encoding.utf8) > 1{
+            str.removeLast()
+        }
+        return str
+    }
+    
+    func RefreshReleasBtnEnable(){
+        if !IsEmpty(textView: self.releaseContentTextInputCell.contentText) || self.imgArr.count != 0 || self.videoArr.count != 0{
+            self.makeReleaseBtn(isEnable: true)
+        }else{
+            self.makeReleaseBtn(isEnable: false)
+        }
+    }
+    
     func makeReleaseBtn(isEnable:Bool){
         if isEnable{
             releaseBtn.backgroundColor = UIColor.white
@@ -111,9 +246,26 @@ class ReleaseController: ViewController {
     }
     
     @objc func dealRelease(){
-        
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let imgs = self.generateMediaParameterWith(medias: self.imgArr)
+        let video = self.generateMediaParameterWith(medias: self.videoArr)
+        let releaseTrends = ReleaseTrends(red_token: nil ,skill_id: self.skillModel?.id, content: self.releaseContentTextInputCell.contentText.text, images: imgs, video: video)
+        _ = moyaProvider.rx.request(.targetWith(target: releaseTrends)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                NotificationCenter.default.post(name: POST_TREND_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
+                //延时0.8秒执行
+                let time: TimeInterval = 0.8
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            SVProgressHUD.showResultWith(model: resultModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
-    
 }
 
 //MARK: - UITableViewDelegate、UITableViewDataSource
@@ -140,7 +292,8 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
                 return self.releaseContentTextInputCell
             }
             if indexPath.row == 1{
-                self.releaseContentImgInputCell.configWith(imgArry: self.imgArr)
+                let source = self.imgArr.count != 0 ? self.imgArr : self.videoArr
+                self.releaseContentImgInputCell.configWith(imgArry: source)
                 return self.releaseContentImgInputCell
             }
         }
@@ -156,10 +309,13 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1{
             if indexPath.row == 0{
                 let tagListView = TagListView(frame: SCREEN_RECT)
+                tagListView.selectTagBlock = {(skillModel) in
+                    self.skillModel = skillModel
+                    self.releaseContentTagInputCell.rightLabel.text = skillModel?.skill
+                }
                 UIApplication.shared.keyWindow?.addSubview(tagListView)
             }
             if indexPath.row == 1{
@@ -168,6 +324,7 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
+    
 }
 
 extension ReleaseController:TZImagePickerControllerDelegate{

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Qiniu
 
 let Defaults = UserDefaults.standard
 
@@ -27,6 +28,8 @@ let TAB_BAR_HEIGHT = CGFloat(49.0)
 
 //头像内存上限，单位KB
 let HEAD_IMG_MAX_MEMERY_SIZE = 200.0
+
+let QI_NIU_TOKEN = ""
 
 let APP_PRIVATE_KEY = ""
 let APP_PUBLIC_KEY = ""
@@ -58,3 +61,17 @@ let GENERAL_GRAY_COLOR = RGBA(r: 128, g: 128, b: 128, a: 1)
 
 var AUTH_BTN_COUNT_DOWN_TIMER:Timer?
 var AUTH_BTN_COUNT_DOWN_TIME = 0
+
+//动态发送成功通知
+let POST_TREND_SUCCESS_NOTIFICATION = Notification.Name.init("POST_TREND_SUCCESS_NOTIFICATION")
+//退出登录通知
+let  LOGOUT_NOTIFICATION = Notification.Name.init("LOGOUT_NOTIFICATION")
+
+//国内https上传
+let qnConfig = QNConfiguration.build { (builder) in
+    builder?.setZone(QNFixedZone.zone0())
+}
+let QiNiuUploadManager = QNUploadManager(configuration: qnConfig)
+
+let SYSTEM_VERSION = UIDevice.current.systemVersion.doubleValue()!
+

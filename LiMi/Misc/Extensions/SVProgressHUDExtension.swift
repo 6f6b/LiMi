@@ -10,6 +10,7 @@ import Foundation
 import SVProgressHUD
 
 extension SVProgressHUD{
+    //
     //均显示
     static func showResultWith(model:BaseModel?){
         if model?.commonInfoModel?.status == successState{

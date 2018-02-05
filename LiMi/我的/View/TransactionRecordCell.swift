@@ -9,7 +9,10 @@
 import UIKit
 
 class TransactionRecordCell: UITableViewCell {
-
+    @IBOutlet weak var desc: UILabel!
+    @IBOutlet weak var money: UILabel!
+    @IBOutlet weak var time: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,7 +21,14 @@ class TransactionRecordCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
-    
+
+    func configWith(transactionModel:TransactionModel?){
+//        var des:String?
+//        var money:String?
+//        var time:String?
+        self.desc.text = transactionModel?.des
+        self.money.text = transactionModel?.money
+        self.time.text = transactionModel?.time
+    }
 }

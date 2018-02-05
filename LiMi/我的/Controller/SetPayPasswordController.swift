@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import Moya
+import ObjectMapper
 
 class SetPayPasswordController: ViewController {
     @IBOutlet weak var info: UILabel!
@@ -28,7 +30,11 @@ class SetPayPasswordController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "设置支付密码"
-        
+        if let originalPhoneStr = Defaults[.userPhone]{
+            let nsPhoneStr = NSString.init(string: originalPhoneStr)
+            let handledPhoneStr = nsPhoneStr.replacingCharacters(in: NSRange.init(location: 3, length: 4), with: "****")
+            self.info.text = "温馨提示：为了保障您的支付安全，需要验证您的账号身份：\(String.init(handledPhoneStr))"
+        }
         self.heightConstraint.constant = SCREEN_HEIGHT-64
         
         let backBtn = UIButton.init(type: .custom)
@@ -90,7 +96,16 @@ class SetPayPasswordController: ViewController {
     }
     
     @IBAction func dealToRequestAuthCode(_ sender: Any) {
-        
+        MakeAuthCodeBtnCannotBeHandleWith(button: sender as! UIButton)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let requestAuthCode = RequestAuthCode(phone: Defaults[.userPhone])
+        _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
+            if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
+                SVProgressHUD.showSuccess(withStatus: authCodeModel.code)
+            }
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
     @IBAction func dealToSumbit(_ sender: Any) {
@@ -106,7 +121,25 @@ class SetPayPasswordController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请输入确认密码")
             return
         }
-        SVProgressHUD.showSuccessWith(msg: "修改成功！")
+        if !(self.passwordSecond.text == self.passwordFisrt.text){
+            SVProgressHUD.showInfo(withStatus: "两次输入密码不一致")
+            return
+        }
+        if self.passwordFisrt.text?.count != 6{
+            SVProgressHUD.showInfo(withStatus: "请输入6位密码")
+            return
+        }
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let setPayPassword = SetPayPassword(code: self.authCode.text, password1: self.passwordFisrt.text, password2: self.passwordSecond.text)
+        _ = moyaProvider.rx.request(.targetWith(target: setPayPassword)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            SVProgressHUD.showResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                self.navigationController?.popViewController(animated: true)
+            }
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
 }

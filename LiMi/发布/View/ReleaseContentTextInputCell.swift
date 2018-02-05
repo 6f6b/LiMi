@@ -10,9 +10,11 @@ import UIKit
 
 class ReleaseContentTextInputCell: UITableViewCell {
     @IBOutlet weak var contentText: UITextView!
-    
+    @IBOutlet weak var placeHolder: UILabel!
+    var textChangeBlock:((UITextView)->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentText.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -20,4 +22,13 @@ class ReleaseContentTextInputCell: UITableViewCell {
 
     }
     
+}
+
+extension ReleaseContentTextInputCell:UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        self.placeHolder.isHidden = !IsEmpty(textView: textView)
+        if let _textChangeBlock = self.textChangeBlock{
+            _textChangeBlock(textView)
+        }
+    }
 }

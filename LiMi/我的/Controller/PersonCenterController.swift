@@ -19,8 +19,7 @@ class PersonCenterController: UITableViewController {
     @IBOutlet weak var userInfo: UILabel!
     @IBOutlet weak var authState: UILabel!
     @IBOutlet weak var myCash: UILabel!
-    @IBOutlet weak var demandNum: UILabel!
-    @IBOutlet weak var trendsNum: UILabel!
+    @IBOutlet weak var trendsNum: UILabel!  //动态数
     @IBOutlet weak var logOutBtn: UIButton!
     
     var personCenterModel:PersonCenterModel?
@@ -44,7 +43,7 @@ class PersonCenterController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        requestData()
+        requestData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,7 +59,7 @@ class PersonCenterController: UITableViewController {
     @IBAction func dealTapLogOut(_ sender: Any) {
         let alertVC = UIAlertController.init(title: "确认退出登录？", message: nil, preferredStyle: .alert)
         let actionOK = UIAlertAction.init(title: "确定", style: .default) {_ in
-            NotificationCenter.default.post(name: Notification.Name.init("logout"), object: self, userInfo: nil)
+            NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: self, userInfo: nil)
         }
         let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         alertVC.addAction(actionOK)
@@ -97,6 +96,8 @@ class PersonCenterController: UITableViewController {
         if let college = model?.user_info?.college,let academy = model?.user_info?.school{
             self.userInfo.text = "\(college)|\(academy)"
         }else{self.userInfo.text = "个人资料待认证"}
+        
+        //我的认证状态
         //0 ：未认证   1：认证中  2：认证完成  3：认证失败
         if let identity_status = model?.is_access?.identity_status{
             var statusInfo = "未认证"
@@ -105,6 +106,18 @@ class PersonCenterController: UITableViewController {
             if identity_status == 2{statusInfo = "认证通过"}
             if identity_status == 3{statusInfo = "认证失败"}
             self.authState.text = statusInfo
+        }
+    
+        //我的现金
+        var amount = "¥0"
+        if let _money = model?.money?.decimalValue(){
+            amount = "¥\(_money)"
+        }
+        self.myCash.text = amount
+        
+        //我的动态
+        if let trendNum = model?.my_action{
+            self.trendsNum.text = trendNum.stringValue()
         }
     }
     
@@ -148,7 +161,7 @@ class PersonCenterController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 1}
         if section == 1{ return 3}
-        if section == 2{ return 2}
+        if section == 2{ return 1}
         if section == 3{ return 3}
         return 0
     }
@@ -187,11 +200,8 @@ class PersonCenterController: UITableViewController {
         }
         if indexPath.section == 2{
             if indexPath.row == 0{
-                
-            }
-            if indexPath.row == 1{
-                let trendsListController = TrendsListController()
-                self.navigationController?.pushViewController(trendsListController, animated: true)
+                let myTrendListController = MyTrendListController()
+                self.navigationController?.pushViewController(myTrendListController, animated: true)
             }
         }
         if indexPath.section == 3{

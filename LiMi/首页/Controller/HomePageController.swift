@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import XLPagerTabStrip
+import Moya
+import ObjectMapper
+import SVProgressHUD
 
 class HomePageController: ViewController {
     var slidingMenuBar:SlidingMenuBar!
@@ -36,28 +38,50 @@ class HomePageController: ViewController {
                 self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*CGFloat(index), y: 0)
             })
         }
-        
-        let trendsListController = TrendsListController()
-        self.addChildViewController(trendsListController)
-        let trendsListControllerView = trendsListController.view
-        trendsListControllerView?.frame = self.controllersContainScrollView.bounds
-        self.controllersContainScrollView.addSubview(trendsListControllerView!)
-        
         let findTrendsListController = TrendsListController()
+        findTrendsListController.type = "skill"
         self.addChildViewController(findTrendsListController)
         let findTrendsListControllerView = findTrendsListController.view
+        findTrendsListControllerView?.frame = self.controllersContainScrollView.bounds
+        self.controllersContainScrollView.addSubview(findTrendsListControllerView!)
+        
+        let trendsListController = TrendsListController()
+        trendsListController.type = "action"
+        self.addChildViewController(trendsListController)
+        let trendsListControllerView = trendsListController.view
         var tmpFrame = self.controllersContainScrollView.bounds
         tmpFrame.origin.x = tmpFrame.size.width
-        findTrendsListControllerView?.frame = tmpFrame
-        self.controllersContainScrollView.addSubview(findTrendsListControllerView!)
+        trendsListControllerView?.frame = tmpFrame
+        self.controllersContainScrollView.addSubview(trendsListControllerView!)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let _ = Defaults[.userToken],let _ = Defaults[.userId]{
+            if nil == Defaults[.userSex]{
+                self.requestUserInfoData()
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
 
     // MARK: -misc
+    func requestUserInfoData() {
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let personCenter = PersonCenter()
+        _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
+            let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+            Defaults[.userSex] = personCenterModel?.user_info?.sex
+            SVProgressHUD.showErrorWith(model: personCenterModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     @objc func dealScreening(){
         let conditionScreeningView = GET_XIB_VIEW(nibName: "ConditionScreeningView") as! ConditionScreeningView
         conditionScreeningView.frame = SCREEN_RECT

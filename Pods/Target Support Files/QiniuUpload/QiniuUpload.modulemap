@@ -1,0 +1,6 @@
+framework module QiniuUpload {
+  umbrella header "QiniuUpload-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -19,7 +19,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-Tb-1gg">
                     <rect key="frame" x="0.0" y="20" width="375" height="230"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rOa-SY-Ix3">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="rOa-SY-Ix3">
                             <rect key="frame" x="67" y="37" width="240" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -80,9 +80,13 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="headIcon" destination="jFU-iW-alh" id="qyB-bH-frv"/>
                 <outlet property="headImgContainView" destination="u3h-Tb-1gg" id="49u-ph-L15"/>
                 <outlet property="headImgV" destination="rOa-SY-Ix3" id="3LR-zC-eSN"/>
+                <outlet property="sexImg" destination="j5G-of-idF" id="lFF-kU-YuE"/>
+                <outlet property="userInfo" destination="Uz3-bd-7H1" id="1fH-Cy-NsH"/>
                 <outlet property="userInfoContainView" destination="kL3-hr-iq4" id="0s4-zJ-Ip7"/>
+                <outlet property="userName" destination="7qe-AR-6sz" id="1OL-Ua-kce"/>
             </connections>
             <point key="canvasLocation" x="-48.5" y="-4.5"/>
         </view>
@@ -90,5 +94,6 @@
     <resources>
         <image name="girl" width="15" height="15"/>
         <image name="tonguo" width="100" height="100"/>
+        <image name="zhuye_bj" width="375" height="230"/>
     </resources>
 </document>

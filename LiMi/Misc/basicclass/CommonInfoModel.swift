@@ -12,7 +12,7 @@ import ObjectMapper
 class CommonInfoModel:Mappable{
     var status:String?
     var msg:String?
-    var code:String?
+    var code:Int?
     
     required init?(map: Map) {
         self.mapping(map: map)

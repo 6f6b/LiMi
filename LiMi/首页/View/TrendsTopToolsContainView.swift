@@ -87,6 +87,42 @@ class TrendsTopToolsContainView: UIView {
     }
     
     //MARK: - misc
+    func configWith(model:TrendModel?){
+//        var headImgBtn:UIButton!    //头像按钮
+//        var userName:UILabel!   //用户名称
+//        var sexImg:UIImageView! //用户性别图标
+//        var userInfo:UILabel! //用户基本信息
+//        var moreOperationBtn:UIButton!   //更多操作按钮
+//        var releaseTime:UILabel!    //发布时间
+        if let headImgUrl = model?.head_pic{
+            self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
+        }
+        self.userName.text = model?.true_name
+        if model?.sex == "男"{
+            self.sexImg.image = UIImage.init(named: "boy")
+        }else{
+            self.sexImg.image = UIImage.init(named: "girl")
+        }
+        if let college = model?.college,let academy = model?.school{
+            self.userInfo.text = "\(college)|\(academy)"
+        }else{self.userInfo.text = "个人资料待认证"}
+        self.releaseTime.text = model?.create_time
+    }
+    
+    func configWith(commentModel:CommentModel?){
+        if let headImgUrl = commentModel?.head_pic{
+            self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
+        }
+        self.userName.text = commentModel?.true_name
+        if commentModel?.sex == "男"{
+            self.sexImg.image = UIImage.init(named: "boy")
+        }else{
+            self.sexImg.image = UIImage.init(named: "girl")
+        }
+        self.userInfo.text = commentModel?.college
+        self.releaseTime.text = commentModel?.create_time
+    }
+    
     /// 点击了头像
    @objc func dealTapHeadBtn(){
         if let _tapHeadBtnBlock = self.tapHeadBtnBlock{

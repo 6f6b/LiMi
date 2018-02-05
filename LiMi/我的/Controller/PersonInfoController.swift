@@ -71,15 +71,47 @@ class PersonInfoController: UITableViewController {
     func dealTapToSelectImg(){
         self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
         self.imagePickerVc?.allowCrop = true
+        self.imagePickerVc?.autoDismiss = false
+        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+        }
         var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
         self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
             let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
-            let localImgUrl = GenerateImgUrlWith(img: compressImg)
-            self.uploadImgWith(imgUrl: localImgUrl)
+            self.uploadHeadImgWith(img: compressImg)
         }
         self.present(self.imagePickerVc!, animated: true, completion: nil)
+    }
+    
+    //上传头像
+    func uploadHeadImgWith(img:UIImage?){
+        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+            if let filePath = GenerateImgPathlWith(img: img){
+                let fileName = uploadFileName(type: .picture)
+                QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
+                    //开始上传服务器
+                    SVProgressHUD.show(withStatus: "正在上传..")
+                    let moyaProvider = MoyaProvider<LiMiAPI>()
+                    let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+str!, type: "head")
+                    _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
+                        do {
+                            let model = try response.mapObject(BaseModel.self)
+                            if model.commonInfoModel?.status == successState{
+                                self.headImg.image = img
+                            }
+                            SVProgressHUD.showResultWith(model: model)
+                        }
+                        catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                    }, onError: { (error) in
+                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                    })
+                    
+                }, option: nil)
+            }
+        }
     }
     
     //去修改用户名
@@ -119,25 +151,7 @@ class PersonInfoController: UITableViewController {
 //        }
 //        self.navigationController?.pushViewController(alterUserSexController, animated: true)
     }
-    
-    func uploadImgWith(imgUrl:URL?){
-        SVProgressHUD.show(withStatus: "正在上传..")
-        let moyaProvider = MoyaProvider<LiMiAPI>()
-        
-        let headImgUpLoad = HeadImgUpLoad(headImgUrl: imgUrl, id: nil, token: nil)
-        _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
-            do {
-                let model = try response.mapObject(BaseModel.self)
-                if model.commonInfoModel?.status == successState{
-                    self.headImg.kf.setImage(with: imgUrl, placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
-                }
-                SVProgressHUD.showResultWith(model: model)
-            }
-            catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
-        }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-        })
-    }
+
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {

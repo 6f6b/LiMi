@@ -16,8 +16,8 @@ class ReleaseContentImgCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
-    func configWith(img:UIImage?){
-        self.imgV.image = img
+    func configWith(mediaModel:LocalMediaModel?){
+        self.imgV.image = mediaModel?.img
     }
     
     @IBAction func dealDeleteBtn(_ sender: Any) {

@@ -17,7 +17,7 @@ class TrendsBottomToolsContainView: UIView {
     var commentNum:UILabel! //评论数量
     var grayBar:UIView! //底部灰色长条
 
-    var tapThumbUpBtnBlock:(()->Void)?
+    var tapThumbUpBtnBlock:((UIButton)->Void)?
     var tapCommentBtnBlock:(()->Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,13 +51,14 @@ class TrendsBottomToolsContainView: UIView {
             make.left.equalTo(self.topToolsContainView).offset(12)
         }
         
-        self.thumbsUpBtn = UIButton()
+        self.thumbsUpBtn = UIButton(type: .custom)
         self.topToolsContainView.addSubview(self.thumbsUpBtn)
         self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_nor"), for: .normal)
+        self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_pre"), for: .selected)
         self.thumbsUpBtn.addTarget(self, action: #selector(dealTapThumbUpBtn), for: .touchUpInside)
         self.thumbsUpBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.viewNum)
-            make.left.equalTo(self.topToolsContainView).offset(150)
+            make.right.equalTo(self.topToolsContainView).offset(-150)
         }
         
         self.thumbsNum = UILabel()
@@ -76,7 +77,7 @@ class TrendsBottomToolsContainView: UIView {
         self.commentBtn.addTarget(self, action: #selector(dealTapCommentBtn), for: .touchUpInside)
         self.commentBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.thumbsUpBtn)
-            make.left.equalTo(self.thumbsUpBtn).offset(80)
+            make.right.equalTo(self.topToolsContainView).offset(-50)
         }
         
         self.commentNum = UILabel()
@@ -95,11 +96,30 @@ class TrendsBottomToolsContainView: UIView {
     }
     
     //MARK: - misc
+    func configWith(model:TrendModel?){
+//        var topToolsContainView:UIView!  //顶部工具栏容器
+//        var viewNum:UILabel!    //浏览量
+//        var thumbsUpBtn:UIButton!   //点赞按钮
+//        var thumbsNum:UILabel!  //点赞数量
+//        var commentBtn:UIButton! //评论按钮
+//        var commentNum:UILabel! //评论数量
+//        var grayBar:UIView! //底部灰色长条
+        if let _viewNum = model?.view_num{
+            self.viewNum.text = "浏览 " + _viewNum
+        }
+        self.thumbsNum.text = model?.click_num?.stringValue()
+        self.commentNum.text = model?.discuss_num?.stringValue()
+        var isSelected = false
+        if let _isClick = model?.is_click{
+            if _isClick == 1{isSelected = true}
+        }
+        self.thumbsUpBtn.isSelected = isSelected
+    }
     
     /// 点赞
     @objc func dealTapThumbUpBtn(){
         if let _tapThumbUpBtnBlock = self.tapThumbUpBtnBlock{
-            _tapThumbUpBtnBlock()
+            _tapThumbUpBtnBlock(self.thumbsUpBtn)
         }
     }
     

@@ -25,6 +25,7 @@ class GradeContainerModel: BaseModel {
 class GradeModel: Mappable {
     var id:Int?
     var name:String?
+    var isSelected = false
     
     required init?(map: Map) {
         

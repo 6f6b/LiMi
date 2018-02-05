@@ -13,6 +13,15 @@ class PersonCenterModel: BaseModel {
     var user_info:UserInfoModel?
     var is_access:IdentityStatusModel?
     
+    var feedback:String?
+    
+    /// 我的现金
+    var money:Double?
+    
+    /// 我的动态数
+    var my_action:Int?
+    var with_limi:String?
+    
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -21,5 +30,9 @@ class PersonCenterModel: BaseModel {
         super.mapping(map: map)
         user_info<-map["data.user_info"]
         is_access<-map["data.is_access"]
+        feedback<-map["data.feedback"]
+        money<-map["data.money"]
+        my_action<-map["data.my_action"]
+        with_limi<-map["data.with_limi"]
     }
 }

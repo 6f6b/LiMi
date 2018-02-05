@@ -47,19 +47,23 @@ extension TabBarController:UITabBarControllerDelegate{
     //控制是否跳转
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController == self.viewControllers![2]{
-            let releaseController = ReleaseController()
-            let releaseNav = NavigationController(rootViewController: releaseController)
-            self.present(releaseNav, animated: true, completion: nil)
+            if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
+                let releaseController = ReleaseController()
+                let releaseNav = NavigationController(rootViewController: releaseController)
+                self.present(releaseNav, animated: true, completion: nil)
+            }else{
+                PostLogOutNotificationWith(msg: nil)
+            }
             return false
         }
-//        if viewController == self.viewControllers![4]{
-//            if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
-//                return true
-//            }else{
-//                NotificationCenter.default.post(name: Notification.Name.init("logout"), object: self, userInfo: nil)
-//                return false
-//            }
-//        }
+        if viewController == self.viewControllers![4]{
+            if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
+                return true
+            }else{
+                PostLogOutNotificationWith(msg: nil)
+                return false
+            }
+        }
         return true
     }
 }

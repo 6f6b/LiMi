@@ -8,7 +8,10 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import AGEmojiKeyboard
+import Moya
+import SVProgressHUD
+import ObjectMapper
+import MJRefresh
 
 class CommentsWithTrendController: ViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -21,7 +24,9 @@ class CommentsWithTrendController: ViewController {
     @IBOutlet weak var topCoverView: UIView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     var keyboard:STEmojiKeyboard?
-    
+    var trendModel:TrendModel?
+    var dataArray = [CommentModel]()
+    var pageIndex = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "评论"
@@ -36,8 +41,9 @@ class CommentsWithTrendController: ViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 100
-        self.tableView.register(TrendsWithTextCell.self, forCellReuseIdentifier: "TrendsWithTextCell")
+        registerTrendsCellFor(tableView: self.tableView)
         self.tableView.register(TrendCommentCell.self, forCellReuseIdentifier: "TrendCommentCell")
+        self.tableView.register(UINib.init(nibName: "EmptyCommentCell", bundle: nil), forCellReuseIdentifier: "EmptyCommentCell")
         
         self.inputContainView.layer.cornerRadius = 20
         self.inputContainView.clipsToBounds = true
@@ -45,8 +51,17 @@ class CommentsWithTrendController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
 
         self.contentText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: .editingChanged)
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.pageIndex = 1
+            self.loadData()
+        })
+        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+            self.pageIndex += 1
+            self.loadData()
+        })
+        self.loadData()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.sharedManager().enable = true
@@ -71,6 +86,30 @@ class CommentsWithTrendController: ViewController {
     }
 
     // MARK: - misc
+    func loadData(){
+        if pageIndex == 1{self.dataArray.removeAll()}
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let commentList = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex)
+        _ = moyaProvider.rx.request(.targetWith(target: commentList)).subscribe(onSuccess: { (response) in
+            let commentListModel = Mapper<CommentListModel>().map(jsonData: response.data)
+            HandleResultWith(model: commentListModel)
+            self.trendModel = commentListModel?.trend
+            if let comments = commentListModel?.comments{
+                for comment in comments{
+                    self.dataArray.append(comment)
+                }
+            }
+            self.tableView.reloadData()
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.endRefreshing()
+            SVProgressHUD.showErrorWith(model: commentListModel)
+        }, onError: { (error) in
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.endRefreshing()
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     @objc func dealBack(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -90,7 +129,18 @@ class CommentsWithTrendController: ViewController {
     }
     
     @IBAction func dealSent(_ sender: Any) {
-        print(self.contentText.text)
+        self.contentText.resignFirstResponder()
+        SVProgressHUD.show(withStatus: nil)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let addComment = AddComment(action_id: self.trendModel?.action_id?.stringValue(), content: self.contentText.text)
+        _ = moyaProvider.rx.request(.targetWith(target: addComment)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: resultModel)
+            self.tableView.mj_header.beginRefreshing()
+            SVProgressHUD.showErrorWith(model: resultModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
         self.contentText.text = nil
         self.sendBtn.isEnabled = false
     }
@@ -137,6 +187,28 @@ class CommentsWithTrendController: ViewController {
             animations()
         }
     }
+    
+    /// 更多操作
+    ///
+    /// - Parameters:
+    ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
+    ///   - trendModel: 动态模型
+    func dealMoreOperationWith(operationType:OperationType,trendModel:TrendModel?){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        var type:String? = nil
+        if operationType == .defriend{type = "black"}
+        if operationType == .delete{type = "delete"}
+        if operationType == .report{type = "report"}
+        if operationType == .sendMsg{type = "sendmsg"}
+        let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
+        _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
+            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: baseModel)
+            SVProgressHUD.showResultWith(model: baseModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
 }
 
 extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
@@ -146,7 +218,11 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{return 1}
-        else{return 10}
+        if section == 1{
+            if self.dataArray.count != 0{return self.dataArray.count}
+            if self.dataArray.count == 0{return 1}
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -167,14 +243,99 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
         return nil
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0{
+            let footerView = UIView()
+            footerView.backgroundColor = UIColor.groupTableViewBackground
+        }
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
-            let trendsWithTextCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath)
-            return trendsWithTextCell
+            let model = self.trendModel
+            let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model,trendsCellStyle: .normal)
+            //点击头像
+            trendsCell.trendsTopToolsContainView.tapHeadBtnBlock = {
+                let userDetailsController = UserDetailsController()
+                userDetailsController.userId = model?.user_id
+                self.navigationController?.pushViewController(userDetailsController, animated: true)
+            }
+            //点击更多
+            trendsCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {
+                let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+                    self.dealMoreOperationWith(operationType: .report, trendModel: model)
+                })
+                let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+                    self.dealMoreOperationWith(operationType: .defriend, trendModel: model)
+                })
+                let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+                    self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
+                })
+                let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
+                    self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                })
+                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                if model?.user_id != Defaults[.userId]{
+                    actionController.addAction(actionReport)
+                    actionController.addAction(actionDefriend)
+                    actionController.addAction(actionSendMsg)
+                    
+                }else{
+                    actionController.addAction(actionDelete)
+                }
+                actionController.addAction(actionCancel)
+                self.present(actionController, animated: true, completion: nil)
+            }
+            //点赞
+            trendsCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumUpBtn) in
+                let trendModel = self.trendModel
+                let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+                let thumbUp = ThumbUp(action_id: trendModel?.action_id?.stringValue())
+                _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
+                    let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+                    HandleResultWith(model: resultModel)
+                    if resultModel?.commonInfoModel?.status == successState{
+                        thumUpBtn.isSelected = !thumUpBtn.isSelected
+                        if thumUpBtn.isSelected{
+                            trendModel?.click_num! += 1
+                            trendModel?.is_click = 1
+                        }else{
+                            trendModel?.is_click = 0
+                            trendModel?.click_num! -= 1
+                        }
+                        self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                    }
+                    SVProgressHUD.showErrorWith(model: resultModel)
+                }, onError: { (error) in
+                    SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                })
+            }
+            //评论
+            trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+                self.contentText.becomeFirstResponder()
+            }
+            //抢红包
+            trendsCell.catchRedPacketBlock = {
+                let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
+                catchRedPacketView.closeBlock = {
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+                let model = self.trendModel
+                catchRedPacketView.showWith(trendModel: model)
+            }
+            return trendsCell
         }
         if indexPath.section == 1{
-            let trendCommentCell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath)
-            return trendCommentCell
+            if self.dataArray.count != 0{
+                let trendCommentCell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath) as! TrendCommentCell
+                trendCommentCell.configWith(model: self.dataArray[indexPath.row])
+                return trendCommentCell
+            }else{
+                let emptyCommentCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCommentCell", for: indexPath)
+                return emptyCommentCell
+            }
         }
         return UITableViewCell()
     }

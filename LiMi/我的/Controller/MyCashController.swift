@@ -46,6 +46,9 @@ class MyCashController: ViewController {
     }
     
     @IBAction func dealWithDrawal(_ sender: Any) {
+        let withDrawalController = WithDrawalController()
+        let withDrawalNav = NavigationController(rootViewController: withDrawalController)
+        self.present(withDrawalNav, animated: true, completion: nil)
     }
     
     @IBAction func dealToSetPayPassword(_ sender: Any) {

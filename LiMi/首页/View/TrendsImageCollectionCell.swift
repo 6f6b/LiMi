@@ -9,10 +9,15 @@
 import UIKit
 
 class TrendsImageCollectionCell: UICollectionViewCell {
-
+    @IBOutlet weak var imgV: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
+    func configWith(picUrl:String?){
+        if let _picUrl = picUrl{
+            self.imgV.kf.setImage(with: URL.init(string: _picUrl))
+        }
+    }
 }

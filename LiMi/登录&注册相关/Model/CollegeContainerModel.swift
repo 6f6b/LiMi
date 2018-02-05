@@ -26,7 +26,7 @@ class CollegeModel: Mappable {
     var coid:Int?
     var name:String?
     var provinceID:Int?
-    
+    var isSelected = false
     required init?(map: Map) {
         
     }

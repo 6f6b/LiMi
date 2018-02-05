@@ -16,4 +16,6 @@ extension DefaultsKeys{
     static let userToken = DefaultsKey<String?>("userToken")
     //存储用户手机号
     static let userPhone = DefaultsKey<String?>("userPhoneNum")
+    //存储用户性别
+    static let userSex = DefaultsKey<String?>("userSex")
 }

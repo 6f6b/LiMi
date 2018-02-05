@@ -1,6 +1,0 @@
-framework module AGEmojiKeyboard {
-  umbrella header "AGEmojiKeyboard-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -19,7 +19,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fec-vj-PZv">
                     <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQt-td-UIh">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQt-td-UIh">
                             <rect key="frame" x="49" y="168" width="315" height="380"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hb_bj" translatesAutoresizingMaskIntoConstraints="NO" id="7fe-BI-ed4">
@@ -55,7 +55,29 @@
                                 <constraint firstItem="4FR-Di-ZFS" firstAttribute="top" secondItem="9Lr-rf-1GW" secondAttribute="bottom" constant="10" id="sb5-iI-a7U"/>
                             </constraints>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xzf-2z-C6g">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSV-oh-gsb">
+                            <rect key="frame" x="49" y="168" width="315" height="380"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_hb_no" highlightedImage="hb_bj_qiangwan" translatesAutoresizingMaskIntoConstraints="NO" id="0Hp-Wu-5ea">
+                                    <rect key="frame" x="0.0" y="0.0" width="315" height="380"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男神的红包，腐女走开" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loR-6z-pF9">
+                                    <rect key="frame" x="65.999999999999986" y="179.66666666666669" width="183.66666666666663" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="loR-6z-pF9" firstAttribute="centerX" secondItem="lSV-oh-gsb" secondAttribute="centerX" id="0G2-kG-pur"/>
+                                <constraint firstItem="0Hp-Wu-5ea" firstAttribute="leading" secondItem="lSV-oh-gsb" secondAttribute="leading" id="4NO-JT-akl"/>
+                                <constraint firstAttribute="bottom" secondItem="0Hp-Wu-5ea" secondAttribute="bottom" id="V4W-30-xMc"/>
+                                <constraint firstItem="0Hp-Wu-5ea" firstAttribute="top" secondItem="lSV-oh-gsb" secondAttribute="top" id="be9-Rh-Mdy"/>
+                                <constraint firstItem="loR-6z-pF9" firstAttribute="centerY" secondItem="lSV-oh-gsb" secondAttribute="centerY" id="hSb-1h-eah"/>
+                                <constraint firstAttribute="trailing" secondItem="0Hp-Wu-5ea" secondAttribute="trailing" id="zEN-1r-DAy"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xzf-2z-C6g">
                             <rect key="frame" x="49" y="138" width="315" height="439"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hb_bj_qiangdao" highlightedImage="hb_bj_qiangwan" translatesAutoresizingMaskIntoConstraints="NO" id="x8Q-4M-mLB">
@@ -64,26 +86,11 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXS-nf-3Xp">
                                     <rect key="frame" x="0.0" y="120" width="315" height="90"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yi2-jl-txk">
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QyT-Ck-7Ti">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="90"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="红包已经抢光啦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFD-sL-EPh">
-                                                    <rect key="frame" x="93.666666666666671" y="34.666666666666686" width="128.66666666666663" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <color key="textColor" red="0.99607843137254903" green="0.7803921568627451" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="bFD-sL-EPh" firstAttribute="centerY" secondItem="Yi2-jl-txk" secondAttribute="centerY" id="1jq-lA-WIK"/>
-                                                <constraint firstItem="bFD-sL-EPh" firstAttribute="centerX" secondItem="Yi2-jl-txk" secondAttribute="centerX" id="8S6-cR-efS"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QyT-Ck-7Ti">
-                                            <rect key="frame" x="-0.66666666666665719" y="-0.66666666666668561" width="315" height="90"/>
-                                            <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.88" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glf-7f-ruc">
-                                                    <rect key="frame" x="129.33333333333331" y="19.333333333333371" width="56.333333333333343" height="31.333333333333329"/>
+                                                    <rect key="frame" x="129.33333333333334" y="19.333333333333314" width="56.333333333333343" height="31.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="26"/>
                                                     <color key="textColor" red="0.99607843137254903" green="0.7803921568627451" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -100,6 +107,21 @@
                                                 <constraint firstItem="i9Y-Fa-Y6q" firstAttribute="centerX" secondItem="QyT-Ck-7Ti" secondAttribute="centerX" id="VV7-ei-HHW"/>
                                                 <constraint firstItem="i9Y-Fa-Y6q" firstAttribute="top" secondItem="glf-7f-ruc" secondAttribute="bottom" constant="10" id="WAe-Z2-Us9"/>
                                                 <constraint firstAttribute="bottom" secondItem="i9Y-Fa-Y6q" secondAttribute="bottom" constant="15" id="nPj-af-hh9"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yi2-jl-txk">
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="90"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="红包已经抢光啦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFD-sL-EPh">
+                                                    <rect key="frame" x="93.666666666666671" y="34.666666666666686" width="128.66666666666663" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="textColor" red="0.99607843137254903" green="0.7803921568627451" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bFD-sL-EPh" firstAttribute="centerY" secondItem="Yi2-jl-txk" secondAttribute="centerY" id="1jq-lA-WIK"/>
+                                                <constraint firstItem="bFD-sL-EPh" firstAttribute="centerX" secondItem="Yi2-jl-txk" secondAttribute="centerX" id="8S6-cR-efS"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -156,9 +178,11 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="2nD-av-65W" secondAttribute="trailing" constant="30" id="71M-4V-SkD"/>
                         <constraint firstItem="EQt-td-UIh" firstAttribute="centerY" secondItem="fec-vj-PZv" secondAttribute="centerY" id="Nly-oG-67O"/>
+                        <constraint firstItem="lSV-oh-gsb" firstAttribute="centerY" secondItem="fec-vj-PZv" secondAttribute="centerY" id="PE6-KQ-Yeg"/>
                         <constraint firstItem="Xzf-2z-C6g" firstAttribute="top" secondItem="2nD-av-65W" secondAttribute="bottom" constant="20" id="dgX-zU-Og4"/>
                         <constraint firstItem="Xzf-2z-C6g" firstAttribute="centerY" secondItem="fec-vj-PZv" secondAttribute="centerY" id="idH-o5-0te"/>
                         <constraint firstItem="Xzf-2z-C6g" firstAttribute="centerX" secondItem="fec-vj-PZv" secondAttribute="centerX" id="rGW-Bh-T0M"/>
+                        <constraint firstItem="lSV-oh-gsb" firstAttribute="centerX" secondItem="fec-vj-PZv" secondAttribute="centerX" id="tRS-MQ-T5J"/>
                         <constraint firstItem="EQt-td-UIh" firstAttribute="centerX" secondItem="fec-vj-PZv" secondAttribute="centerX" id="z9k-Au-k6b"/>
                     </constraints>
                 </view>
@@ -175,9 +199,13 @@
                 <outlet property="catchFaildContainView" destination="Yi2-jl-txk" id="FFh-ni-46b"/>
                 <outlet property="catchSuccessContainView" destination="QyT-Ck-7Ti" id="ga5-It-Z5U"/>
                 <outlet property="catchSuccessedUsersTableView" destination="weT-bw-6AI" id="TEV-nK-4BA"/>
+                <outlet property="headImgV" destination="9Lr-rf-1GW" id="pbJ-r4-xXc"/>
+                <outlet property="noAuthInfo" destination="loR-6z-pF9" id="DXd-CJ-uzu"/>
+                <outlet property="noAuthToCatchContainView" destination="lSV-oh-gsb" id="wvQ-cV-Tib"/>
                 <outlet property="openRedPacketContainView" destination="EQt-td-UIh" id="nwO-Ah-hqp"/>
                 <outlet property="redPacketInfoBackgroundImg" destination="x8Q-4M-mLB" id="YI8-pW-Yuh"/>
                 <outlet property="redPacketInfoContainView" destination="Xzf-2z-C6g" id="VNy-7a-kPn"/>
+                <outlet property="userInfo" destination="4FR-Di-ZFS" id="QeN-ZW-vUf"/>
             </connections>
         </view>
     </objects>
@@ -187,6 +215,7 @@
         <image name="hb_bj_qiangwan" width="315" height="439"/>
         <image name="hb_btn_chai" width="92" height="92"/>
         <image name="hb_btn_close" width="20" height="20"/>
+        <image name="img_hb_no" width="315" height="380"/>
         <image name="touxiang" width="70" height="70"/>
     </resources>
 </document>
