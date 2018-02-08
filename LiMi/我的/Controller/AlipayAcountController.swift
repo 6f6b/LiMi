@@ -25,6 +25,8 @@ class AlipayAcountController: ViewController {
     @IBOutlet weak var alipayAcountName: UITextField!
     @IBOutlet weak var sumbitBtn: UIButton!
     
+    var withdrawAmount:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "支付宝账号"
@@ -118,16 +120,17 @@ class AlipayAcountController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请输入支付宝账户名")
             return
         }
-//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-//        let setPayPassword = SetPayPassword(code: self.authCode.text, password1: self.passwordFisrt.text, password2: self.passwordSecond.text)
-//        _ = moyaProvider.rx.request(.targetWith(target: setPayPassword)).subscribe(onSuccess: { (response) in
-//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-//            SVProgressHUD.showResultWith(model: resultModel)
-//            if resultModel?.commonInfoModel?.status == successState{
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }, onError: { (error) in
-//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-//        })
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        
+        let withDrawCash = WithdrawCash(money: self.withdrawAmount.doubleValue(), account: self.alipayAcount.text, true_name: self.alipayAcountName.text, code: self.authCode.text)
+        _ = moyaProvider.rx.request(.targetWith(target: withDrawCash)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            SVProgressHUD.showResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                self.navigationController?.popViewController(animated: true)
+            }
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
 }

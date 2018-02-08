@@ -10,11 +10,14 @@ import UIKit
 import SVProgressHUD
 import ObjectMapper
 import Moya
+import Dispatch
 
 class ConditionScreeningView: UIView {
     @IBOutlet weak var conditionContainView: UIView!
     @IBOutlet weak var leftTapView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var conditionContainViewRightConstraint: NSLayoutConstraint!
+    
     var screeningConditionsModel:ScreeningConditionsModel?
     var screeningConditionsSelectBlock:((CollegeModel?,AcademyModel?,GradeModel?,SexModel?,SkillModel?)->Void)?
     var selectedCollegeModelIndex:Int?
@@ -23,11 +26,11 @@ class ConditionScreeningView: UIView {
     var selectedSexIndex:Int?
     var selectedSkillModelIndex:Int?
     
-    var isCollegesShow = true
-    var isAcademysShow = true
-    var isGradeShow = true
-    var isSexShow = true
-    var isSkillsShow = true
+    var isCollegesShow = false
+    var isAcademysShow = false
+    var isGradeShow = false
+    var isSexShow = false
+    var isSkillsShow = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,15 +45,83 @@ class ConditionScreeningView: UIView {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
+        self.conditionContainViewRightConstraint.constant = -SCREEN_WIDTH*(600.0/750)
+        
         self.loadData()
     }
 
+    static func shareConditionScreeningView()->ConditionScreeningView{
+        let shareConditionScreeningView = GET_XIB_VIEW(nibName: "ConditionScreeningView") as! ConditionScreeningView
+        return shareConditionScreeningView
+    }
+    
     //MARK: - misc
     @objc func dealCancel(){
-        self.removeFromSuperview()
+        self.dismiss()
+    }
+    
+    func show(animation:Bool = true){
+        self.frame = SCREEN_RECT
+        UIApplication.shared.keyWindow?.addSubview(self)
+        if animation{
+            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
+            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                self.isHidden = false
+                UIView.animate(withDuration: 0.3, animations: {
+                    //animation
+                    self.conditionContainViewRightConstraint.constant = 0
+                    self.layoutIfNeeded()
+                })
+            })
+        }
+    }
+    
+    func dismiss(animation:Bool = true){
+        if animation{
+            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
+            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                UIView.animate(withDuration: 0.3, animations: {
+                    //animation
+                    self.conditionContainViewRightConstraint.constant = -SCREEN_WIDTH*(600.0/750)
+                    self.layoutIfNeeded()
+                }, completion: { (_) in
+                    self.isHidden = true
+                })
+            })
+        }
     }
 
     @IBAction func dealReset(_ sender: Any) {
+        if let colleges = self.screeningConditionsModel?.college{
+            for _college in colleges{
+                _college.isSelected = false
+            }
+        }
+        //学校
+        if let academies = self.screeningConditionsModel?.academy{
+            for _academy in academies{
+                _academy.isSelected = false
+            }
+        }
+        //年级
+        if let grades = self.screeningConditionsModel?.grade{
+            for _grade in grades{
+                _grade.isSelected = false
+            }
+        }
+        //性别
+        if let sexs = self.screeningConditionsModel?.sex{
+            for _sex in sexs{
+                _sex.isSelected = false
+            }
+        }
+        //skill
+        if let skills = self.screeningConditionsModel?.skill{
+            for _skill in skills{
+                _skill.isSelected = false
+            }
+        }
+        self.collectionView.reloadData()
     }
     
     @IBAction func dealOK(_ sender: Any) {
@@ -103,7 +174,8 @@ class ConditionScreeningView: UIView {
             }
         }
         if let _screeningConditionsSelectBlock = self.screeningConditionsSelectBlock{
-            _screeningConditionsSelectBlock(college, academy, grad, sex, skill)
+            _screeningConditionsSelectBlock(college, academy, grade, sex, skill)
+            self.isHidden = true
         }
     }
     
@@ -152,28 +224,58 @@ extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSo
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0{
-            if let colleges = self.screeningConditionsModel?.college{
-                return colleges.count
+            if isCollegesShow{
+                if let colleges = self.screeningConditionsModel?.college{
+                    return colleges.count
+                }
+            }else{
+                if let colleges = self.screeningConditionsModel?.college{
+                    return colleges.count >= 3 ? 3 : colleges.count
+                }
             }
         }
         if section == 1{
-            if let academies = self.screeningConditionsModel?.academy{
-                return academies.count
+            if isAcademysShow{
+                if let academies = self.screeningConditionsModel?.academy{
+                    return academies.count
+                }
+            }else{
+                if let academies = self.screeningConditionsModel?.academy{
+                    return academies.count >= 3 ? 3 : academies.count
+                }
             }
         }
         if section == 2{
-            if let grades = self.screeningConditionsModel?.grade{
-                return grades.count
+            if isGradeShow{
+                if let grades = self.screeningConditionsModel?.grade{
+                    return grades.count
+                }
+            }else{
+                if let grades = self.screeningConditionsModel?.grade{
+                    return grades.count >= 3 ? 3 : grades.count
+                }
             }
         }
         if section == 3{
-            if let sex = self.screeningConditionsModel?.sex{
-                return sex.count
+            if isSexShow{
+                if let sex = self.screeningConditionsModel?.sex{
+                    return sex.count
+                }
+            }else{
+                if let sex = self.screeningConditionsModel?.sex{
+                    return sex.count >= 3 ? 3 : sex.count
+                }
             }
         }
         if section == 4{
-            if let skills = self.screeningConditionsModel?.skill{
-                return skills.count
+            if isSkillsShow{
+                if let skills = self.screeningConditionsModel?.skill{
+                    return skills.count
+                }
+            }else{
+                if let skills = self.screeningConditionsModel?.skill{
+                    return skills.count >= 3 ? 3 : skills.count
+                }
             }
         }
         return 0
@@ -219,23 +321,36 @@ extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSo
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ConditionScreeningHeaderView", for: indexPath) as! ConditionScreeningHeaderView
         if indexPath.section == 0{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_school")
+            headerView.spreadBtn.isSelected = !self.isCollegesShow
             headerView.info.text = "学校"
         }
         if indexPath.section == 1{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_zhuanye")
+            headerView.spreadBtn.isSelected = !self.isAcademysShow
             headerView.info.text = "学院"
         }
         if indexPath.section == 2{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_ruxue")
+            headerView.spreadBtn.isSelected = !self.isGradeShow
             headerView.info.text = "入学年份"
         }
         if indexPath.section == 3{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_xingbie")
+            headerView.spreadBtn.isSelected = !self.isSexShow
             headerView.info.text = "性别"
         }
         if indexPath.section == 4{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_biaoqian")
+            headerView.spreadBtn.isSelected = !self.isSkillsShow
             headerView.info.text = "需求标签"
+        }
+        headerView.spreadBlock = {isSpread in
+            if indexPath.section == 0{self.isCollegesShow = !isSpread}
+            if indexPath.section == 1{self.isAcademysShow = !isSpread}
+            if indexPath.section == 2{self.isGradeShow = !isSpread}
+            if indexPath.section == 3{self.isSexShow = !isSpread}
+            if indexPath.section == 4{self.isSkillsShow = !isSpread}
+            self.collectionView.reloadSections([indexPath.section])
         }
         return headerView
     }

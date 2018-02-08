@@ -21,7 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGm-Dn-7en">
-                            <rect key="frame" x="75" y="0.0" width="300" height="667"/>
+                            <rect key="frame" x="55" y="0.0" width="300" height="667"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w52-Gk-wD2">
                                     <rect key="frame" x="0.0" y="618" width="300" height="49"/>
@@ -92,7 +92,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0u-Ug-v6u">
-                            <rect key="frame" x="0.0" y="0.0" width="75" height="667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="55" height="667"/>
                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                     </subviews>
@@ -104,7 +104,7 @@
                         <constraint firstItem="I0u-Ug-v6u" firstAttribute="leading" secondItem="9cV-fI-KyQ" secondAttribute="leading" id="eIO-HM-4dU"/>
                         <constraint firstAttribute="bottom" secondItem="I0u-Ug-v6u" secondAttribute="bottom" id="leO-Fe-7yA"/>
                         <constraint firstItem="I0u-Ug-v6u" firstAttribute="top" secondItem="9cV-fI-KyQ" secondAttribute="top" id="ozM-ko-TMX"/>
-                        <constraint firstAttribute="trailing" secondItem="UGm-Dn-7en" secondAttribute="trailing" id="ucI-vn-do7"/>
+                        <constraint firstAttribute="trailing" secondItem="UGm-Dn-7en" secondAttribute="trailing" constant="20" id="ucI-vn-do7"/>
                     </constraints>
                 </view>
             </subviews>
@@ -118,6 +118,7 @@
             <connections>
                 <outlet property="collectionView" destination="ZLE-3f-2cd" id="G7C-Kp-J0t"/>
                 <outlet property="conditionContainView" destination="UGm-Dn-7en" id="ZQM-Qw-pBW"/>
+                <outlet property="conditionContainViewRightConstraint" destination="ucI-vn-do7" id="nk0-nh-eWO"/>
                 <outlet property="leftTapView" destination="I0u-Ug-v6u" id="er4-kb-Co2"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="52.5"/>

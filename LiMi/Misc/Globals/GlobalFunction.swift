@@ -253,6 +253,7 @@ func MakeAuthCodeBtnCannotBeHandleWith(button:UIButton?){
     button?.setTitleColor(UIColor.lightGray, for: .normal)
     button?.layer.borderColor = UIColor.lightGray.cgColor
     AUTH_BTN_COUNT_DOWN_TIME = 60
+    AUTH_BTN_COUNT_DOWN_TIMER?.invalidate()
     if #available(iOS 10.0, *) {
         AUTH_BTN_COUNT_DOWN_TIMER = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _  in
             let info = "\(AUTH_BTN_COUNT_DOWN_TIME)秒后再试"
@@ -325,24 +326,6 @@ func uploadFileName(type:MediaType)->String{
     return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
 }
 
-func getThumnailImageWith(videoUrl:String?)->UIImage?{
-    if let _videoUrl = videoUrl{
-        let asset = AVURLAsset.init(url: URL.init(string: _videoUrl)!)
-        let gen = AVAssetImageGenerator.init(asset: asset)
-        gen.appliesPreferredTrackTransform = true
-        let time = CMTimeMake(Int64(0.0), 600)
-        var actualTime: CMTime = CMTimeMake(0, 0)
-        do{
-            let image = try gen.copyCGImage(at: time, actualTime: &actualTime)
-            let thumImg = UIImage.init(cgImage: image)
-            return thumImg
-        }catch{
-            
-        }
-        return nil
-    }
-    return nil
-}
 
 
 

@@ -25,12 +25,23 @@ class TabBarController: UITabBarController {
         let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
         self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "icon_wode", tbSelectedImg: "icon_wode_highlight")
         self.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
     }
 
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    //MARK: - misc
+    @objc func dealPostATrendSuccess(){
+        self.selectedIndex = 0
+    }
+    
     func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!){
         controller.title = title
         let navController = NavigationController(rootViewController: controller)

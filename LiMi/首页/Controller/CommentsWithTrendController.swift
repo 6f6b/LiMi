@@ -60,6 +60,7 @@ class CommentsWithTrendController: ViewController {
             self.loadData()
         })
         self.loadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,6 +80,10 @@ class CommentsWithTrendController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,13 +135,13 @@ class CommentsWithTrendController: ViewController {
     
     @IBAction func dealSent(_ sender: Any) {
         self.contentText.resignFirstResponder()
-        SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let addComment = AddComment(action_id: self.trendModel?.action_id?.stringValue(), content: self.contentText.text)
         _ = moyaProvider.rx.request(.targetWith(target: addComment)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: resultModel)
-            self.tableView.mj_header.beginRefreshing()
+            self.pageIndex = 1
+            self.loadData()
             SVProgressHUD.showErrorWith(model: resultModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
@@ -204,10 +209,32 @@ class CommentsWithTrendController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: baseModel)
+            if baseModel?.commonInfoModel?.status == successState{
+                let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
+                NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+            }
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
+    }
+    
+    
+    /// 处理操作结果
+    ///
+    /// - Parameter notification: 通知对象
+    @objc func dealDidMoreOperation(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let operationModel = userInfo[MORE_OPERATION_KEY] as? MoreOperationModel{
+                //拉黑
+                if operationModel.operationType == .defriend{
+                }
+                //删除
+                if operationModel.operationType == .delete{
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
     }
 }
 
@@ -274,7 +301,14 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
                     self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
                 })
                 let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
-                    self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                    let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
+                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+                        self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                    })
+                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                    alertController.addAction(actionOK)
+                    alertController.addAction(actionCancel)
+                    self.present(alertController, animated: true, completion: nil)
                 })
                 let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
                 if model?.user_id != Defaults[.userId]{
@@ -319,9 +353,6 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
             //抢红包
             trendsCell.catchRedPacketBlock = {
                 let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-                catchRedPacketView.closeBlock = {
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
-                }
                 let model = self.trendModel
                 catchRedPacketView.showWith(trendModel: model)
             }
@@ -329,8 +360,14 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
         }
         if indexPath.section == 1{
             if self.dataArray.count != 0{
+                let commentModel = self.dataArray[indexPath.row]
                 let trendCommentCell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath) as! TrendCommentCell
-                trendCommentCell.configWith(model: self.dataArray[indexPath.row])
+                trendCommentCell.configWith(model: commentModel)
+                trendCommentCell.commentTopToolsContainView.tapHeadBtnBlock = {
+                    let userDetailsController = UserDetailsController()
+                    userDetailsController.userId = commentModel.user_id
+                    self.navigationController?.pushViewController(userDetailsController, animated: true)
+                }
                 return trendCommentCell
             }else{
                 let emptyCommentCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCommentCell", for: indexPath)
@@ -341,6 +378,6 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+//        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

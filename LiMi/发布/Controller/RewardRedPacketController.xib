@@ -209,7 +209,7 @@
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWU-Z3-4Nv">
                                     <rect key="frame" x="29" y="568" width="317" height="50"/>
-                                    <color key="backgroundColor" red="0.90588235294117647" green="0.25490196078431371" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.90588235294117647" green="0.25490196078431371" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="00O-C9-SaS"/>
                                     </constraints>

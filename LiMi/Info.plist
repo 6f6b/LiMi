@@ -18,6 +18,29 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>LiMi Scheme</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>LiMi20018</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxb750b949790baabc</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -37,6 +60,8 @@
 	<string>LiMi想使用你的地理位置以确定你与对方的距离</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>LiMi想使用您的麦克风</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>LiMi想访问你的相册以保存照片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>LiMi想使用你的相册以上传照片</string>
 	<key>UILaunchStoryboardName</key>

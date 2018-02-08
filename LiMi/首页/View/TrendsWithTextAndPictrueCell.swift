@@ -11,7 +11,6 @@ import XLPhotoBrowser_CoderXL
 
 class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     var collectionView:UICollectionView!
-    var model:TrendModel?
     var tapPictureBlock:((Int)->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +53,6 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     //MARK: - misc
     override func configWith(model: TrendModel?) {
         super.configWith(model: model)
-        self.model = model
         self.collectionView.snp.remakeConstraints { (make) in
             make.top.equalTo(self.contentText.snp.bottom).offset(5)
             make.left.equalTo(self.trendsContentContainView)
@@ -87,7 +85,8 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let imgArr = self.model?.action_pic{
             let photoBroswer = XLPhotoBrowser.show(withImages: imgArr, currentImageIndex: indexPath.row)
-            photoBroswer?.browserStyle = .simple
+            photoBroswer?.browserStyle = .indexLabel
+            photoBroswer?.setActionSheeWith(self)
         }
         if let _tapPictureBlock = self.tapPictureBlock{
             _tapPictureBlock(indexPath.row)
@@ -111,4 +110,9 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     }
 }
 
+extension TrendsWithTextAndPictrueCell:XLPhotoBrowserDelegate{
+    func photoBrowser(_ browser: XLPhotoBrowser!, clickActionSheetIndex actionSheetindex: Int, currentImageIndex: Int) {
+        browser.saveCurrentShowImage()
+    }
+}
 

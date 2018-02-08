@@ -18,7 +18,7 @@ class PayPasswordInputView: UIView {
     @IBOutlet weak var bottomContainView: UIView!
     var amountValue:Double = 0.0
     
-    var finishedInputPasswordBlock:(()->Void)?
+    var finishedInputPasswordBlock:((String)->Void)?
     var nums = [String]()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,11 +35,12 @@ class PayPasswordInputView: UIView {
         super.didMoveToSuperview()
         self.amount.text = "¥" + amountValue.decimalValue()
         self.refreshPwdWith(nums: self.nums)
-        UIView.animate(withDuration: 1) {
+        
+//        UIView.animate(withDuration: 1) {
             self.numPadBottomConstraint.constant = 0
-            self.topCoverView.layoutIfNeeded()
-            self.bottomContainView.layoutIfNeeded()
-        }
+//            self.topCoverView.layoutIfNeeded()
+//            self.bottomContainView.layoutIfNeeded()
+//        }
     }
     
     //MARK: - misc
@@ -79,8 +80,9 @@ class PayPasswordInputView: UIView {
         self.refreshPwdWith(nums: self.nums)
         if nums.count >= 6{
             if let _finishedInputPasswordBlock = finishedInputPasswordBlock{
-                _finishedInputPasswordBlock()
+                _finishedInputPasswordBlock(self.nums.joined(separator: ""))
             }
+            self.removeFromSuperview()
         }
     }
     
@@ -100,7 +102,7 @@ class PayPasswordInputView: UIView {
         }
         let numsCount = nums.count
         for i in 0..<numsCount{
-            pwds[i].text = nums[i]
+            pwds[i].text = "*"
         }
     }
 }

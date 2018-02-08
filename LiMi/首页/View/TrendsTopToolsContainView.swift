@@ -87,26 +87,43 @@ class TrendsTopToolsContainView: UIView {
     }
     
     //MARK: - misc
-    func configWith(model:TrendModel?){
+    func configWith(model:TrendModel?,cellStyle:TrendsCellStyle = .normal){
+        
 //        var headImgBtn:UIButton!    //头像按钮
 //        var userName:UILabel!   //用户名称
 //        var sexImg:UIImageView! //用户性别图标
 //        var userInfo:UILabel! //用户基本信息
 //        var moreOperationBtn:UIButton!   //更多操作按钮
 //        var releaseTime:UILabel!    //发布时间
+        //头像
         if let headImgUrl = model?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
         }
+        //姓名
         self.userName.text = model?.true_name
+        //性别
+        if cellStyle == .inMyTrendList{self.sexImg.isHidden = true}
         if model?.sex == "男"{
             self.sexImg.image = UIImage.init(named: "boy")
         }else{
             self.sexImg.image = UIImage.init(named: "girl")
         }
-        if let college = model?.college,let academy = model?.school{
-            self.userInfo.text = "\(college)|\(academy)"
-        }else{self.userInfo.text = "个人资料待认证"}
+        //个人资料
+        if cellStyle == .inMyTrendList{
+            self.userInfo.text = model?.create_time
+        }
+        if cellStyle == .inPersonCenter{
+            self.userInfo.text = model?.create_time
+        }
+        if cellStyle == .normal{
+            if let college = model?.college,let academy = model?.school{
+                self.userInfo.text = "\(college)|\(academy)"
+            }else{self.userInfo.text = "个人资料待认证"}
+        }
+        //发布时间
+        if cellStyle == .inMyTrendList{self.releaseTime.isHidden = true}
         self.releaseTime.text = model?.create_time
+        //更多操作
     }
     
     func configWith(commentModel:CommentModel?){
@@ -119,7 +136,9 @@ class TrendsTopToolsContainView: UIView {
         }else{
             self.sexImg.image = UIImage.init(named: "girl")
         }
-        self.userInfo.text = commentModel?.college
+        if let _college = commentModel?.college,let _academy = commentModel?.school{
+            self.userInfo.text = "\(_college)|\(_academy)"
+        }
         self.releaseTime.text = commentModel?.create_time
     }
     

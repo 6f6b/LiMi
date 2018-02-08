@@ -15,6 +15,7 @@ class WithDrawalController: ViewController {
     @IBOutlet weak var withDrawAmount: UITextField! //提现金额
     @IBOutlet weak var alipayBtn: UIButton!
     @IBOutlet weak var withdrawalBtn: UIButton!
+    var mycashModel:MyCashModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,13 @@ class WithDrawalController: ViewController {
         cancelBtn.sizeToFit()
         cancelBtn.addTarget(self, action: #selector(dealCancel), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: cancelBtn)
+        
+        if let _money = self.mycashModel?.money{
+            self.ableToBeWithdrawal.text = _money.decimalValue()
+            self.withDrawAmount.text = _money.decimalValue()
+        }
+        
+        self.withDrawAmount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,7 +81,24 @@ class WithDrawalController: ViewController {
             return
         }
         let alipayAcountController = AlipayAcountController()
+        alipayAcountController.withdrawAmount = self.withDrawAmount.text
         self.navigationController?.pushViewController(alipayAcountController, animated: true)
     }
     
+}
+
+extension WithDrawalController{
+    @objc func textFeildDidChange(textField:UITextField){
+        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
+            if substrs.count == 2{
+                let decimalStr = substrs[1]
+                if decimalStr.count == 1{
+                    textField.text = String.init(format: "%.1f", amount)
+                }
+                if decimalStr.count >= 2{
+                    textField.text = String.init(format: "%.2f", amount)
+                }
+            }
+        }
+    }
 }

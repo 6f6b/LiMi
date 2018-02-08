@@ -16,4 +16,9 @@
 #import "STEmoji.h"
 #import "STEmojiKeyboard.h"
 #import "PHAsset+Utility.h"
+#import "NSString+MD5.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "XLPhotoBrowser+Extension.h"
+#import "WXApi.h"
+//#import ""
 #endif /* LiMi_Bridging_Header_h */

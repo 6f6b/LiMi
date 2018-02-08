@@ -32,7 +32,7 @@ class TagCollectionCell: UICollectionViewCell {
         }
         if !isSelectedStatus{
             self.contentView.backgroundColor = RGBA(r: 240, g: 240, b: 240, a: 1)
-            self.tagTitle.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
+            self.tagTitle.textColor = APP_THEME_COLOR
         }
     }
 }

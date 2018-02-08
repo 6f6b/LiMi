@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import Moya
+import ObjectMapper
 
 class RewardRedPacketController: ViewController {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
@@ -19,7 +21,7 @@ class RewardRedPacketController: ViewController {
     @IBOutlet weak var girlSelected: UIButton!
     @IBOutlet weak var boySelected: UIButton!
     @IBOutlet weak var redPacketBtn: UIButton!
-    
+    var sentRedPacketSuccessBlock:((Double,SendRedPacketResultModel?)->Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "打赏红包"
@@ -34,8 +36,15 @@ class RewardRedPacketController: ViewController {
         
         self.redPacketBtn.layer.cornerRadius = 25
         self.redPacketBtn.clipsToBounds = true
+        
+        self.amount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAlipayResultWith(notification:)), name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
     }
-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -94,25 +103,135 @@ class RewardRedPacketController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请输入红包个数")
             return
         }
+        if self.amount.text!.doubleValue()! > 100.0{
+            SVProgressHUD.showInfo(withStatus: "红包不能超过100元")
+            return
+        }
+        if let _num = self.num.text?.intValue(){
+            if _num < 1{
+                SVProgressHUD.showInfo(withStatus: "至少发一个红包")
+                return
+            }
+            if _num > 100{
+                SVProgressHUD.showInfo(withStatus: "一次最多发100个红包")
+                return
+            }
+        }
+        
         if let amountValue = self.amount.text?.doubleValue(),let redPacketCount = self.num.text?.intValue(){
             if amountValue/Double(redPacketCount) < 0.01{
                 SVProgressHUD.showInfo(withStatus: "每个红包至少0.01元")
                 return
             }else{
-                if amountValue >= 100{
-                    let selectPayWayView = GET_XIB_VIEW(nibName: "SelectPayWayView") as! SelectPayWayView
-                    selectPayWayView.frame = SCREEN_RECT
-                    UIApplication.shared.keyWindow?.addSubview(selectPayWayView)
-                }else{
-                    let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
-                    payPasswordInputView.frame = SCREEN_RECT
-                    payPasswordInputView.amountValue = amountValue
-                    UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
-                }
+                var type = 2
+                if self.allSelected.isSelected{type = 2}
+                if self.girlSelected.isSelected{type = 0}
+                if self.boySelected.isSelected{type = 1}
+                self.generatePayWayWith(amount: amountValue, count: redPacketCount, type: type)
             }
         }else{
             SVProgressHUD.showInfo(withStatus: "输入数值格式有误")
         }
     }
     
+    //请求我的现金，判断金额是否足够，判断是否已经设置支付密码
+    func generatePayWayWith(amount:Double,count:Int,type:Int){
+        SVProgressHUD.show(withStatus: nil)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let myCash = MyCash()
+        _ = moyaProvider.rx.request(.targetWith(target: myCash)).subscribe(onSuccess: { (response) in
+            let mycashModel = Mapper<MyCashModel>().map(jsonData: response.data)
+            HandleResultWith(model: mycashModel)
+            //账户余额
+            if let _money = mycashModel?.money{
+                //账户余额足够
+                if _money >= amount{
+                    //0 设置了密码未被禁用 1：未设置密码 2：密码被禁用（错误次数过多）
+                    //未设置密码
+                    if mycashModel?.is_set_passwd != 0{
+                        let setPayPasswordController = SetPayPasswordController()
+                        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
+                    }else{
+                        let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
+                        payPasswordInputView.frame = SCREEN_RECT
+                        payPasswordInputView.amountValue = amount
+                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
+                            self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
+                        }
+                        UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
+                    }
+                }
+                //账户余额不足
+                if _money < amount{
+                    let selectPayWayView = GET_XIB_VIEW(nibName: "SelectPayWayView") as! SelectPayWayView
+                    selectPayWayView.selectPayWayBlock = {way in
+                        PayManager.shareManager.preRechageWith(payWay: way, amountText: self.amount.text)
+                    }
+                    selectPayWayView.frame = SCREEN_RECT
+                    UIApplication.shared.keyWindow?.addSubview(selectPayWayView)
+                }
+            }else{
+                SVProgressHUD.showErrorWith(msg: "网络错误")
+            }
+            SVProgressHUD.showErrorWith(model: mycashModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    func dealPlugMoneyToRedPacketWith(money:Double?,num:Int,type:Int,password:String?,trade_no:String? = nil){
+        SVProgressHUD.show(withStatus: nil)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let personCenter = SendRedpacket(money: money, num: num, type: type, password: password)
+        _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
+            let sendRedPacketResultModel = Mapper<SendRedPacketResultModel>().map(jsonData: response.data)
+            if sendRedPacketResultModel?.commonInfoModel?.status == successState{
+                if let _sentRedPacketSuccessBlock = self.sentRedPacketSuccessBlock{
+                    _sentRedPacketSuccessBlock(money!,sendRedPacketResultModel)
+                }
+                //延时0.8秒执行
+                let time: TimeInterval = 0.8
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            SVProgressHUD.showErrorWith(model: sendRedPacketResultModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    
+    /// 处理支付宝的回调结果
+    ///
+    /// - Parameter notification:
+    @objc func handleAlipayResultWith(notification: Notification){
+        let alipayResultContainModel = Mapper<AlipayResultContainModel>().map(JSONObject: notification.userInfo)
+        if alipayResultContainModel?.resultStatus == "9000"{
+            var type = 2
+            if self.allSelected.isSelected{type = 2}
+            if self.girlSelected.isSelected{type = 0}
+            if self.boySelected.isSelected{type = 1}
+            let trandNum = alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no
+            self.dealPlugMoneyToRedPacketWith(money: self.amount.text?.doubleValue(), num: (self.num.text?.intValue())!, type: type, password: nil, trade_no: trandNum)
+        }else{
+//            self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)
+        }
+    }
+}
+
+extension RewardRedPacketController{
+    @objc func textFeildDidChange(textField:UITextField){
+        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
+            if substrs.count == 2{
+                let decimalStr = substrs[1]
+                if decimalStr.count == 1{
+                    textField.text = String.init(format: "%.1f", amount)
+                }
+                if decimalStr.count >= 2{
+                    textField.text = String.init(format: "%.2f", amount)
+                }
+            }
+        }
+    }
 }

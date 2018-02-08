@@ -26,6 +26,7 @@ class SetPayPasswordController: ViewController {
     @IBOutlet weak var sumbitBtn: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    var isPopNavigationBarChange = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,7 @@ class SetPayPasswordController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -135,7 +137,11 @@ class SetPayPasswordController: ViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
-                self.navigationController?.popViewController(animated: true)
+                let delayTime = DispatchTime(uptimeNanoseconds: 1)
+                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                    SVProgressHUD.dismiss()
+                    self.navigationController?.popViewController(animated: true)
+                })
             }
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)

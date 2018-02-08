@@ -55,6 +55,8 @@ class CatchRedPacketView: UIView {
         self.catchSuccessedUsersTableView.delegate = self
         self.catchSuccessedUsersTableView.dataSource = self
         
+        self.headImgV.layer.cornerRadius = 30
+        self.headImgV.clipsToBounds = true
         self.catchAmount.text = nil
         self.userInfo.text = nil
         self.reset()
@@ -67,9 +69,6 @@ class CatchRedPacketView: UIView {
     
     @IBAction func dealClose(_ sender: Any) {
         self.removeFromSuperview()
-        if let _closeBlock = self.closeBlock{
-            _closeBlock()
-        }
     }
     
     /// 领取红包
@@ -99,8 +98,8 @@ class CatchRedPacketView: UIView {
             HandleResultWith(model: redPacketResultModel)
             self.showWith(redPacketResultModel: redPacketResultModel)
             self.trendModel?.red_type = "3"
+            NotificationCenter.default.post(name: CATCHED_RED_PACKET_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.trendModel])
             SVProgressHUD.dismiss()
-            //SVProgressHUD.showErrorWith(model: redPacketResultModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })

@@ -14,6 +14,9 @@ import SVProgressHUD
 class HomePageController: ViewController {
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
+    var findTrendsListController:TrendsListController!
+    var trendsListController:TrendsListController!
+    var conditionScreeningView:ConditionScreeningView?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +42,7 @@ class HomePageController: ViewController {
             })
         }
         let findTrendsListController = TrendsListController()
+        self.findTrendsListController = findTrendsListController
         findTrendsListController.type = "skill"
         self.addChildViewController(findTrendsListController)
         let findTrendsListControllerView = findTrendsListController.view
@@ -46,6 +50,7 @@ class HomePageController: ViewController {
         self.controllersContainScrollView.addSubview(findTrendsListControllerView!)
         
         let trendsListController = TrendsListController()
+        self.trendsListController = trendsListController
         trendsListController.type = "action"
         self.addChildViewController(trendsListController)
         let trendsListControllerView = trendsListController.view
@@ -53,6 +58,11 @@ class HomePageController: ViewController {
         tmpFrame.origin.x = tmpFrame.size.width
         trendsListControllerView?.frame = tmpFrame
         self.controllersContainScrollView.addSubview(trendsListControllerView!)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,17 +92,40 @@ class HomePageController: ViewController {
         })
     }
     
-    @objc func dealScreening(){
-        let conditionScreeningView = GET_XIB_VIEW(nibName: "ConditionScreeningView") as! ConditionScreeningView
-        conditionScreeningView.frame = SCREEN_RECT
-        UIApplication.shared.keyWindow?.addSubview(conditionScreeningView)
+    @objc func dealPostATrendSuccess(){
+        self.slidingMenuBar.select(index: 1)
+        if let _tapBlock = self.slidingMenuBar.tapBlock{
+            _tapBlock(1)
+        }
     }
-
+    
+    @objc func dealScreening(){
+        if let _ = self.conditionScreeningView{
+        }else{
+            self.conditionScreeningView = ConditionScreeningView.shareConditionScreeningView()
+            conditionScreeningView?.screeningConditionsSelectBlock = {(college,academy,grade,sex,skill) in
+                self.findTrendsListController.collegeModel = college
+                self.findTrendsListController.academyModel = academy
+                self.findTrendsListController.gradeModel = grade
+                self.findTrendsListController.sexModel = sex
+                self.findTrendsListController.skillModel = skill
+                self.findTrendsListController.tableView.mj_header.beginRefreshing()
+                
+                self.trendsListController.collegeModel = college
+                self.trendsListController.academyModel = academy
+                self.trendsListController.gradeModel = grade
+                self.trendsListController.sexModel = sex
+                self.trendsListController.skillModel = skill
+                self.trendsListController.tableView.mj_header.beginRefreshing()
+            }
+        }
+        self.conditionScreeningView?.show()
+    }
 }
 
 extension HomePageController:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scroll")
+        print("scroll--------------------?")
         if scrollView.contentOffset.x <= 0{self.slidingMenuBar.select(index: 0)}else{
             self.slidingMenuBar.select(index: 1)
         }

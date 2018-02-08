@@ -39,8 +39,13 @@ class MyTrendListController: ViewController {
         })
         
         self.loadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -69,6 +74,31 @@ class MyTrendListController: ViewController {
         })
     }
     
+    @objc func dealDidMoreOperation(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let operationModel = userInfo[MORE_OPERATION_KEY] as? MoreOperationModel{
+                //删除
+                if operationModel.operationType == .delete{
+                    self.deleteTrendsWith(actionId: operationModel.action_id)
+                }
+            }
+        }
+    }
+    
+    /// 删除某条动态
+    ///
+    /// - Parameter trendModel: 动态model
+    func deleteTrendsWith(actionId:Int?){
+        for i in 0 ..< self.dataArray.count{
+            let _trendModel = self.dataArray[i]
+            if _trendModel.action_id == actionId{
+                self.dataArray.remove(at: i)
+                break
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
     /// 更多操作
     ///
     /// - Parameters:
@@ -85,6 +115,12 @@ class MyTrendListController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: baseModel)
+            if baseModel?.commonInfoModel?.status == successState{
+                if baseModel?.commonInfoModel?.status == successState{
+                    let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
+                    NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+                }
+            }
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
@@ -128,7 +164,14 @@ extension MyTrendListController:UITableViewDelegate,UITableViewDataSource{
                 self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
             })
             let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
-                self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
+                let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+                    self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                })
+                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                alertController.addAction(actionOK)
+                alertController.addAction(actionCancel)
+                self.present(alertController, animated: true, completion: nil)
             })
             let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             if model.user_id != Defaults[.userId]{
@@ -176,9 +219,6 @@ extension MyTrendListController:UITableViewDelegate,UITableViewDataSource{
         //抢红包
         trendsCell.catchRedPacketBlock = {
             let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-            catchRedPacketView.closeBlock = {
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-            }
             catchRedPacketView.showWith(trendModel: model)
         }
         return trendsCell

@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = TabBarController()
         NotificationCenter.default.addObserver(self, selector: #selector(logOut(notification:)), name: LOGOUT_NOTIFICATION, object: nil)
+
+        WXApi.registerApp(WECHAT_APP_ID)
         return true
     }
 
@@ -71,8 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //MARK - Open Url
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        return false
+        //支付宝
+        if url.host == "safepay"{
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
+                NotificationCenter.default.post(name: FINISHED_ALIPAY_NOTIFICATION, object: nil, userInfo: result)
+            })
+        }
+        return true
     }
+    
     
     //MARK: - misc
     @objc func logOut(notification:Notification){
@@ -102,3 +111,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate:WXApiDelegate{
+    func onResp(_ resp: BaseResp!) {
+        
+    }
+    
+    func onReq(_ req: BaseReq!) {
+        
+    }
+}

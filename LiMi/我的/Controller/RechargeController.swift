@@ -8,6 +8,9 @@
 
 import UIKit
 import SVProgressHUD
+import Moya
+import ObjectMapper
+import Dispatch
 
 class RechargeController: ViewController {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
@@ -34,6 +37,14 @@ class RechargeController: ViewController {
         self.containView.clipsToBounds = true
         self.rechargeBtn.layer.cornerRadius = 20
         self.rechargeBtn.clipsToBounds = true
+        
+        self.rechargeAmount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAlipayResultWith(notification:)), name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,6 +92,72 @@ class RechargeController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请输入充值金额")
             return
         }
+        let payManager = PayManager.shareManager
+        if self.alipayRecharge.isSelected{payManager.preRechageWith(payWay: .alipay, amountText: self.rechargeAmount.text)}
+        if self.wechatRecharge.isSelected{payManager.preRechageWith(payWay: .wechatPay, amountText: self.rechargeAmount.text)}
     }
     
+    
+    @objc func handleAlipayResultWith(notification: Notification){
+            let alipayResultContainModel = Mapper<AlipayResultContainModel>().map(JSONObject: notification.userInfo)
+        if alipayResultContainModel?.resultStatus == "9000"{
+            self.callServerAliPayStateWith(tadeNumber: alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no)
+        }else{
+            self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)
+        }
+    }
+    
+    /// 向服务器查询支付宝支付信息
+    ///
+    /// - Parameter tadeNumber: 交易流水号
+    func callServerAliPayStateWith(tadeNumber:String?){
+        let getPayStaus = GetPayStaus(order_no: tadeNumber)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        _ = moyaProvider.rx.request(.targetWith(target: getPayStaus)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: resultModel)
+            SVProgressHUD.showResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
+                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                    self.dismiss(animated: true, completion: {
+                        SVProgressHUD.dismiss()
+                    })
+                })
+            }
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    func showAliPayErrorWith(code:String?){
+        //        9000    订单支付成功
+        //        8000    正在处理中
+        //        4000    订单支付失败
+        //        6001    用户中途取消
+        //        6002    网络连接出错
+        //        99    用户点击忘记密码导致快捷界面退出(only iOS)
+        if code == "8000"{SVProgressHUD.show(withStatus: "正在处理中...")}
+        if code == "4000"{SVProgressHUD.showErrorWith(msg: "订单支付失败")}
+        if code == "6001"{SVProgressHUD.showErrorWith(msg: "取消支付")}
+        if code == "6002"{SVProgressHUD.showErrorWith(msg: "网络连接错误")}
+        if code == "99"{SVProgressHUD.showErrorWith(msg: "支付失败")}
+
+    }
+}
+
+extension RechargeController{
+    @objc func textFeildDidChange(textField:UITextField){
+        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
+            if substrs.count == 2{
+                let decimalStr = substrs[1]
+                if decimalStr.count == 1{
+                    textField.text = String.init(format: "%.1f", amount)
+                }
+                if decimalStr.count >= 2{
+                    textField.text = String.init(format: "%.2f", amount)
+                }
+            }
+        }
+    }
 }

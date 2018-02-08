@@ -59,7 +59,7 @@ class TrendCommentCell: UITableViewCell {
         }
         
         self.comment = UILabel()
-        self.comment.text = "哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼哇，真牛逼"
+        self.comment.text = nil
         self.comment.font = UIFont.systemFont(ofSize: 14)
         self.comment.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
         self.comment.numberOfLines = 0

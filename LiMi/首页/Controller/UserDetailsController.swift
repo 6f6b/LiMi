@@ -256,9 +256,6 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 //抢红包
                 trendsCell.catchRedPacketBlock = {
                     let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-                    catchRedPacketView.closeBlock = {
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
-                    }
                     catchRedPacketView.showWith(trendModel: model)
                 }
                 return trendsCell

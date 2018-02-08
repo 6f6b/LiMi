@@ -38,12 +38,14 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     }
     if TrendsCellStyle.inPersonCenter == trendsCellStyle{
         trendsCell.trendsTopToolsContainView.moreOperationBtn.isHidden = true
+        trendsCell.trendsTopToolsContainView.releaseTime.isHidden = true
     }
     if TrendsCellStyle.inMyTrendList == trendsCellStyle{
 //        trendsCell.trendsTopToolsContainView.moreOperationBtn.isHidden = true
     }
     
     //配置
+    trendsCell.cellStyle = trendsCellStyle
     trendsCell.configWith(model: model)
     //相关block在对应controller中实现
     return trendsCell

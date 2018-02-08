@@ -12,8 +12,8 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
     var headImgV: UIImageView!
     var info: UILabel!
     var spreadBtn:UIButton!
+    var spreadBlock:((Bool)->Void)?
     
-    var spreadBlock:(()->Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -37,8 +37,9 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
         }
         
         self.spreadBtn = UIButton()
-        self.spreadBtn.setImage(UIImage.init(named: "sx_btn_zhankai"), for: .normal)
-        self.spreadBtn.addTarget(self, action: #selector(dealSpread), for: .touchUpInside)
+        self.spreadBtn.setImage(UIImage.init(named: "sx_btn_shouqi"), for: .normal)
+        self.spreadBtn.setImage(UIImage.init(named: "sx_btn_zhankai"), for: .selected)
+        self.spreadBtn.addTarget(self, action: #selector(dealSpread(btn:)), for: .touchUpInside)
         self.addSubview(self.spreadBtn)
         self.spreadBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self)
@@ -52,9 +53,10 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
     }
     
     //MARK: - misc
-    @objc func dealSpread(){
+    @objc func dealSpread(btn:UIButton){
+        self.spreadBtn.isSelected = !spreadBtn.isSelected
         if let _spreadBlock = self.spreadBlock{
-            _spreadBlock()
+            _spreadBlock(self.spreadBtn.isSelected)
         }
     }
 }

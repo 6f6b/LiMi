@@ -22,6 +22,7 @@ target ‘LiMi' do
     pod 'QiniuUpload'
     pod 'XLPhotoBrowser+CoderXL'
     pod 'DZNEmptyDataSet'
+    pod 'ZFPlayer'
 #    pod 'XLPagerTabStrip', '~> 8.0'
 #    pod 'AGEmojiKeyboard'
 #    pod 'PageMenu'

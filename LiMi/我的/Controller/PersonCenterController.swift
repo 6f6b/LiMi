@@ -195,6 +195,7 @@ class PersonCenterController: UITableViewController {
             }
             if indexPath.row == 1{
                 let myCashController = MyCashController()
+                myCashController.personCenterModel = self.personCenterModel
                 self.navigationController?.pushViewController(myCashController, animated: true)
             }
         }

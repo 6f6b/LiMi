@@ -35,11 +35,16 @@ let APP_PRIVATE_KEY = ""
 let APP_PUBLIC_KEY = ""
 let ALIPAY_PUBLIC_KEY = ""
 let ALIPAY_APP_ID = ""
-let WECHAT_APP_ID = ""
+
+/// 微信APPID
+let WECHAT_APP_ID = "wxb750b949790baabc"
 let QQ_APP_ID = ""
 
 //APP版本版本
 let APP_VERSION = "1.0.5"
+
+//APP   scheme
+let APP_SCHEME = "LiMi20018"
 
 //设备唯一标示
 //let IMEI = AppUntils.readUUIDFromKeyChain()
@@ -62,11 +67,23 @@ let GENERAL_GRAY_COLOR = RGBA(r: 128, g: 128, b: 128, a: 1)
 var AUTH_BTN_COUNT_DOWN_TIMER:Timer?
 var AUTH_BTN_COUNT_DOWN_TIME = 0
 
-//动态发送成功通知
+///动态发送成功通知
 let POST_TREND_SUCCESS_NOTIFICATION = Notification.Name.init("POST_TREND_SUCCESS_NOTIFICATION")
-//退出登录通知
+///退出登录通知
 let  LOGOUT_NOTIFICATION = Notification.Name.init("LOGOUT_NOTIFICATION")
+///筛选条件改变
+let   SCREENING_CODITIONS_CHANGED = Notification.Name.init("SCREENING_CODITIONS_CHANGED")
+///做出了更多操作通知：举报、删除、拉黑、聊天
+let    DID_MORE_OPERATION = Notification.Name.init("DID_MORE_OPERATION")
+/// 抢了红包
+let     CATCHED_RED_PACKET_NOTIFICATION = Notification.Name.init("CATCHED_RED_PACKET_NOTIFICATION")
+/// 支付宝支付完毕
+let FINISHED_ALIPAY_NOTIFICATION = Notification.Name.init("FINISHED_ALIPAY_NOTIFICATION")
 
+/// 更多操作通知对象的key
+let MORE_OPERATION_KEY = "MORE_OPERATION_KEY"
+/// 动态模型key
+let TREND_MODEL_KEY = "TREND_MODEL_KEY"
 //国内https上传
 let qnConfig = QNConfiguration.build { (builder) in
     builder?.setZone(QNFixedZone.zone0())

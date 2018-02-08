@@ -12,23 +12,25 @@ import SVProgressHUD
 import ObjectMapper
 import MJRefresh
 import DZNEmptyDataSet
+import AVKit
 
 enum OperationType {
     case report
     case delete
     case defriend
     case sendMsg
+    case none
 }
 class TrendsListController: ViewController{
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1
     var type:String?
-    var collegeId:String?
-    var academyId:String?
-    var gradeId:String?
-    var sex:String?
-    var skillId:String?
+    var collegeModel:CollegeModel?
+    var academyModel:AcademyModel?
+    var gradeModel:GradeModel?
+    var sexModel:SexModel?
+    var skillModel:SkillModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的动态"
@@ -50,6 +52,7 @@ class TrendsListController: ViewController{
         })
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +64,7 @@ class TrendsListController: ViewController{
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,7 +75,8 @@ class TrendsListController: ViewController{
     func loadData(){
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeId, school_id: self.academyId, grade_id: self.gradeId, sex: self.sex, skill_id: self.skillId)
+        
+        let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: trendsList)).subscribe(onSuccess: { (response) in
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
             HandleResultWith(model: trendsListModel)
@@ -107,15 +112,66 @@ class TrendsListController: ViewController{
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: baseModel)
+            if baseModel?.commonInfoModel?.status == successState{
+                let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
+                NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+            }
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
     }
     
+    
+    /// 拉黑某个人后，删除列表中这个人的动态
+    ///
+    /// - Parameter trendModel: 动态model
+    func defriendUserWith(user_id:Int?){
+        for i in 0 ..< self.dataArray.count{
+            let _trendModel = self.dataArray[i]
+            
+            if _trendModel.user_id == user_id{
+                self.dataArray.remove(at: i)
+                print("操作++++++++++")
+                self.defriendUserWith(user_id:user_id )
+                return
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    /// 删除某条动态
+    ///
+    /// - Parameter trendModel: 动态model
+    func deleteTrendsWith(actionId:Int?){
+        for i in 0 ..< self.dataArray.count{
+            let _trendModel = self.dataArray[i]
+            if _trendModel.action_id == actionId{
+                self.dataArray.remove(at: i)
+                break
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
     //成功发送了一条动态
     @objc func dealPostATrendSuccess(){
         self.tableView.mj_header.beginRefreshing()
+    }
+    
+    @objc func dealDidMoreOperation(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let operationModel = userInfo[MORE_OPERATION_KEY] as? MoreOperationModel{
+                //拉黑
+                if operationModel.operationType == .defriend{
+                    self.defriendUserWith(user_id: operationModel.user_id)
+                }
+                //删除
+                if operationModel.operationType == .delete{
+                    self.deleteTrendsWith(actionId: operationModel.action_id)
+                }
+            }
+        }
     }
 }
 
@@ -156,7 +212,14 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
                 self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
             })
             let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
-                self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
+                let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+                    self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+                })
+                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                alertController.addAction(actionOK)
+                alertController.addAction(actionCancel)
+                self.present(alertController, animated: true, completion: nil)
             })
             let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             if model.user_id != Defaults[.userId]{
@@ -203,9 +266,6 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
         //抢红包
         trendsCell.catchRedPacketBlock = {
             let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-            catchRedPacketView.closeBlock = {
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-            }
             catchRedPacketView.showWith(trendModel: self.dataArray[indexPath.row])
         }
         return trendsCell

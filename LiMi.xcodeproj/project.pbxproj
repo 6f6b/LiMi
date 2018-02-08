@@ -148,6 +148,33 @@
 		688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */; };
 		688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */; };
 		688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */; };
+		689D53882027FC2E009C771C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53872027FC2E009C771C /* UIImageViewExtension.swift */; };
+		689D538B20280595009C771C /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 689D538A20280595009C771C /* NSString+MD5.m */; };
+		689D538E20284DC3009C771C /* SendRedPacketResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D538D20284DC3009C771C /* SendRedPacketResultModel.swift */; };
+		689D5393202882AA009C771C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF7FC20061612007FAE9C /* libc++.tbd */; };
+		689D5394202882AF009C771C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF89920061625007FAE9C /* libz.tbd */; };
+		689D5395202882B5009C771C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF85D2006161E007FAE9C /* SystemConfiguration.framework */; };
+		689D5396202882BC009C771C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8502006161C007FAE9C /* CoreTelephony.framework */; };
+		689D5397202882C2009C771C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8662006161F007FAE9C /* QuartzCore.framework */; };
+		689D5398202882C9009C771C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8F420061630007FAE9C /* CoreText.framework */; };
+		689D5399202882CF009C771C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF87620061621007FAE9C /* CoreGraphics.framework */; };
+		689D539A202882D5009C771C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8CB2006162B007FAE9C /* UIKit.framework */; };
+		689D539B202882DA009C771C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF82520061617007FAE9C /* Foundation.framework */; };
+		689D539C202882E0009C771C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF80020061612007FAE9C /* CFNetwork.framework */; };
+		689D539D202882EC009C771C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8CA2006162B007FAE9C /* CoreMotion.framework */; };
+		689D539F202884AB009C771C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689D539E202884AB009C771C /* AlipaySDK.framework */; };
+		689D53A7202951D2009C771C /* MyCashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53A6202951D2009C771C /* MyCashModel.swift */; };
+		689D53AC202962F4009C771C /* XLPhotoBrowser+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 689D53AB202962F4009C771C /* XLPhotoBrowser+Extension.m */; };
+		689D53AE20298AB6009C771C /* MoreOperationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53AD20298AB6009C771C /* MoreOperationModel.swift */; };
+		689D53B020299E97009C771C /* SignedResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53AF20299E97009C771C /* SignedResultModel.swift */; };
+		689D53FB202AD770009C771C /* AliSdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53FA202AD770009C771C /* AliSdkManager.swift */; };
+		689D53FD202AE198009C771C /* AlipayResultContainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53FC202AE198009C771C /* AlipayResultContainModel.swift */; };
+		689D5413202AF78F009C771C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 689D5406202AF78F009C771C /* AlipaySDK.bundle */; };
+		689D5414202AF78F009C771C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689D5407202AF78F009C771C /* AlipaySDK.framework */; };
+		689D5420202AFB32009C771C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 689D541B202AFB32009C771C /* libWeChatSDK.a */; };
+		689D5421202AFB32009C771C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 689D541C202AFB32009C771C /* README.txt */; };
+		689D5422202AFBC1009C771C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8B320061627007FAE9C /* libsqlite3.0.tbd */; };
+		689D5424202B2E55009C771C /* PayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D5423202B2E55009C771C /* PayManager.swift */; };
 		689DF78F20045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
 		689DF79020045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
 		689DF79120045D53007FAE9C /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF78E20045D53007FAE9C /* CircleController.swift */; };
@@ -360,6 +387,26 @@
 		688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserNameController.xib; sourceTree = "<group>"; };
 		688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterUserSexController.swift; sourceTree = "<group>"; };
 		688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserSexController.xib; sourceTree = "<group>"; };
+		689D53872027FC2E009C771C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		689D538920280595009C771C /* NSString+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		689D538A20280595009C771C /* NSString+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		689D538D20284DC3009C771C /* SendRedPacketResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRedPacketResultModel.swift; sourceTree = "<group>"; };
+		689D539E202884AB009C771C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = "LiMi/Misc/Libs/支付宝/AlipaySDK.framework"; sourceTree = "<group>"; };
+		689D53A6202951D2009C771C /* MyCashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCashModel.swift; sourceTree = "<group>"; };
+		689D53AA202962F4009C771C /* XLPhotoBrowser+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XLPhotoBrowser+Extension.h"; sourceTree = "<group>"; };
+		689D53AB202962F4009C771C /* XLPhotoBrowser+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XLPhotoBrowser+Extension.m"; sourceTree = "<group>"; };
+		689D53AD20298AB6009C771C /* MoreOperationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreOperationModel.swift; sourceTree = "<group>"; };
+		689D53AF20299E97009C771C /* SignedResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedResultModel.swift; sourceTree = "<group>"; };
+		689D53FA202AD770009C771C /* AliSdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliSdkManager.swift; sourceTree = "<group>"; };
+		689D53FC202AE198009C771C /* AlipayResultContainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayResultContainModel.swift; sourceTree = "<group>"; };
+		689D5406202AF78F009C771C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		689D5407202AF78F009C771C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		689D541B202AFB32009C771C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		689D541C202AFB32009C771C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		689D541D202AFB32009C771C /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		689D541E202AFB32009C771C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		689D541F202AFB32009C771C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		689D5423202B2E55009C771C /* PayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayManager.swift; sourceTree = "<group>"; };
 		689DF78E20045D53007FAE9C /* CircleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleController.swift; sourceTree = "<group>"; };
 		689DF79620045D7D007FAE9C /* MsgController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgController.swift; sourceTree = "<group>"; };
 		689DF7A62004793D007FAE9C /* LoginRegister.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginRegister.storyboard; sourceTree = "<group>"; };
@@ -693,6 +740,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689D539C202882E0009C771C /* CFNetwork.framework in Frameworks */,
+				689D5422202AFBC1009C771C /* libsqlite3.0.tbd in Frameworks */,
+				689D539F202884AB009C771C /* AlipaySDK.framework in Frameworks */,
+				689D5414202AF78F009C771C /* AlipaySDK.framework in Frameworks */,
+				689D5420202AFB32009C771C /* libWeChatSDK.a in Frameworks */,
+				689D539D202882EC009C771C /* CoreMotion.framework in Frameworks */,
+				689D539B202882DA009C771C /* Foundation.framework in Frameworks */,
+				689D539A202882D5009C771C /* UIKit.framework in Frameworks */,
+				689D5399202882CF009C771C /* CoreGraphics.framework in Frameworks */,
+				689D5398202882C9009C771C /* CoreText.framework in Frameworks */,
+				689D5397202882C2009C771C /* QuartzCore.framework in Frameworks */,
+				689D5396202882BC009C771C /* CoreTelephony.framework in Frameworks */,
+				689D5395202882B5009C771C /* SystemConfiguration.framework in Frameworks */,
+				689D5394202882AF009C771C /* libz.tbd in Frameworks */,
+				689D5393202882AA009C771C /* libc++.tbd in Frameworks */,
 				689DFA1520061B38007FAE9C /* AVKit.framework in Frameworks */,
 				316238D27303DF2486B62251 /* Pods_LiMi.framework in Frameworks */,
 			);
@@ -718,6 +780,7 @@
 		005EAA1A4DA684DB47FF2248 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				689D539E202884AB009C771C /* AlipaySDK.framework */,
 				689DF82720061617007FAE9C /* Accelerate.framework */,
 				689DF82F20061618007FAE9C /* Accounts.framework */,
 				689DF8412006161B007FAE9C /* AddressBook.framework */,
@@ -1151,6 +1214,7 @@
 		6888085B200DF0F100BC6AE9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				689D53F7202AD74B009C771C /* utilities */,
 				6888089D200F1E0300BC6AE9 /* Libs */,
 				68880896200DF52200BC6AE9 /* Globals */,
 				68880872200DF19300BC6AE9 /* basicclass */,
@@ -1187,10 +1251,15 @@
 				6888088E200DF2B600BC6AE9 /* SVProgressHUDExtension.swift */,
 				68880892200DF41500BC6AE9 /* ObjectMapperExtension.swift */,
 				6888089B200DF7E900BC6AE9 /* DefaultsKeysExtension.swift */,
+				689D53872027FC2E009C771C /* UIImageViewExtension.swift */,
 				683582832021951200798462 /* PHAsset+Extension.h */,
 				683582842021951300798462 /* PHAsset+Extension.m */,
 				68358287202199A000798462 /* PHAsset+Utility.h */,
 				683582862021999F00798462 /* PHAsset+Utility.m */,
+				689D538920280595009C771C /* NSString+MD5.h */,
+				689D538A20280595009C771C /* NSString+MD5.m */,
+				689D53AA202962F4009C771C /* XLPhotoBrowser+Extension.h */,
+				689D53AB202962F4009C771C /* XLPhotoBrowser+Extension.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1207,6 +1276,8 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				689D53FE202AF78F009C771C /* 微信 */,
+				689D5405202AF78F009C771C /* 支付宝 */,
 				6862E50E2019BC130058B878 /* inputBar&emoji */,
 				68282D3A20170C7A0003A0CD /* SlidingMenu */,
 				68282CEF2016DC0A0003A0CD /* 评论控件 */,
@@ -1253,6 +1324,7 @@
 				6835826E20200E2500798462 /* SkillListModel.swift */,
 				683582732020507200798462 /* QNUploadTokenModel.swift */,
 				683582892021AC1C00798462 /* LocalMediaModel.swift */,
+				689D538D20284DC3009C771C /* SendRedPacketResultModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1278,6 +1350,44 @@
 				68F903882015E9FB00B3028B /* SelectPayWayView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		689D53F7202AD74B009C771C /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				689D53FA202AD770009C771C /* AliSdkManager.swift */,
+				689D5423202B2E55009C771C /* PayManager.swift */,
+			);
+			path = utilities;
+			sourceTree = "<group>";
+		};
+		689D53FE202AF78F009C771C /* 微信 */ = {
+			isa = PBXGroup;
+			children = (
+				689D541A202AFB32009C771C /* WechatSDK1.8.2 */,
+			);
+			path = "微信";
+			sourceTree = "<group>";
+		};
+		689D5405202AF78F009C771C /* 支付宝 */ = {
+			isa = PBXGroup;
+			children = (
+				689D5406202AF78F009C771C /* AlipaySDK.bundle */,
+				689D5407202AF78F009C771C /* AlipaySDK.framework */,
+			);
+			path = "支付宝";
+			sourceTree = "<group>";
+		};
+		689D541A202AFB32009C771C /* WechatSDK1.8.2 */ = {
+			isa = PBXGroup;
+			children = (
+				689D541B202AFB32009C771C /* libWeChatSDK.a */,
+				689D541C202AFB32009C771C /* README.txt */,
+				689D541D202AFB32009C771C /* WechatAuthSDK.h */,
+				689D541E202AFB32009C771C /* WXApi.h */,
+				689D541F202AFB32009C771C /* WXApiObject.h */,
+			);
+			path = WechatSDK1.8.2;
 			sourceTree = "<group>";
 		};
 		689DF76E20045C33007FAE9C /* 圈子 */ = {
@@ -1359,6 +1469,9 @@
 				688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */,
 				688A4C91200D9E8400BB5DF7 /* UserInfoListModel.swift */,
 				68358258201F18DD00798462 /* TransactonListModel.swift */,
+				689D53A6202951D2009C771C /* MyCashModel.swift */,
+				689D53AF20299E97009C771C /* SignedResultModel.swift */,
+				689D53FC202AE198009C771C /* AlipayResultContainModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1407,6 +1520,7 @@
 				6835824B201EC6A000798462 /* SkillModel.swift */,
 				6835824F201ED87C00798462 /* SexModel.swift */,
 				6835828B202306A000798462 /* RedPacketResultModel.swift */,
+				689D53AD20298AB6009C771C /* MoreOperationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1689,6 +1803,7 @@
 				688809152011E64000BC6AE9 /* RechargeController.xib in Resources */,
 				6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */,
 				68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */,
+				689D5421202AFB32009C771C /* README.txt in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
 				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				6835827E2021593200798462 /* WithDrawalController.xib in Resources */,
@@ -1709,6 +1824,7 @@
 				6888090D2011ABDF00BC6AE9 /* ReleaseContentAddImgCollectionCell.xib in Resources */,
 				68F9038D201610C200B3028B /* CatchRedPacketView.xib in Resources */,
 				6862E5272019BC130058B878 /* keyboard_preview_bg@2x.png in Resources */,
+				689D5413202AF78F009C771C /* AlipaySDK.bundle in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 				68282CEE2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib in Resources */,
 				6862E50D201989A70058B878 /* ConditionScreeningCollectionCell.xib in Resources */,
@@ -1800,11 +1916,13 @@
 				688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */,
 				6825486520159D260033410A /* TrendCommentCell.swift in Sources */,
 				688809102011E5DB00BC6AE9 /* SetPayPasswordController.swift in Sources */,
+				689D53A7202951D2009C771C /* MyCashModel.swift in Sources */,
 				68880884200DF19300BC6AE9 /* test.swift in Sources */,
 				688808FC2011A78F00BC6AE9 /* ReleaseContentTextInputCell.swift in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
 				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
 				6835824E201EC75400798462 /* ScreeningConditionsModel.swift in Sources */,
+				689D53B020299E97009C771C /* SignedResultModel.swift in Sources */,
 				68282CED2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
 				6862E50C201989A70058B878 /* ConditionScreeningCollectionCell.swift in Sources */,
@@ -1845,11 +1963,13 @@
 				68358288202199A000798462 /* PHAsset+Utility.m in Sources */,
 				688808E82011852500BC6AE9 /* TrendsImageCollectionCell.swift in Sources */,
 				682548732015C46D0033410A /* UserDetailHeadView.swift in Sources */,
+				689D538B20280595009C771C /* NSString+MD5.m in Sources */,
 				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
 				6825485A20137BDC0033410A /* CommentsWithTrendController.swift in Sources */,
 				688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */,
 				68358250201ED87C00798462 /* SexModel.swift in Sources */,
 				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
+				689D53AE20298AB6009C771C /* MoreOperationModel.swift in Sources */,
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
 				688808ED20118F8100BC6AE9 /* TrendsWithPictureCell.swift in Sources */,
 				688808E32010921300BC6AE9 /* TrendsTopToolsContainView.swift in Sources */,
@@ -1866,13 +1986,16 @@
 				6888087F200DF19300BC6AE9 /* CommonInfoModel.swift in Sources */,
 				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
+				689D53882027FC2E009C771C /* UIImageViewExtension.swift in Sources */,
 				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
+				689D53AC202962F4009C771C /* XLPhotoBrowser+Extension.m in Sources */,
 				68629ED1201B29DF00D041CC /* UserDetailModel.swift in Sources */,
 				688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */,
 				6862E5302019BC130058B878 /* STInputBar.m in Sources */,
 				68880885200DF19300BC6AE9 /* View.swift in Sources */,
 				68880880200DF19300BC6AE9 /* Helper.swift in Sources */,
 				68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */,
+				689D5424202B2E55009C771C /* PayManager.swift in Sources */,
 				683107C02024402C0060B109 /* EmptyTrendsCell.swift in Sources */,
 				6888091820123A9900BC6AE9 /* DeleteController.swift in Sources */,
 				6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */,
@@ -1882,6 +2005,7 @@
 				689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */,
 				688A4C92200D9E8400BB5DF7 /* UserInfoListModel.swift in Sources */,
 				688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */,
+				689D53FD202AE198009C771C /* AlipayResultContainModel.swift in Sources */,
 				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
 				688809142011E64000BC6AE9 /* RechargeController.swift in Sources */,
@@ -1898,7 +2022,9 @@
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,
 				683582852021951300798462 /* PHAsset+Extension.m in Sources */,
 				6825486220157CFF0033410A /* TagCollectionCell.swift in Sources */,
+				689D538E20284DC3009C771C /* SendRedPacketResultModel.swift in Sources */,
 				68880893200DF41500BC6AE9 /* ObjectMapperExtension.swift in Sources */,
+				689D53FB202AD770009C771C /* AliSdkManager.swift in Sources */,
 				688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */,
 				688808E52010922F00BC6AE9 /* TrendsBottomToolsContainView.swift in Sources */,
 				6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */,
@@ -2078,11 +2204,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T6A5794LJU;
+				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/支付宝",
+				);
 				INFOPLIST_FILE = LiMi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/微信/WechatSDK1.8.2",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -2119,8 +2253,9 @@
 					"\"YYImage\"",
 					"-framework",
 					"\"YYText\"",
+					"\"-all_load\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi2018.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi200018.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -2134,11 +2269,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T6A5794LJU;
+				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/支付宝",
+				);
 				INFOPLIST_FILE = LiMi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/微信/WechatSDK1.8.2",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -2175,8 +2318,9 @@
 					"\"YYImage\"",
 					"-framework",
 					"\"YYText\"",
+					"\"-all_load\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi2018.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiMi200018.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

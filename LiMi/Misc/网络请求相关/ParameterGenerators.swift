@@ -559,6 +559,25 @@ struct TransactonRcord:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - 26我的现金
+struct MyCash:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/User/mycash"
+    }
+    
+    func parameters() -> [String : Any] {
+        var tmpParameters:[String:Any]? = nil
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 //MARK: - 获取七牛云上传token（已对接）
 struct GetQNUploadToken:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -580,7 +599,7 @@ struct GetQNUploadToken:TargetType,ParametersProtocol{
     }
 }
 
-/******************************发布需求模块*************************************/
+//MARK: - /******************************发布需求模块*************************************/
 //MARK: - 1发布动态（已对接）
 struct ReleaseTrends:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -631,8 +650,56 @@ struct SkillList:TargetType,ParametersProtocol{
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
-//3 塞入钱包    POST app.youhongtech.com/index.php/apps/Publish/sendRedpacket    郑元军    2018-02-01 14:32:16    新窗口打开修改删除
-//4 取消发布需求    POST app.youhongtech.com/index.php/apps/Publish/cancelDynamic    郑元军    2018-02-01 14:32:23    新窗口打开修改删除
+//MARK: - 3 塞入钱包,塞红包到动态中    POST app.youhongtech.com/index.php/apps/Publish/sendRedpacket
+struct SendRedpacket:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Publish/sendRedpacket"
+    }
+    
+    var money:Double?
+    var num:Int?
+    var type:Int?
+    var password:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "money":money,
+            "num":num,
+            "type":type,
+            "password":password,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+//4 取消发布需求    POST app.youhongtech.com/index.php/apps/Publish/cancelDynamic
+struct CancelDynamic:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Publish/cancelDynamic"
+    }
+    
+    var red_token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "red_token":red_token
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 //MARK: - 5 领取红包
 struct GetRedPacked:TargetType,ParametersProtocol{
@@ -678,11 +745,90 @@ struct OpenRedPacked:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - /*********************支付模块****************************/
+//MARK: - 1 塞入钱包在线支付，返回支付宝订单信息
+struct GetRechargeOrderInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Pay/getRechargeOrderInfo"
+    }
+    
+    /// 金额
+    var money:String?
+    /// 类型
+    var type:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "money":money,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - 2 ：支付宝异步回调，查询支付是否成功
+struct GetPayStaus:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Pay/getPayStaus"
+    }
+    
+    /// 交易流水号
+    var order_no:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "order_no":order_no,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
-
-
-
+//MARK: - 3提现
+struct WithdrawCash:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Pay/withdrawCash"
+    }
+    
+    /// 提现金额
+    var money:Double?
+    /// 支付宝账户
+    var account:String?
+    /// 真实姓名
+    var true_name:String?
+    /// 短信验证码
+    var code:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "money":money,
+            "account":account,
+            "true_name":true_name,
+            "code":code,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 
 

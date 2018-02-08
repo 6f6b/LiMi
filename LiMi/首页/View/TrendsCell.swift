@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class TrendsCell: UITableViewCell {
+    var model:TrendModel?
+    var cellStyle:TrendsCellStyle = .normal
+    
     var trendsContainView:UIView!   //最底层容器
     
     /// 顶部工具栏容器
@@ -87,11 +90,17 @@ class TrendsCell: UITableViewCell {
         self.redPacketBtn.setImage(UIImage.init(named: "btn_hongbao_1"), for: .normal)
         self.redPacketBtn.addTarget(self, action: #selector(dealCatchRedPacket), for: .touchUpInside)
         self.redPacketBtn.sizeToFit()
-        self.trendsBottomToolsContainView.addSubview(redPacketBtn)
+        self.trendsContainView.addSubview(redPacketBtn)
         self.redPacketBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.trendsBottomToolsContainView).offset(-15)
             make.right.equalTo(self.trendsContainView)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dealCatchedRedPacket(notification:)), name: CATCHED_RED_PACKET_NOTIFICATION, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: CATCHED_RED_PACKET_NOTIFICATION, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -104,7 +113,8 @@ class TrendsCell: UITableViewCell {
     
     //MARK: - misc
     func configWith(model:TrendModel?){
-        self.trendsTopToolsContainView.configWith(model: model)
+        self.model = model
+        self.trendsTopToolsContainView.configWith(model: model,cellStyle: self.cellStyle)
         if let _redType = model?.red_type{
             self.redPacketBtn.isHidden = false
             var imgName = "btn_hongbao_all"
@@ -112,8 +122,8 @@ class TrendsCell: UITableViewCell {
             if _redType == "1"{imgName = "btn_hongbao_boy"}   //男性专属
             if _redType == "2"{imgName = "btn_hongbao_all"}   //所有人都可领
             if _redType == "3"{imgName = "btn_hongbao_qiangguo"}  //已经领过了
-            if _redType == "4"{imgName = "btn_hongbao_all"}  //过期
-            if _redType == "5"{imgName = "btn_hongbao_all"} //抢光了
+            if _redType == "4"{imgName = "btn_hongbao_qiangguo"}  //过期
+            if _redType == "5"{imgName = "btn_hongbao_qiangguo"} //抢光了
             if _redType == "null"{self.redPacketBtn.isHidden = true }   //没有红包
             self.redPacketBtn.setImage(UIImage.init(named: imgName), for: .normal)
         }else{
@@ -125,6 +135,17 @@ class TrendsCell: UITableViewCell {
     @objc func dealCatchRedPacket(){
         if let _catchRedPacketBlock = self.catchRedPacketBlock{
             _catchRedPacketBlock()
+        }
+    }
+    
+    @objc func dealCatchedRedPacket(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let trendModel = userInfo[TREND_MODEL_KEY] as? TrendModel{
+                if self.model?.action_id == trendModel.action_id && self.model?.red_token == trendModel.red_token{
+                    self.model?.red_type = trendModel.red_type
+                    self.configWith(model: self.model)
+                }
+            }
         }
     }
 }

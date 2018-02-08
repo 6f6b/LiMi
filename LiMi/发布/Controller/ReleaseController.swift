@@ -32,6 +32,7 @@ class ReleaseController: ViewController {
     var skillModel:SkillModel?
     var qnUploadManager:QNUploadManager!
     var phAsset:PHAsset?
+    var sendRedpacketResultModel:SendRedPacketResultModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,14 +193,18 @@ class ReleaseController: ViewController {
                 })
                 let fileName = uploadFileName(type: .video)
                 self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
-                    var localMediaModel = LocalMediaModel.init()
-                    localMediaModel.imgName = str
-                    localMediaModel.img = preImg
-                    self.videoArr.append(localMediaModel)
-                    SVProgressHUD.dismiss()
-                    self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                    self.tableView.reloadData()
-                    self.RefreshReleasBtnEnable()
+                    if let _error = responseInfo?.error{
+                        SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
+                    }else{
+                        var localMediaModel = LocalMediaModel.init()
+                        localMediaModel.imgName = str
+                        localMediaModel.img = preImg
+                        self.videoArr.append(localMediaModel)
+                        SVProgressHUD.dismiss()
+                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                        self.tableView.reloadData()
+                        self.RefreshReleasBtnEnable()
+                    }
                 }, option: option)
             }
         }
@@ -242,23 +247,48 @@ class ReleaseController: ViewController {
     }
     
     @objc func dealCancel(){
-        self.dismiss(animated: true, completion: nil)
+        if let _red_token = self.sendRedpacketResultModel?.red_token{
+            let alterController = UIAlertController.init(title: nil, message: "取消发布动态后，红包将退还至你的现金中", preferredStyle: .alert)
+            let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+                let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+                let cancelReleaseTrends = CancelDynamic(red_token: _red_token)
+                _ = moyaProvider.rx.request(.targetWith(target: cancelReleaseTrends)).subscribe(onSuccess: { (response) in
+                    let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+                    HandleResultWith(model: resultModel)
+                    if resultModel?.commonInfoModel?.status == successState{
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    SVProgressHUD.showErrorWith(model: resultModel)
+                }, onError: { (error) in
+                    SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                })
+            })
+            let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+            alterController.addAction(actionOK)
+            alterController.addAction(actionCancel)
+            self.present(alterController, animated: true, completion: nil)
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func dealRelease(){
+        self.releaseContentTextInputCell.contentText.resignFirstResponder()
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let imgs = self.generateMediaParameterWith(medias: self.imgArr)
         let video = self.generateMediaParameterWith(medias: self.videoArr)
-        let releaseTrends = ReleaseTrends(red_token: nil ,skill_id: self.skillModel?.id, content: self.releaseContentTextInputCell.contentText.text, images: imgs, video: video)
+        let releaseTrends = ReleaseTrends(red_token: self.sendRedpacketResultModel?.red_token ,skill_id: self.skillModel?.id, content: self.releaseContentTextInputCell.contentText.text, images: imgs, video: video)
         _ = moyaProvider.rx.request(.targetWith(target: releaseTrends)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 NotificationCenter.default.post(name: POST_TREND_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
-                //延时0.8秒执行
-                let time: TimeInterval = 0.8
+                //延时1秒执行
+                let time: TimeInterval = 1
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        SVProgressHUD.dismiss()
+                    })
                 }
             }
             SVProgressHUD.showResultWith(model: resultModel)
@@ -320,6 +350,10 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
             }
             if indexPath.row == 1{
                 let rewardRedPacketController = RewardRedPacketController()
+                rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
+                    self.sendRedpacketResultModel = sendRedPacketResultModel
+                    self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
+                }
                 self.navigationController?.pushViewController(rewardRedPacketController, animated: true)
             }
         }
