@@ -857,7 +857,61 @@ struct GetIMToken:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - /*********************用户反馈****************************/
+//MARK: - 1用户反馈
+struct FeedBack:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/user/feedBack"
+    }
+    
+    var type:Int?   //反馈类型，1：功能问题 2：性能问题 3：其他问题
+    var info:String? //反馈的文字信息
+    var pic:String? //图片地址
+    var phone:String? //联系电话
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "type":type,
+            "info":info,
+            "pic":pic,
+            "phone":phone
+                                           ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
+//MARK: - /*********************APP升级****************************/
+//MARK: - 1APP升级
+struct AppUpdate:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "index.php/apps/appStart"
+    }
+
+    var device:String? //图片地址
+    var version:String? //版本号
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "device":device,
+            "version":version,
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 // MARK: - 相关枚举
 //收藏类型

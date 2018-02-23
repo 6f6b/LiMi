@@ -125,8 +125,8 @@ class TagListView: UIView {
         self.frame = SCREEN_RECT
         UIApplication.shared.keyWindow?.addSubview(self)
         if animation{
-            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
-            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+            let delayTime : TimeInterval = 0.1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                 self.collectionView.snp.makeConstraints { (make) in
                     make.height.equalTo(self.collectionView.collectionViewLayout.collectionViewContentSize.height)
                 }
@@ -144,8 +144,8 @@ class TagListView: UIView {
     
     @objc func dismiss(animation:Bool = true){
 //        if animation{
-            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
-            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+            let delayTime : TimeInterval = 0.1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                 UIView.animate(withDuration: 0.2, animations: {
                     //animation
                     self.bottomContainViewBottomConstraint?.deactivate()

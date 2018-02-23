@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
         self.view.backgroundColor = UIColor.white
-//        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]

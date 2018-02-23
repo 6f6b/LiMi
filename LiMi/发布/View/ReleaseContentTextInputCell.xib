@@ -15,20 +15,20 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="162" id="KGk-i7-Jjw" customClass="ReleaseContentTextInputCell" customModule="LiMi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="355" height="162"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="355" height="162"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="355" height="161.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPf-Fq-A8V">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPf-Fq-A8V">
                         <rect key="frame" x="16" y="0.0" width="323" height="161.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="写下发布的动态内容..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tm-IM-o3S">
-                                <rect key="frame" x="4" y="70" width="141" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="写下发布的动态内容..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tm-IM-o3S">
+                                <rect key="frame" x="4" y="8" width="141" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YMz-yg-nUS">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YMz-yg-nUS">
                                 <rect key="frame" x="0.0" y="0.0" width="323" height="161.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,7 +41,7 @@
                             <constraint firstAttribute="bottom" secondItem="YMz-yg-nUS" secondAttribute="bottom" id="295-ZD-axK"/>
                             <constraint firstItem="YMz-yg-nUS" firstAttribute="leading" secondItem="TPf-Fq-A8V" secondAttribute="leading" id="638-lj-AbN"/>
                             <constraint firstItem="4Tm-IM-o3S" firstAttribute="leading" secondItem="YMz-yg-nUS" secondAttribute="leading" constant="4" id="APn-vd-hJM"/>
-                            <constraint firstAttribute="height" constant="138" id="Mc9-3D-jWM"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Mc9-3D-jWM"/>
                             <constraint firstAttribute="trailing" secondItem="YMz-yg-nUS" secondAttribute="trailing" id="TUd-MV-D2u"/>
                             <constraint firstItem="YMz-yg-nUS" firstAttribute="top" secondItem="TPf-Fq-A8V" secondAttribute="top" id="l1y-DI-BAk"/>
                             <constraint firstItem="4Tm-IM-o3S" firstAttribute="top" secondItem="YMz-yg-nUS" secondAttribute="top" constant="8" id="yOh-eX-X4z"/>

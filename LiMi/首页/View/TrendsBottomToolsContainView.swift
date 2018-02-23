@@ -54,7 +54,7 @@ class TrendsBottomToolsContainView: UIView {
             make.left.equalTo(self.topToolsContainView).offset(12)
         }
         
-        self.thumbsUpBtn = UIButton(type: .custom)
+        self.thumbsUpBtn = SuitableHotSpaceButton(type: .custom)
         self.topToolsContainView.addSubview(self.thumbsUpBtn)
         self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_nor"), for: .normal)
         self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_pre"), for: .selected)
@@ -74,7 +74,7 @@ class TrendsBottomToolsContainView: UIView {
             make.left.equalTo(self.thumbsUpBtn.snp.right).offset(4)
         }
         
-        self.commentBtn = UIButton()
+        self.commentBtn = SuitableHotSpaceButton()
         self.topToolsContainView.addSubview(self.commentBtn)
         self.commentBtn.setImage(UIImage.init(named: "icon_pinglun"), for: .normal)
         self.commentBtn.addTarget(self, action: #selector(dealTapCommentBtn), for: .touchUpInside)

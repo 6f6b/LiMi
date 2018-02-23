@@ -78,11 +78,9 @@ class AlipayAcountController: ViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(dealBack), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,9 +88,6 @@ class AlipayAcountController: ViewController {
     }
 
     //MARK: - misc
-    @objc func dealBack(){
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func dealToRequestAuthCode(_ sender: Any) {
         MakeAuthCodeBtnCannotBeHandleWith(button: sender as! UIButton)

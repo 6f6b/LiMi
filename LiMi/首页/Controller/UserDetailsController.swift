@@ -80,11 +80,9 @@ class UserDetailsController: ViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         //替换ViewController的导航栏返回按钮
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(dealTapBack), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
     }
 
     
@@ -99,9 +97,6 @@ class UserDetailsController: ViewController {
     }
 
     //MARK: - misc
-    @objc func dealTapBack(){
-        self.navigationController?.popViewController(animated: true)
-    }
     
     /// 更多操作
     ///

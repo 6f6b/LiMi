@@ -131,8 +131,8 @@ class RechargeController: ViewController {
             HandleResultWith(model: resultModel)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
-                let delayTime:TimeInterval = 1.0
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
+                let delayTime : TimeInterval = 1.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                     self.dismiss(animated: true, completion: {
                         SVProgressHUD.dismiss()
                     })

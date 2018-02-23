@@ -224,6 +224,14 @@ func IsEmpty(textView:UITextView?)->Bool{
     }else{return true}
 }
 
+func MAX(parametersA:Double,parametersB:Double)->Double{
+    return parametersA > parametersB ? parametersA:parametersB
+}
+
+func MIN(parametersA:Double,parametersB:Double)->Double{
+    return parametersA < parametersB ? parametersA:parametersB
+}
+
 /// 根据传入颜色生成一张导航栏图片
 ///
 /// - Parameter color: 传入颜色

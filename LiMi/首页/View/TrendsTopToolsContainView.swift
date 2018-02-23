@@ -62,8 +62,9 @@ class TrendsTopToolsContainView: UIView {
             make.top.equalTo(self.userName.snp.bottom).offset(8)
         }
         
-        self.moreOperationBtn = UIButton()
+        self.moreOperationBtn = SuitableHotSpaceButton()
         self.addSubview(self.moreOperationBtn)
+        self.moreOperationBtn.contentMode = .right
         self.moreOperationBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)
         self.moreOperationBtn.addTarget(self, action: #selector(dealTapMoreOperationBtn), for: .touchUpInside)
         self.moreOperationBtn.snp.makeConstraints { (make) in

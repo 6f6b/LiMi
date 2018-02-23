@@ -31,11 +31,9 @@ class CommentsWithTrendController: ViewController {
         super.viewDidLoad()
         self.title = "评论"
         
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(dealBack), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -113,10 +111,6 @@ class CommentsWithTrendController: ViewController {
             self.tableView.mj_footer.endRefreshing()
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
-    }
-    
-    @objc func dealBack(){
-        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func dealTapEmoji(_ sender: Any) {

@@ -38,11 +38,9 @@ class SetPayPasswordController: ViewController {
         }
         self.heightConstraint.constant = SCREEN_HEIGHT-64
         
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(dealBack), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
         
         self.authCodeContainView.layer.cornerRadius = 20
         self.authCodeContainView.clipsToBounds = true
@@ -92,11 +90,6 @@ class SetPayPasswordController: ViewController {
     
 
     // MARK: - misc
-    
-    @objc func dealBack(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @IBAction func dealToRequestAuthCode(_ sender: Any) {
         MakeAuthCodeBtnCannotBeHandleWith(button: sender as! UIButton)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
@@ -138,8 +131,8 @@ class SetPayPasswordController: ViewController {
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 //延时1秒执行
-                let time: TimeInterval = 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time, execute: {
+                let delayTime : TimeInterval = 1
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                     SVProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 })

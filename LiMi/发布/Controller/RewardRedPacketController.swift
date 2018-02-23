@@ -70,17 +70,12 @@ class RewardRedPacketController: ViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(dealBack), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
     }
 
     //MARK: - misc
-    @objc func dealBack(){
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func dealSelectAll(_ sender: Any) {
         self.allSelected.isSelected = true
@@ -194,8 +189,9 @@ class RewardRedPacketController: ViewController {
                     _sentRedPacketSuccessBlock(money!,sendRedPacketResultModel)
                 }
                 //延时0.8秒执行
-                let time: TimeInterval = 0.8
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+                let delayTime : TimeInterval = 0.8
+
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     self.navigationController?.popViewController(animated: true)
                 }
             }

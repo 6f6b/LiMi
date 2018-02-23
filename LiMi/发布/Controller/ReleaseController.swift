@@ -284,8 +284,8 @@ class ReleaseController: ViewController {
             if resultModel?.commonInfoModel?.status == successState{
                 NotificationCenter.default.post(name: POST_TREND_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
                 //延时1秒执行
-                let time: TimeInterval = 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+                let delayTime : TimeInterval = 1.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     self.dismiss(animated: true, completion: {
                         SVProgressHUD.dismiss()
                     })

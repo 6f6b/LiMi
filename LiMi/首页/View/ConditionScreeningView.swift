@@ -64,22 +64,22 @@ class ConditionScreeningView: UIView {
         self.frame = SCREEN_RECT
         UIApplication.shared.keyWindow?.addSubview(self)
         if animation{
-            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
-            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
-                self.isHidden = false
-                UIView.animate(withDuration: 0.3, animations: {
-                    //animation
-                    self.conditionContainViewRightConstraint.constant = 0
-                    self.layoutIfNeeded()
-                })
+            let delayTime : TimeInterval = 0.1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
+                    self.isHidden = false
+                    UIView.animate(withDuration: 0.3, animations: {
+                        //animation
+                        self.conditionContainViewRightConstraint.constant = 0
+                        self.layoutIfNeeded()
+                    })
             })
         }
     }
     
     func dismiss(animation:Bool = true){
         if animation{
-            let delayTime = DispatchTime(uptimeNanoseconds: UInt64(0.1))
-            DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+            let delayTime : TimeInterval = 0.1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                 UIView.animate(withDuration: 0.3, animations: {
                     //animation
                     self.conditionContainViewRightConstraint.constant = -SCREEN_WIDTH*(600.0/750)
@@ -319,6 +319,7 @@ extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSo
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ConditionScreeningHeaderView", for: indexPath) as! ConditionScreeningHeaderView
+
         if indexPath.section == 0{
             headerView.headImgV.image = UIImage.init(named: "sx_icon_school")
             headerView.spreadBtn.isSelected = !self.isCollegesShow

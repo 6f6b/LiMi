@@ -35,7 +35,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMM-Ed-TuA">
                                     <rect key="frame" x="-0.5" y="0.0" width="375" height="667"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOH-uw-xXp">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOH-uw-xXp" customClass="SuitableHotSpaceButton" customModule="LiMi" customModuleProvider="target">
                                             <rect key="frame" x="15" y="16" width="12" height="22"/>
                                             <state key="normal" image="close"/>
                                             <connections>

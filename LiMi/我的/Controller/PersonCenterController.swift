@@ -43,6 +43,11 @@ class PersonCenterController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
         requestData()
     }
     
@@ -160,7 +165,7 @@ class PersonCenterController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 1}
-        if section == 1{ return 3}
+        if section == 1{ return 2}
         if section == 2{ return 1}
         if section == 3{ return 3}
         return 0
@@ -207,7 +212,12 @@ class PersonCenterController: UITableViewController {
         }
         if indexPath.section == 3{
             if indexPath.row == 0{
-                
+                let feedBackController = FeedBackController()
+                self.navigationController?.pushViewController(feedBackController, animated: true)
+            }
+            if indexPath.row == 1{
+                let aboutUsController = AboutUsController()
+                self.navigationController?.pushViewController(aboutUsController, animated: true)
             }
         }
         

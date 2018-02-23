@@ -36,7 +36,9 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
             make.left.equalTo(self.headImgV.snp.right).offset(5)
         }
         
-        self.spreadBtn = UIButton()
+        self.spreadBtn = SuitableHotSpaceButton()
+//        self.spreadBtn.backgroundColor = UIColor.red
+        self.spreadBtn.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 3, bottom: 0, right: -3)
         self.spreadBtn.setImage(UIImage.init(named: "sx_btn_shouqi"), for: .normal)
         self.spreadBtn.setImage(UIImage.init(named: "sx_btn_zhankai"), for: .selected)
         self.spreadBtn.addTarget(self, action: #selector(dealSpread(btn:)), for: .touchUpInside)
@@ -44,7 +46,8 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
         self.spreadBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self)
             make.bottom.equalTo(self)
-            make.right.equalTo(self).offset(-10)
+            make.width.equalTo(44)
+            make.right.equalTo(self).offset(10)
         }
     }
     
