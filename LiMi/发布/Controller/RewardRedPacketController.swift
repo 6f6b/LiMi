@@ -38,12 +38,16 @@ class RewardRedPacketController: ViewController {
         self.redPacketBtn.clipsToBounds = true
         
         self.amount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
+        self.num.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAlipayResultWith(notification:)), name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWXPayResultWith(notificaton:)), name: FINISHED_WXPAY_NOTIFICATION, object: nil)
+
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: FINISHED_WXPAY_NOTIFICATION, object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -145,31 +149,31 @@ class RewardRedPacketController: ViewController {
             //账户余额
             if let _money = mycashModel?.money{
                 //账户余额足够
-                if _money >= amount{
-                    //0 设置了密码未被禁用 1：未设置密码 2：密码被禁用（错误次数过多）
-                    //未设置密码
-                    if mycashModel?.is_set_passwd != 0{
-                        let setPayPasswordController = SetPayPasswordController()
-                        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
-                    }else{
-                        let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
-                        payPasswordInputView.frame = SCREEN_RECT
-                        payPasswordInputView.amountValue = amount
-                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
-                            self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
-                        }
-                        UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
-                    }
-                }
-                //账户余额不足
-                if _money < amount{
+//                if _money >= amount{
+//                    //0 设置了密码未被禁用 1：未设置密码 2：密码被禁用（错误次数过多）
+//                    //未设置密码
+//                    if mycashModel?.is_set_passwd != 0{
+//                        let setPayPasswordController = SetPayPasswordController()
+//                        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
+//                    }else{
+//                        let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
+//                        payPasswordInputView.frame = SCREEN_RECT
+//                        payPasswordInputView.amountValue = amount
+//                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
+//                            self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
+//                        }
+//                        UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
+//                    }
+//                }
+//                //账户余额不足
+//                if _money < amount{
                     let selectPayWayView = GET_XIB_VIEW(nibName: "SelectPayWayView") as! SelectPayWayView
                     selectPayWayView.selectPayWayBlock = {way in
-                        PayManager.shareManager.preRechageWith(payWay: way, amountText: self.amount.text)
+                        PayManager.shared.preRechageWith(payWay: way, amountText: self.amount.text)
                     }
                     selectPayWayView.frame = SCREEN_RECT
                     UIApplication.shared.keyWindow?.addSubview(selectPayWayView)
-                }
+//                }
             }else{
                 SVProgressHUD.showErrorWith(msg: "网络错误")
             }
@@ -218,18 +222,44 @@ class RewardRedPacketController: ViewController {
 //            self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)
         }
     }
+    
+    
+    /// 处理微信支付回调结果
+    ///
+    /// - Parameter notificaton:
+    @objc func handleWXPayResultWith(notificaton:Notification){
+        let resp = notificaton.userInfo![WXPAY_RESULT_KEY] as! BaseResp
+        if resp.errCode == WXSuccess.rawValue{
+            var type = 2
+            if self.allSelected.isSelected{type = 2}
+            if self.girlSelected.isSelected{type = 0}
+            if self.boySelected.isSelected{type = 1}
+            self.dealPlugMoneyToRedPacketWith(money: self.amount.text?.doubleValue(), num: (self.num.text?.intValue())!, type: type, password: nil, trade_no: PayManager.shared.signedResultModel?.out_trade_no)
+        }else{
+            SVProgressHUD.showErrorWith(msg: resp.errStr)
+        }
+    }
 }
 
 extension RewardRedPacketController{
     @objc func textFeildDidChange(textField:UITextField){
-        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
-            if substrs.count == 2{
-                let decimalStr = substrs[1]
-                if decimalStr.count == 1{
-                    textField.text = String.init(format: "%.1f", amount)
-                }
-                if decimalStr.count >= 2{
-                    textField.text = String.init(format: "%.2f", amount)
+        if let text = textField.text,let amount = textField.text?.doubleValue(){
+            let nsText = NSString.init(string: text)
+            //不包含小数点
+            if nsText.range(of: ".").location == NSNotFound{
+                textField.text = String.init(format: "%d", Int(amount))
+            }else{
+                //包含小数点
+                if let substrs = textField.text?.split(separator: "."){
+                    if substrs.count == 2{
+                        let decimalStr = substrs[1]
+                        if decimalStr.count == 1{
+                            textField.text = String.init(format: "%.1f", amount)
+                        }
+                        if decimalStr.count >= 2{
+                            textField.text = String.init(format: "%.2f", amount)
+                        }
+                    }
                 }
             }
         }

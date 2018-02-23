@@ -127,7 +127,10 @@ class AlipayAcountController: ViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
-                self.navigationController?.popViewController(animated: true)
+                let delayTime:TimeInterval = 1.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
+                    self.navigationController?.popViewController(animated: true)
+                })
             }
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)

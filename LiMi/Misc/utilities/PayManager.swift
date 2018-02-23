@@ -11,8 +11,9 @@ import SVProgressHUD
 import ObjectMapper
 import Moya
 
-class PayManager {
-    static let shareManager = PayManager()
+class PayManager:NSObject {
+    static let shared = PayManager()
+    var signedResultModel:SignedResultModel?
     
     /// 向服务器统一下单、请求签名
     ///
@@ -25,8 +26,12 @@ class PayManager {
         _ = moyaProvider.rx.request(.targetWith(target: getRechargeOrderInfo)).subscribe(onSuccess: { (response) in
             let signedResultModel = Mapper<SignedResultModel>().map(jsonData: response.data)
             HandleResultWith(model: signedResultModel)
-            self.rechageWith(signedResultModel: signedResultModel, payWay: payWay)
-            SVProgressHUD.showErrorWith(model: signedResultModel)
+            if signedResultModel?.commonInfoModel?.status == successState{
+                self.signedResultModel = signedResultModel
+                self.rechageWith(signedResultModel: signedResultModel, payWay: payWay)
+            }else{
+                SVProgressHUD.showErrorWith(model: signedResultModel)
+            }
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
@@ -62,5 +67,11 @@ class PayManager {
             request.sign = signedResultModel?.sign
             WXApi.send(request)
         }
+    }
+}
+
+extension PayManager:WXApiDelegate{
+    func onResp(_ resp: BaseResp!) {
+        NotificationCenter.default.post(name: FINISHED_WXPAY_NOTIFICATION, object: nil, userInfo: [WXPAY_RESULT_KEY:resp])
     }
 }

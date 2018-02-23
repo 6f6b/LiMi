@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+import Moya
+import ObjectMapper
 
 class TrendsBottomToolsContainView: UIView {
     var topToolsContainView:UIView!  //顶部工具栏容器
@@ -17,7 +20,7 @@ class TrendsBottomToolsContainView: UIView {
     var commentNum:UILabel! //评论数量
     var grayBar:UIView! //底部灰色长条
 
-    var tapThumbUpBtnBlock:((UIButton)->Void)?
+    var trendModel:TrendModel?  //动态模型
     var tapCommentBtnBlock:(()->Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,6 +100,7 @@ class TrendsBottomToolsContainView: UIView {
     
     //MARK: - misc
     func configWith(model:TrendModel?){
+        self.trendModel = model
 //        var topToolsContainView:UIView!  //顶部工具栏容器
 //        var viewNum:UILabel!    //浏览量
 //        var thumbsUpBtn:UIButton!   //点赞按钮
@@ -118,9 +122,26 @@ class TrendsBottomToolsContainView: UIView {
     
     /// 点赞
     @objc func dealTapThumbUpBtn(){
-        if let _tapThumbUpBtnBlock = self.tapThumbUpBtnBlock{
-            _tapThumbUpBtnBlock(self.thumbsUpBtn)
-        }
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let thumbUp = ThumbUp(action_id: trendModel?.action_id?.stringValue())
+        _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
+            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+            HandleResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                self.thumbsUpBtn.isSelected = !self.thumbsUpBtn.isSelected
+                if self.thumbsUpBtn.isSelected{
+                    self.trendModel?.click_num! += 1
+                    self.trendModel?.is_click = 1
+                }else{
+                    self.trendModel?.click_num! -= 1
+                    self.trendModel?.is_click = 0
+                }
+                NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.trendModel])
+            }
+            SVProgressHUD.showErrorWith(model: resultModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
     /// 评论

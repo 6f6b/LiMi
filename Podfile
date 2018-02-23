@@ -20,9 +20,22 @@ target ‘LiMi' do
     pod 'MJRefresh'
     pod 'Qiniu', '~> 7.2.2'
     pod 'QiniuUpload'
-    pod 'XLPhotoBrowser+CoderXL'
+#    pod 'XLPhotoBrowser+CoderXL'
     pod 'DZNEmptyDataSet'
     pod 'ZFPlayer'
+#NIM依赖
+    pod 'Toast', '~> 3.0'
+    pod 'M80AttributedLabel', '~> 1.6.3'
+    pod 'CocoaLumberjack', '~> 3.2.1'
+#NIMKit依赖
+    pod 'SSZipArchive', '~> 1.8.1'
+    pod 'Reachability'
+    pod 'FMDB', '~> 2.7.2'
+    pod 'SDWebImage', '~> 4.2.3'
+
+
+
+#    pod 'NIMKit/Full'
 #    pod 'XLPagerTabStrip', '~> 8.0'
 #    pod 'AGEmojiKeyboard'
 #    pod 'PageMenu'

@@ -66,7 +66,7 @@ class FinishPersonInfoController: ViewController {
     }
     
     func uploadHeadImgWith(img:UIImage?){
-        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
             if let filePath = GenerateImgPathlWith(img: img){
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
@@ -90,7 +90,7 @@ class FinishPersonInfoController: ViewController {
                     
                 }, option: nil)
             }
-        }
+        }, id: self.loginModel?.id?.stringValue(), token: self.loginModel?.token)
     }
 
     

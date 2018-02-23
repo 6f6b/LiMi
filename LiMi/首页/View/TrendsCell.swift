@@ -45,7 +45,6 @@ class TrendsCell: UITableViewCell {
         }
         
         self.trendsTopToolsContainView = TrendsTopToolsContainView()
-//        self.trendsTopToolsContainView.backgroundColor = UIColor.orange
         self.trendsContainView.addSubview(self.trendsTopToolsContainView)
         self.trendsTopToolsContainView.tapHeadBtnBlock = {
             print("点击了头像")
@@ -61,11 +60,7 @@ class TrendsCell: UITableViewCell {
         }
         
         self.trendsBottomToolsContainView = TrendsBottomToolsContainView()
-//        self.trendsBottomToolsContainView.backgroundColor = UIColor.yellow
         self.trendsContainView.addSubview(self.trendsBottomToolsContainView)
-        self.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumbUpBtn) in
-            print("点击了点赞")
-        }
         self.trendsBottomToolsContainView.tapCommentBtnBlock = {
             print("点击了评论")
         }
@@ -97,10 +92,12 @@ class TrendsCell: UITableViewCell {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealCatchedRedPacket(notification:)), name: CATCHED_RED_PACKET_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealThumbsUp(notification:)), name: THUMBS_UP_NOTIFICATION, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: CATCHED_RED_PACKET_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: THUMBS_UP_NOTIFICATION, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -143,6 +140,18 @@ class TrendsCell: UITableViewCell {
             if let trendModel = userInfo[TREND_MODEL_KEY] as? TrendModel{
                 if self.model?.action_id == trendModel.action_id && self.model?.red_token == trendModel.red_token{
                     self.model?.red_type = trendModel.red_type
+                    self.configWith(model: self.model)
+                }
+            }
+        }
+    }
+    
+    @objc func dealThumbsUp(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let trendModel = userInfo[TREND_MODEL_KEY] as? TrendModel{
+                if self.model?.action_id == trendModel.action_id{
+                    self.model?.is_click = trendModel.is_click
+                    self.model?.click_num = trendModel.click_num
                     self.configWith(model: self.model)
                 }
             }

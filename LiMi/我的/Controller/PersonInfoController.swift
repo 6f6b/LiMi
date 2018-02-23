@@ -87,7 +87,7 @@ class PersonInfoController: UITableViewController {
     
     //上传头像
     func uploadHeadImgWith(img:UIImage?){
-        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
             if let filePath = GenerateImgPathlWith(img: img){
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
@@ -111,7 +111,7 @@ class PersonInfoController: UITableViewController {
                     
                 }, option: nil)
             }
-        }
+        }, id: nil, token: nil)
     }
     
     //去修改用户名

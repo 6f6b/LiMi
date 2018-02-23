@@ -31,11 +31,6 @@ class LoginController: ViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    // MARK: - misc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
@@ -47,6 +42,12 @@ class LoginController: ViewController {
         self.navigationController?.navigationBar.isHidden = false
         UIApplication.shared.statusBarStyle = .lightContent
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - misc
     
     //取消登录
     @IBAction func dealCancelLogin(_ sender: Any) {
@@ -100,6 +101,8 @@ class LoginController: ViewController {
                     if loginModel?.user_info_status == 2{
                         //进入主界面
                         LoginServiceToMainController(loginRootController: self.navigationController)
+                        //获取IM token 并登陆IM
+                        self.dealIMLogin()
                     }
                 }
 //            }
@@ -137,6 +140,23 @@ class LoginController: ViewController {
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
             SVProgressHUD.dismiss()
             //SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    func dealIMLogin(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let getImToken = GetIMToken()
+        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+            let imModel = Mapper<IMModel>().map(jsonData: response.data)
+            if let _accid = imModel?.accid?.stringValue(),let _token = imModel?.token{
+                NIMSDK.shared().loginManager.login(_accid, token: _token, completion: { (error) in
+                    if let _error = error{
+                        SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
+                    }
+                })
+            }
+        }, onError: { (error) in
+            self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
         })
     }
 }

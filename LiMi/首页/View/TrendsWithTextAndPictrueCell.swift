@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import XLPhotoBrowser_CoderXL
 
 class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     var collectionView:UICollectionView!

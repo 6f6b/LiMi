@@ -27,6 +27,13 @@ class TransactionRecordCell: UITableViewCell {
 //        var des:String?
 //        var money:String?
 //        var time:String?
+        if let _money = transactionModel?.money?.doubleValue(){
+            if _money < 0{
+                self.money.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
+            }else{
+                self.money.textColor = APP_THEME_COLOR
+            }
+        }
         self.desc.text = transactionModel?.des
         self.money.text = transactionModel?.money
         self.time.text = transactionModel?.time

@@ -15,7 +15,7 @@
             <connections>
                 <outlet property="alipayAcount" destination="zil-qT-K42" id="du0-BX-IMK"/>
                 <outlet property="alipayAcountContainView" destination="Rtd-65-RCk" id="uOF-21-xCE"/>
-                <outlet property="alipayAcountName" destination="zil-qT-K42" id="X91-k9-V1S"/>
+                <outlet property="alipayAcountName" destination="3rS-BF-Rtv" id="7It-e8-Jzb"/>
                 <outlet property="alipayAcountNameContainView" destination="HzX-gk-Rx4" id="VPL-X8-2YL"/>
                 <outlet property="authCode" destination="Sfl-Pr-vXd" id="b8S-Yg-q2e"/>
                 <outlet property="authCodeContainView" destination="czI-Xr-tuG" id="Ypo-vX-X2c"/>

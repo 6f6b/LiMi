@@ -9,27 +9,32 @@
 import UIKit
 
 class MsgController: ViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let ignoreBtn = UIButton.init(type: .custom)
+        let ignoreBtnAttributeTitle = NSAttributedString.init(string: "忽略未读", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        ignoreBtn.setAttributedTitle(ignoreBtnAttributeTitle, for: .normal)
+        ignoreBtn.sizeToFit()
+        ignoreBtn.addTarget(self, action: #selector(dealIgnore), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: ignoreBtn)
+        
+        let sessionListController = NTESSessionListViewController()
+        sessionListController.view.frame = self.view.frame
+        self.addChildViewController(sessionListController)
+        self.view.addSubview(sessionListController.view)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func dealIgnore(){
+        NIMSDK.shared().conversationManager.markAllMessagesRead()
+        NotificationCenter.default.post(name: ALL_UNREAD_COUNT_CHANGED_NOTIFICATION, object: nil)
     }
-    */
-
 }

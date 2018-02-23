@@ -58,6 +58,9 @@ class HomePageController: ViewController {
         tmpFrame.origin.x = tmpFrame.size.width
         trendsListControllerView?.frame = tmpFrame
         self.controllersContainScrollView.addSubview(trendsListControllerView!)
+        self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*1, y: 0)
+        self.slidingMenuBar.select(index: 1)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
     }
     
@@ -68,7 +71,9 @@ class HomePageController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let _ = Defaults[.userToken],let _ = Defaults[.userId]{
-            if nil == Defaults[.userSex]{
+            //如果本地没有 性别信息、认证状态信息，则重新请求个人信息
+            if let _ = Defaults[.userSex],let _ = Defaults[.userCertificationState]{
+            }else{
                 self.requestUserInfoData()
             }
         }
@@ -125,7 +130,6 @@ class HomePageController: ViewController {
 
 extension HomePageController:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scroll--------------------?")
         if scrollView.contentOffset.x <= 0{self.slidingMenuBar.select(index: 0)}else{
             self.slidingMenuBar.select(index: 1)
         }

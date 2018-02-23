@@ -80,8 +80,13 @@ class WithDrawalController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请选择提现方式")
             return
         }
+        if (self.withDrawAmount.text?.doubleValue())!  >  (self.ableToBeWithdrawal.text?.doubleValue())!{
+            SVProgressHUD.showInfo(withStatus: "提现金额不能大于余额")
+            return
+        }
         let alipayAcountController = AlipayAcountController()
-        alipayAcountController.withdrawAmount = self.withDrawAmount.text
+//        alipayAcountController.withdrawAmount = self.withDrawAmount.text
+        alipayAcountController.withdrawAmount = "0.1"
         self.navigationController?.pushViewController(alipayAcountController, animated: true)
     }
     
@@ -89,14 +94,23 @@ class WithDrawalController: ViewController {
 
 extension WithDrawalController{
     @objc func textFeildDidChange(textField:UITextField){
-        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
-            if substrs.count == 2{
-                let decimalStr = substrs[1]
-                if decimalStr.count == 1{
-                    textField.text = String.init(format: "%.1f", amount)
-                }
-                if decimalStr.count >= 2{
-                    textField.text = String.init(format: "%.2f", amount)
+        if let text = textField.text,let amount = textField.text?.doubleValue(){
+            let nsText = NSString.init(string: text)
+            //不包含小数点
+            if nsText.range(of: ".").location == NSNotFound{
+                textField.text = String.init(format: "%d", Int(amount))
+            }else{
+                //包含小数点
+                if let substrs = textField.text?.split(separator: "."){
+                    if substrs.count == 2{
+                        let decimalStr = substrs[1]
+                        if decimalStr.count == 1{
+                            textField.text = String.init(format: "%.1f", amount)
+                        }
+                        if decimalStr.count >= 2{
+                            textField.text = String.init(format: "%.2f", amount)
+                        }
+                    }
                 }
             }
         }

@@ -79,11 +79,23 @@ let    DID_MORE_OPERATION = Notification.Name.init("DID_MORE_OPERATION")
 let     CATCHED_RED_PACKET_NOTIFICATION = Notification.Name.init("CATCHED_RED_PACKET_NOTIFICATION")
 /// 支付宝支付完毕
 let FINISHED_ALIPAY_NOTIFICATION = Notification.Name.init("FINISHED_ALIPAY_NOTIFICATION")
+///微信支付完毕
+let FINISHED_WXPAY_NOTIFICATION = Notification.Name.init("FINISHED_WXPAY_NOTIFICATION")
+/// 点赞&取消点赞通知
+let THUMBS_UP_NOTIFICATION =    Notification.Name.init("THUMBS_UP_NOTIFICATION")
+///未读消息数改变通知
+let ALL_UNREAD_COUNT_CHANGED_NOTIFICATION = Notification.Name.init("ALL_UNREAD_COUNT_CHANGED_NOTIFICATION")
 
 /// 更多操作通知对象的key
 let MORE_OPERATION_KEY = "MORE_OPERATION_KEY"
 /// 动态模型key
 let TREND_MODEL_KEY = "TREND_MODEL_KEY"
+///微信支付结果
+let WXPAY_RESULT_KEY = "WXPAY_RESULT_KEY"
+///退出登录信息key
+let LOG_OUT_MESSAGE_KEY = "LOG_OUT_MESSAGE_KEY"
+
+
 //国内https上传
 let qnConfig = QNConfiguration.build { (builder) in
     builder?.setZone(QNFixedZone.zone0())

@@ -21,5 +21,6 @@ class IdentityStatusModel: BaseModel {
         super.mapping(map: map)
         msg<-map["msg"]
         identity_status<-map["identity_status"]
+        Defaults[.userCertificationState] = identity_status
     }
 }

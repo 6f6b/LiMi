@@ -1,0 +1,56 @@
+//
+//  LiMi-PrefixHeader.pch
+//  LiMi
+//
+//  Created by dev.liufeng on 2018/2/8.
+//  Copyright © 2018年 dev.liufeng. All rights reserved.
+//
+
+#ifndef LiMi_PrefixHeader_pch
+#define LiMi_PrefixHeader_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <NIMSDK/NIMSDK.h>
+#import <NIMAVChat/NIMAVChat.h>
+#import "NTESGlobalMacro.h"
+#import "NIMKit.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+//#import "UIView+Toast.h"
+
+
+//IM相关
+//#import "NTESLoginViewController.h"
+//#import "UIView+Toast.h"
+//#import "NTESService.h"
+//#import "NTESNotificationCenter.h"
+//#import "NTESLogManager.h"
+//#import "NTESConfig.h"
+//#import "NTESSessionUtil.h"
+//#import "NTESMainTabController.h"
+//#import "NTESLoginManager.h"
+//#import "NTESCustomAttachmentDecoder.h"
+//#import "NTESClientUtil.h"
+//#import "NTESNotificationCenter.h"
+//#import "NIMKit.h"
+//#import "NTESSDKConfigDelegate.h"
+//#import "NTESCellLayoutConfig.h"
+//#import "NTESSubscribeManager.h"
+//#import "NTESRedPacketManager.h"
+//#import "NTESBundleSetting.h"
+//#import "NTESSessionViewController.h"
+
+#ifdef DEBUG
+static DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
+#define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}
+
+#define NTES_FORBID_INTERACTIVE_POP - (BOOL)forbidInteractivePop{return YES;}
+
+
+#endif
+#endif

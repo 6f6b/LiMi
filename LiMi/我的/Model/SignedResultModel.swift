@@ -21,6 +21,7 @@ class SignedResultModel: BaseModel {
     var prepayid:String?
     var sign:String?
     var timestamp:UInt32?
+    var out_trade_no:String?
 
     required init?(map: Map) {
         super.init(map: map)
@@ -36,5 +37,6 @@ class SignedResultModel: BaseModel {
         prepayid<-map["data.prepayid"]
         sign<-map["data.sign"]
         timestamp<-map["data.timestamp"]
+        out_trade_no <- map["data.out_trade_no"]
     }
 }

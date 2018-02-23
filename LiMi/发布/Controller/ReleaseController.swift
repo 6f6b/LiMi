@@ -140,7 +140,7 @@ class ReleaseController: ViewController {
 
     //MARK: - misc
     func uploadImgsWith(imgs:[UIImage?]?){
-        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
             if let _token = tokenModel?.token{
                 var files = [QiniuFile]()
                 if let  _imgs = imgs{
@@ -176,13 +176,13 @@ class ReleaseController: ViewController {
                     })
                 }
             }
-        }
+        }, id: nil, token: nil)
     }
     
     //上传视频
     func uploadVideoWith(phAsset:PHAsset?,preImg:UIImage?){
         self.phAsset = phAsset
-        GetQiNiuUploadToken(type: .video) { (qnUploadToken) in
+        GetQiNiuUploadToken(type: .video, onSuccess: { (qnUploadToken) in
             if let _token = qnUploadToken?.token{
                 SVProgressHUD.setStatus(nil)
                 let progressBlock:QNUpProgressHandler = {(str,flo) in
@@ -207,7 +207,7 @@ class ReleaseController: ViewController {
                     }
                 }, option: option)
             }
-        }
+        }, id: nil, token: nil)
     }
     
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{

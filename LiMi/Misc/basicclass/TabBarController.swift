@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import NIMSDK
 
 class TabBarController: UITabBarController {
-
+    ///未读系统消息数
+    var systemUnreadCount:Int = 0
+    ///未读会话消息
+    var conversationUnreadCount:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let homePageController = HomePageController()
@@ -27,10 +32,18 @@ class TabBarController: UITabBarController {
         self.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        
+        //系统通知代理
+        NIMSDK.shared().systemNotificationManager.add(self)
+        //会话消息通知代理
+        NIMSDK.shared().conversationManager.add(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCustomNotifyChanged(notification:)), name: NSNotification.Name(rawValue: ""), object: nil)
+        self.refreshMyMessageBadge()
     }
 
     deinit{
         NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+//        NotificationCenter.default.removeObserver(<#T##observer: Any##Any#>, name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,6 +51,12 @@ class TabBarController: UITabBarController {
     }
 
     //MARK: - misc
+    ///刷新Tabbar上的未读数
+    func refreshMyMessageBadge(){
+        let mscNav = self.viewControllers![3] as! NavigationController
+        mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
+    }
+    
     @objc func dealPostATrendSuccess(){
         self.selectedIndex = 0
     }
@@ -79,8 +98,62 @@ extension TabBarController:UITabBarControllerDelegate{
     }
 }
 
+//MARK: - NIMConversationManagerDelegate    会话代理方法
+extension TabBarController:NIMConversationManagerDelegate{
+    ///增加最近会话的回调
+    func didAdd(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
+        self.conversationUnreadCount = totalUnreadCount
+        self.refreshMyMessageBadge()
+    }
 
+    ///最近会话修改回调
+    func didUpdate(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
+        self.conversationUnreadCount = totalUnreadCount
+        self.refreshMyMessageBadge()
+    }
+    
+    ///删除最近会话的回调
+    func didRemove(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
+        self.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        self.refreshMyMessageBadge()
+    }
+    
+    ///单个会话里所有消息被删除的回调
+    func messagesDeleted(in session: NIMSession) {
+        self.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        self.refreshMyMessageBadge()
+    }
+    
+    ///所有消息被删除的回调
+    func allMessagesDeleted() {
+        self.conversationUnreadCount = 0;
+        self.refreshMyMessageBadge()
+    }
+    
+    ///所有回话消息已读
+    func allMessagesRead() {
+        self.conversationUnreadCount = 0
+        self.refreshMyMessageBadge()
+    }
+}
 
+//MARK: - 系统通知代理方法
+extension TabBarController:NIMSystemNotificationManagerDelegate{
+    ///系统通知数量变化
+    func onSystemNotificationCountChanged(_ unreadCount: Int) {
+        self.systemUnreadCount = unreadCount
+        self.refreshMyMessageBadge()
+    }
+}
+
+//MARK: - Notification  通知
+extension TabBarController{
+    @objc func onCustomNotifyChanged(notification:Notification){
+//        NTESCustomNotificationDB *db = [NTESCustomNotificationDB sharedInstance];
+//        self.customSystemUnreadCount = db.unreadCount;
+//        [self refreshSettingBadge];
+    }
+}
 
 
 

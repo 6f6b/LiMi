@@ -137,8 +137,9 @@ class SetPayPasswordController: ViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
-                let delayTime = DispatchTime(uptimeNanoseconds: 1)
-                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                //延时1秒执行
+                let time: TimeInterval = 1
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time, execute: {
                     SVProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 })

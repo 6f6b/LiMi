@@ -185,31 +185,6 @@ extension MyTrendListController:UITableViewDelegate,UITableViewDataSource{
             actionController.addAction(actionCancel)
             self.present(actionController, animated: true, completion: nil)
         }
-        
-        //点赞
-        trendsCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumUpBtn) in
-            let trendModel = model
-            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-            let thumbUp = ThumbUp(action_id: trendModel.action_id?.stringValue())
-            _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
-                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                HandleResultWith(model: resultModel)
-                if resultModel?.commonInfoModel?.status == successState{
-                    thumUpBtn.isSelected = !thumUpBtn.isSelected
-                    if thumUpBtn.isSelected{
-                        trendModel.click_num! += 1
-                        trendModel.is_click = 1
-                    }else{
-                        trendModel.is_click = 0
-                        trendModel.click_num! -= 1
-                    }
-                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-                }
-                SVProgressHUD.showErrorWith(model: resultModel)
-            }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-            })
-        }
         //评论
         trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
             let commentsWithTrendController = CommentsWithTrendController()

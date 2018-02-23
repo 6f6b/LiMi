@@ -591,9 +591,12 @@ struct GetQNUploadToken:TargetType,ParametersProtocol{
         return "/index.php/apps/Qiniuyun/getUploadToken"
     }
     var type:String = "image"
-    
+    var id:String? = nil
+    var token:String? = nil
     func parameters() -> [String : Any] {
         let tmpParameters = [
+            "id":id,
+            "token":token,
             "type":type]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -789,9 +792,13 @@ struct GetPayStaus:TargetType,ParametersProtocol{
     /// 交易流水号
     var order_no:String?
     
+    /// 支付类型 1：支付宝 2：微信
+    var type:String?
+    
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "order_no":order_no,
+            "type":type
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -826,6 +833,26 @@ struct WithdrawCash:TargetType,ParametersProtocol{
             "true_name":true_name,
             "code":code,
             ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - /*********************IM模块****************************/
+//MARK: - 1获取IM token
+struct GetIMToken:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Im/getToken"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = nil
         return handleRequestParameters(parameters: tmpParameters)
     }
 }

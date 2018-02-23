@@ -42,7 +42,7 @@ extension SVProgressHUD{
         }else{
             SVProgressHUD.dismiss()
         }
-        SVProgressHUD.dismiss(withDelay: 1.5)
+        //SVProgressHUD.dismiss(withDelay: 1.5)
     }
     //显示自定义成功信息
     static func showSuccessWith(msg:String?){
@@ -51,7 +51,7 @@ extension SVProgressHUD{
         }else{
             SVProgressHUD.dismiss()
         }
-        SVProgressHUD.dismiss(withDelay: 1.5)
+        //SVProgressHUD.dismiss(withDelay: 1.5)
     }
     
 }

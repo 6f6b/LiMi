@@ -19,7 +19,7 @@ class AlipayResultContainModel: Mappable {
     
     func mapping(map: Map) {
         resultStatus<-map["resultStatus"]
-        
+
         var resultJsonStr:String?
         resultJsonStr <- map["result"]
         if let _resultJsonStr = resultJsonStr{

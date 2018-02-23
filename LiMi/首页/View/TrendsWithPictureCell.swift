@@ -16,6 +16,13 @@ class TrendsWithPictureCell: TrendsWithTextAndPictrueCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: nil)
+        self.contentText.snp.makeConstraints { (make) in
+            make.top.equalTo(self.trendsContentContainView)
+            make.left.equalTo(self.trendsContentContainView)
+            //make.bottom.equalTo(self.trendsContentContainView)
+            make.right.equalTo(self.trendsContentContainView)
+            make.height.equalTo(0)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

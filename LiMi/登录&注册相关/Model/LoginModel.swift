@@ -24,7 +24,10 @@ class LoginModel: BaseModel {
         id<-map["data.id"]
         token<-map["data.token"]
         user_info_status<-map["data.user_info_status"]
-        user_info_status<-map["data.user_info_status"]
+        identity_status<-map["data.identity_status"]
+        Defaults[.userCertificationState] = identity_status
+        Defaults[.userId] = id
+        Defaults[.userToken] = token
     }
 }
 

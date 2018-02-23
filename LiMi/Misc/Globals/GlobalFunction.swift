@@ -279,7 +279,7 @@ func MakeAuthCodeBtnCannotBeHandleWith(button:UIButton?){
 ///
 /// - Parameter msg: 要现实的消息
 func PostLogOutNotificationWith(msg:String?){
-    let userInfo = ["msg":msg]
+    let userInfo = [LOG_OUT_MESSAGE_KEY:msg]
     NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: userInfo)
 }
 
@@ -288,13 +288,13 @@ func PostLogOutNotificationWith(msg:String?){
 /// - Parameters:
 ///   - type: token类别，图片、视频
 ///   - onSuccess: 成功回调
-func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)?){
+func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)?,id:String? = nil,token:String? = nil){
     let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
     var tokenType = "image"
     if type == .video{
         tokenType = "video"
     }
-    let getQNUploadToken = GetQNUploadToken(type: tokenType)
+    let getQNUploadToken = GetQNUploadToken(type: tokenType, id: id, token: token)
     _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
         let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
         HandleResultWith(model: qnUploadTokenModel)
@@ -325,7 +325,6 @@ func uploadFileName(type:MediaType)->String{
     }
     return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
 }
-
 
 
 

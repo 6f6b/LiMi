@@ -19,11 +19,24 @@ class UserDetailsController: ViewController {
     var userInfoModel:UserInfoModel?
     var type = "skill"
     var skillPage = 1
-    var actionPage = 1
+    @objc var actionPage = 1
     var skillDataArray = [TrendModel]()
     var actionDataArray = [TrendModel]()
-    var userId:Int?
+    @objc var userId:Int = 0
     var emptyInfo = "太低调了，还没有发需求"
+    
+//    init() {
+//        super.init(nibName: "UserDetailsController", bundle: nil)
+//    }
+//
+//    init(userId:Int?) {
+//        super.init(nibName: "UserDetailsController", bundle: nil)
+//        self.userId = userId
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +63,12 @@ class UserDetailsController: ViewController {
         
         if self.userId != Defaults[.userId]{
             let moreBtn = UIButton.init(type: .custom)
-            moreBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
+            moreBtn.setImage(UIImage.init(named: "xq_nav_more"), for: .normal)
             moreBtn.sizeToFit()
             moreBtn.addTarget(self, action: #selector(dealMoreOperation(_:)), for: .touchUpInside)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreBtn)
         }
+        
         
         loadData()
     }
@@ -64,6 +78,13 @@ class UserDetailsController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        //替换ViewController的导航栏返回按钮
+        let backBtn = UIButton.init(type: .custom)
+        backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
+        backBtn.sizeToFit()
+        backBtn.addTarget(self, action: #selector(dealTapBack), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
     }
 
     
@@ -78,6 +99,10 @@ class UserDetailsController: ViewController {
     }
 
     //MARK: - misc
+    @objc func dealTapBack(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     /// 更多操作
     ///
     /// - Parameters:
@@ -89,7 +114,12 @@ class UserDetailsController: ViewController {
         if operationType == .defriend{type = "black"}
         if operationType == .delete{type = "delete"}
         if operationType == .report{type = "report"}
-        if operationType == .sendMsg{type = "sendmsg"}
+        if operationType == .sendMsg{
+            let session = NIMSession.init(self.userId.stringValue(), type: .P2P)
+            let sessionVC = NTESSessionViewController.init(session: session)
+            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            return
+        }
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
@@ -153,7 +183,48 @@ class UserDetailsController: ViewController {
     }
     
     @IBAction func dealLiao(_ sender: Any) {
-        SVProgressHUD.showInfo(withStatus: "起开，别撩我")
+//        UINavigationController *nav = self.navigationController;
+//        NIMSession *session = [NIMSession session:self.userHomePageModel.imaccid type:NIMSessionTypeP2P];
+//        NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+//        [nav pushViewController:vc animated:YES];
+//        UIViewController *root = nav.viewControllers[0];
+//        nav.viewControllers = @[root,vc];
+        //判断登录状态
+        let appState = AppManager.shared.appState()
+        if appState == .imOnlineBusinessOnline{
+            let session = NIMSession.init((self.userId.stringValue()), type: .P2P)
+            let sessionVC = NTESSessionViewController.init(session: session)
+            self.navigationController?.pushViewController(sessionVC!, animated: true)
+        }
+        if appState == .imOnlineBusinessOffline{
+            NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
+        }
+        if appState == .imOfflineBusinessOnline{
+            //判断是否认证
+            if Defaults[.userCertificationState] == 0{
+                SVProgressHUD.showInfo(withStatus: "还未认证")
+                return
+            }
+            if Defaults[.userCertificationState] == 1{
+                SVProgressHUD.showInfo(withStatus: "认证中")
+                return
+            }
+            if Defaults[.userCertificationState] == 2{
+                NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"IM登录已失效，请重新登录"])
+                return
+            }
+            if Defaults[.userCertificationState] == 3{
+                SVProgressHUD.showInfo(withStatus: "认证失败")
+                return
+            }
+            if Defaults[.userCertificationState] == nil{
+                SVProgressHUD.showInfo(withStatus: "可能发生异步错误")
+                return
+            }
+        }
+        if appState == .imOffLineBusinessOffline{
+            NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
+        }
     }
     
 }
@@ -223,30 +294,6 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 }
                 let model = dataArray[indexPath.row]
                 let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
-                //点赞
-                trendsCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumUpBtn) in
-                    let trendModel = model
-                    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-                    let thumbUp = ThumbUp(action_id: trendModel.action_id?.stringValue())
-                    _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
-                        let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                        HandleResultWith(model: resultModel)
-                        if resultModel?.commonInfoModel?.status == successState{
-                            thumUpBtn.isSelected = !thumUpBtn.isSelected
-                            if thumUpBtn.isSelected{
-                                trendModel.click_num! += 1
-                                trendModel.is_click = 1
-                            }else{
-                                trendModel.is_click = 0
-                                trendModel.click_num! -= 1
-                            }
-                            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-                        }
-                        SVProgressHUD.showErrorWith(model: resultModel)
-                    }, onError: { (error) in
-                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-                    })
-                }
                 //评论
                 trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
                     let commentsWithTrendController = CommentsWithTrendController()

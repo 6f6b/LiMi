@@ -165,7 +165,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     }
     
     func uploadHeadImgWith(img:UIImage?){
-        GetQiNiuUploadToken(type: .picture) { (tokenModel) in
+        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
             if let filePath = GenerateImgPathlWith(img: img){
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
@@ -189,7 +189,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
                     
                 }, option: nil)
             }
-        }
+        }, id: nil, token: nil)
     }
     
     // MARK: - Table view data source

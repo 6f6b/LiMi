@@ -41,10 +41,12 @@ class RechargeController: ViewController {
         self.rechargeAmount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAlipayResultWith(notification:)), name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWXPayResultWith(notificaton:)), name: FINISHED_WXPAY_NOTIFICATION, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: FINISHED_WXPAY_NOTIFICATION, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,7 +94,7 @@ class RechargeController: ViewController {
             SVProgressHUD.showInfo(withStatus: "请输入充值金额")
             return
         }
-        let payManager = PayManager.shareManager
+        let payManager = PayManager.shared
         if self.alipayRecharge.isSelected{payManager.preRechageWith(payWay: .alipay, amountText: self.rechargeAmount.text)}
         if self.wechatRecharge.isSelected{payManager.preRechageWith(payWay: .wechatPay, amountText: self.rechargeAmount.text)}
     }
@@ -101,25 +103,36 @@ class RechargeController: ViewController {
     @objc func handleAlipayResultWith(notification: Notification){
             let alipayResultContainModel = Mapper<AlipayResultContainModel>().map(JSONObject: notification.userInfo)
         if alipayResultContainModel?.resultStatus == "9000"{
-            self.callServerAliPayStateWith(tadeNumber: alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no)
+            self.callServerPayStateWith(tradeNumber: alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no, type: "1")
         }else{
             self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)
         }
     }
     
-    /// 向服务器查询支付宝支付信息
+    @objc func handleWXPayResultWith(notificaton:Notification){
+        let resp = notificaton.userInfo![WXPAY_RESULT_KEY] as! BaseResp
+        if resp.errCode == WXSuccess.rawValue{
+            self.callServerPayStateWith(tradeNumber: PayManager.shared.signedResultModel?.out_trade_no, type: "2")
+        }else{
+            SVProgressHUD.showErrorWith(msg: resp.errStr)
+        }
+    }
+    
+    /// 向服务器查询支付结果信息
     ///
-    /// - Parameter tadeNumber: 交易流水号
-    func callServerAliPayStateWith(tadeNumber:String?){
-        let getPayStaus = GetPayStaus(order_no: tadeNumber)
+    /// - Parameters:
+    ///   - tradeNumber: 交易流水号
+    ///   - type: 支付类型
+    func callServerPayStateWith(tradeNumber:String?,type:String?){
+        let getPayStatus = GetPayStaus(order_no: tradeNumber, type: type)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        _ = moyaProvider.rx.request(.targetWith(target: getPayStaus)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: resultModel)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
-                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
-                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+                let delayTime:TimeInterval = 1.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
                     self.dismiss(animated: true, completion: {
                         SVProgressHUD.dismiss()
                     })
@@ -129,6 +142,53 @@ class RechargeController: ViewController {
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
     }
+    
+    /// 向服务器查询支付宝支付信息
+    ///
+    /// - Parameter tadeNumber: 交易流水号
+//    func callServerAliPayStateWith(tadeNumber:String?){
+//        let getPayStatus = GetPayStaus(order_no: tadeNumber, type: "1")
+//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
+//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//            HandleResultWith(model: resultModel)
+//            SVProgressHUD.showResultWith(model: resultModel)
+//            if resultModel?.commonInfoModel?.status == successState{
+//                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
+//                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+//                    self.dismiss(animated: true, completion: {
+//                        SVProgressHUD.dismiss()
+//                    })
+//                })
+//            }
+//        }, onError: { (error) in
+//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+//        })
+//    }
+    
+    
+    /// 向服务器查询微信支付信息
+    ///
+    /// - Parameter tradeNumber: 交易流水号
+//    func callServerWXPayStateWith(tradeNumber:String?){
+//        let getPayStatus = GetPayStaus(order_no: tradeNumber, type: "2")
+//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
+//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//            HandleResultWith(model: resultModel)
+//            SVProgressHUD.showResultWith(model: resultModel)
+//            if resultModel?.commonInfoModel?.status == successState{
+//                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
+//                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+//                    self.dismiss(animated: true, completion: {
+//                        SVProgressHUD.dismiss()
+//                    })
+//                })
+//            }
+//        }, onError: { (error) in
+//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+//        })
+//    }
     
     func showAliPayErrorWith(code:String?){
         //        9000    订单支付成功
@@ -148,14 +208,23 @@ class RechargeController: ViewController {
 
 extension RechargeController{
     @objc func textFeildDidChange(textField:UITextField){
-        if let substrs = textField.text?.split(separator: "."),let amount = textField.text?.doubleValue(){
-            if substrs.count == 2{
-                let decimalStr = substrs[1]
-                if decimalStr.count == 1{
-                    textField.text = String.init(format: "%.1f", amount)
-                }
-                if decimalStr.count >= 2{
-                    textField.text = String.init(format: "%.2f", amount)
+        if let text = textField.text,let amount = textField.text?.doubleValue(){
+            let nsText = NSString.init(string: text)
+            //不包含小数点
+            if nsText.range(of: ".").location == NSNotFound{
+                textField.text = String.init(format: "%d", Int(amount))
+            }else{
+                //包含小数点
+                if let substrs = textField.text?.split(separator: "."){
+                    if substrs.count == 2{
+                        let decimalStr = substrs[1]
+                        if decimalStr.count == 1{
+                            textField.text = String.init(format: "%.1f", amount)
+                        }
+                        if decimalStr.count >= 2{
+                            textField.text = String.init(format: "%.2f", amount)
+                        }
+                    }
                 }
             }
         }

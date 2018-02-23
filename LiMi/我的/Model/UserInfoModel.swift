@@ -12,6 +12,7 @@ import ObjectMapper
 class UserInfoModel: BaseModel {
     var true_name:String?
     var sex:String?
+    ///
     var user_info_status:Int?
     var head_pic:String?
     var school:String?

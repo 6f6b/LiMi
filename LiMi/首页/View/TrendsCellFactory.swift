@@ -15,21 +15,47 @@ enum TrendsCellStyle {
 }
 
 func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsCellStyle:TrendsCellStyle = .normal)->TrendsCell{
+    var isTextAvailable = false
+    var isPictureAvailable = false
+    var isVideoAvailable = false
+    if let content = model?.content{
+        if content.lengthOfBytes(using: String.Encoding.utf8) >= 1{
+                 isTextAvailable = true
+        }
+    }
+    if let pics = model?.action_pic{
+        if pics.count > 0{isPictureAvailable = true}
+    }
+    if let videoPath = model?.action_video{
+        if videoPath.lengthOfBytes(using: String.Encoding.utf8) > 2{
+            isVideoAvailable = true
+        }
+    }
+    
     //获取相应类型的cell
     var trendsCell  = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextCell", for: indexPath) as! TrendsCell
-    if let  trendModel = model{
-        if let pics = trendModel.action_pic{
-            if pics.count > 0{
-                let trendsCellWithTextAndPicture = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsWithTextAndPictrueCell
-                trendsCell = trendsCellWithTextAndPicture
-            }
-        }
-        if let videoPath = model?.action_video{
-            if videoPath.lengthOfBytes(using: String.Encoding.utf8) >= 2{
-                let trendsWithTextAndVideo = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndVideoCell", for: indexPath) as! TrendsWithTextAndVideoCell
-                trendsCell = trendsWithTextAndVideo
-            }
-        }
+    
+    //文字
+    if isTextAvailable && !isPictureAvailable && !isVideoAvailable{}
+    //图片
+    if !isTextAvailable && isPictureAvailable && !isVideoAvailable{
+        let trendsWithPictureCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithPictureCell", for: indexPath) as! TrendsWithPictureCell
+        trendsCell = trendsWithPictureCell
+    }
+    //视频
+    if !isTextAvailable && !isPictureAvailable && isVideoAvailable{
+        let trendsWithVideoCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithVideoCell", for: indexPath) as! TrendsWithVideoCell
+        trendsCell = trendsWithVideoCell
+    }
+    //文字、图片
+    if isTextAvailable && isPictureAvailable && !isVideoAvailable{
+        let trendsCellWithTextAndPicture = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsWithTextAndPictrueCell
+        trendsCell = trendsCellWithTextAndPicture
+    }
+    //文字、视频
+    if isTextAvailable && !isPictureAvailable && isVideoAvailable{
+        let trendsWithTextAndVideo = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndVideoCell", for: indexPath) as! TrendsWithTextAndVideoCell
+        trendsCell = trendsWithTextAndVideo
     }
     //重置cell
 //    trendsCell

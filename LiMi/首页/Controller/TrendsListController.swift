@@ -107,7 +107,12 @@ class TrendsListController: ViewController{
         if operationType == .defriend{type = "black"}
          if operationType == .delete{type = "delete"}
          if operationType == .report{type = "report"}
-         if operationType == .sendMsg{type = "sendmsg"}
+         if operationType == .sendMsg{
+            let session = NIMSession.init(trendModel!.user_id!.stringValue(), type: .P2P)
+            let sessionVC = NTESSessionViewController.init(session: session)
+            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            return
+        }
         let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
@@ -196,7 +201,7 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
         //点击头像
         trendsCell.trendsTopToolsContainView.tapHeadBtnBlock = {
             let userDetailsController = UserDetailsController()
-            userDetailsController.userId = self.dataArray[indexPath.row].user_id
+            userDetailsController.userId = self.dataArray[indexPath.row].user_id!
             self.navigationController?.pushViewController(userDetailsController, animated: true)
         }
         //点击更多
@@ -232,30 +237,6 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
             }
             actionController.addAction(actionCancel)
             self.present(actionController, animated: true, completion: nil)
-        }
-        //点赞
-        trendsCell.trendsBottomToolsContainView.tapThumbUpBtnBlock = {(thumUpBtn) in
-            let trendModel = self.dataArray[indexPath.row]
-            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-            let thumbUp = ThumbUp(action_id: trendModel.action_id?.stringValue())
-            _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
-                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                HandleResultWith(model: resultModel)
-                if resultModel?.commonInfoModel?.status == successState{
-                    thumUpBtn.isSelected = !thumUpBtn.isSelected
-                    if thumUpBtn.isSelected{
-                        trendModel.click_num! += 1
-                        trendModel.is_click = 1
-                    }else{
-                        trendModel.is_click = 0
-                        trendModel.click_num! -= 1
-                    }
-                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-                }
-                SVProgressHUD.showErrorWith(model: resultModel)
-            }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-            })
         }
         //评论
         trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
