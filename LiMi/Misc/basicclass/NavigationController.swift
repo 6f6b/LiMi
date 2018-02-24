@@ -15,6 +15,7 @@ class NavigationController: UINavigationController {
         self.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationBar.tintColor = UIColor.white
         self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        self.interactivePopGestureRecognizer?.delegate = self
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -41,4 +42,11 @@ class NavigationController: UINavigationController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension NavigationController:UIGestureRecognizerDelegate{
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if self.viewControllers.count <= 1{return false}
+        return true
+    }
 }

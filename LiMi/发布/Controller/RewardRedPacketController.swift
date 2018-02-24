@@ -144,31 +144,31 @@ class RewardRedPacketController: ViewController {
             //账户余额
             if let _money = mycashModel?.money{
                 //账户余额足够
-//                if _money >= amount{
-//                    //0 设置了密码未被禁用 1：未设置密码 2：密码被禁用（错误次数过多）
-//                    //未设置密码
-//                    if mycashModel?.is_set_passwd != 0{
-//                        let setPayPasswordController = SetPayPasswordController()
-//                        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
-//                    }else{
-//                        let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
-//                        payPasswordInputView.frame = SCREEN_RECT
-//                        payPasswordInputView.amountValue = amount
-//                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
-//                            self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
-//                        }
-//                        UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
-//                    }
-//                }
-//                //账户余额不足
-//                if _money < amount{
+                if _money >= amount{
+                    //0 设置了密码未被禁用 1：未设置密码 2：密码被禁用（错误次数过多）
+                    //未设置密码
+                    if mycashModel?.is_set_passwd != 0{
+                        let setPayPasswordController = SetPayPasswordController()
+                        self.navigationController?.pushViewController(setPayPasswordController, animated: true)
+                    }else{
+                        let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
+                        payPasswordInputView.frame = SCREEN_RECT
+                        payPasswordInputView.amountValue = amount
+                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
+                            self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
+                        }
+                        UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
+                    }
+                }
+                //账户余额不足
+                if _money < amount{
                     let selectPayWayView = GET_XIB_VIEW(nibName: "SelectPayWayView") as! SelectPayWayView
                     selectPayWayView.selectPayWayBlock = {way in
                         PayManager.shared.preRechageWith(payWay: way, amountText: self.amount.text)
                     }
                     selectPayWayView.frame = SCREEN_RECT
                     UIApplication.shared.keyWindow?.addSubview(selectPayWayView)
-//                }
+                }
             }else{
                 SVProgressHUD.showErrorWith(msg: "网络错误")
             }
@@ -181,7 +181,7 @@ class RewardRedPacketController: ViewController {
     func dealPlugMoneyToRedPacketWith(money:Double?,num:Int,type:Int,password:String?,trade_no:String? = nil){
         SVProgressHUD.show(withStatus: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let personCenter = SendRedpacket(money: money, num: num, type: type, password: password)
+        let personCenter = SendRedpacket(money: money, num: num, type: type, password: password,trade_no:trade_no)
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let sendRedPacketResultModel = Mapper<SendRedPacketResultModel>().map(jsonData: response.data)
             if sendRedPacketResultModel?.commonInfoModel?.status == successState{
@@ -190,7 +190,6 @@ class RewardRedPacketController: ViewController {
                 }
                 //延时0.8秒执行
                 let delayTime : TimeInterval = 0.8
-
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -212,7 +211,7 @@ class RewardRedPacketController: ViewController {
             if self.allSelected.isSelected{type = 2}
             if self.girlSelected.isSelected{type = 0}
             if self.boySelected.isSelected{type = 1}
-            let trandNum = alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no
+            let trandNum = alipayResultContainModel?.result?.alipay_trade_app_pay_response?.out_trade_no
             self.dealPlugMoneyToRedPacketWith(money: self.amount.text?.doubleValue(), num: (self.num.text?.intValue())!, type: type, password: nil, trade_no: trandNum)
         }else{
 //            self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)

@@ -250,18 +250,7 @@ class ReleaseController: ViewController {
         if let _red_token = self.sendRedpacketResultModel?.red_token{
             let alterController = UIAlertController.init(title: nil, message: "取消发布动态后，红包将退还至你的现金中", preferredStyle: .alert)
             let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
-                let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-                let cancelReleaseTrends = CancelDynamic(red_token: _red_token)
-                _ = moyaProvider.rx.request(.targetWith(target: cancelReleaseTrends)).subscribe(onSuccess: { (response) in
-                    let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                    HandleResultWith(model: resultModel)
-                    if resultModel?.commonInfoModel?.status == successState{
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                    SVProgressHUD.showErrorWith(model: resultModel)
-                }, onError: { (error) in
-                    SVProgressHUD.showErrorWith(msg: error.localizedDescription)
-                })
+                self.returnMoneyWith(redToken: _red_token)
             })
             let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             alterController.addAction(actionOK)
@@ -270,6 +259,36 @@ class ReleaseController: ViewController {
         }else{
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func returnMoneyWith(redToken:String?,nextStep:Int = 0){
+            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+            let cancelReleaseTrends = CancelDynamic(red_token: redToken)
+            _ = moyaProvider.rx.request(.targetWith(target: cancelReleaseTrends)).subscribe(onSuccess: { (response) in
+                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+                HandleResultWith(model: resultModel)
+                if resultModel?.commonInfoModel?.status == successState{
+                    if nextStep == 0{
+                        //取消发布
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    if nextStep == 1{
+                        //重新发红包
+                        self.sendRedpacketResultModel = nil
+                        self.releaseContentRedBagInputCell.rightLabel.text = nil
+                        
+                        let rewardRedPacketController = RewardRedPacketController()
+                        rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
+                            self.sendRedpacketResultModel = sendRedPacketResultModel
+                            self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
+                        }
+                        self.navigationController?.pushViewController(rewardRedPacketController, animated: true)
+                    }
+                }
+                SVProgressHUD.showErrorWith(model: resultModel)
+            }, onError: { (error) in
+                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            })
     }
     
     @objc func dealRelease(){
@@ -349,12 +368,24 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
                 UIApplication.shared.keyWindow?.addSubview(tagListView)
             }
             if indexPath.row == 1{
-                let rewardRedPacketController = RewardRedPacketController()
-                rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
-                    self.sendRedpacketResultModel = sendRedPacketResultModel
-                    self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
+                if nil == self.sendRedpacketResultModel?.red_token{
+                    let rewardRedPacketController = RewardRedPacketController()
+                    rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
+                        self.sendRedpacketResultModel = sendRedPacketResultModel
+                        self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
+                    }
+                    self.navigationController?.pushViewController(rewardRedPacketController, animated: true)
                 }
-                self.navigationController?.pushViewController(rewardRedPacketController, animated: true)
+                if nil != self.sendRedpacketResultModel?.red_token{
+                    let alterController = UIAlertController.init(title: nil, message: "重新塞红包，之前的红包将退还至你的现金中", preferredStyle: .alert)
+                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+                        self.returnMoneyWith(redToken: self.sendRedpacketResultModel?.red_token,nextStep: 1)
+                    })
+                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                    alterController.addAction(actionOK)
+                    alterController.addAction(actionCancel)
+                    self.present(alterController, animated: true, completion: nil)
+                }
             }
         }
     }

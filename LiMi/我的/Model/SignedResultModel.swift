@@ -21,6 +21,7 @@ class SignedResultModel: BaseModel {
     var prepayid:String?
     var sign:String?
     var timestamp:UInt32?
+    ///微信外部交易编号
     var out_trade_no:String?
 
     required init?(map: Map) {

@@ -41,7 +41,7 @@ let WECHAT_APP_ID = "wxb750b949790baabc"
 let QQ_APP_ID = ""
 
 //APP版本版本
-let APP_VERSION = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+let APP_VERSION = "v\(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
 
 //APP   scheme
 let APP_SCHEME = "LiMi20018"
@@ -85,6 +85,8 @@ let FINISHED_WXPAY_NOTIFICATION = Notification.Name.init("FINISHED_WXPAY_NOTIFIC
 let THUMBS_UP_NOTIFICATION =    Notification.Name.init("THUMBS_UP_NOTIFICATION")
 ///未读消息数改变通知
 let ALL_UNREAD_COUNT_CHANGED_NOTIFICATION = Notification.Name.init("ALL_UNREAD_COUNT_CHANGED_NOTIFICATION")
+///提现成功通知
+let WITHDRAW_SUCCESSED_NOTIFICATION = Notification.Name.init("WITHDRAW_SUCCESSED_NOTIFICATION")
 
 /// 更多操作通知对象的key
 let MORE_OPERATION_KEY = "MORE_OPERATION_KEY"

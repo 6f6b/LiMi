@@ -124,7 +124,8 @@ class AlipayAcountController: ViewController {
             if resultModel?.commonInfoModel?.status == successState{
                 let delayTime:TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
-                    self.navigationController?.popViewController(animated: true)
+                    SVProgressHUD.dismiss()
+                    NotificationCenter.default.post(name: WITHDRAW_SUCCESSED_NOTIFICATION, object: nil)
                 })
             }
         }, onError: { (error) in

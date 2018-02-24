@@ -81,7 +81,7 @@ class UserDetailsController: ViewController {
         
         //替换ViewController的导航栏返回按钮
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
-            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+            backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
         }
     }
 

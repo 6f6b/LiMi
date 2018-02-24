@@ -12,4 +12,6 @@
 @interface NTESSessionListViewController : NIMSessionListViewController
 
 @property (nonatomic,strong) UILabel *emptyTipLabel;
+//Edit by LiuFeng   (NIM) 2018/2/24
+@property (nonatomic,strong) UIImageView *emptyTipImageView;
 @end

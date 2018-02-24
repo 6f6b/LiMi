@@ -46,8 +46,6 @@ class ConditionScreeningView: UIView {
         self.collectionView.dataSource = self
         
         self.conditionContainViewRightConstraint.constant = -SCREEN_WIDTH*(600.0/750)
-        
-        self.loadData()
     }
 
     static func shareConditionScreeningView()->ConditionScreeningView{
@@ -61,6 +59,7 @@ class ConditionScreeningView: UIView {
     }
     
     func show(animation:Bool = true){
+        if nil == self.screeningConditionsModel{self.loadData()}
         self.frame = SCREEN_RECT
         UIApplication.shared.keyWindow?.addSubview(self)
         if animation{

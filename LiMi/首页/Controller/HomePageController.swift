@@ -61,6 +61,8 @@ class HomePageController: ViewController {
         self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*1, y: 0)
         self.slidingMenuBar.select(index: 1)
         
+        self.requestUpgradeInfo()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
     }
     
@@ -85,6 +87,7 @@ class HomePageController: ViewController {
     
 
     // MARK: -misc
+    //请求个人中心信息
     func requestUserInfoData() {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let personCenter = PersonCenter()
@@ -92,6 +95,20 @@ class HomePageController: ViewController {
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             Defaults[.userSex] = personCenterModel?.user_info?.sex
             SVProgressHUD.showErrorWith(model: personCenterModel)
+        }, onError: { (error) in
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    //请求版本升级信息
+    func requestUpgradeInfo(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let appUpdate = AppUpdate(device: "ios", version: APP_VERSION)
+        _ = moyaProvider.rx.request(.targetWith(target: appUpdate)).subscribe(onSuccess: { (response) in
+            let appUpgradeModel = Mapper<AppUpgradeModel>().map(jsonData: response.data)
+            let appUpgradeRemindingView = GET_XIB_VIEW(nibName: "APPUpgradeRemindingView") as! APPUpgradeRemindingView
+            appUpgradeRemindingView.showWith(upgradeModel: appUpgradeModel)
+            SVProgressHUD.showErrorWith(model: appUpgradeModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })

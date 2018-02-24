@@ -230,7 +230,8 @@ extension AppDelegate{
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options: [UNAuthorizationOptions.badge,UNAuthorizationOptions.sound,UNAuthorizationOptions.alert]) { (granted, error) in
                 if granted{
-                    UIApplication.shared.keyWindow?.makeToast("请开启推送功能否则无法收到推送通知", duration: 2.0, position: CSToastPositionCenter)
+                    SVProgressHUD.showInfo(withStatus: "请开启推送功能否则无法收到推送通知")
+//                    UIApplication.shared.keyWindow?.makeToast("请开启推送功能否则无法收到推送通知", duration: 2.0, position: CSToastPositionCenter)
                 }
             }
         } else {

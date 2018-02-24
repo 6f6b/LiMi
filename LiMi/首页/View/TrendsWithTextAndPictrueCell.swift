@@ -83,7 +83,7 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let imgArr = self.model?.action_pic{
-            let photoBroswer = XLPhotoBrowser.show(withImages: imgArr, currentImageIndex: indexPath.row)
+            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: indexPath.row, imageCount: UInt(imgArr.count), datasource: self)
             photoBroswer?.browserStyle = .indexLabel
             photoBroswer?.setActionSheeWith(self)
         }
@@ -109,9 +109,25 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     }
 }
 
-extension TrendsWithTextAndPictrueCell:XLPhotoBrowserDelegate{
+extension TrendsWithTextAndPictrueCell:XLPhotoBrowserDelegate,XLPhotoBrowserDatasource{
     func photoBrowser(_ browser: XLPhotoBrowser!, clickActionSheetIndex actionSheetindex: Int, currentImageIndex: Int) {
         browser.saveCurrentShowImage()
+    }
+    
+    func photoBrowser(_ browser: XLPhotoBrowser!, placeholderImageFor index: Int) -> UIImage! {
+        let trendsImageCollectionCell = self.collectionView.cellForItem(at: IndexPath.init(row: index, section: 0)) as! TrendsImageCollectionCell
+        return trendsImageCollectionCell.imgV.image!
+    }
+    
+    func photoBrowser(_ browser: XLPhotoBrowser!, sourceImageViewFor index: Int) -> UIImageView! {
+        let trendsImageCollectionCell = self.collectionView.cellForItem(at: IndexPath.init(row: index, section: 0)) as! TrendsImageCollectionCell
+        return trendsImageCollectionCell.imgV
+    }
+    
+    func photoBrowser(_ browser: XLPhotoBrowser!, highQualityImageURLFor index: Int) -> URL! {
+        let actionPics = self.model?.action_pic!
+        let url = URL.init(string: actionPics![index])
+        return url!
     }
 }
 

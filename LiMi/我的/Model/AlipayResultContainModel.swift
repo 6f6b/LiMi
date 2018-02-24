@@ -49,6 +49,7 @@ class AlipayTradeAppPayResponse: Mappable {
     var charset:String?
     var code:String?
     var msg:String?
+    ///外部交易编号
     var out_trade_no:String?
     var seller_id:String?
     var timestamp:String?

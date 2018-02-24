@@ -33,7 +33,7 @@ target ‘LiMi' do
     pod 'FMDB', '~> 2.7.2'
     pod 'SDWebImage', '~> 4.2.3'
 
-
+#    pod 'KSPhotoBrowser'
 
 #    pod 'NIMKit/Full'
 #    pod 'XLPagerTabStrip', '~> 8.0'

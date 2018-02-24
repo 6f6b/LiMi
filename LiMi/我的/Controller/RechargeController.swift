@@ -103,7 +103,7 @@ class RechargeController: ViewController {
     @objc func handleAlipayResultWith(notification: Notification){
             let alipayResultContainModel = Mapper<AlipayResultContainModel>().map(JSONObject: notification.userInfo)
         if alipayResultContainModel?.resultStatus == "9000"{
-            self.callServerPayStateWith(tradeNumber: alipayResultContainModel?.result?.alipay_trade_app_pay_response?.trade_no, type: "1")
+            self.callServerPayStateWith(tradeNumber: alipayResultContainModel?.result?.alipay_trade_app_pay_response?.out_trade_no, type: "1")
         }else{
             self.showAliPayErrorWith(code: alipayResultContainModel?.resultStatus)
         }

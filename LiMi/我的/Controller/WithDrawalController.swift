@@ -38,8 +38,13 @@ class WithDrawalController: ViewController {
         }
         
         self.withDrawAmount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealWithdrawSuccessed), name: WITHDRAW_SUCCESSED_NOTIFICATION, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: WITHDRAW_SUCCESSED_NOTIFICATION, object: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -62,6 +67,10 @@ class WithDrawalController: ViewController {
     }
 
     //MARK: - misc
+    @objc func dealWithdrawSuccessed(){
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func dealCancel(){
         self.dismiss(animated: true, completion: nil)
     }

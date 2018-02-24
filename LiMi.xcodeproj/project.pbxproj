@@ -459,6 +459,9 @@
 		6835828A2021AC1C00798462 /* LocalMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683582892021AC1C00798462 /* LocalMediaModel.swift */; };
 		6835828C202306A000798462 /* RedPacketResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835828B202306A000798462 /* RedPacketResultModel.swift */; };
 		6840881720400C1600D22885 /* FeedBackQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881620400C1600D22885 /* FeedBackQuestionModel.swift */; };
+		6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */; };
+		6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */; };
+		6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881C2041125B00D22885 /* AppUpgradeModel.swift */; };
 		68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECC201AC6E500D041CC /* TrendListModel.swift */; };
 		68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECE201AF86000D041CC /* CommentListModel.swift */; };
 		68629ED1201B29DF00D041CC /* UserDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ED0201B29DF00D041CC /* UserDetailModel.swift */; };
@@ -1476,6 +1479,9 @@
 		683582892021AC1C00798462 /* LocalMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMediaModel.swift; sourceTree = "<group>"; };
 		6835828B202306A000798462 /* RedPacketResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketResultModel.swift; sourceTree = "<group>"; };
 		6840881620400C1600D22885 /* FeedBackQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionModel.swift; sourceTree = "<group>"; };
+		6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPUpgradeRemindingView.xib; sourceTree = "<group>"; };
+		6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPUpgradeRemindingView.swift; sourceTree = "<group>"; };
+		6840881C2041125B00D22885 /* AppUpgradeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpgradeModel.swift; sourceTree = "<group>"; };
 		68629ECC201AC6E500D041CC /* TrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendListModel.swift; sourceTree = "<group>"; };
 		68629ECE201AF86000D041CC /* CommentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListModel.swift; sourceTree = "<group>"; };
 		68629ED0201B29DF00D041CC /* UserDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailModel.swift; sourceTree = "<group>"; };
@@ -4537,6 +4543,7 @@
 				6835824F201ED87C00798462 /* SexModel.swift */,
 				6835828B202306A000798462 /* RedPacketResultModel.swift */,
 				689D53AD20298AB6009C771C /* MoreOperationModel.swift */,
+				6840881C2041125B00D22885 /* AppUpgradeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4575,6 +4582,8 @@
 				6862E5062019838D0058B878 /* ConditionScreeningHeaderView.swift */,
 				6862E50A201989A70058B878 /* ConditionScreeningCollectionCell.swift */,
 				6862E50B201989A70058B878 /* ConditionScreeningCollectionCell.xib */,
+				6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */,
+				6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4862,6 +4871,7 @@
 				6835827E2021593200798462 /* WithDrawalController.xib in Resources */,
 				6801E116202DA83700C106E1 /* NIMKitEmoticon.bundle in Resources */,
 				6801E0A5202C6EA900C106E1 /* NTESAboutViewController.xib in Resources */,
+				6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
 				6862E5242019BC130058B878 /* emoji.json in Resources */,
 				6825485B20137BDC0033410A /* CommentsWithTrendController.xib in Resources */,
@@ -5367,6 +5377,7 @@
 				6801E08D202C6EA900C106E1 /* IJKSDLGLView.m in Sources */,
 				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
+				6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */,
 				6801E00D202C6EA800C106E1 /* NTESCellLayoutConfig.m in Sources */,
 				6801E05B202C6EA900C106E1 /* NTESSessionTipContentView.m in Sources */,
 				6801DF94202C6EA800C106E1 /* NIMInputEmoticonButton.m in Sources */,
@@ -5396,6 +5407,7 @@
 				6801E05D202C6EA900C106E1 /* NTESAudio2TextViewController.m in Sources */,
 				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
 				6801E027202C6EA900C106E1 /* NTESChatroomMemberCell.m in Sources */,
+				6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
 				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
 				68EFB907203FE53F00FE1A59 /* FeedBackController.swift in Sources */,

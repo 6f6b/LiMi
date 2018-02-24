@@ -670,13 +670,14 @@ struct SendRedpacket:TargetType,ParametersProtocol{
     var num:Int?
     var type:Int?
     var password:String?
-    
+    var trade_no:String?
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "money":money,
             "num":num,
             "type":type,
             "password":password,
+            "trade_no":trade_no
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -898,10 +899,10 @@ struct AppUpdate:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "index.php/apps/appStart"
+        return "/index.php/apps/Update/appStart"
     }
 
-    var device:String? //图片地址
+    var device:String? //设备名称，android、ios
     var version:String? //版本号
     
     func parameters() -> [String : Any] {

@@ -829,7 +829,6 @@
     self.saveButton.hidden = YES;
     
     CGRect targetTemp = [sourceView.superview convertRect:sourceView.frame toView:self];
-    
     UIImageView *tempView = [[UIImageView alloc] init];
     tempView.contentMode = sourceView.contentMode;
     tempView.clipsToBounds = YES;
@@ -838,9 +837,10 @@
     [self addSubview:tempView];
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    self.superview.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:XLPhotoBrowserHideImageAnimationDuration animations:^{
         tempView.frame = targetTemp;
-        self.backgroundColor = [UIColor clearColor];
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
@@ -964,7 +964,7 @@
     self.alpha = 0.0;
     [self.photoBrowserWindow.rootViewController.view addSubview:self];
     [self.photoBrowserWindow makeKeyAndVisible];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self iniaialUI];
 }
 

@@ -63,12 +63,22 @@
     self.header.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.header.delegate = self;
     [self.view addSubview:self.header];
-
+    
+    //Edit by LiuFeng   (NIM) 2018/2/24
     self.emptyTipLabel = [[UILabel alloc] init];
-    self.emptyTipLabel.text = @"还没有会话，在通讯录中找个人聊聊吧";
+//    self.emptyTipLabel.text = @"还没有会话，在通讯录中找个人聊聊吧";
+    self.emptyTipLabel.text = @"暂时还没有消息哦~";
+    self.emptyTipLabel.font = [UIFont systemFontOfSize:12];
+    self.emptyTipLabel.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
     [self.emptyTipLabel sizeToFit];
     self.emptyTipLabel.hidden = self.recentSessions.count;
     [self.view addSubview:self.emptyTipLabel];
+    
+    self.emptyTipImageView = [[UIImageView alloc] init];
+    self.emptyTipImageView.image = [UIImage imageNamed:@"qsy_img_noxx"];
+    [self.emptyTipImageView sizeToFit];
+    self.emptyTipImageView.hidden = self.recentSessions.count;
+    [self.view addSubview:self.emptyTipImageView];
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
@@ -88,6 +98,7 @@
 - (void)refresh{
     [super refresh];
     self.emptyTipLabel.hidden = self.recentSessions.count;
+    self.emptyTipImageView.hidden = self.recentSessions.count;
 }
 
 - (void)more:(id)sender
@@ -309,6 +320,9 @@
     
     self.emptyTipLabel.centerX = self.view.width * .5f;
     self.emptyTipLabel.centerY = self.tableView.height * .5f;
+    
+    self.emptyTipImageView.centerX = self.emptyTipLabel.centerX;
+    self.emptyTipImageView.centerY = self.emptyTipLabel.centerY- self.emptyTipImageView.size.height*0.5-self.emptyTipLabel.size.height*0.5-15;
 }
 
 - (UIView*)titleView:(NSString*)userID{
