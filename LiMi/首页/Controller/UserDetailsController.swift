@@ -17,7 +17,7 @@ class UserDetailsController: ViewController {
     var userDetailHeadView:UserDetailHeadView?
     var userDetailSelectTrendsTypeCell:UserDetailSelectTrendsTypeCell?
     var userInfoModel:UserInfoModel?
-    var type = "skill"
+    var type = "action"
     var skillPage = 1
     @objc var actionPage = 1
     var skillDataArray = [TrendModel]()
@@ -43,7 +43,6 @@ class UserDetailsController: ViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        let systemVersion = UIDevice.current.systemVersion
         if SYSTEM_VERSION <= 11.0{
             self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         }else{
@@ -263,19 +262,17 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
             if let _ = self.userDetailSelectTrendsTypeCell{}else{
                 self.userDetailSelectTrendsTypeCell = GET_XIB_VIEW(nibName: "UserDetailSelectTrendsTypeCell") as? UserDetailSelectTrendsTypeCell
-                self.userDetailSelectTrendsTypeCell?.selectTrendsTypeBlock = {(type) in
-                    if type == .demand{
-                        self.type = "skill"
-                        self.emptyInfo = "太低调了，还没发需求"
-                        self.skillPage = 1
-                    }
-                    if type == .trends{
+                self.userDetailSelectTrendsTypeCell?.selectTrendsBlock = {(index) in
+                    if 0 == index{
                         self.type = "action"
                         self.emptyInfo = "太低调了，还没发动态"
                         self.actionPage = 1
                     }
-                    print(self.type)
-                    self.loadData()
+                    if 1 == index{
+                        self.type = "skill"
+                        self.emptyInfo = "太低调了，还没发需求"
+                        self.skillPage = 1
+                    }
                 }
             }
             return self.userDetailSelectTrendsTypeCell!

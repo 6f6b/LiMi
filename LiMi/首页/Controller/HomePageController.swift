@@ -107,7 +107,10 @@ class HomePageController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: appUpdate)).subscribe(onSuccess: { (response) in
             let appUpgradeModel = Mapper<AppUpgradeModel>().map(jsonData: response.data)
             let appUpgradeRemindingView = GET_XIB_VIEW(nibName: "APPUpgradeRemindingView") as! APPUpgradeRemindingView
-            appUpgradeRemindingView.showWith(upgradeModel: appUpgradeModel)
+            //
+            if appUpgradeModel?.update != 2{
+                appUpgradeRemindingView.showWith(upgradeModel: appUpgradeModel)
+            }
             SVProgressHUD.showErrorWith(model: appUpgradeModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)

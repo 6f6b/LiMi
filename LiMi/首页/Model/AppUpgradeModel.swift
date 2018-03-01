@@ -11,6 +11,7 @@ import ObjectMapper
 
 class AppUpgradeModel: BaseModel {
     var status:Int?
+    ///0：可选更新 1：强制更新 2：不需要更新
     var update:Int?
     var content:[String]?
     var update_url:String?

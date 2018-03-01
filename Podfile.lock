@@ -13,6 +13,8 @@ PODS:
   - HappyDNS (0.3.12)
   - IQKeyboardManagerSwift (5.0.7)
   - Kingfisher (4.6.1)
+  - LLCycleScrollView (1.4.4):
+    - Kingfisher
   - M80AttributedLabel (1.6.3)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
@@ -29,6 +31,8 @@ PODS:
   - Reachability (3.2)
   - Result (3.2.4)
   - RxSwift (4.1.1)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
@@ -52,6 +56,7 @@ DEPENDENCIES:
   - FMDB (~> 2.7.2)
   - IQKeyboardManagerSwift
   - Kingfisher
+  - LLCycleScrollView
   - M80AttributedLabel (~> 1.6.3)
   - Masonry
   - MJRefresh
@@ -61,6 +66,7 @@ DEPENDENCIES:
   - Qiniu (~> 7.2.2)
   - QiniuUpload
   - Reachability
+  - SDCycleScrollView (~> 1.75)
   - SDWebImage (~> 4.2.3)
   - SnapKit (~> 4.0)
   - SSZipArchive (~> 1.8.1)
@@ -81,6 +87,7 @@ SPEC CHECKSUMS:
   HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  LLCycleScrollView: 7dcfb96bae6947b5de446a868e80ff0db2f047ae
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
@@ -91,6 +98,7 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
@@ -103,6 +111,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: 0d4b17fd0bde52d2ddf5f453ce4c023be5ebc23d
+PODFILE CHECKSUM: 90bc2b5c572b60062322a4a910cdbac858427fe0
 
 COCOAPODS: 1.2.0

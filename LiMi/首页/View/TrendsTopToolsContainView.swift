@@ -127,6 +127,38 @@ class TrendsTopToolsContainView: UIView {
         //更多操作
     }
     
+    func configWith(topicCircleModel:TopicCircleModel?){
+//        var id:Int?
+//        var status:Int?
+//        var user_id:Int?
+//        var title:String?
+//        var content:String?
+//        var head_pic:String?
+//        var true_name:String?
+//        var pics:[String]?
+//        var pics_num:Int?
+        //头像
+        if let headImgUrl = topicCircleModel?.head_pic{
+            self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
+        }
+        //姓名
+        self.userName.text = topicCircleModel?.title
+        //性别
+        self.sexImg.isHidden = true
+
+        //个人资料
+        if let _trueName = topicCircleModel?.true_name{
+            self.userInfo.text = "基于“\(_trueName)”推荐"
+        }else{
+            self.userInfo.text = "官方推荐"
+            self.headImgBtn.setImage(UIImage.init(named: "AppIcon"), for: .normal)
+        }
+
+        //发布时间
+        self.releaseTime.isHidden = true
+        //更多操作
+    }
+    
     func configWith(commentModel:CommentModel?){
         if let headImgUrl = commentModel?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)

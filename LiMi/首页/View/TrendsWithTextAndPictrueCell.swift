@@ -116,7 +116,7 @@ extension TrendsWithTextAndPictrueCell:XLPhotoBrowserDelegate,XLPhotoBrowserData
     
     func photoBrowser(_ browser: XLPhotoBrowser!, placeholderImageFor index: Int) -> UIImage! {
         let trendsImageCollectionCell = self.collectionView.cellForItem(at: IndexPath.init(row: index, section: 0)) as! TrendsImageCollectionCell
-        return trendsImageCollectionCell.imgV.image!
+        return trendsImageCollectionCell.imgV.image == nil ? UIImage.init(named: "guanyu_icon") : trendsImageCollectionCell.imgV.image
     }
     
     func photoBrowser(_ browser: XLPhotoBrowser!, sourceImageViewFor index: Int) -> UIImageView! {

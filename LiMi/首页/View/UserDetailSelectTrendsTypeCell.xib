@@ -31,14 +31,14 @@
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5U-we-uy5">
                                                 <rect key="frame" x="0.0" y="3" width="146.5" height="32.5"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" title="TA的需求">
+                                                <state key="normal" title="TA的动态">
                                                     <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="selected">
                                                     <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="dealSelectDemand:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PKO-fs-G3E"/>
+                                                    <action selector="dealSelectTrendsWith:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="siL-W1-O29"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1lB-v4-C8A">
@@ -64,17 +64,17 @@
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xG0-mx-q2Y">
                                         <rect key="frame" x="146.5" y="0.0" width="146.5" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkJ-vz-wTf">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkJ-vz-wTf">
                                                 <rect key="frame" x="0.0" y="3" width="146.5" height="32.5"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" title="TA的动态">
+                                                <state key="normal" title="TA的需求">
                                                     <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="selected">
                                                     <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="dealSelectTrends:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hGF-3V-HyH"/>
+                                                    <action selector="dealSelectTrendsWith:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bz4-T7-bFO"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7a-UL-YQl">
@@ -129,10 +129,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="demandBtn" destination="M5U-we-uy5" id="zzP-j1-SKE"/>
-                <outlet property="lineDemande" destination="1lB-v4-C8A" id="Xd8-fb-iuo"/>
-                <outlet property="lineTrends" destination="K7a-UL-YQl" id="Ix2-ct-HKh"/>
-                <outlet property="trendsBtn" destination="WkJ-vz-wTf" id="dMQ-6x-S2j"/>
+                <outlet property="btn1" destination="M5U-we-uy5" id="wqr-Ua-xFZ"/>
+                <outlet property="btn2" destination="WkJ-vz-wTf" id="Ob3-gx-y7l"/>
+                <outlet property="v1" destination="1lB-v4-C8A" id="Har-3Y-sOc"/>
+                <outlet property="v2" destination="K7a-UL-YQl" id="sFr-My-LZD"/>
             </connections>
             <point key="canvasLocation" x="-100.5" y="37"/>
         </tableViewCell>

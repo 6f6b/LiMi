@@ -24,6 +24,9 @@ class TrendsCell: UITableViewCell {
     /// 底部工具栏容器
     var trendsBottomToolsContainView:TrendsBottomToolsContainView!    //底部工具容器
     
+    ///底部灰色分隔bar
+    var grayBar:UIView!
+    
     var redPacketBtn:UIButton!
     var  catchRedPacketBlock:(()->Void)?
     override func awakeFromNib() {
@@ -59,16 +62,26 @@ class TrendsCell: UITableViewCell {
             make.height.equalTo(60)
         }
         
+        self.grayBar = UIView()
+        self.trendsContainView.addSubview(self.grayBar)
+        self.grayBar.backgroundColor = UIColor.groupTableViewBackground
+        self.grayBar.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.trendsContainView)
+            make.left.equalTo(self.trendsContainView)
+            make.right.equalTo(self.trendsContainView)
+            make.height.equalTo(7)
+        }
+        
         self.trendsBottomToolsContainView = TrendsBottomToolsContainView()
         self.trendsContainView.addSubview(self.trendsBottomToolsContainView)
         self.trendsBottomToolsContainView.tapCommentBtnBlock = {
             print("点击了评论")
         }
         self.trendsBottomToolsContainView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.trendsContainView)
+            make.bottom.equalTo(self.grayBar.snp.top)
             make.left.equalTo(self.trendsContainView)
             make.right.equalTo(self.trendsContainView)
-            make.height.equalTo(46)
+            make.height.equalTo(36)
         }
         
         self.trendsContentContainView = UIView()
@@ -77,11 +90,12 @@ class TrendsCell: UITableViewCell {
         self.trendsContentContainView.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsTopToolsContainView.snp.bottom)
             make.left.equalTo(self.trendsContainView).offset(12)
-            make.bottom.equalTo(self.trendsBottomToolsContainView.snp.top)
+            make.bottom.equalTo(self.trendsBottomToolsContainView.snp.top).offset(-10)
             make.right.equalTo(self.trendsContainView).offset(-12)
         }
         
         self.redPacketBtn = UIButton()
+        self.redPacketBtn.isHidden = true
         self.redPacketBtn.setImage(UIImage.init(named: "btn_hongbao_1"), for: .normal)
         self.redPacketBtn.addTarget(self, action: #selector(dealCatchRedPacket), for: .touchUpInside)
         self.redPacketBtn.sizeToFit()
@@ -150,9 +164,11 @@ class TrendsCell: UITableViewCell {
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? TrendModel{
                 if self.model?.action_id == trendModel.action_id{
-                    self.model?.is_click = trendModel.is_click
-                    self.model?.click_num = trendModel.click_num
-                    self.configWith(model: self.model)
+                    if self.model?.topic_action_id == trendModel.topic_action_id{
+                        self.model?.is_click = trendModel.is_click
+                        self.model?.click_num = trendModel.click_num
+                        self.configWith(model: self.model)
+                    }
                 }
             }
         }

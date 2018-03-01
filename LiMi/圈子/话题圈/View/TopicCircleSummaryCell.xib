@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="192" id="KGk-i7-Jjw" customClass="TopicCircleSummaryCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="192"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="411" height="192"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGI-Kg-WHH">
+                        <rect key="frame" x="36" y="41" width="339" height="122"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOK-OV-AOx">
+                                <rect key="frame" x="0.0" y="0.0" width="34.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkO-7t-1t2">
+                                <rect key="frame" x="0.0" y="56" width="339" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mkO-7t-1t2" firstAttribute="top" secondItem="sOK-OV-AOx" secondAttribute="bottom" constant="10" id="CpE-60-2n2"/>
+                            <constraint firstAttribute="bottom" secondItem="mkO-7t-1t2" secondAttribute="bottom" id="OT7-UJ-Nxm"/>
+                            <constraint firstItem="mkO-7t-1t2" firstAttribute="leading" secondItem="aGI-Kg-WHH" secondAttribute="leading" id="UYM-Q4-tzc"/>
+                            <constraint firstItem="sOK-OV-AOx" firstAttribute="top" secondItem="aGI-Kg-WHH" secondAttribute="top" id="g3h-UO-9Jk"/>
+                            <constraint firstAttribute="trailing" secondItem="mkO-7t-1t2" secondAttribute="trailing" id="jEW-DD-XoS"/>
+                            <constraint firstItem="sOK-OV-AOx" firstAttribute="leading" secondItem="aGI-Kg-WHH" secondAttribute="leading" id="k9P-js-znu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aGI-Kg-WHH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="ZmJ-0v-q6e"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="aGI-Kg-WHH" secondAttribute="bottom" constant="18" id="fz7-j6-RC0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="aGI-Kg-WHH" secondAttribute="trailing" constant="16" id="nuw-mU-uHD"/>
+                    <constraint firstItem="aGI-Kg-WHH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="30" id="sj5-Ca-uQy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="topicCircleTitle" destination="sOK-OV-AOx" id="F81-pg-8Dy"/>
+                <outlet property="topicSummary" destination="mkO-7t-1t2" id="zPQ-vG-7Xd"/>
+            </connections>
+            <point key="canvasLocation" x="-24" y="-79"/>
+        </tableViewCell>
+    </objects>
+</document>

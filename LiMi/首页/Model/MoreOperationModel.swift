@@ -12,4 +12,5 @@ struct MoreOperationModel {
     var action_id:Int? = nil
     var user_id:Int? = nil
     var operationType:OperationType = .none
+    var topic_circle_id:Int? = nil
 }

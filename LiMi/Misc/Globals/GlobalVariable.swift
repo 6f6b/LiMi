@@ -69,12 +69,18 @@ var AUTH_BTN_COUNT_DOWN_TIME = 0
 
 ///动态发送成功通知
 let POST_TREND_SUCCESS_NOTIFICATION = Notification.Name.init("POST_TREND_SUCCESS_NOTIFICATION")
+///话题发送成功通知
+let POST_TOPIC_SUCCESS_NOTIFICATION = Notification.Name.init("POST_TOPIC_SUCCESS_NOTIFICATION")
+///话题圈添加成功
+let ADD_TOPIC_CIRCLE_SUCCESS_NOTIFICATION = Notification.Name.init("ADD_TOPIC_CIRCLE_SUCCESS_NOTIFICATION")
 ///退出登录通知
 let  LOGOUT_NOTIFICATION = Notification.Name.init("LOGOUT_NOTIFICATION")
 ///筛选条件改变
 let   SCREENING_CODITIONS_CHANGED = Notification.Name.init("SCREENING_CODITIONS_CHANGED")
-///做出了更多操作通知：举报、删除、拉黑、聊天
+///做出了更多操作通知：举报、删除、拉黑、聊天、不感兴趣
 let    DID_MORE_OPERATION = Notification.Name.init("DID_MORE_OPERATION")
+///对话题做出了更多操作通知：举报、删除、拉黑、聊天
+let    DID_TOPIC_MORE_OPERATION = Notification.Name.init("DID_TOPIC_MORE_OPERATION")
 /// 抢了红包
 let     CATCHED_RED_PACKET_NOTIFICATION = Notification.Name.init("CATCHED_RED_PACKET_NOTIFICATION")
 /// 支付宝支付完毕

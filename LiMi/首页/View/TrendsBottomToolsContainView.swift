@@ -32,7 +32,7 @@ class TrendsBottomToolsContainView: UIView {
             make.left.equalTo(self)
             make.bottom.equalTo(self)
             make.right.equalTo(self)
-            make.height.equalTo(7)
+            make.height.equalTo(0)
         }
         
         self.topToolsContainView = UIView()
@@ -46,7 +46,7 @@ class TrendsBottomToolsContainView: UIView {
         
         self.viewNum = UILabel()
         self.topToolsContainView.addSubview(self.viewNum)
-        self.viewNum.text = "浏览 2500"
+        self.viewNum.text = "-++-"
         self.viewNum.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         self.viewNum.font = UIFont.systemFont(ofSize: 12)
         self.viewNum.snp.makeConstraints { (make) in
@@ -122,9 +122,15 @@ class TrendsBottomToolsContainView: UIView {
     
     /// 点赞
     @objc func dealTapThumbUpBtn(){
+        //判断动态种类
+        var body:TargetType!
+        if self.trendModel?.topic_action_id != nil{
+            body = ClickAction(topic_action_id: trendModel?.action_id)
+        }else{
+            body = ThumbUp(action_id: trendModel?.action_id?.stringValue())
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let thumbUp = ThumbUp(action_id: trendModel?.action_id?.stringValue())
-        _ = moyaProvider.rx.request(.targetWith(target: thumbUp)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{

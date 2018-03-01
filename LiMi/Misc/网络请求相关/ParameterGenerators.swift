@@ -914,6 +914,308 @@ struct AppUpdate:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - /*********************圈子****************************/
+//MARK: - 4-1添加话题
+struct AddTopic:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/addtopic"
+    }
+    
+    var title:String? //主题
+    var content:String? //话题简介
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "title":title,
+            "content":content,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-2话题圈下发表话题
+struct AddTopicAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/addTopicAction"
+    }
+    
+    var pic:String? //图片
+    var topic_id:Int? //话题圈id
+    var content:String? //内容
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "pic":pic,
+            "topic_id":topic_id,
+            "content":content,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-3话题点赞
+struct ClickAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/clickAction"
+    }
+    
+    var topic_action_id:Int? //话题圈id
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "topic_action_id":topic_action_id,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-4话题评论
+struct DiscussAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/discussAction"
+    }
+    
+    var topic_action_id:Int? //话题id
+    var content:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "topic_action_id":topic_action_id,
+            "content":content
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-5话题圈下的话题列表
+struct OneTopicList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/topic/oneTopicList"
+    }
+    
+    var page:Int? //分页
+    var topic_id:Int? //话题圈id
+    var type:String? //最新、最热
+
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "page":page,
+            "topic_id":topic_id,
+            "type":type,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-6话题圈列表
+struct AllTopicList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/topic/allTopicList"
+    }
+    
+    var page:Int? //分页
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-7 对某个话题不感兴趣
+struct UnlikeTopic:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/unlikeTopic"
+    }
+    
+    var topic_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "topic_id":topic_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-8 更多功能方法处理接口-举报-拉黑-聊天-删除
+struct MultiFunction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/topic/multiFunction"
+    }
+    
+    var type:String?
+    var topic_action_id:Int?
+    var user_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "topic_action_id":topic_action_id,
+            "user_id":user_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4-9评论列表
+struct DiscussList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/topic/discussList"
+    }
+    
+    var page:Int? //分页
+    var topic_action_id:Int? //评论
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "page":page,
+            "topic_action_id":topic_action_id
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - /*********************附近的人****************************/
+//MARK: - 5-1附近的用户信息列表
+struct NearUserList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "index.php/apps/near/nearUserList"
+    }
+    
+    var lat:String?
+    var lng:String?
+    var page:Int?
+    var sex:Int?
+
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "lat":lat,
+            "lng":lng,
+            "page":page,
+            "sex":sex
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 5-3清除位置信息
+struct ClearLocation:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "index.php/apps/near/clearLocation"
+    }
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "":""
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 5-4编辑个性签名
+struct UpdateContent:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "index.php/apps/near/updateContent"
+    }
+    
+    var content:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "content":content
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 // MARK: - 相关枚举
 //收藏类型
 enum CollectType:Int{

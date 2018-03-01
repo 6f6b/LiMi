@@ -117,7 +117,10 @@ class MyTrendListController: ViewController {
             HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
                 if baseModel?.commonInfoModel?.status == successState{
-                    let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
+                    var moreOperationModel = MoreOperationModel()
+                    moreOperationModel.operationType = operationType
+                    moreOperationModel.action_id = trendModel?.action_id
+                    moreOperationModel.user_id = trendModel?.user_id
                     NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
                 }
             }

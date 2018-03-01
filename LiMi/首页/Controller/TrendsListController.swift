@@ -19,6 +19,7 @@ enum OperationType {
     case delete
     case defriend
     case sendMsg
+    case notInteresting
     case none
 }
 class TrendsListController: ViewController{
@@ -72,6 +73,7 @@ class TrendsListController: ViewController{
     }
 
     //MARK: - misc
+    
     func loadData(){
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
@@ -118,7 +120,10 @@ class TrendsListController: ViewController{
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
-                let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
+                var moreOperationModel = MoreOperationModel()
+                moreOperationModel.operationType = operationType
+                moreOperationModel.action_id = trendModel?.action_id
+                moreOperationModel.user_id = trendModel?.user_id
                 NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
             }
             SVProgressHUD.showResultWith(model: baseModel)

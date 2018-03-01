@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EditAutographView" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxU-51-Inf">
+                    <rect key="frame" x="29.5" y="162" width="316" height="343"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fujin_img_qm" translatesAutoresizingMaskIntoConstraints="NO" id="wiL-O7-pIp">
+                            <rect key="frame" x="72.5" y="15" width="171" height="188"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah5-La-Ilz">
+                            <rect key="frame" x="15" y="15" width="12" height="22"/>
+                            <state key="normal" image="close"/>
+                            <connections>
+                                <action selector="dealClose:" destination="iN0-l3-epB" eventType="touchUpInside" id="UKL-pm-Bk7"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-kw-NVV">
+                            <rect key="frame" x="30" y="223" width="256" height="40"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="写点什么让撩你的人更懂你" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jWO-ee-Fbs">
+                                    <rect key="frame" x="15" y="0.0" width="217" height="40"/>
+                                    <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fujin_ic_qm" translatesAutoresizingMaskIntoConstraints="NO" id="oRY-Hk-S7u">
+                                    <rect key="frame" x="232" y="13" width="14" height="14"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="14" id="uSP-mh-rN0"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="oRY-Hk-S7u" firstAttribute="centerY" secondItem="TLK-kw-NVV" secondAttribute="centerY" id="Kc2-H6-s5Q"/>
+                                <constraint firstAttribute="height" constant="40" id="LN0-ov-aPh"/>
+                                <constraint firstAttribute="trailing" secondItem="oRY-Hk-S7u" secondAttribute="trailing" constant="10" id="SEr-Xo-kzi"/>
+                                <constraint firstItem="oRY-Hk-S7u" firstAttribute="leading" secondItem="jWO-ee-Fbs" secondAttribute="trailing" id="a3S-zo-jDp"/>
+                                <constraint firstItem="jWO-ee-Fbs" firstAttribute="top" secondItem="TLK-kw-NVV" secondAttribute="top" id="qOB-na-C53"/>
+                                <constraint firstAttribute="bottom" secondItem="jWO-ee-Fbs" secondAttribute="bottom" id="rgY-VD-3pQ"/>
+                                <constraint firstItem="jWO-ee-Fbs" firstAttribute="leading" secondItem="TLK-kw-NVV" secondAttribute="leading" constant="15" id="tOP-YW-sWh"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BaD-X2-xPl">
+                            <rect key="frame" x="30" y="283" width="256" height="40"/>
+                            <color key="backgroundColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="完成">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="dealFinished:" destination="iN0-l3-epB" eventType="touchUpInside" id="NcY-uU-5dI"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="BaD-X2-xPl" firstAttribute="top" secondItem="TLK-kw-NVV" secondAttribute="bottom" constant="20" id="Ecn-R6-X1u"/>
+                        <constraint firstItem="TLK-kw-NVV" firstAttribute="top" secondItem="wiL-O7-pIp" secondAttribute="bottom" constant="20" id="HNF-dT-X5H"/>
+                        <constraint firstItem="TLK-kw-NVV" firstAttribute="height" secondItem="BaD-X2-xPl" secondAttribute="height" id="IuQ-KN-Cus"/>
+                        <constraint firstItem="TLK-kw-NVV" firstAttribute="width" secondItem="BaD-X2-xPl" secondAttribute="width" id="RHv-gp-N6w"/>
+                        <constraint firstItem="wiL-O7-pIp" firstAttribute="centerX" secondItem="jxU-51-Inf" secondAttribute="centerX" id="Uah-kZ-XQx"/>
+                        <constraint firstItem="ah5-La-Ilz" firstAttribute="leading" secondItem="jxU-51-Inf" secondAttribute="leading" constant="15" id="e4m-UM-HS9"/>
+                        <constraint firstAttribute="trailing" secondItem="TLK-kw-NVV" secondAttribute="trailing" constant="30" id="mlx-PL-z6U"/>
+                        <constraint firstItem="TLK-kw-NVV" firstAttribute="centerX" secondItem="jxU-51-Inf" secondAttribute="centerX" id="pIB-ak-LCU"/>
+                        <constraint firstAttribute="bottom" secondItem="BaD-X2-xPl" secondAttribute="bottom" constant="20" id="trb-PW-OpT"/>
+                        <constraint firstItem="wiL-O7-pIp" firstAttribute="top" secondItem="jxU-51-Inf" secondAttribute="top" constant="15" id="u9f-Ed-RfS"/>
+                        <constraint firstItem="ah5-La-Ilz" firstAttribute="top" secondItem="jxU-51-Inf" secondAttribute="top" constant="15" id="umm-l1-Zrn"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" secondItem="jxU-51-Inf" secondAttribute="height" multiplier="295:320" id="wr9-wY-nIi"/>
+                        <constraint firstItem="BaD-X2-xPl" firstAttribute="centerX" secondItem="TLK-kw-NVV" secondAttribute="centerX" id="wz9-UY-75D"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jxU-51-Inf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="UTf-gQ-GFs"/>
+                <constraint firstItem="jxU-51-Inf" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="295:350" id="tIZ-Sh-rXl"/>
+                <constraint firstItem="jxU-51-Inf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="v1l-To-5kA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="autograph" destination="jWO-ee-Fbs" id="6Sl-7Q-f5r"/>
+                <outlet property="autographContainView" destination="TLK-kw-NVV" id="yNp-sp-nDG"/>
+                <outlet property="containView" destination="jxU-51-Inf" id="13z-c5-jEU"/>
+                <outlet property="finishedBtn" destination="BaD-X2-xPl" id="VO8-8p-lkU"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="52.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="close" width="12" height="12"/>
+        <image name="fujin_ic_qm" width="14" height="14"/>
+        <image name="fujin_img_qm" width="171" height="180"/>
+    </resources>
+</document>

@@ -45,6 +45,9 @@ class TrendModel: BaseModel {
     var red_token:String?
     var red_type:String?
     
+    //话题部分
+    var pic:String?
+    var topic_action_id:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -72,6 +75,18 @@ class TrendModel: BaseModel {
         is_over<-map["is_over"]
         red_token<-map["red_token"]
         red_type<-map["red_type"]
+        
+        pic <- map["pic"]
+        topic_action_id <- map["topic_action_id"]
+        
+        if (nil == self.action_pic || self.action_pic?.count == 0) && self.pic != nil{
+            if self.pic!.lengthOfBytes(using: String.Encoding.utf8) >= 5{
+                self.action_pic = [self.pic!]
+            }
+        }
+        if nil == self.action_id && self.topic_action_id != nil{
+            self.action_id = self.topic_action_id
+        }
     }
 }
 

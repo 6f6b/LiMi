@@ -23,6 +23,11 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
                  isTextAvailable = true
         }
     }
+    if let skill = model?.skill{
+        if skill.lengthOfBytes(using: String.Encoding.utf8) >= 1{
+            isTextAvailable = true
+        }
+    }
     if let pics = model?.action_pic{
         if pics.count > 0{isPictureAvailable = true}
     }

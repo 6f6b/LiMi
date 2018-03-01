@@ -26,6 +26,11 @@ class UserInfoModel: BaseModel {
     var money:Double?   //抢到的红包金额
     var uid:String? //用户id
     
+    //附近的人
+    var content:String? //个性签名
+    var distance:String? //距离
+    var numSex:Int?
+    
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -41,5 +46,6 @@ class UserInfoModel: BaseModel {
         grade<-map["grade"]
         back_pic<-map["back_pic"]
         user_id<-map["user_id"]
+        numSex <- map["sex"]
     }
 }

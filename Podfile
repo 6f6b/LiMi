@@ -33,6 +33,11 @@ target ‘LiMi' do
     pod 'FMDB', '~> 2.7.2'
     pod 'SDWebImage', '~> 4.2.3'
 
+
+    pod 'LLCycleScrollView'
+    pod 'SDCycleScrollView','~> 1.75'
+
+
 #    pod 'KSPhotoBrowser'
 
 #    pod 'NIMKit/Full'

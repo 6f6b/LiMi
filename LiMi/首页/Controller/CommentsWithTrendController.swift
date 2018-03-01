@@ -91,12 +91,21 @@ class CommentsWithTrendController: ViewController {
     // MARK: - misc
     func loadData(){
         if pageIndex == 1{self.dataArray.removeAll()}
+        //判断种类
+        var body:TargetType!
+        if self.trendModel?.topic_action_id == nil{
+            body = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex)
+        }else{
+            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.action_id)
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let commentList = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex)
-        _ = moyaProvider.rx.request(.targetWith(target: commentList)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let commentListModel = Mapper<CommentListModel>().map(jsonData: response.data)
             HandleResultWith(model: commentListModel)
-            self.trendModel = commentListModel?.trend
+            
+            if nil != commentListModel?.trend{
+                self.trendModel = commentListModel?.trend
+            }
             if let comments = commentListModel?.comments{
                 for comment in comments{
                     self.dataArray.append(comment)
@@ -129,9 +138,14 @@ class CommentsWithTrendController: ViewController {
     
     @IBAction func dealSent(_ sender: Any) {
         self.contentText.resignFirstResponder()
+        var body:TargetType!
+        if nil == self.trendModel?.topic_action_id{
+            body = AddComment(action_id: self.trendModel?.action_id?.stringValue(), content: self.contentText.text)
+        }else{
+            body = DiscussAction(topic_action_id: self.trendModel?.action_id, content: self.contentText.text)
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let addComment = AddComment(action_id: self.trendModel?.action_id?.stringValue(), content: self.contentText.text)
-        _ = moyaProvider.rx.request(.targetWith(target: addComment)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: resultModel)
             self.pageIndex = 1
@@ -204,13 +218,27 @@ class CommentsWithTrendController: ViewController {
             self.navigationController?.pushViewController(sessionVC!, animated: true)
             return
         }
-        let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
-        _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
+        //判断种类
+        var body:TargetType!
+        if self.trendModel?.topic_action_id == nil{
+            body = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
+        }else{
+            body = MultiFunction(type: type, topic_action_id: trendModel?.action_id,user_id:trendModel?.user_id)
+        }
+        _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
-                let moreOperationModel = MoreOperationModel(action_id: trendModel?.action_id, user_id: trendModel?.user_id, operationType: operationType)
-                NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+                var moreOperationModel = MoreOperationModel()
+                moreOperationModel.operationType = operationType
+                moreOperationModel.action_id = trendModel?.action_id
+                moreOperationModel.user_id = trendModel?.user_id
+
+                if self.trendModel?.topic_action_id == nil{
+                    NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+                }else{
+                    NotificationCenter.default.post(name: DID_TOPIC_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+                }
             }
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in

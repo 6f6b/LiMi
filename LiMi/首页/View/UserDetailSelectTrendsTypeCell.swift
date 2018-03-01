@@ -14,18 +14,17 @@ enum TrendsType {
 }
 
 class UserDetailSelectTrendsTypeCell: UITableViewCell {
-    @IBOutlet weak var demandBtn: UIButton!
-    @IBOutlet weak var trendsBtn: UIButton!
-    @IBOutlet weak var lineDemande: UIView!
-    @IBOutlet weak var lineTrends: UIView!
+    @IBOutlet weak var btn1: UIButton!
+    @IBOutlet weak var btn2: UIButton!
+    @IBOutlet weak var v1: UIView!
+    @IBOutlet weak var v2: UIView!
     
-    var selectTrendsTypeBlock:((TrendsType)->Void)?
+    var selectTrendsBlock:((Int)->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.lineDemande.layer.cornerRadius = 1.5
-        self.lineTrends.layer.cornerRadius = 1.5
-        
-        self.showWith(trendsType: .demand)
+        self.v1.layer.cornerRadius = 1.5
+        self.v2.layer.cornerRadius = 1.5
+        self.showWith(index: 0)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,26 +33,27 @@ class UserDetailSelectTrendsTypeCell: UITableViewCell {
     }
     
     //MARK: - misc
-    func showWith(trendsType:TrendsType){
-        let isDemand = trendsType == .demand ? true:false
+    func showWith(index:Int){
         
-        self.demandBtn.isSelected = isDemand
-        self.lineDemande.isHidden = !isDemand
-        
-        self.trendsBtn.isSelected = !isDemand
-        self.lineTrends.isHidden = isDemand
-    }
-    @IBAction func dealSelectDemand(_ sender: Any) {
-        if let _selectTrendsTypeBlock = self.selectTrendsTypeBlock{
-            _selectTrendsTypeBlock(.demand)
+        if 0 == index{
+            self.btn1.isSelected = true
+            self.btn2.isSelected = false
+            self.v1.isHidden = false
+            self.v2.isHidden = true
+        }else{
+            self.btn1.isSelected = false
+            self.btn2.isSelected = true
+            self.v1.isHidden = true
+            self.v2.isHidden = false
         }
-        self.showWith(trendsType: .demand)
     }
-    @IBAction func dealSelectTrends(_ sender: Any) {
-        if let _selectTrendsTypeBlock = self.selectTrendsTypeBlock{
-            _selectTrendsTypeBlock(.trends)
+    
+    @IBAction func dealSelectTrendsWith(_ sender: Any) {
+        let btn = sender as! UIButton
+        self.showWith(index: btn.tag)
+        if let _selectTrendsTypeBlock = self.selectTrendsBlock{
+            _selectTrendsTypeBlock(btn.tag)
         }
-        self.showWith(trendsType: .trends)
     }
 }
 
