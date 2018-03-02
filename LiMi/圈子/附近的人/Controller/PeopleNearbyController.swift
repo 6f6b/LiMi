@@ -11,6 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 import MJRefresh
+import IQKeyboardManagerSwift
 
 let collectionViewTopAndBottomSpace = CGFloat(15.0)
 let collectionViewLeftAndRightSpace = CGFloat(15.0)
@@ -27,12 +28,6 @@ class PeopleNearbyController: ViewController {
         super.viewDidLoad()
         self.title = "附近的人"
 
-//        let layOut = UICollectionViewFlowLayout()
-//        layOut.estimatedItemSize = CGSize.init(width: 100, height: 100)
-//        layOut.minimumInteritemSpacing = collectionItemHorizontalSpace
-//        layOut.minimumLineSpacing = collectionItemVerticalSpace
-//        self.collectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64), collectionViewLayout: layOut)
-//        self.view.addSubview(self.collectionView)
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewLeftAndRightSpace, bottom: 0, right: collectionViewLeftAndRightSpace)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -46,11 +41,14 @@ class PeopleNearbyController: ViewController {
         })
         self.collectionView.register(UINib.init(nibName: "NearbyPeopleCollectionCell", bundle: nil), forCellWithReuseIdentifier: "NearbyPeopleCollectionCell")
         
+        
         let moreOperationBtn = UIButton.init(type: .custom)
         moreOperationBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
+//        moreOperationBtn.backgroundColor = UIColor.red
         moreOperationBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)
         moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreOperationBtn)
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: moreOperationBtn),UIBarButtonItem.init(customView: UIButton())]
+//        self.navigationItem.rightBarButtonItem =
         
         self.loadData()
     }
@@ -70,6 +68,7 @@ class PeopleNearbyController: ViewController {
         }
         let actionLookAll = UIAlertAction(title: "查看全部", style: .default) { (_) in
             self.sex = nil
+            self.loadData()
             print("查看全部")
         }
         let actionEditMyAutograph = UIAlertAction(title: "编辑个性签名", style: .default) { (_) in
@@ -96,6 +95,15 @@ class PeopleNearbyController: ViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.sharedManager().enable = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.sharedManager().enable = true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -175,7 +183,7 @@ extension PeopleNearbyController:UICollectionViewDelegateFlowLayout,UICollection
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemWith = (SCREEN_WIDTH-collectionItemHorizontalSpace-collectionViewLeftAndRightSpace*2-1)/2.0
-        let itemHeight = itemWith + 60
+        let itemHeight = itemWith + 80
         return CGSize.init(width: itemWith, height: itemHeight)
     }
     

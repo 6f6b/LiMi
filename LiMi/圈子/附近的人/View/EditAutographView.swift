@@ -16,6 +16,7 @@ class EditAutographView: UIView {
     @IBOutlet weak var autographContainView: UIView!
     @IBOutlet weak var autograph: UITextField!
     @IBOutlet weak var finishedBtn: UIButton!
+    @IBOutlet weak var containViewCenterYConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +30,32 @@ class EditAutographView: UIView {
         
         self.finishedBtn.layer.cornerRadius = 20
         self.finishedBtn.clipsToBounds = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.loadData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    //MARK: - misc
+    func loadData(){
+//        ShowEditContent
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let showEditContent = ShowEditContent()
+        _ = moyaProvider.rx.request(.targetWith(target: showEditContent)).subscribe(onSuccess: { (response) in
+            let autographModel = Mapper<AutographModel>().map(jsonData: response.data)
+            HandleResultWith(model: autographModel)
+            self.autograph.text = autographModel?.autograph
+            SVProgressHUD.showErrorWith(model: autographModel)
+        }, onError: { (error) in
+
+            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
     @IBAction func dealClose(_ sender: Any) {
@@ -46,5 +73,44 @@ class EditAutographView: UIView {
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
     }
+
+    //MARK: - keyboard
+    @objc func keyboardWillShow(notification:Notification){
+        let userInfo = notification.userInfo!
+        let  keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+//        let rectInWindow = self.finishedBtn.convert(finishedBtn.frame, to: UIApplication.shared.keyWindow)
+        let rectInWindow = self.finishedBtn.frame
+        let finishBtnDeltaY = SCREEN_HEIGHT - CGFloat(rectInWindow.origin.y + rectInWindow.size.height+49+64)
+        let offset = MIN(parametersA: 0, parametersB: Double(finishBtnDeltaY-deltaY))
+        let animations:(() -> Void) = {
+            //键盘的偏移量
+            self.containViewCenterYConstraint.constant = CGFloat(offset)
+            self.layoutIfNeeded()
+        }
+        
+        if duration > 0 {
+            UIView.animate(withDuration: duration, animations: animations)
+        }else{
+            animations()
+        }
+    }
     
+    @objc func keyboardWillHidden(notification:Notification){
+        let userInfo  = notification.userInfo!
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            //键盘的偏移量
+            self.containViewCenterYConstraint.constant = 0
+        }
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
+        }
+    }
 }

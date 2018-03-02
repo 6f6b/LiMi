@@ -22,6 +22,8 @@
 #import "XLPhotoBrowser.h"
 #import "XLPhotoBrowser+Extension.h"
 #import "WXApi.h"
+#import "iCarousel.h"
+#import "UILabel+YBAttributeTextTapAction.h"
 
 //IM相关
 #import <UIKit/UIKit.h>

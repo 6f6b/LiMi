@@ -46,6 +46,10 @@ class UserInfoModel: BaseModel {
         grade<-map["grade"]
         back_pic<-map["back_pic"]
         user_id<-map["user_id"]
+
+        content <- map["content"]
+        distance <- map["distance"]
         numSex <- map["sex"]
+        
     }
 }

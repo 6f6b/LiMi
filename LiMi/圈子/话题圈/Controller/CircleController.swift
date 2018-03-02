@@ -33,7 +33,8 @@ class CircleController: ViewController {
                 self.navigationController?.pushViewController(peopleNearbyController, animated: true)
             }
             if circleMenuType == .weekendTour{
-                print("周末游")
+                let weekendTourController = WeekendTourController()
+                self.navigationController?.pushViewController(weekendTourController, animated: true)
             }
             if circleMenuType == .topicCircle{
                 let topicCircleController = TopicCircleController()

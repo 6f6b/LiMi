@@ -1216,6 +1216,74 @@ struct UpdateContent:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - 5-5编辑个性签名
+struct ShowEditContent:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "index.php/apps/near/editContent"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "":""
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - /*********************周日游****************************/
+//MARK: - 1周日游首页
+struct WeekendIndex:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/weekend/WeekendIndex"
+    }
+    
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "page":page
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 2周日游活动详情
+struct WeekendInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/weekend/weekendinfo"
+    }
+    
+    var weekend_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "weekend_id":weekend_id
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 // MARK: - 相关枚举
 //收藏类型
 enum CollectType:Int{

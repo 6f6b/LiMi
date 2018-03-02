@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="314" id="KGk-i7-Jjw" customClass="WeekendTourSubjectCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="398" height="314"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="398" height="313.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="eWh-dJ-2Ra">
+                        <rect key="frame" x="15" y="15" width="368" height="225.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="eWh-dJ-2Ra" secondAttribute="height" multiplier="375:230" id="RF4-gw-goz"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-uN-lUR">
+                        <rect key="frame" x="15" y="240.5" width="368" height="73"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-tN-RSN">
+                                <rect key="frame" x="0.0" y="72" width="368" height="1"/>
+                                <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="vu9-69-5uR"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="西岭雪山2日游玩" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-Ef-3ih">
+                                <rect key="frame" x="0.0" y="6" width="108.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="每周六" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ni0-ud-cAk">
+                                <rect key="frame" x="0.0" y="33" width="37" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="参与人数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77N-Ry-PBX">
+                                <rect key="frame" x="0.0" y="51.5" width="49.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5hc-tN-RSN" secondAttribute="bottom" id="3rH-zS-qbs"/>
+                            <constraint firstItem="s6S-Ef-3ih" firstAttribute="top" secondItem="nMq-uN-lUR" secondAttribute="top" constant="6" id="4Ba-Ug-yeG"/>
+                            <constraint firstAttribute="trailing" secondItem="5hc-tN-RSN" secondAttribute="trailing" id="Gt3-g3-WCD"/>
+                            <constraint firstItem="Ni0-ud-cAk" firstAttribute="leading" secondItem="s6S-Ef-3ih" secondAttribute="leading" id="VZt-cb-0Yb"/>
+                            <constraint firstItem="77N-Ry-PBX" firstAttribute="top" secondItem="Ni0-ud-cAk" secondAttribute="bottom" constant="4" id="Vjw-xH-YPG"/>
+                            <constraint firstItem="s6S-Ef-3ih" firstAttribute="leading" secondItem="nMq-uN-lUR" secondAttribute="leading" id="X4R-lO-nko"/>
+                            <constraint firstItem="77N-Ry-PBX" firstAttribute="leading" secondItem="s6S-Ef-3ih" secondAttribute="leading" id="ZWD-cM-HET"/>
+                            <constraint firstItem="5hc-tN-RSN" firstAttribute="top" secondItem="77N-Ry-PBX" secondAttribute="bottom" constant="10" id="Zvl-T1-Kfb"/>
+                            <constraint firstItem="5hc-tN-RSN" firstAttribute="leading" secondItem="nMq-uN-lUR" secondAttribute="leading" id="nVK-mK-h1k"/>
+                            <constraint firstItem="Ni0-ud-cAk" firstAttribute="top" secondItem="s6S-Ef-3ih" secondAttribute="bottom" constant="10" id="syn-pm-Jmm"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nMq-uN-lUR" secondAttribute="bottom" id="1im-Z6-JDK"/>
+                    <constraint firstItem="eWh-dJ-2Ra" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3Hr-YN-iUo"/>
+                    <constraint firstAttribute="trailing" secondItem="eWh-dJ-2Ra" secondAttribute="trailing" constant="15" id="CU1-gV-huW"/>
+                    <constraint firstAttribute="trailing" secondItem="nMq-uN-lUR" secondAttribute="trailing" constant="15" id="H0b-du-XKm"/>
+                    <constraint firstItem="nMq-uN-lUR" firstAttribute="top" secondItem="eWh-dJ-2Ra" secondAttribute="bottom" id="Nbn-q5-z7D"/>
+                    <constraint firstItem="eWh-dJ-2Ra" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="nrV-6X-R8I"/>
+                    <constraint firstItem="eWh-dJ-2Ra" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="waW-vg-wcc"/>
+                    <constraint firstItem="nMq-uN-lUR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xeG-pJ-h9G"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="backImageV" destination="eWh-dJ-2Ra" id="fVf-SW-7YK"/>
+                <outlet property="name" destination="s6S-Ef-3ih" id="nxw-ju-3eW"/>
+                <outlet property="personNum" destination="77N-Ry-PBX" id="hTF-1L-StV"/>
+                <outlet property="time" destination="Ni0-ud-cAk" id="xX5-2V-we7"/>
+            </connections>
+            <point key="canvasLocation" x="23" y="163"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="zhuye_bj" width="375" height="230"/>
+    </resources>
+</document>

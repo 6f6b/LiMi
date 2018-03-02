@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.commonInitListenEvents()
         self.setupMainViewController()
         NTESRedPacketManager.shared().application(application, didFinishLaunchingWithOptions: launchOptions)
-        AppManager.shared.autoLoginIM()
+        _ = AppManager.shared.autoLoginIM()
+        LocationManager.shared.startLocateWith(success: nil, failed: nil)
         return true
     }
 

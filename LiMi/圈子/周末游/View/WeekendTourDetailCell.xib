@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="291" id="KGk-i7-Jjw" customClass="WeekendTourDetailCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="419" height="291"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="419" height="290.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="活动详情" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X88-Kh-FdV">
+                        <rect key="frame" x="175" y="15" width="69.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zmy_ico_hd" translatesAutoresizingMaskIntoConstraints="NO" id="imQ-7I-TnR">
+                        <rect key="frame" x="152" y="19" width="17" height="13"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="【活动简介】" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIk-H2-ihK">
+                        <rect key="frame" x="12" y="56" width="86" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qg-b4-3W1">
+                        <rect key="frame" x="20" y="80" width="379" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="【活动流程】" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Krg-9D-8TG">
+                        <rect key="frame" x="12" y="133.5" width="86" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCj-5U-lNM">
+                        <rect key="frame" x="20" y="157.5" width="379" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="【费用包含】" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ka-Wf-dr6">
+                        <rect key="frame" x="12" y="211" width="86" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介活动简介" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-wN-J1Z">
+                        <rect key="frame" x="20" y="235" width="379" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BiR-1G-KBh">
+                        <rect key="frame" x="0.0" y="289.5" width="419" height="1"/>
+                        <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="xhe-EM-EZe"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0qg-b4-3W1" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0tH-NP-d3v"/>
+                    <constraint firstItem="BiR-1G-KBh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3v7-fT-P44"/>
+                    <constraint firstItem="0qg-b4-3W1" firstAttribute="top" secondItem="RIk-H2-ihK" secondAttribute="bottom" constant="7" id="4Rh-Ob-KmN"/>
+                    <constraint firstItem="RIk-H2-ihK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="4tb-he-OAc"/>
+                    <constraint firstItem="X88-Kh-FdV" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="5RA-6G-wiO"/>
+                    <constraint firstItem="FU6-wN-J1Z" firstAttribute="top" secondItem="9ka-Wf-dr6" secondAttribute="bottom" constant="7" id="89E-q9-XmF"/>
+                    <constraint firstItem="lCj-5U-lNM" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="8Ti-BM-671"/>
+                    <constraint firstItem="lCj-5U-lNM" firstAttribute="top" secondItem="Krg-9D-8TG" secondAttribute="bottom" constant="7" id="8ZI-sJ-DdW"/>
+                    <constraint firstItem="Krg-9D-8TG" firstAttribute="leading" secondItem="RIk-H2-ihK" secondAttribute="leading" id="Kn2-g1-lsj"/>
+                    <constraint firstItem="RIk-H2-ihK" firstAttribute="top" secondItem="X88-Kh-FdV" secondAttribute="bottom" constant="20" id="Kve-B7-A6H"/>
+                    <constraint firstItem="Krg-9D-8TG" firstAttribute="top" secondItem="0qg-b4-3W1" secondAttribute="bottom" constant="20" id="PMU-O1-ejW"/>
+                    <constraint firstItem="9ka-Wf-dr6" firstAttribute="top" secondItem="lCj-5U-lNM" secondAttribute="bottom" constant="20" id="R67-TR-ySH"/>
+                    <constraint firstAttribute="bottom" secondItem="BiR-1G-KBh" secondAttribute="bottom" id="YeV-gB-5U0"/>
+                    <constraint firstItem="X88-Kh-FdV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="aBh-uf-dir"/>
+                    <constraint firstItem="BiR-1G-KBh" firstAttribute="top" secondItem="FU6-wN-J1Z" secondAttribute="bottom" constant="20" id="eBA-7e-LlV"/>
+                    <constraint firstItem="lCj-5U-lNM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="flf-Zo-2KA"/>
+                    <constraint firstItem="FU6-wN-J1Z" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="g3D-Ht-4oF"/>
+                    <constraint firstItem="lCj-5U-lNM" firstAttribute="leading" secondItem="0qg-b4-3W1" secondAttribute="leading" id="gzB-kS-K17"/>
+                    <constraint firstItem="FU6-wN-J1Z" firstAttribute="leading" secondItem="0qg-b4-3W1" secondAttribute="leading" id="kTv-oa-1RZ"/>
+                    <constraint firstItem="9ka-Wf-dr6" firstAttribute="leading" secondItem="RIk-H2-ihK" secondAttribute="leading" id="puB-d4-mf8"/>
+                    <constraint firstItem="X88-Kh-FdV" firstAttribute="leading" secondItem="imQ-7I-TnR" secondAttribute="trailing" constant="6" id="vHo-MN-akE"/>
+                    <constraint firstItem="FU6-wN-J1Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="wIN-hP-hF1"/>
+                    <constraint firstAttribute="trailing" secondItem="BiR-1G-KBh" secondAttribute="trailing" id="xtq-XN-Cul"/>
+                    <constraint firstItem="0qg-b4-3W1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="zLa-eH-TWh"/>
+                    <constraint firstItem="X88-Kh-FdV" firstAttribute="centerY" secondItem="imQ-7I-TnR" secondAttribute="centerY" id="zxf-oo-fgV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="costContain" destination="FU6-wN-J1Z" id="5KU-PN-eMd"/>
+                <outlet property="tourDescription" destination="0qg-b4-3W1" id="1Fg-xg-SpB"/>
+                <outlet property="tourFlow" destination="lCj-5U-lNM" id="Bqm-cu-FLb"/>
+            </connections>
+            <point key="canvasLocation" x="110.5" y="147.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="zmy_ico_hd" width="17" height="13"/>
+    </resources>
+</document>

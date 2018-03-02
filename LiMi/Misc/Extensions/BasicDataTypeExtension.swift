@@ -75,7 +75,7 @@ extension String{
 
 extension Double{
     func stringValue()->String{
-        let string = String.init(format: "%.f", self)
+        let string = String.init(format: "%f", self)
         return string
     }
     

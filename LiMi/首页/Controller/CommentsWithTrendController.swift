@@ -82,6 +82,8 @@ class CommentsWithTrendController: ViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func didReceiveMemoryWarning() {

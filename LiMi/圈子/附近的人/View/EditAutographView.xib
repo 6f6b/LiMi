@@ -98,6 +98,7 @@
                 <outlet property="autograph" destination="jWO-ee-Fbs" id="6Sl-7Q-f5r"/>
                 <outlet property="autographContainView" destination="TLK-kw-NVV" id="yNp-sp-nDG"/>
                 <outlet property="containView" destination="jxU-51-Inf" id="13z-c5-jEU"/>
+                <outlet property="containViewCenterYConstraint" destination="UTf-gQ-GFs" id="FZf-s9-zay"/>
                 <outlet property="finishedBtn" destination="BaD-X2-xPl" id="VO8-8p-lkU"/>
             </connections>
             <point key="canvasLocation" x="26.5" y="52.5"/>

@@ -440,6 +440,29 @@
 		681C95D120455C2B009CDE3B /* PeopleNearbyContainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95D020455C2B009CDE3B /* PeopleNearbyContainModel.swift */; };
 		681C95D320456D12009CDE3B /* EditAutographView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95D220456D12009CDE3B /* EditAutographView.xib */; };
 		681C95D52045701F009CDE3B /* EditAutographView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95D42045701F009CDE3B /* EditAutographView.swift */; };
+		681C95DC20479BEC009CDE3B /* AutographModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95DB20479BEC009CDE3B /* AutographModel.swift */; };
+		681C95DF2047A13D009CDE3B /* WeekendTourController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95DD2047A13D009CDE3B /* WeekendTourController.swift */; };
+		681C95E02047A13D009CDE3B /* WeekendTourController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95DE2047A13D009CDE3B /* WeekendTourController.xib */; };
+		681C95E32047A343009CDE3B /* WeekendBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95E12047A343009CDE3B /* WeekendBannerCell.swift */; };
+		681C95E42047A343009CDE3B /* WeekendBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95E22047A343009CDE3B /* WeekendBannerCell.xib */; };
+		681C95E92047A5D5009CDE3B /* WeekendTourSeparateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95E72047A5D5009CDE3B /* WeekendTourSeparateCell.swift */; };
+		681C95EA2047A5D5009CDE3B /* WeekendTourSeparateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95E82047A5D5009CDE3B /* WeekendTourSeparateCell.xib */; };
+		681C95ED2047A633009CDE3B /* WeekendTourSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95EB2047A633009CDE3B /* WeekendTourSubjectCell.swift */; };
+		681C95EE2047A633009CDE3B /* WeekendTourSubjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95EC2047A633009CDE3B /* WeekendTourSubjectCell.xib */; };
+		681C95F12047AD13009CDE3B /* WeekendTourDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95EF2047AD13009CDE3B /* WeekendTourDetailController.swift */; };
+		681C95F22047AD13009CDE3B /* WeekendTourDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95F02047AD13009CDE3B /* WeekendTourDetailController.xib */; };
+		681C95F42047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95F32047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift */; };
+		681C95F62047AE67009CDE3B /* WeekendTourSubjectHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95F52047AE66009CDE3B /* WeekendTourSubjectHeaderView.xib */; };
+		681C95F92047CE40009CDE3B /* WeekendTourDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95F72047CE40009CDE3B /* WeekendTourDetailCell.swift */; };
+		681C95FA2047CE40009CDE3B /* WeekendTourDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95F82047CE40009CDE3B /* WeekendTourDetailCell.xib */; };
+		681C95FD2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95FB2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift */; };
+		681C95FE2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95FC2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib */; };
+		681C96012047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95FF2047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift */; };
+		681C96022047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C96002047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib */; };
+		681C96062047E0FD009CDE3B /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 681C96052047E0FD009CDE3B /* iCarousel.m */; };
+		681C96082047E86B009CDE3B /* WeekendTourListContainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C96072047E86B009CDE3B /* WeekendTourListContainModel.swift */; };
+		681C960A2047EED9009CDE3B /* WeekendTourDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C96092047EED9009CDE3B /* WeekendTourDetailModel.swift */; };
+		681C960E20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 681C960D20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m */; };
 		68254856201364450033410A /* RewardRedPacketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68254854201364450033410A /* RewardRedPacketController.swift */; };
 		68254857201364450033410A /* RewardRedPacketController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68254855201364450033410A /* RewardRedPacketController.xib */; };
 		6825485A20137BDC0033410A /* CommentsWithTrendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825485820137BDC0033410A /* CommentsWithTrendController.swift */; };
@@ -1482,6 +1505,31 @@
 		681C95D020455C2B009CDE3B /* PeopleNearbyContainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleNearbyContainModel.swift; sourceTree = "<group>"; };
 		681C95D220456D12009CDE3B /* EditAutographView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAutographView.xib; sourceTree = "<group>"; };
 		681C95D42045701F009CDE3B /* EditAutographView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAutographView.swift; sourceTree = "<group>"; };
+		681C95DB20479BEC009CDE3B /* AutographModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographModel.swift; sourceTree = "<group>"; };
+		681C95DD2047A13D009CDE3B /* WeekendTourController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourController.swift; sourceTree = "<group>"; };
+		681C95DE2047A13D009CDE3B /* WeekendTourController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourController.xib; sourceTree = "<group>"; };
+		681C95E12047A343009CDE3B /* WeekendBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendBannerCell.swift; sourceTree = "<group>"; };
+		681C95E22047A343009CDE3B /* WeekendBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendBannerCell.xib; sourceTree = "<group>"; };
+		681C95E72047A5D5009CDE3B /* WeekendTourSeparateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourSeparateCell.swift; sourceTree = "<group>"; };
+		681C95E82047A5D5009CDE3B /* WeekendTourSeparateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourSeparateCell.xib; sourceTree = "<group>"; };
+		681C95EB2047A633009CDE3B /* WeekendTourSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourSubjectCell.swift; sourceTree = "<group>"; };
+		681C95EC2047A633009CDE3B /* WeekendTourSubjectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourSubjectCell.xib; sourceTree = "<group>"; };
+		681C95EF2047AD13009CDE3B /* WeekendTourDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourDetailController.swift; sourceTree = "<group>"; };
+		681C95F02047AD13009CDE3B /* WeekendTourDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourDetailController.xib; sourceTree = "<group>"; };
+		681C95F32047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourSubjectHeaderView.swift; sourceTree = "<group>"; };
+		681C95F52047AE66009CDE3B /* WeekendTourSubjectHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourSubjectHeaderView.xib; sourceTree = "<group>"; };
+		681C95F72047CE40009CDE3B /* WeekendTourDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourDetailCell.swift; sourceTree = "<group>"; };
+		681C95F82047CE40009CDE3B /* WeekendTourDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourDetailCell.xib; sourceTree = "<group>"; };
+		681C95FB2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourServiceMerchantCell.swift; sourceTree = "<group>"; };
+		681C95FC2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourServiceMerchantCell.xib; sourceTree = "<group>"; };
+		681C95FF2047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourBookingInfoCell.swift; sourceTree = "<group>"; };
+		681C96002047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourBookingInfoCell.xib; sourceTree = "<group>"; };
+		681C96042047E0FD009CDE3B /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		681C96052047E0FD009CDE3B /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		681C96072047E86B009CDE3B /* WeekendTourListContainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourListContainModel.swift; sourceTree = "<group>"; };
+		681C96092047EED9009CDE3B /* WeekendTourDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourDetailModel.swift; sourceTree = "<group>"; };
+		681C960C20481060009CDE3B /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
+		681C960D20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		68254854201364450033410A /* RewardRedPacketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRedPacketController.swift; sourceTree = "<group>"; };
 		68254855201364450033410A /* RewardRedPacketController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RewardRedPacketController.xib; sourceTree = "<group>"; };
 		6825485820137BDC0033410A /* CommentsWithTrendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsWithTrendController.swift; sourceTree = "<group>"; };
@@ -4285,6 +4333,7 @@
 			isa = PBXGroup;
 			children = (
 				681C95D020455C2B009CDE3B /* PeopleNearbyContainModel.swift */,
+				681C95DB20479BEC009CDE3B /* AutographModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4292,6 +4341,20 @@
 		681C95BF204536BA009CDE3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				681C95E12047A343009CDE3B /* WeekendBannerCell.swift */,
+				681C95E22047A343009CDE3B /* WeekendBannerCell.xib */,
+				681C95E72047A5D5009CDE3B /* WeekendTourSeparateCell.swift */,
+				681C95E82047A5D5009CDE3B /* WeekendTourSeparateCell.xib */,
+				681C95EB2047A633009CDE3B /* WeekendTourSubjectCell.swift */,
+				681C95EC2047A633009CDE3B /* WeekendTourSubjectCell.xib */,
+				681C95F32047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift */,
+				681C95F52047AE66009CDE3B /* WeekendTourSubjectHeaderView.xib */,
+				681C95F72047CE40009CDE3B /* WeekendTourDetailCell.swift */,
+				681C95F82047CE40009CDE3B /* WeekendTourDetailCell.xib */,
+				681C95FB2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift */,
+				681C95FC2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib */,
+				681C95FF2047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift */,
+				681C96002047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4299,6 +4362,10 @@
 		681C95C0204536BA009CDE3B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				681C95DD2047A13D009CDE3B /* WeekendTourController.swift */,
+				681C95DE2047A13D009CDE3B /* WeekendTourController.xib */,
+				681C95EF2047AD13009CDE3B /* WeekendTourDetailController.swift */,
+				681C95F02047AD13009CDE3B /* WeekendTourDetailController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4306,8 +4373,28 @@
 		681C95C1204536BA009CDE3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				681C96072047E86B009CDE3B /* WeekendTourListContainModel.swift */,
+				681C96092047EED9009CDE3B /* WeekendTourDetailModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		681C96032047E0FD009CDE3B /* ICarouse */ = {
+			isa = PBXGroup;
+			children = (
+				681C96042047E0FD009CDE3B /* iCarousel.h */,
+				681C96052047E0FD009CDE3B /* iCarousel.m */,
+			);
+			path = ICarouse;
+			sourceTree = "<group>";
+		};
+		681C960B20481060009CDE3B /* YBAttributeTextTapAction */ = {
+			isa = PBXGroup;
+			children = (
+				681C960C20481060009CDE3B /* UILabel+YBAttributeTextTapAction.h */,
+				681C960D20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m */,
+			);
+			path = YBAttributeTextTapAction;
 			sourceTree = "<group>";
 		};
 		68282CEF2016DC0A0003A0CD /* 评论控件 */ = {
@@ -4453,6 +4540,8 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,
+				681C96032047E0FD009CDE3B /* ICarouse */,
 				6801D90C202C44D000C106E1 /* XLPhotoBrowser+CoderXL */,
 				6801CEFD202C305A00C106E1 /* IM通信 */,
 				689D53FE202AF78F009C771C /* 微信 */,
@@ -4573,8 +4662,8 @@
 		689DF76E20045C33007FAE9C /* 圈子 */ = {
 			isa = PBXGroup;
 			children = (
-				681C95902045366E009CDE3B /* 附近的人 */,
 				681C95A82045366E009CDE3B /* 周末游 */,
+				681C95902045366E009CDE3B /* 附近的人 */,
 				681C95912045366E009CDE3B /* 话题圈 */,
 			);
 			path = "圈子";
@@ -4962,6 +5051,7 @@
 				6825486320157CFF0033410A /* TagCollectionCell.xib in Resources */,
 				6801E0D4202C6EA900C106E1 /* README.txt in Resources */,
 				681C95B22045366E009CDE3B /* TopicListController.xib in Resources */,
+				681C95F22047AD13009CDE3B /* WeekendTourDetailController.xib in Resources */,
 				6801E078202C6EA900C106E1 /* NTESTeamMeetingCallingViewController.xib in Resources */,
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
 				681C95B92045366E009CDE3B /* TopicCircleSummaryCell.xib in Resources */,
@@ -4984,6 +5074,7 @@
 				6801E109202DA6CE00C106E1 /* video_chat_tip_OnCall.aac in Resources */,
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				68C5F296203FF00200769A92 /* ContactWayInputCell.xib in Resources */,
+				681C96022047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib in Resources */,
 				6801E106202DA6CE00C106E1 /* message.wav in Resources */,
 				6801E114202DA83700C106E1 /* NIMDemoChartlet.bundle in Resources */,
 				6801E0C7202C6EA900C106E1 /* AlipaySDK.bundle in Resources */,
@@ -4998,8 +5089,10 @@
 				6801E046202C6EA900C106E1 /* NTESSystemNotificationCell.xib in Resources */,
 				6801E0A1202C6EA900C106E1 /* NTESNoDisturbSettingViewController.xib in Resources */,
 				6801E03A202C6EA900C106E1 /* NTESContactViewController.xib in Resources */,
+				681C95EE2047A633009CDE3B /* WeekendTourSubjectCell.xib in Resources */,
 				6801E10D202DA6CE00C106E1 /* video_connect_chat_tip_sender.aac in Resources */,
 				6801E102202DA6CE00C106E1 /* XMLTemplate.xml in Resources */,
+				681C95EA2047A5D5009CDE3B /* WeekendTourSeparateCell.xib in Resources */,
 				688809092011ABBD00BC6AE9 /* ReleaseContentImgCollectionCell.xib in Resources */,
 				6801E01C202C6EA900C106E1 /* NTESTeamListViewController.xib in Resources */,
 				6801E040202C6EA900C106E1 /* NTESRegisterViewController.xib in Resources */,
@@ -5008,15 +5101,19 @@
 				682548752015C47E0033410A /* UserDetailHeadView.xib in Resources */,
 				68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */,
 				681C95AA2045366E009CDE3B /* CircleController.xib in Resources */,
+				681C95F62047AE67009CDE3B /* WeekendTourSubjectHeaderView.xib in Resources */,
 				688808BF20106CF800BC6AE9 /* MyCashController.xib in Resources */,
+				681C95E42047A343009CDE3B /* WeekendBannerCell.xib in Resources */,
 				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
 				6801E108202DA6CE00C106E1 /* video_chat_tip_HangUp.aac in Resources */,
 				6801E019202C6EA900C106E1 /* NTESSearchTeamViewController.xib in Resources */,
 				688809152011E64000BC6AE9 /* RechargeController.xib in Resources */,
 				6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */,
 				68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */,
+				681C95FA2047CE40009CDE3B /* WeekendTourDetailCell.xib in Resources */,
 				689D5421202AFB32009C771C /* README.txt in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
+				681C95FE2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib in Resources */,
 				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				6801E0CA202C6EA900C106E1 /* jrmf.cer in Resources */,
 				6801E06B202C6EA900C106E1 /* NTESWhiteboardViewController.xib in Resources */,
@@ -5037,6 +5134,7 @@
 				6801E10B202DA6CE00C106E1 /* video_chat_tip_receiver.aac in Resources */,
 				6801E064202C6EA900C106E1 /* NTESGalleryViewController.xib in Resources */,
 				6801E100202DA6CE00C106E1 /* SetupOSX.mpq in Resources */,
+				681C95E02047A13D009CDE3B /* WeekendTourController.xib in Resources */,
 				6801E0C9202C6EA900C106E1 /* JResource.bundle in Resources */,
 				681C95B62045366E009CDE3B /* CircleHomeBannerCell.xib in Resources */,
 				6801E0CF202C6EA900C106E1 /* WalletResource.bundle in Resources */,
@@ -5195,6 +5293,7 @@
 				6801E03C202C6EA900C106E1 /* NTESLoginManager.m in Sources */,
 				6801E0A7202C6EA900C106E1 /* NTESAliasSettingViewController.m in Sources */,
 				6801E00A202C6EA800C106E1 /* NTESFPSLabel.m in Sources */,
+				681C96062047E0FD009CDE3B /* iCarousel.m in Sources */,
 				6801DFE3202C6EA800C106E1 /* NIMKitRobotTemplate.m in Sources */,
 				6801E038202C6EA900C106E1 /* NTESContactAddFriendViewController.m in Sources */,
 				68880884200DF19300BC6AE9 /* test.swift in Sources */,
@@ -5203,6 +5302,7 @@
 				6801D933202C44D000C106E1 /* FSActionSheetConfig.m in Sources */,
 				6801DFAB202C6EA800C106E1 /* NIMUnsupportContentConfig.m in Sources */,
 				6801E042202C6EA900C106E1 /* NTESCustomNotificationObject.m in Sources */,
+				681C960E20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				6801E098202C6EA900C106E1 /* NTESClientsTableViewController.m in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
 				6801DF87202C6EA800C106E1 /* NIMPageView.m in Sources */,
@@ -5291,6 +5391,7 @@
 				68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */,
 				682548772015D96A0033410A /* PayPasswordInputView.swift in Sources */,
 				68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */,
+				681C96012047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift in Sources */,
 				6801DFBC202C6EA800C106E1 /* NIMSessionFileTransContentView.m in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
@@ -5328,6 +5429,7 @@
 				68358256201F03A200798462 /* MyTrendListController.swift in Sources */,
 				689DF7AE2004975A007FAE9C /* FinishPersonInfoController.swift in Sources */,
 				6801E039202C6EA900C106E1 /* NTESContactViewController.m in Sources */,
+				681C95E32047A343009CDE3B /* WeekendBannerCell.swift in Sources */,
 				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
 				6801E031202C6EA900C106E1 /* NTESGroupedDataCollection.m in Sources */,
 				6801E084202C6EA900C106E1 /* yuv444p10le.fsh.c in Sources */,
@@ -5370,6 +5472,7 @@
 				6801DFD1202C6EA800C106E1 /* NIMNormalTeamCardViewController.m in Sources */,
 				6801E059202C6EA900C106E1 /* NTESSessionRedPacketTipContentView.m in Sources */,
 				6801E0AC202C6EA900C106E1 /* NTESNickNameSettingViewController.m in Sources */,
+				681C95ED2047A633009CDE3B /* WeekendTourSubjectCell.swift in Sources */,
 				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
 				6801E04B202C6EA900C106E1 /* NTESJanKenPonAttachment.m in Sources */,
 				6801E009202C6EA800C106E1 /* NTESBadgeView.m in Sources */,
@@ -5379,6 +5482,7 @@
 				68358250201ED87C00798462 /* SexModel.swift in Sources */,
 				6801DFAC202C6EA800C106E1 /* NIMVideoContentConfig.m in Sources */,
 				6801E067202C6EA900C106E1 /* NTESSessionPeekViewController.m in Sources */,
+				681C95E92047A5D5009CDE3B /* WeekendTourSeparateCell.swift in Sources */,
 				6801E03F202C6EA900C106E1 /* NTESRegisterViewController.m in Sources */,
 				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
 				6801E0B2202C6EA900C106E1 /* NTESSettingPortraitCell.m in Sources */,
@@ -5394,6 +5498,7 @@
 				688808ED20118F8100BC6AE9 /* TrendsWithPictureCell.swift in Sources */,
 				688808E32010921300BC6AE9 /* TrendsTopToolsContainView.swift in Sources */,
 				6801DFC9202C6EA800C106E1 /* NIMSessionListCell.m in Sources */,
+				681C95DF2047A13D009CDE3B /* WeekendTourController.swift in Sources */,
 				681C95CF204553F5009CDE3B /* LocationManager.swift in Sources */,
 				6801E02F202C6EA900C106E1 /* NTESContactDataMember.m in Sources */,
 				6801DFDA202C6EA800C106E1 /* NIMTeamSwitchTableViewCell.m in Sources */,
@@ -5439,6 +5544,7 @@
 				6801DFBA202C6EA800C106E1 /* NIMSessionTimestampCell.m in Sources */,
 				6801E01A202C6EA900C106E1 /* NTESSessionCardViewController.m in Sources */,
 				688809082011ABBD00BC6AE9 /* ReleaseContentImgCollectionCell.swift in Sources */,
+				681C95DC20479BEC009CDE3B /* AutographModel.swift in Sources */,
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
 				6801DFFD202C6EA800C106E1 /* UIResponder+NTESFirstResponder.m in Sources */,
 				6801E058202C6EA900C106E1 /* NTESSessionRedPacketContentView.m in Sources */,
@@ -5446,6 +5552,7 @@
 				6801DF92202C6EA800C106E1 /* NIMInputAtCache.m in Sources */,
 				6801E020202C6EA900C106E1 /* NTESChatroomMaker.m in Sources */,
 				6801E085202C6EA900C106E1 /* renderer.c in Sources */,
+				681C96082047E86B009CDE3B /* WeekendTourListContainModel.swift in Sources */,
 				6801E012202C6EA800C106E1 /* NTESColorButtonCell.m in Sources */,
 				681C95D120455C2B009CDE3B /* PeopleNearbyContainModel.swift in Sources */,
 				6801E00F202C6EA800C106E1 /* NTESChatroomTextContentConfig.m in Sources */,
@@ -5481,6 +5588,7 @@
 				6801D934202C44D000C106E1 /* FSActionSheetItem.m in Sources */,
 				6801E050202C6EA900C106E1 /* NTESRedPacketManager.m in Sources */,
 				681C95BA2045366E009CDE3B /* TopicCircleWithPictureCell.swift in Sources */,
+				681C960A2047EED9009CDE3B /* WeekendTourDetailModel.swift in Sources */,
 				6801E073202C6EA900C106E1 /* NTESVideoDataTimeoutChecker.m in Sources */,
 				6801DF8E202C6EA800C106E1 /* NIMContactSelectTabView.m in Sources */,
 				6801E0B0202C6EA900C106E1 /* NTESBirthPickerView.m in Sources */,
@@ -5537,6 +5645,7 @@
 				688A4C92200D9E8400BB5DF7 /* UserInfoListModel.swift in Sources */,
 				6801E037202C6EA900C106E1 /* NTESBlackListViewController.m in Sources */,
 				6801DFCE202C6EA800C106E1 /* NIMUsrInfoData.m in Sources */,
+				681C95FD2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift in Sources */,
 				6801E04F202C6EA900C106E1 /* NTESWhiteboardAttachment.m in Sources */,
 				688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */,
 				6801DFB7202C6EA800C106E1 /* NIMSessionMsgDatasource.m in Sources */,
@@ -5552,6 +5661,7 @@
 				6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */,
 				6801E00D202C6EA800C106E1 /* NTESCellLayoutConfig.m in Sources */,
 				6801E05B202C6EA900C106E1 /* NTESSessionTipContentView.m in Sources */,
+				681C95F12047AD13009CDE3B /* WeekendTourDetailController.swift in Sources */,
 				6801DF94202C6EA800C106E1 /* NIMInputEmoticonButton.m in Sources */,
 				6801E056202C6EA900C106E1 /* NTESSessionChartletContentView.m in Sources */,
 				6801DFCC202C6EA800C106E1 /* NIMTeamCardRowItem.m in Sources */,
@@ -5579,6 +5689,7 @@
 				6801E05D202C6EA900C106E1 /* NTESAudio2TextViewController.m in Sources */,
 				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
 				6801E027202C6EA900C106E1 /* NTESChatroomMemberCell.m in Sources */,
+				681C95F92047CE40009CDE3B /* WeekendTourDetailCell.swift in Sources */,
 				6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
 				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
@@ -5604,6 +5715,7 @@
 				6801DFA1202C6EA800C106E1 /* NIMTimestampModel.m in Sources */,
 				681C95A92045366E009CDE3B /* CircleController.swift in Sources */,
 				6825485F2014D7D80033410A /* TagListView.swift in Sources */,
+				681C95F42047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift in Sources */,
 				6801E0C4202C6EA900C106E1 /* NTESUserUtil.m in Sources */,
 				6801E0B6202C6EA900C106E1 /* NTESDemoRegisterTask.m in Sources */,
 				6801E09B202C6EA900C106E1 /* NTESLogUploader.m in Sources */,
