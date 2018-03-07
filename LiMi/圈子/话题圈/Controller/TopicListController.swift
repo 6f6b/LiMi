@@ -27,6 +27,7 @@ class TopicListController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "我的订单"
         
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.pageIndex = 1

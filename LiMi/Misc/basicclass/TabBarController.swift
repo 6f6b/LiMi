@@ -10,11 +10,6 @@ import UIKit
 import NIMSDK
 
 class TabBarController: UITabBarController {
-    ///未读系统消息数
-    var systemUnreadCount:Int = 0
-    ///未读会话消息
-    var conversationUnreadCount:Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let homePageController = HomePageController()
@@ -53,8 +48,22 @@ class TabBarController: UITabBarController {
     //MARK: - misc
     ///刷新Tabbar上的未读数
     func refreshMyMessageBadge(){
+        //系统消息
+        let homeNav = self.viewControllers![0] as! NavigationController
+        if #available(iOS 10.0, *) {
+            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 40)], for: .normal)
+        } else {
+        }
+        homeNav.tabBarItem.badgeValue = AppManager.shared.systemUnreadCount == 0 ? nil : " "
+
+        //会话消息
         let mscNav = self.viewControllers![3] as! NavigationController
-        mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
+        if #available(iOS 10.0, *) {
+            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 40)], for: .normal)
+        } else {
+        }
+        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : " "
+        //mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
     }
     
     @objc func dealPostATrendSuccess(){
@@ -102,37 +111,37 @@ extension TabBarController:UITabBarControllerDelegate{
 extension TabBarController:NIMConversationManagerDelegate{
     ///增加最近会话的回调
     func didAdd(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        self.conversationUnreadCount = totalUnreadCount
+        AppManager.shared.conversationUnreadCount = totalUnreadCount
         self.refreshMyMessageBadge()
     }
 
     ///最近会话修改回调
     func didUpdate(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        self.conversationUnreadCount = totalUnreadCount
+        AppManager.shared.conversationUnreadCount = totalUnreadCount
         self.refreshMyMessageBadge()
     }
     
     ///删除最近会话的回调
     func didRemove(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        self.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
         self.refreshMyMessageBadge()
     }
     
     ///单个会话里所有消息被删除的回调
     func messagesDeleted(in session: NIMSession) {
-        self.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
         self.refreshMyMessageBadge()
     }
     
     ///所有消息被删除的回调
     func allMessagesDeleted() {
-        self.conversationUnreadCount = 0;
+        AppManager.shared.conversationUnreadCount = 0;
         self.refreshMyMessageBadge()
     }
     
     ///所有回话消息已读
     func allMessagesRead() {
-        self.conversationUnreadCount = 0
+        AppManager.shared.conversationUnreadCount = 0
         self.refreshMyMessageBadge()
     }
 }
@@ -141,7 +150,7 @@ extension TabBarController:NIMConversationManagerDelegate{
 extension TabBarController:NIMSystemNotificationManagerDelegate{
     ///系统通知数量变化
     func onSystemNotificationCountChanged(_ unreadCount: Int) {
-        self.systemUnreadCount = unreadCount
+        AppManager.shared.systemUnreadCount = unreadCount
         self.refreshMyMessageBadge()
     }
 }

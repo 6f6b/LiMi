@@ -4,51 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-            timestampString = "541151977.6926481"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "-hideWithCompletion:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FSActionSheet hideWithCompletion:]"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-                  timestampString = "541594076.247147"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "266"
-                  endingLineNumber = "266"
-                  offsetFromSymbolStart = "71">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[FSActionSheet hideWithCompletion:]_block_invoke"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-                  timestampString = "541594076.250397"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "266"
-                  endingLineNumber = "266"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -57,109 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-            timestampString = "541151977.692744"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x5468;&#x672b;&#x6e38;/Controller/PayResultController.swift"
+            timestampString = "541930743.706313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
-            landmarkName = "-showWithSelectedCompletion:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FSActionSheet showWithSelectedCompletion:]"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-                  timestampString = "541594076.2574871"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "323"
-                  endingLineNumber = "323"
-                  offsetFromSymbolStart = "2325">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__44-[FSActionSheet showWithSelectedCompletion:]_block_invoke"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-                  timestampString = "541594076.260601"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "323"
-                  endingLineNumber = "323"
-                  offsetFromSymbolStart = "23">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheetCell.m"
-            timestampString = "541149909.18788"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "-setHighlighted:animated:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FSActionSheetCell setHighlighted:animated:]"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheetCell.m"
-                  timestampString = "541594076.271453"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "1666">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__45-[FSActionSheetCell setHighlighted:animated:]_block_invoke"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheetCell.m"
-                  timestampString = "541594076.275341"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/XLPhotoBrowser+CoderXL/Vender/FSActionSheet/FSActionSheet.m"
-            timestampString = "541151977.693413"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "-hideWithCompletion:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "showWith(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,14 +35,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/&#x9996;&#x9875;/Controller/HomePageController.swift"
-            timestampString = "541416134.60751"
+            filePath = "LiMi/Misc/basicclass/AppDelegate.swift"
+            timestampString = "542002331.152676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "HomePageController"
-            landmarkType = "21">
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "application(_:didReceive:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,46 +51,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/&#x53d1;&#x5e03;/Controller/ReleaseController.swift"
-            timestampString = "541404457.260312"
+            filePath = "LiMi/Misc/basicclass/AppDelegate.swift"
+            timestampString = "542002331.153115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "dealRelease()"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LiMi.ReleaseController.dealRelease() -&gt; ()"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/%E5%8F%91%E5%B8%83/Controller/ReleaseController.swift"
-                  timestampString = "541594076.292731"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "316"
-                  endingLineNumber = "316"
-                  offsetFromSymbolStart = "3573">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Error) -&gt; () in LiMi.ReleaseController.dealRelease() -&gt; ()"
-                  moduleName = "LiMi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/FengLiu/LiMi/LiMi/%E5%8F%91%E5%B8%83/Controller/ReleaseController.swift"
-                  timestampString = "541594076.29641"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "316"
-                  endingLineNumber = "316"
-                  offsetFromSymbolStart = "207">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x9996;&#x9875;/View/UserDetailHeadView.swift"
+            timestampString = "541992599.408275"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "dealTap()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x9996;&#x9875;/View/UserDetailHeadView.swift"
+            timestampString = "541992599.412429"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "dealTap()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

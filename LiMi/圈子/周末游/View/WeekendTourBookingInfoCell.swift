@@ -17,6 +17,8 @@ class WeekendTourBookingInfoCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
+
         for pointView in  pointViews{
             pointView.layer.cornerRadius = 2.5
             pointView.clipsToBounds = true
@@ -46,6 +48,6 @@ class WeekendTourBookingInfoCell: UITableViewCell {
 
 extension WeekendTourBookingInfoCell:YBAttributeTapActionDelegate{
     func yb_attributeTapReturn(_ string: String!, range: NSRange, index: Int) {
-        print(string)
+            UIApplication.shared.openURL(URL(string: "tel:\(40020192121)")!)
     }
 }

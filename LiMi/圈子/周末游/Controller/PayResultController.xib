@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayResultController" customModule="LiMi" customModuleProvider="target">
+            <connections>
+                <outlet property="failedContainView" destination="Wu1-bE-YzC" id="rT5-Kb-0rF"/>
+                <outlet property="failedThenBackToHomeBtn" destination="YFm-o0-Bme" id="gCv-jZ-n7C"/>
+                <outlet property="failedThenRePayBtn" destination="E6A-w7-FBm" id="FNd-IX-9v3"/>
+                <outlet property="successContainView" destination="s3q-Ff-iJI" id="h3v-d0-cxH"/>
+                <outlet property="successThenBackToHomeBtn" destination="GqM-je-cRn" id="yOQ-aT-ngL"/>
+                <outlet property="successThenCheckOrderBtn" destination="kmz-Us-UiB" id="uxQ-GR-uCr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3q-Ff-iJI">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dd_icon_ok" translatesAutoresizingMaskIntoConstraints="NO" id="z1m-xP-OlE">
+                            <rect key="frame" x="130" y="75" width="115" height="115"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDd-WE-zAe">
+                            <rect key="frame" x="147" y="205" width="82" height="24"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电4002098909" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0F-mO-KBR">
+                            <rect key="frame" x="40" y="254" width="297" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aaM-9M-s0J">
+                            <rect key="frame" x="40" y="308" width="296" height="41"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GqM-je-cRn">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="返回首页">
+                                        <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="successThenBackToHome:" destination="-1" eventType="touchUpInside" id="NsY-67-Fy2"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmz-Us-UiB">
+                                    <rect key="frame" x="168" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="查看订单">
+                                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="successThenCheckOrder:" destination="-1" eventType="touchUpInside" id="WAL-TU-fGy"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="RvS-FQ-eoQ"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="B5R-ik-wR5"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="leading" secondItem="s3q-Ff-iJI" secondAttribute="leading" constant="40" id="Doy-hp-oFY"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="leading" secondItem="q0F-mO-KBR" secondAttribute="leading" id="N2Y-O6-YqK"/>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="Peb-Te-sHg"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="centerX" secondItem="iDd-WE-zAe" secondAttribute="centerX" id="Tkb-pl-y3J"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="centerX" secondItem="q0F-mO-KBR" secondAttribute="centerX" id="Zc9-5t-FrK"/>
+                        <constraint firstItem="iDd-WE-zAe" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="axc-fv-qVC"/>
+                        <constraint firstItem="iDd-WE-zAe" firstAttribute="top" secondItem="z1m-xP-OlE" secondAttribute="bottom" constant="15" id="kuZ-Nr-BaS"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="top" secondItem="q0F-mO-KBR" secondAttribute="bottom" constant="25" id="oq3-8P-bDm"/>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="top" secondItem="s3q-Ff-iJI" secondAttribute="top" constant="75" id="sS2-oA-FQn"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="top" secondItem="iDd-WE-zAe" secondAttribute="bottom" constant="25" id="z2F-Bi-Zcb"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wu1-bE-YzC">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dd_ic_no" translatesAutoresizingMaskIntoConstraints="NO" id="YtA-dF-12j">
+                            <rect key="frame" x="129.5" y="75" width="116" height="116"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付失败" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXw-9Q-hrr">
+                            <rect key="frame" x="147" y="206" width="82" height="24"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="T93-ZH-9IH">
+                            <rect key="frame" x="40" y="255" width="296" height="41"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6A-w7-FBm">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="重新支付">
+                                        <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="failedThenRePay:" destination="-1" eventType="touchUpInside" id="JZY-Qr-ZkA"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFm-o0-Bme">
+                                    <rect key="frame" x="168" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="返回首页">
+                                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="failedThenBackToHome:" destination="-1" eventType="touchUpInside" id="M8Z-fR-cfg"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="aGD-xL-9hl"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="T93-ZH-9IH" firstAttribute="centerX" secondItem="oXw-9Q-hrr" secondAttribute="centerX" id="2bp-4K-0nR"/>
+                        <constraint firstItem="T93-ZH-9IH" firstAttribute="top" secondItem="oXw-9Q-hrr" secondAttribute="bottom" constant="25" id="7O6-ok-olv"/>
+                        <constraint firstItem="oXw-9Q-hrr" firstAttribute="top" secondItem="YtA-dF-12j" secondAttribute="bottom" constant="15" id="chP-DW-rel"/>
+                        <constraint firstItem="YtA-dF-12j" firstAttribute="centerX" secondItem="Wu1-bE-YzC" secondAttribute="centerX" id="czR-lX-3X6"/>
+                        <constraint firstItem="YtA-dF-12j" firstAttribute="centerX" secondItem="Wu1-bE-YzC" secondAttribute="centerX" id="df7-Ru-erw"/>
+                        <constraint firstItem="YtA-dF-12j" firstAttribute="top" secondItem="Wu1-bE-YzC" secondAttribute="top" constant="75" id="jQA-RR-M7I"/>
+                        <constraint firstItem="oXw-9Q-hrr" firstAttribute="centerX" secondItem="Wu1-bE-YzC" secondAttribute="centerX" id="nj0-Hd-BtZ"/>
+                        <constraint firstItem="T93-ZH-9IH" firstAttribute="leading" secondItem="Wu1-bE-YzC" secondAttribute="leading" constant="40" id="pSQ-oP-Rol"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Wu1-bE-YzC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="0AU-uD-haz"/>
+                <constraint firstItem="s3q-Ff-iJI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="JwU-8r-Z2f"/>
+                <constraint firstItem="Wu1-bE-YzC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Mz9-sv-RWS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wu1-bE-YzC" secondAttribute="bottom" id="PQs-aE-ia2"/>
+                <constraint firstItem="s3q-Ff-iJI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fsR-qw-LKa"/>
+                <constraint firstItem="Wu1-bE-YzC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="hd7-aZ-w0J"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="s3q-Ff-iJI" secondAttribute="bottom" id="rSr-YN-psg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s3q-Ff-iJI" secondAttribute="trailing" id="zJw-hF-qQI"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="25.5" y="52.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dd_ic_no" width="116" height="116"/>
+        <image name="dd_icon_ok" width="115" height="115"/>
+    </resources>
+</document>

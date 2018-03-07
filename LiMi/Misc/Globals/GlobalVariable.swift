@@ -41,7 +41,7 @@ let WECHAT_APP_ID = "wxb750b949790baabc"
 let QQ_APP_ID = ""
 
 //APP版本版本
-let APP_VERSION = "v\(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
+let APP_VERSION = "V\(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
 
 //APP   scheme
 let APP_SCHEME = "LiMi20018"

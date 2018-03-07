@@ -58,6 +58,14 @@ class WeekendTourDetailController: ViewController {
     }
     
     //Mark: - misc
+    //跳转到订单生成页面
+    @IBAction func dealToPreOrderController(_ sender: Any) {
+        let weekendTourOrderDetailController = WeekendTourOrderDetailController()
+        weekendTourOrderDetailController.weekendTourId = self.weekendId
+        self.navigationController?.pushViewController(weekendTourOrderDetailController, animated: true)
+    }
+    
+    
     func loadData(){
 //        WeekendTourDetailModel
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)

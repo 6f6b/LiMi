@@ -56,7 +56,6 @@ class TopicListContainController: ViewController {
         tmpFrame.origin.x = tmpFrame.size.width
         hottestTopicListControllerView?.frame = tmpFrame
         self.controllersContainScrollView.addSubview(hottestTopicListControllerView!)
-        self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*1, y: 0)
         self.slidingMenuBar.select(index: 0)
         
         self.addTopicBtn = SuitableHotSpaceButton(type: .custom)

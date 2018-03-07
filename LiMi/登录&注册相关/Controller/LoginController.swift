@@ -49,6 +49,11 @@ class LoginController: ViewController {
     
     // MARK: - misc
     
+    //进入用户协议
+    @IBAction func dealToAgreement(_ sender: Any) {
+        let userAgreementController = UserAgreementController()
+        self.navigationController?.pushViewController(userAgreementController, animated: true)
+    }
     //取消登录
     @IBAction func dealCancelLogin(_ sender: Any) {
         LoginServiceToMainController(loginRootController: self.navigationController)
@@ -62,6 +67,8 @@ class LoginController: ViewController {
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
+        var name:String?
+        print(name!)
         self.errorMsg.isHidden = true
         //检测手机号
         if !IS_PHONE_NUMBER(phoneNum: self.phoneNum.text){

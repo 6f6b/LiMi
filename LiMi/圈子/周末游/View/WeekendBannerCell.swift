@@ -7,18 +7,22 @@
 //
 
 import UIKit
+import SDCycleScrollView
 
 class WeekendBannerCell: UITableViewCell {
-    @IBOutlet weak var iCarouselView: iCarousel!
+    @IBOutlet weak var bannerContainView: UIView!
+    var cycleScrollView:SDCycleScrollView!
+
     var dataArray = [String]()
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.selectionStyle = .none
+
         //配置icarouselView
-        iCarouselView.delegate = self
-        iCarouselView.dataSource = self
-        iCarouselView.type = .rotary
-        iCarouselView.reloadData()
+        cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH*180/375.0), delegate: self, placeholderImage: UIImage())
+        cycleScrollView.imageURLStringsGroup = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520232614180&di=05c9b53af3f4a298853ad796abf4894c&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201603%2F01%2F20160301185403_Myn3L.jpeg"]
+        cycleScrollView.reloadInputViews()
+        self.bannerContainView.addSubview(self.cycleScrollView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -28,27 +32,6 @@ class WeekendBannerCell: UITableViewCell {
     
 }
 
-extension WeekendBannerCell:iCarouselDelegate{
-    func carousel(carousel: iCarousel, shouldSelectItemAtIndex index: Int) -> Bool {
-        print(index)
-        return true
-    }
-}
+extension WeekendBannerCell:SDCycleScrollViewDelegate{
 
-extension WeekendBannerCell:iCarouselDataSource{
-    func numberOfItems(in carousel: iCarousel) -> Int {
-        return 5
-    }
-    
-    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let imageV = UIImageView.init()
-        imageV.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH*(180/375.0))
-        imageV.layer.cornerRadius = 20
-        imageV.clipsToBounds = true
-        imageV.contentMode = .scaleToFill
-        imageV.image = UIImage.init(named: "zhuye_bj")
-        return imageV
-    }
-    
-    
 }

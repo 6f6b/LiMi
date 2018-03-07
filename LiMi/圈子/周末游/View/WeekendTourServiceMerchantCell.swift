@@ -17,6 +17,8 @@ class WeekendTourServiceMerchantCell: UITableViewCell {
     var weekendTourDetailModel:WeekendTourDetailModel?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
+
         self.callBtn.layer.cornerRadius = 5
         self.callBtn.clipsToBounds = true
         self.callBtn.layer.borderColor = APP_THEME_COLOR.cgColor

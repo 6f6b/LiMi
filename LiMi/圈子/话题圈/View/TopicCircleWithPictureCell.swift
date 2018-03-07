@@ -51,6 +51,8 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TrendsImageCollectionCell", for: indexPath) as! TrendsImageCollectionCell
         if let pics = self.topicCircelModel?.pics{
             cell.configWith(picUrl: pics[indexPath.row])
+            cell.imgV.layer.cornerRadius = 5
+            cell.imgV.clipsToBounds = true
         }
         return cell
     }

@@ -26,6 +26,16 @@ class HomePageController: ViewController {
         screeningBtn.addTarget(self, action: #selector(dealScreening), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: screeningBtn)
         
+        let systemMessageNumView = GET_XIB_VIEW(nibName: "SystemMessageNumView") as! SystemMessageNumView
+        systemMessageNumView.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
+        systemMessageNumView.tapBlock = {
+            let appState = AppManager.shared.appState()
+            if appState ==  .imOffLineBusinessOffline{return}
+            let systemmsgContainController = SystemmsgContainController()
+            self.navigationController?.pushViewController(systemmsgContainController, animated: true)
+        }
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: systemMessageNumView)
+
         self.controllersContainScrollView = UIScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64-49))
         self.controllersContainScrollView.isPagingEnabled = true
         self.controllersContainScrollView.delegate = self
@@ -79,6 +89,18 @@ class HomePageController: ViewController {
                 self.requestUserInfoData()
             }
         }
+        
+        if AppManager.shared.appState() != .imOffLineBusinessOffline{
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
+        }else{
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+        }
+        if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
+            systemMessageNumView.showWith(unreadSystemMsgNum: 99)
+
+//            systemMessageNumView.showWith(unreadSystemMsgNum: NIMSDK.shared().systemNotificationManager.allUnreadCount())
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {

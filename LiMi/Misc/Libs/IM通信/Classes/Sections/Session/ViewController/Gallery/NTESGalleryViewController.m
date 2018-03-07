@@ -51,6 +51,12 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
 }
 
+//Edit by LiuFeng   (NIM) 2018/3/6
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UIButton *backBtn = self.navigationItem.leftBarButtonItem.customView;
+    [backBtn setImage:[UIImage imageNamed:@"btn_back_hei"] forState:UIControlStateNormal];
+}
 
 - (void)viewDidLayoutSubviews
 {
@@ -100,7 +106,8 @@
     
     if ([_currentItem.name length])
     {
-        self.navigationItem.title = _currentItem.name;
+        //Edit by LiuFeng   (NIM) 2018/2/24
+        //self.navigationItem.title = _currentItem.name;
     }
     
     UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressImageView:)];
@@ -131,16 +138,16 @@
     self.galleryImageView.centerY = self.galleryImageView.height * .5f ;
 }
 
-
+//Edit by LiuFeng   (NIM) 2018/3/6
 - (void)setupRightNavItem
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
-    [button setImage:[UIImage imageNamed:@"icon_gallery_more_normal"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"icon_gallery_more_pressed"] forState:UIControlStateHighlighted];
-    [button sizeToFit];
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.rightBarButtonItem = buttonItem;
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
+//    [button setImage:[UIImage imageNamed:@"icon_gallery_more_normal"] forState:UIControlStateNormal];
+//    [button setImage:[UIImage imageNamed:@"icon_gallery_more_pressed"] forState:UIControlStateHighlighted];
+//    [button sizeToFit];
+//    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    self.navigationItem.rightBarButtonItem = buttonItem;
 }
 
 

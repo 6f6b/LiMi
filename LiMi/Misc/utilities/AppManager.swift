@@ -23,7 +23,10 @@ import SVProgressHUD
 
 class AppManager:NSObject {
     static let shared = AppManager()
-    
+    ///未读系统消息数
+    var systemUnreadCount:Int = 0
+    ///未读会话消息
+    var conversationUnreadCount:Int = 0
     
     /// 当前APP 登录状态以及 IM的登录状态
     ///

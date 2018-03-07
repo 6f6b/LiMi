@@ -273,6 +273,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                         self.emptyInfo = "太低调了，还没发需求"
                         self.skillPage = 1
                     }
+                    self.loadData()
                 }
             }
             return self.userDetailSelectTrendsTypeCell!

@@ -23,6 +23,8 @@ target ‘LiMi' do
 #    pod 'XLPhotoBrowser+CoderXL'
     pod 'DZNEmptyDataSet'
     pod 'ZFPlayer'
+    pod 'Bugly'
+
 #NIM依赖
     pod 'Toast', '~> 3.0'
     pod 'M80AttributedLabel', '~> 1.6.3'

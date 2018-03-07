@@ -20,33 +20,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="426" height="186.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZQ-L0-SHh" customClass="iCarousel">
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZQ-L0-SHh">
                         <rect key="frame" x="93" y="58" width="240" height="128"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="GZQ-L0-SHh" secondAttribute="height" multiplier="375:180" id="7wi-6f-A0M"/>
-                        </constraints>
-                    </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qc1-2W-b0H">
-                        <rect key="frame" x="0.0" y="17" width="426" height="1"/>
-                        <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="6tg-q1-zTf"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="GZQ-L0-SHh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="451-Xj-ovL"/>
                     <constraint firstItem="GZQ-L0-SHh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Rrr-fK-T4Y"/>
-                    <constraint firstItem="qc1-2W-b0H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Vf6-3P-fe8"/>
-                    <constraint firstAttribute="trailing" secondItem="qc1-2W-b0H" secondAttribute="trailing" id="X1P-QE-zyV"/>
                     <constraint firstAttribute="bottom" secondItem="GZQ-L0-SHh" secondAttribute="bottom" id="f67-XQ-ReO"/>
                     <constraint firstAttribute="trailing" secondItem="GZQ-L0-SHh" secondAttribute="trailing" id="kwW-qU-c7Q"/>
-                    <constraint firstItem="qc1-2W-b0H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tyg-ex-a6Q"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="iCarouselView" destination="GZQ-L0-SHh" id="OTz-AH-GOq"/>
+                <outlet property="bannerContainView" destination="GZQ-L0-SHh" id="rAh-tg-dUT"/>
             </connections>
             <point key="canvasLocation" x="-27" y="123.5"/>
         </tableViewCell>

@@ -13,6 +13,7 @@ import  AVKit
 import PushKit
 import UserNotifications
 import Toast
+import Bugly
 
 let NTESNotificationLogout = Notification.Name.init("NTESNotificationLogout")
 
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        Bugly.start(withAppId: "e0501ff656")
+        
         self.window?.backgroundColor = APP_THEME_COLOR
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
@@ -42,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NTESRedPacketManager.shared().application(application, didFinishLaunchingWithOptions: launchOptions)
         _ = AppManager.shared.autoLoginIM()
         LocationManager.shared.startLocateWith(success: nil, failed: nil)
+        
+        
         return true
     }
 

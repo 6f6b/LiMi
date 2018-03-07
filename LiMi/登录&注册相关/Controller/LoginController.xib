@@ -42,17 +42,17 @@
                                                 <action selector="dealCancelLogin:" destination="-1" eventType="touchUpInside" id="iJu-d0-D4P"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guanyu_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WwY-TP-pDP">
-                                            <rect key="frame" x="107.5" y="98" width="160" height="159"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dl_img" translatesAutoresizingMaskIntoConstraints="NO" id="WwY-TP-pDP">
+                                            <rect key="frame" x="136" y="98" width="103" height="70"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录粒米校园" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVw-y1-P3l">
-                                            <rect key="frame" x="135.5" y="277" width="104" height="21"/>
+                                            <rect key="frame" x="135.5" y="188" width="104" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xa-uy-pxg">
-                                            <rect key="frame" x="52.5" y="358" width="270" height="105"/>
+                                            <rect key="frame" x="52.5" y="269" width="270" height="105"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXo-sJ-9DN">
                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="35"/>
@@ -151,14 +151,14 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0G-SZ-8rW">
-                                            <rect key="frame" x="50.5" y="513" width="275" height="69"/>
+                                            <rect key="frame" x="120.5" y="424" width="135" height="67"/>
                                             <state key="normal" image="login_btn"/>
                                             <connections>
                                                 <action selector="dealLogIn:" destination="-1" eventType="touchUpInside" id="5Dn-43-QlO"/>
                                             </connections>
                                         </button>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="错误信息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qfb-R3-oUE">
-                                            <rect key="frame" x="52.5" y="478" width="270" height="17"/>
+                                            <rect key="frame" x="52.5" y="389" width="270" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="270" id="hK4-Kf-Smz"/>
                                             </constraints>
@@ -167,26 +167,46 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-dx-Z0Q">
-                                            <rect key="frame" x="170" y="526" width="35" height="21"/>
+                                            <rect key="frame" x="170" y="437" width="35" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击登录后，即表示您已经同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEp-x5-Ugi">
+                                            <rect key="frame" x="102" y="595.5" width="172" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="st8-yK-FlV">
+                                            <rect key="frame" x="126" y="615" width="123" height="27"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="《粒米校园用户协议》">
+                                                <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="dealToAgreement:" destination="-1" eventType="touchUpInside" id="e9j-dP-Twh"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="eOH-uw-xXp" firstAttribute="leading" secondItem="sMM-Ed-TuA" secondAttribute="leading" constant="15" id="1Fv-Lk-9sB"/>
                                         <constraint firstItem="f0G-SZ-8rW" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="2aE-0G-2iL"/>
                                         <constraint firstItem="WwY-TP-pDP" firstAttribute="top" secondItem="sMM-Ed-TuA" secondAttribute="top" constant="98" id="2hh-LD-OUi"/>
                                         <constraint firstItem="8ep-dx-Z0Q" firstAttribute="top" secondItem="f0G-SZ-8rW" secondAttribute="top" constant="13" id="3Rd-gp-zWf"/>
+                                        <constraint firstItem="zEp-x5-Ugi" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="3b0-3K-0T6"/>
                                         <constraint firstItem="4xa-uy-pxg" firstAttribute="top" secondItem="QVw-y1-P3l" secondAttribute="bottom" constant="60" id="4Sk-i1-ASg"/>
+                                        <constraint firstItem="st8-yK-FlV" firstAttribute="top" secondItem="zEp-x5-Ugi" secondAttribute="bottom" constant="5" id="69y-CQ-rFG"/>
                                         <constraint firstItem="f0G-SZ-8rW" firstAttribute="centerX" secondItem="4xa-uy-pxg" secondAttribute="centerX" id="6A7-qq-d4E"/>
                                         <constraint firstItem="QVw-y1-P3l" firstAttribute="centerX" secondItem="WwY-TP-pDP" secondAttribute="centerX" id="7Ly-je-caJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="st8-yK-FlV" secondAttribute="bottom" constant="25" id="9zN-Tk-1YU"/>
                                         <constraint firstItem="QVw-y1-P3l" firstAttribute="top" secondItem="WwY-TP-pDP" secondAttribute="bottom" constant="20" id="O12-Pj-c3k"/>
                                         <constraint firstItem="eOH-uw-xXp" firstAttribute="top" secondItem="sMM-Ed-TuA" secondAttribute="top" constant="16" id="P7R-QB-Tb3"/>
                                         <constraint firstItem="4xa-uy-pxg" firstAttribute="centerX" secondItem="QVw-y1-P3l" secondAttribute="centerX" id="Xk8-TI-Jdb"/>
                                         <constraint firstItem="WwY-TP-pDP" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="bNT-x9-7vk"/>
                                         <constraint firstItem="Qfb-R3-oUE" firstAttribute="top" secondItem="4xa-uy-pxg" secondAttribute="bottom" constant="15" id="eaC-zM-V58"/>
                                         <constraint firstItem="8ep-dx-Z0Q" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="edv-ZH-KeW"/>
+                                        <constraint firstItem="st8-yK-FlV" firstAttribute="centerX" secondItem="zEp-x5-Ugi" secondAttribute="centerX" id="hRh-eX-mU4"/>
                                         <constraint firstItem="f0G-SZ-8rW" firstAttribute="top" secondItem="4xa-uy-pxg" secondAttribute="bottom" constant="50" id="sPc-z9-4KC"/>
                                         <constraint firstItem="f0G-SZ-8rW" firstAttribute="centerX" secondItem="Qfb-R3-oUE" secondAttribute="centerX" id="zrn-2H-9Z2"/>
                                     </constraints>
@@ -223,7 +243,7 @@
     </objects>
     <resources>
         <image name="close" width="12" height="12"/>
-        <image name="guanyu_icon" width="160" height="159"/>
-        <image name="login_btn" width="275" height="69"/>
+        <image name="dl_img" width="103" height="70"/>
+        <image name="login_btn" width="135" height="67"/>
     </resources>
 </document>

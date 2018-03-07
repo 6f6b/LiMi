@@ -166,7 +166,7 @@ class PersonCenterController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 1}
         if section == 1{ return 2}
-        if section == 2{ return 1}
+        if section == 2{ return 2}
         if section == 3{ return 3}
         return 0
     }
@@ -208,6 +208,10 @@ class PersonCenterController: UITableViewController {
             if indexPath.row == 0{
                 let myTrendListController = MyTrendListController()
                 self.navigationController?.pushViewController(myTrendListController, animated: true)
+            }
+            if indexPath.row == 1{
+                let myOrderListController = MyOrderListController()
+                self.navigationController?.pushViewController(myOrderListController, animated: true)
             }
         }
         if indexPath.section == 3{

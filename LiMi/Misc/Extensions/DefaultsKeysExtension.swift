@@ -25,4 +25,7 @@ extension DefaultsKeys{
     static let userImToken = DefaultsKey<String?>("userImToken")
     ///用户accid
     static let userAccid = DefaultsKey<Int?>("userAccid")
+    
+    ///是否第一次进入附近的人
+    static let isFirstTimeToNearbyPerson = DefaultsKey<Bool?>("isFirstTimeToNearbyPerson")
 }

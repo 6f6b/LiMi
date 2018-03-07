@@ -26,6 +26,7 @@ class WeekendTourSubjectHeaderView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
         self.infoContainView.layer.cornerRadius = 20
         self.infoContainView.clipsToBounds = true
         
@@ -39,9 +40,17 @@ class WeekendTourSubjectHeaderView: UIView {
             cycleScrollView?.imageURLStringsGroup = _pics
             if _pics.count <= 1{self.bannerIndexContainView.isHidden = true}else{
                 self.bannerIndexContainView.isHidden = false
+                self.indexLabel.text = "\(1)/\(_pics.count)"
             }
         }
-        self.name.text = model?.name
+        var nameText = ""
+        if let _name = model?.name{
+            nameText = _name
+        }
+        if let _feature = model?.feature{
+            nameText = nameText + "|\(_feature)"
+        }
+        self.name.text = nameText
         if let _price = model?.price{
             self.price.text = _price.stringValue()
         }
@@ -59,7 +68,7 @@ extension WeekendTourSubjectHeaderView:SDCycleScrollViewDelegate{
     
     func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didScrollTo index: Int) {
         if let _pics = self.weekendTourDetailModel?.pic{
-            self.indexLabel.text = "\(index)/\(_pics.count)"
+            self.indexLabel.text = "\(index+1)/\(_pics.count)"
         }
     }
 }

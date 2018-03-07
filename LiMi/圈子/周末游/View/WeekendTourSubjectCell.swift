@@ -13,9 +13,12 @@ class WeekendTourSubjectCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var personNum: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
+
         self.backImageV.layer.cornerRadius = 20
         self.backImageV.clipsToBounds = true
     }
@@ -32,12 +35,23 @@ class WeekendTourSubjectCell: UITableViewCell {
         if let _pic = model?.pic{
             self.backImageV.kf.setImage(with: URL.init(string: _pic), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.name.text = model?.name
+        var nameText = ""
+        if let _name = model?.name{
+            nameText = _name
+        }
+        if let _feature = model?.feature{
+            nameText = nameText + "|\(_feature)"
+        }
+        self.name.text = nameText
         if let _time = model?.time,let _address = model?.to{
             self.time.text = "\(_time)|\(_address)"
         }
         if let _num = model?.num{
             self.personNum.text = "参与人数：\(_num)"
+        }
+        
+        if let _price = model?.price{
+            self.priceLabel.text = "¥\(_price.decimalValue())"
         }
     }
     

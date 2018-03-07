@@ -798,7 +798,7 @@ struct GetPayStaus:TargetType,ParametersProtocol{
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
-            "order_no":order_no,
+            "out_biz_no":order_no,
             "type":type
             ]
         return handleRequestParameters(parameters: tmpParameters)
@@ -1283,6 +1283,109 @@ struct WeekendInfo:TargetType,ParametersProtocol{
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
+
+//MARK: - 3周日游订单详情
+struct WeekendOrder:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/weekend/weekendorder"
+    }
+    
+    var weekend_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "weekend_id":weekend_id
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4周日游订单详情
+struct OrderAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/weekend/orderAction"
+    }
+    
+    var goods_id:Int?//    周末游id    是    [int]
+    var goods_num:Int?//    购买数量    是    [int]
+    var text :String?//   购买备注    是    [string]
+    var time:String?//    预约的时间    是    [string]    【格式】2017-12-10 11:11:11 比如【1月9日】传入2018-01-09 00:00:00    查看
+    var mobile:String?    //备注手机号    是    [int]    0支付宝 1微信    查看
+    var pay_type:Int?//    支付方式    是    [string]
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "goods_id":goods_id,
+             "goods_num":goods_num,
+             "text":text,
+              "time":time,
+               "mobile":mobile,
+                "pay_type":pay_type,
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 订单列表
+struct MyOrderList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/user/myOrderList"
+    }
+    
+    var page:Int?//    周末游id    是    [int]
+
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 圈子首页，周末游推荐数据
+struct CircleList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/index.php/apps/weekend/CircleList"
+    }
+
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "":"",
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 
 // MARK: - 相关枚举
 //收藏类型

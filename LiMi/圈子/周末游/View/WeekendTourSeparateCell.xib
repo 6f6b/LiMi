@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="397" height="78"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="397" height="77.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="397" height="78"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="本周精选活动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDv-lo-Yix">
@@ -38,6 +38,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bottomConstraints" destination="DsA-8G-P8y" id="klZ-gg-miB"/>
+                <outlet property="info" destination="iDv-lo-Yix" id="L2K-up-kUq"/>
+                <outlet property="topConstraints" destination="22G-Sx-KYM" id="w4W-RQ-2nw"/>
+            </connections>
             <point key="canvasLocation" x="-134.5" y="34"/>
         </tableViewCell>
     </objects>

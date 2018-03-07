@@ -15,6 +15,8 @@ class WeekendTourDetailCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
+
     }
 
     

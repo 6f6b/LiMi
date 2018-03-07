@@ -25,13 +25,23 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y29-XE-hIp">
+                    <rect key="frame" x="0.0" y="20" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="JeN-hU-xTd"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8lx-DM-OV0" secondAttribute="bottom" id="IaN-QO-ESE"/>
+                <constraint firstAttribute="trailing" secondItem="Y29-XE-hIp" secondAttribute="trailing" id="L6K-4T-QNd"/>
                 <constraint firstItem="8lx-DM-OV0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="coK-8l-UD3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8lx-DM-OV0" secondAttribute="trailing" id="l0W-vN-jfb"/>
                 <constraint firstItem="8lx-DM-OV0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oaB-LE-iuM"/>
+                <constraint firstItem="Y29-XE-hIp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rrL-QX-USm"/>
+                <constraint firstItem="Y29-XE-hIp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sHS-if-evI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

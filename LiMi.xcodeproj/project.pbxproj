@@ -533,6 +533,37 @@
 		6862E52E2019BC130058B878 /* btn_keyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5202019BC130058B878 /* btn_keyboard@2x.png */; };
 		6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6862E5212019BC130058B878 /* btn_keyboard@3x.png */; };
 		6862E5302019BC130058B878 /* STInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6862E5232019BC130058B878 /* STInputBar.m */; };
+		6864AC1E2048F02500422CD8 /* WeekendTourOrderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC1C2048F02500422CD8 /* WeekendTourOrderDetailController.swift */; };
+		6864AC1F2048F02500422CD8 /* WeekendTourOrderDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC1D2048F02500422CD8 /* WeekendTourOrderDetailController.xib */; };
+		6864AC222048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC202048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift */; };
+		6864AC232048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC212048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib */; };
+		6864AC262048F21600422CD8 /* WeekendTourOrderNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC242048F21600422CD8 /* WeekendTourOrderNumCell.swift */; };
+		6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC252048F21600422CD8 /* WeekendTourOrderNumCell.xib */; };
+		6864AC2A2048F24800422CD8 /* WeekendTourUnitPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC282048F24800422CD8 /* WeekendTourUnitPriceCell.swift */; };
+		6864AC2B2048F24800422CD8 /* WeekendTourUnitPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC292048F24800422CD8 /* WeekendTourUnitPriceCell.xib */; };
+		6864AC2D2048F2A900422CD8 /* WeekendTour.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC2C2048F2A900422CD8 /* WeekendTour.storyboard */; };
+		6864AC302048F30100422CD8 /* WeekendTourOrderContactWayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC2E2048F30100422CD8 /* WeekendTourOrderContactWayCell.swift */; };
+		6864AC312048F30100422CD8 /* WeekendTourOrderContactWayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC2F2048F30100422CD8 /* WeekendTourOrderContactWayCell.xib */; };
+		6864AC342048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC322048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.swift */; };
+		6864AC352048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC332048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.xib */; };
+		6864AC382048F35000422CD8 /* WeekendTourOrderRemarksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC362048F35000422CD8 /* WeekendTourOrderRemarksCell.swift */; };
+		6864AC392048F35000422CD8 /* WeekendTourOrderRemarksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC372048F35000422CD8 /* WeekendTourOrderRemarksCell.xib */; };
+		6864AC3C2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC3A2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift */; };
+		6864AC3D2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC3B2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib */; };
+		6864AC4520491FE500422CD8 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC4420491FE500422CD8 /* DatePickerView.swift */; };
+		6864AC4720492B8700422CD8 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC4620492B8700422CD8 /* DatePickerView.xib */; };
+		6864AC4A2049337400422CD8 /* PayResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC482049337400422CD8 /* PayResultController.swift */; };
+		6864AC4B2049337400422CD8 /* PayResultController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC492049337400422CD8 /* PayResultController.xib */; };
+		6864AC4E20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC4C20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.swift */; };
+		6864AC4F20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC4D20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib */; };
+		6864AC5220494A8B00422CD8 /* MyOrderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC5020494A8B00422CD8 /* MyOrderListController.swift */; };
+		6864AC5320494A8B00422CD8 /* MyOrderListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC5120494A8B00422CD8 /* MyOrderListController.xib */; };
+		6864AC5620494BD700422CD8 /* MyTourOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC5420494BD700422CD8 /* MyTourOrderCell.swift */; };
+		6864AC5720494BD700422CD8 /* MyTourOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC5520494BD700422CD8 /* MyTourOrderCell.xib */; };
+		6864AC5B20495A6200422CD8 /* WeekendTourOrderContainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC5A20495A6200422CD8 /* WeekendTourOrderContainModel.swift */; };
+		6864AC62204D240D00422CD8 /* SystemMessageNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC61204D240D00422CD8 /* SystemMessageNumView.swift */; };
+		6864AC64204D241C00422CD8 /* SystemMessageNumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC63204D241C00422CD8 /* SystemMessageNumView.xib */; };
+		6864AC66204D35D600422CD8 /* SystemmsgContainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */; };
 		6888086B200DF0F200BC6AE9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68880860200DF0F100BC6AE9 /* Info.plist */; };
 		6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880873200DF19300BC6AE9 /* AppDelegate.swift */; };
 		6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880874200DF19300BC6AE9 /* BaseModel.swift */; };
@@ -663,6 +694,14 @@
 		68C5F298203FF4E400769A92 /* FeedBackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */; };
 		68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */; };
 		68C5F2A8203FFC7600769A92 /* SubmitFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */; };
+		68D583E3204D4110002CE864 /* ThumbUpMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D583E1204D4110002CE864 /* ThumbUpMsgListController.swift */; };
+		68D583E4204D4110002CE864 /* ThumbUpMsgListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583E2204D4110002CE864 /* ThumbUpMsgListController.xib */; };
+		68D583E7204D4125002CE864 /* CommentsMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D583E5204D4125002CE864 /* CommentsMsgListController.swift */; };
+		68D583E8204D4125002CE864 /* CommentsMsgListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583E6204D4125002CE864 /* CommentsMsgListController.xib */; };
+		68D583ED204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D583EB204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift */; };
+		68D583EE204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583EC204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib */; };
+		68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D583F3204E3DD3002CE864 /* UserAgreementController.swift */; };
+		68D583F6204E3DD3002CE864 /* UserAgreementController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583F4204E3DD3002CE864 /* UserAgreementController.xib */; };
 		68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */; };
 		68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */; };
 		68EFB900203FAF3300FE1A59 /* SuitableHotSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EFB8FF203FAF3300FE1A59 /* SuitableHotSpaceButton.swift */; };
@@ -1606,6 +1645,38 @@
 		6862E5212019BC130058B878 /* btn_keyboard@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_keyboard@3x.png"; sourceTree = "<group>"; };
 		6862E5222019BC130058B878 /* STInputBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputBar.h; sourceTree = "<group>"; };
 		6862E5232019BC130058B878 /* STInputBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STInputBar.m; sourceTree = "<group>"; };
+		6864AC1C2048F02500422CD8 /* WeekendTourOrderDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderDetailController.swift; sourceTree = "<group>"; };
+		6864AC1D2048F02500422CD8 /* WeekendTourOrderDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderDetailController.xib; sourceTree = "<group>"; };
+		6864AC202048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourASimpleInfoInOrderCell.swift; sourceTree = "<group>"; };
+		6864AC212048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourASimpleInfoInOrderCell.xib; sourceTree = "<group>"; };
+		6864AC242048F21600422CD8 /* WeekendTourOrderNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderNumCell.swift; sourceTree = "<group>"; };
+		6864AC252048F21600422CD8 /* WeekendTourOrderNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderNumCell.xib; sourceTree = "<group>"; };
+		6864AC282048F24800422CD8 /* WeekendTourUnitPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourUnitPriceCell.swift; sourceTree = "<group>"; };
+		6864AC292048F24800422CD8 /* WeekendTourUnitPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourUnitPriceCell.xib; sourceTree = "<group>"; };
+		6864AC2C2048F2A900422CD8 /* WeekendTour.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WeekendTour.storyboard; sourceTree = "<group>"; };
+		6864AC2E2048F30100422CD8 /* WeekendTourOrderContactWayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderContactWayCell.swift; sourceTree = "<group>"; };
+		6864AC2F2048F30100422CD8 /* WeekendTourOrderContactWayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderContactWayCell.xib; sourceTree = "<group>"; };
+		6864AC322048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderReserveTimeCell.swift; sourceTree = "<group>"; };
+		6864AC332048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderReserveTimeCell.xib; sourceTree = "<group>"; };
+		6864AC362048F35000422CD8 /* WeekendTourOrderRemarksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderRemarksCell.swift; sourceTree = "<group>"; };
+		6864AC372048F35000422CD8 /* WeekendTourOrderRemarksCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderRemarksCell.xib; sourceTree = "<group>"; };
+		6864AC3A2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderPayWayCell.swift; sourceTree = "<group>"; };
+		6864AC3B2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderPayWayCell.xib; sourceTree = "<group>"; };
+		6864AC4420491FE500422CD8 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		6864AC4620492B8700422CD8 /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
+		6864AC482049337400422CD8 /* PayResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayResultController.swift; sourceTree = "<group>"; };
+		6864AC492049337400422CD8 /* PayResultController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayResultController.xib; sourceTree = "<group>"; };
+		6864AC4C20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourSubjectInCircleHomePageCell.swift; sourceTree = "<group>"; };
+		6864AC4D20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourSubjectInCircleHomePageCell.xib; sourceTree = "<group>"; };
+		6864AC5020494A8B00422CD8 /* MyOrderListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderListController.swift; sourceTree = "<group>"; };
+		6864AC5120494A8B00422CD8 /* MyOrderListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderListController.xib; sourceTree = "<group>"; };
+		6864AC5420494BD700422CD8 /* MyTourOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTourOrderCell.swift; sourceTree = "<group>"; };
+		6864AC5520494BD700422CD8 /* MyTourOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTourOrderCell.xib; sourceTree = "<group>"; };
+		6864AC5A20495A6200422CD8 /* WeekendTourOrderContainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderContainModel.swift; sourceTree = "<group>"; };
+		6864AC5C204D130C00422CD8 /* LiMi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiMi.entitlements; sourceTree = "<group>"; };
+		6864AC61204D240D00422CD8 /* SystemMessageNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageNumView.swift; sourceTree = "<group>"; };
+		6864AC63204D241C00422CD8 /* SystemMessageNumView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMessageNumView.xib; sourceTree = "<group>"; };
+		6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemmsgContainController.swift; sourceTree = "<group>"; };
 		68880860200DF0F100BC6AE9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68880873200DF19300BC6AE9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68880874200DF19300BC6AE9 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -2020,6 +2091,14 @@
 		68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackHeaderView.swift; sourceTree = "<group>"; };
 		68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFeedbackCell.swift; sourceTree = "<group>"; };
 		68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmitFeedbackCell.xib; sourceTree = "<group>"; };
+		68D583E1204D4110002CE864 /* ThumbUpMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbUpMsgListController.swift; sourceTree = "<group>"; };
+		68D583E2204D4110002CE864 /* ThumbUpMsgListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThumbUpMsgListController.xib; sourceTree = "<group>"; };
+		68D583E5204D4125002CE864 /* CommentsMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsMsgListController.swift; sourceTree = "<group>"; };
+		68D583E6204D4125002CE864 /* CommentsMsgListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentsMsgListController.xib; sourceTree = "<group>"; };
+		68D583EB204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgWithThumUpOrCommentsCell.swift; sourceTree = "<group>"; };
+		68D583EC204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMsgWithThumUpOrCommentsCell.xib; sourceTree = "<group>"; };
+		68D583F3204E3DD3002CE864 /* UserAgreementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementController.swift; sourceTree = "<group>"; };
+		68D583F4204E3DD3002CE864 /* UserAgreementController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserAgreementController.xib; sourceTree = "<group>"; };
 		68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSelectTrendsTypeCell.swift; sourceTree = "<group>"; };
 		68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailSelectTrendsTypeCell.xib; sourceTree = "<group>"; };
 		68EFB8FF203FAF3300FE1A59 /* SuitableHotSpaceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitableHotSpaceButton.swift; sourceTree = "<group>"; };
@@ -2040,6 +2119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689D5395202882B5009C771C /* SystemConfiguration.framework in Frameworks */,
 				6801E0E6202DA35E00C106E1 /* AudioToolbox.framework in Frameworks */,
 				6801E0E5202DA33C00C106E1 /* CoreAudio.framework in Frameworks */,
 				6801DFF5202C6EA800C106E1 /* NIMSDK.framework in Frameworks */,
@@ -2072,7 +2152,6 @@
 				689D5396202882BC009C771C /* CoreTelephony.framework in Frameworks */,
 				6801DFEA202C6EA800C106E1 /* libNMCVideoModule.a in Frameworks */,
 				6801DFED202C6EA800C106E1 /* libopenh264.a in Frameworks */,
-				689D5395202882B5009C771C /* SystemConfiguration.framework in Frameworks */,
 				689D5394202882AF009C771C /* libz.tbd in Frameworks */,
 				6801DFE8202C6EA800C106E1 /* libGPUImage.a in Frameworks */,
 				689D5393202882AA009C771C /* libc++.tbd in Frameworks */,
@@ -4206,6 +4285,7 @@
 		680E169A2003548C006CC5B9 /* LiMi */ = {
 			isa = PBXGroup;
 			children = (
+				6864AC5C204D130C00422CD8 /* LiMi.entitlements */,
 				6888085B200DF0F100BC6AE9 /* Misc */,
 				689DF77620045C33007FAE9C /* 首页 */,
 				689DF76E20045C33007FAE9C /* 圈子 */,
@@ -4341,12 +4421,15 @@
 		681C95BF204536BA009CDE3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6864AC2C2048F2A900422CD8 /* WeekendTour.storyboard */,
 				681C95E12047A343009CDE3B /* WeekendBannerCell.swift */,
 				681C95E22047A343009CDE3B /* WeekendBannerCell.xib */,
 				681C95E72047A5D5009CDE3B /* WeekendTourSeparateCell.swift */,
 				681C95E82047A5D5009CDE3B /* WeekendTourSeparateCell.xib */,
 				681C95EB2047A633009CDE3B /* WeekendTourSubjectCell.swift */,
 				681C95EC2047A633009CDE3B /* WeekendTourSubjectCell.xib */,
+				6864AC4C20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.swift */,
+				6864AC4D20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib */,
 				681C95F32047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift */,
 				681C95F52047AE66009CDE3B /* WeekendTourSubjectHeaderView.xib */,
 				681C95F72047CE40009CDE3B /* WeekendTourDetailCell.swift */,
@@ -4355,6 +4438,20 @@
 				681C95FC2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib */,
 				681C95FF2047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift */,
 				681C96002047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib */,
+				6864AC202048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift */,
+				6864AC212048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib */,
+				6864AC242048F21600422CD8 /* WeekendTourOrderNumCell.swift */,
+				6864AC252048F21600422CD8 /* WeekendTourOrderNumCell.xib */,
+				6864AC282048F24800422CD8 /* WeekendTourUnitPriceCell.swift */,
+				6864AC292048F24800422CD8 /* WeekendTourUnitPriceCell.xib */,
+				6864AC2E2048F30100422CD8 /* WeekendTourOrderContactWayCell.swift */,
+				6864AC2F2048F30100422CD8 /* WeekendTourOrderContactWayCell.xib */,
+				6864AC322048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.swift */,
+				6864AC332048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.xib */,
+				6864AC362048F35000422CD8 /* WeekendTourOrderRemarksCell.swift */,
+				6864AC372048F35000422CD8 /* WeekendTourOrderRemarksCell.xib */,
+				6864AC3A2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift */,
+				6864AC3B2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4366,6 +4463,10 @@
 				681C95DE2047A13D009CDE3B /* WeekendTourController.xib */,
 				681C95EF2047AD13009CDE3B /* WeekendTourDetailController.swift */,
 				681C95F02047AD13009CDE3B /* WeekendTourDetailController.xib */,
+				6864AC1C2048F02500422CD8 /* WeekendTourOrderDetailController.swift */,
+				6864AC1D2048F02500422CD8 /* WeekendTourOrderDetailController.xib */,
+				6864AC482049337400422CD8 /* PayResultController.swift */,
+				6864AC492049337400422CD8 /* PayResultController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4472,6 +4573,15 @@
 			path = res;
 			sourceTree = "<group>";
 		};
+		6864AC3E20491E3200422CD8 /* 时间选择器 */ = {
+			isa = PBXGroup;
+			children = (
+				6864AC4620492B8700422CD8 /* DatePickerView.xib */,
+				6864AC4420491FE500422CD8 /* DatePickerView.swift */,
+			);
+			path = "时间选择器";
+			sourceTree = "<group>";
+		};
 		6888085B200DF0F100BC6AE9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -4540,6 +4650,7 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,
 				681C96032047E0FD009CDE3B /* ICarouse */,
 				6801D90C202C44D000C106E1 /* XLPhotoBrowser+CoderXL */,
@@ -4707,6 +4818,8 @@
 				68EFB902203FE1C600FE1A59 /* AboutUsController.xib */,
 				68EFB905203FE53F00FE1A59 /* FeedBackController.swift */,
 				68EFB906203FE53F00FE1A59 /* FeedBackController.xib */,
+				6864AC5020494A8B00422CD8 /* MyOrderListController.swift */,
+				6864AC5120494A8B00422CD8 /* MyOrderListController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4723,6 +4836,7 @@
 				689D53A6202951D2009C771C /* MyCashModel.swift */,
 				689D53AF20299E97009C771C /* SignedResultModel.swift */,
 				689D53FC202AE198009C771C /* AlipayResultContainModel.swift */,
+				6864AC5A20495A6200422CD8 /* WeekendTourOrderContainModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4741,6 +4855,8 @@
 				68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */,
 				68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */,
 				68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */,
+				6864AC5420494BD700422CD8 /* MyTourOrderCell.swift */,
+				6864AC5520494BD700422CD8 /* MyTourOrderCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4765,6 +4881,11 @@
 				6825485920137BDC0033410A /* CommentsWithTrendController.xib */,
 				682548682015B6EF0033410A /* UserDetailsController.swift */,
 				682548692015B6EF0033410A /* UserDetailsController.xib */,
+				6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */,
+				68D583E5204D4125002CE864 /* CommentsMsgListController.swift */,
+				68D583E6204D4125002CE864 /* CommentsMsgListController.xib */,
+				68D583E1204D4110002CE864 /* ThumbUpMsgListController.swift */,
+				68D583E2204D4110002CE864 /* ThumbUpMsgListController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4821,6 +4942,10 @@
 				6862E50B201989A70058B878 /* ConditionScreeningCollectionCell.xib */,
 				6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */,
 				6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */,
+				6864AC61204D240D00422CD8 /* SystemMessageNumView.swift */,
+				6864AC63204D241C00422CD8 /* SystemMessageNumView.xib */,
+				68D583EB204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift */,
+				68D583EC204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4872,6 +4997,8 @@
 			children = (
 				688808B62010331300BC6AE9 /* LoginController.swift */,
 				688808B72010331300BC6AE9 /* LoginController.xib */,
+				68D583F3204E3DD3002CE864 /* UserAgreementController.swift */,
+				68D583F4204E3DD3002CE864 /* UserAgreementController.xib */,
 				6888091620123A9800BC6AE9 /* DeleteController.swift */,
 				6888091720123A9800BC6AE9 /* DeleteController.xib */,
 				689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */,
@@ -4946,6 +5073,7 @@
 				680E16962003548C006CC5B9 /* Resources */,
 				33064E4D776D16F80502E95D /* [CP] Embed Pods Frameworks */,
 				BDCB1A6C7AC950CBE905E1FC /* [CP] Copy Pods Resources */,
+				68B3F339204E43280004C3D9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5005,6 +5133,11 @@
 					680E16972003548C006CC5B9 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					680E16AB2003548D006CC5B9 = {
 						CreatedOnToolsVersion = 9.2;
@@ -5056,13 +5189,18 @@
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
 				681C95B92045366E009CDE3B /* TopicCircleSummaryCell.xib in Resources */,
 				68C5F2A8203FFC7600769A92 /* SubmitFeedbackCell.xib in Resources */,
+				6864AC4F20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib in Resources */,
+				6864AC5320494A8B00422CD8 /* MyOrderListController.xib in Resources */,
 				6862E50520197C8E0058B878 /* ConditionScreeningView.xib in Resources */,
 				6801E113202DA83700C106E1 /* Settings.bundle in Resources */,
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
 				6801E062202C6EA900C106E1 /* NTESFileTransSelectViewController.xib in Resources */,
+				6864AC1F2048F02500422CD8 /* WeekendTourOrderDetailController.xib in Resources */,
+				6864AC3D2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib in Resources */,
 				6801E014202C6EA800C106E1 /* NTESJionTeamViewController.xib in Resources */,
 				681C95CD204542B0009CDE3B /* NearbyPeopleCollectionCell.xib in Resources */,
 				6801E0AF202C6EA900C106E1 /* NTESUserInfoSettingViewController.xib in Resources */,
+				6864AC5720494BD700422CD8 /* MyTourOrderCell.xib in Resources */,
 				688808E92011852500BC6AE9 /* TrendsImageCollectionCell.xib in Resources */,
 				6801E044202C6EA900C106E1 /* NTESCustomSysNotificationViewController.xib in Resources */,
 				6862E5252019BC130058B878 /* keyboard_btn_delete@2x.png in Resources */,
@@ -5087,6 +5225,7 @@
 				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
 				681C95D320456D12009CDE3B /* EditAutographView.xib in Resources */,
 				6801E046202C6EA900C106E1 /* NTESSystemNotificationCell.xib in Resources */,
+				6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */,
 				6801E0A1202C6EA900C106E1 /* NTESNoDisturbSettingViewController.xib in Resources */,
 				6801E03A202C6EA900C106E1 /* NTESContactViewController.xib in Resources */,
 				681C95EE2047A633009CDE3B /* WeekendTourSubjectCell.xib in Resources */,
@@ -5098,6 +5237,7 @@
 				6801E040202C6EA900C106E1 /* NTESRegisterViewController.xib in Resources */,
 				6801E101202DA6CE00C106E1 /* icon_meeting_connecting@2x.gif in Resources */,
 				6888091920123A9900BC6AE9 /* DeleteController.xib in Resources */,
+				6864AC312048F30100422CD8 /* WeekendTourOrderContactWayCell.xib in Resources */,
 				682548752015C47E0033410A /* UserDetailHeadView.xib in Resources */,
 				68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */,
 				681C95AA2045366E009CDE3B /* CircleController.xib in Resources */,
@@ -5117,9 +5257,13 @@
 				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				6801E0CA202C6EA900C106E1 /* jrmf.cer in Resources */,
 				6801E06B202C6EA900C106E1 /* NTESWhiteboardViewController.xib in Resources */,
+				68D583E4204D4110002CE864 /* ThumbUpMsgListController.xib in Resources */,
 				6801E075202C6EA900C106E1 /* NTESAudioChatViewController.xib in Resources */,
 				6835827E2021593200798462 /* WithDrawalController.xib in Resources */,
+				6864AC232048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib in Resources */,
+				6864AC2B2048F24800422CD8 /* WeekendTourUnitPriceCell.xib in Resources */,
 				6801E116202DA83700C106E1 /* NIMKitEmoticon.bundle in Resources */,
+				6864AC64204D241C00422CD8 /* SystemMessageNumView.xib in Resources */,
 				6801E0A5202C6EA900C106E1 /* NTESAboutViewController.xib in Resources */,
 				6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
@@ -5127,6 +5271,7 @@
 				6825485B20137BDC0033410A /* CommentsWithTrendController.xib in Resources */,
 				6862E5282019BC130058B878 /* keyboard_preview_bg@3x.png in Resources */,
 				6801E0FD202DA6CE00C106E1 /* Info.plist in Resources */,
+				6864AC2D2048F2A900422CD8 /* WeekendTour.storyboard in Resources */,
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
 				6801E017202C6EA900C106E1 /* NTESRobotCardViewController.xib in Resources */,
 				6801E05E202C6EA900C106E1 /* NTESAudio2TextViewController.xib in Resources */,
@@ -5141,6 +5286,7 @@
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
 				6801D936202C44D000C106E1 /* FSActionSheet_cancel@3x.png in Resources */,
 				6862E52D2019BC130058B878 /* btn_expression@3x.png in Resources */,
+				6864AC4B2049337400422CD8 /* PayResultController.xib in Resources */,
 				68254857201364450033410A /* RewardRedPacketController.xib in Resources */,
 				681C95C92045381D009CDE3B /* PeopleNearbyController.xib in Resources */,
 				688809112011E5DB00BC6AE9 /* SetPayPasswordController.xib in Resources */,
@@ -5148,10 +5294,15 @@
 				681C95AE2045366E009CDE3B /* CreatTopicController.xib in Resources */,
 				6801E10C202DA6CE00C106E1 /* video_chat_tip_sender.aac in Resources */,
 				6888086B200DF0F200BC6AE9 /* Info.plist in Resources */,
+				68D583F6204E3DD3002CE864 /* UserAgreementController.xib in Resources */,
+				68D583E8204D4125002CE864 /* CommentsMsgListController.xib in Resources */,
 				6801E060202C6EA900C106E1 /* NTESFilePreViewController.xib in Resources */,
+				68D583EE204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib in Resources */,
 				6801E0FF202DA6CE00C106E1 /* d3.icns in Resources */,
 				6801DFF0202C6EA800C106E1 /* NMCVideoFilter.bundle in Resources */,
+				6864AC392048F35000422CD8 /* WeekendTourOrderRemarksCell.xib in Resources */,
 				680E16A12003548C006CC5B9 /* Main.storyboard in Resources */,
+				6864AC352048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.xib in Resources */,
 				68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */,
 				689DFA342008B4E9007FAE9C /* CollegeCell.xib in Resources */,
 				683582822021647900798462 /* AlipayAcountController.xib in Resources */,
@@ -5172,6 +5323,7 @@
 				6862E52E2019BC130058B878 /* btn_keyboard@2x.png in Resources */,
 				6801E094202C6EA900C106E1 /* NTESMutiClientsCell.xib in Resources */,
 				6801E06E202C6EA900C106E1 /* NTESVideoViewController.xib in Resources */,
+				6864AC4720492B8700422CD8 /* DatePickerView.xib in Resources */,
 				68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */,
 				6801E07A202C6EA900C106E1 /* NTESTeamMeetingMutesViewController.xib in Resources */,
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
@@ -5227,6 +5379,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		68B3F339204E43280004C3D9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#\n# Copyright 2016 Bugly, Tencent. All rights reserved.\n#\n# V1.4.0\n#\n# 2016.08.03\n#\n#\n#\n######################################################\n# 1. 脚本集成到Xcode工程的Target\n######################################################\n#\n# --- Copy the SCRIPT to the Run Script of Build Phases in the Xcode project ---\n#\n# #\nBUGLY_APP_ID=\"e0501ff656\"\n# #\nBUGLY_APP_KEY=\"54b181da-aa14-4cd2-9c8a-10e93f7a69ed\"\n# #\nBUNDLE_IDENTIFIER=\"com.LiMi200018.www\"\n# #\nUPLOAD_DSYM_ONLY=1\n#\n# # 脚本默认配置的版本格式为CFBundleShortVersionString(CFBundleVersion),  如果你修改默认的版本格式, 请设置此变量, 如果不想修改, 请忽略此设置\n# CUSTOMIZED_APP_VERSION=\"\"\n#\n# # Debug模式编译是否上传，1＝上传 0＝不上传，默认不上传\nUPLOAD_DEBUG_SYMBOLS=1\n#\n# # 模拟器编译是否上传，1=上传 0=不上传，默认不上传\nUPLOAD_SIMULATOR_SYMBOLS=1\n#\n# #只有Archive操作时上传, 1=支持Archive上传 0=所有Release模式编译都上传\n UPLOAD_ARCHIVE_ONLY=1\n#\n# #\n# source dSYMUpload.sh\n#\n# --- END OF SCRIPT ---\n#\n#\n#\n#\n#######################################################\n# 2. 脚本根据输入参数处理\n#######################################################\n#\n# #命令行下输入应用基本信息, .dSYM文件的父目录路径, 输出文件目录即可\n#\n# sh dSYMUpload.sh <bugly_app_id> <bugly_app_key> <app_bundle_identifier> <app_version> <dSYM_src_dir> <bSYMBOL_dest_dir>\n#\n# #\n#\n# #注意:\n# # 1. dSYMUpload.sh会调用buglySymboliOS.jar进行.dSYM解析，所以依赖Java运行时环境\n# # 2. dSYMUpload.sh和buglySymboliOS.jar的文件路径需一致\n#\n#\n\n#\n# --- CONTENT OF SCRIPT ---\n#\n\n# Bugly服务域名\nBUGLY_DSYM_UPLOAD_DOMAIN=\"api.bugly.qq.com\"\n\n# 注意jar工具的路径跟dSYMUpload.sh脚本路径一致, 请务必保证jar路径的正确性\nBUGLY_SYMBOL_JAR_PATH=\"dsymtool/buglySymboliOS.jar\"\n# 查找添加到系统目录的jar工具\nif [ ! -f \"${BUGLY_SYMBOL_JAR_PATH}\" ]; then\nBUGLY_SYMBOL_JAR_PATH=\"$HOME/bin/buglySymboliOS.jar\"\nfi\n\n# 打印错误信息\nfunction exitWithMessage(){\n    echo \"--------------------------------\"\n    echo \"${1}\"\n    echo \"--------------------------------\"\n    exit ${2}\n}\n\n# 上传bSYMBOL文件\nfunction dSYMUpload() {\n    P_APP_ID=\"$1\"\n    P_APP_KEY=\"$2\"\n    P_APP_BUNDLE_ID=\"$3\"\n    P_APP_VERSION=\"$4\"\n    P_BSYMBOL_ZIP_FILE=\"$5\"\n    \n    #\n    P_BSYMBOL_ZIP_FILE_NAME=${P_BSYMBOL_ZIP_FILE##*/}\n        P_BSYMBOL_ZIP_FILE_NAME=${P_BSYMBOL_ZIP_FILE_NAME//&/_}\n            P_BSYMBOL_ZIP_FILE_NAME=\"${P_BSYMBOL_ZIP_FILE_NAME// /_}\"\n            \n            DSYM_UPLOAD_URL=\"https://${BUGLY_DSYM_UPLOAD_DOMAIN}/openapi/file/upload/symbol?app_id=${P_APP_ID}&app_key=${P_APP_KEY}\"\n            echo \"dSYM upload url: ${DSYM_UPLOAD_URL}\"\n            \n            echo \"-----------------------------\"\n            STATUS=$(/usr/bin/curl -k \"${DSYM_UPLOAD_URL}\" --form \"api_version=1\" --form \"app_id=${P_APP_ID}\" --form \"app_key=${P_APP_KEY}\" --form \"symbolType=2\"  --form \"bundleId=${BUNDLE_IDENTIFIER}\" --form \"productVersion=${BUGLY_APP_VERSION}\" --form \"fileName=${P_BSYMBOL_ZIP_FILE_NAME}\" --form \"file=@${P_BSYMBOL_ZIP_FILE}\" --verbose)\n            echo \"-----------------------------\"\n            \n            UPLOAD_RESULT=\"FAILTURE\"\n            echo \"Bugly server response: ${STATUS}\"\n            if [ ! \"${STATUS}\" ]; then\n            echo \"Error: Failed to upload the zip archive file.\"\n            elif [[ \"${STATUS}\" == *\"{\\\"reponseCode\\\":\\\"0\\\"}\"* ]]; then\n            echo \"Success to upload the dSYM for the app [${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION}]\"\n            UPLOAD_RESULT=\"SUCCESS\"\n            else\n            echo \"Error: Failed to upload the zip archive file to Bugly.\"\n            fi\n            \n            #Remove temp dSYM archive\n            #echo \"Remove temporary zip archive: ${DSYM_ZIP_FPATH}\"\n            #/bin/rm -f \"${DSYM_ZIP_FPATH}\"\n            \n            if [ \"$?\" -ne 0 ]; then\n            exitWithMessage \"Error: Failed to remove temporary zip archive.\" 0\n            fi\n            \n            echo \"--------------------------------\"\n            echo \"${UPLOAD_RESULT} - dSYM upload complete.\"\n            \n            if [[ \"${UPLOAD_RESULT}\" == \"FAILTURE\" ]]; then\n            echo \"--------------------------------\"\n            echo \"Failed to upload the dSYM\"\n            echo \"Please check the script and try it again.\"\n            fi\n        }\n        \n        # .dSYM解析为bSYMBOL文件\n        function dSYMParse() {\n            DSYM_FILE=\"$1\"\n            DSYM_SYMBOL_FILE=\"$2\"\n            \n            echo \"--------------------------------\"\n            echo \"Extract symbol info from .dSYM file. to ${DSYM_SYMBOL_FILE}\"\n            (/usr/bin/java -Xms512m -Xmx1024m -Dfile.encoding=UTF8 -jar \"${BUGLY_SYMBOL_JAR_PATH}\" -i \"${DSYM_FILE}\" -o \"${DSYM_SYMBOL_FILE}\" ) || exitWithMessage \"Error: Failed to extract symbols.\" 1\n            echo \"--------------------------------\"\n            \n        }\n        \n        # 执行\n        function run() {\n            \n            CONFIG_BUGLY_APP_ID=\"$1\"\n            CONFIG_BUGLY_APP_KEY=\"$2\"\n            \n            CONFIG_BUGLY_APP_BUNDLE_IDENTIFIER=\"$3\"\n            CONFIG_BUGLY_APP_VERSION=\"$4\"\n            CONFIG_DSYM_SOURCE_DIR=\"$5\"\n            CONFIG_DSYM_DEST_DIR=\"$6\"\n            CONFIG_UPLOAD_DSYM_ONLY=\"$7\"\n            \n            # 检查必须参数是否设置\n            if [ ! \"${CONFIG_BUGLY_APP_ID}\" ]; then\n            exitWithMessage \"Error: Bugly App ID not defined. Please set 'BUGLY_APP_ID' \" 0\n            fi\n            \n            if [[ \"${CONFIG_BUGLY_APP_ID}\" == *\"App ID\"* ]]; then\n            exitWithMessage \"Error: Bugly App ID not defined.\" 0\n            fi\n            \n            if [ ! \"${CONFIG_BUGLY_APP_KEY}\" ]; then\n            exitWithMessage \"Error: Bugly App Key not defined.\" 0\n            fi\n            \n            if [ ! \"${CONFIG_BUGLY_APP_BUNDLE_IDENTIFIER}\" ]; then\n            exitWithMessage \"Error: Bundle Identifier not defined.\" 0\n            fi\n            \n            if [ ! \"${CONFIG_BUGLY_APP_VERSION}\" ]; then\n            exitWithMessage \"Error: App Version not defined.\" 0\n            fi\n            \n            if [ ! -e \"${CONFIG_DSYM_SOURCE_DIR}\" ]; then\n            exitWithMessage \"Error: Invalid dir ${CONFIG_DSYM_SOURCE_DIR}\" 0\n            fi\n            \n            if [ ! \"${CONFIG_DSYM_DEST_DIR}\" ]; then\n            exitWithMessage \"Error: Invalid dir ${CONFIG_DSYM_DEST_DIR}\" 0\n            fi\n            \n            if [ ! -e \"${CONFIG_DSYM_DEST_DIR}\" ]; then\n            mkdir ${CONFIG_DSYM_DEST_DIR}\n            fi\n            \n            DSYM_FOLDER=\"${CONFIG_DSYM_SOURCE_DIR}\"\n            IFS=$'\\n'\n            \n            echo \"Scaning dSYM FOLDER: ${DSYM_FOLDER} ...\"\n            RET=\"F\"\n            \n            #\n            for dsymFile in $(find \"$DSYM_FOLDER\" -name '*.dSYM'); do\n            RET=\"T\"\n            echo \"Found dSYM file: $dsymFile\"\n            \n            DSYM_FILE_NAME=${dsymFile##*/}\n                DSYM_SYMBOL_ZIP_FILE_NAME=\"${DSYM_FILE_NAME}.zip\"\n                DSYM_SYMBOL_ZIP_FILE_NAME=\"${DSYM_SYMBOL_ZIP_FILE_NAME// /_}\"\n                DSYM_SYMBOL_ZIP_FILE=${CONFIG_DSYM_DEST_DIR}/${DSYM_SYMBOL_ZIP_FILE_NAME}\n                \n                if [ $CONFIG_UPLOAD_DSYM_ONLY -eq 1 ]; then\n                if [ -e $DSYM_SYMBOL_ZIP_FILE ]; then\n                rm -f $DSYM_SYMBOL_ZIP_FILE\n                fi\n                # 如果只上传dSYM，直接压缩dSYM目录\n                zip -r -j $DSYM_SYMBOL_ZIP_FILE $dsymFile -x *.plist\n                else\n                # 使用符号表工具来生成Symbol文件\n                dSYMParse $dsymFile $DSYM_SYMBOL_ZIP_FILE\n                fi\n                \n                # 上传\n                dSYMUpload $CONFIG_BUGLY_APP_ID $CONFIG_BUGLY_APP_KEY $CONFIG_BUGLY_APP_BUNDLE_IDENTIFIER $CONFIG_BUGLY_APP_VERSION $DSYM_SYMBOL_ZIP_FILE\n                done\n                \n                if [ $RET = \"F\" ]; then\n                exitWithMessage \"No .dSYM found in ${DSYM_FOLDER}\" 0\n                fi\n            }\n            \n            # 在Xcode工程中执行\n            function runInXcode(){\n                echo \"Uploading dSYM to Bugly in Xcode ...\"\n                \n                echo \"Info.Plist : ${INFOPLIST_FILE}\"\n                \n                BUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' \"${INFOPLIST_FILE}\")\n                BUNDLE_SHORT_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' \"${INFOPLIST_FILE}\")\n                \n                # 组装Bugly默认识别的版本信息(格式为CFBundleShortVersionString(CFBundleVersion), 例如: 1.0(1))\n                if [ ! \"${CUSTOMIZED_APP_VERSION}\" ]; then\n                BUGLY_APP_VERSION=\"${BUNDLE_SHORT_VERSION}(${BUNDLE_VERSION})\"\n                else\n                BUGLY_APP_VERSION=\"${CUSTOMIZED_APP_VERSION}\"\n                fi\n                \n                echo \"--------------------------------\"\n                echo \"Prepare application information.\"\n                echo \"--------------------------------\"\n                \n                echo \"Product Name: ${PRODUCT_NAME}\"\n                echo \"Bundle Identifier: ${BUNDLE_IDENTIFIER}\"\n                echo \"Version: ${BUNDLE_SHORT_VERSION}\"\n                echo \"Build: ${BUNDLE_VERSION}\"\n                \n                echo \"Bugly App ID: ${BUGLY_APP_ID}\"\n                echo \"Bugly App key: ${BUGLY_APP_KEY}\"\n                echo \"Bugly App Version: ${BUGLY_APP_VERSION}\"\n                \n                echo \"--------------------------------\"\n                echo \"Check the arguments ...\"\n                \n                ##检查模拟器编译是否允许上传符号\n                if [ \"$EFFECTIVE_PLATFORM_NAME\" == \"-iphonesimulator\" ]; then\n                if [ $UPLOAD_SIMULATOR_SYMBOLS -eq 0 ]; then\n                exitWithMessage \"Warning: Build for simulator and skipping to upload. \\nYou can modify 'UPLOAD_SIMULATOR_SYMBOLS' to 1 in the script.\" 0\n                fi\n                fi\n                \n                ##检查是否是Release模式编译\n                if [ \"${CONFIGURATION=}\" == \"Debug\" ]; then\n                if [ $UPLOAD_DEBUG_SYMBOLS -eq 0 ]; then\n                exitWithMessage \"Warning: Build for debug mode and skipping to upload. \\nYou can modify 'UPLOAD_DEBUG_SYMBOLS' to 1 in the script.\" 0\n                fi\n                fi\n                \n                ##检查是否Archive操作\n                if [ $UPLOAD_ARCHIVE_ONLY -eq 1 ]; then\n                if [[ \"$TARGET_BUILD_DIR\" == *\"/Archive\"* ]]; then\n                echo \"Archive the package\"\n                else\n                exitWithMessage \"Warning: Build for NOT Archive mode and skipping to upload. \\nYou can modify 'UPLOAD_ARCHIVE_ONLY' to 0 in the script.\" 0\n                fi\n                fi\n                \n                #\n                run ${BUGLY_APP_ID} ${BUGLY_APP_KEY} ${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION} ${DWARF_DSYM_FOLDER_PATH} ${BUILD_DIR}/BuglySymbolTemp ${UPLOAD_DSYM_ONLY}\n            }\n            \n            # 根据Xcode的环境变量判断是否处于Xcode环境\n            INFO_PLIST_FILE=\"${INFOPLIST_FILE}\"\n            \n            BuildInXcode=\"F\"\n            if [ -f \"${INFO_PLIST_FILE}\" ]; then\n            BuildInXcode=\"T\"\n            fi\n            \n            if [ $BuildInXcode = \"T\" ]; then\n            runInXcode\n            else\n            echo \"\\nUsage: dSYMUpload.sh <bugly_app_id> <bugly_app_key> <app_bundle_identifier> <app_version> <dSYM_src_dir> <bSYMBOL_dest_dir> [upload_dsym_only]\\n\"\n            # 你可以在此处直接设置BuglyAppID和BuglyAppKey，排除不常变参数的输入\n            BUGLY_APP_ID=\"$1\"\n            BUGLY_APP_KEY=\"$2\"\n            BUNDLE_IDENTIFIER=\"$3\"\n            BUGLY_APP_VERSION=\"$4\"\n            DWARF_DSYM_FOLDER_PATH=\"$5\"\n            SYMBOL_OUTPUT_PATH=\"$6\"\n            UPLOAD_DSYM_ONLY=$7\n            run ${BUGLY_APP_ID} ${BUGLY_APP_KEY} ${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION} ${DWARF_DSYM_FOLDER_PATH} ${SYMBOL_OUTPUT_PATH} ${UPLOAD_DSYM_ONLY}\n            fi\n";
+		};
 		BDCB1A6C7AC950CBE905E1FC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5265,6 +5430,7 @@
 				6801E0B1202C6EA900C106E1 /* NTESSettingCheckCell.m in Sources */,
 				681C95AD2045366E009CDE3B /* CreatTopicController.swift in Sources */,
 				6801DF8B202C6EA800C106E1 /* NIMContactDataItem.m in Sources */,
+				68D583E3204D4110002CE864 /* ThumbUpMsgListController.swift in Sources */,
 				68880886200DF19300BC6AE9 /* ViewController.swift in Sources */,
 				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
 				6801DFF7202C6EA800C106E1 /* NSDictionary+NTESJson.m in Sources */,
@@ -5275,6 +5441,7 @@
 				6801DF98202C6EA800C106E1 /* NIMInputEmoticonTabView.m in Sources */,
 				6801DFA5202C6EA800C106E1 /* NIMImageContentConfig.m in Sources */,
 				6801E0B8202C6EA900C106E1 /* NTESAVNotifier.m in Sources */,
+				6864AC4520491FE500422CD8 /* DatePickerView.swift in Sources */,
 				6825486520159D260033410A /* TrendCommentCell.swift in Sources */,
 				6801DFD7202C6EA800C106E1 /* NIMTeamAnnouncementListCell.m in Sources */,
 				688809102011E5DB00BC6AE9 /* SetPayPasswordController.swift in Sources */,
@@ -5293,6 +5460,7 @@
 				6801E03C202C6EA900C106E1 /* NTESLoginManager.m in Sources */,
 				6801E0A7202C6EA900C106E1 /* NTESAliasSettingViewController.m in Sources */,
 				6801E00A202C6EA800C106E1 /* NTESFPSLabel.m in Sources */,
+				6864AC3C2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift in Sources */,
 				681C96062047E0FD009CDE3B /* iCarousel.m in Sources */,
 				6801DFE3202C6EA800C106E1 /* NIMKitRobotTemplate.m in Sources */,
 				6801E038202C6EA900C106E1 /* NTESContactAddFriendViewController.m in Sources */,
@@ -5305,6 +5473,7 @@
 				681C960E20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				6801E098202C6EA900C106E1 /* NTESClientsTableViewController.m in Sources */,
 				689DF7B120049FF3007FAE9C /* IdentityAuthInfoController.swift in Sources */,
+				6864AC5B20495A6200422CD8 /* WeekendTourOrderContainModel.swift in Sources */,
 				6801DF87202C6EA800C106E1 /* NIMPageView.m in Sources */,
 				689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */,
 				6840881720400C1600D22885 /* FeedBackQuestionModel.swift in Sources */,
@@ -5316,6 +5485,7 @@
 				68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */,
 				6801DFD0202C6EA800C106E1 /* NIMCreateTeamAnnouncement.m in Sources */,
 				6801E0B4202C6EA900C106E1 /* NTESSubscribeManager.m in Sources */,
+				68D583E7204D4125002CE864 /* CommentsMsgListController.swift in Sources */,
 				6801DF9E202C6EA800C106E1 /* NIMKitInfoFetchOption.m in Sources */,
 				6801D932202C44D000C106E1 /* FSActionSheetCell.m in Sources */,
 				6801E010202C6EA800C106E1 /* NTESSessionCustomContentConfig.m in Sources */,
@@ -5341,6 +5511,7 @@
 				6801E0AE202C6EA900C106E1 /* NTESUserInfoSettingViewController.m in Sources */,
 				6835827D2021593200798462 /* WithDrawalController.swift in Sources */,
 				6801E016202C6EA900C106E1 /* NTESRobotCardViewController.m in Sources */,
+				6864AC1E2048F02500422CD8 /* WeekendTourOrderDetailController.swift in Sources */,
 				6801E03B202C6EA900C106E1 /* NTESRobotListViewController.m in Sources */,
 				6801E05C202C6EA900C106E1 /* NTESSessionWhiteBoardContentView.m in Sources */,
 				6801DF99202C6EA800C106E1 /* NIMInputMoreContainerView.m in Sources */,
@@ -5363,6 +5534,7 @@
 				68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */,
 				6801E001202C6EA800C106E1 /* UINavigationBar+Swizzling.m in Sources */,
 				6801D943202C470900C106E1 /* XLPhotoBrowser+Extension.m in Sources */,
+				6864AC4A2049337400422CD8 /* PayResultController.swift in Sources */,
 				6801DF95202C6EA800C106E1 /* NIMInputEmoticonContainerView.m in Sources */,
 				6801DFA3202C6EA800C106E1 /* NIMBaseSessionContentConfig.m in Sources */,
 				6801DF7B202C6EA800C106E1 /* NIMKitSetting.m in Sources */,
@@ -5393,12 +5565,15 @@
 				68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */,
 				681C96012047D0FF009CDE3B /* WeekendTourBookingInfoCell.swift in Sources */,
 				6801DFBC202C6EA800C106E1 /* NIMSessionFileTransContentView.m in Sources */,
+				68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
 				6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */,
 				68358259201F18DD00798462 /* TransactonListModel.swift in Sources */,
 				688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */,
 				6801DF85202C6EA800C106E1 /* NIMLoadProgressView.m in Sources */,
+				6864AC2A2048F24800422CD8 /* WeekendTourUnitPriceCell.swift in Sources */,
+				6864AC62204D240D00422CD8 /* SystemMessageNumView.swift in Sources */,
 				6801DFE6202C6EA800C106E1 /* NIMSpellingCenter.m in Sources */,
 				68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */,
 				6801DF9D202C6EA800C106E1 /* NIMKitInfo.m in Sources */,
@@ -5473,6 +5648,7 @@
 				6801E059202C6EA900C106E1 /* NTESSessionRedPacketTipContentView.m in Sources */,
 				6801E0AC202C6EA900C106E1 /* NTESNickNameSettingViewController.m in Sources */,
 				681C95ED2047A633009CDE3B /* WeekendTourSubjectCell.swift in Sources */,
+				6864AC5620494BD700422CD8 /* MyTourOrderCell.swift in Sources */,
 				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
 				6801E04B202C6EA900C106E1 /* NTESJanKenPonAttachment.m in Sources */,
 				6801E009202C6EA800C106E1 /* NTESBadgeView.m in Sources */,
@@ -5492,6 +5668,7 @@
 				6801DFE4202C6EA800C106E1 /* NIMKitRobotTemplateLayout.m in Sources */,
 				6801E0AB202C6EA900C106E1 /* NTESMobileSettingViewController.m in Sources */,
 				6801E06C202C6EA900C106E1 /* NTESWhiteboardDrawView.m in Sources */,
+				6864AC5220494A8B00422CD8 /* MyOrderListController.swift in Sources */,
 				6801DFC1202C6EA800C106E1 /* NIMSessionNotificationContentView.m in Sources */,
 				689D53AE20298AB6009C771C /* MoreOperationModel.swift in Sources */,
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
@@ -5503,6 +5680,7 @@
 				6801E02F202C6EA900C106E1 /* NTESContactDataMember.m in Sources */,
 				6801DFDA202C6EA800C106E1 /* NIMTeamSwitchTableViewCell.m in Sources */,
 				6801E029202C6EA900C106E1 /* NTESLiveActionView.m in Sources */,
+				6864AC382048F35000422CD8 /* WeekendTourOrderRemarksCell.swift in Sources */,
 				6801E00E202C6EA800C106E1 /* NTESChatroomRobotContentConfig.m in Sources */,
 				6801DF97202C6EA800C106E1 /* NIMInputEmoticonParser.m in Sources */,
 				6801DF84202C6EA800C106E1 /* NIMKitTitleView.m in Sources */,
@@ -5523,6 +5701,7 @@
 				681C95B72045366E009CDE3B /* TopicCircleCellFactory.swift in Sources */,
 				6801E025202C6EA900C106E1 /* NTESLiveViewController.m in Sources */,
 				6801E0BB202C6EA900C106E1 /* NTESClientUtil.m in Sources */,
+				6864AC262048F21600422CD8 /* WeekendTourOrderNumCell.swift in Sources */,
 				6801E070202C6EA900C106E1 /* NTESNetCallChatInfo.m in Sources */,
 				6801D93B202C44D000C106E1 /* XLPhotoBrowser.m in Sources */,
 				6888089A200DF53B00BC6AE9 /* GlobalFunction.swift in Sources */,
@@ -5547,6 +5726,7 @@
 				681C95DC20479BEC009CDE3B /* AutographModel.swift in Sources */,
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
 				6801DFFD202C6EA800C106E1 /* UIResponder+NTESFirstResponder.m in Sources */,
+				6864AC66204D35D600422CD8 /* SystemmsgContainController.swift in Sources */,
 				6801E058202C6EA900C106E1 /* NTESSessionRedPacketContentView.m in Sources */,
 				6835826F20200E2500798462 /* SkillListModel.swift in Sources */,
 				6801DF92202C6EA800C106E1 /* NIMInputAtCache.m in Sources */,
@@ -5590,6 +5770,7 @@
 				681C95BA2045366E009CDE3B /* TopicCircleWithPictureCell.swift in Sources */,
 				681C960A2047EED9009CDE3B /* WeekendTourDetailModel.swift in Sources */,
 				6801E073202C6EA900C106E1 /* NTESVideoDataTimeoutChecker.m in Sources */,
+				68D583ED204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift in Sources */,
 				6801DF8E202C6EA800C106E1 /* NIMContactSelectTabView.m in Sources */,
 				6801E0B0202C6EA900C106E1 /* NTESBirthPickerView.m in Sources */,
 				6801DFCD202C6EA800C106E1 /* NIMTeamInfoData.m in Sources */,
@@ -5623,6 +5804,7 @@
 				6801E049202C6EA900C106E1 /* NTESSessionConfig.m in Sources */,
 				6888091820123A9900BC6AE9 /* DeleteController.swift in Sources */,
 				6801E08A202C6EA900C106E1 /* shader.c in Sources */,
+				6864AC4E20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.swift in Sources */,
 				6801E01B202C6EA900C106E1 /* NTESTeamListViewController.m in Sources */,
 				6801E080202C6EA900C106E1 /* common.c in Sources */,
 				6801E08C202C6EA900C106E1 /* ijksdl_timer.c in Sources */,
@@ -5657,6 +5839,7 @@
 				6801DFF8202C6EA800C106E1 /* NSString+NTES.m in Sources */,
 				6801E08D202C6EA900C106E1 /* IJKSDLGLView.m in Sources */,
 				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
+				6864AC222048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift in Sources */,
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
 				6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */,
 				6801E00D202C6EA800C106E1 /* NTESCellLayoutConfig.m in Sources */,
@@ -5715,6 +5898,7 @@
 				6801DFA1202C6EA800C106E1 /* NIMTimestampModel.m in Sources */,
 				681C95A92045366E009CDE3B /* CircleController.swift in Sources */,
 				6825485F2014D7D80033410A /* TagListView.swift in Sources */,
+				6864AC302048F30100422CD8 /* WeekendTourOrderContactWayCell.swift in Sources */,
 				681C95F42047AE5C009CDE3B /* WeekendTourSubjectHeaderView.swift in Sources */,
 				6801E0C4202C6EA900C106E1 /* NTESUserUtil.m in Sources */,
 				6801E0B6202C6EA900C106E1 /* NTESDemoRegisterTask.m in Sources */,
@@ -5728,6 +5912,7 @@
 				688808BE20106CF800BC6AE9 /* MyCashController.swift in Sources */,
 				681C95B12045366E009CDE3B /* TopicListController.swift in Sources */,
 				6801DF72202C6EA800C106E1 /* UITableView+NIMScrollToBottom.m in Sources */,
+				6864AC342048F32D00422CD8 /* WeekendTourOrderReserveTimeCell.swift in Sources */,
 				688808E12010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift in Sources */,
 				6801E01E202C6EA900C106E1 /* NTESChatroomManager.m in Sources */,
 				6801E055202C6EA900C106E1 /* NTESSearchMessageEntraceCell.m in Sources */,
@@ -5907,7 +6092,9 @@
 			baseConfigurationReference = 163DFD0BCD6641E07C1DD996 /* Pods-LiMi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiMi/LiMi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5985,6 +6172,7 @@
 			baseConfigurationReference = 8FBEBF2D22AE5FFDAE9ECCFE /* Pods-LiMi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiMi/LiMi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;

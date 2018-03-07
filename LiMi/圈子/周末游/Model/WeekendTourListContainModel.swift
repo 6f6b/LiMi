@@ -27,7 +27,7 @@ class WeekendTourModel: BaseModel {
     var name:String?
     var num:Int?
     var pic:String?
-    var price:String?
+    var price:Double?
     var time:String?
     var to:String?
 
@@ -45,5 +45,18 @@ class WeekendTourModel: BaseModel {
         price<-map["price"]
         time<-map["time"]
         to<-map["to"]
+        
+        if self.feature == nil{
+            feature <- map["data.feature"]
+        }
+        if self.name == nil{
+            name <- map["data.name"]
+        }
+        if self.pic == nil{
+            pic <- map["data.pic"]
+        }
+        if self.price == nil{
+            price <- map["data.price"]
+        }
     }
 }

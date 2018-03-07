@@ -29,7 +29,8 @@
     {
         _appKey = @"525f6f12511728fc7805594e96587546";
         _apiURL = @"https://app.netease.im/api";
-        _apnsCername = @"ENTERPRISE";
+        _apnsCername = @"apsdevelopmentp12";
+        //_apnsCername = @"apsp12";
         _pkCername = @"DEMO_PUSH_KIT";
         
         _redPacketConfig = [[NTESRedPacketConfig alloc] init];

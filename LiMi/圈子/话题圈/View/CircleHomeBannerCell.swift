@@ -8,6 +8,7 @@
 
 import UIKit
 import LLCycleScrollView
+import SDCycleScrollView
 
 enum CircleMenuType {
     ///附近的人
@@ -19,44 +20,18 @@ enum CircleMenuType {
 }
 class CircleHomeBannerCell: UITableViewCell {
     @IBOutlet weak var bannerContainView: UIView!
-    
+    var cycleScrollView:SDCycleScrollView!
     
     var tapMenuBlock:((CircleMenuType)->Void)?
     var tapBannerBlock:(()->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+
         
-        let bannerView = LLCycleScrollView.llCycleScrollViewWithFrame(CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 182))
-        // 是否自动滚动
-        bannerView.autoScroll = true
-        // 是否无限循环，此属性修改了就不存在轮播的意义了 😄
-        bannerView.infiniteLoop = true
-        // 滚动间隔时间(默认为2秒)
-        bannerView.autoScrollTimeInterval = 3.0
-        // 等待数据状态显示的占位图
-        bannerView.placeHolderImage = nil
-        // 如果没有数据的时候，使用的封面图
-        bannerView.coverImage = nil
-        // 设置图片显示方式=UIImageView的ContentMode
-        bannerView.imageViewContentMode = .scaleToFill
-        // 设置滚动方向（ vertical || horizontal ）
-        bannerView.scrollDirection = .vertical
-        // 设置当前PageControl的样式 (.none, .system, .fill, .pill, .snake)
-        bannerView.customPageControlStyle = .snake
-        // 非.system的状态下，设置PageControl的tintColor
-        bannerView.customPageControlInActiveTintColor = UIColor.red
-        // 设置.system系统的UIPageControl当前显示的颜色
-        bannerView.pageControlCurrentPageColor = UIColor.white
-        // 非.system的状态下，设置PageControl的间距(默认为8.0)
-        bannerView.customPageControlIndicatorPadding = 8.0
-        // 设置PageControl的位置 (.left, .right 默认为.center)
-        bannerView.pageControlPosition = .center
-        // 背景色
-//        bannerView.collectionViewBackgroundColor =
-        bannerView.imagePaths = ["zhuye_bj"];
-        // 添加到view
-        self.bannerContainView.addSubview(bannerView)
+        cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 182), delegate: self, placeholderImage: UIImage.init())
+        cycleScrollView.imageURLStringsGroup = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520232614180&di=05c9b53af3f4a298853ad796abf4894c&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201603%2F01%2F20160301185403_Myn3L.jpeg"]
+        self.bannerContainView.addSubview(self.cycleScrollView)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,5 +53,15 @@ class CircleHomeBannerCell: UITableViewCell {
                 _tapMenuBlock(.topicCircle)
             }
         }
+    }
+}
+
+extension CircleHomeBannerCell:SDCycleScrollViewDelegate{
+    func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didSelectItemAt index: Int) {
+        
+    }
+    
+    func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didScrollTo index: Int) {
+
     }
 }

@@ -36,6 +36,7 @@ class TrendsTopToolsContainView: UIView {
         }
         
         self.userName = UILabel()
+        self.userName.textColor = APP_THEME_COLOR
         self.addSubview(self.userName)
         self.userName.font = UIFont.boldSystemFont(ofSize: 14)
         self.userName.text = "张学友"

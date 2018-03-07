@@ -220,6 +220,12 @@
                                         <action selector="dealToGiveRedPacket:" destination="-1" eventType="touchUpInside" id="63j-ro-Vg5"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未领取的红包将在24小时后自动返回" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3f-20-yHu">
+                                    <rect key="frame" x="88" y="647.5" width="199" height="14.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -228,7 +234,9 @@
                                 <constraint firstAttribute="height" constant="667" id="MUt-lm-Z4y"/>
                                 <constraint firstItem="pWU-Z3-4Nv" firstAttribute="centerX" secondItem="XAe-Ga-r3Q" secondAttribute="centerX" id="U0F-Oc-Hax"/>
                                 <constraint firstItem="pWU-Z3-4Nv" firstAttribute="width" secondItem="tdI-Mn-vY3" secondAttribute="width" multiplier="345:375" id="c7R-V2-gOM"/>
+                                <constraint firstAttribute="bottom" secondItem="q3f-20-yHu" secondAttribute="bottom" constant="5" id="dZs-Pb-Rdt"/>
                                 <constraint firstAttribute="bottom" secondItem="pWU-Z3-4Nv" secondAttribute="bottom" constant="49" id="daN-6L-CdQ"/>
+                                <constraint firstItem="q3f-20-yHu" firstAttribute="centerX" secondItem="pWU-Z3-4Nv" secondAttribute="centerX" id="g4l-IQ-8TF"/>
                                 <constraint firstAttribute="trailing" secondItem="tdI-Mn-vY3" secondAttribute="trailing" constant="15" id="tmc-K1-pJ3"/>
                             </constraints>
                         </view>
@@ -250,7 +258,7 @@
                 <constraint firstItem="GuC-5q-rFO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="u2k-xS-Vtp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="52.5" y="96.5"/>
+            <point key="canvasLocation" x="48" y="180"/>
         </view>
     </objects>
     <resources>

@@ -13,6 +13,9 @@ class SlidingMenuBar: UIView {
     @IBOutlet weak var lineSecond: UIView!
     @IBOutlet weak var btnFirst: UIButton!
     @IBOutlet weak var btnSecond: UIButton!
+    @IBOutlet weak var rightTop1: UILabel!
+    @IBOutlet weak var rightTop2: UILabel!
+    
     var tapBlock:((Int)->Void)?
     
     override func awakeFromNib() {
@@ -24,6 +27,12 @@ class SlidingMenuBar: UIView {
         
         self.lineSecond.layer.cornerRadius = 1.5
         self.lineSecond.clipsToBounds = true
+        
+        self.rightTop1.layer.cornerRadius = 7
+        self.rightTop1.clipsToBounds = true
+        
+        self.rightTop2.layer.cornerRadius = 7
+        self.rightTop2.clipsToBounds = true
     }
     
     func select(index:Int){
