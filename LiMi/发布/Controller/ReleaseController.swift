@@ -266,7 +266,6 @@ class ReleaseController: ViewController {
             let cancelReleaseTrends = CancelDynamic(red_token: redToken)
             _ = moyaProvider.rx.request(.targetWith(target: cancelReleaseTrends)).subscribe(onSuccess: { (response) in
                 let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                HandleResultWith(model: resultModel)
                 if resultModel?.commonInfoModel?.status == successState{
                     if nextStep == 0{
                         //取消发布
@@ -299,7 +298,6 @@ class ReleaseController: ViewController {
         let releaseTrends = ReleaseTrends(red_token: self.sendRedpacketResultModel?.red_token ,skill_id: self.skillModel?.id, content: self.releaseContentTextInputCell.contentText.text, images: imgs, video: video)
         _ = moyaProvider.rx.request(.targetWith(target: releaseTrends)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 NotificationCenter.default.post(name: POST_TREND_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
                 //延时1秒执行

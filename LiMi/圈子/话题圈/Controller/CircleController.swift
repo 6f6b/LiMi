@@ -75,7 +75,6 @@ class CircleController: ViewController {
         let circleList = CircleList()
         _ = moyaProvider.rx.request(.targetWith(target: circleList)).subscribe(onSuccess: { (response) in
             let weekendTourListContainModel = Mapper<WeekendTourListContainModel>().map(jsonData: response.data)
-            HandleResultWith(model: weekendTourListContainModel)
             if let weekendTours = weekendTourListContainModel?.data{
                 for weekendTour in weekendTours{
                     self.dataArray.append(weekendTour)

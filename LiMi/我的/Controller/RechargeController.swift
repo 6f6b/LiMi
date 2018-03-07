@@ -128,7 +128,6 @@ class RechargeController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             SVProgressHUD.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 let delayTime : TimeInterval = 1.0
@@ -151,7 +150,6 @@ class RechargeController: ViewController {
 //        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
 //        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
 //            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-//            HandleResultWith(model: resultModel)
 //            SVProgressHUD.showResultWith(model: resultModel)
 //            if resultModel?.commonInfoModel?.status == successState{
 //                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
@@ -175,7 +173,6 @@ class RechargeController: ViewController {
 //        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
 //        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
 //            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-//            HandleResultWith(model: resultModel)
 //            SVProgressHUD.showResultWith(model: resultModel)
 //            if resultModel?.commonInfoModel?.status == successState{
 //                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))

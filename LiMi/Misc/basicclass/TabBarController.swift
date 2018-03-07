@@ -51,18 +51,20 @@ class TabBarController: UITabBarController {
         //系统消息
         let homeNav = self.viewControllers![0] as! NavigationController
         if #available(iOS 10.0, *) {
-            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 40)], for: .normal)
+            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 80),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red,NSAttributedStringKey.backgroundColor.rawValue:UIColor.red], for: .normal)
         } else {
         }
         homeNav.tabBarItem.badgeValue = AppManager.shared.systemUnreadCount == 0 ? nil : " "
 
         //会话消息
+        self.tabBar.showBadgeOnItemAt(index: 3)
         let mscNav = self.viewControllers![3] as! NavigationController
         if #available(iOS 10.0, *) {
-            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 40)], for: .normal)
+            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 160),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red], for: .normal)
+            mscNav.tabBarItem.badgeColor = RGBA(r: 255, g: 255, b: 255, a: 0)
         } else {
         }
-        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : " "
+        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : "."
         //mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
     }
     
@@ -153,6 +155,12 @@ extension TabBarController:NIMSystemNotificationManagerDelegate{
         AppManager.shared.systemUnreadCount = unreadCount
         self.refreshMyMessageBadge()
     }
+    
+    func onReceive(_ notification: NIMCustomSystemNotification) {
+        print(notification)
+    }
+    
+    
 }
 
 //MARK: - Notification  通知

@@ -67,7 +67,6 @@ class WeekendTourController: ViewController {
         let weekendIndex = WeekendIndex(page: self.pageIndex)
         _ = moyaProvider.rx.request(.targetWith(target: weekendIndex)).subscribe(onSuccess: { (response) in
             let weekendTourListContainModel = Mapper<WeekendTourListContainModel>().map(jsonData: response.data)
-            HandleResultWith(model: weekendTourListContainModel)
             if let weekendTours = weekendTourListContainModel?.data{
                 for weekendTour in weekendTours{
                     self.dataArray.append(weekendTour)

@@ -60,7 +60,6 @@ class MyCashController: ViewController {
         let myCash = MyCash()
         _ = moyaProvider.rx.request(.targetWith(target: myCash)).subscribe(onSuccess: { (response) in
             let mycashModel = Mapper<MyCashModel>().map(jsonData: response.data)
-            HandleResultWith(model: mycashModel)
             self.refreshUIWith(model: mycashModel)
             SVProgressHUD.showErrorWith(model: mycashModel)
         }, onError: { (error) in

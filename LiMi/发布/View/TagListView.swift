@@ -107,7 +107,6 @@ class TagListView: UIView {
         let skillList = SkillList()
         _ = moyaProvider.rx.request(.targetWith(target: skillList)).subscribe(onSuccess: { (response) in
             let skillListModel = Mapper<SkillListModel>().map(jsonData: response.data)
-            HandleResultWith(model: skillListModel)
             if let skillModels = skillListModel?.skills{
                 for skillModel in skillModels{
                     self.dataArray.append(skillModel)

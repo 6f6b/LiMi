@@ -78,11 +78,11 @@ class PersonCenterController: UITableViewController {
         let personCenter = PersonCenter()
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
-            HandleResultWith(model: personCenterModel)
             self.refreshUIWith(model: personCenterModel)
             SVProgressHUD.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
+//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
         })
     }
     

@@ -22,8 +22,6 @@ class TransactionRecordController: ViewController {
         self.title = "交易记录"
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.emptyDataSetDelegate = self
-        self.tableView.emptyDataSetSource = self
         self.tableView.estimatedRowHeight = 100
         self.tableView.register(UINib.init(nibName: "TransactionRecordCell", bundle: nil), forCellReuseIdentifier: "TransactionRecordCell")
         
@@ -49,7 +47,6 @@ class TransactionRecordController: ViewController {
         let transactonRecordList = TransactonRcord(page: self.pageIndex)
         _ = moyaProvider.rx.request(.targetWith(target: transactonRecordList)).subscribe(onSuccess: { (response) in
             let transactionListModel = Mapper<TransactonListModel>().map(jsonData: response.data)
-            HandleResultWith(model: transactionListModel)
             if let transactionModels  = transactionListModel?.datas{
                 for transactionModel in transactionModels{
                     self.dataArray.append(transactionModel)
@@ -59,10 +56,18 @@ class TransactionRecordController: ViewController {
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(model: transactionListModel)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         })
     }
 }

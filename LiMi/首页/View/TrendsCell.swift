@@ -9,6 +9,24 @@
 import UIKit
 import SnapKit
 
+///动态只有一张的图片的时候的图片宽高比
+let singlePictureHeightAndWidthRatio = 0.75
+
+///多张图片的水平间距和垂直间距
+let multiPictureSpacing = 3.0
+
+///多张图片时图片高宽比
+let multiPictureHeightAndWidthRatio = 1.0
+
+///多媒体容器到屏幕边缘的距离
+let mediaContainViewMarginToWindow = 0.0
+
+///文字内容区域到屏幕边缘的距离
+let textAreaMarginToWindow = 12.0
+
+///动态内容区域到底部工具栏距离
+let trendsContainViewSpacingToBottomToolsView = 10.0
+
 class TrendsCell: UITableViewCell {
     var model:TrendModel?
     var cellStyle:TrendsCellStyle = .normal
@@ -89,9 +107,9 @@ class TrendsCell: UITableViewCell {
         self.trendsContainView.addSubview(self.trendsContentContainView)
         self.trendsContentContainView.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsTopToolsContainView.snp.bottom)
-            make.left.equalTo(self.trendsContainView).offset(12)
-            make.bottom.equalTo(self.trendsBottomToolsContainView.snp.top).offset(-10)
-            make.right.equalTo(self.trendsContainView).offset(-12)
+            make.left.equalTo(self.trendsContainView)
+            make.bottom.equalTo(self.trendsBottomToolsContainView.snp.top).offset(-trendsContainViewSpacingToBottomToolsView)
+            make.right.equalTo(self.trendsContainView)
         }
         
         self.redPacketBtn = UIButton()

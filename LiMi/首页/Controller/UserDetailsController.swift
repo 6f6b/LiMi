@@ -117,7 +117,6 @@ class UserDetailsController: ViewController {
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
@@ -151,7 +150,6 @@ class UserDetailsController: ViewController {
         let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type)
         _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: { (response) in
             let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
-            HandleResultWith(model: userDetailModel)
             if let trends = userDetailModel?.action_list{
                 if self.type == "action"{
                     if self.actionPage == 1{self.actionDataArray.removeAll()}

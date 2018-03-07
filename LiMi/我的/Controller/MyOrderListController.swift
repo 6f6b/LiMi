@@ -28,8 +28,6 @@ class MyOrderListController: ViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
         self.tableView.estimatedRowHeight = 100
         self.tableView.register(UINib.init(nibName: "MyTourOrderCell", bundle: nil), forCellReuseIdentifier: "MyTourOrderCell")
         
@@ -64,7 +62,6 @@ class MyOrderListController: ViewController {
         let myTrendList = MyOrderList(page: self.pageIndex)
         _ = moyaProvider.rx.request(.targetWith(target: myTrendList)).subscribe(onSuccess: { (response) in
             let weekendTourOrderContainModel = Mapper<WeekendTourOrderContainModel>().map(jsonData: response.data)
-            HandleResultWith(model: weekendTourOrderContainModel)
             if let weekendTourOrderModels = weekendTourOrderContainModel?.data{
                 for weekendTourOrderModel in weekendTourOrderModels{
                     self.dataArray.append(weekendTourOrderModel)
@@ -74,10 +71,18 @@ class MyOrderListController: ViewController {
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(model: weekendTourOrderContainModel)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         })
     }
 

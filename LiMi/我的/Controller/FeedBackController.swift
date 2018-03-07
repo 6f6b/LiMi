@@ -104,7 +104,6 @@ class FeedBackController: ViewController {
 //            let video = self.generateMediaParameterWith(medias: self.videoArr)
             _ = moyaProvider.rx.request(.targetWith(target: feedBack)).subscribe(onSuccess: { (response) in
                 let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                HandleResultWith(model: resultModel)
                 if resultModel?.commonInfoModel?.status == successState{
                     //延时1秒执行
                     let delayTime: TimeInterval = 1.0

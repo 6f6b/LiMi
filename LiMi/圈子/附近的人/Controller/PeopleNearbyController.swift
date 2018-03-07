@@ -136,7 +136,6 @@ class PeopleNearbyController: ViewController {
         let nearUserList = NearUserList(lat: latitude, lng: longitude, page: pageIndex, sex: sex)
         _ = moyaProvider.rx.request(.targetWith(target: nearUserList)).subscribe(onSuccess: { (response) in
             let peopleNearbyContainModel = Mapper<PeopleNearbyContainModel>().map(jsonData: response.data)
-            HandleResultWith(model: peopleNearbyContainModel)
             if let userInfoModels = peopleNearbyContainModel?.data{
                 for userInfoModel in userInfoModels{
                     self.dataArray.append(userInfoModel)
@@ -159,7 +158,6 @@ class PeopleNearbyController: ViewController {
         let clearLocation = ClearLocation()
         _ = moyaProvider.rx.request(.targetWith(target: clearLocation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             //成功
             if baseModel?.commonInfoModel?.status == successState{
                 //延时1秒执行

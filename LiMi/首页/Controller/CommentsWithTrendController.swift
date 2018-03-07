@@ -103,7 +103,6 @@ class CommentsWithTrendController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let commentListModel = Mapper<CommentListModel>().map(jsonData: response.data)
-            HandleResultWith(model: commentListModel)
             
             if nil != commentListModel?.trend{
                 self.trendModel = commentListModel?.trend
@@ -149,7 +148,6 @@ class CommentsWithTrendController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             self.pageIndex = 1
             self.loadData()
             SVProgressHUD.showErrorWith(model: resultModel)
@@ -229,7 +227,6 @@ class CommentsWithTrendController: ViewController {
         }
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
                 var moreOperationModel = MoreOperationModel()
                 moreOperationModel.operationType = operationType

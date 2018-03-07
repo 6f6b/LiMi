@@ -43,16 +43,16 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dl_img" translatesAutoresizingMaskIntoConstraints="NO" id="WwY-TP-pDP">
-                                            <rect key="frame" x="136" y="98" width="103" height="70"/>
+                                            <rect key="frame" x="136" y="70" width="103" height="70"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录粒米校园" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVw-y1-P3l">
-                                            <rect key="frame" x="135.5" y="188" width="104" height="21"/>
+                                            <rect key="frame" x="135.5" y="160" width="104" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xa-uy-pxg">
-                                            <rect key="frame" x="52.5" y="269" width="270" height="105"/>
+                                            <rect key="frame" x="52.5" y="241" width="270" height="105"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXo-sJ-9DN">
                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="35"/>
@@ -151,14 +151,14 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0G-SZ-8rW">
-                                            <rect key="frame" x="120.5" y="424" width="135" height="67"/>
+                                            <rect key="frame" x="120.5" y="396" width="135" height="67"/>
                                             <state key="normal" image="login_btn"/>
                                             <connections>
                                                 <action selector="dealLogIn:" destination="-1" eventType="touchUpInside" id="5Dn-43-QlO"/>
                                             </connections>
                                         </button>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="错误信息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qfb-R3-oUE">
-                                            <rect key="frame" x="52.5" y="389" width="270" height="17"/>
+                                            <rect key="frame" x="52.5" y="361" width="270" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="270" id="hK4-Kf-Smz"/>
                                             </constraints>
@@ -167,7 +167,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-dx-Z0Q">
-                                            <rect key="frame" x="170" y="437" width="35" height="21"/>
+                                            <rect key="frame" x="170" y="409" width="35" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -192,7 +192,7 @@
                                     <constraints>
                                         <constraint firstItem="eOH-uw-xXp" firstAttribute="leading" secondItem="sMM-Ed-TuA" secondAttribute="leading" constant="15" id="1Fv-Lk-9sB"/>
                                         <constraint firstItem="f0G-SZ-8rW" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="2aE-0G-2iL"/>
-                                        <constraint firstItem="WwY-TP-pDP" firstAttribute="top" secondItem="sMM-Ed-TuA" secondAttribute="top" constant="98" id="2hh-LD-OUi"/>
+                                        <constraint firstItem="WwY-TP-pDP" firstAttribute="top" secondItem="sMM-Ed-TuA" secondAttribute="top" constant="70" id="2hh-LD-OUi"/>
                                         <constraint firstItem="8ep-dx-Z0Q" firstAttribute="top" secondItem="f0G-SZ-8rW" secondAttribute="top" constant="13" id="3Rd-gp-zWf"/>
                                         <constraint firstItem="zEp-x5-Ugi" firstAttribute="centerX" secondItem="sMM-Ed-TuA" secondAttribute="centerX" id="3b0-3K-0T6"/>
                                         <constraint firstItem="4xa-uy-pxg" firstAttribute="top" secondItem="QVw-y1-P3l" secondAttribute="bottom" constant="60" id="4Sk-i1-ASg"/>

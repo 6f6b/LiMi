@@ -37,11 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(logOut(notification:)), name: LOGOUT_NOTIFICATION, object: nil)
         WXApi.registerApp(WECHAT_APP_ID)
         
+        self.setupMainViewController()
+        
         self.setupNIMSDK()
         self.setupServices()
         self.registerPushService()
         self.commonInitListenEvents()
-        self.setupMainViewController()
         NTESRedPacketManager.shared().application(application, didFinishLaunchingWithOptions: launchOptions)
         _ = AppManager.shared.autoLoginIM()
         LocationManager.shared.startLocateWith(success: nil, failed: nil)
@@ -236,8 +237,11 @@ extension AppDelegate{
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options: [UNAuthorizationOptions.badge,UNAuthorizationOptions.sound,UNAuthorizationOptions.alert]) { (granted, error) in
                 if granted{
-                    SVProgressHUD.showInfo(withStatus: "请开启推送功能否则无法收到推送通知")
-//                    UIApplication.shared.keyWindow?.makeToast("请开启推送功能否则无法收到推送通知", duration: 2.0, position: CSToastPositionCenter)
+                    let alertController = UIAlertController(title: "请开启推送功能否则无法收到推送通知", message: nil, preferredStyle: .alert)
+                    let actionOK = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+                    alertController.addAction(actionOK)
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                    //SVProgressHUD.showInfo(withStatus: "请开启推送功能否则无法收到推送通知")
                 }
             }
         } else {

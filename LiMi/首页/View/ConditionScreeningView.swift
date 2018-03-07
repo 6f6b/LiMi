@@ -184,7 +184,6 @@ class ConditionScreeningView: UIView {
         _ = moyaProvider.rx.request(.targetWith(target: screeningConditions)).subscribe(onSuccess: { (response) in
             let screeningConditionsModel = Mapper<ScreeningConditionsModel>().map(jsonData: response.data)
             self.screeningConditionsModel = screeningConditionsModel
-            HandleResultWith(model: screeningConditionsModel)
             self.collectionView.reloadData()
             SVProgressHUD.showErrorWith(model: screeningConditionsModel)
         }, onError: { (error) in

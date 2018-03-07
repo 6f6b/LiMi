@@ -19,18 +19,19 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentText.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView)
+            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
             //make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView)
+            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
         }
         
-        let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-24, height: 0)
+        let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2), height: 0)
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = (SCREEN_WIDTH-12*2 - 5*2)/3
+        let blankSpace = (mediaContainViewMarginToWindow + multiPictureSpacing)*2
+         let itemWidth = CGFloat(SCREEN_WIDTH - CGFloat(blankSpace))/3.0
         let itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.itemSize = itemSize
-        layout.minimumInteritemSpacing = 4.9
-        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = CGFloat(multiPictureSpacing - 0.1)
+        layout.minimumLineSpacing = CGFloat(multiPictureSpacing - 0.1)
         self.collectionView = UICollectionView.init(frame: collectionFrame, collectionViewLayout: layout)
         self.collectionView.backgroundColor = UIColor.white
         self.collectionView.delegate = self
@@ -93,15 +94,16 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemWidth = (SCREEN_WIDTH-12*2 - 5*2)/3
+        let blankSpace = (mediaContainViewMarginToWindow + multiPictureSpacing)*2
+        let itemWidth = CGFloat(SCREEN_WIDTH - CGFloat(blankSpace))/3.0
         var itemSize = CGSize(width: itemWidth, height: itemWidth)
         if let pics = self.model?.action_pic{
             if pics.count == 1{
-                itemSize.width = SCREEN_WIDTH-12*2
-                itemSize.height = itemSize.width*(262/349.0)
+                itemSize.width = SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2)
+                itemSize.height = itemSize.width*CGFloat(singlePictureHeightAndWidthRatio)
             }
             if pics.count == 2 || pics.count == 4{
-                itemSize.width = (SCREEN_WIDTH-12*2 - 5)/2
+                itemSize.width = (SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2) - CGFloat(multiPictureSpacing))/2.0
                 itemSize.height = itemSize.width
             }
         }

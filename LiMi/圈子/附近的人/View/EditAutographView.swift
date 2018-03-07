@@ -49,7 +49,6 @@ class EditAutographView: UIView {
         let showEditContent = ShowEditContent()
         _ = moyaProvider.rx.request(.targetWith(target: showEditContent)).subscribe(onSuccess: { (response) in
             let autographModel = Mapper<AutographModel>().map(jsonData: response.data)
-            HandleResultWith(model: autographModel)
             self.autograph.text = autographModel?.autograph
             SVProgressHUD.showErrorWith(model: autographModel)
         }, onError: { (error) in
@@ -66,7 +65,6 @@ class EditAutographView: UIView {
         let updateContent = UpdateContent(content: self.autograph.text)
         _ = moyaProvider.rx.request(.targetWith(target: updateContent)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             self.removeFromSuperview()
             SVProgressHUD.showResultWith(model: baseModel)
         }, onError: { (error) in

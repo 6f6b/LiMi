@@ -36,10 +36,8 @@ class SystemmsgContainController: ViewController {
         slidingMenuBar.btnFirst.setTitle("评论", for: .normal)
         slidingMenuBar.btnSecond.setTitle("点赞", for: .normal)
         slidingMenuBar.frame = CGRect.init(x: 0, y: 0, width: 100, height: 44)
-        slidingMenuBar.btnFirst.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
-        slidingMenuBar.btnSecond.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
-        slidingMenuBar.lineFirst.backgroundColor = RGBA(r: 51, g: 51, b:51 , a: 1)
-        slidingMenuBar.lineSecond.backgroundColor = RGBA(r: 51, g: 51, b:51 , a: 1)
+//        slidingMenuBar.btnFirst.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
+//        slidingMenuBar.btnSecond.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
         slidingMenuBar.rightTop1.isHidden = false
         slidingMenuBar.rightTop2.isHidden = false
         self.navigationItem.titleView = slidingMenuBar

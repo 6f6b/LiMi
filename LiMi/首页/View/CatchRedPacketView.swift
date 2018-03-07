@@ -78,7 +78,6 @@ class CatchRedPacketView: UIView {
         let takeRdPacket = GetRedPacked(red_token: self.trendModel?.red_token)
         _ = moyaProvider.rx.request(.targetWith(target: takeRdPacket)).subscribe(onSuccess: { (response) in
             let redPacketResultModel = Mapper<RedPacketResultModel>().map(jsonData: response.data)
-            HandleResultWith(model: redPacketResultModel)
             self.showWith(redPacketResultModel: redPacketResultModel)
             SVProgressHUD.dismiss()
             //SVProgressHUD.showErrorWith(model: redPacketResultModel)
@@ -95,7 +94,6 @@ class CatchRedPacketView: UIView {
         let openRedPacket = OpenRedPacked(red_token: self.trendModel?.red_token)
         _ = moyaProvider.rx.request(.targetWith(target: openRedPacket)).subscribe(onSuccess: { (response) in
             let redPacketResultModel = Mapper<RedPacketResultModel>().map(jsonData: response.data)
-            HandleResultWith(model: redPacketResultModel)
             self.showWith(redPacketResultModel: redPacketResultModel)
             self.trendModel?.red_type = "3"
             NotificationCenter.default.post(name: CATCHED_RED_PACKET_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.trendModel])

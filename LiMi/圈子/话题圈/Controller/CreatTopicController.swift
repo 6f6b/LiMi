@@ -123,7 +123,6 @@ class CreatTopicController: ViewController {
         let addTopicAction = AddTopicAction(pic: pic, topic_id: self.topicCircleModel?.id, content: self.releaseContentTextInputCell.contentText.text)
         _ = moyaProvider.rx.request(.targetWith(target: addTopicAction)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 NotificationCenter.default.post(name: POST_TOPIC_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
                 //延时1秒执行

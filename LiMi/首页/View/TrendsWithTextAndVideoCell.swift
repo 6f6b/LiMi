@@ -27,8 +27,9 @@ class TrendsWithTextAndVideoCell: TrendsWithTextCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentText.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView)
+            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
+            //make.bottom.equalTo(self.trendsContentContainView)
+            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
         }
         
         self.videoContainView = UIView()
@@ -48,8 +49,8 @@ class TrendsWithTextAndVideoCell: TrendsWithTextCell {
             make.top.equalTo(self.videoContainView)
             make.left.equalTo(self.videoContainView)
             make.bottom.equalTo(self.videoContainView)
-            make.width.equalTo(SCREEN_WIDTH-24)
-            make.height.equalTo((SCREEN_WIDTH-24)*(262/349.0))
+            make.width.equalTo(SCREEN_WIDTH-CGFloat(2*mediaContainViewMarginToWindow))
+            make.height.equalTo((SCREEN_WIDTH-CGFloat(2*mediaContainViewMarginToWindow))*CGFloat(singlePictureHeightAndWidthRatio))
         })
         
         self.videoPlayBtn = UIButton.init(type: .custom)

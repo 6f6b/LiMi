@@ -56,8 +56,8 @@ class TrendsBottomToolsContainView: UIView {
         
         self.thumbsUpBtn = SuitableHotSpaceButton(type: .custom)
         self.topToolsContainView.addSubview(self.thumbsUpBtn)
-        self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_nor"), for: .normal)
-        self.thumbsUpBtn.setImage(UIImage.init(named: "btn_zan_pre"), for: .selected)
+        self.thumbsUpBtn.setImage(UIImage.init(named: "home_ic_zan_nol"), for: .normal)
+        self.thumbsUpBtn.setImage(UIImage.init(named: "home_ic_zan_pre"), for: .selected)
         self.thumbsUpBtn.addTarget(self, action: #selector(dealTapThumbUpBtn), for: .touchUpInside)
         self.thumbsUpBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.viewNum)
@@ -76,7 +76,7 @@ class TrendsBottomToolsContainView: UIView {
         
         self.commentBtn = SuitableHotSpaceButton()
         self.topToolsContainView.addSubview(self.commentBtn)
-        self.commentBtn.setImage(UIImage.init(named: "icon_pinglun"), for: .normal)
+        self.commentBtn.setImage(UIImage.init(named: "home_ic_pl"), for: .normal)
         self.commentBtn.addTarget(self, action: #selector(dealTapCommentBtn), for: .touchUpInside)
         self.commentBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.thumbsUpBtn)
@@ -132,7 +132,6 @@ class TrendsBottomToolsContainView: UIView {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 self.thumbsUpBtn.isSelected = !self.thumbsUpBtn.isSelected
                 if self.thumbsUpBtn.isSelected{

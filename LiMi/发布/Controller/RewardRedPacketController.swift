@@ -140,7 +140,6 @@ class RewardRedPacketController: ViewController {
         let myCash = MyCash()
         _ = moyaProvider.rx.request(.targetWith(target: myCash)).subscribe(onSuccess: { (response) in
             let mycashModel = Mapper<MyCashModel>().map(jsonData: response.data)
-            HandleResultWith(model: mycashModel)
             //账户余额
             if let _money = mycashModel?.money{
                 //账户余额足够

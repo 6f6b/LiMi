@@ -23,6 +23,7 @@ class UserDetailHeadView: UIView {
         self.headIcon.layer.cornerRadius = 45
         self.headIcon.clipsToBounds = true
         
+        self.headIcon.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(dealTap))
         self.headIcon.addGestureRecognizer(tap)
     }

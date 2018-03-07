@@ -67,8 +67,8 @@ class LoginController: ViewController {
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
-        var name:String?
-        print(name!)
+//        var name:String?
+//        print(name!)
         self.errorMsg.isHidden = true
         //检测手机号
         if !IS_PHONE_NUMBER(phoneNum: self.phoneNum.text){

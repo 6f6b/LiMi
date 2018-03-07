@@ -115,12 +115,11 @@ class WeekendTourOrderDetailController: ViewController {
     ///   - tradeNumber: 交易流水号
     ///   - type: 支付类型
     func callServerPayStateWith(tradeNumber:String?,type:String?){
-        let getPayStatus = GetPayStaus(order_no: tradeNumber, type: type)
+        let getOnlinePayStaus = GetOnlinePayStaus(order_no: tradeNumber)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: getOnlinePayStaus)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
-            SVProgressHUD.showResultWith(model: resultModel)
+            //SVProgressHUD.showResultWith(model: resultModel)
             let payResultController = PayResultController()
             payResultController.baseModel = resultModel
             self.navigationController?.pushViewController(payResultController, animated: true)

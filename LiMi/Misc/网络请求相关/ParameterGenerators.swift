@@ -777,7 +777,7 @@ struct GetRechargeOrderInfo:TargetType,ParametersProtocol{
     }
 }
 
-//MARK: - 2 ：支付宝异步回调，查询支付是否成功
+//MARK: - 2 ：支付宝异步回调，查询支付是否成功（用于塞红包、充值等）
 struct GetPayStaus:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -834,6 +834,30 @@ struct WithdrawCash:TargetType,ParametersProtocol{
             "true_name":true_name,
             "code":code,
             ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 4 ：支在线支付——查看支付状态（周末游支付状态查询）
+struct GetOnlinePayStaus:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/index.php/apps/Pay/getOnlinePayStaus"
+    }
+    
+    /// 交易流水号
+    var order_no:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "out_biz_no":order_no,
+        ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }

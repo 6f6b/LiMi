@@ -21,7 +21,7 @@ class HomePageController: ViewController {
         super.viewDidLoad()
         
         let screeningBtn = SuitableHotSpaceButton.init(type: .custom)
-        screeningBtn.setImage(UIImage.init(named: "nav_icon_sx"), for: .normal)
+        screeningBtn.setImage(UIImage.init(named: "home_ic_sx"), for: .normal)
         screeningBtn.sizeToFit()
         screeningBtn.addTarget(self, action: #selector(dealScreening), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: screeningBtn)
@@ -82,6 +82,12 @@ class HomePageController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
         if let _ = Defaults[.userToken],let _ = Defaults[.userId]{
             //如果本地没有 性别信息、认证状态信息，则重新请求个人信息
             if let _ = Defaults[.userSex],let _ = Defaults[.userCertificationState]{
@@ -97,7 +103,6 @@ class HomePageController: ViewController {
         }
         if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
             systemMessageNumView.showWith(unreadSystemMsgNum: 99)
-
 //            systemMessageNumView.showWith(unreadSystemMsgNum: NIMSDK.shared().systemNotificationManager.allUnreadCount())
         }
         

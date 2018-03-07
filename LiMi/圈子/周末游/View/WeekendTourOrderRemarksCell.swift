@@ -16,11 +16,17 @@ class WeekendTourOrderRemarksCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
 
+        self.clearBtn.isHidden = true
+        self.remarks.addTarget(self, action: #selector(remarksChanged), for: .editingChanged)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+    }
+    
+    @objc func remarksChanged(){
+        self.clearBtn.isHidden = IsEmpty(textField: remarks)
     }
     
     @IBAction func dealClear(_ sender: Any) {

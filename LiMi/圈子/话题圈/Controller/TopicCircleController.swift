@@ -95,7 +95,6 @@ class TopicCircleController: ViewController {
         let allTopicList = AllTopicList(page: self.pageIndex)
         _ = moyaProvider.rx.request(.targetWith(target: allTopicList)).subscribe(onSuccess: { (response) in
             let topicCircleContainModel = Mapper<TopicCircleContainModel>().map(jsonData: response.data)
-            HandleResultWith(model: topicCircleContainModel)
             if let _topicCircleModels = topicCircleContainModel?.data{
                 for topicCircleModel in _topicCircleModels{
                     self.dataArray.append(topicCircleModel)
@@ -133,7 +132,6 @@ class TopicCircleController: ViewController {
             let unlikeTopic = UnlikeTopic(topic_id: topicCircleModel?.id)
             _ = moyaProvider.rx.request(.targetWith(target: unlikeTopic)).subscribe(onSuccess: { (response) in
                 let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-                HandleResultWith(model: baseModel)
                 if baseModel?.commonInfoModel?.status == successState{
                     let moreOperationModel = MoreOperationModel(action_id: nil, user_id: nil, operationType: .notInteresting, topic_circle_id: topicCircleModel?.id)
                     NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])

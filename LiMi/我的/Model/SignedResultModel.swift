@@ -38,6 +38,7 @@ class SignedResultModel: BaseModel {
         prepayid<-map["data.prepayid"]
         sign<-map["data.sign"]
         timestamp<-map["data.timestamp"]
-        out_trade_no <- map["data.out_trade_no"]
+        out_trade_no <- map["data.out_biz_no"]
+        
     }
 }

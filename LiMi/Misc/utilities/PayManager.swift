@@ -25,7 +25,6 @@ class PayManager:NSObject {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: getRechargeOrderInfo)).subscribe(onSuccess: { (response) in
             let signedResultModel = Mapper<SignedResultModel>().map(jsonData: response.data)
-            HandleResultWith(model: signedResultModel)
             if signedResultModel?.commonInfoModel?.status == successState{
                 self.signedResultModel = signedResultModel
                 self.rechageWith(signedResultModel: signedResultModel, payWay: payWay)
@@ -43,6 +42,7 @@ class PayManager:NSObject {
     ///   - signedResultModel: 下单结果
     ///   - payWay: 支付方式
     func rechageWith(signedResultModel:SignedResultModel?,payWay:PayWay){
+        self.signedResultModel = signedResultModel
         if payWay == .alipay{
             if let code = signedResultModel?.alipay_signed_str{
                 // NOTE: 调用支付结果开始支付

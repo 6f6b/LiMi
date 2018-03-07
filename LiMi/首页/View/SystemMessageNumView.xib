@@ -22,7 +22,7 @@
                         <action selector="dealTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="hsA-5o-eA4"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_xiaoxi" translatesAutoresizingMaskIntoConstraints="NO" id="f5w-8b-6Bs">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_xx" translatesAutoresizingMaskIntoConstraints="NO" id="f5w-8b-6Bs">
                     <rect key="frame" x="177" y="324" width="20" height="19"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-aA-UDN">
@@ -55,6 +55,6 @@
         </view>
     </objects>
     <resources>
-        <image name="home_ic_xiaoxi" width="20" height="19"/>
+        <image name="home_ic_xx" width="20" height="19"/>
     </resources>
 </document>

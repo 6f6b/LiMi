@@ -23,8 +23,6 @@ class MyTrendListController: ViewController {
         self.title = "我的动态"
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
         
         self.tableView.estimatedRowHeight = 100
         registerTrendsCellFor(tableView: self.tableView)
@@ -57,7 +55,6 @@ class MyTrendListController: ViewController {
         let myTrendList = MyTrends(page: self.pageIndex)
         _ = moyaProvider.rx.request(.targetWith(target: myTrendList)).subscribe(onSuccess: { (response) in
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
-            HandleResultWith(model: trendsListModel)
             if let trends = trendsListModel?.trends{
                 for trend in trends{
                     self.dataArray.append(trend)
@@ -67,10 +64,18 @@ class MyTrendListController: ViewController {
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(model: trendsListModel)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         })
     }
     
@@ -114,7 +119,6 @@ class MyTrendListController: ViewController {
         let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
                 if baseModel?.commonInfoModel?.status == successState{
                     var moreOperationModel = MoreOperationModel()

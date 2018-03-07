@@ -65,7 +65,6 @@ class CreateTopicCircleController: ViewController {
         let addTopic = AddTopic(title: self.topicTitle.text, content: self.summary.text)
         _ = moyaProvider.rx.request(.targetWith(target: addTopic)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 NotificationCenter.default.post(name: ADD_TOPIC_CIRCLE_SUCCESS_NOTIFICATION, object: nil, userInfo: nil)
                 //延时1秒执行

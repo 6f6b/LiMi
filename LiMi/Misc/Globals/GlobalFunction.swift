@@ -305,7 +305,6 @@ func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)
     let getQNUploadToken = GetQNUploadToken(type: tokenType, id: id, token: token)
     _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
         let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
-        HandleResultWith(model: qnUploadTokenModel)
         SVProgressHUD.showErrorWith(model: qnUploadTokenModel)
         if let _onSuccess = onSuccess{
             _onSuccess(qnUploadTokenModel)

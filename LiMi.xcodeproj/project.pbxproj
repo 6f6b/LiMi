@@ -686,6 +686,9 @@
 		689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA372008B728007FAE9C /* AcademyContainerModel.swift */; };
 		689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */; };
 		689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */; };
+		68B3F33C204FB92D0004C3D9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33B204FB92D0004C3D9 /* Toast.swift */; };
+		68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33F204FBCD20004C3D9 /* ToastView.swift */; };
+		68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */; };
 		68C5F28E203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */; };
 		68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */; };
 		68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */; };
@@ -2083,6 +2086,9 @@
 		689DFA372008B728007FAE9C /* AcademyContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademyContainerModel.swift; sourceTree = "<group>"; };
 		689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGradeController.swift; sourceTree = "<group>"; };
 		689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeContainerModel.swift; sourceTree = "<group>"; };
+		68B3F33B204FB92D0004C3D9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		68B3F33F204FBCD20004C3D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
 		68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCell.swift; sourceTree = "<group>"; };
 		68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackQuestionCategoryCollectionCell.xib; sourceTree = "<group>"; };
@@ -4634,6 +4640,7 @@
 				689D538A20280595009C771C /* NSString+MD5.m */,
 				6801D941202C470900C106E1 /* XLPhotoBrowser+Extension.h */,
 				6801D942202C470900C106E1 /* XLPhotoBrowser+Extension.m */,
+				68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4650,6 +4657,7 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				68B3F33A204FB9120004C3D9 /* Toast */,
 				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,
 				681C96032047E0FD009CDE3B /* ICarouse */,
@@ -5050,6 +5058,15 @@
 			name = "网络请求相关";
 			path = "LiMi/Misc/网络请求相关";
 			sourceTree = SOURCE_ROOT;
+		};
+		68B3F33A204FB9120004C3D9 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				68B3F33B204FB92D0004C3D9 /* Toast.swift */,
+				68B3F33F204FBCD20004C3D9 /* ToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
 		};
 		DABACF67EF964D554735F2B2 /* Pods */ = {
 			isa = PBXGroup;
@@ -5484,6 +5501,7 @@
 				6801E047202C6EA900C106E1 /* NTESSystemNotificationViewController.m in Sources */,
 				68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */,
 				6801DFD0202C6EA800C106E1 /* NIMCreateTeamAnnouncement.m in Sources */,
+				68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */,
 				6801E0B4202C6EA900C106E1 /* NTESSubscribeManager.m in Sources */,
 				68D583E7204D4125002CE864 /* CommentsMsgListController.swift in Sources */,
 				6801DF9E202C6EA800C106E1 /* NIMKitInfoFetchOption.m in Sources */,
@@ -5686,6 +5704,7 @@
 				6801DF84202C6EA800C106E1 /* NIMKitTitleView.m in Sources */,
 				6801DF88202C6EA800C106E1 /* NIMContactDataCell.m in Sources */,
 				6862E5292019BC130058B878 /* STEmoji.m in Sources */,
+				68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */,
 				6801DFE2202C6EA800C106E1 /* NIMKitRobotDefaultTemplateParser.m in Sources */,
 				6801E096202C6EA900C106E1 /* NTESMutiClientsHeaderView.m in Sources */,
 				6801DFC4202C6EA800C106E1 /* NIMSessionUnknowContentView.m in Sources */,
@@ -5861,6 +5880,7 @@
 				6801DF9A202C6EA800C106E1 /* NIMInputToolBar.m in Sources */,
 				68880882200DF19300BC6AE9 /* NavigationController.swift in Sources */,
 				6801E043202C6EA900C106E1 /* NTESCustomSysNotificationViewController.m in Sources */,
+				68B3F33C204FB92D0004C3D9 /* Toast.swift in Sources */,
 				6801E089202C6EA900C106E1 /* renderer_yuv444p10le.c in Sources */,
 				6801E04D202C6EA900C106E1 /* NTESRedPacketTipAttachment.m in Sources */,
 				6801DFD2202C6EA800C106E1 /* NIMTeamAnnouncementListViewController.m in Sources */,

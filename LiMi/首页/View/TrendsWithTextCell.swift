@@ -28,9 +28,9 @@ class TrendsWithTextCell: TrendsCell {
     
         self.contentText.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView)
+            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
             make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView)
+            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
         }
     }
     

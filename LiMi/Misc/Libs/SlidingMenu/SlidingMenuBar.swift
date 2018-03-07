@@ -33,17 +33,23 @@ class SlidingMenuBar: UIView {
         
         self.rightTop2.layer.cornerRadius = 7
         self.rightTop2.clipsToBounds = true
+        
+        self.lineFirst.backgroundColor = APP_THEME_COLOR
+        self.lineSecond.backgroundColor = APP_THEME_COLOR
     }
     
     func select(index:Int){
         lineFirst.isHidden = index == 0 ? false:true
         lineSecond.isHidden = index == 1 ? false:true
+        let btnFirstTitleColor = index == 0 ? APP_THEME_COLOR :RGBA(r: 51, g: 51, b: 51, a: 1)
+        let btnSecondTitleColor = index == 1 ? APP_THEME_COLOR  : RGBA(r: 51, g: 51, b: 51, a: 1)
+        self.btnFirst.setTitleColor(btnFirstTitleColor, for: .normal)
+        self.btnSecond.setTitleColor(btnSecondTitleColor, for: .normal)
     }
     
     @IBAction func dealTapMenu(_ sender: Any) {
         let btn = sender as! UIButton
-        lineFirst.isHidden = btn.tag == 0 ? false:true
-        lineSecond.isHidden = btn.tag == 1 ? false:true
+        self.select(index: btn.tag)
         if let _tapBlock = self.tapBlock{
             _tapBlock(btn.tag)
         }

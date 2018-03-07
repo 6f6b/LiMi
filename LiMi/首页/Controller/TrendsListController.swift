@@ -37,8 +37,6 @@ class TrendsListController: ViewController{
         self.title = "我的动态"
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetSource = self
         self.tableView.estimatedRowHeight = 100
         registerTrendsCellFor(tableView: self.tableView)
         
@@ -58,8 +56,15 @@ class TrendsListController: ViewController{
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
+        
         if self.dataArray.count == 0{
-            self.tableView.mj_header.beginRefreshing()
+            self.loadData()
         }
     }
     
@@ -81,7 +86,6 @@ class TrendsListController: ViewController{
         let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: trendsList)).subscribe(onSuccess: { (response) in
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
-            HandleResultWith(model: trendsListModel)
             if let trends = trendsListModel?.trends{
                 for trend in trends{
                     self.dataArray.append(trend)
@@ -91,10 +95,18 @@ class TrendsListController: ViewController{
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(model: trendsListModel)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            if self.tableView.emptyDataSetDelegate == nil{
+                self.tableView.emptyDataSetDelegate = self
+                self.tableView.emptyDataSetSource = self
+            }
         })
     }
     
@@ -118,7 +130,6 @@ class TrendsListController: ViewController{
         let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
                 var moreOperationModel = MoreOperationModel()
                 moreOperationModel.operationType = operationType

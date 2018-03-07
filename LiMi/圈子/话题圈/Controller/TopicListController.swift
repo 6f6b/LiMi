@@ -75,7 +75,6 @@ class TopicListController: ViewController {
             if nil == self.topicsContainModel{
                 self.topicsContainModel = topicsContainModel
             }
-            HandleResultWith(model: topicsContainModel)
             if let trendModels = topicsContainModel?.actionList{
                 for trendModel in trendModels{
                     self.dataArray.append(trendModel)
@@ -112,7 +111,6 @@ class TopicListController: ViewController {
         let multiFunction = MultiFunction(type: type, topic_action_id: trendModel?.action_id,user_id:trendModel?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: multiFunction)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            HandleResultWith(model: baseModel)
             if baseModel?.commonInfoModel?.status == successState{
                 var moreOperationModel = MoreOperationModel()
                 moreOperationModel.operationType = operationType
