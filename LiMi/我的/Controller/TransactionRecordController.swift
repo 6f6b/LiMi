@@ -26,14 +26,19 @@ class TransactionRecordController: ViewController {
         self.tableView.register(UINib.init(nibName: "TransactionRecordCell", bundle: nil), forCellReuseIdentifier: "TransactionRecordCell")
         
         self.loadData()
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
+    }
+
+    deinit {
+        print("交易记录销毁")
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,18 +60,20 @@ class TransactionRecordController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: transactionListModel)
+            Toast.showErrorWith(model: transactionListModel)
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
+                 if self.dataArray.count == 0{self.tableView.reloadData()}
             }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
+                 if self.dataArray.count == 0{self.tableView.reloadData()}
             }
         })
     }

@@ -25,20 +25,21 @@ class MyOrderListController: ViewController {
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
         }
-        
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 100
         self.tableView.register(UINib.init(nibName: "MyTourOrderCell", bundle: nil), forCellReuseIdentifier: "MyTourOrderCell")
-        
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
         
         self.loadData()
     }
@@ -51,6 +52,10 @@ class MyOrderListController: ViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
+    deinit {
+        print("我的订单列表销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -70,18 +75,20 @@ class MyOrderListController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: weekendTourOrderContainModel)
+            Toast.showErrorWith(model: weekendTourOrderContainModel)
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
+                if self.dataArray.count == 0{self.tableView.reloadData()}
             }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
+                 if self.dataArray.count == 0{self.tableView.reloadData()}
             }
         })
     }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WeekendTourOrderStatusView" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-Rf-TGi">
+                    <rect key="frame" x="40" y="219" width="295" height="229"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6A-la-lQL">
+                            <rect key="frame" x="15" y="15" width="12" height="22"/>
+                            <state key="normal" image="fb_btn_close1"/>
+                            <connections>
+                                <action selector="dealClose:" destination="iN0-l3-epB" eventType="touchUpInside" id="OeZ-nn-6Gp"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tc_ic_dd" translatesAutoresizingMaskIntoConstraints="NO" id="pv7-tH-Btj">
+                            <rect key="frame" x="122.5" y="50" width="50" height="63"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已经支付" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVE-Cl-NzS">
+                            <rect key="frame" x="29" y="143" width="236" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已经支付" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8us-Mg-YBV" customClass="YYLabel" customModule="LiMi" customModuleProvider="target">
+                            <rect key="frame" x="30" y="178.5" width="234" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="8us-Mg-YBV" firstAttribute="leading" secondItem="Qi6-Rf-TGi" secondAttribute="leading" constant="30" id="0rq-eR-r3d"/>
+                        <constraint firstItem="8us-Mg-YBV" firstAttribute="top" secondItem="PVE-Cl-NzS" secondAttribute="bottom" constant="15" id="6UC-8A-AwD"/>
+                        <constraint firstItem="PVE-Cl-NzS" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="6VT-GE-NJx"/>
+                        <constraint firstAttribute="trailing" secondItem="PVE-Cl-NzS" secondAttribute="trailing" constant="30" id="CHZ-GY-LKf"/>
+                        <constraint firstAttribute="width" constant="295" id="MRr-ER-P7V"/>
+                        <constraint firstItem="8us-Mg-YBV" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="Mcg-pu-Syf"/>
+                        <constraint firstItem="pv7-tH-Btj" firstAttribute="top" secondItem="Qi6-Rf-TGi" secondAttribute="top" constant="50" id="RHd-wF-get"/>
+                        <constraint firstItem="Q6A-la-lQL" firstAttribute="top" secondItem="Qi6-Rf-TGi" secondAttribute="top" constant="15" id="Ste-Yb-FMP"/>
+                        <constraint firstAttribute="bottom" secondItem="8us-Mg-YBV" secondAttribute="bottom" constant="30" id="V8q-Vn-NKY"/>
+                        <constraint firstItem="PVE-Cl-NzS" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="ZaC-C3-5jW"/>
+                        <constraint firstItem="Q6A-la-lQL" firstAttribute="leading" secondItem="Qi6-Rf-TGi" secondAttribute="leading" constant="15" id="ekB-aY-slR"/>
+                        <constraint firstItem="PVE-Cl-NzS" firstAttribute="top" secondItem="pv7-tH-Btj" secondAttribute="bottom" constant="30" id="gtz-68-moW"/>
+                        <constraint firstItem="pv7-tH-Btj" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="vQF-El-nYv"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Qi6-Rf-TGi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="20L-4S-IMP"/>
+                <constraint firstItem="Qi6-Rf-TGi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="p4i-Ms-04E"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="containView" destination="Qi6-Rf-TGi" id="Xhw-nZ-1hM"/>
+                <outlet property="infoLabel" destination="PVE-Cl-NzS" id="IzB-cQ-lTk"/>
+                <outlet property="phoneLabel" destination="8us-Mg-YBV" id="ldg-i2-q6W"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="fb_btn_close1" width="12" height="12"/>
+        <image name="tc_ic_dd" width="50" height="63"/>
+    </resources>
+</document>

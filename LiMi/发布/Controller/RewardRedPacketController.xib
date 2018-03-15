@@ -208,7 +208,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWU-Z3-4Nv">
-                                    <rect key="frame" x="29" y="568" width="317" height="50"/>
+                                    <rect key="frame" x="29" y="577.5" width="317" height="50"/>
                                     <color key="backgroundColor" red="0.90588235294117647" green="0.25490196078431371" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="00O-C9-SaS"/>
@@ -221,7 +221,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未领取的红包将在24小时后自动返回" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3f-20-yHu">
-                                    <rect key="frame" x="88" y="647.5" width="199" height="14.5"/>
+                                    <rect key="frame" x="88" y="642.5" width="199" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -231,11 +231,11 @@
                             <constraints>
                                 <constraint firstItem="tdI-Mn-vY3" firstAttribute="top" secondItem="XAe-Ga-r3Q" secondAttribute="top" constant="15" id="A4e-hR-C9n"/>
                                 <constraint firstItem="tdI-Mn-vY3" firstAttribute="leading" secondItem="XAe-Ga-r3Q" secondAttribute="leading" constant="15" id="APD-xu-paq"/>
+                                <constraint firstItem="q3f-20-yHu" firstAttribute="top" secondItem="pWU-Z3-4Nv" secondAttribute="bottom" constant="15" id="FmV-YT-EH1"/>
                                 <constraint firstAttribute="height" constant="667" id="MUt-lm-Z4y"/>
                                 <constraint firstItem="pWU-Z3-4Nv" firstAttribute="centerX" secondItem="XAe-Ga-r3Q" secondAttribute="centerX" id="U0F-Oc-Hax"/>
                                 <constraint firstItem="pWU-Z3-4Nv" firstAttribute="width" secondItem="tdI-Mn-vY3" secondAttribute="width" multiplier="345:375" id="c7R-V2-gOM"/>
-                                <constraint firstAttribute="bottom" secondItem="q3f-20-yHu" secondAttribute="bottom" constant="5" id="dZs-Pb-Rdt"/>
-                                <constraint firstAttribute="bottom" secondItem="pWU-Z3-4Nv" secondAttribute="bottom" constant="49" id="daN-6L-CdQ"/>
+                                <constraint firstAttribute="bottom" secondItem="q3f-20-yHu" secondAttribute="bottom" constant="10" id="dZs-Pb-Rdt"/>
                                 <constraint firstItem="q3f-20-yHu" firstAttribute="centerX" secondItem="pWU-Z3-4Nv" secondAttribute="centerX" id="g4l-IQ-8TF"/>
                                 <constraint firstAttribute="trailing" secondItem="tdI-Mn-vY3" secondAttribute="trailing" constant="15" id="tmc-K1-pJ3"/>
                             </constraints>

@@ -18,6 +18,10 @@ class AboutUsController: ViewController {
         self.versionNum.text = APP_VERSION
     }
 
+    deinit {
+        print("关于粒米销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

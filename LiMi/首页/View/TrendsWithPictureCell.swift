@@ -16,7 +16,7 @@ class TrendsWithPictureCell: TrendsWithTextAndPictrueCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: nil)
-        self.contentText.snp.makeConstraints { (make) in
+        self.contentText.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
             make.left.equalTo(self.trendsContentContainView)
             //make.bottom.equalTo(self.trendsContentContainView)
@@ -27,6 +27,10 @@ class TrendsWithPictureCell: TrendsWithTextAndPictrueCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("TrendsWithPictureCell销毁")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

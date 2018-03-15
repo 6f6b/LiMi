@@ -79,6 +79,7 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     trendsCell.cellStyle = trendsCellStyle
     trendsCell.configWith(model: model)
     //相关block在对应controller中实现
+    print("classNmae:\(object_getClass(trendsCell))---classSize:\(class_getInstanceSize(object_getClass(trendsCell)))")
     return trendsCell
 }
 

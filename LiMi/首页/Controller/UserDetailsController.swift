@@ -14,6 +14,7 @@ import ObjectMapper
 
 class UserDetailsController: ViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var liaoBtn: UIButton!
     var userDetailHeadView:UserDetailHeadView?
     var userDetailSelectTrendsTypeCell:UserDetailSelectTrendsTypeCell?
     var userInfoModel:UserInfoModel?
@@ -24,19 +25,7 @@ class UserDetailsController: ViewController {
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
     var emptyInfo = "太低调了，还没有发需求"
-    
-//    init() {
-//        super.init(nibName: "UserDetailsController", bundle: nil)
-//    }
-//
-//    init(userId:Int?) {
-//        super.init(nibName: "UserDetailsController", bundle: nil)
-//        self.userId = userId
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +43,11 @@ class UserDetailsController: ViewController {
         registerTrendsCellFor(tableView: self.tableView)
         self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
         
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             if self.type == "skill"{self.skillPage += 1}
             if self.type == "action"{self.actionPage += 1}
             self.loadData()
-        })
+        }
         
         if self.userId != Defaults[.userId]{
             let moreBtn = UIButton.init(type: .custom)
@@ -82,6 +71,7 @@ class UserDetailsController: ViewController {
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
         }
+        if self.userId == Defaults[.userId]{self.liaoBtn.isHidden = true}
     }
 
     
@@ -89,6 +79,10 @@ class UserDetailsController: ViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.barStyle = .default
+    }
+    
+    deinit {
+        print("详情界面销毁")
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,6 +97,7 @@ class UserDetailsController: ViewController {
     ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
     ///   - trendModel: 动态模型
     func dealMoreOperationWith(operationType:OperationType){
+        if !AppManager.shared.checkUserStatus(){return}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         var type:String? = nil
         if operationType == .defriend{type = "black"}
@@ -117,9 +112,9 @@ class UserDetailsController: ViewController {
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            SVProgressHUD.showResultWith(model: baseModel)
+            Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -167,10 +162,10 @@ class UserDetailsController: ViewController {
             self.userInfoModel = userDetailModel?.user
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
-            SVProgressHUD.showErrorWith(model: userDetailModel)
+            Toast.showErrorWith(model: userDetailModel)
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -181,6 +176,7 @@ class UserDetailsController: ViewController {
 //        [nav pushViewController:vc animated:YES];
 //        UIViewController *root = nav.viewControllers[0];
 //        nav.viewControllers = @[root,vc];
+        if !AppManager.shared.checkUserStatus(){return}
         //判断登录状态
         let appState = AppManager.shared.appState()
         if appState == .imOnlineBusinessOnline{
@@ -194,11 +190,13 @@ class UserDetailsController: ViewController {
         if appState == .imOfflineBusinessOnline{
             //判断是否认证
             if Defaults[.userCertificationState] == 0{
-                SVProgressHUD.showInfo(withStatus: "还未认证")
+                
+                
+                Toast.showInfoWith(text: "还未认证")
                 return
             }
             if Defaults[.userCertificationState] == 1{
-                SVProgressHUD.showInfo(withStatus: "认证中")
+                Toast.showInfoWith(text: "认证中")
                 return
             }
             if Defaults[.userCertificationState] == 2{
@@ -206,11 +204,11 @@ class UserDetailsController: ViewController {
                 return
             }
             if Defaults[.userCertificationState] == 3{
-                SVProgressHUD.showInfo(withStatus: "认证失败")
+                Toast.showInfoWith(text: "认证失败")
                 return
             }
             if Defaults[.userCertificationState] == nil{
-                SVProgressHUD.showInfo(withStatus: "可能发生异步错误")
+                Toast.showInfoWith(text: "可能发生异步错误")
                 return
             }
         }
@@ -260,7 +258,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
             if let _ = self.userDetailSelectTrendsTypeCell{}else{
                 self.userDetailSelectTrendsTypeCell = GET_XIB_VIEW(nibName: "UserDetailSelectTrendsTypeCell") as? UserDetailSelectTrendsTypeCell
-                self.userDetailSelectTrendsTypeCell?.selectTrendsBlock = {(index) in
+                self.userDetailSelectTrendsTypeCell?.selectTrendsBlock = {[unowned self] (index) in
                     if 0 == index{
                         self.type = "action"
                         self.emptyInfo = "太低调了，还没发动态"
@@ -286,13 +284,13 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 let model = dataArray[indexPath.row]
                 let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
                 //评论
-                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
                     let commentsWithTrendController = CommentsWithTrendController()
                     commentsWithTrendController.trendModel = model
                     self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
                 }
                 //抢红包
-                trendsCell.catchRedPacketBlock = {
+                trendsCell.catchRedPacketBlock = {[unowned self] in
                     let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
                     catchRedPacketView.showWith(trendModel: model)
                 }

@@ -14,6 +14,8 @@ class ReleaseContentImgCollectionCell: UICollectionViewCell {
     var deleteBlock:(()->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.imgV.layer.cornerRadius = 5
+        self.imgV.clipsToBounds = true
     }
 
     func configWith(mediaModel:LocalMediaModel?){

@@ -29,10 +29,10 @@ class PayManager:NSObject {
                 self.signedResultModel = signedResultModel
                 self.rechageWith(signedResultModel: signedResultModel, payWay: payWay)
             }else{
-                SVProgressHUD.showErrorWith(model: signedResultModel)
+                Toast.showErrorWith(model: signedResultModel)
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -61,7 +61,7 @@ class PayManager:NSObject {
             if let _timeStamp = signedResultModel?.timestamp{
                 request.timeStamp = _timeStamp
             }else{
-                SVProgressHUD.showErrorWith(msg: "下单失败")
+                Toast.showErrorWith(msg: "下单失败")
                 return
             }
             request.sign = signedResultModel?.sign

@@ -31,14 +31,15 @@ class WeekendTourController: ViewController {
         self.tableView.register(UINib.init(nibName: "WeekendBannerCell", bundle: nil), forCellReuseIdentifier: "WeekendBannerCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourSeparateCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSeparateCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourSubjectCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSubjectCell")
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
         
         loadData()
     }
@@ -56,6 +57,10 @@ class WeekendTourController: ViewController {
         super.viewWillDisappear(animated)
     }
     
+    deinit {
+        print("周末游界面销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -75,11 +80,11 @@ class WeekendTourController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: weekendTourListContainModel)
+            Toast.showErrorWith(model: weekendTourListContainModel)
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }

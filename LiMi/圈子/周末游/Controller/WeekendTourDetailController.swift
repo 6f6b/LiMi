@@ -53,6 +53,10 @@ class WeekendTourDetailController: ViewController {
 //        self.navigationController?.navigationBar.barStyle = .default
 //    }
     
+    deinit {
+        print("周末游详情销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -60,6 +64,8 @@ class WeekendTourDetailController: ViewController {
     //Mark: - misc
     //跳转到订单生成页面
     @IBAction func dealToPreOrderController(_ sender: Any) {
+        if !AppManager.shared.checkUserStatus(){return}
+
         let weekendTourOrderDetailController = WeekendTourOrderDetailController()
         weekendTourOrderDetailController.weekendTourId = self.weekendId
         self.navigationController?.pushViewController(weekendTourOrderDetailController, animated: true)
@@ -74,9 +80,9 @@ class WeekendTourDetailController: ViewController {
             let weekendTourDetailModel = Mapper<WeekendTourDetailModel>().map(jsonData: response.data)
             self.weekendTourDetailModel = weekendTourDetailModel
             self.tableView.reloadData()
-            SVProgressHUD.showErrorWith(model: weekendTourDetailModel)
+            Toast.showErrorWith(model: weekendTourDetailModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }

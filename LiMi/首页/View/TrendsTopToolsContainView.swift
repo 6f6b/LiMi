@@ -17,7 +17,7 @@ class TrendsTopToolsContainView: UIView {
     var releaseTime:UILabel!    //发布时间
     
     var tapHeadBtnBlock:(()->Void)?
-    var tapMoreOperationBtnBlock:(()->Void)?
+    var tapMoreOperationBtnBlock:((UIView?)->Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,8 +29,9 @@ class TrendsTopToolsContainView: UIView {
         self.headImgBtn.setImage(UIImage.init(named: "touxiang1"), for: .normal)
         self.headImgBtn.addTarget(self, action: #selector(dealTapHeadBtn), for: .touchUpInside)
         self.headImgBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(9)
-            make.left.equalTo(self).offset(12)
+            make.top.equalTo(self).offset(15)
+            make.left.equalTo(self).offset(15)
+            make.bottom.equalTo(self).offset(-15)
             make.height.equalTo(40)
             make.width.equalTo(40)
         }
@@ -39,7 +40,7 @@ class TrendsTopToolsContainView: UIView {
         self.userName.textColor = APP_THEME_COLOR
         self.addSubview(self.userName)
         self.userName.font = UIFont.boldSystemFont(ofSize: 14)
-        self.userName.text = "张学友"
+        self.userName.text = "--"
         self.userName.snp.makeConstraints { (make) in
             make.top.equalTo(self.headImgBtn)
             make.left.equalTo(self.headImgBtn.snp.right).offset(10)
@@ -105,10 +106,11 @@ class TrendsTopToolsContainView: UIView {
         self.userName.text = model?.true_name
         //性别
         if cellStyle == .inMyTrendList{self.sexImg.isHidden = true}
+        if cellStyle == .inPersonCenter{self.sexImg.isHidden = true}
         if model?.sex == "男"{
-            self.sexImg.image = UIImage.init(named: "boy")
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }else{
-            self.sexImg.image = UIImage.init(named: "girl")
+            self.sexImg.image = UIImage.init(named: "ic_girl")
         }
         //个人资料
         if cellStyle == .inMyTrendList{
@@ -152,7 +154,7 @@ class TrendsTopToolsContainView: UIView {
             self.userInfo.text = "基于“\(_trueName)”推荐"
         }else{
             self.userInfo.text = "官方推荐"
-            self.headImgBtn.setImage(UIImage.init(named: "AppIcon"), for: .normal)
+            self.headImgBtn.setImage(UIImage.init(named: "ic_touxiang"), for: .normal)
         }
 
         //发布时间
@@ -166,9 +168,9 @@ class TrendsTopToolsContainView: UIView {
         }
         self.userName.text = commentModel?.true_name
         if commentModel?.sex == "男"{
-            self.sexImg.image = UIImage.init(named: "boy")
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }else{
-            self.sexImg.image = UIImage.init(named: "girl")
+            self.sexImg.image = UIImage.init(named: "ic_girl")
         }
         if let _college = commentModel?.college,let _academy = commentModel?.school{
             self.userInfo.text = "\(_college)|\(_academy)"
@@ -185,7 +187,7 @@ class TrendsTopToolsContainView: UIView {
     
     @objc func dealTapMoreOperationBtn(){
         if let _tapMoreOperationBtnBlock = self.tapMoreOperationBtnBlock{
-            _tapMoreOperationBtnBlock()
+            _tapMoreOperationBtnBlock(self.moreOperationBtn)
         }
     }
 }

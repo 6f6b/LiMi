@@ -43,6 +43,10 @@ class LoginController: ViewController {
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
+    deinit {
+        print("登录销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -57,7 +61,7 @@ class LoginController: ViewController {
     //取消登录
     @IBAction func dealCancelLogin(_ sender: Any) {
         LoginServiceToMainController(loginRootController: self.navigationController)
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func showErrorMsgOnLabelWith(msg:String?){
@@ -78,10 +82,10 @@ class LoginController: ViewController {
         //检测验证码
         if IsEmpty(textField: self.veritificationCode){
             self.showErrorMsgOnLabelWith(msg: "请输入验证码")
-            //SVProgressHUD.showInfo(withStatus: "请输入正确验证码")
+            //Toast.showInfoWith(text:"请输入正确验证码")
             return
         }
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let login = Login(phone: self.phoneNum.text, code: self.veritificationCode.text)
         _ = moyaProvider.rx.request(.targetWith(target: login)).subscribe(onSuccess: { (response) in
@@ -108,8 +112,6 @@ class LoginController: ViewController {
                     if loginModel?.user_info_status == 2{
                         //进入主界面
                         LoginServiceToMainController(loginRootController: self.navigationController)
-                        //获取IM token 并登陆IM
-                        self.dealIMLogin()
                     }
                 }
 //            }
@@ -122,11 +124,11 @@ class LoginController: ViewController {
             if loginModel?.commonInfoModel?.status != successState{
                 self.showErrorMsgOnLabelWith(msg: loginModel?.commonInfoModel?.msg)
             }
-            SVProgressHUD.dismiss()
+            Toast.dismiss()
         }, onError: { (error) in
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
-            SVProgressHUD.dismiss()
-            //SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.dismiss()
+            //Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -141,29 +143,13 @@ class LoginController: ViewController {
         let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
-                SVProgressHUD.showSuccess(withStatus: authCodeModel.code)
+                Toast.showSuccessWith(msg: authCodeModel.commonInfoModel?.msg)
             }
         }, onError: { (error) in
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
-            SVProgressHUD.dismiss()
-            //SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.dismiss()
+            //Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
-    
-    func dealIMLogin(){
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let getImToken = GetIMToken()
-        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
-            let imModel = Mapper<IMModel>().map(jsonData: response.data)
-            if let _accid = imModel?.accid?.stringValue(),let _token = imModel?.token{
-                NIMSDK.shared().loginManager.login(_accid, token: _token, completion: { (error) in
-                    if let _error = error{
-                        SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
-                    }
-                })
-            }
-        }, onError: { (error) in
-            self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
-        })
-    }
+
 }

@@ -52,7 +52,7 @@ class CommentModel: BaseModel {
         school<-map["school"]
         sex<-map["sex"]
         true_name<-map["true_name"]
-        user_id<-map["true_name"]
+        user_id<-map["user_id"]
         user_info_status<-map["user_info_status"]
 
     }

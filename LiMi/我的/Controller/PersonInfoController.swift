@@ -38,6 +38,10 @@ class PersonInfoController: UITableViewController {
         self.requestData()
     }
 
+    deinit {
+        print("个人信息销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -50,9 +54,9 @@ class PersonInfoController: UITableViewController {
             let userInfoListModel = Mapper<UserInfoListModel>().map(jsonData: response.data)
             self.model = userInfoListModel
             self.refreshUIWith(model: self.model)
-            SVProgressHUD.showErrorWith(model: userInfoListModel)
+            Toast.showErrorWith(model: userInfoListModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -72,13 +76,13 @@ class PersonInfoController: UITableViewController {
         self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
         self.imagePickerVc?.allowCrop = true
         self.imagePickerVc?.autoDismiss = false
-        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
         }
         var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
-        self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+        self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
             let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
             self.uploadHeadImgWith(img: compressImg)
         }
@@ -92,7 +96,7 @@ class PersonInfoController: UITableViewController {
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
                     //开始上传服务器
-                    SVProgressHUD.show(withStatus: "正在上传..")
+                    Toast.showStatusWith(text: "正在上传..")
                     let moyaProvider = MoyaProvider<LiMiAPI>()
                     let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+str!, type: "head")
                     _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
@@ -101,12 +105,12 @@ class PersonInfoController: UITableViewController {
                             if model.commonInfoModel?.status == successState{
                                 self.headImg.image = img
                             }
-                            SVProgressHUD.showResultWith(model: model)
+                            Toast.showResultWith(model: model)
                         }
-                        catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+                        catch{Toast.showErrorWith(msg: error.localizedDescription)}
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                     }, onError: { (error) in
-                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                        Toast.showErrorWith(msg: error.localizedDescription)
                     })
                     
                 }, option: nil)
@@ -118,7 +122,7 @@ class PersonInfoController: UITableViewController {
     func dealToAlterUserName(){
         let alterUserNameController = AlterUserNameController()
         alterUserNameController.initialUserName = self.model?.userInfo?.true_name
-        alterUserNameController.alterUserNameBlock = {(name) in
+        alterUserNameController.alterUserNameBlock = {[unowned self] (name) in
             self.userName.text = name
         }
         self.navigationController?.pushViewController(alterUserNameController, animated: true)
@@ -130,7 +134,7 @@ class PersonInfoController: UITableViewController {
             if sex == self.model?.userInfo?.sex{return}
             var sexParameter = "1"
             if sex == "女"{sexParameter = "0"}
-            SVProgressHUD.show(withStatus: nil)
+            Toast.showStatusWith(text: nil)
             let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
             let editUsrInfo = EditUsrInfo(field: "sex", value: sexParameter)
             _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
@@ -139,9 +143,9 @@ class PersonInfoController: UITableViewController {
                     self.sex.text = sex
                     self.model?.userInfo?.sex = sex
                 }
-                SVProgressHUD.showResultWith(model: resultModel)
+                Toast.showResultWith(model: resultModel)
             }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
         dataPickerView?.toShow()

@@ -27,7 +27,7 @@
         
         _messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _messageLabel.backgroundColor = [UIColor whiteColor];
-        _messageLabel.font            = [UIFont systemFontOfSize:14.f];
+        _messageLabel.font            = [UIFont systemFontOfSize:15.f];
         _messageLabel.textColor       = [UIColor lightGrayColor];
         [self addSubview:_messageLabel];
         

@@ -10,10 +10,25 @@ import Foundation
 
 extension UITabBar{
     func showBadgeOnItemAt(index:Int){
-        let tapFrame = self.frame
-        let badgeX = CGFloat(index+1)/CGFloat(5) + CGFloat(10)
+        var badgeX = CGFloat(0)
+        if index == 0{
+            badgeX = 1/15.0*SCREEN_WIDTH
+        }
+        if index == 1{
+            badgeX = 4/15.0*SCREEN_WIDTH
+        }
+        if index == 2{
+            badgeX = 7/15.0*SCREEN_WIDTH
+        }
+        if index == 3{
+            badgeX = 10/15.0*SCREEN_WIDTH
+        }
+        if index == 4{
+            badgeX = 13/15.0*SCREEN_WIDTH
+        }
+        badgeX = badgeX + SCREEN_WIDTH/15.0
         let badgeY = 10.0
-        let badgeWidth = 3.0
+        let badgeWidth = 8.0
         let badgeHeight = badgeWidth
         let bageFrame = CGRect.init(x: Double(badgeX), y: badgeY, width: badgeWidth, height: badgeHeight)
         let badgeView = UIView.init(frame: bageFrame)

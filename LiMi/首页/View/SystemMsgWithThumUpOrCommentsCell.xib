@@ -26,8 +26,8 @@
                             <constraint firstAttribute="height" constant="40" id="ZYw-K5-hZb"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张学友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkS-1L-dD0">
-                        <rect key="frame" x="65" y="15" width="43" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkS-1L-dD0">
+                        <rect key="frame" x="65" y="15" width="13" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -39,11 +39,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xb_ic_boy" translatesAutoresizingMaskIntoConstraints="NO" id="Urb-UB-Xft">
-                        <rect key="frame" x="114" y="17.5" width="15" height="12"/>
+                        <rect key="frame" x="84" y="17.5" width="15" height="12"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjP-jq-6Kz">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjP-jq-6Kz">
                         <rect key="frame" x="65" y="70" width="347" height="20.5"/>
-                        <mutableString key="text">为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk</mutableString>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,9 +50,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulJ-1G-q0m">
                         <rect key="frame" x="412" y="15" width="70" height="70"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gji-Zf-5al">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gji-Zf-5al">
                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                <string key="text">为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk为你点赞hfjkdhsfjkkkkkkkkkkkkkkkkkkkkkkkkk</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -62,7 +60,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="F64-ML-j8B" secondAttribute="trailing" id="2iO-S0-Bk4"/>
                             <constraint firstAttribute="trailing" secondItem="Gji-Zf-5al" secondAttribute="trailing" id="3eL-yt-GUQ"/>
@@ -106,6 +103,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="contentText" destination="kjP-jq-6Kz" id="HEK-eL-XCW"/>
+                <outlet property="headImage" destination="dnQ-6D-zkl" id="7VE-kd-zbJ"/>
+                <outlet property="sexImg" destination="Urb-UB-Xft" id="BPO-vJ-Egi"/>
+                <outlet property="time" destination="2YH-Wb-26f" id="40r-mx-RTx"/>
+                <outlet property="trendsContentText" destination="Gji-Zf-5al" id="ytx-Gf-34m"/>
+                <outlet property="trendsImg" destination="F64-ML-j8B" id="CSX-ys-aBU"/>
+                <outlet property="userName" destination="bkS-1L-dD0" id="Adw-gS-eUQ"/>
+            </connections>
             <point key="canvasLocation" x="-13.5" y="106"/>
         </tableViewCell>
     </objects>

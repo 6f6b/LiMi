@@ -32,33 +32,34 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yAX-5T-1ef">
                                 <rect key="frame" x="0.0" y="199" width="199" height="124"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsY-0g-3Av">
-                                        <rect key="frame" x="5" y="5" width="33" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsY-0g-3Av">
+                                        <rect key="frame" x="5" y="10" width="35.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5U-hn-S6i">
-                                        <rect key="frame" x="5" y="57" width="26.5" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5U-hn-S6i">
+                                        <rect key="frame" x="5" y="102" width="26.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="TDu-hR-4a6">
-                                        <rect key="frame" x="48" y="14" width="15" height="12"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_boy" translatesAutoresizingMaskIntoConstraints="NO" id="TDu-hR-4a6">
+                                        <rect key="frame" x="50.5" y="12.5" width="15" height="12"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-45-HB8">
-                                        <rect key="frame" x="5" y="31" width="31" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-45-HB8">
+                                        <rect key="frame" x="5" y="79.5" width="194" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mJY-45-HB8" secondAttribute="trailing" id="5d1-Ql-qwT"/>
                                     <constraint firstItem="TDu-hR-4a6" firstAttribute="centerY" secondItem="jsY-0g-3Av" secondAttribute="centerY" id="9uV-S6-D0v"/>
                                     <constraint firstItem="TDu-hR-4a6" firstAttribute="leading" secondItem="jsY-0g-3Av" secondAttribute="trailing" constant="10" id="H2G-Gn-1p3"/>
-                                    <constraint firstItem="mJY-45-HB8" firstAttribute="top" secondItem="jsY-0g-3Av" secondAttribute="bottom" constant="8" id="KWu-zu-xfZ"/>
+                                    <constraint firstItem="mJY-45-HB8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jsY-0g-3Av" secondAttribute="bottom" constant="8" id="KWu-zu-xfZ"/>
                                     <constraint firstItem="jsY-0g-3Av" firstAttribute="top" secondItem="yAX-5T-1ef" secondAttribute="top" constant="10" id="URe-jV-Dqq"/>
                                     <constraint firstItem="jsY-0g-3Av" firstAttribute="leading" secondItem="yAX-5T-1ef" secondAttribute="leading" constant="5" id="XTE-6x-yC0"/>
                                     <constraint firstItem="mJY-45-HB8" firstAttribute="leading" secondItem="jsY-0g-3Av" secondAttribute="leading" id="YpA-Fz-vmB"/>
@@ -101,7 +102,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="girl" width="15" height="15"/>
+        <image name="ic_boy" width="15" height="12"/>
         <image name="zhuye_bj" width="375" height="230"/>
     </resources>
 </document>

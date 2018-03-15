@@ -42,7 +42,7 @@ class FeedBackController: ViewController {
         let feedBackQuestionModel3 = FeedBackQuestionModel(type: 3, info: "其他问题", isSelect: false)
         self.feedbackQuestionModels = [feedBackQuestionModel1,feedBackQuestionModel2,feedBackQuestionModel3]
         self.feedBackQuestionCategoryCell = FeedBackQuestionCategoryCell()
-        self.feedBackQuestionCategoryCell.tapBlock = {(feedBackQuestionModel) in
+        self.feedBackQuestionCategoryCell.tapBlock = {[unowned self] (feedBackQuestionModel) in
             self.selectedFeedBackQuestionModel = feedBackQuestionModel
         }
         self.feedBackQuestionCategoryCell.congfigWith(models: self.feedbackQuestionModels)
@@ -51,30 +51,30 @@ class FeedBackController: ViewController {
         self.releaseContentTextInputCell = GET_XIB_VIEW(nibName: "ReleaseContentTextInputCell") as! ReleaseContentTextInputCell
         self.releaseContentTextInputCell.placeHolder.text = "请输入遇到的问题"
         self.releaseContentTextInputCell.selectionStyle = .none
-        self.releaseContentTextInputCell.textChangeBlock = {_ in
+        self.releaseContentTextInputCell.textChangeBlock = {[unowned self] _ in
             self.RefreshSubmitBtnEnable()
         }
         //图片
         self.releaseContentImgInputCell = ReleaseContentImgInputCell()
         self.releaseContentImgInputCell.selectionStyle = .none
-        self.releaseContentImgInputCell.addImgBlock = {
+        self.releaseContentImgInputCell.addImgBlock = {[unowned self] in
             if self.videoArr.count >= 1{
-                SVProgressHUD.showInfo(withStatus: "最多选择一个视频")
+                Toast.showInfoWith(text:"最多选择一个视频")
                 return
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
             self.imagePickerVc?.autoDismiss = false
-            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
-            self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+            self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
                 self.videoArr.removeAll()
                 self.uploadImgsWith(imgs: photos)
                 self.tableView.reloadData()
                 self.RefreshSubmitBtnEnable()
             }
-            self.imagePickerVc?.didFinishPickingVideoHandle = {(img,other) in
+            self.imagePickerVc?.didFinishPickingVideoHandle = {[unowned self] (img,other) in
                 self.imgArr.removeAll()
                 self.uploadVideoWith(phAsset: other as? PHAsset, preImg: img)
                 self.tableView.reloadData()
@@ -82,7 +82,7 @@ class FeedBackController: ViewController {
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
-        self.releaseContentImgInputCell.deleteImgBlock = {(index) in
+        self.releaseContentImgInputCell.deleteImgBlock = {[unowned self] (index) in
             if self.imgArr.count != 0{
                 self.imgArr.remove(at: index)
             }else{
@@ -95,7 +95,7 @@ class FeedBackController: ViewController {
         
         //提交cell
         self.submitFeedbackCell = GET_XIB_VIEW(nibName: "SubmitFeedbackCell") as! SubmitFeedbackCell
-        self.submitFeedbackCell.submitBlock = {
+        self.submitFeedbackCell.submitBlock = {[unowned self] in
             let imgs = self.generateMediaParameterWith(medias: self.imgArr)
 
             let feedBack = FeedBack(type: self.selectedFeedBackQuestionModel?.type, info: self.releaseContentTextInputCell.contentText.text, pic: imgs, phone: self.contactWayInputCell.contactInfo.text)
@@ -108,13 +108,13 @@ class FeedBackController: ViewController {
                     //延时1秒执行
                     let delayTime: TimeInterval = 1.0
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
-                SVProgressHUD.showResultWith(model: resultModel)
+                Toast.showResultWith(model: resultModel)
             }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
         
@@ -138,6 +138,10 @@ class FeedBackController: ViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
+    deinit {
+        print("反馈销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -166,7 +170,7 @@ class FeedBackController: ViewController {
                     let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
                     uploader.maxConcurrentNumber = 3
                     uploader.files = files
-                    SVProgressHUD.show(withStatus: "处理中")
+                    Toast.showStatusWith(text: "处理中..")
                     uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
                         let imgName = dic["key"] as? String
                         var localMediaModel = LocalMediaModel.init()
@@ -182,7 +186,7 @@ class FeedBackController: ViewController {
                         print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
                     }, uploadAllFilesComplete: {
                         print("uploadOver")
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                         self.tableView.reloadData()
                         self.RefreshSubmitBtnEnable()
@@ -196,9 +200,9 @@ class FeedBackController: ViewController {
         self.phAsset = phAsset
         GetQiNiuUploadToken(type: .video, onSuccess: { (qnUploadToken) in
             if let _token = qnUploadToken?.token{
-                SVProgressHUD.setStatus(nil)
-                let progressBlock:QNUpProgressHandler = {(str,flo) in
-                    SVProgressHUD.showProgress(flo)
+                Toast.showStatusWith(text: nil)
+                let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
+                    //Toast.showProgress(flo)
                 }
                 let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
                     return false
@@ -206,13 +210,13 @@ class FeedBackController: ViewController {
                 let fileName = uploadFileName(type: .video)
                 self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
                     if let _error = responseInfo?.error{
-                        SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
+                        Toast.showErrorWith(msg: _error.localizedDescription)
                     }else{
                         var localMediaModel = LocalMediaModel.init()
                         localMediaModel.imgName = str
                         localMediaModel.img = preImg
                         self.videoArr.append(localMediaModel)
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                         self.tableView.reloadData()
                         self.RefreshSubmitBtnEnable()

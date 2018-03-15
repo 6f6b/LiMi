@@ -413,6 +413,14 @@
 		680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 680E16A42003548C006CC5B9 /* LaunchScreen.storyboard */; };
 		680E16B12003548D006CC5B9 /* LiMiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16B02003548D006CC5B9 /* LiMiTests.swift */; };
 		680E16BC2003548D006CC5B9 /* LiMiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E16BB2003548D006CC5B9 /* LiMiUITests.swift */; };
+		681389BF205164C000F65623 /* WeekendTourOrderStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389BE205164C000F65623 /* WeekendTourOrderStatusView.swift */; };
+		681389C12051652500F65623 /* WeekendTourOrderStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681389C02051652500F65623 /* WeekendTourOrderStatusView.xib */; };
+		681389C320526D4800F65623 /* ThumbUpAndCommentMessageContainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389C220526D4700F65623 /* ThumbUpAndCommentMessageContainModel.swift */; };
+		681389C820568B6C00F65623 /* SuspensionExpandMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389C720568B6C00F65623 /* SuspensionExpandMenu.swift */; };
+		681389CA20568B9100F65623 /* SuspensionMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389C920568B9100F65623 /* SuspensionMenuAction.swift */; };
+		681389CD2057695100F65623 /* SuspensionMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389CB2057695000F65623 /* SuspensionMenuItemCell.swift */; };
+		681389CE2057695100F65623 /* SuspensionMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681389CC2057695000F65623 /* SuspensionMenuItemCell.xib */; };
+		681389D02057D4AC00F65623 /* MJRefreshAnimationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681389CF2057D4AB00F65623 /* MJRefreshAnimationHeader.swift */; };
 		681C95A92045366E009CDE3B /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95932045366E009CDE3B /* CircleController.swift */; };
 		681C95AA2045366E009CDE3B /* CircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95942045366E009CDE3B /* CircleController.xib */; };
 		681C95AB2045366E009CDE3B /* CreateTopicCircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95952045366E009CDE3B /* CreateTopicCircleController.swift */; };
@@ -689,6 +697,7 @@
 		68B3F33C204FB92D0004C3D9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33B204FB92D0004C3D9 /* Toast.swift */; };
 		68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33F204FBCD20004C3D9 /* ToastView.swift */; };
 		68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */; };
+		68B3F3462050EB160004C3D9 /* CustomSystemMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */; };
 		68C5F28E203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */; };
 		68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */; };
 		68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */; };
@@ -1520,6 +1529,14 @@
 		680E16B72003548D006CC5B9 /* LiMiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiMiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		680E16BB2003548D006CC5B9 /* LiMiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiMiUITests.swift; sourceTree = "<group>"; };
 		680E16BD2003548D006CC5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		681389BE205164C000F65623 /* WeekendTourOrderStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekendTourOrderStatusView.swift; sourceTree = "<group>"; };
+		681389C02051652500F65623 /* WeekendTourOrderStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekendTourOrderStatusView.xib; sourceTree = "<group>"; };
+		681389C220526D4700F65623 /* ThumbUpAndCommentMessageContainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbUpAndCommentMessageContainModel.swift; sourceTree = "<group>"; };
+		681389C720568B6C00F65623 /* SuspensionExpandMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspensionExpandMenu.swift; sourceTree = "<group>"; };
+		681389C920568B9100F65623 /* SuspensionMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspensionMenuAction.swift; sourceTree = "<group>"; };
+		681389CB2057695000F65623 /* SuspensionMenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspensionMenuItemCell.swift; sourceTree = "<group>"; };
+		681389CC2057695000F65623 /* SuspensionMenuItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuspensionMenuItemCell.xib; sourceTree = "<group>"; };
+		681389CF2057D4AB00F65623 /* MJRefreshAnimationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJRefreshAnimationHeader.swift; sourceTree = "<group>"; };
 		681C95932045366E009CDE3B /* CircleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleController.swift; sourceTree = "<group>"; };
 		681C95942045366E009CDE3B /* CircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleController.xib; sourceTree = "<group>"; };
 		681C95952045366E009CDE3B /* CreateTopicCircleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTopicCircleController.swift; sourceTree = "<group>"; };
@@ -2089,6 +2106,7 @@
 		68B3F33B204FB92D0004C3D9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		68B3F33F204FBCD20004C3D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
+		68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSystemMessageManager.swift; sourceTree = "<group>"; };
 		68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCell.swift; sourceTree = "<group>"; };
 		68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackQuestionCategoryCollectionCell.xib; sourceTree = "<group>"; };
@@ -4325,6 +4343,17 @@
 			path = LiMiUITests;
 			sourceTree = "<group>";
 		};
+		681389C420568AC700F65623 /* SuspensionExpandMenu */ = {
+			isa = PBXGroup;
+			children = (
+				681389C720568B6C00F65623 /* SuspensionExpandMenu.swift */,
+				681389C920568B9100F65623 /* SuspensionMenuAction.swift */,
+				681389CB2057695000F65623 /* SuspensionMenuItemCell.swift */,
+				681389CC2057695000F65623 /* SuspensionMenuItemCell.xib */,
+			);
+			path = SuspensionExpandMenu;
+			sourceTree = "<group>";
+		};
 		681C95902045366E009CDE3B /* 附近的人 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4610,6 +4639,7 @@
 				68880876200DF19300BC6AE9 /* Helper.swift */,
 				68880878200DF19300BC6AE9 /* NavigationController.swift */,
 				68880879200DF19300BC6AE9 /* TabBarController.swift */,
+				681389CF2057D4AB00F65623 /* MJRefreshAnimationHeader.swift */,
 				6888087A200DF19300BC6AE9 /* test.swift */,
 				6888087B200DF19300BC6AE9 /* View.swift */,
 				68EFB8FF203FAF3300FE1A59 /* SuitableHotSpaceButton.swift */,
@@ -4657,6 +4687,7 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				681389C420568AC700F65623 /* SuspensionExpandMenu */,
 				68B3F33A204FB9120004C3D9 /* Toast */,
 				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,
@@ -4745,6 +4776,7 @@
 				689D5423202B2E55009C771C /* PayManager.swift */,
 				6801E0DB202D4FDF00C106E1 /* AppManager.swift */,
 				681C95CE204553F5009CDE3B /* LocationManager.swift */,
+				68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -4865,6 +4897,8 @@
 				68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */,
 				6864AC5420494BD700422CD8 /* MyTourOrderCell.swift */,
 				6864AC5520494BD700422CD8 /* MyTourOrderCell.xib */,
+				681389BE205164C000F65623 /* WeekendTourOrderStatusView.swift */,
+				681389C02051652500F65623 /* WeekendTourOrderStatusView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4910,6 +4944,7 @@
 				6835828B202306A000798462 /* RedPacketResultModel.swift */,
 				689D53AD20298AB6009C771C /* MoreOperationModel.swift */,
 				6840881C2041125B00D22885 /* AppUpgradeModel.swift */,
+				681389C220526D4700F65623 /* ThumbUpAndCommentMessageContainModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5346,6 +5381,8 @@
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
 				683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */,
 				683107C12024402C0060B109 /* EmptyTrendsCell.xib in Resources */,
+				681389C12051652500F65623 /* WeekendTourOrderStatusView.xib in Resources */,
+				681389CE2057695100F65623 /* SuspensionMenuItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5484,6 +5521,7 @@
 				68880884200DF19300BC6AE9 /* test.swift in Sources */,
 				688808FC2011A78F00BC6AE9 /* ReleaseContentTextInputCell.swift in Sources */,
 				6801DFCA202C6EA800C106E1 /* NIMCardMemberItem.m in Sources */,
+				681389CA20568B9100F65623 /* SuspensionMenuAction.swift in Sources */,
 				6801D933202C44D000C106E1 /* FSActionSheetConfig.m in Sources */,
 				6801DFAB202C6EA800C106E1 /* NIMUnsupportContentConfig.m in Sources */,
 				6801E042202C6EA900C106E1 /* NTESCustomNotificationObject.m in Sources */,
@@ -5531,8 +5569,10 @@
 				6801E016202C6EA900C106E1 /* NTESRobotCardViewController.m in Sources */,
 				6864AC1E2048F02500422CD8 /* WeekendTourOrderDetailController.swift in Sources */,
 				6801E03B202C6EA900C106E1 /* NTESRobotListViewController.m in Sources */,
+				681389C820568B6C00F65623 /* SuspensionExpandMenu.swift in Sources */,
 				6801E05C202C6EA900C106E1 /* NTESSessionWhiteBoardContentView.m in Sources */,
 				6801DF99202C6EA800C106E1 /* NIMInputMoreContainerView.m in Sources */,
+				681389C320526D4800F65623 /* ThumbUpAndCommentMessageContainModel.swift in Sources */,
 				6801DF82202C6EA800C106E1 /* NIMKitMediaFetcher.m in Sources */,
 				6801E0A9202C6EA900C106E1 /* NTESEmailSettingViewController.m in Sources */,
 				68880891200DF32F00BC6AE9 /* BasicDataTypeExtension.swift in Sources */,
@@ -5541,6 +5581,7 @@
 				689DFA1920061BC8007FAE9C /* APIManager.swift in Sources */,
 				68F903872015E9EF00B3028B /* SelectPayWayView.swift in Sources */,
 				6801DFA2202C6EA800C106E1 /* NIMAudioContentConfig.m in Sources */,
+				681389BF205164C000F65623 /* WeekendTourOrderStatusView.swift in Sources */,
 				6825486720159E990033410A /* CommentTopToolsContainView.swift in Sources */,
 				6862E52B2019BC130058B878 /* STEmojiKeyboard.m in Sources */,
 				6801E06A202C6EA900C106E1 /* NTESWhiteboardViewController.m in Sources */,
@@ -5630,6 +5671,7 @@
 				6801E005202C6EA800C106E1 /* NTESMainTabController.m in Sources */,
 				6801E069202C6EA900C106E1 /* NTESSessionViewController.m in Sources */,
 				6801E0C2202C6EA900C106E1 /* NTESSessionUtil.m in Sources */,
+				681389CD2057695100F65623 /* SuspensionMenuItemCell.swift in Sources */,
 				68C5F295203FF00200769A92 /* ContactWayInputCell.swift in Sources */,
 				68282CF22016DC0A0003A0CD /* CommentView.swift in Sources */,
 				681C95D52045701F009CDE3B /* EditAutographView.swift in Sources */,
@@ -5818,6 +5860,7 @@
 				6801E033202C6EA900C106E1 /* NTESContactDataCell.m in Sources */,
 				6801D92F202C44D000C106E1 /* UIImage+XLExtension.m in Sources */,
 				6801DF75202C6EA800C106E1 /* NIMCommonTableDelegate.m in Sources */,
+				681389D02057D4AC00F65623 /* MJRefreshAnimationHeader.swift in Sources */,
 				6801E003202C6EA800C106E1 /* UIView+Swizzling.m in Sources */,
 				6801E0AA202C6EA900C106E1 /* NTESGenderSettingViewController.m in Sources */,
 				6801E049202C6EA900C106E1 /* NTESSessionConfig.m in Sources */,
@@ -5840,6 +5883,7 @@
 				6801E01F202C6EA900C106E1 /* NTESChatroomListViewController.m in Sources */,
 				6801E051202C6EA900C106E1 /* NTESCustomAttachmentDecoder.m in Sources */,
 				688809042011A7DD00BC6AE9 /* ReleaseContentOtherInputCell.swift in Sources */,
+				68B3F3462050EB160004C3D9 /* CustomSystemMessageManager.swift in Sources */,
 				6801E032202C6EA900C106E1 /* NTESGroupedUsrInfo.m in Sources */,
 				689DFA3020089E59007FAE9C /* CollegeContainerModel.swift in Sources */,
 				681C95B32045366E009CDE3B /* TopicCircleContainModel.swift in Sources */,

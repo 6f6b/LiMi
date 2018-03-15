@@ -24,7 +24,7 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
             make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
         }
         
-        let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2), height: 0)
+        let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2 + self.trendsContentContainViewMarginToTrendsContainView*2), height: 0)
         let layout = UICollectionViewFlowLayout()
         let blankSpace = (mediaContainViewMarginToWindow + multiPictureSpacing)*2
          let itemWidth = CGFloat(SCREEN_WIDTH - CGFloat(blankSpace))/3.0
@@ -45,12 +45,17 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("TrendsWithTextAndPictrueCell销毁")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
 
     //MARK: - misc
+    
     override func configWith(model: TrendModel?) {
         super.configWith(model: model)
         self.collectionView.snp.remakeConstraints { (make) in
@@ -109,6 +114,7 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
         }
         return itemSize
     }
+
 }
 
 extension TrendsWithTextAndPictrueCell:XLPhotoBrowserDelegate,XLPhotoBrowserDatasource{

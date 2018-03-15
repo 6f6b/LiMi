@@ -93,6 +93,11 @@ let THUMBS_UP_NOTIFICATION =    Notification.Name.init("THUMBS_UP_NOTIFICATION")
 let ALL_UNREAD_COUNT_CHANGED_NOTIFICATION = Notification.Name.init("ALL_UNREAD_COUNT_CHANGED_NOTIFICATION")
 ///提现成功通知
 let WITHDRAW_SUCCESSED_NOTIFICATION = Notification.Name.init("WITHDRAW_SUCCESSED_NOTIFICATION")
+///通过认证通知
+let IDENTITY_STATUS_OK_NOTIFICATION = Notification.Name.init("IDENTITY_STATUS_OK_NOTIFICATION")
+
+///清空点赞和评论消息成功
+let CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS = Notification.Name.init("CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS")
 
 /// 更多操作通知对象的key
 let MORE_OPERATION_KEY = "MORE_OPERATION_KEY"
@@ -111,4 +116,8 @@ let qnConfig = QNConfiguration.build { (builder) in
 let QiNiuUploadManager = QNUploadManager(configuration: qnConfig)
 
 let SYSTEM_VERSION = UIDevice.current.systemVersion.doubleValue()!
+
+///联系电话
+var PHONE_NUMBER = "028-33010731"
+
 

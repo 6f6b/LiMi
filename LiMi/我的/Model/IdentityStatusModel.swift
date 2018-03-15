@@ -21,6 +21,11 @@ class IdentityStatusModel: BaseModel {
         super.mapping(map: map)
         msg<-map["msg"]
         identity_status<-map["identity_status"]
+        let tmpIdentityStatus = Defaults[.userCertificationState]
         Defaults[.userCertificationState] = identity_status
+        if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
+            //发通知
+            NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+        }
     }
 }

@@ -28,7 +28,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zmy_ico_fwsj" translatesAutoresizingMaskIntoConstraints="NO" id="Fr1-Au-HMa">
                         <rect key="frame" x="136.5" y="17" width="17" height="17"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="aQ9-id-npR">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="aQ9-id-npR">
                         <rect key="frame" x="20" y="56" width="120" height="80"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="CVx-Bg-V03"/>

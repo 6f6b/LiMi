@@ -16,6 +16,7 @@
                 <outlet property="failedThenBackToHomeBtn" destination="YFm-o0-Bme" id="gCv-jZ-n7C"/>
                 <outlet property="failedThenRePayBtn" destination="E6A-w7-FBm" id="FNd-IX-9v3"/>
                 <outlet property="successContainView" destination="s3q-Ff-iJI" id="h3v-d0-cxH"/>
+                <outlet property="successInfo" destination="q0F-mO-KBR" id="O5j-UZ-jQz"/>
                 <outlet property="successThenBackToHomeBtn" destination="GqM-je-cRn" id="yOQ-aT-ngL"/>
                 <outlet property="successThenCheckOrderBtn" destination="kmz-Us-UiB" id="uxQ-GR-uCr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -26,66 +27,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3q-Ff-iJI">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dd_icon_ok" translatesAutoresizingMaskIntoConstraints="NO" id="z1m-xP-OlE">
-                            <rect key="frame" x="130" y="75" width="115" height="115"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDd-WE-zAe">
-                            <rect key="frame" x="147" y="205" width="82" height="24"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                            <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电4002098909" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0F-mO-KBR">
-                            <rect key="frame" x="40" y="254" width="297" height="29"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aaM-9M-s0J">
-                            <rect key="frame" x="40" y="308" width="296" height="41"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GqM-je-cRn">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="41"/>
-                                    <state key="normal" title="返回首页">
-                                        <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="successThenBackToHome:" destination="-1" eventType="touchUpInside" id="NsY-67-Fy2"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmz-Us-UiB">
-                                    <rect key="frame" x="168" y="0.0" width="128" height="41"/>
-                                    <state key="normal" title="查看订单">
-                                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="successThenCheckOrder:" destination="-1" eventType="touchUpInside" id="WAL-TU-fGy"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="41" id="RvS-FQ-eoQ"/>
-                            </constraints>
-                        </stackView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="B5R-ik-wR5"/>
-                        <constraint firstItem="q0F-mO-KBR" firstAttribute="leading" secondItem="s3q-Ff-iJI" secondAttribute="leading" constant="40" id="Doy-hp-oFY"/>
-                        <constraint firstItem="aaM-9M-s0J" firstAttribute="leading" secondItem="q0F-mO-KBR" secondAttribute="leading" id="N2Y-O6-YqK"/>
-                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="Peb-Te-sHg"/>
-                        <constraint firstItem="q0F-mO-KBR" firstAttribute="centerX" secondItem="iDd-WE-zAe" secondAttribute="centerX" id="Tkb-pl-y3J"/>
-                        <constraint firstItem="aaM-9M-s0J" firstAttribute="centerX" secondItem="q0F-mO-KBR" secondAttribute="centerX" id="Zc9-5t-FrK"/>
-                        <constraint firstItem="iDd-WE-zAe" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="axc-fv-qVC"/>
-                        <constraint firstItem="iDd-WE-zAe" firstAttribute="top" secondItem="z1m-xP-OlE" secondAttribute="bottom" constant="15" id="kuZ-Nr-BaS"/>
-                        <constraint firstItem="aaM-9M-s0J" firstAttribute="top" secondItem="q0F-mO-KBR" secondAttribute="bottom" constant="25" id="oq3-8P-bDm"/>
-                        <constraint firstItem="z1m-xP-OlE" firstAttribute="top" secondItem="s3q-Ff-iJI" secondAttribute="top" constant="75" id="sS2-oA-FQn"/>
-                        <constraint firstItem="q0F-mO-KBR" firstAttribute="top" secondItem="iDd-WE-zAe" secondAttribute="bottom" constant="25" id="z2F-Bi-Zcb"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wu1-bE-YzC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
@@ -135,6 +76,66 @@
                         <constraint firstItem="YtA-dF-12j" firstAttribute="top" secondItem="Wu1-bE-YzC" secondAttribute="top" constant="75" id="jQA-RR-M7I"/>
                         <constraint firstItem="oXw-9Q-hrr" firstAttribute="centerX" secondItem="Wu1-bE-YzC" secondAttribute="centerX" id="nj0-Hd-BtZ"/>
                         <constraint firstItem="T93-ZH-9IH" firstAttribute="leading" secondItem="Wu1-bE-YzC" secondAttribute="leading" constant="40" id="pSQ-oP-Rol"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3q-Ff-iJI">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dd_icon_ok" translatesAutoresizingMaskIntoConstraints="NO" id="z1m-xP-OlE">
+                            <rect key="frame" x="130" y="75" width="115" height="115"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDd-WE-zAe">
+                            <rect key="frame" x="147" y="205" width="82" height="24"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电4002098909" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0F-mO-KBR">
+                            <rect key="frame" x="40" y="254" width="297" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aaM-9M-s0J">
+                            <rect key="frame" x="40" y="308" width="296" height="41"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GqM-je-cRn">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="返回首页">
+                                        <color key="titleColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="successThenBackToHome:" destination="-1" eventType="touchUpInside" id="NsY-67-Fy2"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmz-Us-UiB">
+                                    <rect key="frame" x="168" y="0.0" width="128" height="41"/>
+                                    <state key="normal" title="查看订单">
+                                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="successThenCheckOrder:" destination="-1" eventType="touchUpInside" id="WAL-TU-fGy"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="RvS-FQ-eoQ"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="B5R-ik-wR5"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="leading" secondItem="s3q-Ff-iJI" secondAttribute="leading" constant="40" id="Doy-hp-oFY"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="leading" secondItem="q0F-mO-KBR" secondAttribute="leading" id="N2Y-O6-YqK"/>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="Peb-Te-sHg"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="centerX" secondItem="iDd-WE-zAe" secondAttribute="centerX" id="Tkb-pl-y3J"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="centerX" secondItem="q0F-mO-KBR" secondAttribute="centerX" id="Zc9-5t-FrK"/>
+                        <constraint firstItem="iDd-WE-zAe" firstAttribute="centerX" secondItem="s3q-Ff-iJI" secondAttribute="centerX" id="axc-fv-qVC"/>
+                        <constraint firstItem="iDd-WE-zAe" firstAttribute="top" secondItem="z1m-xP-OlE" secondAttribute="bottom" constant="15" id="kuZ-Nr-BaS"/>
+                        <constraint firstItem="aaM-9M-s0J" firstAttribute="top" secondItem="q0F-mO-KBR" secondAttribute="bottom" constant="25" id="oq3-8P-bDm"/>
+                        <constraint firstItem="z1m-xP-OlE" firstAttribute="top" secondItem="s3q-Ff-iJI" secondAttribute="top" constant="75" id="sS2-oA-FQn"/>
+                        <constraint firstItem="q0F-mO-KBR" firstAttribute="top" secondItem="iDd-WE-zAe" secondAttribute="bottom" constant="25" id="z2F-Bi-Zcb"/>
                     </constraints>
                 </view>
             </subviews>

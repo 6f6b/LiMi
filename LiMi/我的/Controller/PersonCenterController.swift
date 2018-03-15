@@ -79,10 +79,10 @@ class PersonCenterController: UITableViewController {
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             self.refreshUIWith(model: personCenterModel)
-            SVProgressHUD.showErrorWith(model: personCenterModel)
+            Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
-//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+//            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -93,9 +93,9 @@ class PersonCenterController: UITableViewController {
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         if model?.user_info?.sex == "女"{
-            self.sexImg.image = UIImage.init(named: "girl")
+            self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
-            self.sexImg.image = UIImage.init(named: "boy")
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }
         self.userName.text = self.personCenterModel?.user_info?.true_name
         if let college = model?.user_info?.college,let academy = model?.user_info?.school{
@@ -108,7 +108,7 @@ class PersonCenterController: UITableViewController {
             var statusInfo = "未认证"
             if identity_status == 0{statusInfo = "未认证"}
             if identity_status == 1{statusInfo = "认证中"}
-            if identity_status == 2{statusInfo = "认证通过"}
+            if identity_status == 2{statusInfo = "已认证"}
             if identity_status == 3{statusInfo = "认证失败"}
             self.authState.text = statusInfo
         }
@@ -199,12 +199,15 @@ class PersonCenterController: UITableViewController {
                 self.checkIdentityInfoWith(identityStatus: self.personCenterModel?.is_access?.identity_status)
             }
             if indexPath.row == 1{
+                if !AppManager.shared.checkUserStatus(){return}
+
                 let myCashController = MyCashController()
                 myCashController.personCenterModel = self.personCenterModel
                 self.navigationController?.pushViewController(myCashController, animated: true)
             }
         }
         if indexPath.section == 2{
+            if !AppManager.shared.checkUserStatus(){return}
             if indexPath.row == 0{
                 let myTrendListController = MyTrendListController()
                 self.navigationController?.pushViewController(myTrendListController, animated: true)
@@ -216,6 +219,7 @@ class PersonCenterController: UITableViewController {
         }
         if indexPath.section == 3{
             if indexPath.row == 0{
+                if !AppManager.shared.checkUserStatus(){return}
                 let feedBackController = FeedBackController()
                 self.navigationController?.pushViewController(feedBackController, animated: true)
             }

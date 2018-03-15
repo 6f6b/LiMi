@@ -28,7 +28,7 @@ class HomePageController: ViewController {
         
         let systemMessageNumView = GET_XIB_VIEW(nibName: "SystemMessageNumView") as! SystemMessageNumView
         systemMessageNumView.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
-        systemMessageNumView.tapBlock = {
+        systemMessageNumView.tapBlock = {[unowned self] in
             let appState = AppManager.shared.appState()
             if appState ==  .imOffLineBusinessOffline{return}
             let systemmsgContainController = SystemmsgContainController()
@@ -46,7 +46,7 @@ class HomePageController: ViewController {
         slidingMenuBar = GET_XIB_VIEW(nibName: "SlidingMenuBar") as! SlidingMenuBar
         slidingMenuBar.frame = CGRect.init(x: 0, y: 0, width: 100, height: 44)
         self.navigationItem.titleView = slidingMenuBar
-        slidingMenuBar.tapBlock = {(index) in
+        slidingMenuBar.tapBlock = {[unowned self] (index) in
             UIView.animate(withDuration: 0.5, animations: {
                 self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*CGFloat(index), y: 0)
             })
@@ -74,10 +74,12 @@ class HomePageController: ViewController {
         self.requestUpgradeInfo()
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
     }
     
     deinit{
         NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: customSystemMessageUnreadCountChanged, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,14 +98,22 @@ class HomePageController: ViewController {
             }
         }
         
-        if AppManager.shared.appState() != .imOffLineBusinessOffline{
-            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
-        }else{
+        //业务登录、im登录、认证状态三者有一个不在线则隐藏
+        let imIsLogin = AppManager.shared.autoLoginIM()
+        if Defaults[.userCertificationState] != 2 || Defaults[.userId] == nil || !imIsLogin{
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+        }else{
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
         }
+        
+//        if AppManager.shared.appState() != .imOffLineBusinessOffline{
+//            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
+//        }else{
+//            self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+//        }
         if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
-            systemMessageNumView.showWith(unreadSystemMsgNum: 99)
-//            systemMessageNumView.showWith(unreadSystemMsgNum: NIMSDK.shared().systemNotificationManager.allUnreadCount())
+            let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+            systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
         
     }
@@ -121,9 +131,9 @@ class HomePageController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             Defaults[.userSex] = personCenterModel?.user_info?.sex
-            SVProgressHUD.showErrorWith(model: personCenterModel)
+            Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -138,9 +148,9 @@ class HomePageController: ViewController {
             if appUpgradeModel?.update != 2{
                 appUpgradeRemindingView.showWith(upgradeModel: appUpgradeModel)
             }
-            SVProgressHUD.showErrorWith(model: appUpgradeModel)
+            Toast.showErrorWith(model: appUpgradeModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -155,7 +165,7 @@ class HomePageController: ViewController {
         if let _ = self.conditionScreeningView{
         }else{
             self.conditionScreeningView = ConditionScreeningView.shareConditionScreeningView()
-            conditionScreeningView?.screeningConditionsSelectBlock = {(college,academy,grade,sex,skill) in
+            conditionScreeningView?.screeningConditionsSelectBlock = {[unowned self] (college,academy,grade,sex,skill) in
                 self.findTrendsListController.collegeModel = college
                 self.findTrendsListController.academyModel = academy
                 self.findTrendsListController.gradeModel = grade
@@ -179,6 +189,17 @@ extension HomePageController:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x <= 0{self.slidingMenuBar.select(index: 0)}else{
             self.slidingMenuBar.select(index: 1)
+        }
+    }
+}
+
+//MARK: - Notification  通知
+extension HomePageController{
+    //自定义系统消息未读数改变
+    @objc func  customMessageUnreadCountChanged(){
+        if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
+            let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+            systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
     }
 }

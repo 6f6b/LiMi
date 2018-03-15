@@ -84,6 +84,10 @@ class SetPayPasswordController: ViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
+    deinit {
+        print("设置支付密码销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -96,49 +100,49 @@ class SetPayPasswordController: ViewController {
         let requestAuthCode = RequestAuthCode(phone: Defaults[.userPhone])
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
-                SVProgressHUD.showSuccess(withStatus: authCodeModel.code)
+                Toast.showSuccessWith(msg: "验证码已发送")
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     @IBAction func dealToSumbit(_ sender: Any) {
         if IsEmpty(textField: self.authCode){
-            SVProgressHUD.showInfo(withStatus: "请输入验证码")
+            Toast.showInfoWith(text:"请输入验证码")
             return
         }
         if IsEmpty(textField: self.passwordFisrt){
-            SVProgressHUD.showInfo(withStatus: "请输入密码")
+            Toast.showInfoWith(text:"请输入密码")
             return
         }
         if IsEmpty(textField: self.passwordSecond){
-            SVProgressHUD.showInfo(withStatus: "请输入确认密码")
+            Toast.showInfoWith(text:"请输入确认密码")
             return
         }
         if !(self.passwordSecond.text == self.passwordFisrt.text){
-            SVProgressHUD.showInfo(withStatus: "两次输入密码不一致")
+            Toast.showInfoWith(text:"两次输入密码不一致")
             return
         }
         if self.passwordFisrt.text?.count != 6{
-            SVProgressHUD.showInfo(withStatus: "请输入6位密码")
+            Toast.showInfoWith(text:"请输入6位密码")
             return
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let setPayPassword = SetPayPassword(code: self.authCode.text, password1: self.passwordFisrt.text, password2: self.passwordSecond.text)
         _ = moyaProvider.rx.request(.targetWith(target: setPayPassword)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 //延时1秒执行
                 let delayTime : TimeInterval = 1
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
-                    SVProgressHUD.dismiss()
+                    Toast.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 })
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     

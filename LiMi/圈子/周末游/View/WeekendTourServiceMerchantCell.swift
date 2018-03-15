@@ -34,7 +34,7 @@ class WeekendTourServiceMerchantCell: UITableViewCell {
         if let _shopPhone = self.weekendTourDetailModel?.shop_phone{
             UIApplication.shared.openURL(URL(string: "tel:\(_shopPhone)")!)
         }else{
-            SVProgressHUD.showInfo(withStatus: "商家未提供电话号码")
+            Toast.showInfoWith(text:"商家未提供电话号码")
         }
     }
     

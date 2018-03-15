@@ -12,6 +12,7 @@ import Moya
 import SVProgressHUD
 import ObjectMapper
 import AVFoundation
+import MJRefresh
 
 enum StoryBoardName {
     case homePage
@@ -195,8 +196,18 @@ func GenerateImgPathlWith(img:UIImage?)->String?{
 }
 
 func LoginServiceToMainController(loginRootController:UIViewController?){
+    //其余页面均返回原页面，个人中心页则返回首页
     if let tbController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
-        tbController.selectedIndex = 0
+        
+        if let navController = tbController.selectedViewController as? NavigationController{
+            if let _ = navController.topViewController as? PersonCenterController{
+                tbController.selectedIndex = 0
+            }
+        }
+//
+//        if AppManager.shared.appState() == .imOfflineBusinessOnline || AppManager.shared.appState() == .imOnlineBusinessOnline{}else{
+//            tbController.selectedIndex = 0
+//        }
     }
     loginRootController?.dismiss(animated: true, completion: nil)
 }
@@ -237,8 +248,35 @@ func MIN(parametersA:Double,parametersB:Double)->Double{
 /// - Parameter color: 传入颜色
 /// - Returns: 生成的图片
 func GetNavBackImg(color:UIColor)->UIImage{
+    return GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 64), color: color)
+//    let layer = CAGradientLayer()
+//    let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 64)
+//    layer.frame = frame
+//    layer.colors = [color.cgColor,color.cgColor]
+//    layer.locations = [0.0, 1]
+//    layer.startPoint = CGPoint.init(x: 0, y: 0)
+//    layer.endPoint = CGPoint.init(x: 1, y: 1)
+//
+//    let viewForImg = UIView.init(frame: frame)
+//    viewForImg.layer.addSublayer(layer)
+//
+//    UIGraphicsBeginImageContextWithOptions(frame.size, false, 1)
+//    viewForImg.layer.render(in: UIGraphicsGetCurrentContext()!)
+//    let img = UIGraphicsGetImageFromCurrentImageContext()
+//    UIGraphicsEndImageContext()
+//    return img!
+}
+
+
+/// 根据传入颜色和尺寸生成一张图片
+///
+/// - Parameters:
+///   - size: 尺寸
+///   - color: 颜色
+/// - Returns: 返回图片
+func GetImgWith(size:CGSize,color:UIColor)->UIImage{
     let layer = CAGradientLayer()
-    let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 64)
+    let frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
     layer.frame = frame
     layer.colors = [color.cgColor,color.cgColor]
     layer.locations = [0.0, 1]
@@ -305,12 +343,12 @@ func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)
     let getQNUploadToken = GetQNUploadToken(type: tokenType, id: id, token: token)
     _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
         let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
-        SVProgressHUD.showErrorWith(model: qnUploadTokenModel)
+        Toast.showErrorWith(model: qnUploadTokenModel)
         if let _onSuccess = onSuccess{
             _onSuccess(qnUploadTokenModel)
         }
     }, onError: { (error) in
-        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+        Toast.showErrorWith(msg: error.localizedDescription)
     })
 }
 
@@ -334,6 +372,34 @@ func uploadFileName(type:MediaType)->String{
 }
 
 
+func mjGifHeaderWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshGifHeader{
+    let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)
+    //刷新动画图片数组
+    var refreshImgs = [UIImage]()
+    for i in 1...9{
+        refreshImgs.append(UIImage.init(named: "loading_0\(i)")!)
+    }
+    header?.setImages(refreshImgs, for: .refreshing)
+    header?.setImages([UIImage.init(named: "loading_shang")], for: .pulling)
+    header?.setImages([UIImage.init(named: "loading_xia")], for: .idle)
+    header?.lastUpdatedTimeLabel.isHidden = true
+    header?.stateLabel.isHidden = true
+    return header!
+}
+
+func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshAutoGifFooter{
+    let header = MJRefreshAutoGifFooter.init(refreshingBlock: refreshingBlock)
+    //刷新动画图片数组
+    var refreshImgs = [UIImage]()
+    for i in 1...9{
+        refreshImgs.append(UIImage.init(named: "loading_0\(i)")!)
+    }
+    header?.setImages(refreshImgs, for: .refreshing)
+    header?.setImages(refreshImgs, for: .pulling)
+    header?.stateLabel.isHidden = true
+    header?.isRefreshingTitleHidden = true
+    return header!
+}
 
 
 

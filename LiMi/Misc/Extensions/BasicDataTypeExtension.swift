@@ -155,3 +155,12 @@ extension Date{
     //        return ""
     //    }
 }
+
+extension CGPoint{
+    func inRect(rect:CGRect)->Bool{
+        let xIn = (self.x >= rect.origin.x)&&(self.x <= rect.maxX)
+        let yIn = (self.y >= rect.origin.y)&&(self.y <= rect.maxY)
+        if xIn && yIn{return true}
+        return false
+    }
+}

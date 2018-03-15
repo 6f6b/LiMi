@@ -154,7 +154,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.99215686270000003" green="0.31372549020000001" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="wcd-Kf-lDX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2mA-2u-tXO"/>
                     <constraint firstAttribute="bottom" secondItem="NdR-D3-hTY" secondAttribute="bottom" id="5JU-32-ETE"/>

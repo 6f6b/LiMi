@@ -34,7 +34,7 @@ class WithDrawalController: ViewController {
         
         if let _money = self.mycashModel?.money{
             self.ableToBeWithdrawal.text = _money.decimalValue()
-            self.withDrawAmount.text = _money.decimalValue()
+            //self.withDrawAmount.text = _money.decimalValue()
         }
         
         self.withDrawAmount.addTarget(self, action: #selector(textFeildDidChange(textField:)), for: .editingChanged)
@@ -43,6 +43,7 @@ class WithDrawalController: ViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: WITHDRAW_SUCCESSED_NOTIFICATION, object: nil)
+        print("提现界面销毁")
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,20 +83,19 @@ class WithDrawalController: ViewController {
     
     @IBAction func dealWithdrawal(_ sender: Any) {
         if IsEmpty(textField: self.withDrawAmount){
-            SVProgressHUD.showInfo(withStatus: "请输入提现金额")
+            Toast.showInfoWith(text:"请输入提现金额")
             return
         }
         if !self.alipayBtn.isSelected{
-            SVProgressHUD.showInfo(withStatus: "请选择提现方式")
+            Toast.showInfoWith(text:"请选择提现方式")
             return
         }
         if (self.withDrawAmount.text?.doubleValue())!  >  (self.ableToBeWithdrawal.text?.doubleValue())!{
-            SVProgressHUD.showInfo(withStatus: "提现金额不能大于余额")
+            Toast.showInfoWith(text:"余额不足")
             return
         }
         let alipayAcountController = AlipayAcountController()
-//        alipayAcountController.withdrawAmount = self.withDrawAmount.text
-        alipayAcountController.withdrawAmount = "0.1"
+        alipayAcountController.withdrawAmount = self.withDrawAmount.text
         self.navigationController?.pushViewController(alipayAcountController, animated: true)
     }
     

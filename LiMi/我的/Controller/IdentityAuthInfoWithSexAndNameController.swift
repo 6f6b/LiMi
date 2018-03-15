@@ -55,6 +55,12 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 0.2), color: RGBA(r: 150, g: 150, b: 150, a: 1))
+        
         let notNowBtn = UIButton.init(type: .custom)
         let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
         notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
@@ -63,6 +69,10 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         self.navigationItem.leftBarButtonItem?.customView = notNowBtn
     }
     
+    deinit {
+        print("认证性别销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -75,9 +85,9 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         _ = moyaProvider.rx.request(.targetWith(target: centerShowUserInfo)).subscribe(onSuccess: { (response) in
             let identityInfoModel = Mapper<IdentityInfoModel>().map(jsonData: response.data)
             self.refreshUIWith(model: identityInfoModel)
-            SVProgressHUD.showErrorWith(model: identityInfoModel)
+            Toast.showErrorWith(model: identityInfoModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -97,32 +107,33 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     @objc func dealSumbit(){
         //检测学校是否为空
         if self.identityInfoModel?.college?.coid == nil{
-            SVProgressHUD.showErrorWith(msg: "请选择学校")
+            Toast.showErrorWith(msg: "请选择学校")
             return
         }
         //检测学院是否为空
         if self.identityInfoModel?.school?.scid == nil{
-            SVProgressHUD.showErrorWith(msg: "请选择学院")
+            Toast.showErrorWith(msg: "请选择学院")
             return
         }
         //检测年级是否为空
         if self.identityInfoModel?.grade?.id == nil{
-            SVProgressHUD.showErrorWith(msg: "请选择年级")
+            Toast.showErrorWith(msg: "请选择年级")
             return
         }
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let centerPerfectUserInfo = CenterPerfectUserInfo(type: "1", true_name: self.identityInfoModel?.true_name, sex: "1", college: self.identityInfoModel?.college?.coid?.stringValue(), school: self.identityInfoModel?.school?.scid?.stringValue(), grade: self.identityInfoModel?.grade?.id?.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: centerPerfectUserInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
+                Defaults[.userCertificationState] = 1
                 let identityAuthStateController = IdentityAuthStateController()
                 identityAuthStateController.isFromPersonCenter = true
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
             }
-            SVProgressHUD.showErrorWith(model: resultModel)
+            Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -137,10 +148,10 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
         self.imagePickerVc?.autoDismiss = false
-        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
         }
-        self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+        self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
             let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
             self.uploadHeadImgWith(img: compressImg)
         }
@@ -150,7 +161,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     func dealToAlterUserName(){
         let alterUserNameController = AlterUserNameController()
         alterUserNameController.initialUserName = self.identityInfoModel?.true_name
-        alterUserNameController.alterUserNameBlock = {(name) in
+        alterUserNameController.alterUserNameBlock = {[unowned self] (name) in
             self.userName.text = name
         }
         self.navigationController?.pushViewController(alterUserNameController, animated: true)
@@ -158,7 +169,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     
     func dealToAlterUserSex(){
         let alterUserSexController = AlterUserSexController()
-        alterUserSexController.alterUserSexBlock = {(sex) in
+        alterUserSexController.alterUserSexBlock = {[unowned self] (sex) in
             self.sex.text = sex
         }
         self.navigationController?.pushViewController(alterUserSexController, animated: true)
@@ -170,7 +181,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
                     //开始上传服务器
-                    SVProgressHUD.show(withStatus: "正在上传..")
+                    Toast.showStatusWith(text: "正在上传..")
                     let moyaProvider = MoyaProvider<LiMiAPI>()
                     let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+str!, type: "head")
                     _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
@@ -179,12 +190,12 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
                             if model.commonInfoModel?.status == successState{
                                 self.headImg.image = img
                             }
-                            SVProgressHUD.showResultWith(model: model)
+                            Toast.showResultWith(model: model)
                         }
-                        catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+                        catch{Toast.showErrorWith(msg: error.localizedDescription)}
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                     }, onError: { (error) in
-                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                        Toast.showErrorWith(msg: error.localizedDescription)
                     })
                     
                 }, option: nil)
@@ -209,11 +220,20 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isShowNotice && section == 0{
             let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
-            headerView.deleteBlock = {
+            headerView.deleteBlock = {[unowned self] in
                 self.isShowNotice = false
                 tableView.reloadData()
             }
             return headerView
+        }
+        return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0{
+            let footerView = UIView()
+            footerView.backgroundColor = UIColor.groupTableViewBackground
+            return footerView
         }
         return nil
     }
@@ -247,7 +267,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
 extension IdentityAuthInfoWithSexAndNameController{
     func toChooseCollege(){
         let chooseSchoolController = ChooseSchoolController()
-        chooseSchoolController.chooseBlock = {(collegeModel) in
+        chooseSchoolController.chooseBlock = {[unowned self] (collegeModel) in
             self.school.text = collegeModel?.name
             self.identityInfoModel?.college = collegeModel
             self.identityInfoModel?.school = nil
@@ -260,19 +280,19 @@ extension IdentityAuthInfoWithSexAndNameController{
         if let collegeId = self.identityInfoModel?.college?.coid{
             let chooseAcademyController = ChooseAcademyController()
             chooseAcademyController.collegeId = collegeId
-            chooseAcademyController.chooseAcademyBlock = {(academyModel) in
+            chooseAcademyController.chooseAcademyBlock = {[unowned self] (academyModel) in
                 self.academy.text = academyModel?.name
                 self.identityInfoModel?.school = academyModel
             }
             self.navigationController?.pushViewController(chooseAcademyController, animated: true)
         }else{
-            SVProgressHUD.showErrorWith(msg: "请先选择大学")
+            Toast.showErrorWith(msg: "请先选择大学")
         }
     }
     
     func toChooseGrade(){
         let chooseGradeController = ChooseGradeController()
-        chooseGradeController.chooseGradeBlock = {(gradeModel) in
+        chooseGradeController.chooseGradeBlock = {[unowned self] (gradeModel) in
             self.grade.text = gradeModel?.name
             self.identityInfoModel?.grade = gradeModel
         }

@@ -45,7 +45,6 @@ class TrendCommentCell: UITableViewCell {
             make.top.equalTo(self.commentContainView)
             make.left.equalTo(self.commentContainView)
             make.right.equalTo(self.commentContainView)
-            make.height.equalTo(60)
         }
         
         self.commentContentContainView = UIView()

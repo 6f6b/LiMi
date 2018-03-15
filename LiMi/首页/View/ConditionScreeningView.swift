@@ -185,9 +185,9 @@ class ConditionScreeningView: UIView {
             let screeningConditionsModel = Mapper<ScreeningConditionsModel>().map(jsonData: response.data)
             self.screeningConditionsModel = screeningConditionsModel
             self.collectionView.reloadData()
-            SVProgressHUD.showErrorWith(model: screeningConditionsModel)
+            Toast.showErrorWith(model: screeningConditionsModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -203,9 +203,9 @@ class ConditionScreeningView: UIView {
                         self.screeningConditionsModel?.academy = academys
                         self.collectionView.reloadSections([1])
                     }
-                    SVProgressHUD.showErrorWith(model: academyContainerModel)
+                    Toast.showErrorWith(model: academyContainerModel)
                 }, onError: { (error) in
-                    SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                    Toast.showErrorWith(msg: error.localizedDescription)
                 })
             }
             if !_collegeModel.isSelected{
@@ -343,7 +343,7 @@ extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSo
             headerView.spreadBtn.isSelected = !self.isSkillsShow
             headerView.info.text = "需求标签"
         }
-        headerView.spreadBlock = {isSpread in
+        headerView.spreadBlock = {[unowned self] isSpread in
             if indexPath.section == 0{self.isCollegesShow = !isSpread}
             if indexPath.section == 1{self.isAcademysShow = !isSpread}
             if indexPath.section == 2{self.isGradeShow = !isSpread}

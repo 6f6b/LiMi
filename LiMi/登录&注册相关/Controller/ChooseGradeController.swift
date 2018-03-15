@@ -32,6 +32,10 @@ class ChooseGradeController: ViewController {
     }
     
     
+    deinit {
+        print("选择年级销毁")
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -48,9 +52,9 @@ class ChooseGradeController: ViewController {
                 self.tableView.reloadData()
             }
             //            self.handle(collegeModels: collegeContainerModel?.colleges)
-            SVProgressHUD.showErrorWith(model: gradeContainerModel)
+            Toast.showErrorWith(model: gradeContainerModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 

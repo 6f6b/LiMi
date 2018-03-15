@@ -20,6 +20,8 @@ extension SVProgressHUD{
     }
     //只显示错误信息
     static func showErrorWith(model:BaseModel?){
+//        SVProgressHUD.showInfo(withStatus: <#T##String?#>)
+//        SVProgressHUD.show(withStatus: <#T##String?#>)
         if let status  = model?.commonInfoModel?.status{
             if status != successState{
                 //对错误信息进行截获

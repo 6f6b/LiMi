@@ -44,19 +44,19 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bigright" translatesAutoresizingMaskIntoConstraints="NO" id="Hnd-F0-1av">
                                                             <rect key="frame" x="330" y="20.5" width="15" height="28"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="张学友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmV-xJ-AVU">
-                                                            <rect key="frame" x="86" y="10" width="52" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmV-xJ-AVU">
+                                                            <rect key="frame" x="86" y="10" width="16" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="西华大学" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPP-Hu-13f">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPP-Hu-13f">
                                                             <rect key="frame" x="91" y="41" width="61.5" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="boy" translatesAutoresizingMaskIntoConstraints="NO" id="foQ-th-zzi">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ic_boy" translatesAutoresizingMaskIntoConstraints="NO" id="foQ-th-zzi">
                                                             <rect key="frame" x="153" y="8" width="13" height="23"/>
                                                         </imageView>
                                                     </subviews>
@@ -111,8 +111,8 @@
                                                             <color key="textColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未认证" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o10-Me-O2T">
-                                                            <rect key="frame" x="299" y="16" width="46" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o10-Me-O2T">
+                                                            <rect key="frame" x="331" y="16" width="14" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -170,8 +170,8 @@
                                                             <color key="textColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥10000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4B-Z3-22Y">
-                                                            <rect key="frame" x="285.5" y="15" width="59.5" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4B-Z3-22Y">
+                                                            <rect key="frame" x="329.5" y="15" width="15.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -187,22 +187,12 @@
                                                         <constraint firstItem="nCa-aN-tHS" firstAttribute="centerY" secondItem="0aY-Am-oC7" secondAttribute="centerY" id="sxY-BT-H4j"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-9E-DcM">
-                                                    <rect key="frame" x="0.0" y="49" width="375" height="1"/>
-                                                    <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="1ap-Nj-Ub6"/>
-                                                    </constraints>
-                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="d4P-9E-DcM" secondAttribute="bottom" id="3IE-I5-z1t"/>
                                                 <constraint firstAttribute="trailing" secondItem="0aY-Am-oC7" secondAttribute="trailing" constant="15" id="3dv-6f-fKb"/>
                                                 <constraint firstItem="0aY-Am-oC7" firstAttribute="top" secondItem="8qy-4b-QqN" secondAttribute="top" id="CAQ-64-OaG"/>
                                                 <constraint firstAttribute="bottom" secondItem="0aY-Am-oC7" secondAttribute="bottom" id="QeE-Li-3t5"/>
-                                                <constraint firstAttribute="trailing" secondItem="d4P-9E-DcM" secondAttribute="trailing" id="Sum-md-Nx0"/>
                                                 <constraint firstItem="0aY-Am-oC7" firstAttribute="leading" secondItem="8qy-4b-QqN" secondAttribute="leading" constant="15" id="WX7-82-D7l"/>
-                                                <constraint firstItem="d4P-9E-DcM" firstAttribute="leading" secondItem="8qy-4b-QqN" secondAttribute="leading" id="b52-Nc-ELe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -233,10 +223,10 @@
                                                             <color key="textColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-Op-fUR">
-                                                            <rect key="frame" x="329" y="16" width="16" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-Op-fUR">
+                                                            <rect key="frame" x="331" y="16" width="14" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -276,8 +266,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXR-8W-z2C">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="53"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tXR-8W-z2C">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="50"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xuqiu" translatesAutoresizingMaskIntoConstraints="NO" id="fAu-wP-8wO">
                                                             <rect key="frame" x="0.0" y="12.5" width="25" height="25"/>
@@ -292,21 +282,26 @@
                                                             <color key="textColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5k-db-EtR">
-                                                            <rect key="frame" x="335.5" y="16" width="9.5" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5k-db-EtR">
+                                                            <rect key="frame" x="345" y="25" width="0.0" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="Xgr-4b-Y4v">
+                                                            <rect key="frame" x="338" y="18.5" width="7" height="12"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="fAu-wP-8wO" firstAttribute="leading" secondItem="tXR-8W-z2C" secondAttribute="leading" id="DZ3-Uv-Tsm"/>
+                                                        <constraint firstItem="Xgr-4b-Y4v" firstAttribute="centerY" secondItem="tXR-8W-z2C" secondAttribute="centerY" id="FEZ-Hc-Hdy"/>
                                                         <constraint firstItem="f5k-db-EtR" firstAttribute="centerY" secondItem="fAu-wP-8wO" secondAttribute="centerY" id="L8x-pG-TeJ"/>
                                                         <constraint firstItem="fAu-wP-8wO" firstAttribute="centerY" secondItem="tXR-8W-z2C" secondAttribute="centerY" id="PzC-zX-f4A"/>
                                                         <constraint firstItem="Ozk-TS-IfX" firstAttribute="centerY" secondItem="fAu-wP-8wO" secondAttribute="centerY" id="f0c-TW-ZqY"/>
                                                         <constraint firstItem="Ozk-TS-IfX" firstAttribute="leading" secondItem="fAu-wP-8wO" secondAttribute="trailing" constant="10" id="iI9-U2-DnL"/>
                                                         <constraint firstAttribute="trailing" secondItem="f5k-db-EtR" secondAttribute="trailing" id="mck-eK-JHc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Xgr-4b-Y4v" secondAttribute="trailing" id="shA-XS-QbQ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1162,10 +1157,10 @@
     </scenes>
     <resources>
         <image name="bigright" width="15" height="28"/>
-        <image name="boy" width="15" height="15"/>
         <image name="dongtai" width="24" height="23"/>
         <image name="fankui" width="23" height="23"/>
         <image name="guanyu" width="25" height="22"/>
+        <image name="ic_boy" width="15" height="12"/>
         <image name="renzheng" width="25" height="20"/>
         <image name="rightbar" width="7" height="12"/>
         <image name="touxiang" width="70" height="70"/>

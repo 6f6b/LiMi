@@ -34,9 +34,9 @@ class UserDetailHeadView: UIView {
             self.headIcon.kf.setImage(with: URL.init(string: headPic), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         if model?.sex == "女"{
-            self.sexImg.image = UIImage.init(named: "girl")
+            self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
-            self.sexImg.image = UIImage.init(named: "boy")
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }
         self.userName.text = model?.true_name
         if let college = model?.college,let grade = model?.grade,let academy = model?.school{

@@ -66,6 +66,10 @@ class TrendsWithTextAndVideoCell: TrendsWithTextCell {
         }
     }
     
+    deinit {
+        print("TrendsWithTextAndVideoCell销毁")
+    }
+    
     //MARK: - misc
     override func configWith(model: TrendModel?) {
         super.configWith(model: model)

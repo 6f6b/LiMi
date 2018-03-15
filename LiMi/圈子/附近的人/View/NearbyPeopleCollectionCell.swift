@@ -30,9 +30,9 @@ class NearbyPeopleCollectionCell: UICollectionViewCell {
         self.autograph.text = model?.content
         self.distance.text = model?.distance
         if model?.numSex == 0{
-            self.sexImg.image = UIImage.init(named: "girl")
+            self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
-            self.sexImg.image = UIImage.init(named: "boy")
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }
     }
 }

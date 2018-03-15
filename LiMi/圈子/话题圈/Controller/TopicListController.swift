@@ -29,14 +29,15 @@ class TopicListController: ViewController {
         super.viewDidLoad()
         self.title = "我的订单"
         
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
         self.tableView.delegate = self
         self.tableView.dataSource = self
         registerTrendsCellFor(tableView: self.tableView)
@@ -51,7 +52,17 @@ class TopicListController: ViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: POST_TOPIC_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: DID_TOPIC_MORE_OPERATION, object: nil)
+        print("话题容器界面销毁")
+    }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,11 +94,11 @@ class TopicListController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: topicsContainModel)
+            Toast.showErrorWith(model: topicsContainModel)
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 
@@ -97,6 +108,8 @@ class TopicListController: ViewController {
     ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
     ///   - trendModel: 动态模型
     func dealMoreOperationWith(operationType:OperationType,trendModel:TrendModel?){
+        if !AppManager.shared.checkUserStatus(){return}
+
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         var type:String? = nil
         if operationType == .defriend{type = "black"}
@@ -118,9 +131,9 @@ class TopicListController: ViewController {
                 moreOperationModel.user_id = trendModel?.user_id
                 NotificationCenter.default.post(name: DID_TOPIC_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
             }
-            SVProgressHUD.showResultWith(model: baseModel)
+            Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -203,24 +216,26 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
             let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel) as! TrendsCell
             //完善相关block
             //点击头像
-            topicCell.trendsTopToolsContainView.tapHeadBtnBlock = {
+            topicCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
                 let userDetailsController = UserDetailsController()
                 userDetailsController.userId = self.dataArray[indexPath.row].user_id!
                 self.navigationController?.pushViewController(userDetailsController, animated: true)
             }
             //点击更多
-            topicCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {
-                let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+            topicCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {[unowned self] btn in
+                let actionReport = SuspensionMenuAction.init(title: "举报", action: {
                     self.dealMoreOperationWith(operationType: .report, trendModel: trendModel)
                 })
-                let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+                
+                let actionDefriend = SuspensionMenuAction(title: "拉黑", action: {
                     self.dealMoreOperationWith(operationType: .defriend, trendModel: trendModel)
                 })
-                let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+                
+                let actionSendMsg = SuspensionMenuAction(title: "发消息", action: {
                     self.dealMoreOperationWith(operationType: .sendMsg, trendModel: trendModel)
                 })
-                let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
+                
+                let actionDelete = SuspensionMenuAction(title: "删除", action: {
                     let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
                     let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
                         self.dealMoreOperationWith(operationType: .delete, trendModel: trendModel)
@@ -230,20 +245,51 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
                     alertController.addAction(actionCancel)
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                var actions = [SuspensionMenuAction]()
                 if trendModel.user_id != Defaults[.userId]{
-                    actionController.addAction(actionReport)
-                    actionController.addAction(actionDefriend)
-                    actionController.addAction(actionSendMsg)
-                    
+                    actions.append(actionReport)
+                    actions.append(actionDefriend)
+                    actions.append(actionSendMsg)
                 }else{
-                    actionController.addAction(actionDelete)
+                    actions.append(actionDelete)
                 }
-                actionController.addAction(actionCancel)
-                self.present(actionController, animated: true, completion: nil)
+                let suspensionExpandMenu = SuspensionExpandMenu.init(actions: actions)
+                suspensionExpandMenu.showAround(view: btn)
+                
+//                let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//                let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .report, trendModel: trendModel)
+//                })
+//                let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .defriend, trendModel: trendModel)
+//                })
+//                let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .sendMsg, trendModel: trendModel)
+//                })
+//                let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
+//                    let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
+//                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+//                        self.dealMoreOperationWith(operationType: .delete, trendModel: trendModel)
+//                    })
+//                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+//                    alertController.addAction(actionOK)
+//                    alertController.addAction(actionCancel)
+//                    self.present(alertController, animated: true, completion: nil)
+//                })
+//                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+//                if trendModel.user_id != Defaults[.userId]{
+//                    actionController.addAction(actionReport)
+//                    actionController.addAction(actionDefriend)
+//                    actionController.addAction(actionSendMsg)
+//
+//                }else{
+//                    actionController.addAction(actionDelete)
+//                }
+//                actionController.addAction(actionCancel)
+//                self.present(actionController, animated: true, completion: nil)
             }
             //评论
-            topicCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+            topicCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
                 let commentsWithTrendController = CommentsWithTrendController()
                 commentsWithTrendController.trendModel = self.dataArray[indexPath.row]
                 self.navigationController?.pushViewController(commentsWithTrendController, animated: true)

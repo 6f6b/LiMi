@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Moya
+import ObjectMapper
 
 class SystemmsgContainController: ViewController {
     var slidingMenuBar:SlidingMenuBar!
@@ -21,9 +23,13 @@ class SystemmsgContainController: ViewController {
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
         }
-//        let filter = NIMSystemNotificationFilter.init()
-//        filter.notificationTypes
-//        NIMSDK.shared().systemNotificationManager.allUnreadCount(<#T##filter: NIMSystemNotificationFilter?##NIMSystemNotificationFilter?#>)
+        
+        let sumbitBtn = UIButton.init(type: .custom)
+        let sumBitAttributeTitle = NSAttributedString.init(string: "清空", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+        sumbitBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
+        sumbitBtn.sizeToFit()
+        sumbitBtn.addTarget(self, action: #selector(dealClear), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
         
         self.controllersContainScrollView = UIScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
         self.controllersContainScrollView.isPagingEnabled = true
@@ -36,15 +42,21 @@ class SystemmsgContainController: ViewController {
         slidingMenuBar.btnFirst.setTitle("评论", for: .normal)
         slidingMenuBar.btnSecond.setTitle("点赞", for: .normal)
         slidingMenuBar.frame = CGRect.init(x: 0, y: 0, width: 100, height: 44)
-//        slidingMenuBar.btnFirst.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
-//        slidingMenuBar.btnSecond.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
         slidingMenuBar.rightTop1.isHidden = false
         slidingMenuBar.rightTop2.isHidden = false
         self.navigationItem.titleView = slidingMenuBar
-        slidingMenuBar.tapBlock = {(index) in
+        slidingMenuBar.tapBlock = {[unowned self] (index) in
             UIView.animate(withDuration: 0.5, animations: {
                 self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*CGFloat(index), y: 0)
             })
+            //0 标记所有评论为已读
+            if index == 0{
+                AppManager.shared.customSystemMessageManager.markAllCommentMessageRead()
+            }
+            //1 标记所有点赞为已读
+            if index == 1{
+                AppManager.shared.customSystemMessageManager.markAllThumbUpMessageRead()
+            }
         }
         
         let commentsMsgListController = CommentsMsgListController()
@@ -61,6 +73,13 @@ class SystemmsgContainController: ViewController {
         thumbUpMsgListControllerView?.frame = tmpFrame
         self.controllersContainScrollView.addSubview(thumbUpMsgListControllerView!)
         self.slidingMenuBar.select(index: 0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: customSystemMessageUnreadCountChanged, object: nil)
+        print("系统消息容器界面销毁")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,18 +89,67 @@ class SystemmsgContainController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
+        //标记评论为已读
+        AppManager.shared.customSystemMessageManager.markAllCommentMessageRead()
+        self.refreshNum()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    //MARK: - misc
+    @objc func dealClear(){
+//        ClearMessage
+        let alertController = UIAlertController(title: "确认清空所有评论和点赞通知", message: nil, preferredStyle: .alert)
+        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        let actionOK = UIAlertAction.init(title: "确定", style: .default) { _ in
+            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+            let clearMessage = ClearMessage()
+            _ = moyaProvider.rx.request(.targetWith(target: clearMessage)).subscribe(onSuccess: { (response) in
+                let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+                if baseModel?.commonInfoModel?.status == successState{
+                    AppManager.shared.customSystemMessageManager.markAllCustomSystemMessageRead()
+                    NotificationCenter.default.post(name: CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS, object: nil)
+                }
+                Toast.showErrorWith(model: baseModel)
+            }, onError: { (error) in
+                Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }
+        alertController.addAction(actionCancel)
+        alertController.addAction(actionOK)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func refreshNum(){
+        let commentUnreadCount = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount()
+        let thumbUpUnreadCount = AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+        self.slidingMenuBar.rightTop1.isHidden = commentUnreadCount == 0 ? true : false
+        self.slidingMenuBar.rightTop2.isHidden = thumbUpUnreadCount == 0 ? true : false
+
+        self.slidingMenuBar.rightTop1.text = "\(commentUnreadCount)"
+        self.slidingMenuBar.rightTop2.text = "\(thumbUpUnreadCount)"
+    }
 }
 
 extension SystemmsgContainController:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x <= 0{self.slidingMenuBar.select(index: 0)}else{
             self.slidingMenuBar.select(index: 1)
+        }
+    }
+}
+
+//MARK: - Notification  通知
+extension SystemmsgContainController{
+    //自定义系统消息未读数改变
+    @objc func  customMessageUnreadCountChanged(){
+        self.refreshNum()
+        if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
+            let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+            systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
     }
 }

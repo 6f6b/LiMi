@@ -48,6 +48,10 @@ class CreateTopicCircleController: ViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    deinit {
+        print("创建话题圈销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -71,13 +75,13 @@ class CreateTopicCircleController: ViewController {
                 let delayTime : TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     self.dismiss(animated: true, completion: {
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                     })
                 }
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }

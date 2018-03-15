@@ -19,7 +19,7 @@ class TrendsWithTextCell: TrendsCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentText = YYLabel()
         self.trendsContentContainView.addSubview(self.contentText)
-        self.contentText.font = UIFont.systemFont(ofSize: 14)
+        self.contentText.font = UIFont.systemFont(ofSize: 17)
         self.contentText.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
         self.contentText.numberOfLines = 0
         self.contentText.lineBreakMode = .byWordWrapping
@@ -36,6 +36,10 @@ class TrendsWithTextCell: TrendsCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("TrendsWithTextCell销毁")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -65,7 +69,8 @@ class TrendsWithTextCell: TrendsCell {
             text.append(attachment)
         }
         if let _content = model?.content{
-            text.append(NSMutableAttributedString.init(string: "  \(_content)"))
+            let attributeContent = NSMutableAttributedString.init(string: "\(_content)", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+            text.append(attributeContent)
         }
         self.contentText.attributedText = text
     }

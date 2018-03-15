@@ -117,6 +117,7 @@
     cell.nameLabel.text = [self nameForRecentSession:recent];
     [cell.avatarImageView setAvatarBySession:recent.session];
     [cell.nameLabel sizeToFit];
+    
     cell.messageLabel.attributedText  = [self contentForRecentSession:recent];
     [cell.messageLabel sizeToFit];
     cell.timeLabel.text = [self timestampDescriptionForRecentSession:recent];

@@ -32,8 +32,11 @@ class CircleController: ViewController {
         self.tableView.register(UINib.init(nibName: "WeekendTourSeparateCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSeparateCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourSubjectInCircleHomePageCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSubjectInCircleHomePageCell")
         self.circleHomeBannerCell = GET_XIB_VIEW(nibName: "CircleHomeBannerCell") as! CircleHomeBannerCell
-        self.circleHomeBannerCell.tapMenuBlock = {(circleMenuType) in
+        self.circleHomeBannerCell.tapMenuBlock = {[unowned self] (circleMenuType) in
             if circleMenuType == .peopleNearby{
+                if !AppManager.shared.checkUserStatus(){
+                    return
+                }
                 let peopleNearbyController = PeopleNearbyController()
                 self.navigationController?.pushViewController(peopleNearbyController, animated: true)
             }
@@ -47,9 +50,9 @@ class CircleController: ViewController {
             }
         }
         
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.loadData()
-        })
+        }
         
         self.loadData()
     }
@@ -82,10 +85,10 @@ class CircleController: ViewController {
             }
             self.tableView.reloadData()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: weekendTourListContainModel)
+            Toast.showErrorWith(model: weekendTourListContainModel)
         }, onError: { (error) in
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
         
     }
@@ -108,7 +111,7 @@ extension CircleController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0{return 7}
+//        if section == 0{return 7}
         return 0.001
     }
     

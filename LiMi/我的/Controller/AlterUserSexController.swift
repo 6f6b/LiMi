@@ -27,6 +27,10 @@ class AlterUserSexController: ViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
     }
 
+    deinit {
+        print("修改性别销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -49,10 +53,10 @@ class AlterUserSexController: ViewController {
     @objc func dealSumbit(){
         //判断是否选择了性别
         if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
-            SVProgressHUD.showError(withStatus: "请选择性别")
+            Toast.showErrorWith(msg: "请选择性别")
             return
         }
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         var sex = "0"
         if !self.boyPreImg.isHidden{
             sex = "1"
@@ -70,9 +74,10 @@ class AlterUserSexController: ViewController {
                     alterBlock(sex)
                 }
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            self.navigationController?.popViewController(animated: true)
+            Toast.showResultWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }

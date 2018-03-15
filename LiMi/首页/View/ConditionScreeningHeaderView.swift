@@ -23,8 +23,8 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
             make.top.equalTo(self).offset(25)
             make.left.equalTo(self)
             make.bottom.equalTo(self).offset(-10)
-            make.height.equalTo(15)
-            make.width.equalTo(15)
+//            make.height.equalTo(15)
+//            make.width.equalTo(15)
         }
         
         self.info = UILabel()

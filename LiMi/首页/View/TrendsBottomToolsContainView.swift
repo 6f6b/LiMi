@@ -13,6 +13,7 @@ import ObjectMapper
 
 class TrendsBottomToolsContainView: UIView {
     var topToolsContainView:UIView!  //顶部工具栏容器
+    var viewNumIcon:UIImageView!    //浏览量图标
     var viewNum:UILabel!    //浏览量
     var thumbsUpBtn:UIButton!   //点赞按钮
     var thumbsNum:UILabel!  //点赞数量
@@ -44,6 +45,16 @@ class TrendsBottomToolsContainView: UIView {
             make.right.equalTo(self)
         }
         
+        self.viewNumIcon = UIImageView()
+        self.viewNumIcon.image = UIImage.init(named: "home_ic_liulan")
+        self.viewNumIcon.sizeToFit()
+        self.topToolsContainView.addSubview(self.viewNumIcon)
+        self.viewNumIcon.snp.makeConstraints { (make) in
+            make.top.equalTo(self.topToolsContainView).offset(15)
+            make.left.equalTo(self.topToolsContainView).offset(15)
+            make.centerY.equalTo(self.topToolsContainView)
+        }
+        
         self.viewNum = UILabel()
         self.topToolsContainView.addSubview(self.viewNum)
         self.viewNum.text = "-++-"
@@ -51,7 +62,7 @@ class TrendsBottomToolsContainView: UIView {
         self.viewNum.font = UIFont.systemFont(ofSize: 12)
         self.viewNum.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.topToolsContainView)
-            make.left.equalTo(self.topToolsContainView).offset(12)
+            make.left.equalTo(self.viewNumIcon.snp.right).offset(5)
         }
         
         self.thumbsUpBtn = SuitableHotSpaceButton(type: .custom)
@@ -61,17 +72,17 @@ class TrendsBottomToolsContainView: UIView {
         self.thumbsUpBtn.addTarget(self, action: #selector(dealTapThumbUpBtn), for: .touchUpInside)
         self.thumbsUpBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.viewNum)
-            make.right.equalTo(self.topToolsContainView).offset(-150)
+            make.left.equalTo(self.viewNum.snp.right).offset(25)
         }
         
         self.thumbsNum = UILabel()
         self.topToolsContainView.addSubview(self.thumbsNum)
         self.thumbsNum.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         self.thumbsNum.font = UIFont.systemFont(ofSize: 12)
-        self.thumbsNum.text = "666"
+        self.thumbsNum.text = "--"
         self.thumbsNum.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.thumbsUpBtn)
-            make.left.equalTo(self.thumbsUpBtn.snp.right).offset(4)
+            make.left.equalTo(self.thumbsUpBtn.snp.right).offset(5)
         }
         
         self.commentBtn = SuitableHotSpaceButton()
@@ -80,17 +91,17 @@ class TrendsBottomToolsContainView: UIView {
         self.commentBtn.addTarget(self, action: #selector(dealTapCommentBtn), for: .touchUpInside)
         self.commentBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.thumbsUpBtn)
-            make.right.equalTo(self.topToolsContainView).offset(-50)
+            make.left.equalTo(self.thumbsNum.snp.right).offset(25)
         }
         
         self.commentNum = UILabel()
         self.topToolsContainView.addSubview(self.commentNum)
         self.commentNum.font = UIFont.systemFont(ofSize: 12)
         self.commentNum.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
-        self.commentNum.text = "666"
+        self.commentNum.text = "--"
         self.commentNum.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.commentBtn)
-            make.left.equalTo(self.commentBtn.snp.right).offset(4)
+            make.left.equalTo(self.commentBtn.snp.right).offset(5)
         }
     }
     
@@ -109,7 +120,7 @@ class TrendsBottomToolsContainView: UIView {
 //        var commentNum:UILabel! //评论数量
 //        var grayBar:UIView! //底部灰色长条
         if let _viewNum = model?.view_num{
-            self.viewNum.text = "浏览 " + _viewNum
+            self.viewNum.text = _viewNum
         }
         self.thumbsNum.text = model?.click_num?.stringValue()
         self.commentNum.text = model?.discuss_num?.stringValue()
@@ -122,6 +133,7 @@ class TrendsBottomToolsContainView: UIView {
     
     /// 点赞
     @objc func dealTapThumbUpBtn(){
+        if !AppManager.shared.checkUserStatus(){return}
         //判断动态种类
         var body:TargetType!
         if self.trendModel?.topic_action_id != nil{
@@ -143,14 +155,16 @@ class TrendsBottomToolsContainView: UIView {
                 }
                 NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.trendModel])
             }
-            SVProgressHUD.showErrorWith(model: resultModel)
+            Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     /// 评论
     @objc func dealTapCommentBtn(){
+        if !AppManager.shared.checkUserStatus(){return}
+
         if let _tapCommentBtnBlock = self.tapCommentBtnBlock{
             _tapCommentBtnBlock()
         }

@@ -79,7 +79,7 @@ extension ReleaseContentImgInputCell:UICollectionViewDelegate,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == self.imgArry.count{
             let addImgCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReleaseContentAddImgCollectionCell", for: indexPath) as! ReleaseContentAddImgCollectionCell
-            addImgCollectionCell.addBlock = {
+            addImgCollectionCell.addBlock = {[unowned self] in
                 if let _addImgBlock = self.addImgBlock{
                     _addImgBlock()
                 }
@@ -88,7 +88,7 @@ extension ReleaseContentImgInputCell:UICollectionViewDelegate,UICollectionViewDe
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReleaseContentImgCollectionCell", for: indexPath) as! ReleaseContentImgCollectionCell
         cell.configWith(mediaModel: self.imgArry[indexPath.row])
-        cell.deleteBlock = {
+        cell.deleteBlock = {[unowned self] in
             if let _deleteImgBlock = self.deleteImgBlock{
                 _deleteImgBlock(indexPath.row)
             }

@@ -11,6 +11,7 @@ import SnapKit
 
 class TopicCircleWithPictureCell: TrendsWithPictureCell {
     var topicCircelModel:TopicCircleModel?
+    var collectionViewMarginToTrendsContainView = CGFloat(8)
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -18,16 +19,45 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.collectionView.isUserInteractionEnabled = false
+        self.trendsContainViewMarginToWindow = CGFloat(5)
+        self.refreshUI()
         
-        //隐藏下方工具栏
+        self.trendsTopToolsContainView.userName.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
+        
+        self.collectionView.isUserInteractionEnabled = false
+        self.collectionView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2 + self.trendsContainViewMarginToWindow*2), height: 0)
+        
+        self.trendsContainView.layer.cornerRadius = 5
+        self.trendsContainView.clipsToBounds = true
+
+       //隐藏下方工具栏
         self.trendsBottomToolsContainView.isHidden = true
         self.trendsBottomToolsContainView.snp.remakeConstraints { (make) in
-            make.bottom.equalTo(self.grayBar.snp.top)
-            make.left.equalTo(self.trendsContainView)
-            make.right.equalTo(self.trendsContainView)
+            make.top.equalTo(self.trendsBottomToolsContainViewTopDivider.snp.bottom)
+            make.left.equalTo(self.trendsContainView).offset(self.bottomToolsContainViewMarginToTrendsContainView)
+            make.right.equalTo(self.trendsContainView).offset(-self.bottomToolsContainViewMarginToTrendsContainView)
             make.height.equalTo(0)
         }
+        
+        self.trendsContainViewBottomDivider.backgroundColor = UIColor.groupTableViewBackground
+        self.trendsContainViewBottomDivider.snp.remakeConstraints {[unowned self]   (make) in
+            make.top.equalTo(self.trendsContainView.snp.bottom)
+            make.left.equalTo(self.contentView)
+            make.bottom.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
+            make.height.equalTo(7)
+        }
+        
+        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.white
+        self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
+            make.left.equalTo(self.trendsContainView)
+            make.right.equalTo(self.trendsContainView)
+            make.bottom.equalTo(self.trendsContainView)
+            make.height.equalTo(10)
+        }
+        
+        self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewMarginToTrendsContainView, bottom: 0, right: collectionViewMarginToTrendsContainView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,24 +95,24 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
 //        }
 //        if let _tapPictureBlock = self.tapPictureBlock{
 //            _tapPictureBlock(indexPath.row)
-//        }
+//        }-
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemWidth = (SCREEN_WIDTH-12*2 - 5*2)/3
-        var itemSize = CGSize(width: itemWidth, height: itemWidth)
-//        if let pics = self.model?.action_pic{
-//            if pics.count == 1{
-//                itemSize.width = SCREEN_WIDTH-12*2
-//                itemSize.height = itemSize.width*(262/349.0)
-//            }
-//            if pics.count == 2 || pics.count == 4{
-//                itemSize.width = (SCREEN_WIDTH-12*2 - 5)/2
-//                itemSize.height = itemSize.width
-//            }
-//        }
+        let itemWidth = (SCREEN_WIDTH-collectionViewMarginToTrendsContainView*2 - 5.0*2 - self.trendsContainViewMarginToWindow*2-1)/3.0
+        let itemSize = CGSize(width: itemWidth, height: itemWidth)
+
         return itemSize
     }
+    
+//    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return CGFloat(multiPictureSpacing - 0.1)
+//    }
+//
+//    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return CGFloat(multiPictureSpacing - 0.1)
+//    }
+
 }
 
 //func configWith(model:TrendModel?,cellStyle:TrendsCellStyle = .normal){

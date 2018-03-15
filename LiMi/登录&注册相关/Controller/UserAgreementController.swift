@@ -15,6 +15,10 @@ class UserAgreementController: ViewController {
         self.title = "用户协议"
     }
 
+    deinit {
+        print("用户协议销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

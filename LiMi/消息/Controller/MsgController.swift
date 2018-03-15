@@ -25,6 +25,10 @@ class MsgController: ViewController {
         self.view.addSubview(sessionListController.view)
     }
 
+    deinit {
+        print("消息列表销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

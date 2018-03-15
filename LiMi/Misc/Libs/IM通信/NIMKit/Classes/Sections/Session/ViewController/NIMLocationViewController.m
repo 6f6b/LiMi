@@ -45,10 +45,18 @@
     return self;
 }
 
+//Edit by LiuFeng   (NIM) 2018/3/9
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"位置";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss:)];
+//    if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+//        backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+//    }
+    UIButton *btn = [[UIButton alloc] init];
+    [btn addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"btn_back_hei"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss:)];
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     self.mapView.delegate = self;
     [self.view addSubview:self.mapView];

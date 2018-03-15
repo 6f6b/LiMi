@@ -6,6 +6,9 @@
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
+import Moya
+import ObjectMapper
+
 enum AppState {
     ///im登录，app登录
     case imOnlineBusinessOnline
@@ -23,10 +26,24 @@ import SVProgressHUD
 
 class AppManager:NSObject {
     static let shared = AppManager()
-    ///未读系统消息数
-    var systemUnreadCount:Int = 0
-    ///未读会话消息
-    var conversationUnreadCount:Int = 0
+    
+    ///会话消息管理
+    var conversationManager = NIMSDK.shared().conversationManager
+    ///系统消息管理
+    var systemNotificationManager = NIMSDK.shared().systemNotificationManager
+    ///自定义系统消息管理
+    var customSystemMessageManager = CustomSystemMessageManager.shared
+
+    
+    override init() {
+        super.init()
+        ///接收通过认证消息
+        NotificationCenter.default.addObserver(self, selector: #selector(dealIdentityStatusOk), name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+    }
     
     /// 当前APP 登录状态以及 IM的登录状态
     ///
@@ -58,12 +75,12 @@ class AppManager:NSObject {
         NTESServiceManager.shared().destory()
         NIMSDK.shared().loginManager.logout { (error) in
             if let _error = error{
-                SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
+                Toast.showErrorWith(msg: _error.localizedDescription)
             }
         }
     }
     
-    ///自动登录im,并返回登录状态
+    ///根据本地存储的accid、IMtoken等信息，自动登录im,并返回登录状态
     ///
     /// - Returns: 是否为登录状态
     func autoLoginIM()->Bool{
@@ -78,6 +95,62 @@ class AppManager:NSObject {
         }
         return NIMSDK.shared().loginManager.isLogined()
     }
-        
+    
+    
+    /// 向服务器请求accid、IMtoken等信息，并进行登录
+    func manualLoginIM(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let getImToken = GetIMToken()
+        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+            let imModel = Mapper<IMModel>().map(jsonData: response.data)
+            if let _accid = imModel?.accid?.stringValue(),let _token = imModel?.token{
+                NIMSDK.shared().loginManager.login(_accid, token: _token, completion: { (error) in
+                    if let _error = error{
+                        Toast.showErrorWith(msg: _error.localizedDescription)
+                    }
+                })
+            }
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    
+    /// 检查用户状态，是否能进行操作
+    ///
+    /// - Returns: 是否能进行操作
+    func checkUserStatus()->Bool{
+        //判断是否登录
+        if Defaults[.userId] == nil{
+            NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil)
+            return false
+        }
+        let certificationState = Defaults[.userCertificationState]
+        //是否通过认证
+        if certificationState == 0{
+            let identityAuthInfoWithSexAndNameController = GetViewControllerFrom(sbName: .personalCenter, sbID: "IdentityAuthInfoWithSexAndNameController") as! IdentityAuthInfoWithSexAndNameController
+            let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+            let navController = tabBarController.selectedViewController as! NavigationController
+            navController.pushViewController(identityAuthInfoWithSexAndNameController, animated: true)
+            return false
+        }
+        if certificationState == 1{
+            Toast.showInfoWith(text: "认证中")
+            return false
+        }
+        if certificationState == 2{
+        }
+        if certificationState == 3{
+            Toast.showInfoWith(text: "认证失败")
+            return false
+        }
+        return true
+    }
 }
 
+//认证通过通知
+extension AppManager{
+    @objc func dealIdentityStatusOk(){
+        self.manualLoginIM()
+    }
+}

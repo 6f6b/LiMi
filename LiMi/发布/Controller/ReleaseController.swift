@@ -66,29 +66,29 @@ class ReleaseController: ViewController {
         
         self.releaseContentTextInputCell = GET_XIB_VIEW(nibName: "ReleaseContentTextInputCell") as! ReleaseContentTextInputCell
         self.releaseContentTextInputCell.selectionStyle = .none
-        self.releaseContentTextInputCell.textChangeBlock = {_ in
+        self.releaseContentTextInputCell.textChangeBlock = {[unowned self] _ in
             self.RefreshReleasBtnEnable()
         }
         self.releaseContentImgInputCell = ReleaseContentImgInputCell()
         self.releaseContentImgInputCell.selectionStyle = .none
-        self.releaseContentImgInputCell.addImgBlock = {
+        self.releaseContentImgInputCell.addImgBlock = {[unowned self] in
             if self.videoArr.count >= 1{
-                SVProgressHUD.showInfo(withStatus: "最多选择一个视频")
+                Toast.showInfoWith(text:"最多选择一个视频")
                 return
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
             self.imagePickerVc?.autoDismiss = false
-            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
-            self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+            self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
                 self.videoArr.removeAll()
                 self.uploadImgsWith(imgs: photos)
                 self.tableView.reloadData()
                 self.RefreshReleasBtnEnable()
             }
-            self.imagePickerVc?.didFinishPickingVideoHandle = {(img,other) in
+            self.imagePickerVc?.didFinishPickingVideoHandle = {[unowned self] (img,other) in
                 self.imgArr.removeAll()
                 self.uploadVideoWith(phAsset: other as? PHAsset, preImg: img)
                 self.tableView.reloadData()
@@ -96,7 +96,7 @@ class ReleaseController: ViewController {
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
-        self.releaseContentImgInputCell.deleteImgBlock = {(index) in
+        self.releaseContentImgInputCell.deleteImgBlock = {[unowned self] (index) in
             if self.imgArr.count != 0{
                 self.imgArr.remove(at: index)
             }else{
@@ -122,6 +122,10 @@ class ReleaseController: ViewController {
         self.qnUploadManager = QNUploadManager(configuration: qnConfig)
     }
 
+    deinit {
+        print("发布动态界面销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -131,6 +135,7 @@ class ReleaseController: ViewController {
         UIApplication.shared.statusBarStyle = .default
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -153,7 +158,7 @@ class ReleaseController: ViewController {
                     let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
                     uploader.maxConcurrentNumber = 3
                     uploader.files = files
-                    SVProgressHUD.show(withStatus: "处理中")
+                    Toast.showStatusWith(text: "处理中")
                     uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
                         let imgName = dic["key"] as? String
                         var localMediaModel = LocalMediaModel.init()
@@ -169,7 +174,7 @@ class ReleaseController: ViewController {
                         print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
                     }, uploadAllFilesComplete: {
                         print("uploadOver")
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                         self.tableView.reloadData()
                         self.RefreshReleasBtnEnable()
@@ -184,9 +189,9 @@ class ReleaseController: ViewController {
         self.phAsset = phAsset
         GetQiNiuUploadToken(type: .video, onSuccess: { (qnUploadToken) in
             if let _token = qnUploadToken?.token{
-                SVProgressHUD.setStatus(nil)
-                let progressBlock:QNUpProgressHandler = {(str,flo) in
-                    SVProgressHUD.showProgress(flo)
+                Toast.showStatusWith(text: nil)
+                let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
+                    //Toast.showProgress(flo)
                 }
                 let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
                     return false
@@ -194,13 +199,13 @@ class ReleaseController: ViewController {
                 let fileName = uploadFileName(type: .video)
                 self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
                     if let _error = responseInfo?.error{
-                        SVProgressHUD.showErrorWith(msg: _error.localizedDescription)
+                        Toast.showErrorWith(msg: _error.localizedDescription)
                     }else{
                         var localMediaModel = LocalMediaModel.init()
                         localMediaModel.imgName = str
                         localMediaModel.img = preImg
                         self.videoArr.append(localMediaModel)
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                         self.tableView.reloadData()
                         self.RefreshReleasBtnEnable()
@@ -234,8 +239,8 @@ class ReleaseController: ViewController {
     
     func makeReleaseBtn(isEnable:Bool){
         if isEnable{
-            releaseBtn.backgroundColor = UIColor.white
-            let releaseBtnAttributeTitle = NSAttributedString.init(string: "发送", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+            releaseBtn.backgroundColor = APP_THEME_COLOR
+            let releaseBtnAttributeTitle = NSAttributedString.init(string: "发送", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
             releaseBtn.setAttributedTitle(releaseBtnAttributeTitle, for: .normal)
         }
         if !isEnable{
@@ -277,16 +282,16 @@ class ReleaseController: ViewController {
                         self.releaseContentRedBagInputCell.rightLabel.text = nil
                         
                         let rewardRedPacketController = RewardRedPacketController()
-                        rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
+                        rewardRedPacketController.sentRedPacketSuccessBlock = {[unowned self] (money,sendRedPacketResultModel) in
                             self.sendRedpacketResultModel = sendRedPacketResultModel
                             self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
                         }
                         self.navigationController?.pushViewController(rewardRedPacketController, animated: true)
                     }
                 }
-                SVProgressHUD.showErrorWith(model: resultModel)
+                Toast.showErrorWith(model: resultModel)
             }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                Toast.showErrorWith(msg: error.localizedDescription)
             })
     }
     
@@ -304,13 +309,13 @@ class ReleaseController: ViewController {
                 let delayTime : TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     self.dismiss(animated: true, completion: {
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                     })
                 }
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }
@@ -331,6 +336,15 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0{return 7}
         return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0{
+            let footerView = UIView()
+            footerView.backgroundColor = UIColor.groupTableViewBackground
+            return footerView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -359,7 +373,7 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 1{
             if indexPath.row == 0{
                 let tagListView = TagListView(frame: SCREEN_RECT)
-                tagListView.selectTagBlock = {(skillModel) in
+                tagListView.selectTagBlock = {[unowned self] (skillModel) in
                     self.skillModel = skillModel
                     self.releaseContentTagInputCell.rightLabel.text = skillModel?.skill
                 }
@@ -368,7 +382,7 @@ extension ReleaseController:UITableViewDelegate,UITableViewDataSource{
             if indexPath.row == 1{
                 if nil == self.sendRedpacketResultModel?.red_token{
                     let rewardRedPacketController = RewardRedPacketController()
-                    rewardRedPacketController.sentRedPacketSuccessBlock = {(money,sendRedPacketResultModel) in
+                    rewardRedPacketController.sentRedPacketSuccessBlock = {[unowned self] (money,sendRedPacketResultModel) in
                         self.sendRedpacketResultModel = sendRedPacketResultModel
                         self.releaseContentRedBagInputCell.rightLabel.text = money.decimalValue() + "元"
                     }

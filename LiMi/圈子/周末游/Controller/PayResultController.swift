@@ -10,6 +10,8 @@ import UIKit
 
 class PayResultController: ViewController {
     @IBOutlet weak var successContainView: UIView!
+    @IBOutlet weak var successInfo: UILabel!
+    
     @IBOutlet weak var failedContainView: UIView!
     
     @IBOutlet weak var failedThenRePayBtn: UIButton!
@@ -45,6 +47,22 @@ class PayResultController: ViewController {
         self.successThenCheckOrderBtn.clipsToBounds = true
         self.successThenCheckOrderBtn.layer.borderWidth = 1
         self.successThenCheckOrderBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
+        
+        let phoneText = "24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电\(PHONE_NUMBER)"
+        let nsPhoneText = NSString.init(string: phoneText)
+        let phoneNumRange = nsPhoneText.range(of: PHONE_NUMBER)
+        let attrPhoneText = NSMutableAttributedString.init(string: phoneText)
+        attrPhoneText.yy_font = self.successInfo.font
+        attrPhoneText.yy_color = self.successInfo.textColor
+        attrPhoneText.yy_setTextHighlight(phoneNumRange, color: APP_THEME_COLOR, backgroundColor: nil) { (view, str, range, rect) in
+            
+        }
+        self.successInfo.attributedText = attrPhoneText
+        self.successInfo.yb_addAttributeTapAction(with: [PHONE_NUMBER], delegate: self)
+    }
+
+    deinit {
+        print("订单结果销毁")
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,4 +118,10 @@ class PayResultController: ViewController {
         self.navigationController?.pushViewController(myOrderListController, animated: true)
     }
     
+}
+
+extension PayResultController:YBAttributeTapActionDelegate{
+    func yb_attributeTapReturn(_ string: String!, range: NSRange, index: Int) {
+        UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
+    }
 }

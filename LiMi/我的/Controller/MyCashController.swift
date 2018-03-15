@@ -50,6 +50,10 @@ class MyCashController: ViewController {
         self.loadData()
     }
     
+    deinit {
+        print("我的现金销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -61,9 +65,9 @@ class MyCashController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: myCash)).subscribe(onSuccess: { (response) in
             let mycashModel = Mapper<MyCashModel>().map(jsonData: response.data)
             self.refreshUIWith(model: mycashModel)
-            SVProgressHUD.showErrorWith(model: mycashModel)
+            Toast.showErrorWith(model: mycashModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -97,7 +101,7 @@ class MyCashController: ViewController {
             let withDrawalNav = NavigationController(rootViewController: withDrawalController)
             self.present(withDrawalNav, animated: true, completion: nil)
         }else{
-            SVProgressHUD.showInfo(withStatus: "请稍后..")
+            Toast.showInfoWith(text:"请稍后..")
         }
     }
     

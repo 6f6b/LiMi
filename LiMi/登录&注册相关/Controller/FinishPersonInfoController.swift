@@ -55,10 +55,10 @@ class FinishPersonInfoController: ViewController {
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
         self.imagePickerVc?.autoDismiss = false
-        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {
+        self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
         }
-        self.imagePickerVc?.didFinishPickingPhotosHandle = {(photos,assets,isOriginal) in
+        self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
             let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
             self.uploadHeadImgWith(img: compressImg)
         }
@@ -71,7 +71,7 @@ class FinishPersonInfoController: ViewController {
                 let fileName = uploadFileName(type: .picture)
                 QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
                     //开始上传服务器
-                    SVProgressHUD.show(withStatus: "正在上传..")
+                    Toast.showStatusWith(text: "正在上传..")
                     let moyaProvider = MoyaProvider<LiMiAPI>()
                     let headImgUpLoad = HeadImgUpLoad(id: self.loginModel?.id, token: self.loginModel?.token, image: "/"+str!, type: "head")
                     _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
@@ -80,12 +80,12 @@ class FinishPersonInfoController: ViewController {
                             if model.commonInfoModel?.status == successState{
                                 self.headImgBtn.setImage(img, for: .normal)
                             }
-                            SVProgressHUD.showResultWith(model: model)
+                            Toast.showResultWith(model: model)
                         }
-                        catch{SVProgressHUD.showErrorWith(msg: error.localizedDescription)}
+                        catch{Toast.showErrorWith(msg: error.localizedDescription)}
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
                     }, onError: { (error) in
-                        SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                        Toast.showErrorWith(msg: error.localizedDescription)
                     })
                     
                 }, option: nil)
@@ -98,15 +98,15 @@ class FinishPersonInfoController: ViewController {
     @IBAction func dealTapNext(_ sender: Any) {
         //判断是否选择了性别
         if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
-            SVProgressHUD.showError(withStatus: "请选择性别")
+            Toast.showErrorWith(msg: "请选择性别")
             return
         }
         //判断是否填写了姓名
         if IsEmpty(textField: self.realName){
-            SVProgressHUD.showError(withStatus: "请输入姓名")
+            Toast.showErrorWith(msg: "请输入姓名")
             return
         }
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let sex = self.girlPreImg.isHidden ? 1:0
         let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id, token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
@@ -119,9 +119,9 @@ class FinishPersonInfoController: ViewController {
                 let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
                 self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
             }
-            SVProgressHUD.showErrorWith(model: baseModel)
+            Toast.showErrorWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     

@@ -52,9 +52,9 @@ class WeekendTourSubjectHeaderView: UIView {
         }
         self.name.text = nameText
         if let _price = model?.price{
-            self.price.text = _price.stringValue()
+            self.price.text = "¥\(_price.decimalValue())"
         }
-        self.price.text = model?.price?.decimalValue()
+        //self.price.text = model?.price?.decimalValue()
         self.time.text = model?.time
         self.startAddress.text = model?.from
         self.endAddress.text = model?.to

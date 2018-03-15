@@ -20,25 +20,30 @@ class TopicCircleController: ViewController {
         super.viewDidLoad()
         self.title = "话题圈"
         
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
+        
         self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64), style:.plain)
+        self.tableView.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 100
         self.tableView.delegate = self
         self.tableView.dataSource = self
         TopicCircleCellFactory.registerTrendsCellFor(tableView: self.tableView)
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
-        
+        }
         
         let createTopicCircleBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "创建", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        let sumBitAttributeTitle = NSAttributedString.init(string: "创建", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
         createTopicCircleBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
         createTopicCircleBtn.sizeToFit()
         createTopicCircleBtn.addTarget(self, action: #selector(dealCreat), for: .touchUpInside)
@@ -54,9 +59,18 @@ class TopicCircleController: ViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: ADD_TOPIC_CIRCLE_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
-
+        print("话题圈销毁")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -103,15 +117,16 @@ class TopicCircleController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: topicCircleContainModel)
+            Toast.showErrorWith(model: topicCircleContainModel)
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     @objc func dealCreat(){
+        if !AppManager.shared.checkUserStatus(){return}
         let createTopicCircleController = CreateTopicCircleController()
         let navCreatTopicCircleController = NavigationController.init(rootViewController: createTopicCircleController)
         self.present(navCreatTopicCircleController, animated: true, completion: nil)
@@ -123,6 +138,7 @@ class TopicCircleController: ViewController {
     ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
     ///   - trendModel: 动态模型
     func dealMoreOperationWith(operationType:OperationType,topicCircleModel:TopicCircleModel?){
+        if !AppManager.shared.checkUserStatus(){return}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         var type:String? = nil
         if operationType == .defriend{type = "black"}
@@ -136,9 +152,9 @@ class TopicCircleController: ViewController {
                     let moreOperationModel = MoreOperationModel(action_id: nil, user_id: nil, operationType: .notInteresting, topic_circle_id: topicCircleModel?.id)
                     NotificationCenter.default.post(name: DID_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
                 }
-                SVProgressHUD.showResultWith(model: baseModel)
+                Toast.showResultWith(model: baseModel)
             }, onError: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
     }
@@ -158,16 +174,29 @@ extension TopicCircleController:UITableViewDelegate,UITableViewDataSource{
         let topicCircleModel = self.dataArray[indexPath.row]
         let topicCircleCell = TopicCircleCellFactory.cellFor(indexPath: indexPath, tableView: tableView, model: topicCircleModel) as! TrendsCell
         topicCircleCell.selectionStyle = .none
-        topicCircleCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {
-            let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let actionNotInterestion = UIAlertAction.init(title: "不感兴趣", style: .default, handler: { _ in
+        //点击头像
+        topicCircleCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
+            let userDetailsController = UserDetailsController()
+            userDetailsController.userId = self.dataArray[indexPath.row].user_id!
+            self.navigationController?.pushViewController(userDetailsController, animated: true)
+        }
+        topicCircleCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {[unowned self] btn in
+            let actionNotInterestion = SuspensionMenuAction.init(title: "不感兴趣", action: {
                 self.dealMoreOperationWith(operationType: .notInteresting, topicCircleModel: topicCircleModel)
             })
-            let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-            actionController.addAction(actionNotInterestion)
 
-            actionController.addAction(actionCancel)
-            self.present(actionController, animated: true, completion: nil)
+            let suspensionExpandMenu = SuspensionExpandMenu.init(actions: [actionNotInterestion])
+            suspensionExpandMenu.showAround(view: btn)
+            
+//            let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//            let actionNotInterestion = UIAlertAction.init(title: "不感兴趣", style: .default, handler: { _ in
+//                self.dealMoreOperationWith(operationType: .notInteresting, topicCircleModel: topicCircleModel)
+//            })
+//            let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+//            actionController.addAction(actionNotInterestion)
+//
+//            actionController.addAction(actionCancel)
+//            self.present(actionController, animated: true, completion: nil)
         }
         return topicCircleCell
     }

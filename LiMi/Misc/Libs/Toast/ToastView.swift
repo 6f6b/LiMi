@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum ToastType {
+    case loading
+    case successInfo
+    case faildInfo
+    case info
+}
+
 class ToastView: UIView {
     static var shared:ToastView = ToastView()
     var timer:Timer?
@@ -15,43 +22,12 @@ class ToastView: UIView {
     var maxShowTime:Double = 2.0
     var minShowTime:Double = 1.0
 
-    var toastContentContainView:UIView!
-    var indicateImg:UIImageView!
-    var contentLabel:UILabel!
+    var toastContentView:ToastContentView?
     
     convenience init() {
         self.init(frame: SCREEN_RECT)
         
-        self.backgroundColor = RGBA(r: 200, g: 200, b: 200, a: 0.1)
-        
-        self.toastContentContainView = UIView()
-        self.toastContentContainView.backgroundColor = UIColor.white
-        self.toastContentContainView.layer.cornerRadius = 5
-        self.toastContentContainView.clipsToBounds = true
-        self.addSubview(self.toastContentContainView)
-        self.toastContentContainView.snp.makeConstraints { (make) in
-            make.height.equalTo(100)
-            make.width.equalTo(200)
-            make.center.equalTo(self)
-        }
-        
-        self.indicateImg = UIImageView()
-        self.toastContentContainView.addSubview(self.indicateImg)
-        self.indicateImg.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.toastContentContainView)
-            make.top.equalTo(self.toastContentContainView).offset(20)
-        }
-        
-        self.contentLabel = UILabel()
-        self.contentLabel.font = UIFont.systemFont(ofSize: 17)
-        self.contentLabel.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
-        self.toastContentContainView.addSubview(self.contentLabel)
-        self.contentLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.toastContentContainView)
-            make.left.equalTo(self.toastContentContainView).offset(15)
-            make.bottom.equalTo(self.toastContentContainView).offset(-20)
-        }
-        
+        self.backgroundColor = RGBA(r: 0, g: 0, b: 0, a: 0.5)
     }
     
     override init(frame: CGRect) {
@@ -64,26 +40,38 @@ class ToastView: UIView {
     }
     
     //MARK: - misc
+    ///单纯显示文本信息
+    func showInfoWith(text:String?){
+        self.resestToastViewWith(text: text)
+        self.installContentViewWith(type: .info, text: text)
+        UIApplication.shared.keyWindow?.addSubview(self)
+        //单纯文本居中
+    }
+    
+    ///耗时操作下的显示
+    func showStatusWith(text:String?){
+        self.resestToastViewWith(text: text)
+        self.installContentViewWith(type: .loading, text: text)
+        UIApplication.shared.keyWindow?.addSubview(self)
+    }
     
     ///显示错误信息
     func showErrorWith(text:String?){
-        print("ERROR:\(text!)")
         self.resestToastViewWith(text: text)
-        self.indicateImg.image = UIImage.init(named: "toast_no")
-        self.contentLabel.text = text
+        self.installContentViewWith(type: .faildInfo, text: text)
         UIApplication.shared.keyWindow?.addSubview(self)
     }
     ///显示成功信息
     func showSuccessWith(text:String?){
         self.resestToastViewWith(text: text)
-        self.indicateImg.image = UIImage.init(named: "toast_yes")
-        self.contentLabel.text = text
+        self.installContentViewWith(type: .successInfo, text: text)
         UIApplication.shared.keyWindow?.addSubview(self)
     }
     ///隐藏
     @objc func dissmiss(){
         self.timer?.invalidate()
         self.timer = nil
+        self.toastContentView?.removeFromSuperview()
         self.removeFromSuperview()
         print("DISMISSSSSSSSSSSSSSSSSs")
     }
@@ -110,4 +98,149 @@ class ToastView: UIView {
         let suitableShowTime = minimalTime <= self.minShowTime ? self.minShowTime : minimalTime
         return suitableShowTime
     }
+    
+    ///根据toast类型以及内容，获取对应的展现视图
+    func installContentViewWith(type:ToastType,text:String?){
+        var toastContentView:ToastContentView!
+        
+        if type == .info{
+            toastContentView = ToastContentViewWithText()
+        }else{
+            if text == nil{
+                toastContentView = ToastContentViewWithPicture()
+            }
+            if text != nil{
+                toastContentView = ToastContentViewWithPictureAndText()
+            }
+        }
+        toastContentView.showWith(type: type, text: text)
+        self.toastContentView = toastContentView
+        self.addSubview(toastContentView)
+        toastContentView.snp.makeConstraints {[unowned self]    (make) in
+            make.center.equalTo(self)
+        }
+    }
 }
+
+class ToastContentView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.white
+        
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(100)
+            make.width.equalTo(200)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showWith(type:ToastType,text:String?){
+        
+    }
+}
+
+class ToastContentViewWithText: ToastContentView {
+    var contentLabel:UILabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.contentLabel = UILabel()
+        self.contentLabel.textAlignment = .center
+        self.contentLabel.font = UIFont.systemFont(ofSize: 17)
+        self.contentLabel.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
+        self.addSubview(self.contentLabel)
+        self.contentLabel.snp.makeConstraints { [unowned self]   (make) in
+            make.center.equalTo(self)
+            make.left.equalTo(self).offset(15)
+        }
+        
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func showWith(type: ToastType, text: String?) {
+        super.showWith(type: type, text: text)
+        self.contentLabel.text = text
+    }
+}
+
+class ToastContentViewWithPictureAndText: ToastContentViewWithText {
+    var indicateImg:UIImageView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.indicateImg = UIImageView()
+        var animationImages = [UIImage]()
+        for i in 1...8{
+            animationImages.append(UIImage.init(named: "loading\(i)")!)
+        }
+        self.indicateImg.animationImages = animationImages
+        self.addSubview(self.indicateImg)
+        self.indicateImg.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.top.equalTo(self).offset(20)
+        }
+
+        self.contentLabel.snp.remakeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.left.equalTo(self).offset(15)
+            make.bottom.equalTo(self).offset(-20)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func showWith(type: ToastType, text: String?) {
+        super.showWith(type: type, text: text)
+        if type == .loading{
+            self.indicateImg.startAnimating()
+        }
+        if type == .faildInfo{
+            self.indicateImg.image = UIImage.init(named: "toast_no")
+        }
+        if type == .successInfo{
+            self.indicateImg.image = UIImage.init(named: "toast_yes")
+        }
+        if type == .info{}
+    }
+}
+
+
+class ToastContentViewWithPicture:  ToastContentViewWithPictureAndText{
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        self.contentLabel.isHidden = true
+        
+        self.indicateImg.snp.remakeConstraints { (make) in
+            make.center.equalTo(self)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

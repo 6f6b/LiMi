@@ -26,7 +26,7 @@ class IdentityAuthInfoController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "身份认证"
+        self.title = "学生认证"
         self.tableView.estimatedRowHeight = 100
         self.tableView.estimatedSectionHeaderHeight = 100
         self.tableView.backgroundColor = UIColor.white
@@ -55,6 +55,10 @@ class IdentityAuthInfoController: UITableViewController {
         self.navigationItem.leftBarButtonItem?.customView = notNowBtn
     }
     
+    deinit {
+        print("认证信息销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -63,20 +67,20 @@ class IdentityAuthInfoController: UITableViewController {
     @objc func dealSumbit(){
         if(self.collegeModel == nil){
             //显示错误警告
-            SVProgressHUD.showErrorWith(msg: "请选择学校")
+            Toast.showErrorWith(msg: "请选择学校")
             return
         }
         if(self.academy == nil){
             //显示错误警告
-            SVProgressHUD.showErrorWith(msg: "请选择学院")
+            Toast.showErrorWith(msg: "请选择学院")
             return
         }
         if(self.grade == nil){
             //显示错误警告
-            SVProgressHUD.showErrorWith(msg: "请选择年级")
+            Toast.showErrorWith(msg: "请选择年级")
             return
         }
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let registerForId = RegisterForID(college: self.collegeModel?.coid?.stringValue(), school: self.academyModel?.scid?.stringValue(), grade: self.gradeModel?.id?.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: registerForId)).subscribe(onSuccess: { (response) in
@@ -85,9 +89,9 @@ class IdentityAuthInfoController: UITableViewController {
                 let identityAuthStateController = IdentityAuthStateController()
                 self.navigationController?.pushViewController(identityAuthStateController, animated: true)
             }
-            SVProgressHUD.showErrorWith(model: resultModel)
+            Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -114,7 +118,7 @@ class IdentityAuthInfoController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isShowNotice && section == 0{
             let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
-            headerView.deleteBlock = {
+            headerView.deleteBlock = {[unowned self] in
                 self.isShowNotice = false
                 tableView.reloadData()
             }
@@ -150,7 +154,7 @@ class IdentityAuthInfoController: UITableViewController {
 extension IdentityAuthInfoController{
     func toChooseCollege(){
         let chooseSchoolController = ChooseSchoolController()
-        chooseSchoolController.chooseBlock = {(collegeModel) in
+        chooseSchoolController.chooseBlock = {[unowned self] (collegeModel) in
             self.school.text = collegeModel?.name
             self.collegeModel = collegeModel
             self.academyModel = nil
@@ -163,19 +167,19 @@ extension IdentityAuthInfoController{
         if let collegeId = self.collegeModel?.coid{
             let chooseAcademyController = ChooseAcademyController()
             chooseAcademyController.collegeId = collegeId
-            chooseAcademyController.chooseAcademyBlock = {(academyModel) in
+            chooseAcademyController.chooseAcademyBlock = {[unowned self] (academyModel) in
                 self.academy.text = academyModel?.name
                 self.academyModel = academyModel
             }
             self.navigationController?.pushViewController(chooseAcademyController, animated: true)
         }else{
-            SVProgressHUD.showErrorWith(msg: "请先选择大学")
+            Toast.showErrorWith(msg: "请先选择大学")
         }
     }
     
     func toChooseGrade(){
         let chooseGradeController = ChooseGradeController()
-        chooseGradeController.chooseGradeBlock = {(gradeModel) in
+        chooseGradeController.chooseGradeBlock = {[unowned self] (gradeModel) in
             self.grade.text = gradeModel?.name
             self.gradeModel = gradeModel
         }

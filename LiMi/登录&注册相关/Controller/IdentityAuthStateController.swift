@@ -19,7 +19,7 @@ class IdentityAuthStateController: ViewController {
     var isFromPersonCenter = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "身份认证"
+        self.title = "学生认证"
         self.stateBtn.layer.cornerRadius = 20
         self.stateBtn.clipsToBounds = true
         self.refreshUIWith(state: self.state)
@@ -40,6 +40,10 @@ class IdentityAuthStateController: ViewController {
         }
     }
     
+    deinit {
+        print("认证状态销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -47,7 +51,8 @@ class IdentityAuthStateController: ViewController {
 
     @IBAction func dealTapStateBtn(_ sender: Any) {
         if isFromPersonCenter{
-            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
         }else{
             LoginServiceToMainController(loginRootController: self.navigationController)
         }

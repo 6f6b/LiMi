@@ -24,6 +24,7 @@ target ‘LiMi' do
     pod 'DZNEmptyDataSet'
     pod 'ZFPlayer'
     pod 'Bugly'
+    pod 'RealmSwift'
 
 #NIM依赖
     pod 'Toast', '~> 3.0'

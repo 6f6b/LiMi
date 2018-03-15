@@ -50,10 +50,10 @@ class EditAutographView: UIView {
         _ = moyaProvider.rx.request(.targetWith(target: showEditContent)).subscribe(onSuccess: { (response) in
             let autographModel = Mapper<AutographModel>().map(jsonData: response.data)
             self.autograph.text = autographModel?.autograph
-            SVProgressHUD.showErrorWith(model: autographModel)
+            Toast.showErrorWith(model: autographModel)
         }, onError: { (error) in
 
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -66,9 +66,9 @@ class EditAutographView: UIView {
         _ = moyaProvider.rx.request(.targetWith(target: updateContent)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             self.removeFromSuperview()
-            SVProgressHUD.showResultWith(model: baseModel)
+            Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 
@@ -82,7 +82,7 @@ class EditAutographView: UIView {
         let rectInWindow = self.finishedBtn.frame
         let finishBtnDeltaY = SCREEN_HEIGHT - CGFloat(rectInWindow.origin.y + rectInWindow.size.height+49+64)
         let offset = MIN(parametersA: 0, parametersB: Double(finishBtnDeltaY-deltaY))
-        let animations:(() -> Void) = {
+        let animations:(() -> Void) = {[unowned self] in
             //键盘的偏移量
             self.containViewCenterYConstraint.constant = CGFloat(offset)
             self.layoutIfNeeded()
@@ -99,7 +99,7 @@ class EditAutographView: UIView {
         let userInfo  = notification.userInfo!
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
-        let animations:(() -> Void) = {
+        let animations:(() -> Void) = {[unowned self] in
             //键盘的偏移量
             self.containViewCenterYConstraint.constant = 0
         }

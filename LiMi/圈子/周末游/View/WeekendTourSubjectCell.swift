@@ -19,7 +19,7 @@ class WeekendTourSubjectCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
 
-        self.backImageV.layer.cornerRadius = 20
+        self.backImageV.layer.cornerRadius = 10
         self.backImageV.clipsToBounds = true
     }
 

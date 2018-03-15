@@ -21,6 +21,10 @@ class TagListController: ViewController {
         
     }
 
+    deinit {
+        print("标签列表界面销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

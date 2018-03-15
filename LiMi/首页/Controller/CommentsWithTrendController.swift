@@ -49,14 +49,15 @@ class CommentsWithTrendController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
 
         self.contentText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: .editingChanged)
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
         self.loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
     }
@@ -84,6 +85,7 @@ class CommentsWithTrendController: ViewController {
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        print("评论界面销毁")
     }
     
     override func didReceiveMemoryWarning() {
@@ -98,7 +100,7 @@ class CommentsWithTrendController: ViewController {
         if self.trendModel?.topic_action_id == nil{
             body = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex)
         }else{
-            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.action_id)
+            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.topic_action_id)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
@@ -115,11 +117,11 @@ class CommentsWithTrendController: ViewController {
             self.tableView.reloadData()
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()
-            SVProgressHUD.showErrorWith(model: commentListModel)
+            Toast.showErrorWith(model: commentListModel)
         }, onError: { (error) in
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -150,9 +152,9 @@ class CommentsWithTrendController: ViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             self.pageIndex = 1
             self.loadData()
-            SVProgressHUD.showErrorWith(model: resultModel)
+            Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
         self.contentText.text = nil
         self.sendBtn.isEnabled = false
@@ -169,7 +171,7 @@ class CommentsWithTrendController: ViewController {
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
         let deltaY = keyBoardBounds.size.height
-        let animations:(() -> Void) = {
+        let animations:(() -> Void) = {[unowned self] in
             //键盘的偏移量
             self.bottomConstraint.constant = deltaY
             self.view.layoutIfNeeded()
@@ -187,7 +189,7 @@ class CommentsWithTrendController: ViewController {
         let userInfo  = notification.userInfo!
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
-        let animations:(() -> Void) = {
+        let animations:(() -> Void) = {[unowned self] in
             //键盘的偏移量
             self.bottomConstraint.constant = 0
             self.view.layoutIfNeeded()
@@ -207,6 +209,7 @@ class CommentsWithTrendController: ViewController {
     ///   - operationType: 操作类型如：拉黑、删除、举报、发消息
     ///   - trendModel: 动态模型
     func dealMoreOperationWith(operationType:OperationType,trendModel:TrendModel?){
+        if !AppManager.shared.checkUserStatus(){return}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         var type:String? = nil
         if operationType == .defriend{type = "black"}
@@ -239,9 +242,9 @@ class CommentsWithTrendController: ViewController {
                     NotificationCenter.default.post(name: DID_TOPIC_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
                 }
             }
-            SVProgressHUD.showResultWith(model: baseModel)
+            Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -312,24 +315,26 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
             let model = self.trendModel
             let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model,trendsCellStyle: .normal)
             //点击头像
-            trendsCell.trendsTopToolsContainView.tapHeadBtnBlock = {
+            trendsCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
                 let userDetailsController = UserDetailsController()
                 userDetailsController.userId = (model?.user_id)!
                 self.navigationController?.pushViewController(userDetailsController, animated: true)
             }
             //点击更多
-            trendsCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {
-                let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+            trendsCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {[unowned self] btn in
+                let actionReport = SuspensionMenuAction.init(title: "举报", action: {
                     self.dealMoreOperationWith(operationType: .report, trendModel: model)
                 })
-                let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+                
+                let actionDefriend = SuspensionMenuAction(title: "拉黑", action: {
                     self.dealMoreOperationWith(operationType: .defriend, trendModel: model)
                 })
-                let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+                
+                let actionSendMsg = SuspensionMenuAction(title: "发消息", action: {
                     self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
                 })
-                let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
+                
+                let actionDelete = SuspensionMenuAction(title: "删除", action: {
                     let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
                     let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
                         self.dealMoreOperationWith(operationType: .delete, trendModel: model)
@@ -339,24 +344,54 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
                     alertController.addAction(actionCancel)
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                var actions = [SuspensionMenuAction]()
                 if model?.user_id != Defaults[.userId]{
-                    actionController.addAction(actionReport)
-                    actionController.addAction(actionDefriend)
-                    actionController.addAction(actionSendMsg)
-                    
+                    actions.append(actionReport)
+                    actions.append(actionDefriend)
+                    actions.append(actionSendMsg)
                 }else{
-                    actionController.addAction(actionDelete)
+                    actions.append(actionDelete)
                 }
-                actionController.addAction(actionCancel)
-                self.present(actionController, animated: true, completion: nil)
+                let suspensionExpandMenu = SuspensionExpandMenu.init(actions: actions)
+                suspensionExpandMenu.showAround(view: btn)
+//                let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//                let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .report, trendModel: model)
+//                })
+//                let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .defriend, trendModel: model)
+//                })
+//                let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+//                    self.dealMoreOperationWith(operationType: .sendMsg, trendModel: model)
+//                })
+//                let actionDelete = UIAlertAction.init(title: "删除", style: .default, handler: { _ in
+//                    let alertController = UIAlertController.init(title: nil, message: "删除动态后，将无法恢复此动态！", preferredStyle: .alert)
+//                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: { (_) in
+//                        self.dealMoreOperationWith(operationType: .delete, trendModel: model)
+//                    })
+//                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+//                    alertController.addAction(actionOK)
+//                    alertController.addAction(actionCancel)
+//                    self.present(alertController, animated: true, completion: nil)
+//                })
+//                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+//                if model?.user_id != Defaults[.userId]{
+//                    actionController.addAction(actionReport)
+//                    actionController.addAction(actionDefriend)
+//                    actionController.addAction(actionSendMsg)
+//
+//                }else{
+//                    actionController.addAction(actionDelete)
+//                }
+//                actionController.addAction(actionCancel)
+//                self.present(actionController, animated: true, completion: nil)
             }
             //评论
-            trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {
+            trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
                 self.contentText.becomeFirstResponder()
             }
             //抢红包
-            trendsCell.catchRedPacketBlock = {
+            trendsCell.catchRedPacketBlock = {[unowned self] in
                 let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
                 let model = self.trendModel
                 catchRedPacketView.showWith(trendModel: model)
@@ -368,7 +403,7 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
                 let commentModel = self.dataArray[indexPath.row]
                 let trendCommentCell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath) as! TrendCommentCell
                 trendCommentCell.configWith(model: commentModel)
-                trendCommentCell.commentTopToolsContainView.tapHeadBtnBlock = {
+                trendCommentCell.commentTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
                     let userDetailsController = UserDetailsController()
                     userDetailsController.userId = commentModel.user_id!
                     self.navigationController?.pushViewController(userDetailsController, animated: true)

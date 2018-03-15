@@ -30,6 +30,11 @@ PODS:
     - HappyDNS (~> 0.3)
   - QiniuUpload (3.0.0)
   - Reachability (3.2)
+  - Realm (3.1.0):
+    - Realm/Headers (= 3.1.0)
+  - Realm/Headers (3.1.0)
+  - RealmSwift (3.1.0):
+    - Realm (= 3.1.0)
   - Result (3.2.4)
   - RxSwift (4.1.1)
   - SDCycleScrollView (1.75):
@@ -68,6 +73,7 @@ DEPENDENCIES:
   - Qiniu (~> 7.2.2)
   - QiniuUpload
   - Reachability
+  - RealmSwift
   - SDCycleScrollView (~> 1.75)
   - SDWebImage (~> 4.2.3)
   - SnapKit (~> 4.0)
@@ -99,6 +105,8 @@ SPEC CHECKSUMS:
   Qiniu: ae0fea1cc379fae1560d8748ac537e0fbeb8626e
   QiniuUpload: b1b3dda4883b9bacf9e2efc9e28978cdd6a26c70
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
+  RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
@@ -114,6 +122,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: 5e30c76d8b6bc8cff78da24aa83f84004a944341
+PODFILE CHECKSUM: 2498dfc0ba350d8d5d2231478abcb7da56e61ad2
 
 COCOAPODS: 1.2.0

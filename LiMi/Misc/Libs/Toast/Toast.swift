@@ -9,7 +9,22 @@
 import UIKit
 
 class Toast: NSObject {
-    //
+    
+    ///消失
+    static func dismiss(){
+        ToastView.shared.dissmiss()
+    }
+    
+    ///单纯显示文本信息
+    static func showInfoWith(text:String?){
+        ToastView.shared.showInfoWith(text: text)
+    }
+    
+    ///耗时操作下的显示
+    static func showStatusWith(text:String?){
+        ToastView.shared.showStatusWith(text: text)
+    }
+    
     //均显示
     static func showResultWith(model:BaseModel?){
         if model?.commonInfoModel?.status == successState{

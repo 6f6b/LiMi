@@ -29,6 +29,10 @@ class AlterUserNameController: ViewController {
         self.userName.text = self.initialUserName
     }
 
+    deinit {
+        print("修改姓名销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -37,7 +41,7 @@ class AlterUserNameController: ViewController {
     // MARK: - misc
     //提交
     @objc func dealSumbit(){
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let editUsrInfo = EditUsrInfo(field: "true_name", value: self.userName.text)
         _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
@@ -48,9 +52,9 @@ class AlterUserNameController: ViewController {
                 }
                 self.navigationController?.popViewController(animated: true)
             }
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 

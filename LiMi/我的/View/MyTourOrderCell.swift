@@ -15,6 +15,7 @@ class MyTourOrderCell: UITableViewCell {
     @IBOutlet weak var num: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var payStateBtn: UIButton!
+    var weekendTourOrderModel:WeekendTourOrderModel?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -28,6 +29,7 @@ class MyTourOrderCell: UITableViewCell {
     }
     
     func configWith(model:WeekendTourOrderModel?){
+        self.weekendTourOrderModel = model
         if let _backImg = model?.pic{
             self.backImgV.kf.setImage(with: URL.init(string: _backImg), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
         }
@@ -68,5 +70,11 @@ class MyTourOrderCell: UITableViewCell {
     
     
     @IBAction func dealTapPayBtn(_ sender: Any) {
+        if self.weekendTourOrderModel?.order_status == 1 || self.weekendTourOrderModel?.order_status == 2{
+            let weekendTourOrderStatusView = GET_XIB_VIEW(nibName: "WeekendTourOrderStatusView") as! WeekendTourOrderStatusView
+            weekendTourOrderStatusView.frame = SCREEN_RECT
+            weekendTourOrderStatusView.refreshUIWith(model: self.weekendTourOrderModel)
+            UIApplication.shared.keyWindow?.addSubview(weekendTourOrderStatusView)
+        }
     }
 }

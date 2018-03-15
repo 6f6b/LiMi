@@ -48,6 +48,7 @@ class RewardRedPacketController: ViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: FINISHED_WXPAY_NOTIFICATION, object: nil)
+        print("塞红包界面销毁")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -95,31 +96,31 @@ class RewardRedPacketController: ViewController {
     
     @IBAction func dealToGiveRedPacket(_ sender: Any) {
         if IsEmpty(textField: self.amount){
-            SVProgressHUD.showInfo(withStatus: "请输入红包金额")
+            Toast.showInfoWith(text:"请输入红包金额")
             return
         }
         if IsEmpty(textField: self.num){
-            SVProgressHUD.showInfo(withStatus: "请输入红包个数")
+            Toast.showInfoWith(text:"请输入红包个数")
             return
         }
         if self.amount.text!.doubleValue()! > 100.0{
-            SVProgressHUD.showInfo(withStatus: "红包不能超过100元")
+            Toast.showInfoWith(text:"红包不能超过100元")
             return
         }
         if let _num = self.num.text?.intValue(){
             if _num < 1{
-                SVProgressHUD.showInfo(withStatus: "至少发一个红包")
+                Toast.showInfoWith(text:"至少发一个红包")
                 return
             }
             if _num > 100{
-                SVProgressHUD.showInfo(withStatus: "一次最多发100个红包")
+                Toast.showInfoWith(text:"一次最多发100个红包")
                 return
             }
         }
         
         if let amountValue = self.amount.text?.doubleValue(),let redPacketCount = self.num.text?.intValue(){
             if amountValue/Double(redPacketCount) < 0.01{
-                SVProgressHUD.showInfo(withStatus: "每个红包至少0.01元")
+                Toast.showInfoWith(text:"每个红包至少0.01元")
                 return
             }else{
                 var type = 2
@@ -129,13 +130,13 @@ class RewardRedPacketController: ViewController {
                 self.generatePayWayWith(amount: amountValue, count: redPacketCount, type: type)
             }
         }else{
-            SVProgressHUD.showInfo(withStatus: "输入数值格式有误")
+            Toast.showInfoWith(text:"输入数值格式有误")
         }
     }
     
     //请求我的现金，判断金额是否足够，判断是否已经设置支付密码
     func generatePayWayWith(amount:Double,count:Int,type:Int){
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let myCash = MyCash()
         _ = moyaProvider.rx.request(.targetWith(target: myCash)).subscribe(onSuccess: { (response) in
@@ -153,7 +154,7 @@ class RewardRedPacketController: ViewController {
                         let payPasswordInputView = GET_XIB_VIEW(nibName: "PayPasswordInputView") as! PayPasswordInputView
                         payPasswordInputView.frame = SCREEN_RECT
                         payPasswordInputView.amountValue = amount
-                        payPasswordInputView.finishedInputPasswordBlock = {(password) in
+                        payPasswordInputView.finishedInputPasswordBlock = {[unowned self] (password) in
                             self.dealPlugMoneyToRedPacketWith(money: amount, num: count, type: type, password: password)
                         }
                         UIApplication.shared.keyWindow?.addSubview(payPasswordInputView)
@@ -162,23 +163,23 @@ class RewardRedPacketController: ViewController {
                 //账户余额不足
                 if _money < amount{
                     let selectPayWayView = GET_XIB_VIEW(nibName: "SelectPayWayView") as! SelectPayWayView
-                    selectPayWayView.selectPayWayBlock = {way in
+                    selectPayWayView.selectPayWayBlock = {[unowned self] way in
                         PayManager.shared.preRechageWith(payWay: way, amountText: self.amount.text)
                     }
                     selectPayWayView.frame = SCREEN_RECT
                     UIApplication.shared.keyWindow?.addSubview(selectPayWayView)
                 }
             }else{
-                SVProgressHUD.showErrorWith(msg: "网络错误")
+                Toast.showErrorWith(msg: "网络错误")
             }
-            SVProgressHUD.showErrorWith(model: mycashModel)
+            Toast.showErrorWith(model: mycashModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     func dealPlugMoneyToRedPacketWith(money:Double?,num:Int,type:Int,password:String?,trade_no:String? = nil){
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let personCenter = SendRedpacket(money: money, num: num, type: type, password: password,trade_no:trade_no)
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
@@ -193,9 +194,9 @@ class RewardRedPacketController: ViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             }
-            SVProgressHUD.showErrorWith(model: sendRedPacketResultModel)
+            Toast.showErrorWith(model: sendRedPacketResultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -230,7 +231,7 @@ class RewardRedPacketController: ViewController {
             if self.boySelected.isSelected{type = 1}
             self.dealPlugMoneyToRedPacketWith(money: self.amount.text?.doubleValue(), num: (self.num.text?.intValue())!, type: type, password: nil, trade_no: PayManager.shared.signedResultModel?.out_trade_no)
         }else{
-            SVProgressHUD.showErrorWith(msg: resp.errStr)
+            Toast.showErrorWith(msg: resp.errStr)
         }
     }
 }

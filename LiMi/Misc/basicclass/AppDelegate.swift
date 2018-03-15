@@ -61,8 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        let count = NIMSDK.shared().conversationManager.allUnreadCount()
-        UIApplication.shared.applicationIconBadgeNumber = count
+        let conversationUnreadcount = AppManager.shared.conversationManager.allUnreadCount()
+        let systemUnreadCount = AppManager.shared.systemNotificationManager.allUnreadCount()
+        let customSystemUnreadCount = AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount()
+        UIApplication.shared.applicationIconBadgeNumber = conversationUnreadcount + systemUnreadCount + customSystemUnreadCount
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -81,6 +83,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print("receive remote notification:\(userInfo)")
+        if let nim = userInfo["nim"] as? String{
+            if nim == "1"{
+                if let tbController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
+                    tbController.selectedIndex = 3
+                }
+            }
+        }
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

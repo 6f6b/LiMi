@@ -37,7 +37,7 @@ class WeekendTourOrderDetailController: ViewController {
         
         self.weekendTourASimpleInfoInOrderCell = GET_XIB_VIEW(nibName: "WeekendTourASimpleInfoInOrderCell") as! WeekendTourASimpleInfoInOrderCell
         self.weekendTourOrderNumCell = GET_XIB_VIEW(nibName: "WeekendTourOrderNumCell") as! WeekendTourOrderNumCell
-        self.weekendTourOrderNumCell.numChangedBlock = {num in
+        self.weekendTourOrderNumCell.numChangedBlock = {[unowned self] num in
             self.refreshWith(model: self.weekendTourModel)
         }
         self.weekendTourUnitPriceCell = GET_XIB_VIEW(nibName: "WeekendTourUnitPriceCell") as! WeekendTourUnitPriceCell
@@ -56,6 +56,8 @@ class WeekendTourOrderDetailController: ViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: FINISHED_WXPAY_NOTIFICATION, object: nil)
+        print("周末游订单界面销毁")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,11 +69,11 @@ class WeekendTourOrderDetailController: ViewController {
         //OrderAction
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         if IsEmpty(textField: self.weekendTourOrderContactWayCell.phoneNum){
-            SVProgressHUD.showInfo(withStatus: "请输入电话号码")
+            Toast.showInfoWith(text:"请输入电话号码")
             return
         }
         if self.weekendTourOrderReserveTimeCell.timeLabel.text == nil{
-            SVProgressHUD.showInfo(withStatus: "请选择预定时间")
+            Toast.showInfoWith(text:"请选择预定时间")
             return
         }
         var payWay = 1
@@ -84,9 +86,9 @@ class WeekendTourOrderDetailController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: orderAction)).subscribe(onSuccess: { (response) in
             let signedResultModel = Mapper<SignedResultModel>().map(jsonData: response.data)
             PayManager.shared.rechageWith(signedResultModel: signedResultModel, payWay: self.weekendTourOrderPayWayCell.payWay)
-            SVProgressHUD.showErrorWith(model: signedResultModel)
+            Toast.showErrorWith(model: signedResultModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
         
     }
@@ -105,7 +107,7 @@ class WeekendTourOrderDetailController: ViewController {
         if resp.errCode == WXSuccess.rawValue{
             self.callServerPayStateWith(tradeNumber: PayManager.shared.signedResultModel?.out_trade_no, type: "2")
         }else{
-            SVProgressHUD.showErrorWith(msg: resp.errStr)
+            Toast.showErrorWith(msg: resp.errStr)
         }
     }
     
@@ -119,7 +121,7 @@ class WeekendTourOrderDetailController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: getOnlinePayStaus)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            //SVProgressHUD.showResultWith(model: resultModel)
+            //Toast.showResultWith(model: resultModel)
             let payResultController = PayResultController()
             payResultController.baseModel = resultModel
             self.navigationController?.pushViewController(payResultController, animated: true)
@@ -127,13 +129,13 @@ class WeekendTourOrderDetailController: ViewController {
 //                let delayTime : TimeInterval = 1.0
 //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
 //                    self.dismiss(animated: true, completion: {
-//                        SVProgressHUD.dismiss()
+//                        Toast.dismiss()
 //                        self.navigationController?.popViewController(animated: true)
 //                    })
 //                })
 //            }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -144,11 +146,11 @@ class WeekendTourOrderDetailController: ViewController {
         //        6001    用户中途取消
         //        6002    网络连接出错
         //        99    用户点击忘记密码导致快捷界面退出(only iOS)
-        if code == "8000"{SVProgressHUD.show(withStatus: "正在处理中...")}
-        if code == "4000"{SVProgressHUD.showErrorWith(msg: "订单支付失败")}
-        if code == "6001"{SVProgressHUD.showErrorWith(msg: "取消支付")}
-        if code == "6002"{SVProgressHUD.showErrorWith(msg: "网络连接错误")}
-        if code == "99"{SVProgressHUD.showErrorWith(msg: "支付失败")}
+        if code == "8000"{Toast.showStatusWith(text: "正在处理中")}
+        if code == "4000"{Toast.showErrorWith(msg: "订单支付失败")}
+        if code == "6001"{Toast.showErrorWith(msg: "取消支付")}
+        if code == "6002"{Toast.showErrorWith(msg: "网络连接错误")}
+        if code == "99"{Toast.showErrorWith(msg: "支付失败")}
         
     }
     
@@ -168,9 +170,9 @@ class WeekendTourOrderDetailController: ViewController {
             self.weekendTourModel = weekendTourModel
             self.refreshWith(model: weekendTourModel)
             self.tableView.reloadData()
-            SVProgressHUD.showErrorWith(model: weekendTourModel)
+            Toast.showErrorWith(model: weekendTourModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }
@@ -251,7 +253,7 @@ extension WeekendTourOrderDetailController:UITableViewDelegate,UITableViewDataSo
                 let datePickerView = GET_XIB_VIEW(nibName: "DatePickerView") as! DatePickerView
                 datePickerView.frame = SCREEN_RECT
                 datePickerView.datePicker.minimumDate = Date()
-                datePickerView.datePickerBlock = {(date) in
+                datePickerView.datePickerBlock = {[unowned self] (date) in
                     let dateForMatter = DateFormatter()
                     dateForMatter.dateFormat = "yyyy-MM-dd"
                     self.weekendTourOrderReserveTimeCell.timeLabel.text = dateForMatter.string(from: date)

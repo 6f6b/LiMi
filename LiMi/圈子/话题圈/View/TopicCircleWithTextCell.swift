@@ -20,14 +20,53 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.trendsContainViewMarginToWindow = CGFloat(5)
+        self.trendsContentContainViewMarginToTrendsContainView = 15
+        self.refreshUI()
+        
+        self.trendsTopToolsContainView.userName.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
+        
+        self.trendsContainView.layer.cornerRadius = 5
+        self.trendsContainView.layer.masksToBounds = true
+        
         //隐藏下方工具栏
         self.trendsBottomToolsContainView.isHidden = true
         self.trendsBottomToolsContainView.snp.remakeConstraints { (make) in
-            make.bottom.equalTo(self.grayBar.snp.top)
-            make.left.equalTo(self.trendsContainView)
-            make.right.equalTo(self.trendsContainView)
+            make.top.equalTo(self.trendsBottomToolsContainViewTopDivider.snp.bottom)
+            make.left.equalTo(self.trendsContainView).offset(self.bottomToolsContainViewMarginToTrendsContainView)
+            make.right.equalTo(self.trendsContainView).offset(-self.bottomToolsContainViewMarginToTrendsContainView)
             make.height.equalTo(0)
         }
+        
+        self.trendsContainViewBottomDivider.backgroundColor = UIColor.groupTableViewBackground
+        self.trendsContainViewBottomDivider.snp.remakeConstraints {[unowned self]   (make) in
+            make.top.equalTo(self.trendsContainView.snp.bottom)
+            make.left.equalTo(self.contentView)
+            make.bottom.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
+            make.height.equalTo(7)
+        }
+        
+        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.white
+        self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
+            make.left.equalTo(self.trendsContainView)
+            make.right.equalTo(self.trendsContainView)
+            make.bottom.equalTo(self.trendsContainView)
+            make.height.equalTo(10)
+        }
+        
+        self.contentText.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.trendsContentContainView).offset(15)
+            make.left.equalTo(self.trendsContentContainView).offset(15)
+            make.bottom.equalTo(self.trendsContentContainView).offset(-15)
+            make.right.equalTo(self.trendsContentContainView).offset(-12)
+        }
+        self.contentText.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
+        
+        self.trendsContentContainView.backgroundColor = RGBA(r: 250, g: 250, b: 250, a: 1)
+        self.trendsContentContainView.layer.cornerRadius = 5
+        self.trendsContentContainView.clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +76,6 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

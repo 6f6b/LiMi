@@ -47,6 +47,7 @@ class RechargeController: ViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: FINISHED_WXPAY_NOTIFICATION, object: nil)
+        print("充值界面销毁")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -65,7 +66,7 @@ class RechargeController: ViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -87,11 +88,15 @@ class RechargeController: ViewController {
     
     @IBAction func dealToRecharge(_ sender: Any) {
         if !self.wechatRecharge.isSelected && !self.alipayRecharge.isSelected{
-            SVProgressHUD.showInfo(withStatus: "请选择支付方式")
+            Toast.showInfoWith(text:"请选择支付方式")
             return
         }
         if IsEmpty(textField: self.rechargeAmount){
-            SVProgressHUD.showInfo(withStatus: "请输入充值金额")
+            Toast.showInfoWith(text:"请输入充值金额")
+            return
+        }
+        if (self.rechargeAmount.text!.doubleValue()! > 200.0) || (self.rechargeAmount.text!.doubleValue()! < 10.0){
+            Toast.showInfoWith(text: "单次充值金额10~200元")
             return
         }
         let payManager = PayManager.shared
@@ -114,7 +119,7 @@ class RechargeController: ViewController {
         if resp.errCode == WXSuccess.rawValue{
             self.callServerPayStateWith(tradeNumber: PayManager.shared.signedResultModel?.out_trade_no, type: "2")
         }else{
-            SVProgressHUD.showErrorWith(msg: resp.errStr)
+            Toast.showErrorWith(msg: resp.errStr)
         }
     }
     
@@ -128,17 +133,17 @@ class RechargeController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 let delayTime : TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
                     self.dismiss(animated: true, completion: {
-                        SVProgressHUD.dismiss()
+                        Toast.dismiss()
                     })
                 })
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -150,17 +155,17 @@ class RechargeController: ViewController {
 //        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
 //        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
 //            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-//            SVProgressHUD.showResultWith(model: resultModel)
+//            Toast.showResultWith(model: resultModel)
 //            if resultModel?.commonInfoModel?.status == successState{
 //                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
 //                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
 //                    self.dismiss(animated: true, completion: {
-//                        SVProgressHUD.dismiss()
+//                        Toast.dismiss()
 //                    })
 //                })
 //            }
 //        }, onError: { (error) in
-//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+//            Toast.showErrorWith(msg: error.localizedDescription)
 //        })
 //    }
     
@@ -173,17 +178,17 @@ class RechargeController: ViewController {
 //        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
 //        _ = moyaProvider.rx.request(.targetWith(target: getPayStatus)).subscribe(onSuccess: { (response) in
 //            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-//            SVProgressHUD.showResultWith(model: resultModel)
+//            Toast.showResultWith(model: resultModel)
 //            if resultModel?.commonInfoModel?.status == successState{
 //                let delayTime = DispatchTime(uptimeNanoseconds: UInt64(1.5))
 //                DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
 //                    self.dismiss(animated: true, completion: {
-//                        SVProgressHUD.dismiss()
+//                        Toast.dismiss()
 //                    })
 //                })
 //            }
 //        }, onError: { (error) in
-//            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+//            Toast.showErrorWith(msg: error.localizedDescription)
 //        })
 //    }
     
@@ -194,11 +199,11 @@ class RechargeController: ViewController {
         //        6001    用户中途取消
         //        6002    网络连接出错
         //        99    用户点击忘记密码导致快捷界面退出(only iOS)
-        if code == "8000"{SVProgressHUD.show(withStatus: "正在处理中...")}
-        if code == "4000"{SVProgressHUD.showErrorWith(msg: "订单支付失败")}
-        if code == "6001"{SVProgressHUD.showErrorWith(msg: "取消支付")}
-        if code == "6002"{SVProgressHUD.showErrorWith(msg: "网络连接错误")}
-        if code == "99"{SVProgressHUD.showErrorWith(msg: "支付失败")}
+        if code == "8000"{Toast.showStatusWith(text: "正在处理中..")}
+        if code == "4000"{Toast.showErrorWith(msg: "订单支付失败")}
+        if code == "6001"{Toast.showErrorWith(msg: "取消支付")}
+        if code == "6002"{Toast.showErrorWith(msg: "网络连接错误")}
+        if code == "99"{Toast.showErrorWith(msg: "支付失败")}
 
     }
 }

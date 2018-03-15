@@ -29,6 +29,10 @@ class TrendsWithVideoCell: TrendsWithTextAndVideoCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("TrendsWithVideoCell销毁")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

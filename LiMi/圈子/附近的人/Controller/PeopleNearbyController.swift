@@ -28,17 +28,21 @@ class PeopleNearbyController: ViewController {
         super.viewDidLoad()
         self.title = "附近的人"
 
+        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        }
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewLeftAndRightSpace, bottom: 0, right: collectionViewLeftAndRightSpace)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+        self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
             self.pageIndex = 1
             self.loadData()
-        })
-        self.collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
+        }
+        
+        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
             self.pageIndex += 1
             self.loadData()
-        })
+        }
         self.collectionView.register(UINib.init(nibName: "NearbyPeopleCollectionCell", bundle: nil), forCellWithReuseIdentifier: "NearbyPeopleCollectionCell")
         
         
@@ -104,12 +108,23 @@ class PeopleNearbyController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.sharedManager().enable = false
+        
+        UIApplication.shared.statusBarStyle = .default
+        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.sharedManager().enable = true
     }
+    
+    deinit {
+        print("附近的人销毁")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -117,10 +132,10 @@ class PeopleNearbyController: ViewController {
     //MARK: - misc
     func loadData(){
         if nil == LocationManager.shared.location{
-            LocationManager.shared.startLocateWith(success: { (_) in
-                self.requestData()
+            LocationManager.shared.startLocateWith(success: {[weak self] (_) in
+                self?.requestData()
             }, failed: { (error) in
-                SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+                Toast.showErrorWith(msg: error.localizedDescription)
             })
         }else{
             requestData()
@@ -144,11 +159,11 @@ class PeopleNearbyController: ViewController {
             self.collectionView.reloadData()
             self.collectionView.mj_footer.endRefreshing()
             self.collectionView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(model: peopleNearbyContainModel)
+            Toast.showErrorWith(model: peopleNearbyContainModel)
         }, onError: { (error) in
             self.collectionView.mj_footer.endRefreshing()
             self.collectionView.mj_header.endRefreshing()
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -163,13 +178,13 @@ class PeopleNearbyController: ViewController {
                 //延时1秒执行
                 let delayTime : TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
-                    SVProgressHUD.dismiss()
+                    Toast.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 }
             }
-            SVProgressHUD.showResultWith(model: baseModel)
+            Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     

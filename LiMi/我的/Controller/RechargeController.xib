@@ -152,6 +152,12 @@
                                                 <action selector="dealToRecharge:" destination="-1" eventType="touchUpInside" id="eHW-EW-v36"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单次充值金额10~200元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKV-aH-GZy">
+                                            <rect key="frame" x="81.5" y="38.5" width="129.5" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -160,9 +166,11 @@
                                         <constraint firstItem="yVU-sG-gkK" firstAttribute="top" secondItem="S5r-x3-oGW" secondAttribute="bottom" id="3uS-q8-KoH"/>
                                         <constraint firstItem="m80-iV-37f" firstAttribute="centerX" secondItem="dlO-jN-uxg" secondAttribute="centerX" id="7NF-pV-kg6"/>
                                         <constraint firstAttribute="height" constant="250" id="8la-zs-Vbb"/>
+                                        <constraint firstItem="qKV-aH-GZy" firstAttribute="bottom" secondItem="F6f-cO-KMH" secondAttribute="bottom" id="Bkg-2l-GaP"/>
                                         <constraint firstAttribute="trailing" secondItem="S5r-x3-oGW" secondAttribute="trailing" id="J3e-ug-dlf"/>
                                         <constraint firstItem="S5r-x3-oGW" firstAttribute="leading" secondItem="dlO-jN-uxg" secondAttribute="leading" id="KvK-Ef-hgb"/>
                                         <constraint firstItem="F6f-cO-KMH" firstAttribute="top" secondItem="dlO-jN-uxg" secondAttribute="top" constant="35" id="MtU-xu-M42"/>
+                                        <constraint firstItem="qKV-aH-GZy" firstAttribute="leading" secondItem="F6f-cO-KMH" secondAttribute="trailing" constant="5" id="UDL-is-Y7K"/>
                                         <constraint firstItem="S5r-x3-oGW" firstAttribute="top" secondItem="m80-iV-37f" secondAttribute="bottom" id="fWX-KE-nVq"/>
                                         <constraint firstItem="F6f-cO-KMH" firstAttribute="leading" secondItem="dlO-jN-uxg" secondAttribute="leading" constant="15" id="iXN-1Y-KY7"/>
                                         <constraint firstItem="m80-iV-37f" firstAttribute="top" secondItem="F6f-cO-KMH" secondAttribute="bottom" constant="25" id="xzS-wK-Fdu"/>

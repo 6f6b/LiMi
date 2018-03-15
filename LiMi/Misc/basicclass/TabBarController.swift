@@ -13,17 +13,17 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let homePageController = HomePageController()
-        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "icon_shouye", tbSelectedImg: "icon_shouye_highlight")
+        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
         let circleController = CircleController()
-         self.addControllerWith(controller: circleController, title: "圈子", tbImg: "icon_quanzi", tbSelectedImg: "icon_quanzi_highlight")
+         self.addControllerWith(controller: circleController, title: "圈子", tbImg: "home_ic_qz", tbSelectedImg: "home_ic_qzpre")
         
         let blankController = ViewController()
-        self.addControllerWith(controller: blankController, title: "", tbImg: "icon_fabu", tbSelectedImg: "icon_fabu")
+        self.addControllerWith(controller: blankController, title: "", tbImg: "home_ic_fb", tbSelectedImg: "home_ic_fb")
         
         let msgController = MsgController()
-         self.addControllerWith(controller: msgController, title: "消息", tbImg: "icon_xiaoxi", tbSelectedImg: "icon_xiaoxi_highlight")
+         self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_im", tbSelectedImg: "home_ic_impre")
         let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
-        self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "icon_wode", tbSelectedImg: "icon_wode_highlight")
+        self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "home_ic_me", tbSelectedImg: "home_ic_mepre")
         self.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
@@ -32,13 +32,13 @@ class TabBarController: UITabBarController {
         NIMSDK.shared().systemNotificationManager.add(self)
         //会话消息通知代理
         NIMSDK.shared().conversationManager.add(self)
-        NotificationCenter.default.addObserver(self, selector: #selector(onCustomNotifyChanged(notification:)), name: NSNotification.Name(rawValue: ""), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
         self.refreshMyMessageBadge()
     }
 
     deinit{
         NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
-//        NotificationCenter.default.removeObserver(<#T##observer: Any##Any#>, name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
+        NotificationCenter.default.removeObserver(self, name: customSystemMessageUnreadCountChanged, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,25 +46,35 @@ class TabBarController: UITabBarController {
     }
 
     //MARK: - misc
+    
     ///刷新Tabbar上的未读数
     func refreshMyMessageBadge(){
-        //系统消息
-        let homeNav = self.viewControllers![0] as! NavigationController
-        if #available(iOS 10.0, *) {
-            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 80),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red,NSAttributedStringKey.backgroundColor.rawValue:UIColor.red], for: .normal)
-        } else {
+        //自定义系统消息
+        if AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount() == 0{
+            self.tabBar.hiddenBageOnItemAt(index: 0)
+        }else{
+            self.tabBar.showBadgeOnItemAt(index: 0)
         }
-        homeNav.tabBarItem.badgeValue = AppManager.shared.systemUnreadCount == 0 ? nil : " "
+//        let homeNav = self.viewControllers![0] as! NavigationController
+//        if #available(iOS 10.0, *) {
+//            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 80),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red,NSAttributedStringKey.backgroundColor.rawValue:UIColor.red], for: .normal)
+//        } else {
+//        }
+//        homeNav.tabBarItem.badgeValue = AppManager.shared.systemUnreadCount == 0 ? nil : " "
 
         //会话消息
-        self.tabBar.showBadgeOnItemAt(index: 3)
-        let mscNav = self.viewControllers![3] as! NavigationController
-        if #available(iOS 10.0, *) {
-            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 160),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red], for: .normal)
-            mscNav.tabBarItem.badgeColor = RGBA(r: 255, g: 255, b: 255, a: 0)
-        } else {
+        if AppManager.shared.conversationManager.allUnreadCount() == 0{
+            self.tabBar.hiddenBageOnItemAt(index: 3)
+        }else{
+            self.tabBar.showBadgeOnItemAt(index: 3)
         }
-        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : "."
+//        let mscNav = self.viewControllers![3] as! NavigationController
+//        if #available(iOS 10.0, *) {
+//            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 160),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red], for: .normal)
+//            mscNav.tabBarItem.badgeColor = RGBA(r: 255, g: 255, b: 255, a: 0)
+//        } else {
+//        }
+//        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : "."
         //mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
     }
     
@@ -88,20 +98,22 @@ extension TabBarController:UITabBarControllerDelegate{
     //控制是否跳转
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController == self.viewControllers![2]{
-            if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
-                let releaseController = ReleaseController()
-                let releaseNav = NavigationController(rootViewController: releaseController)
-                self.present(releaseNav, animated: true, completion: nil)
-            }else{
-                PostLogOutNotificationWith(msg: nil)
-            }
+            if !AppManager.shared.checkUserStatus(){return false}
+
+            let releaseController = ReleaseController()
+            let releaseNav = NavigationController(rootViewController: releaseController)
+            self.present(releaseNav, animated: true, completion: nil)
             return false
         }
+        if viewController == self.viewControllers![3]{
+            if !AppManager.shared.checkUserStatus(){
+                return false
+            }
+        }
         if viewController == self.viewControllers![4]{
-            if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
-                return true
-            }else{
-                PostLogOutNotificationWith(msg: nil)
+            //登录则可以进入
+            if Defaults[.userId] == nil{
+                NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil)
                 return false
             }
         }
@@ -113,37 +125,37 @@ extension TabBarController:UITabBarControllerDelegate{
 extension TabBarController:NIMConversationManagerDelegate{
     ///增加最近会话的回调
     func didAdd(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        AppManager.shared.conversationUnreadCount = totalUnreadCount
+        //AppManager.shared.conversationUnreadCount = totalUnreadCount
         self.refreshMyMessageBadge()
     }
 
     ///最近会话修改回调
     func didUpdate(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        AppManager.shared.conversationUnreadCount = totalUnreadCount
+        //AppManager.shared.conversationUnreadCount = totalUnreadCount
         self.refreshMyMessageBadge()
     }
     
     ///删除最近会话的回调
     func didRemove(_ recentSession: NIMRecentSession, totalUnreadCount: Int) {
-        AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        //AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
         self.refreshMyMessageBadge()
     }
     
     ///单个会话里所有消息被删除的回调
     func messagesDeleted(in session: NIMSession) {
-        AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
+        //AppManager.shared.conversationUnreadCount = NIMSDK.shared().conversationManager.allUnreadCount()
         self.refreshMyMessageBadge()
     }
     
     ///所有消息被删除的回调
     func allMessagesDeleted() {
-        AppManager.shared.conversationUnreadCount = 0;
+        //AppManager.shared.conversationUnreadCount = 0;
         self.refreshMyMessageBadge()
     }
     
     ///所有回话消息已读
     func allMessagesRead() {
-        AppManager.shared.conversationUnreadCount = 0
+        //AppManager.shared.conversationUnreadCount = 0
         self.refreshMyMessageBadge()
     }
 }
@@ -152,12 +164,13 @@ extension TabBarController:NIMConversationManagerDelegate{
 extension TabBarController:NIMSystemNotificationManagerDelegate{
     ///系统通知数量变化
     func onSystemNotificationCountChanged(_ unreadCount: Int) {
-        AppManager.shared.systemUnreadCount = unreadCount
+        //AppManager.shared.systemUnreadCount = unreadCount
         self.refreshMyMessageBadge()
     }
     
+    ///收到自定义系统消息
     func onReceive(_ notification: NIMCustomSystemNotification) {
-        print(notification)
+        AppManager.shared.customSystemMessageManager.addCustomSystemMessageWith(nimCustomSystemNotification: notification)
     }
     
     
@@ -165,10 +178,9 @@ extension TabBarController:NIMSystemNotificationManagerDelegate{
 
 //MARK: - Notification  通知
 extension TabBarController{
-    @objc func onCustomNotifyChanged(notification:Notification){
-//        NTESCustomNotificationDB *db = [NTESCustomNotificationDB sharedInstance];
-//        self.customSystemUnreadCount = db.unreadCount;
-//        [self refreshSettingBadge];
+    //自定义系统消息未读数改变
+    @objc func  customMessageUnreadCountChanged(){
+        self.refreshMyMessageBadge()
     }
 }
 

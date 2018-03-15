@@ -33,6 +33,8 @@ enum RedPacketStatus {
 class CatchRedPacketView: UIView {
     @IBOutlet weak var noAuthToCatchContainView: UIView!    //没有权限去抢,容器
     @IBOutlet weak var noAuthInfo: UILabel!     //信息
+    @IBOutlet weak var noAthuUserInfo: UILabel!
+    @IBOutlet weak var noauthHeadImg: UIImageView!
     
     @IBOutlet weak var redPacketInfoContainView: UIView!    //打开红包后的信息，容器
     @IBOutlet weak var redPacketInfoBackgroundImg: UIImageView! //
@@ -57,8 +59,13 @@ class CatchRedPacketView: UIView {
         
         self.headImgV.layer.cornerRadius = 30
         self.headImgV.clipsToBounds = true
+        self.noauthHeadImg.cornerRadius = 30
+        self.noauthHeadImg.clipsToBounds = true
         self.catchAmount.text = nil
         self.userInfo.text = nil
+        
+        self.noAuthInfo.layer.cornerRadius = 5
+        self.noAuthInfo.clipsToBounds = true
         self.reset()
     }
     
@@ -73,23 +80,22 @@ class CatchRedPacketView: UIView {
     
     /// 领取红包
     func takeRedPacket(){
-        SVProgressHUD.show(withStatus: nil)
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let takeRdPacket = GetRedPacked(red_token: self.trendModel?.red_token)
         _ = moyaProvider.rx.request(.targetWith(target: takeRdPacket)).subscribe(onSuccess: { (response) in
             let redPacketResultModel = Mapper<RedPacketResultModel>().map(jsonData: response.data)
             self.showWith(redPacketResultModel: redPacketResultModel)
-            SVProgressHUD.dismiss()
-            //SVProgressHUD.showErrorWith(model: redPacketResultModel)
+            Toast.dismiss()
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     
     /// 打开红包
     func openRedPacket(){
-        SVProgressHUD.show(withStatus: "正在打开..")
+        Toast.showStatusWith(text: "正在打开..")
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let openRedPacket = OpenRedPacked(red_token: self.trendModel?.red_token)
         _ = moyaProvider.rx.request(.targetWith(target: openRedPacket)).subscribe(onSuccess: { (response) in
@@ -97,9 +103,9 @@ class CatchRedPacketView: UIView {
             self.showWith(redPacketResultModel: redPacketResultModel)
             self.trendModel?.red_type = "3"
             NotificationCenter.default.post(name: CATCHED_RED_PACKET_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.trendModel])
-            SVProgressHUD.dismiss()
+            Toast.dismiss()
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -110,10 +116,12 @@ class CatchRedPacketView: UIView {
     func showWith(trendModel:TrendModel?){
         self.trendModel = trendModel
         if let personName = trendModel?.true_name{
-            self.userInfo.text = "\(personName)叫你领红包啦"
+            self.userInfo.text = "\(personName)的打赏红包"
+            self.noAthuUserInfo.text = "\(personName)的打赏红包"
         }
         if let _url = trendModel?.head_pic{
             self.headImgV.kf.setImage(with: URL.init(string: _url), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
+            self.noauthHeadImg.kf.setImage(with: URL.init(string: _url), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
         if let _redType = trendModel?.red_type{
@@ -157,18 +165,24 @@ class CatchRedPacketView: UIView {
         if status == .beOverdue{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
+            self.noauthHeadImg.isHidden = false
+            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "红包已经过期啦"
             return
         }
         if status == .forMale{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
+            self.noauthHeadImg.isHidden = false
+            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "男神的红包，腐女走开"
             return
         }
         if status == .forFemale{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
+            self.noauthHeadImg.isHidden = false
+            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "女神的红包，宅男走开"
             return
         }
@@ -253,6 +267,8 @@ class CatchRedPacketView: UIView {
         self.headImgV.isHidden = true
         
         self.noAuthToCatchContainView.isHidden = true
+        self.noauthHeadImg.isHidden = true
+        self.noAthuUserInfo.isHidden = true
         self.noAuthInfo.isHidden = true
     }
     

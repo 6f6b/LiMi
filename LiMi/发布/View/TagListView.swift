@@ -114,9 +114,9 @@ class TagListView: UIView {
             }
             self.collectionView.reloadData()
             self.show()
-            SVProgressHUD.showErrorWith(model: skillListModel)
+            Toast.showErrorWith(model: skillListModel)
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     

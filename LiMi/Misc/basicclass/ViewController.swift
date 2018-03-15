@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("收到内存警告！！！！！！！！！！！！！！！！！！！！！")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -36,8 +37,9 @@ class ViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .lightContent
         self.view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-//        self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 0.2), color: RGBA(r: 234, g: 234, b: 234, a: 1))
+
     }
 }
 

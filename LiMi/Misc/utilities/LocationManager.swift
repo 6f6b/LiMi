@@ -32,7 +32,7 @@ class LocationManager :NSObject{
             locationManager.distanceFilter = 5.0
             locationManager.startUpdatingLocation()
         }else{
-            SVProgressHUD.showInfo(withStatus: "请开启定位权限")
+            Toast.showInfoWith(text: "请开启定位权限")
         }
     }
     

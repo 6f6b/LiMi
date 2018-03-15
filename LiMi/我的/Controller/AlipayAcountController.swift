@@ -83,6 +83,10 @@ class AlipayAcountController: ViewController {
         }
     }
     
+    deinit {
+        print("支付宝提现销毁")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -95,24 +99,24 @@ class AlipayAcountController: ViewController {
         let requestAuthCode = RequestAuthCode(phone: Defaults[.userPhone])
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
-                SVProgressHUD.showSuccess(withStatus: authCodeModel.code)
+                Toast.showSuccessWith(msg: "验证码已发送")
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
     @IBAction func dealToSumbit(_ sender: Any) {
         if IsEmpty(textField: self.authCode){
-            SVProgressHUD.showInfo(withStatus: "请输入验证码")
+            Toast.showInfoWith(text:"请输入验证码")
             return
         }
         if IsEmpty(textField: self.alipayAcount){
-            SVProgressHUD.showInfo(withStatus: "请输入支付宝账号")
+            Toast.showInfoWith(text:"请输入支付宝账号")
             return
         }
         if IsEmpty(textField: self.alipayAcountName){
-            SVProgressHUD.showInfo(withStatus: "请输入支付宝账户名")
+            Toast.showInfoWith(text:"请输入支付宝账户名")
             return
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
@@ -120,16 +124,16 @@ class AlipayAcountController: ViewController {
         let withDrawCash = WithdrawCash(money: self.withdrawAmount.doubleValue(), account: self.alipayAcount.text, true_name: self.alipayAcountName.text, code: self.authCode.text)
         _ = moyaProvider.rx.request(.targetWith(target: withDrawCash)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            SVProgressHUD.showResultWith(model: resultModel)
+            Toast.showResultWith(model: resultModel)
             if resultModel?.commonInfoModel?.status == successState{
                 let delayTime:TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
-                    SVProgressHUD.dismiss()
+                    Toast.dismiss()
                     NotificationCenter.default.post(name: WITHDRAW_SUCCESSED_NOTIFICATION, object: nil)
                 })
             }
         }, onError: { (error) in
-            SVProgressHUD.showErrorWith(msg: error.localizedDescription)
+            Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
 }
