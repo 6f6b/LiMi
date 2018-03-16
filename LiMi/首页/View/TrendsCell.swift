@@ -10,10 +10,10 @@ import UIKit
 import SnapKit
 
 ///动态只有一张的图片的时候的图片宽高比
-let singlePictureHeightAndWidthRatio = CGFloat(0.75)
+let singlePictureHeightAndWidthRatio = CGFloat(0.8)
 
 ///多张图片的水平间距和垂直间距
-let multiPictureSpacing = CGFloat(3.0)
+let multiPictureSpacing = CGFloat(1.0)
 
 ///多张图片时图片高宽比
 let multiPictureHeightAndWidthRatio = CGFloat(1.0)

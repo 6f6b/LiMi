@@ -126,12 +126,16 @@ class ToastContentView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = RGBA(r: 0, g: 0, b: 0, a: 0.7)
         
         self.snp.makeConstraints { (make) in
-            make.height.equalTo(100)
-            make.width.equalTo(200)
+            make.height.equalTo(110)
+            make.width.greaterThanOrEqualTo(110)
+            make.width.lessThanOrEqualTo(280)
         }
+        
+        self.layer.cornerRadius = 6
+        self.clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -150,16 +154,14 @@ class ToastContentViewWithText: ToastContentView {
         super.init(frame: frame)
         self.contentLabel = UILabel()
         self.contentLabel.textAlignment = .center
-        self.contentLabel.font = UIFont.systemFont(ofSize: 17)
-        self.contentLabel.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
+        self.contentLabel.font = UIFont.systemFont(ofSize: 15)
+        self.contentLabel.textColor = UIColor.white
         self.addSubview(self.contentLabel)
         self.contentLabel.snp.makeConstraints { [unowned self]   (make) in
             make.center.equalTo(self)
-            make.left.equalTo(self).offset(15)
+            make.left.equalTo(self).offset(12)
         }
         
-        self.layer.cornerRadius = 10
-        self.clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -192,8 +194,9 @@ class ToastContentViewWithPictureAndText: ToastContentViewWithText {
 
         self.contentLabel.snp.remakeConstraints { (make) in
             make.centerX.equalTo(self)
-            make.left.equalTo(self).offset(15)
-            make.bottom.equalTo(self).offset(-20)
+            make.top.equalTo(self.indicateImg.snp.bottom).offset(10)
+            make.left.equalTo(self).offset(12)
+            //make.bottom.equalTo(self).offset(-20)
         }
     }
     

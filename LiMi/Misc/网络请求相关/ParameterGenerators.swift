@@ -876,8 +876,10 @@ struct GetIMToken:TargetType,ParametersProtocol{
         return "/index.php/apps/Im/getToken"
     }
     
+    var to_uid:Int?
+    
     func parameters() -> [String : Any] {
-        let tmpParameters:[String:Any]? = nil
+        let tmpParameters:[String:Any]? = ["to_uid":to_uid]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }

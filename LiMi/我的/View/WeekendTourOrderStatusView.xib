@@ -16,27 +16,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-Rf-TGi">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-Rf-TGi">
                     <rect key="frame" x="40" y="219" width="295" height="229"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6A-la-lQL">
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6A-la-lQL">
                             <rect key="frame" x="15" y="15" width="12" height="22"/>
                             <state key="normal" image="fb_btn_close1"/>
                             <connections>
                                 <action selector="dealClose:" destination="iN0-l3-epB" eventType="touchUpInside" id="OeZ-nn-6Gp"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tc_ic_dd" translatesAutoresizingMaskIntoConstraints="NO" id="pv7-tH-Btj">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="tc_ic_dd" translatesAutoresizingMaskIntoConstraints="NO" id="pv7-tH-Btj">
                             <rect key="frame" x="122.5" y="50" width="50" height="63"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已经支付" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVE-Cl-NzS">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="订单已经支付" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVE-Cl-NzS">
                             <rect key="frame" x="29" y="143" width="236" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已经支付" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8us-Mg-YBV" customClass="YYLabel" customModule="LiMi" customModuleProvider="target">
-                            <rect key="frame" x="30" y="178.5" width="234" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -44,15 +38,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="8us-Mg-YBV" firstAttribute="leading" secondItem="Qi6-Rf-TGi" secondAttribute="leading" constant="30" id="0rq-eR-r3d"/>
-                        <constraint firstItem="8us-Mg-YBV" firstAttribute="top" secondItem="PVE-Cl-NzS" secondAttribute="bottom" constant="15" id="6UC-8A-AwD"/>
                         <constraint firstItem="PVE-Cl-NzS" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="6VT-GE-NJx"/>
                         <constraint firstAttribute="trailing" secondItem="PVE-Cl-NzS" secondAttribute="trailing" constant="30" id="CHZ-GY-LKf"/>
                         <constraint firstAttribute="width" constant="295" id="MRr-ER-P7V"/>
-                        <constraint firstItem="8us-Mg-YBV" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="Mcg-pu-Syf"/>
                         <constraint firstItem="pv7-tH-Btj" firstAttribute="top" secondItem="Qi6-Rf-TGi" secondAttribute="top" constant="50" id="RHd-wF-get"/>
                         <constraint firstItem="Q6A-la-lQL" firstAttribute="top" secondItem="Qi6-Rf-TGi" secondAttribute="top" constant="15" id="Ste-Yb-FMP"/>
-                        <constraint firstAttribute="bottom" secondItem="8us-Mg-YBV" secondAttribute="bottom" constant="30" id="V8q-Vn-NKY"/>
                         <constraint firstItem="PVE-Cl-NzS" firstAttribute="centerX" secondItem="Qi6-Rf-TGi" secondAttribute="centerX" id="ZaC-C3-5jW"/>
                         <constraint firstItem="Q6A-la-lQL" firstAttribute="leading" secondItem="Qi6-Rf-TGi" secondAttribute="leading" constant="15" id="ekB-aY-slR"/>
                         <constraint firstItem="PVE-Cl-NzS" firstAttribute="top" secondItem="pv7-tH-Btj" secondAttribute="bottom" constant="30" id="gtz-68-moW"/>
@@ -69,7 +59,6 @@
             <connections>
                 <outlet property="containView" destination="Qi6-Rf-TGi" id="Xhw-nZ-1hM"/>
                 <outlet property="infoLabel" destination="PVE-Cl-NzS" id="IzB-cQ-lTk"/>
-                <outlet property="phoneLabel" destination="8us-Mg-YBV" id="ldg-i2-q6W"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>

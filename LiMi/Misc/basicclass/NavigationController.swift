@@ -12,10 +12,10 @@ class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-        self.navigationBar.tintColor = UIColor.white
-        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-        self.interactivePopGestureRecognizer?.delegate = self
+//        self.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+//        self.navigationBar.tintColor = UIColor.white
+//        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+//        self.interactivePopGestureRecognizer?.delegate = self
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -24,7 +24,7 @@ class NavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true
             //替换ViewController的导航栏返回按钮
             let backBtn = SuitableHotSpaceButton.init(type: .custom)
-            backBtn.setImage(UIImage.init(named: "back"), for: .normal)
+            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
             backBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
             backBtn.contentHorizontalAlignment = .left
 //            backBtn.backgroundColor = UIColor.red

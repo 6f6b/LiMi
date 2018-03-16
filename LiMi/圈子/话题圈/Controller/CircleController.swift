@@ -26,7 +26,7 @@ class CircleController: ViewController {
             self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
         }
 
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "WeekendTourSeparateCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSeparateCell")

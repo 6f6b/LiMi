@@ -17,7 +17,7 @@ class TrendsImageCollectionCell: UICollectionViewCell {
 
     func configWith(picUrl:String?){
         if let _picUrl = picUrl{
-            let placeHolderImg = UIImage.init(named: "guanyu_icon")
+            let placeHolderImg = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: SCREEN_WIDTH), color: RGBA(r: 242, g: 242, b: 242, a: 1))
             self.imgV.kf.setImage(with: URL.init(string: _picUrl), placeholder: placeHolderImg, options: nil, progressBlock: nil, completionHandler: nil)
 //            self.imgV.kf.setImage(with: URL.init(string: _picUrl))
         }

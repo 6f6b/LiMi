@@ -27,12 +27,12 @@ class IdentityAuthInfoController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "学生认证"
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.estimatedSectionHeaderHeight = 100
         self.tableView.backgroundColor = UIColor.white
         
         let sumbitBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
         sumbitBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
         sumbitBtn.sizeToFit()
         sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)
@@ -46,9 +46,16 @@ class IdentityAuthInfoController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: NAVIGATION_BAR_SEPARATE_LINE_HEIGHT), color: NAVIGATION_BAR_SEPARATE_COLOR)
+
         
         let notNowBtn = UIButton.init(type: .custom)
-        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
         notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
         notNowBtn.sizeToFit()
         notNowBtn.addTarget(self, action: #selector(dealNotNow), for: .touchUpInside)

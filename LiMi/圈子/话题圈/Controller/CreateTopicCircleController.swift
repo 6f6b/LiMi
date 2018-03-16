@@ -19,11 +19,12 @@ class CreateTopicCircleController: ViewController {
     
     @IBOutlet weak var placeHolder: UILabel!
     @IBOutlet weak var summary: UITextView!
-    
     @IBOutlet weak var finishBtn: UIButton!
+    
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "创建话题"
+        self.title = "创建话题圈"
         
         let cancelBtn = UIButton.init(type: .custom)
         let cancelAttributeTitle = NSAttributedString.init(string: "取消", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
@@ -37,15 +38,23 @@ class CreateTopicCircleController: ViewController {
         
         self.finishBtn.layer.cornerRadius = 20
         self.finishBtn.clipsToBounds = true
-
         self.summary.delegate = self
+        
+        if SYSTEM_VERSION <= 11.0{
+            self.topConstraint.constant = 0
+        }else{
+            self.topConstraint.constant = -64
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
         self.navigationController?.navigationBar.shadowImage = UIImage()
+
     }
     
     deinit {

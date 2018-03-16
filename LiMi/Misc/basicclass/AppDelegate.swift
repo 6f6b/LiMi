@@ -62,9 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         let conversationUnreadcount = AppManager.shared.conversationManager.allUnreadCount()
-        let systemUnreadCount = AppManager.shared.systemNotificationManager.allUnreadCount()
-        let customSystemUnreadCount = AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount()
-        UIApplication.shared.applicationIconBadgeNumber = conversationUnreadcount + systemUnreadCount + customSystemUnreadCount
+//        let systemUnreadCount = AppManager.shared.systemNotificationManager.allUnreadCount()
+//        let customSystemUnreadCount = AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount()
+        UIApplication.shared.applicationIconBadgeNumber = conversationUnreadcount
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

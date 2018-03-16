@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import LLCycleScrollView
 import SDCycleScrollView
 
 enum CircleMenuType {

@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import YYText
 
 class PayResultController: ViewController {
     @IBOutlet weak var successContainView: UIView!
-    @IBOutlet weak var successInfo: UILabel!
+    @IBOutlet weak var successLabel: UILabel!
+    var successInfo: YYLabel!
+    @IBOutlet weak var successStackView: UIStackView!
     
     @IBOutlet weak var failedContainView: UIView!
     
@@ -48,17 +51,30 @@ class PayResultController: ViewController {
         self.successThenCheckOrderBtn.layer.borderWidth = 1
         self.successThenCheckOrderBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
         
+        self.successInfo = YYLabel.init()
+        self.successContainView.addSubview(self.successInfo)
+        self.successInfo.lineBreakMode = .byWordWrapping
+        self.successInfo.numberOfLines = 0
+        self.successInfo.preferredMaxLayoutWidth = SCREEN_WIDTH-40*2
+        self.successInfo.snp.makeConstraints {[unowned self] (make) in
+            make.top.equalTo(self.successLabel.snp.bottom).offset(25)
+            make.left.equalTo(self.successContainView).offset(40)
+            make.right.equalTo(self.successContainView).offset(-40)
+            make.bottom.equalTo(self.successStackView.snp.top).offset(-25)
+        }
+        
         let phoneText = "24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电\(PHONE_NUMBER)"
         let nsPhoneText = NSString.init(string: phoneText)
         let phoneNumRange = nsPhoneText.range(of: PHONE_NUMBER)
         let attrPhoneText = NSMutableAttributedString.init(string: phoneText)
-        attrPhoneText.yy_font = self.successInfo.font
-        attrPhoneText.yy_color = self.successInfo.textColor
+        attrPhoneText.yy_font = UIFont.systemFont(ofSize: 12)
+        attrPhoneText.yy_color = RGBA(r: 153, g: 153, b: 153, a: 1)
+        attrPhoneText.yy_alignment = .center
         attrPhoneText.yy_setTextHighlight(phoneNumRange, color: APP_THEME_COLOR, backgroundColor: nil) { (view, str, range, rect) in
-            
+            UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
         }
+        self.successInfo.preferredMaxLayoutWidth = SCREEN_WIDTH-40*2
         self.successInfo.attributedText = attrPhoneText
-        self.successInfo.yb_addAttributeTapAction(with: [PHONE_NUMBER], delegate: self)
     }
 
     deinit {
@@ -118,10 +134,4 @@ class PayResultController: ViewController {
         self.navigationController?.pushViewController(myOrderListController, animated: true)
     }
     
-}
-
-extension PayResultController:YBAttributeTapActionDelegate{
-    func yb_attributeTapReturn(_ string: String!, range: NSRange, index: Int) {
-        UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
-    }
 }

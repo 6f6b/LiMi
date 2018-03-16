@@ -16,6 +16,7 @@
                 <outlet property="finishBtn" destination="PSV-5W-GhT" id="HdU-XK-G9v"/>
                 <outlet property="placeHolder" destination="p4w-fc-k1M" id="eEK-gR-3WF"/>
                 <outlet property="summary" destination="ZTc-dH-djz" id="aQA-S3-KCN"/>
+                <outlet property="topConstraint" destination="Kjj-fu-jM5" id="FPs-ee-0PJ"/>
                 <outlet property="topicTitle" destination="T0P-ch-4EW" id="DUq-HE-6e7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -26,15 +27,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ukZ-Mj-My8">
-                    <rect key="frame" x="0.0" y="-44" width="375" height="711"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="huati_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Ha8-EJ-KhP">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
+                            <rect key="frame" x="0.0" y="-64" width="375" height="390"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFX-bt-nhT">
                             <rect key="frame" x="15" y="200" width="345" height="300"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入你的话题名称（20字以内）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T0P-ch-4EW">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入你的话题圈名称（20字以内）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T0P-ch-4EW">
                                     <rect key="frame" x="15" y="20" width="315" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="M2T-Uy-Cj0"/>
@@ -53,8 +54,8 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ciS-TP-nAa">
                                     <rect key="frame" x="15" y="69" width="315" height="140"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入你的话题简介（200字以内）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4w-fc-k1M">
-                                            <rect key="frame" x="4" y="8" width="211.5" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入你的话题圈简介（200字以内）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4w-fc-k1M">
+                                            <rect key="frame" x="4" y="8" width="226" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -124,7 +125,7 @@
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Ha8-EJ-KhP" secondAttribute="trailing" id="JKd-My-a0K"/>
-                        <constraint firstItem="Ha8-EJ-KhP" firstAttribute="top" secondItem="ukZ-Mj-My8" secondAttribute="top" id="Kjj-fu-jM5"/>
+                        <constraint firstItem="Ha8-EJ-KhP" firstAttribute="top" secondItem="ukZ-Mj-My8" secondAttribute="top" constant="-64" id="Kjj-fu-jM5"/>
                         <constraint firstItem="WFX-bt-nhT" firstAttribute="top" secondItem="ukZ-Mj-My8" secondAttribute="top" constant="200" id="cAL-ax-hQ4"/>
                         <constraint firstItem="WFX-bt-nhT" firstAttribute="leading" secondItem="ukZ-Mj-My8" secondAttribute="leading" constant="15" id="nX5-rf-DJQ"/>
                         <constraint firstAttribute="trailing" secondItem="WFX-bt-nhT" secondAttribute="trailing" constant="15" id="oGe-pI-C4q"/>
@@ -135,7 +136,7 @@
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ukZ-Mj-My8" secondAttribute="bottom" id="NGN-Y7-Nii"/>
-                <constraint firstItem="ukZ-Mj-My8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-64" id="Tzq-G4-KBz"/>
+                <constraint firstItem="ukZ-Mj-My8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Tzq-G4-KBz"/>
                 <constraint firstItem="ukZ-Mj-My8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="aEV-wf-cwO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ukZ-Mj-My8" secondAttribute="trailing" id="oQY-7N-uuw"/>
             </constraints>

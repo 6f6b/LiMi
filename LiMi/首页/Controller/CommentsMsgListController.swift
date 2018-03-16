@@ -70,8 +70,8 @@ class CommentsMsgListController: ViewController {
                 for thumbUpAndCommentMessageModel in thumbUpAndCommentMessageModels{
                     self.dataArray.append(thumbUpAndCommentMessageModel)
                 }
+                if thumbUpAndCommentMessageModels.count > 0{self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: thumbUpAndCommentMessageContainModel)

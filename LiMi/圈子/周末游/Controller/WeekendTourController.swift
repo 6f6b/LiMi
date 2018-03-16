@@ -27,7 +27,7 @@ class WeekendTourController: ViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.register(UINib.init(nibName: "WeekendBannerCell", bundle: nil), forCellReuseIdentifier: "WeekendBannerCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourSeparateCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSeparateCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourSubjectCell", bundle: nil), forCellReuseIdentifier: "WeekendTourSubjectCell")
@@ -76,8 +76,8 @@ class WeekendTourController: ViewController {
                 for weekendTour in weekendTours{
                     self.dataArray.append(weekendTour)
                 }
+                if weekendTours.count > 0 {self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: weekendTourListContainModel)

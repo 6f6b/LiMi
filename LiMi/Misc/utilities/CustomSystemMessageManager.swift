@@ -82,11 +82,12 @@ class CustomSystemMessageManager: NSObject {
         // 对 JSON 的回应数据进行反序列化操作
         let jsonData = nimCustomSystemNotification.content!.data(using: String.Encoding.utf8)
         let object = try! JSONSerialization.jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
-        
-        try! self.realm.write {
-            let _ = self.realm.create(CustomSystemMessageModel.self, value: object, update: true)
+        if let _ = object["msg_id"],let _ = object["type"]{
+            try! self.realm.write {
+                let _ = self.realm.create(CustomSystemMessageModel.self, value: object, update: true)
+            }
+            NotificationCenter.default.post(name: customSystemMessageUnreadCountChanged, object: nil)
         }
-        NotificationCenter.default.post(name: customSystemMessageUnreadCountChanged, object: nil)
     }
 }
 

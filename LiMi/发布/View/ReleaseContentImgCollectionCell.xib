@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="181" height="155"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hb_btn_chai" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-Gn-QyL">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-Gn-QyL">
                         <rect key="frame" x="0.0" y="0.0" width="181" height="155"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2z-wV-KCT">
@@ -50,6 +50,5 @@
     </objects>
     <resources>
         <image name="fb_btn_close" width="22" height="22"/>
-        <image name="hb_btn_chai" width="92" height="92"/>
     </resources>
 </document>

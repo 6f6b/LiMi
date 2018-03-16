@@ -33,7 +33,7 @@ class MyCashController: ViewController {
         self.withdrawalBtn.layer.borderWidth = 1
         
         let transactionRecordBtn = UIButton.init(type: .custom)
-        let transactionRecordAttribute = NSAttributedString.init(string: "交易记录", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        let transactionRecordAttribute = NSAttributedString.init(string: "交易记录", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
         transactionRecordBtn.setAttributedTitle(transactionRecordAttribute, for: .normal)
         transactionRecordBtn.sizeToFit()
         transactionRecordBtn.addTarget(self, action: #selector(dealToTransactionRecord), for: .touchUpInside)

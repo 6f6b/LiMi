@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
 class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     var collectionView:UICollectionView!
@@ -89,9 +90,28 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let imgArr = self.model?.action_pic{
-            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: indexPath.row, imageCount: UInt(imgArr.count), datasource: self)
-            photoBroswer?.browserStyle = .indexLabel
-            photoBroswer?.setActionSheeWith(self)
+////            let cell = collectionView.cellForItemAtIndexPath(indexPath)
+////            let originImage = cell.exampleImageView.image // some image for baseImage
+////
+////            let browser = SKPhotoBrowser(originImage: originImage ?? UIImage(), photos: images, animatedFromView: cell)
+////            browser.initializePageIndex(indexPath.row)
+////            presentViewController(browser, animated: true, completion: {})
+//
+            var images = [SKPhoto]()
+            for url in imgArr{
+                let photo = SKPhoto.photoWithImageURL(url)
+                photo.shouldCachePhotoURLImage = true // you can use image cache by true(NSCache)
+                images.append(photo)
+            }
+
+            let cell = collectionView.cellForItem(at: indexPath)  as! TrendsImageCollectionCell
+            let originImg = cell.imgV.image
+            let broswer = SKPhotoBrowser(originImage: originImg ?? UIImage(), photos: images, animatedFromView: cell)
+            broswer.initializePageIndex(indexPath.row)
+            UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
+//            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: indexPath.row, imageCount: UInt(imgArr.count), datasource: self)
+//            photoBroswer?.browserStyle = .indexLabel
+//            photoBroswer?.setActionSheeWith(self)
         }
         if let _tapPictureBlock = self.tapPictureBlock{
             _tapPictureBlock(indexPath.row)

@@ -387,8 +387,9 @@ func mjGifHeaderWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock
     return header!
 }
 
-func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshAutoGifFooter{
-    let header = MJRefreshAutoGifFooter.init(refreshingBlock: refreshingBlock)
+func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshBackGifFooter{
+    let header = MJRefreshBackGifFooter.init(refreshingBlock: refreshingBlock)
+//    let header = MJRefreshAutoGifFooter.init(refreshingBlock: refreshingBlock)
     //刷新动画图片数组
     var refreshImgs = [UIImage]()
     for i in 1...9{
@@ -397,10 +398,38 @@ func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock
     header?.setImages(refreshImgs, for: .refreshing)
     header?.setImages(refreshImgs, for: .pulling)
     header?.stateLabel.isHidden = true
-    header?.isRefreshingTitleHidden = true
+//    header?.isRefreshingTitleHidden = true
     return header!
 }
 
+///和某人聊天
+func ChatWith(toUserId:Int?){
+    //请求对方accid
+    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+    let getImToken = GetIMToken(to_uid: toUserId)
+    moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+        let imModel = Mapper<IMModel>().map(jsonData: response.data)
+        if let _accid = imModel?.accid,let _token = imModel?.token{
+            let session = NIMSession.init((_accid), type: .P2P)
+            let sessionVC = NTESSessionViewController.init(session: session)
+            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+            let nav = tbc.selectedViewController as! NavigationController
+            nav.pushViewController(sessionVC!, animated: true)
+        }
+    }) { (error) in
+        Toast.showErrorWith(msg: error.localizedDescription)
+    }
+//    _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+//        let imModel = Mapper<IMModel>().map(jsonData: response.data)
+//        if let _accid = imModel?.accid,let _token = imModel?.token{
+//            let session = NIMSession.init((_accid), type: .P2P)
+//            let sessionVC = NTESSessionViewController.init(session: session)
+//            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+//            let nav = tbc.selectedViewController as! NavigationController
+//            nav.pushViewController(sessionVC!, animated: true)
+//        }
+//    })
+}
 
 
 

@@ -11,7 +11,7 @@ import ObjectMapper
 
 class IMModel: BaseModel {
     var token:String?
-    var accid:Int?
+    var accid:String?
     var name:String?
     
     required init?(map: Map) {

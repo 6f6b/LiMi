@@ -60,7 +60,7 @@ class ReleaseController: ViewController {
         self.tableView = UITableView(frame: self.view.bounds)
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -78,6 +78,17 @@ class ReleaseController: ViewController {
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
             self.imagePickerVc?.autoDismiss = false
+//            self.imagePickerVc?.allowPickingGif = true
+            self.imagePickerVc?.allowPickingOriginalPhoto = true
+            self.imagePickerVc?.allowPickingVideo = true
+            self.imagePickerVc?.allowPickingImage = true
+            self.imagePickerVc?.showSelectBtn = true
+//            imagePickerVc.allowPickingVideo = self.allowPickingVideoSwitch.isOn;
+//            imagePickerVc.allowPickingImage = self.allowPickingImageSwitch.isOn;
+//            imagePickerVc.allowPickingOriginalPhoto = self.allowPickingOriginalPhotoSwitch.isOn;
+//            imagePickerVc.allowPickingGif = self.allowPickingGifSwitch.isOn;
+//            imagePickerVc.allowPickingMultipleVideo = self.allowPickingMuitlpleVideoSwitch.isOn; // 是否可以多选视频
+            
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
@@ -91,6 +102,12 @@ class ReleaseController: ViewController {
             self.imagePickerVc?.didFinishPickingVideoHandle = {[unowned self] (img,other) in
                 self.imgArr.removeAll()
                 self.uploadVideoWith(phAsset: other as? PHAsset, preImg: img)
+                self.tableView.reloadData()
+                self.RefreshReleasBtnEnable()
+            }
+            self.imagePickerVc?.didFinishPickingGifImageHandle = {[unowned self] (img,other) in
+                self.videoArr.removeAll()
+                self.uploadImgsWith(imgs: [img])
                 self.tableView.reloadData()
                 self.RefreshReleasBtnEnable()
             }

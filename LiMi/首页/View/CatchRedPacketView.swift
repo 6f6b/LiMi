@@ -165,24 +165,24 @@ class CatchRedPacketView: UIView {
         if status == .beOverdue{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
-            self.noauthHeadImg.isHidden = false
-            self.noAthuUserInfo.isHidden = false
+//            self.noauthHeadImg.isHidden = false
+//            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "红包已经过期啦"
             return
         }
         if status == .forMale{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
-            self.noauthHeadImg.isHidden = false
-            self.noAthuUserInfo.isHidden = false
+//            self.noauthHeadImg.isHidden = false
+//            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "男神的红包，腐女走开"
             return
         }
         if status == .forFemale{
             self.noAuthToCatchContainView.isHidden = false
             self.noAuthInfo.isHidden = false
-            self.noauthHeadImg.isHidden = false
-            self.noAthuUserInfo.isHidden = false
+//            self.noauthHeadImg.isHidden = false
+//            self.noAthuUserInfo.isHidden = false
             self.noAuthInfo.text = "女神的红包，宅男走开"
             return
         }

@@ -28,7 +28,7 @@ class TopicCircleController: ViewController {
         self.tableView.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         TopicCircleCellFactory.registerTrendsCellFor(tableView: self.tableView)
@@ -113,8 +113,8 @@ class TopicCircleController: ViewController {
                 for topicCircleModel in _topicCircleModels{
                     self.dataArray.append(topicCircleModel)
                 }
+                if _topicCircleModels.count > 0{self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: topicCircleContainModel)

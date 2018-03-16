@@ -28,7 +28,7 @@ class MyOrderListController: ViewController {
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.register(UINib.init(nibName: "MyTourOrderCell", bundle: nil), forCellReuseIdentifier: "MyTourOrderCell")
 
         self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
@@ -71,8 +71,8 @@ class MyOrderListController: ViewController {
                 for weekendTourOrderModel in weekendTourOrderModels{
                     self.dataArray.append(weekendTourOrderModel)
                 }
+                if weekendTourOrderModels.count > 0{self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: weekendTourOrderContainModel)

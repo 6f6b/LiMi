@@ -90,8 +90,8 @@ class TopicListController: ViewController {
                 for trendModel in trendModels{
                     self.dataArray.append(trendModel)
                 }
+                if trendModels.count > 0 {self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: topicsContainModel)
@@ -116,9 +116,7 @@ class TopicListController: ViewController {
         if operationType == .delete{type = "delete"}
         if operationType == .report{type = "report"}
         if operationType == .sendMsg{
-            let session = NIMSession.init(trendModel!.user_id!.stringValue(), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            ChatWith(toUserId: trendModel?.user_id)
             return
         }
         let multiFunction = MultiFunction(type: type, topic_action_id: trendModel?.action_id,user_id:trendModel?.user_id)
@@ -201,7 +199,7 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0{return 20}
+        if section == 0{return 7}
         return 0.001
     }
     

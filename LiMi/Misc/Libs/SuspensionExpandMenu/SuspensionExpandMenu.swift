@@ -34,7 +34,7 @@ class SuspensionExpandMenu: UIView {
         self.tableView = UITableView.init(frame: CGRect.zero)
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib.init(nibName: "SuspensionMenuItemCell", bundle: nil), forCellReuseIdentifier: "SuspensionMenuItemCell")
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.layer.cornerRadius = 5
         self.tableView.clipsToBounds = true
         self.menuContainView.addSubview(tableView)

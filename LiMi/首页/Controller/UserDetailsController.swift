@@ -37,7 +37,7 @@ class UserDetailsController: ViewController {
         }else{
             self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
         }
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.estimatedSectionFooterHeight = 100
         self.tableView.estimatedSectionHeaderHeight = 100
         registerTrendsCellFor(tableView: self.tableView)
@@ -104,9 +104,8 @@ class UserDetailsController: ViewController {
         if operationType == .delete{type = "delete"}
         if operationType == .report{type = "report"}
         if operationType == .sendMsg{
-            let session = NIMSession.init(self.userId.stringValue(), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            ChatWith(toUserId: self.userId)
+
             return
         }
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
@@ -158,9 +157,11 @@ class UserDetailsController: ViewController {
                         self.skillDataArray.append(trend)
                     }
                 }
+                if trends.count > 0 || self.actionDataArray.count == 0 || self.skillDataArray.count == 0{
+                    self.userInfoModel = userDetailModel?.user
+                    self.tableView.reloadData()
+                }
             }
-            self.userInfoModel = userDetailModel?.user
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             Toast.showErrorWith(model: userDetailModel)
         }, onError: { (error) in
@@ -170,19 +171,12 @@ class UserDetailsController: ViewController {
     }
     
     @IBAction func dealLiao(_ sender: Any) {
-//        UINavigationController *nav = self.navigationController;
-//        NIMSession *session = [NIMSession session:self.userHomePageModel.imaccid type:NIMSessionTypeP2P];
-//        NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
-//        [nav pushViewController:vc animated:YES];
-//        UIViewController *root = nav.viewControllers[0];
-//        nav.viewControllers = @[root,vc];
+        
         if !AppManager.shared.checkUserStatus(){return}
         //判断登录状态
         let appState = AppManager.shared.appState()
         if appState == .imOnlineBusinessOnline{
-            let session = NIMSession.init((self.userId.stringValue()), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            ChatWith(toUserId: self.userId)
         }
         if appState == .imOnlineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])

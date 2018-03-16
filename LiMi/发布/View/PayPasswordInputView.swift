@@ -22,11 +22,11 @@ class PayPasswordInputView: UIView {
     var nums = [String]()
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.payInfoContainView.layer.cornerRadius = 20
+        self.payInfoContainView.layer.cornerRadius = 10
         self.payInfoContainView.clipsToBounds = true
     
         self.passwordContainView.layer.borderWidth = 1
-        self.passwordContainView.layer.borderColor = RGBA(r: 51, g: 51, b: 51, a: 1).cgColor
+        self.passwordContainView.layer.borderColor = RGBA(r: 204, g: 204, b: 204, a: 1).cgColor
         
         self.numPadBottomConstraint.constant = -GET_DISTANCE(ratio: 439/750.0)
     }

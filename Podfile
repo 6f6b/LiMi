@@ -20,11 +20,11 @@ target ‘LiMi' do
     pod 'MJRefresh'
     pod 'Qiniu', '~> 7.2.2'
     pod 'QiniuUpload'
-#    pod 'XLPhotoBrowser+CoderXL'
     pod 'DZNEmptyDataSet'
     pod 'ZFPlayer'
     pod 'Bugly'
     pod 'RealmSwift'
+    pod 'SKPhotoBrowser'
 
 #NIM依赖
     pod 'Toast', '~> 3.0'
@@ -37,7 +37,6 @@ target ‘LiMi' do
     pod 'SDWebImage', '~> 4.2.3'
 
 
-    pod 'LLCycleScrollView'
     pod 'SDCycleScrollView','~> 1.75'
 
 

@@ -38,7 +38,7 @@ class CommentsWithTrendController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         registerTrendsCellFor(tableView: self.tableView)
         self.tableView.register(TrendCommentCell.self, forCellReuseIdentifier: "TrendCommentCell")
         self.tableView.register(UINib.init(nibName: "EmptyCommentCell", bundle: nil), forCellReuseIdentifier: "EmptyCommentCell")
@@ -113,8 +113,11 @@ class CommentsWithTrendController: ViewController {
                 for comment in comments{
                     self.dataArray.append(comment)
                 }
+                if comments.count > 0{
+                    self.tableView.reloadData()
+                }
             }
-            self.tableView.reloadData()
+            if self.dataArray.count == 0{self.tableView.reloadData()}
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()
             Toast.showErrorWith(model: commentListModel)
@@ -216,9 +219,7 @@ class CommentsWithTrendController: ViewController {
         if operationType == .delete{type = "delete"}
         if operationType == .report{type = "report"}
         if operationType == .sendMsg{
-            let session = NIMSession.init(trendModel!.user_id!.stringValue(), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            ChatWith(toUserId: trendModel?.user_id)
             return
         }
         //判断种类

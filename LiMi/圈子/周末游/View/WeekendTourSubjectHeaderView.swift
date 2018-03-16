@@ -56,8 +56,12 @@ class WeekendTourSubjectHeaderView: UIView {
         }
         //self.price.text = model?.price?.decimalValue()
         self.time.text = model?.time
-        self.startAddress.text = model?.from
-        self.endAddress.text = model?.to
+        if let _from = model?.from{
+            self.startAddress.text = "起始地：\(_from)"
+        }
+        if let _to = model?.to{
+            self.endAddress.text = "目的地：\(_to)"
+        }
     }
 }
 

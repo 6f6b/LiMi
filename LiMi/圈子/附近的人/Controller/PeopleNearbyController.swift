@@ -49,7 +49,7 @@ class PeopleNearbyController: ViewController {
         let moreOperationBtn = UIButton.init(type: .custom)
         moreOperationBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
 //        moreOperationBtn.backgroundColor = UIColor.red
-        moreOperationBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
+        moreOperationBtn.setImage(UIImage.init(named: "nav_btn_jubao_black"), for: .normal)
         moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: moreOperationBtn),UIBarButtonItem.init(customView: UIButton())]
 //        self.navigationItem.rightBarButtonItem =

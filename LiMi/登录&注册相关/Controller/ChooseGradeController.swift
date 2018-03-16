@@ -23,7 +23,7 @@ class ChooseGradeController: ViewController {
         frame.size.height -= 64
         self.tableView = UITableView(frame: frame)
         self.view.addSubview(self.tableView)
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "CollegeCell", bundle: nil), forCellReuseIdentifier: "CollegeCell")

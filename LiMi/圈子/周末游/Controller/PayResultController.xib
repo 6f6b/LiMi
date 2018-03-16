@@ -16,7 +16,8 @@
                 <outlet property="failedThenBackToHomeBtn" destination="YFm-o0-Bme" id="gCv-jZ-n7C"/>
                 <outlet property="failedThenRePayBtn" destination="E6A-w7-FBm" id="FNd-IX-9v3"/>
                 <outlet property="successContainView" destination="s3q-Ff-iJI" id="h3v-d0-cxH"/>
-                <outlet property="successInfo" destination="q0F-mO-KBR" id="O5j-UZ-jQz"/>
+                <outlet property="successLabel" destination="iDd-WE-zAe" id="GA4-8B-lEM"/>
+                <outlet property="successStackView" destination="aaM-9M-s0J" id="Y3A-kp-pLk"/>
                 <outlet property="successThenBackToHomeBtn" destination="GqM-je-cRn" id="yOQ-aT-ngL"/>
                 <outlet property="successThenCheckOrderBtn" destination="kmz-Us-UiB" id="uxQ-GR-uCr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -90,7 +91,7 @@
                             <color key="textColor" red="0.1843137255" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电4002098909" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0F-mO-KBR">
+                        <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24小时内，我们会通过手机号与您联系；请保持电话通畅，如有疑问，请致电4002098909" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0F-mO-KBR" customClass="YYLabel" customModule="LiMi" customModuleProvider="target">
                             <rect key="frame" x="40" y="254" width="297" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

@@ -100,7 +100,7 @@ class HomePageController: ViewController {
         
         //业务登录、im登录、认证状态三者有一个不在线则隐藏
         let imIsLogin = AppManager.shared.autoLoginIM()
-        if Defaults[.userCertificationState] != 2 || Defaults[.userId] == nil || !imIsLogin{
+        if Defaults[.userCertificationState] != 2 || Defaults[.userId] == nil{
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }else{
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = false

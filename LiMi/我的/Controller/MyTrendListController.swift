@@ -24,7 +24,7 @@ class MyTrendListController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         registerTrendsCellFor(tableView: self.tableView)
         
         self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
@@ -61,10 +61,10 @@ class MyTrendListController: ViewController {
                 for trend in trends{
                     self.dataArray.append(trend)
                 }
+                if trends.count > 0{self.tableView.reloadData()}
             }
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
-            self.tableView.reloadData()
             Toast.showErrorWith(model: trendsListModel)
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self

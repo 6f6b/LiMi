@@ -118,7 +118,7 @@ class FeedBackController: ViewController {
             })
         }
         
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         

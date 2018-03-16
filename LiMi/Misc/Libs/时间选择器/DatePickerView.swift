@@ -31,7 +31,7 @@ class DatePickerView: UIView {
         let maxDate = calendar.date(byAdding: comps, to: currentDate)
         
         self.datePicker.minimumDate = minDate
-        self.datePicker.maximumDate = maxDate
+//        self.datePicker.maximumDate = maxDate
     }
     
     @IBAction func dealCancel(_ sender: Any) {

@@ -12,12 +12,25 @@ import YYText
 class WeekendTourOrderStatusView: UIView {
     @IBOutlet weak var containView: UIView!
     @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var phoneLabel: YYLabel!
+    var phoneLabel: YYLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         self.containView.layer.cornerRadius = 10
         self.containView.clipsToBounds = true
+        
+        self.phoneLabel = YYLabel.init()
+        self.containView.addSubview(self.phoneLabel)
+        self.phoneLabel.lineBreakMode = .byWordWrapping
+        self.phoneLabel.numberOfLines = 0
+        self.phoneLabel.preferredMaxLayoutWidth = self.infoLabel.frame.size.width
+        self.phoneLabel.snp.makeConstraints {[unowned self] (make) in
+            make.top.equalTo(self.infoLabel.snp.bottom).offset(15)
+            make.left.equalTo(self.containView).offset(30)
+            make.right.equalTo(self.containView).offset(-30)
+            make.bottom.equalTo(self.containView).offset(-30)
+        }
     }
 
     func refreshUIWith(model:WeekendTourOrderModel?){
@@ -32,15 +45,12 @@ class WeekendTourOrderStatusView: UIView {
         let attrPhoneText = NSMutableAttributedString.init(string: phoneText)
         attrPhoneText.yy_font = self.phoneLabel.font
         attrPhoneText.yy_color = self.phoneLabel.textColor
-
+        attrPhoneText.yy_alignment = .center
         attrPhoneText.yy_setTextHighlight(phoneNumRange, color: APP_THEME_COLOR, backgroundColor: nil) { (view, str, range, rect) in
-            print("\(str)")
+            self.removeFromSuperview()
+            UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
         }
-//        self.phoneLabel.numberOfLines = 0
-//        self.phoneLabel.lineBreakMode = .byWordWrapping
-//        self.phoneLabel.textAlignment = .center
         self.phoneLabel.attributedText = attrPhoneText
-//        self.phoneLabel.yb_addAttributeTapAction(with: PHONE_NUMBER.components(separatedBy: "-"), delegate: self)
     }
     
     
@@ -50,9 +60,3 @@ class WeekendTourOrderStatusView: UIView {
     }
 }
 
-extension WeekendTourOrderStatusView:YBAttributeTapActionDelegate{
-    func yb_attributeTapReturn(_ string: String!, range: NSRange, index: Int) {
-        self.removeFromSuperview()
-        UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
-    }
-}

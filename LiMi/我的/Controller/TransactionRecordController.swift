@@ -22,7 +22,7 @@ class TransactionRecordController: ViewController {
         self.title = "交易记录"
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.register(UINib.init(nibName: "TransactionRecordCell", bundle: nil), forCellReuseIdentifier: "TransactionRecordCell")
         
         self.loadData()
@@ -56,8 +56,8 @@ class TransactionRecordController: ViewController {
                 for transactionModel in transactionModels{
                     self.dataArray.append(transactionModel)
                 }
+                if transactionModels.count > 0{self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: transactionListModel)

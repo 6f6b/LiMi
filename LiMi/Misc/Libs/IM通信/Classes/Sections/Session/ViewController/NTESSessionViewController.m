@@ -563,8 +563,9 @@ NIMEventSubscribeManagerDelegate>
     }
     else
     {
+        NIMUser *user = [[NIMSDK sharedSDK].userManager userInfo:userId];
         UserDetailsController *userDetailsController = [[UserDetailsController alloc] init];
-        userDetailsController.userId = userId.integerValue;
+        userDetailsController.userId = user.userInfo.ext.integerValue;
         vc = userDetailsController;
         //vc = [[NTESPersonalCardViewController alloc] initWithUserId:userId];
     }
@@ -706,7 +707,8 @@ NIMEventSubscribeManagerDelegate>
 - (void)enterPersonInfoCard:(id)sender{
 //
     UserDetailsController *userDetailsController = [[UserDetailsController alloc] init];
-    userDetailsController.userId = self.session.sessionId.integerValue;
+    NIMUser *user = [[NIMSDK.sharedSDK userManager] userInfo:self.session.sessionId];
+    userDetailsController.userId = user.userInfo.ext.integerValue;
     [self.navigationController pushViewController:userDetailsController animated:true];
 }
 

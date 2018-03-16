@@ -87,7 +87,7 @@ class AppManager:NSObject {
         if NIMSDK.shared().loginManager.isLogined(){return true}else{
             if let _accid = Defaults[.userAccid], let _imToken = Defaults[.userImToken]{
                 let autoLoginData = NIMAutoLoginData()
-                autoLoginData.account = _accid.stringValue()
+                autoLoginData.account = _accid
                 autoLoginData.token = _imToken
                 NIMSDK.shared().loginManager.autoLogin(autoLoginData)
                 NTESServiceManager.shared().start()
@@ -103,7 +103,7 @@ class AppManager:NSObject {
         let getImToken = GetIMToken()
         _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
             let imModel = Mapper<IMModel>().map(jsonData: response.data)
-            if let _accid = imModel?.accid?.stringValue(),let _token = imModel?.token{
+            if let _accid = imModel?.accid,let _token = imModel?.token{
                 NIMSDK.shared().loginManager.login(_accid, token: _token, completion: { (error) in
                     if let _error = error{
                         Toast.showErrorWith(msg: _error.localizedDescription)

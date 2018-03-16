@@ -32,8 +32,8 @@ class CreatTopicController: ViewController {
         let navigationBarTitleAttributes = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)]
         self.navigationController?.navigationBar.titleTextAttributes = navigationBarTitleAttributes
         
-        self.tableView.estimatedRowHeight = 100
-        
+        self.tableView.estimatedRowHeight = 1000
+
         let cancelBtn = UIButton.init(type: .custom)
         let cancelAttributeTitle = NSAttributedString.init(string: "取消", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
         cancelBtn.setAttributedTitle(cancelAttributeTitle, for: .normal)

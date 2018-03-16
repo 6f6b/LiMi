@@ -25,7 +25,7 @@ class WeekendTourDetailController: ViewController {
         }
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
         self.tableView.estimatedSectionHeaderHeight = 100
         self.tableView.register(UINib.init(nibName: "WeekendTourDetailCell", bundle: nil), forCellReuseIdentifier: "WeekendTourDetailCell")
         self.tableView.register(UINib.init(nibName: "WeekendTourServiceMerchantCell", bundle: nil), forCellReuseIdentifier: "WeekendTourServiceMerchantCell")

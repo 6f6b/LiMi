@@ -69,7 +69,7 @@ class TrendsWithTextCell: TrendsCell {
             text.append(attachment)
         }
         if let _content = model?.content{
-            let attributeContent = NSMutableAttributedString.init(string: "\(_content)", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+            let attributeContent = NSMutableAttributedString.init(string: " \(_content)", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
             text.append(attributeContent)
         }
         self.contentText.attributedText = text

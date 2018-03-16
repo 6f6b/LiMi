@@ -37,7 +37,8 @@ class TrendsListController: ViewController{
         self.title = "我的动态"
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 1000
+
         registerTrendsCellFor(tableView: self.tableView)
         
         self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
@@ -49,7 +50,7 @@ class TrendsListController: ViewController{
             self.pageIndex += 1
             self.loadData()
         }
-        
+    
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
     }
@@ -102,8 +103,8 @@ class TrendsListController: ViewController{
                 for trend in trends{
                     self.dataArray.append(trend)
                 }
+                if trends.count > 0{self.tableView.reloadData()}
             }
-            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: trendsListModel)
@@ -137,9 +138,7 @@ class TrendsListController: ViewController{
          if operationType == .delete{type = "delete"}
          if operationType == .report{type = "report"}
          if operationType == .sendMsg{
-            let session = NIMSession.init(trendModel!.user_id!.stringValue(), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            self.navigationController?.pushViewController(sessionVC!, animated: true)
+            ChatWith(toUserId: trendModel?.user_id)
             return
         }
         let moreOperation = MoreOperation(type: type, action_id: trendModel?.action_id,user_id:trendModel?.user_id)
@@ -220,9 +219,9 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
         return self.dataArray.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row >= self.dataArray.count{return UITableViewCell()}
