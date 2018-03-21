@@ -10,6 +10,7 @@ import UIKit
 
 class EmptyTrendsCell: UITableViewCell {
     @IBOutlet weak var info: UILabel!
+    @IBOutlet weak var imgV: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,12 +21,22 @@ class EmptyTrendsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-
-    func configWith(info:String?){
+//    enum TrendsCellStyle {
+//        case normal //正常
+//        case inPersonCenter   //用户主页中
+//        case inMyTrendList   //我的动态列表中
+//    }
+    func configWith(info:String?,style:TrendsCellStyle = .normal){
         if let _info = info{
             self.info.text = _info
         }else{
             self.info.text = "太低调了，还没有发需求"
+        }
+        if style == .normal{
+            self.imgV.image = UIImage.init(named: "qsy_img_nopl")
+        }
+        if style == .inPersonCenter{
+            self.imgV.image = UIImage.init(named: "qsy_img_nodt")
         }
     }
     

@@ -26,9 +26,17 @@ class NearbyPeopleCollectionCell: UICollectionViewCell {
         if let _url = model?.head_pic{
             self.headImg.kf.setImage(with: URL.init(string: _url), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.userName.text = model?.true_name
-        self.autograph.text = model?.content
-        self.distance.text = model?.distance
+        self.userName.text = model?.true_name ?? " "
+        if let _content = model?.content{
+            if _content.lengthOfBytes(using: String.Encoding.utf8) < 1{
+                self.autograph.text = " "
+            }else{
+                self.autograph.text = _content
+            }
+        }else{
+            self.autograph.text = " "
+        }
+        self.distance.text = model?.distance ?? " "
         if model?.numSex == 0{
             self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{

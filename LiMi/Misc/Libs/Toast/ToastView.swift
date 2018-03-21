@@ -19,8 +19,8 @@ class ToastView: UIView {
     static var shared:ToastView = ToastView()
     var timer:Timer?
     var currentText:String?
-    var maxShowTime:Double = 2.0
-    var minShowTime:Double = 1.0
+    var maxShowTime:Double = 1.0
+    var minShowTime:Double = 0.5
 
     var toastContentView:ToastContentView?
     

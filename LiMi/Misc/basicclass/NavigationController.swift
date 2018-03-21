@@ -12,10 +12,7 @@ class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-//        self.navigationBar.tintColor = UIColor.white
-//        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-//        self.interactivePopGestureRecognizer?.delegate = self
+        self.interactivePopGestureRecognizer?.delegate = self
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {

@@ -74,6 +74,11 @@ func requestVideoPreImageFromIntelnetWith(videoURL:String?,successBlock:((UIImag
             do{
                 let image = try gen.copyCGImage(at: time, actualTime: &actualTime)
                 let thumImg = UIImage.init(cgImage: image)
+                //检测图片灰度
+//                if thumImg != nil{}
+//                else{
+//                    return
+//                }
                 if let _successBlock = successBlock{
                     DispatchQueue.main.sync {
                         _successBlock(thumImg)

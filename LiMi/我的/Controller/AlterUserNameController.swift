@@ -20,7 +20,7 @@ class AlterUserNameController: ViewController {
         super.viewDidLoad()
         self.title = "修改姓名"
         let sumbitBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
+        let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
         sumbitBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
         sumbitBtn.sizeToFit()
         sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)

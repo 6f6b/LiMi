@@ -73,6 +73,7 @@ class TrendsWithTextAndVideoCell: TrendsWithTextCell {
     //MARK: - misc
     override func configWith(model: TrendModel?) {
         super.configWith(model: model)
+//        self.videoPreimgV.kf.setImage(with: URL.init(string: (model?.action_video!)!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
         self.videoPreimgV.setVideoPreImageWith(videoURL: model?.action_video)
     }
     

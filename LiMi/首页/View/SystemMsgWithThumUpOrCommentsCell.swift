@@ -46,9 +46,9 @@ class SystemMsgWithThumUpOrCommentsCell: UITableViewCell {
         self.userName.text = model?.true_name
         self.time.text = model?.time
         if model?.sex == "0"{
-            self.sexImg.image = UIImage.init(named: "ic_boy")
-        }else{
             self.sexImg.image = UIImage.init(named: "ic_girl")
+        }else{
+            self.sexImg.image = UIImage.init(named: "ic_boy")
         }
         self.contentText.text = model?.msg
         if let _trendsImg = model?.img{

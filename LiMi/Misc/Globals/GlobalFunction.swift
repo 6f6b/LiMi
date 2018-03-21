@@ -124,24 +124,24 @@ func GetCompressImgDataWith(img:UIImage?,maxKB:Double)->Data?{
     }
 }
 
-//生成本地上传Url
-func GenerateImgUrlWith(img:UIImage?)->URL?{
-    if let unpackImg = img{
-        let tempDir = NSTemporaryDirectory()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyymmddhhmmss"
-        let timeStr = dateFormatter.string(from: Date())
-        let imgName = timeStr + "i.png"
-        let imgPath = tempDir+imgName
-        let fileUrl = URL.init(fileURLWithPath: imgPath)
-        do{
-            try UIImageJPEGRepresentation(unpackImg, 1)?.write(to: fileUrl)
-        }catch{
-            return nil
-        }
-        return fileUrl
+
+func GetImgNameWith(asset:PHAsset?,complet:((String?)->Void)?){
+    if let _asset = asset{
+        _asset.getImageComplete({ (data, imgName) in
+            let tempDir = NSTemporaryDirectory()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyymmddhhmmss"
+            let timeStr = dateFormatter.string(from: Date())
+            // 生成 "0000-9999" 4位验证码
+            let num = arc4random() % 10000
+            let randomStr = String.init(format: "%.4d", num)
+            let imgName = timeStr + randomStr + "i\(imgName)"
+            let imgPath = tempDir+imgName
+            if let _complet = complet{
+                _complet(imgPath)
+            }
+        })
     }
-    return nil
 }
 
 //生成本地上传地址
@@ -366,11 +366,26 @@ func uploadFileName(type:MediaType)->String{
     let randomNumber = String.init(format: "%.4d", num)
     let timeStampStr = Date().timeIntervalSince1970.stringValue()
     if type == .picture{
-        return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).png"
+        return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).gif"
     }
     return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
 }
 
+//func uploadFileNameWith(asset:PHAsset?,complet:((String)->Void)?){
+//    if let _asset = asset{
+//        _asset.getImageComplete({ (data, fileName) in
+//            
+//            if let _complet = complet{
+//                if _asset.mediaType == .video{
+//                    _complet("uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(fileName)")
+//                }
+//                if _asset.mediaType == .image{
+//                    _complet("uploads/user/images/\(timeStr)/\(timeStampStr)_i\(fileName)")
+//                }
+//            }
+//        })
+//    }
+//}
 
 func mjGifHeaderWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshGifHeader{
     let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)

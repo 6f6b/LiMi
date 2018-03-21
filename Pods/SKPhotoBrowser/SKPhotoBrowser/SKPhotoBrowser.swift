@@ -335,6 +335,9 @@ public extension SKPhotoBrowser {
         }
         
         var activityItems: [AnyObject] = [underlyingImage]
+        if let data = photo.data{
+            activityItems = [data as AnyObject]
+        }
         if photo.caption != nil && includeCaption {
             if let shareExtraCaption = SKPhotoBrowserOptions.shareExtraCaption {
                 let caption = photo.caption ?? "" + shareExtraCaption

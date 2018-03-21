@@ -17,6 +17,10 @@ class AppUpgradeModel: BaseModel {
     var update_url:String?
     var version:String?
 
+    //系统维护信息
+    var serviceStatus:Int?
+    var serviceContent:String?
+    
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -28,5 +32,7 @@ class AppUpgradeModel: BaseModel {
         content<-map["data.update.version.data.content"]
         update_url<-map["data.update.version.data.update_url"]
         version<-map["data.update.version.data.version"]
+        serviceStatus<-map["data.service.ststus"]
+        serviceContent<-map["data.service.content"]
     }
 }

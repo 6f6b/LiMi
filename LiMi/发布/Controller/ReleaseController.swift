@@ -77,23 +77,14 @@ class ReleaseController: ViewController {
                 return
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
-            self.imagePickerVc?.autoDismiss = false
-//            self.imagePickerVc?.allowPickingGif = true
-            self.imagePickerVc?.allowPickingOriginalPhoto = true
-            self.imagePickerVc?.allowPickingVideo = true
-            self.imagePickerVc?.allowPickingImage = true
-            self.imagePickerVc?.showSelectBtn = true
-//            imagePickerVc.allowPickingVideo = self.allowPickingVideoSwitch.isOn;
-//            imagePickerVc.allowPickingImage = self.allowPickingImageSwitch.isOn;
-//            imagePickerVc.allowPickingOriginalPhoto = self.allowPickingOriginalPhotoSwitch.isOn;
-//            imagePickerVc.allowPickingGif = self.allowPickingGifSwitch.isOn;
-//            imagePickerVc.allowPickingMultipleVideo = self.allowPickingMuitlpleVideoSwitch.isOn; // 是否可以多选视频
+//            self.imagePickerVc?.autoDismiss = false
+            self.imagePickerVc?.allowPickingGif = true
             
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
-            self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
+              self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
                 self.videoArr.removeAll()
                 self.uploadImgsWith(imgs: photos)
                 self.tableView.reloadData()
@@ -106,10 +97,15 @@ class ReleaseController: ViewController {
                 self.RefreshReleasBtnEnable()
             }
             self.imagePickerVc?.didFinishPickingGifImageHandle = {[unowned self] (img,other) in
+                if let asset = other as? PHAsset{
+                     print(asset.sourceType)
+                }
                 self.videoArr.removeAll()
-                self.uploadImgsWith(imgs: [img])
+                self.uploadImageWith(phAsset: other as! PHAsset, photos: [img!])
+//                self.uploadImgsWith(imgs: [img])
                 self.tableView.reloadData()
                 self.RefreshReleasBtnEnable()
+                
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
@@ -197,6 +193,37 @@ class ReleaseController: ViewController {
                         self.RefreshReleasBtnEnable()
                     })
                 }
+            }
+        }, id: nil, token: nil)
+    }
+    
+    //上传图片
+    func uploadImageWith(phAsset:PHAsset?,photos:[UIImage]?){
+        self.phAsset = phAsset
+        GetQiNiuUploadToken(type: .picture, onSuccess: { (qnUploadToken) in
+            if let _token = qnUploadToken?.token{
+                Toast.showStatusWith(text: nil)
+                let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
+                    //Toast.showProgress(flo)
+                }
+                let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
+                    return false
+                })
+                let fileName = uploadFileName(type: .picture)
+                self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
+                    if let _error = responseInfo?.error{
+                        Toast.showErrorWith(msg: _error.localizedDescription)
+                    }else{
+                        var localMediaModel = LocalMediaModel.init()
+                        localMediaModel.imgName = str
+                        localMediaModel.img = photos?.first
+                        self.imgArr.append(localMediaModel)
+                        Toast.dismiss()
+                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                        self.tableView.reloadData()
+                        self.RefreshReleasBtnEnable()
+                    }
+                }, option: option)
             }
         }, id: nil, token: nil)
     }

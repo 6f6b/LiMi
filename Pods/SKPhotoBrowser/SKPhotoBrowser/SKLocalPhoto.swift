@@ -12,6 +12,7 @@ import UIKit
 open class SKLocalPhoto: NSObject, SKPhotoProtocol {
     
     open var underlyingImage: UIImage!
+    open var data:Data?
     open var photoURL: String!
     open var contentMode: UIViewContentMode = .scaleToFill
     open var shouldCachePhotoURLImage: Bool = false

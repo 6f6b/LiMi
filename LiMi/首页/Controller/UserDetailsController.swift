@@ -24,7 +24,7 @@ class UserDetailsController: ViewController {
     var skillDataArray = [TrendModel]()
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
-    var emptyInfo = "太低调了，还没有发需求"
+    var emptyInfo = "太低调了，还没有发动态"
 
     
     override func viewDidLoad() {
@@ -292,7 +292,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
             }
             if dataArray.count == 0{
                 let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
-                emptyTrendsCell.configWith(info: self.emptyInfo)
+                emptyTrendsCell.configWith(info: self.emptyInfo, style: .inPersonCenter)
                 return emptyTrendsCell
             }
         }

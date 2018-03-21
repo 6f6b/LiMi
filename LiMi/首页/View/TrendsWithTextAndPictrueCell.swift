@@ -90,14 +90,8 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let imgArr = self.model?.action_pic{
-////            let cell = collectionView.cellForItemAtIndexPath(indexPath)
-////            let originImage = cell.exampleImageView.image // some image for baseImage
-////
-////            let browser = SKPhotoBrowser(originImage: originImage ?? UIImage(), photos: images, animatedFromView: cell)
-////            browser.initializePageIndex(indexPath.row)
-////            presentViewController(browser, animated: true, completion: {})
-//
             var images = [SKPhoto]()
+            
             for url in imgArr{
                 let photo = SKPhoto.photoWithImageURL(url)
                 photo.shouldCachePhotoURLImage = true // you can use image cache by true(NSCache)
@@ -106,9 +100,16 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
 
             let cell = collectionView.cellForItem(at: indexPath)  as! TrendsImageCollectionCell
             let originImg = cell.imgV.image
-            let broswer = SKPhotoBrowser(originImage: originImg ?? UIImage(), photos: images, animatedFromView: cell)
+            SKPhotoBrowserOptions.displayCounterLabel = false                         // counter label will be hidden
+            SKPhotoBrowserOptions.displayBackAndForwardButton = false                 // back / forward button will be hidden
+            SKPhotoBrowserOptions.displayAction = true                               // action button will be hidden
+            SKPhotoBrowserOptions.displayCloseButton = false
+            SKPhotoBrowserOptions.enableSingleTapDismiss = true
+            //SKPhotoBrowserOptions.bounceAnimation = true
+            let broswer = SKPhotoBrowser(originImage: originImg ?? GetImgWith(size: SCREEN_RECT.size, color: .clear), photos: images, animatedFromView: cell)
             broswer.initializePageIndex(indexPath.row)
             UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
+            
 //            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: indexPath.row, imageCount: UInt(imgArr.count), datasource: self)
 //            photoBroswer?.browserStyle = .indexLabel
 //            photoBroswer?.setActionSheeWith(self)

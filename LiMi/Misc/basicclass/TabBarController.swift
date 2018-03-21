@@ -34,6 +34,11 @@ class TabBarController: UITabBarController {
         NIMSDK.shared().conversationManager.add(self)
         NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
         self.refreshMyMessageBadge()
+        
+        self.tabBar.backgroundColor = UIColor.white
+        self.tabBar.barTintColor = UIColor.white
+        self.tabBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 1), color: RGBA(r: 228, g: 228, b: 228, a: 1))
+        self.tabBar.backgroundImage = UIImage()
     }
 
     deinit{

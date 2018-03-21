@@ -64,13 +64,14 @@ class CommentsMsgListController: ViewController {
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let commentMessageList = CommentMessageList(page: self.pageIndex)
-        _ = moyaProvider.rx.request(.targetWith(target: commentMessageList)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: commentMessageList)).subscribe(onSuccess: {[unowned self] (response) in
             let thumbUpAndCommentMessageContainModel = Mapper<ThumbUpAndCommentMessageContainModel>().map(jsonData: response.data)
             if let thumbUpAndCommentMessageModels = thumbUpAndCommentMessageContainModel?.datas{
                 for thumbUpAndCommentMessageModel in thumbUpAndCommentMessageModels{
                     self.dataArray.append(thumbUpAndCommentMessageModel)
                 }
                 if thumbUpAndCommentMessageModels.count > 0{self.tableView.reloadData()}
+                if self.dataArray.count == 0{self.tableView.reloadData()}
             }
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
@@ -133,11 +134,11 @@ extension CommentsMsgListController:UITableViewDelegate,UITableViewDataSource{
 
 extension CommentsMsgListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "qsy_img_nosx")
+        return UIImage(named: "qsy_img_nopl")
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "暂时没有评论你哦~"
+        let text = "暂时还没有评论哦~"
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.alignment = .center

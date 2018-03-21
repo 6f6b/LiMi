@@ -148,6 +148,9 @@ class HomePageController: ViewController {
             if appUpgradeModel?.update != 2{
                 appUpgradeRemindingView.showWith(upgradeModel: appUpgradeModel)
             }
+            if appUpgradeModel?.serviceStatus != 0{
+                
+            }
             Toast.showErrorWith(model: appUpgradeModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)

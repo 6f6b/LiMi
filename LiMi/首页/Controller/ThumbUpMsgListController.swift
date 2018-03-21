@@ -79,6 +79,7 @@ class ThumbUpMsgListController: ViewController {
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
                 if self.dataArray.count == 0{self.tableView.reloadData()}
+                if self.dataArray.count == 0{self.tableView.reloadData()}
             }
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
@@ -133,11 +134,11 @@ extension ThumbUpMsgListController:UITableViewDelegate,UITableViewDataSource{
 
 extension ThumbUpMsgListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "qsy_img_nosx")
+        return UIImage(named: "xx_ic_nozan")
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "暂时没有人给你点赞哦~"
+        let text = "你还没有获得赞，多去赞别人才能获得更多的赞哟~"
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.alignment = .center

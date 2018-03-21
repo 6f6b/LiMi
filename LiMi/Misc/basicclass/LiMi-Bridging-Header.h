@@ -24,6 +24,9 @@
 #import "WXApi.h"
 #import "iCarousel.h"
 #import "UILabel+YBAttributeTextTapAction.h"
+#import "PHAsset+Utilities.h"
+
+
 
 //IM相关
 #import <UIKit/UIKit.h>

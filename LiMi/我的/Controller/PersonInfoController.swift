@@ -132,7 +132,7 @@ class PersonInfoController: UITableViewController {
     //去修改用户名
     func dealToAlterUserName(){
         let alterUserNameController = AlterUserNameController()
-        alterUserNameController.initialUserName = self.model?.userInfo?.true_name
+        alterUserNameController.initialUserName = self.userName.text
         alterUserNameController.alterUserNameBlock = {[unowned self] (name) in
             self.userName.text = name
         }

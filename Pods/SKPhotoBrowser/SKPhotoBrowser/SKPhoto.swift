@@ -11,6 +11,7 @@ import UIKit
 @objc public protocol SKPhotoProtocol: NSObjectProtocol {
     var index: Int { get set }
     var underlyingImage: UIImage! { get }
+    var data:Data?{get}
     var caption: String? { get }
     var contentMode: UIViewContentMode { get set }
     func loadUnderlyingImageAndNotify()
@@ -21,6 +22,7 @@ import UIKit
 open class SKPhoto: NSObject, SKPhotoProtocol {
     open var index: Int = 0
     open var underlyingImage: UIImage!
+    open var data:Data?
     open var caption: String?
     open var contentMode: UIViewContentMode = .scaleAspectFill
     open var shouldCachePhotoURLImage: Bool = false
@@ -82,7 +84,7 @@ open class SKPhoto: NSObject, SKPhotoProtocol {
                     }
                     return
                 }
-
+                
                 if let data = data, let response = response, let image = UIImage(data: data) {
                     if self.shouldCachePhotoURLImage {
                         if SKCache.sharedCache.imageCache is SKRequestResponseCacheable {
@@ -92,7 +94,20 @@ open class SKPhoto: NSObject, SKPhotoProtocol {
                         }
                     }
                     DispatchQueue.main.async {
-                        self.underlyingImage = image
+                        let cgImageSource = CGImageSourceCreateWithData(data as! CFData, nil)
+                        let imageCount = CGImageSourceGetCount(cgImageSource!)
+                        var animationImages = [UIImage]()
+                        for i in 0..<imageCount {
+                            let cgImage = CGImageSourceCreateImageAtIndex(cgImageSource!, i, nil)
+                            let image = UIImage.init(cgImage: cgImage!)
+                            animationImages.append(image)
+                        }
+                        if animationImages.count > 1{
+                            self.underlyingImage = UIImage.animatedImage(with: animationImages, duration: Double(animationImages.count)/15.0)
+                        }else{
+                            self.underlyingImage = image
+                        }
+                        self.data = data
                         self.loadUnderlyingImageComplete()
                     }
                 }
