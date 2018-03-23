@@ -88,7 +88,7 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    self.tableView.backgroundColor = NIMKit_UIColorFromRGB(0xe4e7ec);
+    self.tableView.backgroundColor = NIMKit_UIColorFromRGB(0xf2f2f2);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;

@@ -521,6 +521,8 @@
 		6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */; };
 		6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */; };
 		6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881C2041125B00D22885 /* AppUpgradeModel.swift */; };
+		685E395D2063B375003B505E /* SystemMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E395B2063B375003B505E /* SystemMsgListController.swift */; };
+		685E395E2063B375003B505E /* SystemMsgListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E395C2063B375003B505E /* SystemMsgListController.xib */; };
 		68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECC201AC6E500D041CC /* TrendListModel.swift */; };
 		68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECE201AF86000D041CC /* CommentListModel.swift */; };
 		68629ED1201B29DF00D041CC /* UserDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ED0201B29DF00D041CC /* UserDetailModel.swift */; };
@@ -1643,6 +1645,8 @@
 		6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPUpgradeRemindingView.xib; sourceTree = "<group>"; };
 		6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPUpgradeRemindingView.swift; sourceTree = "<group>"; };
 		6840881C2041125B00D22885 /* AppUpgradeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpgradeModel.swift; sourceTree = "<group>"; };
+		685E395B2063B375003B505E /* SystemMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgListController.swift; sourceTree = "<group>"; };
+		685E395C2063B375003B505E /* SystemMsgListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMsgListController.xib; sourceTree = "<group>"; };
 		68629ECC201AC6E500D041CC /* TrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendListModel.swift; sourceTree = "<group>"; };
 		68629ECE201AF86000D041CC /* CommentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListModel.swift; sourceTree = "<group>"; };
 		68629ED0201B29DF00D041CC /* UserDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailModel.swift; sourceTree = "<group>"; };
@@ -4929,6 +4933,8 @@
 				682548682015B6EF0033410A /* UserDetailsController.swift */,
 				682548692015B6EF0033410A /* UserDetailsController.xib */,
 				6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */,
+				685E395B2063B375003B505E /* SystemMsgListController.swift */,
+				685E395C2063B375003B505E /* SystemMsgListController.xib */,
 				68D583E5204D4125002CE864 /* CommentsMsgListController.swift */,
 				68D583E6204D4125002CE864 /* CommentsMsgListController.xib */,
 				68D583E1204D4110002CE864 /* ThumbUpMsgListController.swift */,
@@ -5285,6 +5291,7 @@
 				6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */,
 				6801E0A1202C6EA900C106E1 /* NTESNoDisturbSettingViewController.xib in Resources */,
 				6801E03A202C6EA900C106E1 /* NTESContactViewController.xib in Resources */,
+				685E395E2063B375003B505E /* SystemMsgListController.xib in Resources */,
 				681C95EE2047A633009CDE3B /* WeekendTourSubjectCell.xib in Resources */,
 				6801E10D202DA6CE00C106E1 /* video_connect_chat_tip_sender.aac in Resources */,
 				6801E102202DA6CE00C106E1 /* XMLTemplate.xml in Resources */,
@@ -5903,6 +5910,7 @@
 				689D53FD202AE198009C771C /* AlipayResultContainModel.swift in Sources */,
 				6801E0DE202D803E00C106E1 /* IMModel.swift in Sources */,
 				6801DFC0202C6EA800C106E1 /* NIMSessionNetChatNotifyContentView.m in Sources */,
+				685E395D2063B375003B505E /* SystemMsgListController.swift in Sources */,
 				6801DFA4202C6EA800C106E1 /* NIMFileContentConfig.m in Sources */,
 				6801DFB9202C6EA800C106E1 /* NIMMessageCell.m in Sources */,
 				6801DFF8202C6EA800C106E1 /* NSString+NTES.m in Sources */,

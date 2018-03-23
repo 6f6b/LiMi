@@ -65,7 +65,7 @@
         
         _inputTextBkgImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_inputTextBkgImage setImage:[[UIImage nim_imageInKit:@"icon_input_text_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(15,80,15,80) resizingMode:UIImageResizingModeStretch]];
-        
+
         _inputTextView = [[NIMGrowingTextView alloc] initWithFrame:CGRectZero];
         _inputTextView.font = [UIFont systemFontOfSize:14.0f];
         _inputTextView.maxNumberOfLines = _maxNumberOfInputLines?:4;
@@ -78,7 +78,9 @@
         
         //顶部分割线
         UIView *sep = [[UIView alloc] initWithFrame:CGRectZero];
-        sep.backgroundColor = [UIColor lightGrayColor];
+        //Edit by LiuFeng   (NIM) 2018/3/22
+        //sep.backgroundColor = [UIColor lightGrayColor];
+        sep.backgroundColor = [UIColor clearColor];
         sep.nim_size = CGSizeMake(self.nim_width, .5f);
         sep.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:sep];

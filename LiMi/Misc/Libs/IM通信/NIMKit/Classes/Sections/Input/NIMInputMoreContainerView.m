@@ -81,7 +81,9 @@ NSInteger NIMButtonBegintLeftX = 11;
         [btn setImage:item.selectedImage forState:UIControlStateHighlighted];
         [btn setTitle:item.title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(76, -75, 0, 0)];
+        //Edit by LiuFeng   (NIM) 2018/3/22
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(84, -75, 0, 0)];
+        //[btn setTitleEdgeInsets:UIEdgeInsetsMake(76, -75, 0, 0)];
         [btn.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [mediaButtons addObject:btn];

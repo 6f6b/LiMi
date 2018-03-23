@@ -59,13 +59,15 @@ class SystemmsgContainController: ViewController {
             }
         }
         
-        let commentsMsgListController = CommentsMsgListController()
+        let commentsMsgListController = SystemMsgListController()
+        commentsMsgListController.type = .comment
         self.addChildViewController(commentsMsgListController)
         let commentsMsgListControllerView = commentsMsgListController.view
         commentsMsgListControllerView?.frame = self.controllersContainScrollView.bounds
         self.controllersContainScrollView.addSubview(commentsMsgListControllerView!)
         
-        let  thumbUpMsgListController = ThumbUpMsgListController()
+        let  thumbUpMsgListController = SystemMsgListController()
+        thumbUpMsgListController.type = .thumbUp
         self.addChildViewController(thumbUpMsgListController)
         let thumbUpMsgListControllerView = thumbUpMsgListController.view
         var tmpFrame = self.controllersContainScrollView.bounds

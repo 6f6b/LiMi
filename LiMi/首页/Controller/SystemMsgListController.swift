@@ -1,8 +1,8 @@
 //
-//  CommentsMsgListController.swift
+//  SystemMsgListController.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/3/5.
+//  Created by dev.liufeng on 2018/3/22.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
@@ -11,10 +11,15 @@ import Moya
 import ObjectMapper
 import MJRefresh
 import DZNEmptyDataSet
+enum SystemMsgListControllerType {
+    case thumbUp
+    case comment
+}
 
-class CommentsMsgListController: ViewController {
+class SystemMsgListController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var pageIndex:Int = 1
+    var type:SystemMsgListControllerType = .comment
     var dataArray = [ThumbUpAndCommentMessageModel]()
     
     override func viewDidLoad() {
@@ -37,7 +42,7 @@ class CommentsMsgListController: ViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(clearSuccess), name: CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS, object: nil)
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS, object: nil)
         print("评论消息页销毁")
@@ -63,8 +68,15 @@ class CommentsMsgListController: ViewController {
     func loadData(){
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let commentMessageList = CommentMessageList(page: self.pageIndex)
-        _ = moyaProvider.rx.request(.targetWith(target: commentMessageList)).subscribe(onSuccess: {[unowned self] (response) in
+        var target:TargetType!
+        if self.type == .comment{
+            target = CommentMessageList(page: self.pageIndex)
+
+        }
+        if self.type == .thumbUp{
+            target = ClickMessageList(page: self.pageIndex)
+        }
+        _ = moyaProvider.rx.request(.targetWith(target: target)).subscribe(onSuccess: {[unowned self] (response) in
             let thumbUpAndCommentMessageContainModel = Mapper<ThumbUpAndCommentMessageContainModel>().map(jsonData: response.data)
             if let thumbUpAndCommentMessageModels = thumbUpAndCommentMessageContainModel?.datas{
                 for thumbUpAndCommentMessageModel in thumbUpAndCommentMessageModels{
@@ -83,21 +95,21 @@ class CommentsMsgListController: ViewController {
                 self.tableView.emptyDataSetSource = self
                 if self.dataArray.count == 0{self.tableView.reloadData()}
             }
-        }, onError: { (error) in
-            self.tableView.mj_footer.endRefreshing()
-            self.tableView.mj_header.endRefreshing()
-            Toast.showErrorWith(msg: error.localizedDescription)
-            if self.tableView.emptyDataSetDelegate == nil{
-                self.tableView.emptyDataSetDelegate = self
-                self.tableView.emptyDataSetSource = self
-                if self.dataArray.count == 0{self.tableView.reloadData()}
-            }
+            }, onError: { (error) in
+                self.tableView.mj_footer.endRefreshing()
+                self.tableView.mj_header.endRefreshing()
+                Toast.showErrorWith(msg: error.localizedDescription)
+                if self.tableView.emptyDataSetDelegate == nil{
+                    self.tableView.emptyDataSetDelegate = self
+                    self.tableView.emptyDataSetSource = self
+                    if self.dataArray.count == 0{self.tableView.reloadData()}
+                }
         })
     }
-
+    
 }
 
-extension CommentsMsgListController:UITableViewDelegate,UITableViewDataSource{
+extension SystemMsgListController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -108,7 +120,7 @@ extension CommentsMsgListController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataArray[indexPath.row]
-
+        
         let systemMsgWithThumUpOrCommentsCell = tableView.dequeueReusableCell(withIdentifier: "SystemMsgWithThumUpOrCommentsCell", for: indexPath) as! SystemMsgWithThumUpOrCommentsCell
         systemMsgWithThumUpOrCommentsCell.tapHeadImgBlock = {[unowned self] in
             let userDetailsController = UserDetailsController()
@@ -134,7 +146,7 @@ extension CommentsMsgListController:UITableViewDelegate,UITableViewDataSource{
     }
 }
 
-extension CommentsMsgListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
+extension SystemMsgListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named: "qsy_img_nopl")
     }
@@ -149,3 +161,4 @@ extension CommentsMsgListController: DZNEmptyDataSetSource, DZNEmptyDataSetDeleg
     }
     
 }
+
