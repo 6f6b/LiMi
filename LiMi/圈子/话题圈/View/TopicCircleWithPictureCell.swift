@@ -58,6 +58,7 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
         }
         
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewMarginToTrendsContainView, bottom: 0, right: collectionViewMarginToTrendsContainView)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,7 +102,7 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemWidth = (SCREEN_WIDTH-collectionViewMarginToTrendsContainView*2 - 5.0*2 - self.trendsContainViewMarginToWindow*2-1)/3.0
         let itemSize = CGSize(width: itemWidth, height: itemWidth)
-
+//        return UICollectionViewFlowLayoutAutomaticSize
         return itemSize
     }
     
@@ -158,7 +159,6 @@ extension TopicCircleWithPictureCell:TopicCircleCellProtocol{
     func configWith(topicCircleModel: TopicCircleModel?) {
         self.topicCircelModel = topicCircleModel
         self.trendsTopToolsContainView.configWith(topicCircleModel: topicCircleModel)
-        
         self.collectionView.snp.remakeConstraints { (make) in
             make.top.equalTo(self.contentText.snp.bottom).offset(5)
             make.left.equalTo(self.trendsContentContainView)

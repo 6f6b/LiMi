@@ -99,6 +99,7 @@ class RechargeController: ViewController {
             Toast.showInfoWith(text: "单次充值金额10~200元")
             return
         }
+        //判断是否安装了微信
         let payManager = PayManager.shared
         if self.alipayRecharge.isSelected{payManager.preRechageWith(payWay: .alipay, amountText: self.rechargeAmount.text)}
         if self.wechatRecharge.isSelected{payManager.preRechageWith(payWay: .wechatPay, amountText: self.rechargeAmount.text)}

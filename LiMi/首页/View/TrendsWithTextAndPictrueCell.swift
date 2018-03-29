@@ -12,6 +12,7 @@ import SKPhotoBrowser
 class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     var collectionView:UICollectionView!
     var tapPictureBlock:((Int)->Void)?
+    var singleImageView:UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -40,6 +41,8 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
         collectionView.register(UINib(nibName: "TrendsImageCollectionCell", bundle: nil), forCellWithReuseIdentifier: "TrendsImageCollectionCell")
         self.trendsContentContainView.addSubview(collectionView)
 
+        self.singleImageView = UIImageView()
+        self.trendsContentContainView.addSubview(self.singleImageView)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -121,7 +121,7 @@
                 <outlet property="conditionContainViewRightConstraint" destination="ucI-vn-do7" id="nk0-nh-eWO"/>
                 <outlet property="leftTapView" destination="I0u-Ug-v6u" id="er4-kb-Co2"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="52.5"/>
+            <point key="canvasLocation" x="-688" y="23"/>
         </view>
     </objects>
 </document>

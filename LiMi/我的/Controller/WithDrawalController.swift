@@ -94,6 +94,10 @@ class WithDrawalController: ViewController {
             Toast.showInfoWith(text:"余额不足")
             return
         }
+        if self.withDrawAmount.text!.doubleValue()! < 10.0 || self.withDrawAmount.text!.doubleValue()! > 2000.0{
+            Toast.showInfoWith(text: "单次提现金额：10~2000元")
+            return
+        }
         let alipayAcountController = AlipayAcountController()
         alipayAcountController.withdrawAmount = self.withDrawAmount.text
         self.navigationController?.pushViewController(alipayAcountController, animated: true)

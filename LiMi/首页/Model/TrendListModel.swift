@@ -23,6 +23,8 @@ class TrendsListModel: BaseModel {
 }
 
 class TrendModel: BaseModel {
+    var cachedPic:Bool = false
+    
     var action_id:Int?
     var action_pic:[String]?
     var action_pic_num:Int?

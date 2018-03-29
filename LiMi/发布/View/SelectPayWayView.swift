@@ -23,8 +23,12 @@ class SelectPayWayView: UIView {
         containView.clipsToBounds = true
     }
 
-    @IBAction func dealChoseWeChatPay(_ sender: Any) {
+@IBAction func dealChoseWeChatPay(_ sender: Any) {
         if let _selectPayWayBlock = self.selectPayWayBlock{
+            if !isInstalled(app: .wechat){
+                Toast.showErrorWith(msg: "请先安装微信")
+                return
+            }
             _selectPayWayBlock(.wechatPay)
         }
         self.removeFromSuperview()
@@ -32,6 +36,10 @@ class SelectPayWayView: UIView {
     
     @IBAction func dealChoseAlipay(_ sender: Any) {
         if let _selectPayWayBlock = self.selectPayWayBlock{
+            if !isInstalled(app: .alipay){
+                Toast.showErrorWith(msg: "请先安装支付宝")
+                return
+            }
             _selectPayWayBlock(.alipay)
         }
         self.removeFromSuperview()

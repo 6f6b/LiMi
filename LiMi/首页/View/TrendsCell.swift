@@ -29,6 +29,8 @@ let trendsContainViewSpacingToBottomToolsView = CGFloat(10.0)
 
 class TrendsCell: UITableViewCell {
     var model:TrendModel?
+    weak var tableView:UITableView?
+    var indexPath:IndexPath?
     var cellStyle:TrendsCellStyle = .normal
     
     /************************部分变量****************************/
@@ -361,6 +363,12 @@ class TrendsCell: UITableViewCell {
 //            make.bottom.equalTo(self.trendsBottomToolsContainView).offset(-15)
 //            make.right.equalTo(self.trendsContainView)
 //        }
+    }
+    
+    func configWith(model:TrendModel?,tableView:UITableView?,indexPath:IndexPath?){
+//        self.tableView = tableView
+//        self.indexPath = indexPath
+        self.configWith(model: model)
     }
     
     func configWith(model:TrendModel?){

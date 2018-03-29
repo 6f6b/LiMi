@@ -86,7 +86,7 @@ class SystemMsgListController: ViewController {
                 if self.dataArray.count == 0{
                     self.tableView.reloadData()
                 }
-            }
+            }else{self.tableView.reloadData()}
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: thumbUpAndCommentMessageContainModel)

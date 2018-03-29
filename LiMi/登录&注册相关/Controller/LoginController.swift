@@ -143,7 +143,7 @@ class LoginController: ViewController {
         let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
-                Toast.showSuccessWith(msg: authCodeModel.commonInfoModel?.msg)
+                Toast.showResultWith(model: authCodeModel)
             }
         }, onError: { (error) in
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)

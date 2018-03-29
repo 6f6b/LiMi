@@ -12,6 +12,8 @@ enum TrendsCellStyle {
     case normal //正常
     case inPersonCenter   //用户主页中
     case inMyTrendList   //我的动态列表中
+    case inTopicCircleList    //在话题圈列表中
+    case inTopicList
 }
 
 func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsCellStyle:TrendsCellStyle = .normal)->TrendsCell{
@@ -44,8 +46,13 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     if isTextAvailable && !isPictureAvailable && !isVideoAvailable{}
     //图片
     if !isTextAvailable && isPictureAvailable && !isVideoAvailable{
-        let trendsWithPictureCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithPictureCell", for: indexPath) as! TrendsWithPictureCell
-        trendsCell = trendsWithPictureCell
+        if trendsCellStyle == .inTopicList{
+            let trendsWithSingleImageCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithSingleImageCell", for: indexPath) as! TrendsWithSingleImageCell
+            trendsCell = trendsWithSingleImageCell
+        }else{
+            let trendsWithPictureCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithPictureCell", for: indexPath) as! TrendsWithPictureCell
+            trendsCell = trendsWithPictureCell
+        }
     }
     //视频
     if !isTextAvailable && !isPictureAvailable && isVideoAvailable{
@@ -54,8 +61,13 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     }
     //文字、图片
     if isTextAvailable && isPictureAvailable && !isVideoAvailable{
-        let trendsCellWithTextAndPicture = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsWithTextAndPictrueCell
-        trendsCell = trendsCellWithTextAndPicture
+        if trendsCellStyle == .inTopicList{
+            let trendsWithSingleImageAndTextCell = tableView.dequeueReusableCell(withIdentifier: "TrendsWithSingleImageAndTextCell", for: indexPath) as! TrendsWithSingleImageAndTextCell
+            trendsCell = trendsWithSingleImageAndTextCell
+        }else{
+            let trendsCellWithTextAndPicture = tableView.dequeueReusableCell(withIdentifier: "TrendsWithTextAndPictrueCell", for: indexPath) as! TrendsWithTextAndPictrueCell
+            trendsCell = trendsCellWithTextAndPicture
+        }
     }
     //文字、视频
     if isTextAvailable && !isPictureAvailable && isVideoAvailable{
@@ -77,13 +89,16 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     
     //配置
     trendsCell.cellStyle = trendsCellStyle
-    trendsCell.configWith(model: model)
+    //trendsCell.configWith(model: model)
     //相关block在对应controller中实现
     print("classNmae:\(object_getClass(trendsCell))---classSize:\(class_getInstanceSize(object_getClass(trendsCell)))")
     return trendsCell
 }
 
 func registerTrendsCellFor(tableView:UITableView){
+    
+    tableView.register(TrendsWithSingleImageAndTextCell.self, forCellReuseIdentifier: "TrendsWithSingleImageAndTextCell")
+    tableView.register(TrendsWithSingleImageCell.self, forCellReuseIdentifier: "TrendsWithSingleImageCell")
     tableView.register(TrendsWithTextCell.self, forCellReuseIdentifier: "TrendsWithTextCell")
     tableView.register(TrendsWithPictureCell.self, forCellReuseIdentifier: "TrendsWithPictureCell")
     tableView.register(TrendsWithTextAndPictrueCell.self, forCellReuseIdentifier: "TrendsWithTextAndPictrueCell")

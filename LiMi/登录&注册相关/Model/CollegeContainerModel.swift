@@ -8,10 +8,12 @@
 
 import Foundation
 import ObjectMapper
+protocol WithSelectProtocol {
+    var isSelected:Bool{get set}
+}
 
 class CollegeContainerModel: BaseModel {
     var colleges:[CollegeModel]?
-
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -22,11 +24,11 @@ class CollegeContainerModel: BaseModel {
     }
 }
 
-class CollegeModel: Mappable {
+class CollegeModel:ScreeningConditionsBaseModel, Mappable {
     var coid:Int?
     var name:String?
     var provinceID:Int?
-    var isSelected = false
+    
     required init?(map: Map) {
         
     }
@@ -35,5 +37,6 @@ class CollegeModel: Mappable {
         coid<-map["coid"]
         name<-map["name"]
         provinceID<-map["provinceID"]
+        id = coid
     }
 }

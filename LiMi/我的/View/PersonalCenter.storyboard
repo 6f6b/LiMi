@@ -42,7 +42,10 @@
                                                             </connections>
                                                         </button>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bigright" translatesAutoresizingMaskIntoConstraints="NO" id="Hnd-F0-1av">
-                                                            <rect key="frame" x="330" y="20.5" width="15" height="28"/>
+                                                            <rect key="frame" x="331" y="20.5" width="14" height="28"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="14" id="cq2-s6-tgW"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmV-xJ-AVU">
                                                             <rect key="frame" x="86" y="10" width="16" height="21"/>
@@ -50,8 +53,8 @@
                                                             <color key="textColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPP-Hu-13f">
-                                                            <rect key="frame" x="91" y="41" width="61.5" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPP-Hu-13f">
+                                                            <rect key="frame" x="86" y="41" width="245" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -62,6 +65,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="Hnd-F0-1av" firstAttribute="leading" secondItem="hPP-Hu-13f" secondAttribute="trailing" id="8Oa-J5-IeT"/>
                                                         <constraint firstItem="hPP-Hu-13f" firstAttribute="leading" secondItem="SmV-xJ-AVU" secondAttribute="leading" id="BVc-eI-yDf"/>
                                                         <constraint firstItem="hPP-Hu-13f" firstAttribute="top" secondItem="SmV-xJ-AVU" secondAttribute="bottom" constant="10" id="HRm-df-gbt"/>
                                                         <constraint firstItem="sPQ-OQ-nAI" firstAttribute="leading" secondItem="4Bk-MN-dGH" secondAttribute="leading" id="Lqu-ff-taj"/>
@@ -617,7 +621,7 @@
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="9Hj-1X-iL6">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="9Hj-1X-iL6">
                                                             <rect key="frame" x="338" y="16.5" width="7" height="12"/>
                                                         </imageView>
                                                     </subviews>
@@ -1157,7 +1161,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bigright" width="15" height="28"/>
+        <image name="bigright" width="14" height="27"/>
         <image name="dongtai" width="24" height="23"/>
         <image name="fankui" width="23" height="23"/>
         <image name="guanyu" width="25" height="22"/>

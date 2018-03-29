@@ -23,7 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        //腾讯统计
         Bugly.start(withAppId: "e0501ff656")
+        //百度统计
+        let statTracker = BaiduMobStat.default()
+        statTracker?.shortAppVersion = APP_VERSION
+        statTracker?.enableDebugOn = true
+        statTracker?.start(withAppId: "3572f7dc26")
         
         self.window?.backgroundColor = APP_THEME_COLOR
         UIApplication.shared.statusBarStyle = .lightContent
@@ -36,15 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(logOut(notification:)), name: LOGOUT_NOTIFICATION, object: nil)
         WXApi.registerApp(WECHAT_APP_ID)
-        
-        self.setupMainViewController()
-        
+
+        self.commonInitListenEvents()
         self.setupNIMSDK()
         self.setupServices()
         self.registerPushService()
-        self.commonInitListenEvents()
+        self.setupMainViewController()
         NTESRedPacketManager.shared().application(application, didFinishLaunchingWithOptions: launchOptions)
-        _ = AppManager.shared.autoLoginIM()
         LocationManager.shared.startLocateWith(success: nil, failed: nil)
         
         
@@ -217,6 +221,13 @@ extension AppDelegate:NIMLoginManagerDelegate{
             //只有连接发生严重错误才会走这个回调，在这个回调里应该登出，返回界面等待用户手动重新登录。
             self.showAutoLoginErrorAlert(error: error)
         }
+        
+        func onLogin(step:NIMLoginStep){
+            print("####################")
+            print(step)
+            print("*******************************")
+        }
+        
     }
     
     
@@ -225,14 +236,21 @@ extension AppDelegate:NIMLoginManagerDelegate{
 //MARK: -  misc
 extension AppDelegate{
     func showAutoLoginErrorAlert(error:Error){
-        
+        let message = NTESSessionUtil.formatAutoLoginMessage(error) ?? "自动登录失败"
+        let alertController = UIAlertController.init(title: "自动登录失败", message: message, preferredStyle: .alert)
+        let actionRetry = UIAlertAction.init(title: "重试", style: .default) { _ in
+            AppManager.shared.autoLoginIM()
+        }
+        let actionLogOut = UIAlertAction.init(title: "注销", style: .destructive) { _ in
+            NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil)
+        }
+        alertController.addAction(actionLogOut)
+        alertController.addAction(actionRetry)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
     
     func setupMainViewController(){
-        //        let data = NTESLoginManager.shared().currentLoginData
-        //        let account = data?.account
-        //        let token = data?.token
         self.window?.rootViewController = TabBarController()
     }
     

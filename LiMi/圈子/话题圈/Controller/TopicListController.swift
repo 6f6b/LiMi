@@ -83,6 +83,7 @@ class TopicListController: ViewController {
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let type = self.topicType == .hottest ? "hot" : "new"
+        
         let oneTopicList = OneTopicList(page: pageIndex, topic_id: self.topicCircleModel?.id, type: type)
         _ = moyaProvider.rx.request(.targetWith(target: oneTopicList)).subscribe(onSuccess: { (response) in
             let topicsContainModel = Mapper<TopicsContainModel>().map(jsonData: response.data)
@@ -225,7 +226,7 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 1{
             if self.dataArray.count != 0{
                 let trendModel = self.dataArray[indexPath.row]
-                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel) as! TrendsCell
+                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel, trendsCellStyle: .inTopicList)
                 //完善相关block
                 //点击头像
                 topicCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
@@ -274,10 +275,11 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
                     commentsWithTrendController.trendModel = self.dataArray[indexPath.row]
                     self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
                 }
+                topicCell.configWith(model: trendModel, tableView: tableView, indexPath: indexPath)
                 return topicCell
             }else{
                 let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
-                emptyTrendsCell.configWith(info: "暂无相关信息", style: .inPersonCenter)
+                emptyTrendsCell.configWith(info: "暂无相关信息", style: .inTopicCircleList)
                 return emptyTrendsCell
             }
         }

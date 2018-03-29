@@ -97,25 +97,22 @@ class HomePageController: ViewController {
                 self.requestUserInfoData()
             }
         }
-        
-        //业务登录、im登录、认证状态三者有一个不在线则隐藏
-        let imIsLogin = AppManager.shared.autoLoginIM()
+
         if Defaults[.userCertificationState] != 2 || Defaults[.userId] == nil{
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }else{
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
         }
-        
-//        if AppManager.shared.appState() != .imOffLineBusinessOffline{
-//            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
-//        }else{
-//            self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
-//        }
+
         if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
             let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
             systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
         
+        if NIMSDK.shared().loginManager.isLogined(){
+        }else{
+            AppManager.shared.autoLoginIM()
+        }
     }
     
     override func didReceiveMemoryWarning() {

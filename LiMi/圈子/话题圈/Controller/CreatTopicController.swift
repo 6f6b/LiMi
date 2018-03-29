@@ -123,6 +123,7 @@ class CreatTopicController: ViewController {
 //        pic    只能上传保存一张图片    是    [string]
 //        topic_id    话题id    是    [int]
 //        content
+        Toast.showStatusWith(text: nil)
         self.releaseContentTextInputCell.contentText.resignFirstResponder()
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let pic = self.generateMediaParameterWith(medias: self.imgArr)

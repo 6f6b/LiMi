@@ -9,10 +9,8 @@
 import Foundation
 import ObjectMapper
 
-class SkillModel:Mappable {
-    var id:Int?
+class SkillModel:ScreeningConditionsBaseModel,Mappable  {
     var skill:String?
-    var isSelected = false
     required init?(map: Map) {
     }
     

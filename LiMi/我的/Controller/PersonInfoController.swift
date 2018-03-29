@@ -195,7 +195,7 @@ class PersonInfoController: UITableViewController {
         if indexPath.section == 0{
             if indexPath.row == 0{self.dealTapToSelectImg()}
             if indexPath.row == 1{self.dealToAlterUserName()}
-            if indexPath.row == 2{self.dealToAlterUserSex()}
+//            if indexPath.row == 2{self.dealToAlterUserSex()}
         }
         if indexPath.section == 1{}
     }

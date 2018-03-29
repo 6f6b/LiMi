@@ -23,8 +23,6 @@ class IMModel: BaseModel {
         token<-map["data.token"]
         accid<-map["data.accid"]
         name<-map["data.name"]
-        Defaults[.userImToken] = token
-        Defaults[.userAccid] = accid
     }
 }
 //"token": "4a9621e6fe00906b585466f48b979fc5",

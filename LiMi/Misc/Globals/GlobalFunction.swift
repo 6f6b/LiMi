@@ -422,9 +422,9 @@ func ChatWith(toUserId:Int?){
     //请求对方accid
     let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
     let getImToken = GetIMToken(to_uid: toUserId)
-    moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+    _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
         let imModel = Mapper<IMModel>().map(jsonData: response.data)
-        if let _accid = imModel?.accid,let _token = imModel?.token{
+        if let _accid = imModel?.accid,let _ = imModel?.token{
             let session = NIMSession.init((_accid), type: .P2P)
             let sessionVC = NTESSessionViewController.init(session: session)
             let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
@@ -434,16 +434,46 @@ func ChatWith(toUserId:Int?){
     }) { (error) in
         Toast.showErrorWith(msg: error.localizedDescription)
     }
-//    _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
-//        let imModel = Mapper<IMModel>().map(jsonData: response.data)
-//        if let _accid = imModel?.accid,let _token = imModel?.token{
-//            let session = NIMSession.init((_accid), type: .P2P)
-//            let sessionVC = NTESSessionViewController.init(session: session)
-//            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-//            let nav = tbc.selectedViewController as! NavigationController
-//            nav.pushViewController(sessionVC!, animated: true)
-//        }
-//    })
+}
+
+enum ThirdPartAPP {
+    ///支付宝
+    case alipay
+    ///微信
+    case wechat
+    ///高德地图
+    case amap
+    ///新浪微博
+    case sina
+    ///QQ
+    case qq
+    ///
+}
+
+
+func isInstalled(app:ThirdPartAPP)->Bool{
+    let shareApplication = UIApplication.shared
+    if app == .alipay{
+        let url = URL.init(string: "alipay://")
+        return shareApplication.canOpenURL(url!)
+    }
+    if app == .wechat{
+        let url = URL.init(string: "weixin://")
+        return shareApplication.canOpenURL(url!)
+    }
+    if app == .amap{
+        let url = URL.init(string: "iosamap://")
+        return shareApplication.canOpenURL(url!)
+    }
+    if app == .sina{
+        let url = URL.init(string: "weibo://")
+        return shareApplication.canOpenURL(url!)
+    }
+    if app == .qq{
+        let url = URL.init(string: "mqq://")
+        return shareApplication.canOpenURL(url!)
+    }
+    return false
 }
 
 

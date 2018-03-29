@@ -22,11 +22,10 @@ class AcademyContainerModel: BaseModel {
     }
 }
 
-class AcademyModel: Mappable {
+class AcademyModel:ScreeningConditionsBaseModel, Mappable  {
     var collegeID:Int?
     var name:String?
     var scid:Int?
-    var isSelected = false
     required init?(map: Map) {
         
     }
@@ -35,6 +34,7 @@ class AcademyModel: Mappable {
         collegeID<-map["collegeID"]
         name<-map["name"]
         scid<-map["scid"]
+        id = scid
     }
 }
 

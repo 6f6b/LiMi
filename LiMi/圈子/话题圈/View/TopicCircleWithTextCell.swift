@@ -103,7 +103,7 @@ extension TopicCircleWithTextCell:TopicCircleCellProtocol{
 //            text.append(attachment)
 //        }
         if let _content = topicCircleModel?.content{
-            text.append(NSMutableAttributedString.init(string: "  \(_content)"))
+            text.append(NSMutableAttributedString.init(string: "\(_content)"))
         }
         self.contentText.attributedText = text
     }

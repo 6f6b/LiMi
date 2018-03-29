@@ -202,7 +202,7 @@ extension PeopleNearbyController:UICollectionViewDelegateFlowLayout,UICollection
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemWith = (SCREEN_WIDTH-collectionItemHorizontalSpace-collectionViewLeftAndRightSpace*2-1)/2.0
-        let itemHeight = itemWith + 80
+        let itemHeight = itemWith + 60
         return CGSize.init(width: itemWith, height: itemHeight)
     }
     

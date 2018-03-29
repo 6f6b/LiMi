@@ -38,6 +38,11 @@ class EmptyTrendsCell: UITableViewCell {
         if style == .inPersonCenter{
             self.imgV.image = UIImage.init(named: "qsy_img_nodt")
         }
+        if style == .inTopicCircleList{
+            self.imgV.image = UIImage.init(named: "qsy_img_nodt")
+            self.backgroundColor = UIColor.clear
+//            self.contentView.backgroundColor = RGBA(r: 239, g: 239, b: 239, a: 1)
+        }
     }
     
 }

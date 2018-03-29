@@ -25,7 +25,7 @@
 #import "iCarousel.h"
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "PHAsset+Utilities.h"
-
+#import "BaiduMobStat.h"
 
 
 //IM相关

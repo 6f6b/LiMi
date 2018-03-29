@@ -79,8 +79,16 @@ class WeekendTourOrderDetailController: ViewController {
         var payWay = 1
         if self.weekendTourOrderPayWayCell.payWay == .alipay{
             payWay = 1
+            if !isInstalled(app: .alipay){
+                Toast.showErrorWith(msg: "请先安装支付宝")
+                return
+            }
         }else{
             payWay = 2
+            if !isInstalled(app: .wechat){
+                Toast.showErrorWith(msg: "请先安装微信")
+                return
+            }
         }
         let orderAction = OrderAction(goods_id: self.weekendTourId, goods_num: self.weekendTourOrderNumCell.orderNum, text: self.weekendTourOrderRemarksCell.remarks.text, time: self.weekendTourOrderReserveTimeCell.timeText, mobile: self.weekendTourOrderContactWayCell.phoneNum.text, pay_type: payWay)
         _ = moyaProvider.rx.request(.targetWith(target: orderAction)).subscribe(onSuccess: { (response) in

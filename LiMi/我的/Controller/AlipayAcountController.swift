@@ -99,7 +99,7 @@ class AlipayAcountController: ViewController {
         let requestAuthCode = RequestAuthCode(phone: Defaults[.userPhone])
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
-                Toast.showSuccessWith(msg: "验证码已发送")
+                Toast.showResultWith(model: authCodeModel)
             }
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)

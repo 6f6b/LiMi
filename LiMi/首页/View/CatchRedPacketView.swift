@@ -28,6 +28,8 @@ enum RedPacketStatus {
     case catchSucceed   //抢到了，显示列表
     
     case waitToBeCatch  //等待拆开
+    
+    case lootAll    //第一次点进来，抢光了
 }
 
 class CatchRedPacketView: UIView {
@@ -46,6 +48,9 @@ class CatchRedPacketView: UIView {
     @IBOutlet weak var openRedPacketContainView: UIView!    //拆红包，容器
     @IBOutlet weak var headImgV: UIImageView!   //发红包人头像
     @IBOutlet weak var userInfo: UILabel!   //谁发的红包
+    
+    //抢光了容器
+    @IBOutlet weak var lootAllContainView: UIView!
     
     var redPacketResultModel:RedPacketResultModel?
     var trendModel:TrendModel?
@@ -76,6 +81,11 @@ class CatchRedPacketView: UIView {
     
     @IBAction func dealClose(_ sender: Any) {
         self.removeFromSuperview()
+    }
+    
+    //查看详情
+    @IBAction func dealToSeeDetail(_ sender: Any) {
+        self.takeRedPacket()
     }
     
     /// 领取红包
@@ -150,7 +160,7 @@ class CatchRedPacketView: UIView {
                 self.takeRedPacket()
             }
             if _redType == "4"{self.showWith(status: .beOverdue)}  //过期
-            if _redType == "5"{self.takeRedPacket()}    //抢光了
+            if _redType == "5"{self.showWith(status: .lootAll)}    //抢光了
         }else{
         }
     }
@@ -205,6 +215,9 @@ class CatchRedPacketView: UIView {
             self.userInfo.isHidden = false
             self.headImgV.isHidden = false
             return
+        }
+        if status == .lootAll{
+            self.lootAllContainView.isHidden = false
         }
         
     }
@@ -270,6 +283,8 @@ class CatchRedPacketView: UIView {
         self.noauthHeadImg.isHidden = true
         self.noAthuUserInfo.isHidden = true
         self.noAuthInfo.isHidden = true
+        
+        self.lootAllContainView.isHidden = true
     }
     
     func checkSex()->SexStatus{

@@ -22,10 +22,8 @@ class GradeContainerModel: BaseModel {
     }
 }
 
-class GradeModel: Mappable {
-    var id:Int?
+class GradeModel:ScreeningConditionsBaseModel, Mappable  {
     var name:String?
-    var isSelected = false
     
     required init?(map: Map) {
         

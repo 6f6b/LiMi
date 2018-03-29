@@ -57,10 +57,16 @@ class UserDetailsController: ViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreBtn)
         }
         
-        
         loadData()
+        //添加IM登录代理
+        NIMSDK.shared().loginManager.add(self)
     }
 
+    deinit {
+        NIMSDK.shared().loginManager.remove(self)
+        print("详情界面销毁")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -79,10 +85,6 @@ class UserDetailsController: ViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.barStyle = .default
-    }
-    
-    deinit {
-        print("详情界面销毁")
     }
     
     override func didReceiveMemoryWarning() {
@@ -171,41 +173,39 @@ class UserDetailsController: ViewController {
     }
     
     @IBAction func dealLiao(_ sender: Any) {
-        
+        //
         if !AppManager.shared.checkUserStatus(){return}
         //判断登录状态
         let appState = AppManager.shared.appState()
-        if appState == .imOnlineBusinessOnline{
+        if appState == .imOnlineBusinessOnline || appState == .imOfflineBusinessOnline{
             ChatWith(toUserId: self.userId)
         }
         if appState == .imOnlineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
         }
-        if appState == .imOfflineBusinessOnline{
-            //判断是否认证
-            if Defaults[.userCertificationState] == 0{
-                
-                
-                Toast.showInfoWith(text: "还未认证")
-                return
-            }
-            if Defaults[.userCertificationState] == 1{
-                Toast.showInfoWith(text: "认证中")
-                return
-            }
-            if Defaults[.userCertificationState] == 2{
-                NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"IM登录已失效，请重新登录"])
-                return
-            }
-            if Defaults[.userCertificationState] == 3{
-                Toast.showInfoWith(text: "认证失败")
-                return
-            }
-            if Defaults[.userCertificationState] == nil{
-                Toast.showInfoWith(text: "可能发生异步错误")
-                return
-            }
-        }
+//        if appState == .imOfflineBusinessOnline{
+//            //判断是否认证
+//            if Defaults[.userCertificationState] == 0{
+//                Toast.showInfoWith(text: "还未认证")
+//                return
+//            }
+//            if Defaults[.userCertificationState] == 1{
+//                Toast.showInfoWith(text: "认证中")
+//                return
+//            }
+//            if Defaults[.userCertificationState] == 2{
+//                NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"IM登录已失效，请重新登录"])
+//                return
+//            }
+//            if Defaults[.userCertificationState] == 3{
+//                Toast.showInfoWith(text: "认证失败")
+//                return
+//            }
+//            if Defaults[.userCertificationState] == nil{
+//                Toast.showInfoWith(text: "可能发生异步错误")
+//                return
+//            }
+//        }
         if appState == .imOffLineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
         }
@@ -337,5 +337,15 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
             let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
             self.userDetailHeadView?.headImgV?.frame = frame
         }
+    }
+}
+
+extension UserDetailsController:NIMLoginManagerDelegate{
+    func onLogin(_ step: NIMLoginStep) {
+        print(step)
+    }
+    
+    func onAutoLoginFailed(_ error: Error) {
+        Toast.showErrorWith(msg: error.localizedDescription)
     }
 }

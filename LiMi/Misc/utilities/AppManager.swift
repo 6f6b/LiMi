@@ -49,7 +49,7 @@ class AppManager:NSObject {
     ///
     /// - Returns:
     func appState()->AppState{
-        let isImOnline = self.autoLoginIM()
+        let isImOnline = NIMSDK.shared().loginManager.isLogined()
         var isBusinessOnline = false
         if let _ = Defaults[.userId],let _ = Defaults[.userToken]{
             isBusinessOnline = true
@@ -83,17 +83,21 @@ class AppManager:NSObject {
     ///根据本地存储的accid、IMtoken等信息，自动登录im,并返回登录状态
     ///
     /// - Returns: 是否为登录状态
-    func autoLoginIM()->Bool{
-        if NIMSDK.shared().loginManager.isLogined(){return true}else{
-            if let _accid = Defaults[.userAccid], let _imToken = Defaults[.userImToken]{
-                let autoLoginData = NIMAutoLoginData()
-                autoLoginData.account = _accid
-                autoLoginData.token = _imToken
-                NIMSDK.shared().loginManager.autoLogin(autoLoginData)
+    func autoLoginIM()->Void{
+        if NIMSDK.shared().loginManager.isLogined(){return }else{
+            if let account = Defaults[.userAccid],let token = Defaults[.userImToken]{
+                let data = NIMAutoLoginData.init()
+                data.account = account
+                data.token = token
+//                NIMSDK.shared().loginManager.autoLogin(data)
+                NIMSDK.shared().loginManager.login(account, token: token, completion: { (error) in
+                    if let _error = error{
+                        Toast.showErrorWith(msg: _error.localizedDescription)
+                    }
+                })
                 NTESServiceManager.shared().start()
             }
         }
-        return NIMSDK.shared().loginManager.isLogined()
     }
     
     
@@ -101,14 +105,12 @@ class AppManager:NSObject {
     func manualLoginIM(){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let getImToken = GetIMToken()
-        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { [unowned self] (response) in
             let imModel = Mapper<IMModel>().map(jsonData: response.data)
             if let _accid = imModel?.accid,let _token = imModel?.token{
-                NIMSDK.shared().loginManager.login(_accid, token: _token, completion: { (error) in
-                    if let _error = error{
-                        Toast.showErrorWith(msg: _error.localizedDescription)
-                    }
-                })
+                Defaults[.userImToken] = _token
+                Defaults[.userAccid] = _accid
+                self.autoLoginIM()
             }
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)

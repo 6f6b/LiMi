@@ -17,14 +17,28 @@ class ConditionScreeningView: UIView {
     @IBOutlet weak var leftTapView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var conditionContainViewRightConstraint: NSLayoutConstraint!
+    private var subScreeningViews = [SecondaryConditionScreeningView]()
+    ///学校段最大显示数
+    private let maxNumShowCollege = 12
+    ///学院最大显示数
+    private let maxNumShowAcademy = 12
+    ///年级最大显示数
+    private let maxNumShowGrade = 12
+    ///性别最大显示数
+    private let maxNumShowSex = 12
+    ///技能标签最大显示数
+    private let maxNumShowSkill = 12
+
     
-    var screeningConditionsModel:ScreeningConditionsModel?
+    var dataArray = [[ScreeningConditionsBaseModel]]()
+    var selectedModels:[ScreeningConditionsBaseModel?] = [nil,nil,nil,nil,nil]
     var screeningConditionsSelectBlock:((CollegeModel?,AcademyModel?,GradeModel?,SexModel?,SkillModel?)->Void)?
-    var selectedCollegeModelIndex:Int?
-    var selectedAcademyModelIndex:Int?
-    var selectedGradeModelIndex:Int?
-    var selectedSexIndex:Int?
-    var selectedSkillModelIndex:Int?
+    
+//    var selectedCollegeModel:CollegeModel?
+//    var selectedAcademyModel:AcademyModel?
+//    var selectedGradeModel:GradeModel?
+//    var selectedSex:SexModel?
+//    var selectedSkillModel:SkillModel?
     
     var isCollegesShow = false
     var isAcademysShow = false
@@ -59,7 +73,7 @@ class ConditionScreeningView: UIView {
     }
     
     func show(animation:Bool = true){
-        if nil == self.screeningConditionsModel{self.loadData()}
+        if self.dataArray.count == 0{self.loadData()}
         self.frame = SCREEN_RECT
         UIApplication.shared.keyWindow?.addSubview(self)
         if animation{
@@ -91,89 +105,28 @@ class ConditionScreeningView: UIView {
     }
 
     @IBAction func dealReset(_ sender: Any) {
-        if let colleges = self.screeningConditionsModel?.college{
-            for _college in colleges{
-                _college.isSelected = false
-            }
+        for i in 0 ..< 5{
+            self.resetWith(section: i)
         }
-        //学校
-        if let academies = self.screeningConditionsModel?.academy{
-            for _academy in academies{
-                _academy.isSelected = false
-            }
+    }
+    
+    func resetWith(section:Int){
+        self.selectedModels[section] = nil
+        for model in self.dataArray[section]{
+            model.isSelected = false
         }
-        //年级
-        if let grades = self.screeningConditionsModel?.grade{
-            for _grade in grades{
-                _grade.isSelected = false
-            }
-        }
-        //性别
-        if let sexs = self.screeningConditionsModel?.sex{
-            for _sex in sexs{
-                _sex.isSelected = false
-            }
-        }
-        //skill
-        if let skills = self.screeningConditionsModel?.skill{
-            for _skill in skills{
-                _skill.isSelected = false
-            }
-        }
-        self.collectionView.reloadData()
+        self.collectionView.reloadSections([section])
     }
     
     @IBAction func dealOK(_ sender: Any) {
-        var college:CollegeModel? = nil
-        var academy:AcademyModel? = nil
-        var grade:GradeModel? = nil
-        var sex:SexModel? = nil
-        var skill:SkillModel? = nil
-        if let colleges = self.screeningConditionsModel?.college{
-            for _college in colleges{
-                if _college.isSelected{
-                    college = _college
-                    break
-                }
-            }
-        }
-        //学校
-        if let academies = self.screeningConditionsModel?.academy{
-            for _academy in academies{
-                if _academy.isSelected{
-                    academy = _academy
-                    break
-                }
-            }
-        }
-        //年级
-        if let grades = self.screeningConditionsModel?.grade{
-            for _grade in grades{
-                if _grade.isSelected{
-                    grade = _grade
-                    break
-                }
-            }
-        }
-        //性别
-        if let sexs = self.screeningConditionsModel?.sex{
-            for _sex in sexs{
-                if _sex.isSelected{
-                    sex = _sex
-                    break
-                }
-            }
-        }
-        //skill
-        if let skills = self.screeningConditionsModel?.skill{
-            for _skill in skills{
-                if _skill.isSelected{
-                    skill = _skill
-                }
-            }
-        }
         if let _screeningConditionsSelectBlock = self.screeningConditionsSelectBlock{
-            _screeningConditionsSelectBlock(college, academy, grade, sex, skill)
+            let selectedCollege = self.selectedModels[0] as? CollegeModel
+            let selectedAcademy = self.selectedModels[1] as? AcademyModel
+            let selectedGrade = self.selectedModels[2] as? GradeModel
+            let selectedSex = self.selectedModels[3] as? SexModel
+            let selectedSkill = self.selectedModels[4] as? SkillModel
+
+            _screeningConditionsSelectBlock(selectedCollege, selectedAcademy, selectedGrade, selectedSex, selectedSkill)
             self.isHidden = true
         }
     }
@@ -183,7 +136,7 @@ class ConditionScreeningView: UIView {
         let screeningConditions = ScreeningConditions()
         _ = moyaProvider.rx.request(.targetWith(target: screeningConditions)).subscribe(onSuccess: { (response) in
             let screeningConditionsModel = Mapper<ScreeningConditionsModel>().map(jsonData: response.data)
-            self.screeningConditionsModel = screeningConditionsModel
+            if let datas = screeningConditionsModel?.datas{self.dataArray = datas}
             self.collectionView.reloadData()
             Toast.showErrorWith(model: screeningConditionsModel)
         }, onError: { (error) in
@@ -191,7 +144,65 @@ class ConditionScreeningView: UIView {
         })
     }
     
+    //在collectionView中点选
+    func dealTapWith(indexPath:IndexPath){
+        //先取出这个元素selectedModel
+        let selectedModel = self.dataArray[indexPath.section][indexPath.row]
+        //记录这个元素的selected值
+        let isSelected = selectedModel.isSelected
+        //将对应section的选中model置空
+        self.selectedModels[indexPath.section] = nil
+        //遍历所有元素，置为false
+        for model in self.dataArray[indexPath.section]{
+            model.isSelected = false
+        }
+        //将selectedModel的selected值取反
+        selectedModel.isSelected = !isSelected
+        //判断选中则将对应section的选中model置为selectedModel
+        if selectedModel.isSelected{
+            self.selectedModels[indexPath.section] = selectedModel
+        }
+        if indexPath.section == 0{self.loadAcademysWith(collegeModel: self.selectedModels[0] as! CollegeModel)}
+        self.collectionView.reloadSections([indexPath.section])
+    }
+    
+    ///在次级界面点选回调
+    func dealSelectedModelWith(section:Int,selectedModel:ScreeningConditionsBaseModel?){
+        //先重置section
+        self.resetWith(section: section)
+        //为空则返回
+        if selectedModel == nil{return}
+        //不为空
+        if selectedModel != nil{
+            //遍历section内的元素。
+            var nowSelectedModel:ScreeningConditionsBaseModel?
+            for model in self.dataArray[section]{
+                if model.id == selectedModel?.id{
+                    model.isSelected = selectedModel!.isSelected
+                    nowSelectedModel = model
+                    break
+                }
+            }
+            if nowSelectedModel == nil{nowSelectedModel = selectedModel}
+            self.selectedModels[section] = nowSelectedModel
+            self.collectionView.reloadSections([section])
+        }
+        if section == 0{self.loadAcademysWith(collegeModel: self.selectedModels[0] as! CollegeModel)}
+    }
+    
+    ///返回最后一个cell显示的model
+    func lastModelFor(indexPath:IndexPath)->ScreeningConditionsBaseModel?{
+        let selectedModel = self.selectedModels[indexPath.section]
+        for i in 0 ..< self.maxNumShowCollege-1{
+            if selectedModel?.id == self.dataArray[indexPath.section][i].id{
+                return nil
+            }
+        }
+        return self.selectedModels[indexPath.section]
+    }
+
     func loadAcademysWith(collegeModel:CollegeModel?){
+        self.selectedModels[1] = nil
         if let _collegeModel = collegeModel{
             if _collegeModel.isSelected{
                 let moyaProvider = MoyaProvider<LiMiAPI>()
@@ -200,7 +211,7 @@ class ConditionScreeningView: UIView {
                 _ = moyaProvider.rx.request(.targetWith(target: academyList)).subscribe(onSuccess: { (response) in
                     let academyContainerModel = Mapper<AcademyContainerModel>().map(jsonData: response.data)
                     if let academys = academyContainerModel?.academies{
-                        self.screeningConditionsModel?.academy = academys
+                        self.dataArray[1] = academys
                         self.collectionView.reloadSections([1])
                     }
                     Toast.showErrorWith(model: academyContainerModel)
@@ -209,92 +220,116 @@ class ConditionScreeningView: UIView {
                 })
             }
             if !_collegeModel.isSelected{
-                self.screeningConditionsModel?.academy = nil
+                self.dataArray[1].removeAll()
                 self.collectionView.reloadSections([1])
             }
+        }
+    }
+    
+    func push(secondaryConditionScreeningView:SecondaryConditionScreeningView?,animation:Bool = true){
+        if let _secondaryConditionScreeningView = secondaryConditionScreeningView{
+            //加入数组
+            _secondaryConditionScreeningView.navigationView = self
+            self.subScreeningViews.append(_secondaryConditionScreeningView)
+            self.conditionContainView.addSubview(_secondaryConditionScreeningView)
+            _secondaryConditionScreeningView.snp.makeConstraints({[unowned self] (make) in
+                make.top.equalTo(self.conditionContainView)
+                make.left.equalTo(self.conditionContainView).offset(SCREEN_WIDTH*(600/750.0))
+                make.bottom.equalTo(self.conditionContainView)
+                make.width.equalTo(SCREEN_WIDTH*(600/750.0))
+            })
+            let delayTime : TimeInterval = 0.1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: {
+                UIView.animate(withDuration: 0.3, animations: {
+                    _secondaryConditionScreeningView.snp.remakeConstraints({[unowned self] (make) in
+                        make.top.equalTo(self.conditionContainView)
+                        make.left.equalTo(self.conditionContainView).offset(0)
+                        make.bottom.equalTo(self.conditionContainView)
+                        make.width.equalTo(SCREEN_WIDTH*(600/750.0))
+                    })
+                    self.layoutIfNeeded()
+                })
+            })
+        }
+    }
+    func popView(){
+        if let _secondaryConditionScreeningView = self.subScreeningViews.last{
+            UIView.animate(withDuration: 0.3, animations: {
+                _secondaryConditionScreeningView.snp.remakeConstraints({ (make) in
+                    make.top.equalTo(self.conditionContainView)
+                    make.left.equalTo(self.conditionContainView).offset(SCREEN_WIDTH*(600/750.0))
+                    make.bottom.equalTo(self.conditionContainView)
+                    make.width.equalTo(SCREEN_WIDTH*(600/750.0))
+                })
+                self.layoutIfNeeded()
+            }, completion: { [unowned self] _ in
+                self.subScreeningViews.removeLast()
+                _secondaryConditionScreeningView.removeFromSuperview()
+            })
         }
     }
 }
 
 extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return self.dataArray.count
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let models = self.dataArray[section]
         if section == 0{
             if isCollegesShow{
-                if let colleges = self.screeningConditionsModel?.college{
-                    return colleges.count
-                }
+                return models.count < self.maxNumShowCollege ? models.count : self.maxNumShowCollege
             }else{
-                if let colleges = self.screeningConditionsModel?.college{
-                    return colleges.count >= 3 ? 3 : colleges.count
-                }
+                return models.count >=  3 ? 3 : models.count
             }
         }
         if section == 1{
             if isAcademysShow{
-                if let academies = self.screeningConditionsModel?.academy{
-                    return academies.count
-                }
+                return models.count < self.maxNumShowAcademy ? models.count : self.maxNumShowAcademy
             }else{
-                if let academies = self.screeningConditionsModel?.academy{
-                    return academies.count >= 3 ? 3 : academies.count
-                }
+                return models.count >=  3 ? 3 : models.count
             }
         }
         if section == 2{
             if isGradeShow{
-                if let grades = self.screeningConditionsModel?.grade{
-                    return grades.count
-                }
+                return models.count < self.maxNumShowGrade ? models.count : self.maxNumShowGrade
             }else{
-                if let grades = self.screeningConditionsModel?.grade{
-                    return grades.count >= 3 ? 3 : grades.count
-                }
+                return models.count >=  3 ? 3 : models.count
             }
         }
         if section == 3{
             if isSexShow{
-                if let sex = self.screeningConditionsModel?.sex{
-                    return sex.count
-                }
+                return models.count < self.maxNumShowSex ? models.count : self.maxNumShowSex
             }else{
-                if let sex = self.screeningConditionsModel?.sex{
-                    return sex.count >= 3 ? 3 : sex.count
-                }
+                return models.count >=  3 ? 3 : models.count
             }
         }
         if section == 4{
             if isSkillsShow{
-                if let skills = self.screeningConditionsModel?.skill{
-                    return skills.count
-                }
+                return models.count < self.maxNumShowSkill ? models.count : self.maxNumShowSkill
             }else{
-                if let skills = self.screeningConditionsModel?.skill{
-                    return skills.count >= 3 ? 3 : skills.count
-                }
+                return models.count >=  3 ? 3 : models.count
             }
         }
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ConditionScreeningCollectionCell", for: indexPath) as! ConditionScreeningCollectionCell
-        if indexPath.section == 0{
-            cell.configWith(collegeModel: self.screeningConditionsModel?.college![indexPath.row])
+        var model:ScreeningConditionsBaseModel?
+        if indexPath.row < maxNumShowCollege-1{
+            model = self.dataArray[indexPath.section][indexPath.row]
         }
-        if indexPath.section == 1{
-            cell.configWith(academyModel: self.screeningConditionsModel?.academy![indexPath.row])
+        if indexPath.row >= maxNumShowCollege-1{
+            model = self.lastModelFor(indexPath: indexPath)
         }
-        if indexPath.section == 2{
-            cell.configWith(gradeModel: self.screeningConditionsModel?.grade![indexPath.row])
+
+        if indexPath.row < maxNumShowCollege-1{
+            cell.configWith(model: model, isLast: false)
         }
-        if indexPath.section == 3{
-            cell.configWith(sex: self.screeningConditionsModel?.sex![indexPath.row])
+        if indexPath.row >= maxNumShowCollege-1{
+            cell.configWith(model: model, isLast: true)
         }
-        if indexPath.section == 4{
-            cell.configWith(skillModel: self.screeningConditionsModel?.skill![indexPath.row])
-        }
+
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -355,62 +390,43 @@ extension ConditionScreeningView:UICollectionViewDelegate,UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //学校
-        if indexPath.section == 0{
-            if nil != self.screeningConditionsModel?.college{
-                let model = self.screeningConditionsModel?.college![indexPath.row]
-                let isSelected = !(model?.isSelected)!
-                for model in (self.screeningConditionsModel?.college)!{
-                    model.isSelected = false
-                }
-                model?.isSelected = isSelected
-                collectionView.reloadSections([indexPath.section])
-                //请求学院的信息
-                self.loadAcademysWith(collegeModel: model)
-            }
+        if indexPath.row < self.maxNumShowCollege-1{
+            self.dealTapWith(indexPath: indexPath)
         }
-        if indexPath.section == 1{
-            if nil != self.screeningConditionsModel?.academy{
-                let model = self.screeningConditionsModel?.academy![indexPath.row]
-                let isSelected = !(model?.isSelected)!
-                for model in (self.screeningConditionsModel?.academy)!{
-                    model.isSelected = false
+        if indexPath.row >= self.maxNumShowCollege-1{
+            if indexPath.section == 0{
+                //显示二级筛选
+                let secondaryConditionScreeningSchool = SecondaryConditionScreeningSchool()
+                secondaryConditionScreeningSchool.selectedCollegeModel = self.selectedModels[indexPath.section] as? CollegeModel
+                secondaryConditionScreeningSchool.selecteBlock = {[unowned self] (selectedModel) in
+                    self.dealSelectedModelWith(section: indexPath.section, selectedModel: selectedModel)
                 }
-                model?.isSelected = isSelected
-                collectionView.reloadSections([indexPath.section])
+                self.push(secondaryConditionScreeningView: secondaryConditionScreeningSchool)
             }
-        }
-        if indexPath.section == 2{
-            if nil != self.screeningConditionsModel?.grade{
-                let model = self.screeningConditionsModel?.grade![indexPath.row]
-                let isSelected = !(model?.isSelected)!
-                for model in (self.screeningConditionsModel?.grade)!{
-                    model.isSelected = false
+            if indexPath.section == 1{
+                let secondaryConditionScreeningAcademy = SecondaryConditionScreeningAcademy()
+                secondaryConditionScreeningAcademy.selectedCollegeModel = self.selectedModels[0] as? CollegeModel
+                secondaryConditionScreeningAcademy.selectedAcademyModel = self.selectedModels[indexPath.section] as? AcademyModel
+                secondaryConditionScreeningAcademy.selecteBlock = {[unowned self] (selectedModel) in
+                    self.dealSelectedModelWith(section: indexPath.section, selectedModel: selectedModel)
                 }
-                model?.isSelected = isSelected
-                collectionView.reloadSections([indexPath.section])
+                self.push(secondaryConditionScreeningView: secondaryConditionScreeningAcademy)
             }
-        }
-        if indexPath.section == 3{
-            if nil != self.screeningConditionsModel?.sex{
-                let model = self.screeningConditionsModel?.sex![indexPath.row]
-                let isSelected = !(model?.isSelected)!
-                for model in (self.screeningConditionsModel?.sex)!{
-                    model.isSelected = false
+            if indexPath.section == 2{
+                let secondaryConditionScreeningGrade = SecondaryConditionScreeningGrade()
+                secondaryConditionScreeningGrade.selectedGradeModel = self.selectedModels[indexPath.section] as? GradeModel
+                secondaryConditionScreeningGrade.selecteBlock = {[unowned self] (selectedModel) in
+                    self.dealSelectedModelWith(section: indexPath.section, selectedModel: selectedModel)
                 }
-                model?.isSelected = isSelected
-                collectionView.reloadSections([indexPath.section])
+                self.push(secondaryConditionScreeningView: secondaryConditionScreeningGrade)
             }
-        }
-        if indexPath.section == 4{
-            if nil != self.screeningConditionsModel?.skill{
-                let model = self.screeningConditionsModel?.skill![indexPath.row]
-                let isSelected = !(model?.isSelected)!
-                for model in (self.screeningConditionsModel?.skill)!{
-                    model.isSelected = false
+            if indexPath.section == 4{
+                let secondaryConditionScreeningSkills = SecondaryConditionScreeningSkills()
+                secondaryConditionScreeningSkills.selectedSkillModel = self.selectedModels[indexPath.section] as? SkillModel
+                secondaryConditionScreeningSkills.selecteBlock = {[unowned self] (selectedModel) in
+                    self.dealSelectedModelWith(section: indexPath.section, selectedModel: selectedModel)
                 }
-                model?.isSelected = isSelected
-                collectionView.reloadSections([indexPath.section])
+                self.push(secondaryConditionScreeningView: secondaryConditionScreeningSkills)
             }
         }
     }

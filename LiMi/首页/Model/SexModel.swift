@@ -9,10 +9,8 @@
 import Foundation
 import ObjectMapper
 
-class SexModel:Mappable {
+class SexModel:ScreeningConditionsBaseModel,Mappable  {
     var sex:String?
-    var id:Int?
-    var isSelected = false
     
     required init?(map: Map) {
     }

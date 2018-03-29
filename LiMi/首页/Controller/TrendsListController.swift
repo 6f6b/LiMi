@@ -104,7 +104,8 @@ class TrendsListController: ViewController{
                     self.dataArray.append(trend)
                 }
                 if trends.count > 0{self.tableView.reloadData()}
-            }
+                if self.dataArray.count == 0{self.tableView.reloadData()}
+            }else{self.tableView.reloadData()}
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: trendsListModel)
@@ -311,6 +312,7 @@ extension TrendsListController:UITableViewDelegate,UITableViewDataSource{
             let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
             catchRedPacketView.showWith(trendModel: self.dataArray[indexPath.row])
         }
+        trendsCell.configWith(model: model)
         return trendsCell
     }
 }

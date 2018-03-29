@@ -11,6 +11,10 @@ import UIKit
 class ConditionScreeningCollectionCell: UICollectionViewCell {
     @IBOutlet weak var infoContainView: UIView!
     @IBOutlet weak var info: UILabel!
+    
+    @IBOutlet weak var rightBarImage: UIImageView!
+    @IBOutlet weak var arrowLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var arrowRightConstraint: NSLayoutConstraint!
     var tapBlock:(()->Void)?
     var isSelectedStatus = false
     override func awakeFromNib() {
@@ -41,6 +45,62 @@ class ConditionScreeningCollectionCell: UICollectionViewCell {
         }
     }
 
+    func configWith(model:ScreeningConditionsBaseModel?, isLast:Bool = false){
+        //重置
+        self.rightBarImage.isHidden = true
+        self.arrowLeftConstraint.constant = 0
+        self.arrowRightConstraint.constant = 0
+        //是否是最后一个
+        if isLast{
+            self.arrowLeftConstraint.constant = 5
+            self.arrowRightConstraint.constant = 10
+            self.rightBarImage.isHidden = false
+
+            //是否为空
+            if let _model = model{
+                self.rightBarImage.image = UIImage.init(named: "sx_rightbar02")
+                if let m = _model as? CollegeModel{
+                    self.configWith(collegeModel: m)
+                }
+                if let m = _model as? AcademyModel{
+                    self.configWith(academyModel: m)
+                }
+                if let m = _model as? GradeModel{
+                    self.configWith(gradeModel: m)
+                }
+                if let m = _model as? SexModel{
+                    self.configWith(sex: m)
+                }
+                if let m = _model as? SkillModel{
+                    self.configWith(skillModel: m)
+                }
+            }else{
+                self.info.text = "查看全部"
+                self.rightBarImage.image = UIImage.init(named: "sx_rightbar")
+                self.showWith(isSelectedStatus: false)
+            }
+        }else{
+            //是否为空
+            if let _model = model{
+                if let m = _model as? CollegeModel{
+                    self.configWith(collegeModel: m)
+                }
+                if let m = _model as? AcademyModel{
+                    self.configWith(academyModel: m)
+                }
+                if let m = _model as? GradeModel{
+                    self.configWith(gradeModel: m)
+                }
+                if let m = _model as? SexModel{
+                    self.configWith(sex: m)
+                }
+                if let m = _model as? SkillModel{
+                    self.configWith(skillModel: m)
+                }
+            }
+        }
+    }
+    
     func configWith(collegeModel:CollegeModel?){
         self.info.text = collegeModel?.name
         self.showWith(isSelectedStatus: (collegeModel?.isSelected)!)
