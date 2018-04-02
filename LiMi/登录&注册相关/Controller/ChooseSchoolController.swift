@@ -2,7 +2,7 @@
 //  ChooseSchoolController.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/1/9.
+//  Created by dev.liufeng on 2018/3/30.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
@@ -12,22 +12,25 @@ import ObjectMapper
 import SVProgressHUD
 
 class ChooseSchoolController: ViewController {
-    var tableView:UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchText: UITextField!
+    @IBOutlet weak var placeHolderImage: UIImageView!
+    @IBOutlet weak var placeHolderText: UILabel!
+    
     var chooseBlock:((CollegeModel?)->Void)?
     var dataArray:[CollegeModel]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "选择学校"
-        var frame = self.view.bounds
-        frame.size.height -= 64
-        self.tableView = UITableView(frame: frame)
-        self.view.addSubview(self.tableView)
         self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "CollegeCell", bundle: nil), forCellReuseIdentifier: "CollegeCell")
         dataArray = [CollegeModel]()
         self.requestData()
+        self.searchText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
+//        self.searchText.delegate = self
     }
     
     
@@ -39,6 +42,11 @@ class ChooseSchoolController: ViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @IBAction func dealCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     func requestData(){
         let moyaProvider = MoyaProvider<LiMiAPI>()
@@ -119,7 +127,15 @@ extension ChooseSchoolController:UITableViewDelegate,UITableViewDataSource{
         if let chooseBlock = self.chooseBlock{
             chooseBlock(self.dataArray[indexPath.row])
         }
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
+extension ChooseSchoolController{
+    @objc func textFieldValueChanged(textField:UITextField){
+        let isTextFieldEmpty = IsEmpty(textField: textField)
+        self.placeHolderImage.isHidden = !isTextFieldEmpty
+        self.placeHolderText.isHidden = !isTextFieldEmpty
+        print("开始执行搜索")
+    }
+}

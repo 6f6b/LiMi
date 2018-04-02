@@ -71,6 +71,9 @@ class LoginController: ViewController {
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
+//        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+//        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+//        return
 //        var name:String?
 //        print(name!)
         self.errorMsg.isHidden = true

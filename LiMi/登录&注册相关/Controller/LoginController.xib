@@ -151,7 +151,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0G-SZ-8rW">
-                                            <rect key="frame" x="120.5" y="396" width="135" height="67"/>
+                                            <rect key="frame" x="50.5" y="396" width="275" height="69"/>
                                             <state key="normal" image="login_btn"/>
                                             <connections>
                                                 <action selector="dealLogIn:" destination="-1" eventType="touchUpInside" id="5Dn-43-QlO"/>
@@ -244,6 +244,6 @@
     <resources>
         <image name="close" width="12" height="12"/>
         <image name="dl_img" width="103" height="70"/>
-        <image name="login_btn" width="135" height="67"/>
+        <image name="login_btn" width="275" height="69"/>
     </resources>
 </document>

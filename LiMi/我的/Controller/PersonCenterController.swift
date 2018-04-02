@@ -132,8 +132,8 @@ class PersonCenterController: UITableViewController {
         //0 ：未认证   1：认证中  2：认证完成  3：认证失败
         if let identityStatus = identityStatus{
             if identityStatus == 0{
-                let identityAuthInfoWithSexAndNameController = GetViewControllerFrom(sbName: .personalCenter, sbID: "IdentityAuthInfoWithSexAndNameController") as! IdentityAuthInfoWithSexAndNameController
-                self.navigationController?.pushViewController(identityAuthInfoWithSexAndNameController, animated: true)
+                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                 return
             }
             if identityStatus == 1{

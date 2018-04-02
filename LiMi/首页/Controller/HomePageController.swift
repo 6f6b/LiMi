@@ -90,27 +90,59 @@ class HomePageController: ViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
+        //检测是否登录
         if let _ = Defaults[.userToken],let _ = Defaults[.userId]{
+            //已登录
             //如果本地没有 性别信息、认证状态信息，则重新请求个人信息
-            if let _ = Defaults[.userSex],let _ = Defaults[.userCertificationState]{
-            }else{
+            if Defaults[.userSex] == nil || Defaults[.userCertificationState] == nil{
                 self.requestUserInfoData()
             }
+            
+            //认证信息
+            if Defaults[.userCertificationState] == 0{
+                self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+                //还未提醒过没认证
+                if Defaults[.isMindedNotAuthenticated] != true{
+                    let popViewForUnAuthenticated = PopViewForUnAuthenticated.init(frame: SCREEN_RECT)
+                    popViewForUnAuthenticated.tapRightBlock = {[unowned self] () in
+                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+                    }
+                    popViewForUnAuthenticated.show()
+                    Defaults[.isMindedNotAuthenticated] = true
+                }
+            }
+            if Defaults[.userCertificationState] == 1{
+                self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+            }
+            if Defaults[.userCertificationState] == 2{
+                self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
+            }
+            if Defaults[.userCertificationState] == 3{
+                self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+                //还未提醒过认证失败
+                if Defaults[.isMindedAuthenticatedFailed] != true{
+                    let popViewForAuthenticateFaild = PopViewForAuthenticateFaild.init(frame: SCREEN_RECT)
+                    popViewForAuthenticateFaild.tapRightBlock = {[unowned self] () in
+                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+                    }
+                    popViewForAuthenticateFaild.show()
+                    Defaults[.isMindedAuthenticatedFailed] = true
+                }
+            }
+        }else{
+            //未登录
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
 
-        if Defaults[.userCertificationState] != 2 || Defaults[.userId] == nil{
-            self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
-        }else{
-            self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
-        }
 
         if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
             let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
             systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
         
-        if NIMSDK.shared().loginManager.isLogined(){
-        }else{
+        if !NIMSDK.shared().loginManager.isLogined(){
             AppManager.shared.autoLoginIM()
         }
     }

@@ -368,7 +368,7 @@ class TrendsCell: UITableViewCell {
     func configWith(model:TrendModel?,tableView:UITableView?,indexPath:IndexPath?){
 //        self.tableView = tableView
 //        self.indexPath = indexPath
-        self.configWith(model: model)
+        //self.configWith(model: model)
     }
     
     func configWith(model:TrendModel?){

@@ -177,8 +177,10 @@ extension TopicCircleController:UITableViewDelegate,UITableViewDataSource{
         //点击头像
         topicCircleCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
             let userDetailsController = UserDetailsController()
-            userDetailsController.userId = self.dataArray[indexPath.row].user_id!
-            self.navigationController?.pushViewController(userDetailsController, animated: true)
+            if let userId = self.dataArray[indexPath.row].user_id{
+                userDetailsController.userId = userId
+                self.navigationController?.pushViewController(userDetailsController, animated: true)
+            }
         }
         topicCircleCell.trendsTopToolsContainView.tapMoreOperationBtnBlock = {[unowned self] btn in
             let actionNotInterestion = SuspensionMenuAction.init(title: "不感兴趣", action: {

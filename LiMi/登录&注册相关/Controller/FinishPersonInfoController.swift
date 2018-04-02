@@ -15,8 +15,8 @@ import Kingfisher
 
 class FinishPersonInfoController: ViewController {
     @IBOutlet weak var realName: UITextField!
-    @IBOutlet weak var girlPreImg: UIImageView!
-    @IBOutlet weak var boyPreImg: UIImageView!
+    @IBOutlet weak var boyBtn: UIButton!
+    @IBOutlet weak var girlBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var headImgBtn: UIButton!
     var imagePickerVc:TZImagePickerController?
@@ -38,14 +38,14 @@ class FinishPersonInfoController: ViewController {
     
     //选择男性
     @IBAction func dealSelectBoy(_ sender: Any) {
-        self.boyPreImg.isHidden = false
-        self.girlPreImg.isHidden = true
+        self.girlBtn.isSelected = false
+        self.boyBtn.isSelected = true
     }
     
     //选择女性
     @IBAction func dealSelectGirl(_ sender: Any) {
-        self.boyPreImg.isHidden = true
-        self.girlPreImg.isHidden = false
+        self.girlBtn.isSelected = true
+        self.boyBtn.isSelected = false
     }
     
     @IBAction func dealTapHeadImg(_ sender: Any) {
@@ -97,7 +97,7 @@ class FinishPersonInfoController: ViewController {
     //下一步
     @IBAction func dealTapNext(_ sender: Any) {
         //判断是否选择了性别
-        if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
+        if self.boyBtn.isSelected == false && self.girlBtn.isSelected == false{
             Toast.showErrorWith(msg: "请选择性别")
             return
         }
@@ -108,7 +108,7 @@ class FinishPersonInfoController: ViewController {
         }
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
-        let sex = self.girlPreImg.isHidden ? 1:0
+        let sex = self.boyBtn.isSelected ? 1:0
         let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id, token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: registerFinishNameAndSex)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)

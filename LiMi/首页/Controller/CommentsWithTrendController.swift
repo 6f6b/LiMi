@@ -397,6 +397,7 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
                 let model = self.trendModel
                 catchRedPacketView.showWith(trendModel: model)
             }
+            trendsCell.configWith(model: model)
             return trendsCell
         }
         if indexPath.section == 1{

@@ -45,7 +45,6 @@ class TopicListController: ViewController {
         registerTrendsCellFor(tableView: self.tableView)
         tableView.register(UINib.init(nibName: "TopicCircleSummaryCell", bundle: nil), forCellReuseIdentifier: "TopicCircleSummaryCell")
         tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
-        self.loadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostTopicSuccess), name: POST_TOPIC_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_TOPIC_MORE_OPERATION, object: nil)
@@ -66,6 +65,9 @@ class TopicListController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        if self.dataArray.count == 0{
+            self.loadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,10 +82,11 @@ class TopicListController: ViewController {
     }
     
     func loadData(){
+        
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let type = self.topicType == .hottest ? "hot" : "new"
-        
+        print(type)
         let oneTopicList = OneTopicList(page: pageIndex, topic_id: self.topicCircleModel?.id, type: type)
         _ = moyaProvider.rx.request(.targetWith(target: oneTopicList)).subscribe(onSuccess: { (response) in
             let topicsContainModel = Mapper<TopicsContainModel>().map(jsonData: response.data)
@@ -94,12 +97,16 @@ class TopicListController: ViewController {
                 for trendModel in trendModels{
                     self.dataArray.append(trendModel)
                 }
-                if trendModels.count > 0 {self.tableView.reloadData()}
+                if trendModels.count > 0 {
+                    self.tableView.reloadData()
+                }
             }
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
-                if self.dataArray.count == 0{self.tableView.reloadData()}
+                if self.dataArray.count == 0{
+                    self.tableView.reloadData()
+                }
             }
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
@@ -110,7 +117,9 @@ class TopicListController: ViewController {
             if self.tableView.emptyDataSetDelegate == nil{
                 self.tableView.emptyDataSetDelegate = self
                 self.tableView.emptyDataSetSource = self
-                if self.dataArray.count == 0{self.tableView.reloadData()}
+                if self.dataArray.count == 0{
+                    self.tableView.reloadData()
+                }
             }
             Toast.showErrorWith(msg: error.localizedDescription)
         })
@@ -218,7 +227,9 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("重新返回CELL")
         if indexPath.section == 0{
+            print("话题简介")
             let topicCircleSummaryCell = tableView.dequeueReusableCell(withIdentifier: "TopicCircleSummaryCell", for: indexPath) as! TopicCircleSummaryCell
             topicCircleSummaryCell.configWith(model: self.topicsContainModel)
             return topicCircleSummaryCell
@@ -226,7 +237,7 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 1{
             if self.dataArray.count != 0{
                 let trendModel = self.dataArray[indexPath.row]
-                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel, trendsCellStyle: .inTopicList)
+                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel, trendsCellStyle: .normal)
                 //完善相关block
                 //点击头像
                 topicCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
@@ -275,7 +286,9 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
                     commentsWithTrendController.trendModel = self.dataArray[indexPath.row]
                     self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
                 }
-                topicCell.configWith(model: trendModel, tableView: tableView, indexPath: indexPath)
+                topicCell.configWith(model: trendModel)
+                //topicCell.configWith(model: trendModel, tableView: tableView, indexPath: indexPath)
+                print("执行--------")
                 return topicCell
             }else{
                 let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell

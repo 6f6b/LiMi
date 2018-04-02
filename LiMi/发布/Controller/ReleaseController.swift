@@ -79,7 +79,6 @@ class ReleaseController: ViewController {
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
 //            self.imagePickerVc?.autoDismiss = false
             self.imagePickerVc?.allowPickingGif = true
-            
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
@@ -340,7 +339,6 @@ class ReleaseController: ViewController {
     }
     
     @objc func dealRelease(){
-        //一个六边形作为一个对象，这个六边型对象具有一个方法，drawSixHexagonWith(枚举,代表六个边)，递归执行下去，碰到屏幕边缘和其他六边形做相应判断，
         Toast.showStatusWith(text: nil)
         self.releaseContentTextInputCell.contentText.resignFirstResponder()
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)

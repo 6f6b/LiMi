@@ -61,12 +61,12 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: NAVIGATION_BAR_SEPARATE_LINE_HEIGHT), color: NAVIGATION_BAR_SEPARATE_COLOR)
 
-        let notNowBtn = UIButton.init(type: .custom)
-        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
-        notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
-        notNowBtn.sizeToFit()
-        notNowBtn.addTarget(self, action: #selector(dealNotNow), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem?.customView = notNowBtn
+//        let notNowBtn = UIButton.init(type: .custom)
+//        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
+//        notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
+//        notNowBtn.sizeToFit()
+//        notNowBtn.addTarget(self, action: #selector(dealNotNow), for: .touchUpInside)
+//        self.navigationItem.leftBarButtonItem?.customView = notNowBtn
     }
     
     deinit {

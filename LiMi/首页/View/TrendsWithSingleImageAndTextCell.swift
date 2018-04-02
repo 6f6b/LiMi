@@ -9,7 +9,7 @@
 import UIKit
 import SKPhotoBrowser
 import Kingfisher
-
+public let defaultCacheSerializer  = DefaultCacheSerializer.default
 class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
     var singleImageView:UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -70,19 +70,22 @@ class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
     override func configWith(model: TrendModel?, tableView: UITableView?, indexPath: IndexPath?) {
         self.tableView = tableView
         self.indexPath = indexPath
-        if let _model = model{
-            print(_model.cachedPic)
-            if _model.cachedPic{
-                self.refreshWith(model: model)
-            }else{
+        //查看本地是否缓存
+        //缓存则直接配置
+        //没缓存则加载，完成并刷新
+        if let _url = model?.action_pic?.first{
+            if let _ = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: "\(_url)"){
+                print("\(_url)：已存储，稍后刷新数据")
                 self.configWith(model: model)
+            }else{
+                print("\(_url)：没存储，稍后加载")
+                self.configAndLoadWith(model: model)
             }
         }
+
     }
     
-    override func configWith(model: TrendModel?) {
-        print("配置-----》\(model?.action_id)")
-
+    func configAndLoadWith(model:TrendModel?){
         super.configWith(model: model)
         self.singleImageView.snp.remakeConstraints {[unowned self] (make) in
             make.top.equalTo(self.contentText.snp.bottom).offset(5)
@@ -91,11 +94,7 @@ class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
             make.right.equalTo(self.trendsContentContainView)
         }
         let url = model?.action_pic?.first
-        self.singleImageView.kf.setImage(with: URL.init(string: url!), placeholder: nil, options: nil, progressBlock: nil) {[unowned self] (image, error, cacheType, url) in
-            model?.cachedPic = true
-            if let _tableView = self.tableView,let _indexPath = self.indexPath{
-                _tableView.reloadRows(at: [_indexPath], with: .none)
-            }
+        self.singleImageView.kf.setImage(with: URL.init(string: url!), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
             let imageViewWidth = SCREEN_WIDTH
             var imageViewHeight = CGFloat(0)
             if let size = image?.size{
@@ -113,14 +112,39 @@ class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
                 make.height.equalTo(imageViewHeight)
                 make.width.equalTo(imageViewWidth)
             })
+            
+            //保存到磁盘
+            if let _image = image,let _url = url{
+                KingfisherManager.shared.cache.store(_image, original: nil, forKey: "\(_url)", processorIdentifier: "\(_url)", cacheSerializer: defaultCacheSerializer, toDisk: true, completionHandler: {
+                    if let _ = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: "\(_url)"){
+                        print("\(_url)：已存储到memory")
+                        if let _tableView = self.tableView,let _indexPath = self.indexPath{
+//                            _tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+                            DispatchQueue.main.async {
+//                                _tableView.reloadData()
+                                _tableView.reloadRows(at: [_indexPath], with: .none)
+
+                            }
+                            print("BLOCK执行刷新")
+                        }
+                    }else{
+                        print("\(_url)：还未存储到memory")
+                        
+                    }
+                    if let _ = KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: "\(url!)"){
+                        print("\(_url)：已存储到disk")
+                        
+                    }else{
+                        print("\(_url)：还未存储到disk")
+                        
+                    }
+                })
+            }
         }
     }
     
-    
-    func refreshWith(model:TrendModel?){
-        print("刷新-----》\(model?.action_id)")
+    override func configWith(model: TrendModel?) {
         super.configWith(model: model)
-        
         self.singleImageView.snp.remakeConstraints {[unowned self] (make) in
             make.top.equalTo(self.contentText.snp.bottom).offset(5)
             make.left.equalTo(self.trendsContentContainView)
@@ -148,5 +172,6 @@ class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
             })
         }
     }
+    
 }
 

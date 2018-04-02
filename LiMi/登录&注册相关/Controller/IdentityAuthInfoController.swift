@@ -10,12 +10,23 @@ import UIKit
 import Moya
 import SVProgressHUD
 import ObjectMapper
+import TZImagePickerController
 
 class IdentityAuthInfoController: UITableViewController {
+    
+    @IBOutlet weak var trueName: UITextField!
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
     @IBOutlet weak var grade: UILabel!
+    
+    @IBOutlet weak var certificateImage: UIImageView!
+    @IBOutlet weak var authenticationBtn: UIButton!
+    
+    ///证件图片链接
+    var certificateImageUrl:String? = "hehe"
+    
+    var imagePickerVC:TZImagePickerController?
     
     var collegeModel:CollegeModel?
     var academyModel:AcademyModel?
@@ -29,19 +40,16 @@ class IdentityAuthInfoController: UITableViewController {
         self.title = "学生认证"
         self.tableView.estimatedRowHeight = 1000
         self.tableView.estimatedSectionHeaderHeight = 100
-        self.tableView.backgroundColor = UIColor.white
         
-        let sumbitBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "提交", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
-        sumbitBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
-        sumbitBtn.sizeToFit()
-        sumbitBtn.addTarget(self, action: #selector(dealSumbit), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: sumbitBtn)
         
         self.school.text = nil
         self.academy.text = nil
         self.grade.text = nil
 
+        self.authenticationBtn.layer.cornerRadius = 20
+        self.authenticationBtn.clipsToBounds = true
+        
+        self.trueName.addTarget(self, action: #selector(textFieldChanged(textField:)), for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,12 +62,12 @@ class IdentityAuthInfoController: UITableViewController {
         self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: NAVIGATION_BAR_SEPARATE_LINE_HEIGHT), color: NAVIGATION_BAR_SEPARATE_COLOR)
 
         
-        let notNowBtn = UIButton.init(type: .custom)
-        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
-        notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
-        notNowBtn.sizeToFit()
-        notNowBtn.addTarget(self, action: #selector(dealNotNow), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem?.customView = notNowBtn
+//        let notNowBtn = UIButton.init(type: .custom)
+//        let notNowAttributeTitle = NSAttributedString.init(string: "暂不", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
+//        notNowBtn.setAttributedTitle(notNowAttributeTitle, for: .normal)
+//        notNowBtn.sizeToFit()
+//        notNowBtn.addTarget(self, action: #selector(dealNotNow), for: .touchUpInside)
+//        self.navigationItem.leftBarButtonItem?.customView = notNowBtn
     }
     
     deinit {
@@ -70,7 +78,40 @@ class IdentityAuthInfoController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
-    //提交
+    //MARK:  - misc
+    
+    func refreshCertificationBtn(){
+        if IsEmpty(textField: self.trueName) || self.collegeModel == nil || self.academyModel == nil || self.gradeModel == nil || self.certificateImageUrl == nil{
+            self.authenticationBtn.backgroundColor = RGBA(r: 153, g: 153, b: 153, a: 1)
+            self.authenticationBtn.isUserInteractionEnabled = false
+        }else{
+            self.authenticationBtn.backgroundColor = APP_THEME_COLOR
+            self.authenticationBtn.isUserInteractionEnabled = true
+        }
+    }
+    
+    //选择证件图片
+    @IBAction func dealTochooseCertificateImage(_ sender: Any) {
+        self.imagePickerVC = TZImagePickerController.init()
+        self.imagePickerVC?.maxImagesCount = 1
+        self.imagePickerVC?.allowPickingGif = false
+        self.imagePickerVC?.allowPickingVideo = false
+        //self.imagePickerVC?.autoDismiss = true
+        self.imagePickerVC?.didFinishPickingPhotosHandle = {[unowned self] (imgs,datas,bool) in
+            if let img = imgs?.first{
+                self.certificateImage.image = img
+            }
+            self.imagePickerVC?.dismiss(animated: true, completion: nil)
+            self.refreshCertificationBtn()
+        }
+        self.present(self.imagePickerVC!, animated: true, completion: nil)
+    }
+    
+    //提交认证
+    @IBAction func dealToAuthenticate(_ sender: Any) {
+        
+    }
+    
     @objc func dealSumbit(){
         if(self.collegeModel == nil){
             //显示错误警告
@@ -110,15 +151,17 @@ class IdentityAuthInfoController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        if section == 0{return 4}
+        if section == 1{return 1}
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 3{return UITableViewAutomaticDimension}
+        if indexPath.section == 1{return UITableViewAutomaticDimension}
         return 54
     }
     
@@ -140,19 +183,22 @@ class IdentityAuthInfoController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 && self.isShowNotice{return UITableViewAutomaticDimension}
+        if section == 1{return 7}
         return 0.001
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0{
-            self.toChooseCollege()
-        }
-        if indexPath.row == 1{
-            self.toChooseAcademy()
-        }
-        if indexPath.row == 2{
-            self.toChooseGrade()
+        if indexPath.section == 0{
+            if indexPath.row == 1{
+                self.toChooseCollege()
+            }
+            if indexPath.row == 2{
+                self.toChooseAcademy()
+            }
+            if indexPath.row == 3{
+                self.toChooseGrade()
+            }
         }
     }
 
@@ -166,8 +212,9 @@ extension IdentityAuthInfoController{
             self.collegeModel = collegeModel
             self.academyModel = nil
             self.academy.text = nil
+            self.refreshCertificationBtn()
         }
-        self.navigationController?.pushViewController(chooseSchoolController, animated: true)
+        self.present(chooseSchoolController, animated: true, completion: nil)
     }
     
     func toChooseAcademy(){
@@ -177,6 +224,7 @@ extension IdentityAuthInfoController{
             chooseAcademyController.chooseAcademyBlock = {[unowned self] (academyModel) in
                 self.academy.text = academyModel?.name
                 self.academyModel = academyModel
+                self.refreshCertificationBtn()
             }
             self.navigationController?.pushViewController(chooseAcademyController, animated: true)
         }else{
@@ -189,7 +237,14 @@ extension IdentityAuthInfoController{
         chooseGradeController.chooseGradeBlock = {[unowned self] (gradeModel) in
             self.grade.text = gradeModel?.name
             self.gradeModel = gradeModel
+            self.refreshCertificationBtn()
         }
         self.navigationController?.pushViewController(chooseGradeController, animated: true)
+    }
+}
+
+extension IdentityAuthInfoController{
+    @objc func textFieldChanged(textField:UITextField){
+        self.refreshCertificationBtn()
     }
 }

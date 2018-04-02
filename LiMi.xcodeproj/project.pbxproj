@@ -688,7 +688,6 @@
 		689DF7B72004A319007FAE9C /* IdentityAuthInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */; };
 		689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */; };
 		689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */; };
-		689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */; };
 		689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 689DF7C22005EBB6007FAE9C /* PersonalCenter.storyboard */; };
 		689DF7C52005EE1F007FAE9C /* PersonCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7C42005EE1F007FAE9C /* PersonCenterController.swift */; };
 		689DF7C72005F9C4007FAE9C /* PersonInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DF7C62005F9C4007FAE9C /* PersonInfoController.swift */; };
@@ -705,6 +704,15 @@
 		689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA372008B728007FAE9C /* AcademyContainerModel.swift */; };
 		689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */; };
 		689DFA3C2008BC6F007FAE9C /* GradeContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */; };
+		68A3EDFE206D01BD00BD3097 /* TopicListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EDFD206D01BD00BD3097 /* TopicListTableView.swift */; };
+		68A3EE01206DEE7600BD3097 /* ChooseSchoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EDFF206DEE7600BD3097 /* ChooseSchoolController.swift */; };
+		68A3EE02206DEE7600BD3097 /* ChooseSchoolController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68A3EE00206DEE7600BD3097 /* ChooseSchoolController.xib */; };
+		68A3EE09206E16CC00BD3097 /* PopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE08206E16CC00BD3097 /* PopView.swift */; };
+		68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE0A206E170300BD3097 /* PopViewForUnAuthenticated.swift */; };
+		68A3EE0F206E1F8200BD3097 /* PopViewForAuthenticateFaild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE0E206E1F8200BD3097 /* PopViewForAuthenticateFaild.swift */; };
+		68A3EE11206E33D600BD3097 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */; };
+		68A3EE13206E373B00BD3097 /* FileUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE12206E373B00BD3097 /* FileUploadManager.swift */; };
+		68A3EE15206E377700BD3097 /* VideoUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3EE14206E377700BD3097 /* VideoUploadManager.swift */; };
 		68A90895206A2E2E00AE4362 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A90894206A2E2E00AE4362 /* libBaiduMobStat.a */; };
 		68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A908AC206B829A00AE4362 /* TrendsWithSingleImageCell.swift */; };
 		68A908B1206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A908B0206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift */; };
@@ -1817,7 +1825,6 @@
 		689DF7B62004A319007FAE9C /* IdentityAuthInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoHeaderView.swift; sourceTree = "<group>"; };
 		689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthStateController.swift; sourceTree = "<group>"; };
 		689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityAuthStateController.xib; sourceTree = "<group>"; };
-		689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSchoolController.swift; sourceTree = "<group>"; };
 		689DF7C22005EBB6007FAE9C /* PersonalCenter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalCenter.storyboard; sourceTree = "<group>"; };
 		689DF7C42005EE1F007FAE9C /* PersonCenterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterController.swift; sourceTree = "<group>"; };
 		689DF7C62005F9C4007FAE9C /* PersonInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfoController.swift; sourceTree = "<group>"; };
@@ -2125,6 +2132,15 @@
 		689DFA372008B728007FAE9C /* AcademyContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademyContainerModel.swift; sourceTree = "<group>"; };
 		689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGradeController.swift; sourceTree = "<group>"; };
 		689DFA3B2008BC6F007FAE9C /* GradeContainerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeContainerModel.swift; sourceTree = "<group>"; };
+		68A3EDFD206D01BD00BD3097 /* TopicListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableView.swift; sourceTree = "<group>"; };
+		68A3EDFF206DEE7600BD3097 /* ChooseSchoolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSchoolController.swift; sourceTree = "<group>"; };
+		68A3EE00206DEE7600BD3097 /* ChooseSchoolController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseSchoolController.xib; sourceTree = "<group>"; };
+		68A3EE08206E16CC00BD3097 /* PopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopView.swift; sourceTree = "<group>"; };
+		68A3EE0A206E170300BD3097 /* PopViewForUnAuthenticated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewForUnAuthenticated.swift; sourceTree = "<group>"; };
+		68A3EE0E206E1F8200BD3097 /* PopViewForAuthenticateFaild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewForAuthenticateFaild.swift; sourceTree = "<group>"; };
+		68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
+		68A3EE12206E373B00BD3097 /* FileUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadManager.swift; sourceTree = "<group>"; };
+		68A3EE14206E377700BD3097 /* VideoUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUploadManager.swift; sourceTree = "<group>"; };
 		68A90893206A2E2C00AE4362 /* BaiduMobStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobStat.h; sourceTree = "<group>"; };
 		68A90894206A2E2E00AE4362 /* libBaiduMobStat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobStat.a; sourceTree = "<group>"; };
 		68A908AC206B829A00AE4362 /* TrendsWithSingleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithSingleImageCell.swift; sourceTree = "<group>"; };
@@ -4410,6 +4426,7 @@
 				681C959A2045366E009CDE3B /* TopicListContainController.swift */,
 				681C959B2045366E009CDE3B /* TopicListController.swift */,
 				681C959C2045366E009CDE3B /* TopicListController.xib */,
+				68A3EDFD206D01BD00BD3097 /* TopicListTableView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4643,6 +4660,7 @@
 		6888085B200DF0F100BC6AE9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				68A3EE03206E162C00BD3097 /* PopViews */,
 				689D53F7202AD74B009C771C /* utilities */,
 				6888089D200F1E0300BC6AE9 /* Libs */,
 				68880896200DF52200BC6AE9 /* Globals */,
@@ -4803,6 +4821,9 @@
 				6801E0DB202D4FDF00C106E1 /* AppManager.swift */,
 				681C95CE204553F5009CDE3B /* LocationManager.swift */,
 				68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */,
+				68A3EE12206E373B00BD3097 /* FileUploadManager.swift */,
+				68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */,
+				68A3EE14206E377700BD3097 /* VideoUploadManager.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -5083,7 +5104,8 @@
 				689DF7B020049FF3007FAE9C /* IdentityAuthInfoController.swift */,
 				689DF7B82004ACE9007FAE9C /* IdentityAuthStateController.swift */,
 				689DF7B92004ACE9007FAE9C /* IdentityAuthStateController.xib */,
-				689DF7C02004C79E007FAE9C /* ChooseSchoolController.swift */,
+				68A3EDFF206DEE7600BD3097 /* ChooseSchoolController.swift */,
+				68A3EE00206DEE7600BD3097 /* ChooseSchoolController.xib */,
 				689DFA352008B6DF007FAE9C /* ChooseAcademyController.swift */,
 				689DFA392008BB2C007FAE9C /* ChooseGradeController.swift */,
 			);
@@ -5127,6 +5149,16 @@
 			name = "网络请求相关";
 			path = "LiMi/Misc/网络请求相关";
 			sourceTree = SOURCE_ROOT;
+		};
+		68A3EE03206E162C00BD3097 /* PopViews */ = {
+			isa = PBXGroup;
+			children = (
+				68A3EE08206E16CC00BD3097 /* PopView.swift */,
+				68A3EE0A206E170300BD3097 /* PopViewForUnAuthenticated.swift */,
+				68A3EE0E206E1F8200BD3097 /* PopViewForAuthenticateFaild.swift */,
+			);
+			path = PopViews;
+			sourceTree = "<group>";
 		};
 		68A90892206A2E2400AE4362 /* 百度统计 */ = {
 			isa = PBXGroup;
@@ -5275,6 +5307,7 @@
 				6801E09D202C6EA900C106E1 /* NTESLogViewController.xib in Resources */,
 				6801E09F202C6EA900C106E1 /* NTESNetDetectViewController.xib in Resources */,
 				688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */,
+				68A3EE02206DEE7600BD3097 /* ChooseSchoolController.xib in Resources */,
 				6862E5262019BC130058B878 /* keyboard_btn_delete@3x.png in Resources */,
 				6825486320157CFF0033410A /* TagCollectionCell.xib in Resources */,
 				6801E0D4202C6EA900C106E1 /* README.txt in Resources */,
@@ -5532,6 +5565,7 @@
 				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
 				6801DFF7202C6EA800C106E1 /* NSDictionary+NTESJson.m in Sources */,
 				6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */,
+				68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */,
 				688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */,
 				6801E022202C6EA900C106E1 /* NTESChatroomMessageDataProvider.m in Sources */,
 				6801E0B5202C6EA900C106E1 /* NTESDemoFetchChatroomTask.m in Sources */,
@@ -5561,6 +5595,7 @@
 				681C96062047E0FD009CDE3B /* iCarousel.m in Sources */,
 				6801DFE3202C6EA800C106E1 /* NIMKitRobotTemplate.m in Sources */,
 				6801E038202C6EA900C106E1 /* NTESContactAddFriendViewController.m in Sources */,
+				68A3EE01206DEE7600BD3097 /* ChooseSchoolController.swift in Sources */,
 				68880884200DF19300BC6AE9 /* test.swift in Sources */,
 				688808FC2011A78F00BC6AE9 /* ReleaseContentTextInputCell.swift in Sources */,
 				6801DFCA202C6EA800C106E1 /* NIMCardMemberItem.m in Sources */,
@@ -5747,6 +5782,7 @@
 				6801DF78202C6EA800C106E1 /* NIMKitDataProviderImpl.m in Sources */,
 				6801E065202C6EA900C106E1 /* NTESMediaPreviewViewController.m in Sources */,
 				6801E02A202C6EA900C106E1 /* NTESLiveBroadcastView.m in Sources */,
+				68A3EE0F206E1F8200BD3097 /* PopViewForAuthenticateFaild.swift in Sources */,
 				689D538B20280595009C771C /* NSString+MD5.m in Sources */,
 				6801DFD1202C6EA800C106E1 /* NIMNormalTeamCardViewController.m in Sources */,
 				6801E059202C6EA900C106E1 /* NTESSessionRedPacketTipContentView.m in Sources */,
@@ -5764,7 +5800,6 @@
 				6801E067202C6EA900C106E1 /* NTESSessionPeekViewController.m in Sources */,
 				681C95E92047A5D5009CDE3B /* WeekendTourSeparateCell.swift in Sources */,
 				6801E03F202C6EA900C106E1 /* NTESRegisterViewController.m in Sources */,
-				689DF7C12004C79E007FAE9C /* ChooseSchoolController.swift in Sources */,
 				6801E0B2202C6EA900C106E1 /* NTESSettingPortraitCell.m in Sources */,
 				6801DFF9202C6EA800C106E1 /* UIActionSheet+NTESBlock.m in Sources */,
 				6801E02E202C6EA900C106E1 /* NTESCustomSysNotificationSender.m in Sources */,
@@ -5791,6 +5826,7 @@
 				6801DF88202C6EA800C106E1 /* NIMContactDataCell.m in Sources */,
 				6862E5292019BC130058B878 /* STEmoji.m in Sources */,
 				68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */,
+				68A3EE15206E377700BD3097 /* VideoUploadManager.swift in Sources */,
 				6801DFE2202C6EA800C106E1 /* NIMKitRobotDefaultTemplateParser.m in Sources */,
 				6801E096202C6EA900C106E1 /* NTESMutiClientsHeaderView.m in Sources */,
 				6801DFC4202C6EA800C106E1 /* NIMSessionUnknowContentView.m in Sources */,
@@ -5918,8 +5954,10 @@
 				6801E01B202C6EA900C106E1 /* NTESTeamListViewController.m in Sources */,
 				6801E080202C6EA900C106E1 /* common.c in Sources */,
 				6801E08C202C6EA900C106E1 /* ijksdl_timer.c in Sources */,
+				68A3EE13206E373B00BD3097 /* FileUploadManager.swift in Sources */,
 				6801DF83202C6EA800C106E1 /* NIMKitNotificationFirer.m in Sources */,
 				6801DF80202C6EA800C106E1 /* NIMCustomLeftBarView.m in Sources */,
+				68A3EE09206E16CC00BD3097 /* PopView.swift in Sources */,
 				6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				6801E086202C6EA900C106E1 /* renderer_rgb.c in Sources */,
@@ -5962,8 +6000,10 @@
 				6801DF94202C6EA800C106E1 /* NIMInputEmoticonButton.m in Sources */,
 				6801E056202C6EA900C106E1 /* NTESSessionChartletContentView.m in Sources */,
 				6801DFCC202C6EA800C106E1 /* NIMTeamCardRowItem.m in Sources */,
+				68A3EE11206E33D600BD3097 /* ImageUploadManager.swift in Sources */,
 				688809142011E64000BC6AE9 /* RechargeController.swift in Sources */,
 				6801E02B202C6EA900C106E1 /* NTESLiveMasterInfoView.m in Sources */,
+				68A3EDFE206D01BD00BD3097 /* TopicListTableView.swift in Sources */,
 				6801E052202C6EA900C106E1 /* NTESSearchLocalHistoryObject.m in Sources */,
 				6801E091202C6EA900C106E1 /* NTESTeamMeetingMuteCell.m in Sources */,
 				6835824C201EC6A000798462 /* SkillModel.swift in Sources */,

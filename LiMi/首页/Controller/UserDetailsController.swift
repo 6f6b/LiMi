@@ -288,6 +288,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                     let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
                     catchRedPacketView.showWith(trendModel: model)
                 }
+                trendsCell.configWith(model: model)
                 return trendsCell
             }
             if dataArray.count == 0{

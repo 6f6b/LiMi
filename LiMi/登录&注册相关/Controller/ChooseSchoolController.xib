@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChooseSchoolController" customModule="LiMi" customModuleProvider="target">
+            <connections>
+                <outlet property="placeHolderImage" destination="djY-8O-yAy" id="AGB-ea-hSN"/>
+                <outlet property="placeHolderText" destination="2Qd-oI-FXN" id="D2z-ZZ-fct"/>
+                <outlet property="searchText" destination="pF4-eV-Vy9" id="BUp-WN-b8j"/>
+                <outlet property="tableView" destination="Nlp-IK-GJu" id="p9v-T3-UnV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-5x-RQX">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52P-ZT-pH8">
+                            <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdI-js-8A9">
+                                    <rect key="frame" x="15" y="2" width="281" height="40"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_sousuo" translatesAutoresizingMaskIntoConstraints="NO" id="djY-8O-yAy">
+                                            <rect key="frame" x="15" y="9.5" width="21" height="21"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索学校" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qd-oI-FXN">
+                                            <rect key="frame" x="46" y="9" width="69.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pF4-eV-Vy9">
+                                            <rect key="frame" x="15" y="0.0" width="266" height="40"/>
+                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="1Ol-5a-hRa"/>
+                                        <constraint firstItem="djY-8O-yAy" firstAttribute="leading" secondItem="xdI-js-8A9" secondAttribute="leading" constant="15" id="9qg-bl-k3d"/>
+                                        <constraint firstAttribute="bottom" secondItem="pF4-eV-Vy9" secondAttribute="bottom" id="LmK-ih-r6C"/>
+                                        <constraint firstAttribute="trailing" secondItem="pF4-eV-Vy9" secondAttribute="trailing" id="Y1W-4e-qP5"/>
+                                        <constraint firstItem="djY-8O-yAy" firstAttribute="centerY" secondItem="xdI-js-8A9" secondAttribute="centerY" id="bdG-Hh-9UG"/>
+                                        <constraint firstItem="2Qd-oI-FXN" firstAttribute="leading" secondItem="djY-8O-yAy" secondAttribute="trailing" constant="10" id="hIg-wD-MSx"/>
+                                        <constraint firstItem="pF4-eV-Vy9" firstAttribute="leading" secondItem="xdI-js-8A9" secondAttribute="leading" constant="15" id="lVH-Ce-PYr"/>
+                                        <constraint firstItem="2Qd-oI-FXN" firstAttribute="centerY" secondItem="djY-8O-yAy" secondAttribute="centerY" id="nve-xk-dmw"/>
+                                        <constraint firstItem="pF4-eV-Vy9" firstAttribute="top" secondItem="xdI-js-8A9" secondAttribute="top" id="rYp-Pc-a7z"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7F-64-f5p">
+                                    <rect key="frame" x="316" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="zUs-Qx-cFH"/>
+                                    </constraints>
+                                    <state key="normal" title="取消">
+                                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="dealCancel:" destination="-1" eventType="touchUpInside" id="z82-D9-JBC"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="n7F-64-f5p" firstAttribute="leading" secondItem="xdI-js-8A9" secondAttribute="trailing" constant="20" id="BYH-hz-ITT"/>
+                                <constraint firstAttribute="trailing" secondItem="n7F-64-f5p" secondAttribute="trailing" constant="15" id="LZa-fY-xx7"/>
+                                <constraint firstItem="xdI-js-8A9" firstAttribute="centerY" secondItem="52P-ZT-pH8" secondAttribute="centerY" id="V1M-MA-VWF"/>
+                                <constraint firstItem="xdI-js-8A9" firstAttribute="leading" secondItem="52P-ZT-pH8" secondAttribute="leading" constant="15" id="XW2-aL-GqO"/>
+                                <constraint firstItem="n7F-64-f5p" firstAttribute="top" secondItem="52P-ZT-pH8" secondAttribute="top" id="ctb-GO-eGX"/>
+                                <constraint firstItem="n7F-64-f5p" firstAttribute="centerY" secondItem="xdI-js-8A9" secondAttribute="centerY" id="gdu-yi-Hyb"/>
+                                <constraint firstAttribute="bottom" secondItem="n7F-64-f5p" secondAttribute="bottom" id="lnX-V0-9zM"/>
+                                <constraint firstAttribute="height" constant="44" id="onu-ax-QKP"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="52P-ZT-pH8" firstAttribute="leading" secondItem="BIw-5x-RQX" secondAttribute="leading" id="9ZD-2d-B1E"/>
+                        <constraint firstAttribute="trailing" secondItem="52P-ZT-pH8" secondAttribute="trailing" id="V1P-C2-Fu6"/>
+                        <constraint firstAttribute="bottom" secondItem="52P-ZT-pH8" secondAttribute="bottom" id="a0x-0G-wmf"/>
+                        <constraint firstAttribute="height" constant="64" id="qLf-LB-h1s"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nlp-IK-GJu">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BIw-5x-RQX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-20" id="0Jc-0b-1MU"/>
+                <constraint firstItem="BIw-5x-RQX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="42w-VD-tSM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Nlp-IK-GJu" secondAttribute="trailing" id="9yb-pX-E7v"/>
+                <constraint firstItem="Nlp-IK-GJu" firstAttribute="top" secondItem="BIw-5x-RQX" secondAttribute="bottom" id="O31-Wd-Kq1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Nlp-IK-GJu" secondAttribute="bottom" id="Rp2-Zh-WLb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BIw-5x-RQX" secondAttribute="trailing" id="TFw-gC-hT0"/>
+                <constraint firstItem="Nlp-IK-GJu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mgi-eN-yRm"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="login_sousuo" width="21" height="21"/>
+    </resources>
+</document>

@@ -28,4 +28,8 @@ extension DefaultsKeys{
     
     ///是否第一次进入附近的人
     static let isFirstTimeToNearbyPerson = DefaultsKey<Bool?>("isFirstTimeToNearbyPerson")
+    ///是否提醒过没认证
+    static let isMindedNotAuthenticated = DefaultsKey<Bool?>("isMindedNotAuthenticated")
+    ///是否提醒过认证失败
+    static let isMindedAuthenticatedFailed = DefaultsKey<Bool?>("isMindedAuthenticatedFailed")
 }
