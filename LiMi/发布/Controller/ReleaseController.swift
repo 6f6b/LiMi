@@ -85,6 +85,7 @@ class ReleaseController: ViewController {
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
               self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
                 self.videoArr.removeAll()
+//                FileUploadManager.imageUploadManager.uploadImageWith(phAssets: assets as? [PHAsset])
                 self.uploadImgsWith(imgs: photos)
                 self.tableView.reloadData()
                 self.RefreshReleasBtnEnable()

@@ -105,6 +105,7 @@ class ConditionScreeningView: UIView {
     }
 
     @IBAction func dealReset(_ sender: Any) {
+        self.dataArray[1].removeAll()
         for i in 0 ..< 5{
             self.resetWith(section: i)
         }
@@ -162,7 +163,8 @@ class ConditionScreeningView: UIView {
         if selectedModel.isSelected{
             self.selectedModels[indexPath.section] = selectedModel
         }
-        if indexPath.section == 0{self.loadAcademysWith(collegeModel: self.selectedModels[0] as! CollegeModel)}
+        if indexPath.section == 0{
+            self.loadAcademysWith(collegeModel: self.selectedModels[0] as? CollegeModel)}
         self.collectionView.reloadSections([indexPath.section])
     }
     
@@ -187,7 +189,7 @@ class ConditionScreeningView: UIView {
             self.selectedModels[section] = nowSelectedModel
             self.collectionView.reloadSections([section])
         }
-        if section == 0{self.loadAcademysWith(collegeModel: self.selectedModels[0] as! CollegeModel)}
+        if section == 0{self.loadAcademysWith(collegeModel: self.selectedModels[0] as? CollegeModel)}
     }
     
     ///返回最后一个cell显示的model
@@ -202,6 +204,10 @@ class ConditionScreeningView: UIView {
     }
 
     func loadAcademysWith(collegeModel:CollegeModel?){
+        if collegeModel == nil{
+            self.dataArray[1].removeAll()
+            self.collectionView.reloadSections([1])
+        }
         self.selectedModels[1] = nil
         if let _collegeModel = collegeModel{
             if _collegeModel.isSelected{

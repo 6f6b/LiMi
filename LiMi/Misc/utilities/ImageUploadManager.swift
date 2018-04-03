@@ -7,77 +7,129 @@
 //
 
 import UIKit
+import Qiniu
+import QiniuUpload
 
+struct TokenIDModel {
+    var token:String?
+    var Id:Int?
+}
 
 class ImageUploadManager: NSObject {
     private var tempResources = [Any]()
     private var tempImages = [UIImage]()
-    private var tempFilePaths = [String]()
-
+    private var qnUploadManager:QNUploadManager?
+    private var index = 0
+    
+    override init() {
+        super.init()
+        //国内https上传
+        let qnConfig = QNConfiguration.build { (builder) in
+            builder?.setZone(QNFixedZone.zone0())
+        }
+        self.qnUploadManager = QNUploadManager(configuration: qnConfig)
+    }
+    
+    func uploadImageWith(index:Int,token:String,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?){
+        if index >= self.tempImages.count{
+            if let _completionBlock = completionBlock{
+                _completionBlock()
+            }
+            return
+        }
+        let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
+            //Toast.showProgress(flo)
+        }
+        let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
+            return false
+        })
+        let image = self.tempImages[index]
+        let imageData = UIImageJPEGRepresentation(image, 1)
+        let fileKey = imageNameWith(image: image)
+        self.qnUploadManager?.put(imageData!, key: fileKey!, token: token, complete: { (info, str, dic) in
+            if let _successBlock = successBlock{
+                _successBlock(image, str!)
+            }
+        }, option: option)
+    }
     //UIImage
-    func uploadImageWith(image:UIImage?){}
-    func uploadImageWith(images:[UIImage]?){}
+    func uploadImageWith(image:UIImage?,tokenIDModel:TokenIDModel? = nil){
+    }
+    func uploadImageWith(images:[UIImage]?,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?,tokenIDModel:TokenIDModel? = nil){
+        RequestQiNiuUploadToken(type: .picture, onSuccess: { (uploadTokenModel) in
+            self.tempImages.removeAll()
+            self.index = 0
+            if let _images = images{
+                for image in _images{
+                    self.tempImages.append(image)
+                }
+            }
+            self.uploadImageWith(index: self.index, token: (tokenIDModel?.token!)!, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+        }, tokenIDModel: tokenIDModel)
+    }
     //filePath
-    func uploadImageWith(filePath:String?){}
-    func uploadImageWith(filePaths:[String]?){}
+    func uploadImageWith(filePath:String?,tokenIDModel:TokenIDModel? = nil){}
+    func uploadImageWith(filePaths:[String]?,tokenIDModel:TokenIDModel? = nil){}
     //PHAsset
-    func uploadImageWith(phAsset:PHAsset?){
+    func uploadImageWith(phAsset:PHAsset?,tokenIDModel:TokenIDModel? = nil){
         if phAsset == nil{return}
         self.tempResources.removeAll()
         self.tempResources.append(phAsset!)
         
-        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
-            
-        }, id: nil, token: nil)
     }
     
-    func uploadImageWith(phAssets:[PHAsset]?){}
-    //Data
-    func uploadImageWith(data:Data?){}
-    func uploadImageWith(datas:[Data]?){}
-    
-    //MARK: - misc
-//    func uploadImgsWith(imgs:[UIImage?]?){
-//        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
-//            if let _token = tokenModel?.token{
-//                var files = [QiniuFile]()
-//                if let  _imgs = imgs{
-//                    for img in _imgs{
-//                        let filePath = GenerateImgPathlWith(img: img)
-//                        let file = QiniuFile.init(path: filePath!)
-//                        file?.key = uploadFileName(type: .picture)
-//                        files.append(file!)
-//                    }
-//                    let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
-//                    uploader.maxConcurrentNumber = 3
-//                    uploader.files = files
-//                    Toast.showStatusWith(text: "处理中")
-//                    uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
-//                        let imgName = dic["key"] as? String
-//                        var localMediaModel = LocalMediaModel.init()
-//                        localMediaModel.imgName = imgName
-//                        localMediaModel.img = imgs![index]
-//                        self.imgArr.append(localMediaModel)
-//                        print("successIndex\(index)")
-//                        print("successDic\(dic)")
-//                    }, uploadOneFileFailedHandler: { (index, error) in
-//                        print("failedIndex\(index)")
-//                        print("error:\(error?.localizedDescription)")
-//                    }, uploadOneFileProgressHandler: { (index, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
-//                        print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
-//                    }, uploadAllFilesComplete: {
-//                        print("uploadOver")
-//                        Toast.dismiss()
-//                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-//                        self.tableView.reloadData()
-//                        self.RefreshReleasBtnEnable()
-//                    })
-//                }
+    func uploadImageWith(phAssets:[PHAsset]?,tokenIDModel:TokenIDModel? = nil){
+//        RequestQiNiuUploadToken(type: .picture, onSuccess: {[unowned self] (uploadTokenModel) in
+//            guard let _phAssets = phAssets,let _token = uploadTokenModel?.token else{
+//                return
 //            }
-//        }, id: nil, token: nil)
-//    }
+//            for phAsset in _phAssets{
+//                guard let key = self.imageNameWith(image: phAsset) else{return}
+//                let progressBlock:QNUpProgressHandler = {[unowned self] (info,progress) in
+//                    print("info:\(info)-progress:\(progress)")
+//                }
+//                let option = QNUploadOption.init(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false) { () -> Bool in
+//                    return false
+//                }
+//                self.qnUploadManager?.put(phAsset, key: key, token: _token, complete: { (info, str, dic) in
+//                    print(info)
+//                    print(str)
+//                    print(dic)
+//                }, option: option)
+//            }
+//        }, tokenIDModel: tokenIDModel)
+    }
+    //Data
+    func uploadImageWith(data:Data?,tokenIDModel:TokenIDModel? = nil){}
+    func uploadImageWith(datas:[Data]?,tokenIDModel:TokenIDModel? = nil){}
     
     //MARK: - 工具方法
+    ///图片名称
+    func imageNameWith(image:AnyObject?)->String?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyymmdd"
+        let timeStr = dateFormatter.string(from: Date())
+        // 生成 "0000-9999" 4位验证码
+        let num = arc4random() % 10000
+        let randomNumber = String.init(format: "%.4d", num)
+        let timeStampStr = Date().timeIntervalSince1970.stringValue()
+        //图片格式
+        var imageType:String? = ""
+        if let _image = image as? UIImage{
+            imageType = imageTypeWith(image: _image)
+        }
+        if let _image = image as? PHAsset{
+            imageType = imageTypeWith(phAsset: _image)
+        }
+        if let _image = image as? Data{
+            imageType = imageTypeWith(data: _image)
+        }
+        if let _type = imageType{
+            return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).\(_type)"
+        }
+        return nil
+    }
+    
     ///根据UIImage返回图片格式
     func imageTypeWith(image:UIImage?)->String?{
         if image == nil {return nil}

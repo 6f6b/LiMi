@@ -340,7 +340,7 @@ func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)
     if type == .video{
         tokenType = "video"
     }
-    let getQNUploadToken = GetQNUploadToken(type: tokenType, id: id, token: token)
+    let getQNUploadToken = GetQNUploadToken(type: tokenType, id: id?.intValue(), token: token)
     _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
         let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
         Toast.showErrorWith(model: qnUploadTokenModel)
@@ -352,6 +352,22 @@ func GetQiNiuUploadToken(type:MediaType,onSuccess: ((QNUploadTokenModel?)->Void)
     })
 }
 
+func RequestQiNiuUploadToken(type:MediaType,onSuccess:((QNUploadTokenModel?)->Void)?,tokenIDModel:TokenIDModel? = nil){
+    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+    var tokenType = "image"
+    if type == .video{
+        tokenType = "video"
+    }
+    let getQNUploadToken = GetQNUploadToken(type: tokenType, id: tokenIDModel?.Id, token: tokenIDModel?.token)
+    _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
+        let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
+        Toast.showErrorWith(model: qnUploadTokenModel)
+        if let _onSuccess = onSuccess{
+            _onSuccess(qnUploadTokenModel)
+        }
+    }, onError: { (error) in
+        Toast.showErrorWith(msg: error.localizedDescription)
+    })}
 
 /// 上传文件名称
 ///

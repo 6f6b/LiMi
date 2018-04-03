@@ -591,13 +591,13 @@ struct GetQNUploadToken:TargetType,ParametersProtocol{
         return "/index.php/apps/Qiniuyun/getUploadToken"
     }
     var type:String = "image"
-    var id:String? = nil
+    var id:Int? = nil
     var token:String? = nil
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "id":id,
             "token":token,
-            "type":type]
+            "type":type] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
