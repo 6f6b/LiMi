@@ -28,11 +28,6 @@ class PersonCenterModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        user_info<-map["data.user_info"]
-        is_access<-map["data.is_access"]
-        feedback<-map["data.feedback"]
-        money<-map["data.money"]
-        my_action<-map["data.my_action"]
-        with_limi<-map["data.with_limi"]
+        user_info<-map["data"]
     }
 }

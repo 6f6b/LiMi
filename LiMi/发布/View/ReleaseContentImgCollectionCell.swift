@@ -20,7 +20,7 @@ class ReleaseContentImgCollectionCell: UICollectionViewCell {
 
     func configWith(mediaModel:LocalMediaModel?){
         self.imgV.image = nil
-        self.imgV.image = mediaModel?.img
+        self.imgV.image = mediaModel?.image
     }
     
     @IBAction func dealDeleteBtn(_ sender: Any) {

@@ -237,7 +237,7 @@ extension TopicListController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 1{
             if self.dataArray.count != 0{
                 let trendModel = self.dataArray[indexPath.row]
-                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel, trendsCellStyle: .normal)
+                let topicCell = cellFor(indexPath: indexPath, tableView: tableView, model: trendModel, trendsCellStyle: .inTopicList)
                 //完善相关block
                 //点击头像
                 topicCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in

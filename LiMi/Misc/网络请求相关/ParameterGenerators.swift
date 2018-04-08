@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://app.youhongtech.com/"
+let serverAddress = "http://testapp.youhongtech.com/index.php/apps2"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -26,7 +26,7 @@ struct RequestAuthCode:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/Sms/startSendSms" }
+    var path: String { return "/Sms/startSendSms" }
     
     //参数体
     var phone:String?
@@ -46,7 +46,7 @@ struct Login:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/login" }
+    var path: String { return "/User/login" }
     
     var phone:String?
     var code:String?
@@ -69,7 +69,7 @@ struct RegisterForID:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/user/perfectUserInfo" }
+    var path: String { return "/user/perfectUserInfo" }
     
     var college:String?
     var school:String?
@@ -94,25 +94,25 @@ struct CenterPerfectUserInfo:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/user/centerPerfectUserInfo" }
+    var path: String { return "/user/perfectUserInfo" }
 
      var type:String?   //0查看身份信息 1保存身份信息
      var true_name:String?
-     var sex:String?    //0：女 1：男
     
-    var college:String?
-    var school:String?
-    var grade:String?
+    var college:Int?
+    var school:Int?
+    var grade:Int?
+    var identity_pic:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "type":type,
             "true_name":true_name,
-            "sex":sex,
             "college":college,
             "school":school,
-            "grade":grade
-        ]
+            "grade":grade,
+            "identity_pic":identity_pic
+            ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -126,7 +126,7 @@ struct CenterShowUserInfo:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/user/centerShowUserInfo" }
+    var path: String { return "/user/centerShowUserInfo" }
     
     func parameters() -> [String : Any] {
         let tmpParameters = ["":""]
@@ -143,7 +143,7 @@ struct HeadImgUpLoad:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/uploadUserHeadImg" }
+    var path: String { return "/User/uploadUserHeadImg" }
     
     var id:Int?
     var token:String?
@@ -176,7 +176,7 @@ struct UserInfoList:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/infolist" }
+    var path: String { return "/User/infolist" }
     
     func parameters() -> [String : Any] {
         return handleRequestParameters(parameters: nil)
@@ -192,7 +192,7 @@ struct EditUsrInfo:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/edituser" }
+    var path: String { return "/User/edituser" }
 
     var field:String?
     var value:String?
@@ -211,11 +211,11 @@ struct PersonCenter:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
     var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/mycenter" }
+    var method: Moya.Method { return .get }
+    var path: String { return "/user/myCenter" }
     
     func parameters() -> [String : Any] {
         let tmpParameters = ["":""]
@@ -232,7 +232,7 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
-    var path: String { return "/index.php/apps/User/perfectUserBasicInfo" }
+    var path: String { return "/User/perfectUserBasicInfo" }
 
     var id:Int?
     var token:String?
@@ -243,7 +243,7 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
         let tmpParameters = [
             "id":id,
             "token":token,
-            "true_name":true_name,
+            "nickname":true_name,
             "sex":sex,
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
@@ -261,7 +261,7 @@ struct CollegeList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/User/collegeList"
+        return "/User/collegeList"
     }
     
     var provinceID:String?
@@ -284,7 +284,7 @@ struct AcademyList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/User/schoolList"
+        return "/User/schoolList"
     }
     
     var collegeID:String?
@@ -306,7 +306,7 @@ struct GradeList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/User/gradeList"
+        return "/User/gradeList"
     }
     
     func parameters() -> [String : Any] {
@@ -325,7 +325,7 @@ struct TrendsList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Action/indexList"
+        return "/Action/indexList"
     }
     var type:String?    //动态/action 发现/skill
     var page:String?        //分页
@@ -359,7 +359,7 @@ struct CommentList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Action/discussList"
+        return "/Action/discussList"
     }
     
     var action_id:String?
@@ -383,7 +383,7 @@ struct AddComment:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Action/discussAction"
+        return "/Action/discussAction"
     }
     
     var action_id:String?
@@ -407,7 +407,7 @@ struct ThumbUp:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Action/clickAction"
+        return "/Action/clickAction"
     }
     
     var action_id:String?
@@ -429,7 +429,7 @@ struct UserDetails:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Action/myActionList"
+        return "/Action/myActionList"
     }
     
     var page:Int?
@@ -455,7 +455,7 @@ struct MoreOperation:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Action/multiFunction"
+        return "/Action/multiFunction"
     }
     
     var type:String?
@@ -481,7 +481,7 @@ struct ScreeningConditions:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Action/filtrateList"
+        return "/Action/filtrateList"
     }
 
     func parameters() -> [String : Any] {
@@ -500,7 +500,7 @@ struct MyTrends:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Action/myAction"
+        return "/Action/myAction"
     }
     
     var page:Int?
@@ -521,7 +521,7 @@ struct SetPayPassword:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/user/paymentCodeaction"
+        return "/user/paymentCodeaction"
     }
     var code:String?
     var password1:String?
@@ -547,7 +547,7 @@ struct TransactonRcord:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/user/myrecord"
+        return "/user/myrecord"
     }
     var page:Int?
     
@@ -569,7 +569,7 @@ struct MyCash:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/User/mycash"
+        return "/User/mycash"
     }
     
     func parameters() -> [String : Any] {
@@ -578,6 +578,141 @@ struct MyCash:TargetType,ParametersProtocol{
     }
 }
 
+//MARK: - 粉丝列表
+struct MyFansList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/user/myFansList"
+    }
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 关注列表
+struct MyAttentionList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/user/myAttentionList"
+    }
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 关注列表
+struct AddAttention:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/user/addAttention"
+    }
+    ///操作对象id
+    var attention_id:Int?
+
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "attention_id":attention_id,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//MARK: - 昵称搜索动作
+struct SearchUser:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "/user/searchUser"
+    }
+    ///操作对象id
+    var nickname:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "nickname":nickname,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+//MARK: - 我的黑名单
+struct MyBlackList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/user/myBlackList"
+    }
+
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+//MARK: - 我的黑名单
+struct TopAttentionList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/user/topAttentionList"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 //MARK: - 获取七牛云上传token（已对接）
 struct GetQNUploadToken:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -588,7 +723,7 @@ struct GetQNUploadToken:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Qiniuyun/getUploadToken"
+        return "/Qiniuyun/getUploadToken"
     }
     var type:String = "image"
     var id:Int? = nil
@@ -602,6 +737,7 @@ struct GetQNUploadToken:TargetType,ParametersProtocol{
     }
 }
 
+
 //MARK: - /******************************发布需求模块*************************************/
 //MARK: - 1发布动态（已对接）
 struct ReleaseTrends:TargetType,ParametersProtocol{
@@ -613,7 +749,7 @@ struct ReleaseTrends:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Publish/publishDynamic"
+        return "/Publish/publishDynamic"
     }
     var red_token:String?   //红包
     var skill_id:Int?    //标签
@@ -642,7 +778,7 @@ struct SkillList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Publish/skillList"
+        return "/Publish/skillList"
     }
     var page:Int?
     
@@ -653,7 +789,7 @@ struct SkillList:TargetType,ParametersProtocol{
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
-//MARK: - 3 塞入钱包,塞红包到动态中    POST app.youhongtech.com/index.php/apps/Publish/sendRedpacket
+//MARK: - 3 塞入钱包,塞红包到动态中    POST app.youhongtech.com/Publish/sendRedpacket
 struct SendRedpacket:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -663,7 +799,7 @@ struct SendRedpacket:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Publish/sendRedpacket"
+        return "/Publish/sendRedpacket"
     }
     
     var money:Double?
@@ -682,7 +818,7 @@ struct SendRedpacket:TargetType,ParametersProtocol{
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
-//4 取消发布需求    POST app.youhongtech.com/index.php/apps/Publish/cancelDynamic
+//4 取消发布需求    POST
 struct CancelDynamic:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -692,7 +828,7 @@ struct CancelDynamic:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Publish/cancelDynamic"
+        return "/Publish/cancelDynamic"
     }
     
     var red_token:String?
@@ -715,7 +851,7 @@ struct GetRedPacked:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Publish/getRedPacked"
+        return "/Publish/getRedPacked"
     }
     var red_token:String?
     
@@ -737,7 +873,7 @@ struct OpenRedPacked:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Publish/openRedPacked"
+        return "/Publish/openRedPacked"
     }
     var red_token:String?
     
@@ -760,7 +896,7 @@ struct GetRechargeOrderInfo:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Pay/getRechargeOrderInfo"
+        return "/Pay/getRechargeOrderInfo"
     }
     
     /// 金额
@@ -787,7 +923,7 @@ struct GetPayStaus:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Pay/getPayStaus"
+        return "/Pay/getPayStaus"
     }
     
     /// 交易流水号
@@ -815,7 +951,7 @@ struct WithdrawCash:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Pay/withdrawCash"
+        return "/Pay/withdrawCash"
     }
     
     /// 提现金额
@@ -848,7 +984,7 @@ struct GetOnlinePayStaus:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Pay/getOnlinePayStaus"
+        return "/Pay/getOnlinePayStaus"
     }
     
     /// 交易流水号
@@ -873,7 +1009,7 @@ struct GetIMToken:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Im/getToken"
+        return "/Im/getToken"
     }
     
     var to_uid:Int?
@@ -895,7 +1031,7 @@ struct FeedBack:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/user/feedBack"
+        return "/user/feedBack"
     }
     
     var type:Int?   //反馈类型，1：功能问题 2：性能问题 3：其他问题
@@ -925,7 +1061,7 @@ struct AppUpdate:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Update/appStart"
+        return "/Update/appStart"
     }
 
     var device:String? //设备名称，android、ios
@@ -951,7 +1087,7 @@ struct AddTopic:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/addtopic"
+        return "/topic/addtopic"
     }
     
     var title:String? //主题
@@ -977,7 +1113,7 @@ struct AddTopicAction:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/addTopicAction"
+        return "/topic/addTopicAction"
     }
     
     var pic:String? //图片
@@ -1005,7 +1141,7 @@ struct ClickAction:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/clickAction"
+        return "/topic/clickAction"
     }
     
     var topic_action_id:Int? //话题圈id
@@ -1029,7 +1165,7 @@ struct DiscussAction:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/discussAction"
+        return "/topic/discussAction"
     }
     
     var topic_action_id:Int? //话题id
@@ -1054,7 +1190,7 @@ struct OneTopicList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/topic/oneTopicList"
+        return "/topic/oneTopicList"
     }
     
     var page:Int? //分页
@@ -1082,7 +1218,7 @@ struct AllTopicList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/topic/allTopicList"
+        return "/topic/allTopicList"
     }
     
     var page:Int? //分页
@@ -1105,7 +1241,7 @@ struct UnlikeTopic:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/unlikeTopic"
+        return "/topic/unlikeTopic"
     }
     
     var topic_id:Int?
@@ -1127,7 +1263,7 @@ struct MultiFunction:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/topic/multiFunction"
+        return "/topic/multiFunction"
     }
     
     var type:String?
@@ -1153,7 +1289,7 @@ struct DiscussList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/topic/discussList"
+        return "/topic/discussList"
     }
     
     var page:Int? //分页
@@ -1178,7 +1314,7 @@ struct NearUserList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "index.php/apps/near/nearUserList"
+        return "/near/nearUserList"
     }
     
     var lat:String?
@@ -1207,7 +1343,7 @@ struct ClearLocation:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "index.php/apps/near/clearLocation"
+        return "/near/clearLocation"
     }
     
     
@@ -1229,7 +1365,7 @@ struct UpdateContent:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "index.php/apps/near/updateContent"
+        return "/near/updateContent"
     }
     
     var content:String?
@@ -1252,7 +1388,7 @@ struct ShowEditContent:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "index.php/apps/near/editContent"
+        return "/near/editContent"
     }
     
     func parameters() -> [String : Any] {
@@ -1274,7 +1410,7 @@ struct WeekendIndex:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/weekend/WeekendIndex"
+        return "/weekend/WeekendIndex"
     }
     
     var page:Int?
@@ -1297,7 +1433,7 @@ struct WeekendInfo:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/weekend/weekendinfo"
+        return "/weekend/weekendinfo"
     }
     
     var weekend_id:Int?
@@ -1320,7 +1456,7 @@ struct WeekendOrder:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/weekend/weekendorder"
+        return "/weekend/weekendorder"
     }
     
     var weekend_id:Int?
@@ -1343,7 +1479,7 @@ struct OrderAction:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/weekend/orderAction"
+        return "/weekend/orderAction"
     }
     
     var goods_id:Int?//    周末游id    是    [int]
@@ -1376,7 +1512,7 @@ struct MyOrderList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/user/myOrderList"
+        return "/user/myOrderList"
     }
     
     var page:Int?//    周末游id    是    [int]
@@ -1400,7 +1536,7 @@ struct CircleList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/weekend/CircleList"
+        return "/weekend/CircleList"
     }
 
     
@@ -1423,7 +1559,7 @@ struct ClickMessageList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Message/clickList"
+        return "/Message/clickList"
     }
     
     var page:Int?
@@ -1446,7 +1582,7 @@ struct CommentMessageList:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .get }
     var path: String {
-        return "/index.php/apps/Message/commentList"
+        return "/Message/commentList"
     }
     
     var page:Int?
@@ -1469,7 +1605,7 @@ struct ClearMessage:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/index.php/apps/Message/clearMessage"
+        return "/Message/clearMessage"
     }
     
     var type:Int? = 0

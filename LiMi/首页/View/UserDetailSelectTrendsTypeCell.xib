@@ -134,7 +134,7 @@
                 <outlet property="v1" destination="1lB-v4-C8A" id="Har-3Y-sOc"/>
                 <outlet property="v2" destination="K7a-UL-YQl" id="sFr-My-LZD"/>
             </connections>
-            <point key="canvasLocation" x="-100.5" y="37"/>
+            <point key="canvasLocation" x="-2" y="35"/>
         </tableViewCell>
     </objects>
 </document>

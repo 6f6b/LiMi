@@ -29,8 +29,8 @@ class LoginModel: BaseModel {
         identity_status<-map["data.identity_status"]
         let tmpIdentityStatus = Defaults[.userCertificationState]
         Defaults[.userCertificationState] = identity_status
-        Defaults[.userId] = id
-        Defaults[.userToken] = token
+//        Defaults[.userId] = id
+//        Defaults[.userToken] = token795 46
         
         if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
             //发通知

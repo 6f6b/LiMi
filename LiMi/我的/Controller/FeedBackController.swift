@@ -174,8 +174,8 @@ class FeedBackController: ViewController {
                     uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
                         let imgName = dic["key"] as? String
                         var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = imgName
-                        localMediaModel.img = imgs![index]
+                        localMediaModel.key = imgName
+                        localMediaModel.image = imgs![index]
                         self.imgArr.append(localMediaModel)
                         print("successIndex\(index)")
                         print("successDic\(dic)")
@@ -213,8 +213,8 @@ class FeedBackController: ViewController {
                         Toast.showErrorWith(msg: _error.localizedDescription)
                     }else{
                         var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = str
-                        localMediaModel.img = preImg
+                        localMediaModel.key = str
+                        localMediaModel.image = preImg
                         self.videoArr.append(localMediaModel)
                         Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
@@ -229,7 +229,7 @@ class FeedBackController: ViewController {
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{
         var str = ""
         for media in medias{
-            if let imgName = media.imgName{
+            if let imgName = media.key{
                 str += "/" + imgName
                 str += ","
             }

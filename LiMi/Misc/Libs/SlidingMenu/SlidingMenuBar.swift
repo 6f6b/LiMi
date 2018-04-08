@@ -45,6 +45,7 @@ class SlidingMenuBar: UIView {
         let btnSecondTitleColor = index == 1 ? APP_THEME_COLOR  : RGBA(r: 51, g: 51, b: 51, a: 1)
         self.btnFirst.setTitleColor(btnFirstTitleColor, for: .normal)
         self.btnSecond.setTitleColor(btnSecondTitleColor, for: .normal)
+        
     }
     
     @IBAction func dealTapMenu(_ sender: Any) {

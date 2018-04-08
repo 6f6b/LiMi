@@ -25,7 +25,11 @@ class UserDetailsController: ViewController {
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
     var emptyInfo = "太低调了，还没有发动态"
-
+    var isSpread:Bool = true
+    var schoolInfoCell = UserDetailSingleInfoCell()
+    var academyInfoCell = UserDetailSingleInfoCell()
+    var gradeInfoCell = UserDetailSingleInfoCell()
+    var trueNameInfoCell = UserDetailSingleInfoWithQuestionCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +46,7 @@ class UserDetailsController: ViewController {
         self.tableView.estimatedSectionHeaderHeight = 100
         registerTrendsCellFor(tableView: self.tableView)
         self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
-        
+
         self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
             if self.type == "skill"{self.skillPage += 1}
             if self.type == "action"{self.actionPage += 1}
@@ -69,6 +73,8 @@ class UserDetailsController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -215,33 +221,68 @@ class UserDetailsController: ViewController {
 
 extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{return 1}
-        let dataArray = self.type == "action" ? self.actionDataArray :self.skillDataArray
-        if dataArray.count != 0{return dataArray.count}else{
-            return 1
+        if section == 0{return 0}
+        if section == 1{
+            if self.isSpread{return 4}
+            if !self.isSpread{return 0}
         }
+        if section == 2{
+            let dataArray = self.type == "action" ? self.actionDataArray :self.skillDataArray
+            if dataArray.count == 0{return 1}
+            return dataArray.count
+        }
+        return 0
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        if indexPath.section == 0{}
+        if indexPath.section == 1{return UITableViewAutomaticDimension}
+        if indexPath.section == 2{return UITableViewAutomaticDimension}
+        return 0.001
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{return UITableViewAutomaticDimension}
+        if section == 1{return 50}
+        if section == 2{return 50}
         return 0.001
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0{
             if let _ = self.userDetailHeadView{}else{
                 self.userDetailHeadView = GET_XIB_VIEW(nibName: "UserDetailHeadView") as? UserDetailHeadView
-                self.userDetailHeadView?.headImgV?.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
+                self.userDetailHeadView?.backImageView?.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
             }
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
             return userDetailHeadView
+        }
+        if section == 1{
+            let userDetailChooseHiddenOrNotView = UserDetailChooseHiddenOrNotView.init(isSpread: self.isSpread)
+            userDetailChooseHiddenOrNotView.tapBtnBlock = {[unowned self] (button) in
+                self.isSpread = !button.isSelected
+                self.tableView.reloadSections([1], with: .fade)
+            }
+            return userDetailChooseHiddenOrNotView
+        }
+        if section == 2{
+            var userDetailSelectTrendsTypeView:UserDetailSelectTrendsTypeView!
+            if self.type == "action"{
+                 userDetailSelectTrendsTypeView = UserDetailSelectTrendsTypeView(initialIndex: 0)
+            }else{
+                userDetailSelectTrendsTypeView = UserDetailSelectTrendsTypeView(initialIndex: 1)
+            }
+            userDetailSelectTrendsTypeView.tapBlock = {[unowned self] (index) in
+                if self.type == "action" && index == 0{return}
+                if self.type == "skill" && index == 1{return}
+                self.type = index == 0 ? "action" : "skill"
+                self.emptyInfo = index == 0 ?  "太低调了，还没发动态" : "太低调了，还没发需求"
+                self.loadData()
+            }
+            return userDetailSelectTrendsTypeView
         }
         return nil
     }
@@ -249,27 +290,26 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         return nil
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
-            if let _ = self.userDetailSelectTrendsTypeCell{}else{
-                self.userDetailSelectTrendsTypeCell = GET_XIB_VIEW(nibName: "UserDetailSelectTrendsTypeCell") as? UserDetailSelectTrendsTypeCell
-                self.userDetailSelectTrendsTypeCell?.selectTrendsBlock = {[unowned self] (index) in
-                    if 0 == index{
-                        self.type = "action"
-                        self.emptyInfo = "太低调了，还没发动态"
-                        self.actionPage = 1
-                    }
-                    if 1 == index{
-                        self.type = "skill"
-                        self.emptyInfo = "太低调了，还没发需求"
-                        self.skillPage = 1
-                    }
-                    self.loadData()
-                }
-            }
-            return self.userDetailSelectTrendsTypeCell!
-        }
-        
+        if indexPath.section == 0{return UITableViewCell()}
         if indexPath.section == 1{
+            if indexPath.row == 0{
+                self.schoolInfoCell.infoLabel.text = "学校  \(self.userInfoModel?.college)"
+                self.academyInfoCell.infoLabel.text = "学院  \(self.userInfoModel?.school)"
+                self.gradeInfoCell.infoLabel.text = "年级  \(self.userInfoModel?.grade)"
+                self.trueNameInfoCell.infoLabel.text = "姓名  \(self.userInfoModel?.true_name)"
+                return self.schoolInfoCell
+            }
+            if indexPath.row == 1{
+                return self.academyInfoCell
+            }
+            if indexPath.row == 2{
+                return self.gradeInfoCell
+            }
+            if indexPath.row == 3{
+                return self.trueNameInfoCell
+            }
+        }
+        if indexPath.section == 2{
             var dataArray = self.type == "action" ? self.actionDataArray : self.skillDataArray
             if dataArray.count != 0{
                 if indexPath.row >= dataArray.count{
@@ -297,6 +337,35 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 return emptyTrendsCell
             }
         }
+//
+//        if indexPath.section == 1{
+//            var dataArray = self.type == "action" ? self.actionDataArray : self.skillDataArray
+//            if dataArray.count != 0{
+//                if indexPath.row >= dataArray.count{
+//                    return UITableViewCell()
+//                }
+//                let model = dataArray[indexPath.row]
+//                let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
+//                //评论
+//                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
+//                    let commentsWithTrendController = CommentsWithTrendController()
+//                    commentsWithTrendController.trendModel = model
+//                    self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
+//                }
+//                //抢红包
+//                trendsCell.catchRedPacketBlock = {[unowned self] in
+//                    let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
+//                    catchRedPacketView.showWith(trendModel: model)
+//                }
+//                trendsCell.configWith(model: model)
+//                return trendsCell
+//            }
+//            if dataArray.count == 0{
+//                let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
+//                emptyTrendsCell.configWith(info: self.emptyInfo, style: .inPersonCenter)
+//                return emptyTrendsCell
+//            }
+//        }
         return UITableViewCell()
     }
     
@@ -333,10 +402,10 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
             let tmpY = -offsetY
             let tmpW = SCREEN_WIDTH+(SCREEN_WIDTH/230)*offsetY
             let tmpH = 230 + offsetY
-            self.userDetailHeadView?.headImgV?.frame = CGRect.init(x: tmpX, y: tmpY, width: tmpW, height: tmpH)
+            self.userDetailHeadView?.backImageView?.frame = CGRect.init(x: tmpX, y: tmpY, width: tmpW, height: tmpH)
         }else{
             let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
-            self.userDetailHeadView?.headImgV?.frame = frame
+            self.userDetailHeadView?.backImageView?.frame = frame
         }
     }
 }

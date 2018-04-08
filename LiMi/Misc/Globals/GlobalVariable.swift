@@ -94,6 +94,8 @@ let IDENTITY_STATUS_OK_NOTIFICATION = Notification.Name.init("IDENTITY_STATUS_OK
 
 ///清空点赞和评论消息成功
 let CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS = Notification.Name.init("CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS")
+///关注、取消关注成功
+let ADD_ATTENTION_SUCCESSED_NOTIFICATION = Notification.Name.init("ADD_ATTENTION_SUCCESSED_NOTIFICATION")
 
 /// 更多操作通知对象的key
 let MORE_OPERATION_KEY = "MORE_OPERATION_KEY"
@@ -103,7 +105,10 @@ let TREND_MODEL_KEY = "TREND_MODEL_KEY"
 let WXPAY_RESULT_KEY = "WXPAY_RESULT_KEY"
 ///退出登录信息key
 let LOG_OUT_MESSAGE_KEY = "LOG_OUT_MESSAGE_KEY"
-
+///UserId key
+let USER_ID_KEY = "USER_ID_KEY"
+///关注关系key
+let RELATIONSHIP_KEY = "RELATIONSHIP_KEY"
 
 //国内https上传
 let qnConfig = QNConfiguration.build { (builder) in

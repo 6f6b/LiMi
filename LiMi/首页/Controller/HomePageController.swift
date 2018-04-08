@@ -71,7 +71,7 @@ class HomePageController: ViewController {
         self.controllersContainScrollView.contentOffset = CGPoint.init(x: SCREEN_WIDTH*1, y: 0)
         self.slidingMenuBar.select(index: 1)
         
-        self.requestUpgradeInfo()
+        //self.requestUpgradeInfo()
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)

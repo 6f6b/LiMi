@@ -10,6 +10,13 @@ import Foundation
 import ObjectMapper
 
 class UserInfoModel: BaseModel {
+    var nickname:String?
+    var signature:String?
+    var is_access:Int?
+    var attention_num:String?
+    var fans_num:String?
+    var is_attention:Int?
+    
     var true_name:String?
     var sex:String?
     ///
@@ -31,12 +38,20 @@ class UserInfoModel: BaseModel {
     var distance:String? //距离
     var numSex:Int?
     
+    //关注
     required init?(map: Map) {
         super.init(map: map)
     }
     
     override func mapping(map: Map) {
         super.mapping(map: map)
+        is_attention <- map["is_attention"]
+        attention_num <- map["attention_num"]
+        fans_num <- map["fans_num"]
+
+        is_access <- map["is_access"]
+        signature <- map["signature"]
+        nickname<-map["nickname"]
         true_name<-map["true_name"]
         user_info_status<-map["user_info_status"]
         sex<-map["sex"]

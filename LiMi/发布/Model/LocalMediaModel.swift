@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 struct LocalMediaModel {
-    var img:UIImage?
-    var imgName:String?
-    
+    var image:UIImage?
+    var key:String?
     init() {
     }
 }

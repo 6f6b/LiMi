@@ -30,8 +30,8 @@ class ReleaseController: ViewController {
     var videoArr = [LocalMediaModel]()
     var imagePickerVc:TZImagePickerController?
     var skillModel:SkillModel?
-    var qnUploadManager:QNUploadManager!
-    var phAsset:PHAsset?
+//    var qnUploadManager:QNUploadManager!
+//    var phAsset:PHAsset?
     var sendRedpacketResultModel:SendRedPacketResultModel?
     
     override func viewDidLoad() {
@@ -77,35 +77,26 @@ class ReleaseController: ViewController {
                 return
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
-//            self.imagePickerVc?.autoDismiss = false
             self.imagePickerVc?.allowPickingGif = true
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
-              self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
-                self.videoArr.removeAll()
-//                FileUploadManager.imageUploadManager.uploadImageWith(phAssets: assets as? [PHAsset])
-                self.uploadImgsWith(imgs: photos)
-                self.tableView.reloadData()
-                self.RefreshReleasBtnEnable()
+            //选择多张图
+            self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
+                self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset])
             }
+            //选择视频
             self.imagePickerVc?.didFinishPickingVideoHandle = {[unowned self] (img,other) in
-                self.imgArr.removeAll()
                 self.uploadVideoWith(phAsset: other as? PHAsset, preImg: img)
-                self.tableView.reloadData()
-                self.RefreshReleasBtnEnable()
             }
+            //选择gif
             self.imagePickerVc?.didFinishPickingGifImageHandle = {[unowned self] (img,other) in
-                if let asset = other as? PHAsset{
-                     print(asset.sourceType)
+                guard let _img = img as? UIImage,let _phAsset = other as? PHAsset else{
+                    Toast.showErrorWith(msg: "选择图片出错")
+                    return
                 }
-                self.videoArr.removeAll()
-                self.uploadImageWith(phAsset: other as! PHAsset, photos: [img!])
-//                self.uploadImgsWith(imgs: [img])
-                self.tableView.reloadData()
-                self.RefreshReleasBtnEnable()
-                
+                self.uploadImageWith(images: [_img], phAssets: [_phAsset])
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
@@ -128,11 +119,11 @@ class ReleaseController: ViewController {
         self.releaseContentRedBagInputCell.leftImgV.image = UIImage.init(named: "fb_icon_hb")
         self.releaseContentRedBagInputCell.rightLabel.text = nil
         
-        //国内https上传
-        let qnConfig = QNConfiguration.build { (builder) in
-            builder?.setZone(QNFixedZone.zone0())
-        }
-        self.qnUploadManager = QNUploadManager(configuration: qnConfig)
+//        //国内https上传
+//        let qnConfig = QNConfiguration.build { (builder) in
+//            builder?.setZone(QNFixedZone.zone0())
+//        }
+//        self.qnUploadManager = QNUploadManager(configuration: qnConfig)
     }
 
     deinit {
@@ -157,112 +148,46 @@ class ReleaseController: ViewController {
     }
 
     //MARK: - misc
-    func uploadImgsWith(imgs:[UIImage?]?){
-        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
-            if let _token = tokenModel?.token{
-                var files = [QiniuFile]()
-                if let  _imgs = imgs{
-                    for img in _imgs{
-                        let filePath = GenerateImgPathlWith(img: img)
-                        let file = QiniuFile.init(path: filePath!)
-                        file?.key = uploadFileName(type: .picture)
-                        files.append(file!)
-                    }
-                    let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
-                    uploader.maxConcurrentNumber = 3
-                    uploader.files = files
-                    Toast.showStatusWith(text: "处理中")
-                    uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
-                        let imgName = dic["key"] as? String
-                        var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = imgName
-                        localMediaModel.img = imgs![index]
-                        self.imgArr.append(localMediaModel)
-                        print("successIndex\(index)")
-                        print("successDic\(dic)")
-                    }, uploadOneFileFailedHandler: { (index, error) in
-                        print("failedIndex\(index)")
-                        print("error:\(error?.localizedDescription)")
-                    }, uploadOneFileProgressHandler: { (index, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
-                        print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
-                    }, uploadAllFilesComplete: {
-                        print("uploadOver")
-                        Toast.dismiss()
-                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                        self.tableView.reloadData()
-                        self.RefreshReleasBtnEnable()
-                    })
-                }
-            }
-        }, id: nil, token: nil)
-    }
-    
-    //上传图片
-    func uploadImageWith(phAsset:PHAsset?,photos:[UIImage]?){
-        self.phAsset = phAsset
-        GetQiNiuUploadToken(type: .picture, onSuccess: { (qnUploadToken) in
-            if let _token = qnUploadToken?.token{
-                Toast.showStatusWith(text: nil)
-                let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
-                    //Toast.showProgress(flo)
-                }
-                let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
-                    return false
-                })
-                let fileName = uploadFileName(type: .picture)
-                self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
-                    if let _error = responseInfo?.error{
-                        Toast.showErrorWith(msg: _error.localizedDescription)
-                    }else{
-                        var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = str
-                        localMediaModel.img = photos?.first
-                        self.imgArr.append(localMediaModel)
-                        Toast.dismiss()
-                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                        self.tableView.reloadData()
-                        self.RefreshReleasBtnEnable()
-                    }
-                }, option: option)
-            }
-        }, id: nil, token: nil)
+    func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+            var localMediaModel = LocalMediaModel.init()
+            localMediaModel.key = key
+            localMediaModel.image = image
+            self.imgArr.append(localMediaModel)
+            print("imageWidth:\(image.size.width)--imageHeight:\(image.size.height)--key:\(key)")
+        }, failedBlock: {
+            
+        }, completionBlock: {
+            Toast.dismiss()
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            self.tableView.reloadData()
+            self.RefreshReleasBtnEnable()
+            print("上传结束")
+        }, tokenIDModel: nil)
     }
     
     //上传视频
     func uploadVideoWith(phAsset:PHAsset?,preImg:UIImage?){
-        self.phAsset = phAsset
-        GetQiNiuUploadToken(type: .video, onSuccess: { (qnUploadToken) in
-            if let _token = qnUploadToken?.token{
-                Toast.showStatusWith(text: nil)
-                let progressBlock:QNUpProgressHandler = {[unowned self] (str,flo) in
-                    //Toast.showProgress(flo)
-                }
-                let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
-                    return false
-                })
-                let fileName = uploadFileName(type: .video)
-                self.qnUploadManager.put(self.phAsset, key: fileName, token: _token, complete: { (responseInfo, str, dic) in
-                    if let _error = responseInfo?.error{
-                        Toast.showErrorWith(msg: _error.localizedDescription)
-                    }else{
-                        var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = str
-                        localMediaModel.img = preImg
-                        self.videoArr.append(localMediaModel)
-                        Toast.dismiss()
-                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                        self.tableView.reloadData()
-                        self.RefreshReleasBtnEnable()
-                    }
-                }, option: option)
-            }
-        }, id: nil, token: nil)
+        self.imgArr.removeAll()
+        FileUploadManager.share.uploadVideoWith(preImage: preImg, phAsset: phAsset, successBlock: { (image, key) in
+            var localMediaModel = LocalMediaModel.init()
+            localMediaModel.key = key
+            localMediaModel.image = preImg
+            self.videoArr.append(localMediaModel)
+            Toast.dismiss()
+        }, failedBlock: {
+            
+        }, completionBlock: {
+            self.tableView.reloadData()
+            self.RefreshReleasBtnEnable()
+        })
+        
     }
     
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{
         var str = ""
         for media in medias{
-            if let imgName = media.imgName{
+            if let imgName = media.key{
                 str += "/" + imgName
                 str += ","
             }

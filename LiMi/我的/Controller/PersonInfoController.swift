@@ -14,13 +14,14 @@ import TZImagePickerController
 
 class PersonInfoController: UITableViewController {
     @IBOutlet weak var headImg: UIImageView!
+    @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var sex: UILabel!
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
     @IBOutlet weak var grade: UILabel!
-    var model:UserInfoListModel?
+    var userInfoModel:UserInfoModel?
     var imagePickerVc:TZImagePickerController?
     
     override func viewDidLoad() {
@@ -61,25 +62,26 @@ class PersonInfoController: UITableViewController {
     func requestData(){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let userInfoList = UserInfoList()
-        _ = moyaProvider.rx.request(.targetWith(target: userInfoList)).subscribe(onSuccess: { (response) in
-            let userInfoListModel = Mapper<UserInfoListModel>().map(jsonData: response.data)
-            self.model = userInfoListModel
-            self.refreshUIWith(model: self.model)
-            Toast.showErrorWith(model: userInfoListModel)
+        _ = moyaProvider.rx.request(.targetWith(target: userInfoList)).subscribe(onSuccess: {[unowned self] (response) in
+            let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+            self.userInfoModel = personCenterModel?.user_info
+            self.refreshUIWith(model: self.userInfoModel)
+            Toast.showErrorWith(model: self.userInfoModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
-    func refreshUIWith(model:UserInfoListModel?){
-        if let headUrl = model?.userInfo?.head_pic{
+    func refreshUIWith(model:UserInfoModel?){
+        if let headUrl = model?.head_pic{
             self.headImg.kf.setImage(with: URL.init(string: headUrl), placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.userName.text = model?.userInfo?.true_name
-        self.sex.text = model?.userInfo?.sex
-        self.school.text  = model?.userInfo?.college
-        self.academy.text = model?.userInfo?.school
-        self.grade.text = model?.userInfo?.grade
+        self.userName.text = model?.true_name
+        self.nickName.text = model?.nickname
+        self.sex.text = model?.sex
+        self.school.text  = model?.college
+        self.academy.text = model?.school
+        self.grade.text = model?.grade
     }
     
     //选择头像
@@ -142,7 +144,7 @@ class PersonInfoController: UITableViewController {
     //去修改用户性别
     func dealToAlterUserSex(){
         let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
-            if sex == self.model?.userInfo?.sex{return}
+            if sex == self.userInfoModel?.sex{return}
             var sexParameter = "1"
             if sex == "女"{sexParameter = "0"}
             Toast.showStatusWith(text: nil)
@@ -152,7 +154,7 @@ class PersonInfoController: UITableViewController {
                 let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
                 if resultModel?.commonInfoModel?.status == successState{
                     self.sex.text = sex
-                    self.model?.userInfo?.sex = sex
+                    self.userInfoModel?.sex = sex
                 }
                 Toast.showResultWith(model: resultModel)
             }, onError: { (error) in
@@ -170,17 +172,23 @@ class PersonInfoController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 3}
-        if section == 1{ return 3}
+        if section == 1{
+            if self.userInfoModel?.is_access == 2{return 1}else{
+                return 1
+            }
+        }
+        if section == 2{return 4}
         return 0
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 7
+        if section == 0{return 7}
+        return 0.001
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001
@@ -195,9 +203,11 @@ class PersonInfoController: UITableViewController {
         if indexPath.section == 0{
             if indexPath.row == 0{self.dealTapToSelectImg()}
             if indexPath.row == 1{self.dealToAlterUserName()}
-//            if indexPath.row == 2{self.dealToAlterUserSex()}
         }
-        if indexPath.section == 1{}
+        if indexPath.section == 1{
+            let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+            self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+        }
     }
 }
 

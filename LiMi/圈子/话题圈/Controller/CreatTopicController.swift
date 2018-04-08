@@ -13,6 +13,7 @@ import QiniuUpload
 import Qiniu
 import Moya
 import ObjectMapper
+import SwiftyJSON
 
 class CreatTopicController: ViewController {
     var releaseBtn:UIButton!
@@ -73,10 +74,7 @@ class CreatTopicController: ViewController {
             }
             if self.imgArr.count > 0{self.imagePickerVc?.allowPickingVideo = false}
             self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
-                self.videoArr.removeAll()
-                self.uploadImgsWith(imgs: photos)
-                self.tableView.reloadData()
-                self.RefreshReleasBtnEnable()
+                self.uploadImagesWith(images: photos, phAssets: assets as! [PHAsset])
             }
             self.imagePickerVc?.didFinishPickingVideoHandle = {[unowned self] (img,other) in
                 self.imgArr.removeAll()
@@ -126,7 +124,13 @@ class CreatTopicController: ViewController {
         Toast.showStatusWith(text: nil)
         self.releaseContentTextInputCell.contentText.resignFirstResponder()
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let pic = self.generateMediaParameterWith(medias: self.imgArr)
+        let picUrl = self.generateMediaParameterWith(medias: self.imgArr)
+        let image = self.imgArr.first?.image
+        let picInfo = ["url":picUrl,"width":image?.size.width,"height":image?.size.height] as [String : Any]
+        var pic:String? = ""
+        if let data = try? JSONSerialization.data(withJSONObject: picInfo, options: .prettyPrinted){
+            pic = String.init(data: data, encoding: String.Encoding.utf8)
+        }
         let addTopicAction = AddTopicAction(pic: pic, topic_id: self.topicCircleModel?.id, content: self.releaseContentTextInputCell.contentText.text)
         _ = moyaProvider.rx.request(.targetWith(target: addTopicAction)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
@@ -168,44 +172,23 @@ class CreatTopicController: ViewController {
         releaseBtn.isUserInteractionEnabled = isEnable
     }
     
-    func uploadImgsWith(imgs:[UIImage?]?){
-        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
-            if let _token = tokenModel?.token{
-                var files = [QiniuFile]()
-                if let  _imgs = imgs{
-                    for img in _imgs{
-                        let filePath = GenerateImgPathlWith(img: img)
-                        let file = QiniuFile.init(path: filePath!)
-                        file?.key = uploadFileName(type: .picture)
-                        files.append(file!)
-                    }
-                    let uploader = QiniuUploader.sharedUploader() as! QiniuUploader
-                    uploader.maxConcurrentNumber = 3
-                    uploader.files = files
-                    Toast.showStatusWith(text: "处理中")
-                    uploader.startUpload(_token, uploadOneFileSucceededHandler: { (index, dic) in
-                        let imgName = dic["key"] as? String
-                        var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = imgName
-                        localMediaModel.img = imgs![index]
-                        self.imgArr.append(localMediaModel)
-                        print("successIndex\(index)")
-                        print("successDic\(dic)")
-                    }, uploadOneFileFailedHandler: { (index, error) in
-                        print("failedIndex\(index)")
-                        print("error:\(error?.localizedDescription)")
-                    }, uploadOneFileProgressHandler: { (index, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
-                        print("index:\(index),percent:\(Float(totalBytesSent/totalBytesExpectedToSend))")
-                    }, uploadAllFilesComplete: {
-                        print("uploadOver")
-                        Toast.dismiss()
-                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                        self.tableView.reloadData()
-                        self.RefreshReleasBtnEnable()
-                    })
-                }
-            }
-        }, id: nil, token: nil)
+    func uploadImagesWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        self.videoArr.removeAll()
+        Toast.showStatusWith(text: "正在上传...")
+        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+            var localMediaModel = LocalMediaModel.init()
+            localMediaModel.key = key
+            localMediaModel.image = image
+            self.imgArr.append(localMediaModel)
+        }, failedBlock: {
+            self.tableView.reloadData()
+            Toast.showErrorWith(msg: "上传图片失败")
+        }, completionBlock: {
+            Toast.dismiss()
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            self.tableView.reloadData()
+            self.RefreshReleasBtnEnable()
+        }, tokenIDModel: nil)
     }
     
     //上传视频
@@ -226,8 +209,8 @@ class CreatTopicController: ViewController {
                         Toast.showErrorWith(msg: _error.localizedDescription)
                     }else{
                         var localMediaModel = LocalMediaModel.init()
-                        localMediaModel.imgName = str
-                        localMediaModel.img = preImg
+                        localMediaModel.key = str
+                        localMediaModel.image = preImg
                         self.videoArr.append(localMediaModel)
                         Toast.dismiss()
                         self.imagePickerVc?.dismiss(animated: true, completion: nil)
@@ -242,7 +225,7 @@ class CreatTopicController: ViewController {
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{
         var str = ""
         for media in medias{
-            if let imgName = media.imgName{
+            if let imgName = media.key{
                 str += "/" + imgName
                 str += ","
             }

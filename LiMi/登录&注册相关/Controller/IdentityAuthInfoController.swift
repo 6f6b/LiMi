@@ -24,7 +24,7 @@ class IdentityAuthInfoController: UITableViewController {
     @IBOutlet weak var authenticationBtn: UIButton!
     
     ///证件图片链接
-    var certificateImageUrl:String? = "hehe"
+    var certificateImageUrl:String?
     
     var imagePickerVC:TZImagePickerController?
     
@@ -97,22 +97,30 @@ class IdentityAuthInfoController: UITableViewController {
         self.imagePickerVC?.allowPickingGif = false
         self.imagePickerVC?.allowPickingVideo = false
         //self.imagePickerVC?.autoDismiss = true
-        self.imagePickerVC?.didFinishPickingPhotosHandle = {[unowned self] (imgs,datas,bool) in
-            if let img = imgs?.first{
-                self.certificateImage.image = img
-            }
-            self.imagePickerVC?.dismiss(animated: true, completion: nil)
-            self.refreshCertificationBtn()
+        self.imagePickerVC?.didFinishPickingPhotosHandle = {[unowned self] (imgs,phAssets,bool) in
+            FileUploadManager.share.uploadImagesWith(images: imgs, phAssets: (phAssets as? [PHAsset]?)!, successBlock: { (image, key) in
+                self.certificateImage.image = image
+                self.certificateImageUrl = key
+            }, failedBlock: {
+                
+            }, completionBlock: {
+                self.refreshCertificationBtn()
+            }, tokenIDModel: nil)
+
         }
         self.present(self.imagePickerVC!, animated: true, completion: nil)
     }
     
     //提交认证
     @IBAction func dealToAuthenticate(_ sender: Any) {
-        
+        self.dealSumbit()
     }
     
     @objc func dealSumbit(){
+        if IsEmpty(textField: self.trueName){
+            Toast.showErrorWith(msg: "请输入您的真实姓名")
+            return
+        }
         if(self.collegeModel == nil){
             //显示错误警告
             Toast.showErrorWith(msg: "请选择学校")
@@ -128,14 +136,20 @@ class IdentityAuthInfoController: UITableViewController {
             Toast.showErrorWith(msg: "请选择年级")
             return
         }
+        if (self.certificateImageUrl == nil){
+            Toast.showErrorWith(msg: "请上传您的相关证件")
+            return
+        }
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let registerForId = RegisterForID(college: self.collegeModel?.coid?.stringValue(), school: self.academyModel?.scid?.stringValue(), grade: self.gradeModel?.id?.stringValue())
-        _ = moyaProvider.rx.request(.targetWith(target: registerForId)).subscribe(onSuccess: { (response) in
+        let perfectUserInfo = CenterPerfectUserInfo.init(type: "1", true_name: self.trueName.text, college: self.collegeModel?.coid, school: self.academyModel?.id, grade: self.gradeModel?.id, identity_pic: self.certificateImageUrl)
+        _ = moyaProvider.rx.request(.targetWith(target: perfectUserInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
+                Defaults[.userCertificationState] = 1
                 let identityAuthStateController = IdentityAuthStateController()
-                self.navigationController?.pushViewController(identityAuthStateController, animated: true)
+                identityAuthStateController.isFromPersonCenter = false
+                self.navigationController?.popViewController(animated: true)
             }
             Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in

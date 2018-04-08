@@ -48,7 +48,7 @@ class TrendModel: BaseModel {
     var red_type:String?
     
     //话题部分
-    var pic:String?
+    var pic:PictureModel?
     var topic_action_id:Int?
     required init?(map: Map) {
         super.init(map: map)
@@ -81,10 +81,8 @@ class TrendModel: BaseModel {
         pic <- map["pic"]
         topic_action_id <- map["topic_action_id"]
         
-        if (nil == self.action_pic || self.action_pic?.count == 0) && self.pic != nil{
-            if self.pic!.lengthOfBytes(using: String.Encoding.utf8) >= 5{
-                self.action_pic = [self.pic!]
-            }
+        if (nil == self.action_pic || self.action_pic?.count == 0) && self.pic?.url != nil{
+            self.action_pic = [(self.pic?.url)!]
         }
         if nil == self.action_id && self.topic_action_id != nil{
             self.action_id = self.topic_action_id
@@ -92,6 +90,23 @@ class TrendModel: BaseModel {
     }
 }
 
+class PictureModel: BaseModel {
+    var url:String?
+    var w:Int?
+    var h:Int?
+    
+    required init?(map: Map) {
+        super.init(map: map)
+    }
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        url<-map["url"]
+        w<-map["w"]
+        h<-map["h"]
+
+    }
+}
 
 
 

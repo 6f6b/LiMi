@@ -96,36 +96,23 @@ class LoginController: ViewController {
             if loginModel?.commonInfoModel?.status ==  successState{
                 Defaults[.userPhone] = self.phoneNum.text
             }
-            //未认证
-//            if loginModel?.identity_status == 0{
-                if loginModel?.user_info_status == 0{
-                    //跳转性别、姓名填写界面
-                    let finishPersonInfoController = FinishPersonInfoController()
-                    finishPersonInfoController.loginModel = loginModel
-                    self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
-                }else{
-                    //存储userid、token
-                    Defaults[.userId] = loginModel?.id
-                    Defaults[.userToken] = loginModel?.token
-                    if loginModel?.user_info_status == 1{
-                        //进入大学信息填写界面
-                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
-                    }
-                    if loginModel?.user_info_status == 2{
-                        //进入主界面
-                        LoginServiceToMainController(loginRootController: self.navigationController)
-                    }
-                }
-//            }
-//            //认证中或者认证完成
-//            if loginModel?.identity_status == 1 || loginModel?.identity_status == 2{}
-//            //认证失败
-//            if loginModel?.identity_status == 3{
-//
-//            }
+            
             if loginModel?.commonInfoModel?.status != successState{
                 self.showErrorMsgOnLabelWith(msg: loginModel?.commonInfoModel?.msg)
+            }
+            //判断是否已经完善了基本信息
+            if loginModel?.identity_status == 0{
+                //跳转性别、姓名填写界面
+                let finishPersonInfoController = FinishPersonInfoController()
+                finishPersonInfoController.loginModel = loginModel
+                self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
+                return
+            }else{
+                //存储userid、token
+                Defaults[.userId] = loginModel?.id
+                Defaults[.userToken] = loginModel?.token
+                //进入主界面
+                LoginServiceToMainController(loginRootController: self.navigationController)
             }
             Toast.dismiss()
         }, onError: { (error) in

@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class UserInfoListModel: BaseModel {
-    var userInfo:UserInfoModel?
+    var userInfos:[UserInfoModel]?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -18,6 +18,6 @@ class UserInfoListModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        userInfo<-map["data"]
+        userInfos<-map["data"]
     }
 }

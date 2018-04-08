@@ -720,7 +720,19 @@
 		68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33F204FBCD20004C3D9 /* ToastView.swift */; };
 		68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */; };
 		68B3F3462050EB160004C3D9 /* CustomSystemMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */; };
-		68B55D672072102400DF6FF7 /* MediaFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D662072102400DF6FF7 /* MediaFileManager.swift */; };
+		68B55D6A20747F4400DF6FF7 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D6820747F4400DF6FF7 /* FollowerCell.swift */; };
+		68B55D6B20747F4400DF6FF7 /* FollowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D6920747F4400DF6FF7 /* FollowerCell.xib */; };
+		68B55D6E207480E000DF6FF7 /* FollowerListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D6C207480E000DF6FF7 /* FollowerListController.swift */; };
+		68B55D6F207480E000DF6FF7 /* FollowerListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D6D207480E000DF6FF7 /* FollowerListController.xib */; };
+		68B55D71207481A100DF6FF7 /* FollowerListContainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */; };
+		68B55D74207489B300DF6FF7 /* AddFollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D72207489B300DF6FF7 /* AddFollowersController.swift */; };
+		68B55D75207489B300DF6FF7 /* AddFollowersController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D73207489B300DF6FF7 /* AddFollowersController.xib */; };
+		68B55D7820748B8F00DF6FF7 /* MyBlackListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D7620748B8F00DF6FF7 /* MyBlackListController.swift */; };
+		68B55D7920748B8F00DF6FF7 /* MyBlackListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D7720748B8F00DF6FF7 /* MyBlackListController.xib */; };
+		68B55D7B20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D7A20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift */; };
+		68B55D7D207764FB00DF6FF7 /* UserDetailSelectTrendsTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D7C207764FB00DF6FF7 /* UserDetailSelectTrendsTypeView.swift */; };
+		68B55D7F20788BAA00DF6FF7 /* UserDetailSingleInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D7E20788BAA00DF6FF7 /* UserDetailSingleInfoCell.swift */; };
+		68B55D8120788BF100DF6FF7 /* UserDetailSingleInfoWithQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D8020788BF100DF6FF7 /* UserDetailSingleInfoWithQuestionCell.swift */; };
 		68C5F28E203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */; };
 		68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */; };
 		68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */; };
@@ -2150,7 +2162,19 @@
 		68B3F33F204FBCD20004C3D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
 		68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSystemMessageManager.swift; sourceTree = "<group>"; };
-		68B55D662072102400DF6FF7 /* MediaFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFileManager.swift; sourceTree = "<group>"; };
+		68B55D6820747F4400DF6FF7 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		68B55D6920747F4400DF6FF7 /* FollowerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerCell.xib; sourceTree = "<group>"; };
+		68B55D6C207480E000DF6FF7 /* FollowerListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListController.swift; sourceTree = "<group>"; };
+		68B55D6D207480E000DF6FF7 /* FollowerListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerListController.xib; sourceTree = "<group>"; };
+		68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListContainController.swift; sourceTree = "<group>"; };
+		68B55D72207489B300DF6FF7 /* AddFollowersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFollowersController.swift; sourceTree = "<group>"; };
+		68B55D73207489B300DF6FF7 /* AddFollowersController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFollowersController.xib; sourceTree = "<group>"; };
+		68B55D7620748B8F00DF6FF7 /* MyBlackListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlackListController.swift; sourceTree = "<group>"; };
+		68B55D7720748B8F00DF6FF7 /* MyBlackListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyBlackListController.xib; sourceTree = "<group>"; };
+		68B55D7A20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailChooseHiddenOrNotView.swift; sourceTree = "<group>"; };
+		68B55D7C207764FB00DF6FF7 /* UserDetailSelectTrendsTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSelectTrendsTypeView.swift; sourceTree = "<group>"; };
+		68B55D7E20788BAA00DF6FF7 /* UserDetailSingleInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSingleInfoCell.swift; sourceTree = "<group>"; };
+		68B55D8020788BF100DF6FF7 /* UserDetailSingleInfoWithQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSingleInfoWithQuestionCell.swift; sourceTree = "<group>"; };
 		68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCell.swift; sourceTree = "<group>"; };
 		68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackQuestionCategoryCollectionCell.xib; sourceTree = "<group>"; };
@@ -4823,7 +4847,6 @@
 				6801E0DB202D4FDF00C106E1 /* AppManager.swift */,
 				681C95CE204553F5009CDE3B /* LocationManager.swift */,
 				68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */,
-				68B55D662072102400DF6FF7 /* MediaFileManager.swift */,
 				68A3EE12206E373B00BD3097 /* FileUploadManager.swift */,
 				68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */,
 				68A3EE14206E377700BD3097 /* VideoUploadManager.swift */,
@@ -4910,6 +4933,13 @@
 				68EFB906203FE53F00FE1A59 /* FeedBackController.xib */,
 				6864AC5020494A8B00422CD8 /* MyOrderListController.swift */,
 				6864AC5120494A8B00422CD8 /* MyOrderListController.xib */,
+				68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */,
+				68B55D6C207480E000DF6FF7 /* FollowerListController.swift */,
+				68B55D6D207480E000DF6FF7 /* FollowerListController.xib */,
+				68B55D72207489B300DF6FF7 /* AddFollowersController.swift */,
+				68B55D73207489B300DF6FF7 /* AddFollowersController.xib */,
+				68B55D7620748B8F00DF6FF7 /* MyBlackListController.swift */,
+				68B55D7720748B8F00DF6FF7 /* MyBlackListController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4949,6 +4979,8 @@
 				6864AC5520494BD700422CD8 /* MyTourOrderCell.xib */,
 				681389BE205164C000F65623 /* WeekendTourOrderStatusView.swift */,
 				681389C02051652500F65623 /* WeekendTourOrderStatusView.xib */,
+				68B55D6820747F4400DF6FF7 /* FollowerCell.swift */,
+				68B55D6920747F4400DF6FF7 /* FollowerCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5023,8 +5055,12 @@
 				683107BB2024338A0060B109 /* EmptyCommentCell.xib */,
 				682548722015C46D0033410A /* UserDetailHeadView.swift */,
 				682548742015C47E0033410A /* UserDetailHeadView.xib */,
+				68B55D7A20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift */,
 				68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */,
 				68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */,
+				68B55D7C207764FB00DF6FF7 /* UserDetailSelectTrendsTypeView.swift */,
+				68B55D7E20788BAA00DF6FF7 /* UserDetailSingleInfoCell.swift */,
+				68B55D8020788BF100DF6FF7 /* UserDetailSingleInfoWithQuestionCell.swift */,
 				68F9038A201610B700B3028B /* CatchRedPacketView.swift */,
 				68F9038C201610C200B3028B /* CatchRedPacketView.xib */,
 				68282CEB2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift */,
@@ -5348,12 +5384,14 @@
 				6801E114202DA83700C106E1 /* NIMDemoChartlet.bundle in Resources */,
 				6801E0C7202C6EA900C106E1 /* AlipaySDK.bundle in Resources */,
 				6801E03E202C6EA900C106E1 /* NTESLoginViewController.xib in Resources */,
+				68B55D6B20747F4400DF6FF7 /* FollowerCell.xib in Resources */,
 				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
 				6862E52C2019BC130058B878 /* btn_expression@2x.png in Resources */,
 				68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */,
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				6801E0D2202C6EA900C106E1 /* SPaySDKResource.bundle in Resources */,
 				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
+				68B55D6F207480E000DF6FF7 /* FollowerListController.xib in Resources */,
 				681C95D320456D12009CDE3B /* EditAutographView.xib in Resources */,
 				6801E046202C6EA900C106E1 /* NTESSystemNotificationCell.xib in Resources */,
 				6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */,
@@ -5403,6 +5441,7 @@
 				6862E5282019BC130058B878 /* keyboard_preview_bg@3x.png in Resources */,
 				6801E0FD202DA6CE00C106E1 /* Info.plist in Resources */,
 				6864AC2D2048F2A900422CD8 /* WeekendTour.storyboard in Resources */,
+				68B55D75207489B300DF6FF7 /* AddFollowersController.xib in Resources */,
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
 				6801E017202C6EA900C106E1 /* NTESRobotCardViewController.xib in Resources */,
 				6801E05E202C6EA900C106E1 /* NTESAudio2TextViewController.xib in Resources */,
@@ -5444,6 +5483,7 @@
 				689D5413202AF78F009C771C /* AlipaySDK.bundle in Resources */,
 				6801E115202DA83700C106E1 /* NIMKitResource.bundle in Resources */,
 				68EFB908203FE53F00FE1A59 /* FeedBackController.xib in Resources */,
+				68B55D7920748B8F00DF6FF7 /* MyBlackListController.xib in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 				6801E118202DA8AF00C106E1 /* NIMKitSettings.bundle in Resources */,
 				6801E107202DA6CE00C106E1 /* video_chat_push.mp3 in Resources */,
@@ -5564,12 +5604,14 @@
 				681C95AD2045366E009CDE3B /* CreatTopicController.swift in Sources */,
 				6801DF8B202C6EA800C106E1 /* NIMContactDataItem.m in Sources */,
 				685E396E206A2422003B505E /* SecondaryConditionScreeningSkills.swift in Sources */,
+				68B55D74207489B300DF6FF7 /* AddFollowersController.swift in Sources */,
 				68880886200DF19300BC6AE9 /* ViewController.swift in Sources */,
 				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
 				6801DFF7202C6EA800C106E1 /* NSDictionary+NTESJson.m in Sources */,
 				6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */,
 				68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */,
 				688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */,
+				68B55D6E207480E000DF6FF7 /* FollowerListController.swift in Sources */,
 				6801E022202C6EA900C106E1 /* NTESChatroomMessageDataProvider.m in Sources */,
 				6801E0B5202C6EA900C106E1 /* NTESDemoFetchChatroomTask.m in Sources */,
 				6801DF98202C6EA800C106E1 /* NIMInputEmoticonTabView.m in Sources */,
@@ -5708,8 +5750,10 @@
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
 				6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */,
+				68B55D6A20747F4400DF6FF7 /* FollowerCell.swift in Sources */,
 				68358259201F18DD00798462 /* TransactonListModel.swift in Sources */,
 				688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */,
+				68B55D8120788BF100DF6FF7 /* UserDetailSingleInfoWithQuestionCell.swift in Sources */,
 				6801DF85202C6EA800C106E1 /* NIMLoadProgressView.m in Sources */,
 				6864AC2A2048F24800422CD8 /* WeekendTourUnitPriceCell.swift in Sources */,
 				6864AC62204D240D00422CD8 /* SystemMessageNumView.swift in Sources */,
@@ -5747,6 +5791,7 @@
 				681C95E32047A343009CDE3B /* WeekendBannerCell.swift in Sources */,
 				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
 				6801E031202C6EA900C106E1 /* NTESGroupedDataCollection.m in Sources */,
+				68B55D71207481A100DF6FF7 /* FollowerListContainController.swift in Sources */,
 				6801E084202C6EA900C106E1 /* yuv444p10le.fsh.c in Sources */,
 				6801E000202C6EA800C106E1 /* UIView+NTES.m in Sources */,
 				6801E005202C6EA800C106E1 /* NTESMainTabController.m in Sources */,
@@ -5771,9 +5816,11 @@
 				685E396820689B39003B505E /* ScreeningConditionsBaseModel.swift in Sources */,
 				688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */,
 				681C95B02045366E009CDE3B /* TopicListContainController.swift in Sources */,
+				68B55D7B20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift in Sources */,
 				6801D937202C44D000C106E1 /* TAAbstractDotView.m in Sources */,
 				6801E018202C6EA900C106E1 /* NTESSearchTeamViewController.m in Sources */,
 				68880898200DF53000BC6AE9 /* GlobalVariable.swift in Sources */,
+				68B55D7D207764FB00DF6FF7 /* UserDetailSelectTrendsTypeView.swift in Sources */,
 				6801E0DA202D344B00C106E1 /* NTESConfig.m in Sources */,
 				688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */,
 				6801DF76202C6EA800C106E1 /* NIMKitColorButtonCell.m in Sources */,
@@ -5790,6 +5837,7 @@
 				6801DFD1202C6EA800C106E1 /* NIMNormalTeamCardViewController.m in Sources */,
 				6801E059202C6EA900C106E1 /* NTESSessionRedPacketTipContentView.m in Sources */,
 				6801E0AC202C6EA900C106E1 /* NTESNickNameSettingViewController.m in Sources */,
+				68B55D7F20788BAA00DF6FF7 /* UserDetailSingleInfoCell.swift in Sources */,
 				681C95ED2047A633009CDE3B /* WeekendTourSubjectCell.swift in Sources */,
 				6864AC5620494BD700422CD8 /* MyTourOrderCell.swift in Sources */,
 				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
@@ -5965,7 +6013,6 @@
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				6801E086202C6EA900C106E1 /* renderer_rgb.c in Sources */,
 				68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */,
-				68B55D672072102400DF6FF7 /* MediaFileManager.swift in Sources */,
 				6801E02D202C6EA900C106E1 /* NTESSessionRobotContentView.m in Sources */,
 				6801E0A6202C6EA900C106E1 /* NTESSettingViewController.m in Sources */,
 				68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */,
@@ -6008,6 +6055,7 @@
 				688809142011E64000BC6AE9 /* RechargeController.swift in Sources */,
 				6801E02B202C6EA900C106E1 /* NTESLiveMasterInfoView.m in Sources */,
 				68A3EDFE206D01BD00BD3097 /* TopicListTableView.swift in Sources */,
+				68B55D7820748B8F00DF6FF7 /* MyBlackListController.swift in Sources */,
 				6801E052202C6EA900C106E1 /* NTESSearchLocalHistoryObject.m in Sources */,
 				6801E091202C6EA900C106E1 /* NTESTeamMeetingMuteCell.m in Sources */,
 				6835824C201EC6A000798462 /* SkillModel.swift in Sources */,

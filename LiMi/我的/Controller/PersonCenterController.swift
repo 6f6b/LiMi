@@ -13,13 +13,25 @@ import SVProgressHUD
 import Kingfisher
 
 class PersonCenterController: UITableViewController {
+    @IBOutlet weak var backImageView: UIImageView!
+    //头像
     @IBOutlet weak var headImgBtn: UIButton!
-    @IBOutlet weak var userName: UILabel!
+    //昵称
+    @IBOutlet weak var nickName: UILabel!
+    //性别
     @IBOutlet weak var sexImg: UIImageView!
-    @IBOutlet weak var userInfo: UILabel!
-    @IBOutlet weak var authState: UILabel!
-    @IBOutlet weak var myCash: UILabel!
-    @IBOutlet weak var trendsNum: UILabel!  //动态数
+
+    //认证状态
+    @IBOutlet weak var authenticationState: UILabel!
+    
+    //个性签名
+    @IBOutlet weak var signature: UILabel!
+    //关注
+    @IBOutlet weak var follows: UILabel!
+    //粉丝
+    @IBOutlet weak var followers: UILabel!
+    
+    
     @IBOutlet weak var logOutBtn: UIButton!
     
     var personCenterModel:PersonCenterModel?
@@ -32,25 +44,41 @@ class PersonCenterController: UITableViewController {
         self.headImgBtn.layer.cornerRadius = 35
         self.headImgBtn.clipsToBounds = true
         
-        self.userName.text = nil
         self.sexImg.image = nil
-        self.userInfo.text = nil
-        self.authState.text = nil
-//        self.myCash.text = nil
-//        self.demandNum.text = nil
-//        self.trendsNum.text = nil
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        if SYSTEM_VERSION <= 11.0{
+            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        }else{
+            self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+        }
+        
+        let editBtn = UIButton.init(type: .custom)
+        let cancelAttributeTitle = NSAttributedString.init(string: "编辑", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
+        editBtn.setAttributedTitle(cancelAttributeTitle, for: .normal)
+        editBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 20)
+        editBtn.layer.cornerRadius = 10
+        editBtn.clipsToBounds = true
+        editBtn.layer.borderWidth = 1
+        editBtn.layer.borderColor = UIColor.white.cgColor
+        editBtn.addTarget(self, action: #selector(dealToEditInfo(_:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: editBtn)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-        self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: NAVIGATION_BAR_SEPARATE_LINE_HEIGHT), color: NAVIGATION_BAR_SEPARATE_COLOR)
+        self.title = nil
+        UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.barStyle = .blackTranslucent
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
         requestData()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,6 +86,20 @@ class PersonCenterController: UITableViewController {
     }
 
     // MARK: - misc
+    
+    @IBAction func dealToMyFollows(_ sender: Any) {
+        let followerListContainController = FollowerListContainController.init(initialIndex: 0)
+        self.navigationController?.pushViewController(followerListContainController, animated: true)
+    }
+    
+    @IBAction func dealToMyFollowers(_ sender: Any) {
+        let followerListContainController = FollowerListContainController.init(initialIndex: 1)
+        self.navigationController?.pushViewController(followerListContainController, animated: true)
+    }
+    @objc func dealToEditInfo(_ sender: Any) {
+            let personInfoController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
+            self.navigationController?.pushViewController(personInfoController, animated: true)
+    }
     //点击头像
     @IBAction func dealTapHeadImgBtn(_ sender: Any) {
     }
@@ -80,7 +122,7 @@ class PersonCenterController: UITableViewController {
         let personCenter = PersonCenter()
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
-            self.refreshUIWith(model: personCenterModel)
+            self.refreshUIWith(personCenterModel: personCenterModel)
             Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
@@ -89,42 +131,41 @@ class PersonCenterController: UITableViewController {
     }
     
     //刷新界面
-    func refreshUIWith(model:PersonCenterModel?){
-        self.personCenterModel = model
-        if let headPic = personCenterModel?.user_info?.head_pic{
+    func refreshUIWith(personCenterModel:PersonCenterModel?){
+        self.personCenterModel = personCenterModel
+        var model = personCenterModel?.user_info
+        if let headPic = model?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        if model?.user_info?.sex == "女"{
+        if model?.sex == "女"{
             self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
             self.sexImg.image = UIImage.init(named: "ic_boy")
         }
-        self.userName.text = self.personCenterModel?.user_info?.true_name
-        if let college = model?.user_info?.college,let academy = model?.user_info?.school{
-            self.userInfo.text = "\(college)|\(academy)"
-        }else{self.userInfo.text = "个人资料待认证"}
-        
-        //我的认证状态
-        //0 ：未认证   1：认证中  2：认证完成  3：认证失败
-        if let identity_status = model?.is_access?.identity_status{
-            var statusInfo = "未认证"
-            if identity_status == 0{statusInfo = "未认证"}
-            if identity_status == 1{statusInfo = "认证中"}
-            if identity_status == 2{statusInfo = "已认证"}
-            if identity_status == 3{statusInfo = "认证失败"}
-            self.authState.text = statusInfo
+        self.nickName.text = model?.nickname
+        self.signature.text = model?.signature
+        if let followsNum = model?.attention_num,let followersNum = model?.fans_num{
+            let followsNumAttr = NSMutableAttributedString.init(string: followsNum, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+            let followsNumLabel = NSAttributedString.init(string: "  关注", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
+            followsNumAttr.append(followsNumLabel)
+            self.follows.attributedText = followsNumAttr
+            
+            let followersNumAttr = NSMutableAttributedString.init(string: followersNum, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+            let followersNumLabel = NSAttributedString.init(string: "  粉丝", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
+            followersNumAttr.append(followersNumLabel)
+            self.followers.attributedText = followersNumAttr
         }
-    
-        //我的现金
-        var amount = "¥0"
-        if let _money = model?.money?.decimalValue(){
-            amount = "¥\(_money)"
+        if let backPic = model?.back_pic{
+            self.backImageView.kf.setImage(with: URL.init(string: backPic), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.myCash.text = amount
-        
-        //我的动态
-        if let trendNum = model?.my_action{
-            self.trendsNum.text = trendNum.stringValue()
+        if model?.is_access == 2{
+            self.authenticationState.text = "已认证"
+            self.authenticationState.textColor = UIColor.white
+            self.authenticationState.backgroundColor = APP_THEME_COLOR
+        }else{
+            self.authenticationState.text = "未认证"
+            self.authenticationState.textColor = UIColor.white
+            self.authenticationState.backgroundColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         }
     }
     
@@ -162,29 +203,25 @@ class PersonCenterController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 1}
-        if section == 1{ return 2}
-        if section == 2{ return 2}
-        if section == 3{ return 3}
+        if section == 1{ return 6}
+        if section == 2{ return 1}
         return 0
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 3{return 0.001}
-        return 7
+        return 0.0001
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {return UITableViewAutomaticDimension}
-        if indexPath.section == 3 && indexPath.row == 2{return UITableViewAutomaticDimension}
-        return 54
+        return UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -192,44 +229,46 @@ class PersonCenterController: UITableViewController {
         
         if indexPath.section == 0{
             if indexPath.row == 0{
-                let personInfoController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
-                self.navigationController?.pushViewController(personInfoController, animated: true)
+//                let personInfoController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
+//                self.navigationController?.pushViewController(personInfoController, animated: true)
             }
         }
         if indexPath.section == 1{
+            //我的现金
             if indexPath.row == 0{
-                self.checkIdentityInfoWith(identityStatus: self.personCenterModel?.is_access?.identity_status)
-            }
-            if indexPath.row == 1{
-                if !AppManager.shared.checkUserStatus(){return}
-
                 let myCashController = MyCashController()
                 myCashController.personCenterModel = self.personCenterModel
                 self.navigationController?.pushViewController(myCashController, animated: true)
             }
-        }
-        if indexPath.section == 2{
-            if !AppManager.shared.checkUserStatus(){return}
-            if indexPath.row == 0{
+            //我的动态
+            if indexPath.row == 1{
+                if !AppManager.shared.checkUserStatus(){return}
                 let myTrendListController = MyTrendListController()
                 self.navigationController?.pushViewController(myTrendListController, animated: true)
             }
-            if indexPath.row == 1{
+            //我的订单
+            if indexPath.row == 2{
+                if !AppManager.shared.checkUserStatus(){return}
                 let myOrderListController = MyOrderListController()
                 self.navigationController?.pushViewController(myOrderListController, animated: true)
             }
-        }
-        if indexPath.section == 3{
-            if indexPath.row == 0{
+            //我的拉黑
+            if indexPath.row == 3{
+                let myBlackListController = MyBlackListController()
+                self.navigationController?.pushViewController(myBlackListController, animated: true)
+            }
+            //用户反馈
+            if indexPath.row == 4{
                 if !AppManager.shared.checkUserStatus(){return}
                 let feedBackController = FeedBackController()
                 self.navigationController?.pushViewController(feedBackController, animated: true)
             }
-            if indexPath.row == 1{
+            //关于粒米
+            if indexPath.row == 5{
                 let aboutUsController = AboutUsController()
-                self.navigationController?.pushViewController(aboutUsController, animated: true)
-            }
+                self.navigationController?.pushViewController(aboutUsController, animated: true)            }
         }
+
         
     }
 
