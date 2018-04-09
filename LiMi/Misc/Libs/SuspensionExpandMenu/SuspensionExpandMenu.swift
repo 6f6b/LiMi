@@ -33,7 +33,8 @@ class SuspensionExpandMenu: UIView {
         
         self.tableView = UITableView.init(frame: CGRect.zero)
         self.tableView.separatorStyle = .none
-        self.tableView.register(UINib.init(nibName: "SuspensionMenuItemCell", bundle: nil), forCellReuseIdentifier: "SuspensionMenuItemCell")
+        self.tableView.register(SuspensionMenuItemCell.self, forCellReuseIdentifier: "SuspensionMenuItemCell")
+        self.tableView.register(SuspensionMenuItemWithImageCell.self, forCellReuseIdentifier: "SuspensionMenuItemWithImageCell")
         self.tableView.estimatedRowHeight = 1000
         self.tableView.layer.cornerRadius = 5
         self.tableView.clipsToBounds = true
@@ -145,7 +146,13 @@ extension SuspensionExpandMenu:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let suspensionMenuAction = self.actions[indexPath.row]
-        let suspensionMenuItemCell = tableView.dequeueReusableCell(withIdentifier: "SuspensionMenuItemCell", for: indexPath) as! SuspensionMenuItemCell
+        
+        var suspensionMenuItemCell:SuspensionMenuItemCell!
+        if suspensionMenuAction.image != nil{
+            suspensionMenuItemCell = tableView.dequeueReusableCell(withIdentifier: "SuspensionMenuItemWithImageCell", for: indexPath) as! SuspensionMenuItemCell
+        }else{
+           suspensionMenuItemCell = tableView.dequeueReusableCell(withIdentifier: "SuspensionMenuItemCell", for: indexPath) as! SuspensionMenuItemCell
+        }
         suspensionMenuItemCell.configWith(model: suspensionMenuAction)
         return suspensionMenuItemCell
     }

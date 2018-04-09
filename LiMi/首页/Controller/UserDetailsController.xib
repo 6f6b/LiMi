@@ -12,8 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserDetailsController" customModule="LiMi" customModuleProvider="target">
             <connections>
-                <outlet property="liaoBtn" destination="lhv-go-LtS" id="waB-Xs-g4W"/>
+                <outlet property="followBtn" destination="2yZ-d5-uB1" id="xPo-Vq-SXe"/>
+                <outlet property="liaoBtn" destination="raC-T0-EMA" id="TR4-io-IbV"/>
                 <outlet property="tableView" destination="XxP-pX-kY4" id="jdA-En-3Gz"/>
+                <outlet property="toolContainViewBottomConstraint" destination="nDl-DF-V7s" id="qs5-rF-Gog"/>
+                <outlet property="toolsContainView" destination="s6G-A8-rfo" id="DR9-27-fbX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,33 +26,74 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="XxP-pX-kY4">
-                    <rect key="frame" x="0.0" y="-44" width="375" height="711"/>
+                    <rect key="frame" x="0.0" y="-44" width="375" height="661"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhv-go-LtS">
-                    <rect key="frame" x="126.5" y="606" width="122" height="51"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <inset key="titleEdgeInsets" minX="13" minY="-7" maxX="0.0" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="-7" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="撩一下" image="ziliao_icon_liao" backgroundImage="ziliao_btn_liao"/>
-                    <connections>
-                        <action selector="dealLiao:" destination="-1" eventType="touchUpInside" id="Tf5-Cj-vks"/>
-                    </connections>
-                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6G-A8-rfo">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFu-Xf-fFZ">
+                            <rect key="frame" x="187" y="12.5" width="1" height="25"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="ckI-pw-b9v"/>
+                                <constraint firstAttribute="width" constant="1" id="x0P-zl-lCb"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yZ-d5-uB1">
+                            <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
+                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="关注" image="xq_ic_guanzhu">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="dealChangeRelationship:" destination="-1" eventType="touchUpInside" id="acI-is-C3O"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raC-T0-EMA">
+                            <rect key="frame" x="188" y="0.0" width="187" height="50"/>
+                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="发消息" image="xq_ic_faxx">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="dealLiao:" destination="-1" eventType="touchUpInside" id="SFI-i5-qdG"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="2yZ-d5-uB1" firstAttribute="leading" secondItem="s6G-A8-rfo" secondAttribute="leading" id="3rD-G5-ggz"/>
+                        <constraint firstItem="RFu-Xf-fFZ" firstAttribute="leading" secondItem="2yZ-d5-uB1" secondAttribute="trailing" id="8aA-we-gxZ"/>
+                        <constraint firstItem="raC-T0-EMA" firstAttribute="leading" secondItem="RFu-Xf-fFZ" secondAttribute="trailing" id="ED6-Db-ibL"/>
+                        <constraint firstAttribute="bottom" secondItem="2yZ-d5-uB1" secondAttribute="bottom" id="GTi-8E-9t9"/>
+                        <constraint firstItem="RFu-Xf-fFZ" firstAttribute="centerY" secondItem="s6G-A8-rfo" secondAttribute="centerY" id="MXu-gr-eHn"/>
+                        <constraint firstAttribute="bottom" secondItem="raC-T0-EMA" secondAttribute="bottom" id="OMz-XH-17M"/>
+                        <constraint firstItem="2yZ-d5-uB1" firstAttribute="top" secondItem="s6G-A8-rfo" secondAttribute="top" id="OjF-Tt-oJx"/>
+                        <constraint firstItem="RFu-Xf-fFZ" firstAttribute="centerX" secondItem="s6G-A8-rfo" secondAttribute="centerX" id="cVy-Ol-a3K"/>
+                        <constraint firstAttribute="trailing" secondItem="raC-T0-EMA" secondAttribute="trailing" id="f5N-T6-KKb"/>
+                        <constraint firstAttribute="height" constant="50" id="vEQ-GO-4yv"/>
+                        <constraint firstItem="raC-T0-EMA" firstAttribute="top" secondItem="s6G-A8-rfo" secondAttribute="top" id="z8E-Bk-cVf"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
-                <constraint firstItem="lhv-go-LtS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5sI-yC-SK9"/>
+                <constraint firstItem="s6G-A8-rfo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8Fb-Ni-Cfx"/>
                 <constraint firstItem="XxP-pX-kY4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="I4Z-BE-mhJ"/>
                 <constraint firstItem="XxP-pX-kY4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-64" id="Sep-BZ-SvC"/>
+                <constraint firstItem="s6G-A8-rfo" firstAttribute="top" secondItem="XxP-pX-kY4" secondAttribute="bottom" id="XrJ-1i-Lk4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XxP-pX-kY4" secondAttribute="trailing" id="hKw-Kl-Ub1"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XxP-pX-kY4" secondAttribute="bottom" id="tqp-XE-nzl"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lhv-go-LtS" secondAttribute="bottom" constant="10" id="x2D-yL-SWR"/>
+                <constraint firstItem="s6G-A8-rfo" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="nDl-DF-V7s"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s6G-A8-rfo" secondAttribute="trailing" id="rla-ko-IJc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="24.5" y="52.5"/>
         </view>
     </objects>
     <resources>
-        <image name="ziliao_btn_liao" width="122" height="51"/>
-        <image name="ziliao_icon_liao" width="21" height="19"/>
+        <image name="xq_ic_faxx" width="23" height="23"/>
+        <image name="xq_ic_guanzhu" width="24" height="21"/>
     </resources>
 </document>

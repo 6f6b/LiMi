@@ -17,7 +17,7 @@ class EditAutographView: UIView {
     @IBOutlet weak var autograph: UITextField!
     @IBOutlet weak var finishedBtn: UIButton!
     @IBOutlet weak var containViewCenterYConstraint: NSLayoutConstraint!
-    
+    var editSuccessBlock:((String?)->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.containView.layer.cornerRadius = 5
@@ -63,8 +63,11 @@ class EditAutographView: UIView {
     @IBAction func dealFinished(_ sender: Any) {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let updateContent = UpdateContent(content: self.autograph.text)
-        _ = moyaProvider.rx.request(.targetWith(target: updateContent)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: updateContent)).subscribe(onSuccess: {[unowned self] (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            if let successBlock = self.editSuccessBlock{
+                successBlock(self.autograph.text)
+            }
             self.removeFromSuperview()
             Toast.showResultWith(model: baseModel)
         }, onError: { (error) in

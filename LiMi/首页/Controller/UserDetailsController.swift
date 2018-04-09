@@ -14,7 +14,11 @@ import ObjectMapper
 
 class UserDetailsController: ViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var toolsContainView: UIView!
     @IBOutlet weak var liaoBtn: UIButton!
+    @IBOutlet weak var followBtn: UIButton!
+    @IBOutlet weak var toolContainViewBottomConstraint: NSLayoutConstraint!
+    
     var userDetailHeadView:UserDetailHeadView?
     var userDetailSelectTrendsTypeCell:UserDetailSelectTrendsTypeCell?
     var userInfoModel:UserInfoModel?
@@ -83,7 +87,7 @@ class UserDetailsController: ViewController {
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
         }
-        if self.userId == Defaults[.userId]{self.liaoBtn.isHidden = true}
+        if self.userId == Defaults[.userId]{self.toolContainViewBottomConstraint.constant = 50}
     }
 
     
@@ -98,7 +102,49 @@ class UserDetailsController: ViewController {
     }
 
     //MARK: - misc
+    func refreshToolContainViewWith(model:UserInfoModel?){
+        if model?.is_attention == 0{
+            self.followBtn.setTitle("关注", for: .normal)
+        }
+        if model?.is_attention == 1{
+            self.followBtn.setTitle("已关注", for: .normal)
+        }
+        if model?.is_attention == 2{
+            self.followBtn.setTitle("互相关注", for: .normal)
+        }
+        
+    }
     
+    //改变关注关系
+    @IBAction func dealChangeRelationship(_ sender: Any) {
+        if self.userInfoModel?.is_attention == 0{
+            self.changeRelationship()
+        }else{
+            let popViewForChooseToUnFollow = PopViewForChooseToUnFollow.init(frame: SCREEN_RECT)
+            popViewForChooseToUnFollow.tapRightBlock = {[unowned self] () in
+                self.changeRelationship()
+            }
+            popViewForChooseToUnFollow.show()
+        }
+        
+    }
+    
+    func changeRelationship(){
+        if let userId = self.userInfoModel?.user_id{
+            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+            let addAttention = AddAttention.init(attention_id: userId)
+            _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
+                let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+                self.userInfoModel?.is_attention = personCenterModel?.user_info?.is_attention
+                if personCenterModel?.commonInfoModel?.status == successState{
+                    self.refreshToolContainViewWith(model: personCenterModel?.user_info)
+                }
+                Toast.showErrorWith(model: personCenterModel)
+                }, onError: { (error) in
+                    Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }
+    }
     /// 更多操作
     ///
     /// - Parameters:
@@ -150,8 +196,9 @@ class UserDetailsController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let pageIndex = self.type == "action" ? self.actionPage : self.skillPage
         let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type)
-        _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: {[unowned self] (response) in
             let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
+            self.refreshToolContainViewWith(model: userDetailModel?.user)
             if let trends = userDetailModel?.action_list{
                 if self.type == "action"{
                     if self.actionPage == 1{self.actionDataArray.removeAll()}
@@ -293,19 +340,38 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{return UITableViewCell()}
         if indexPath.section == 1{
             if indexPath.row == 0{
-                self.schoolInfoCell.infoLabel.text = "学校  \(self.userInfoModel?.college)"
-                self.academyInfoCell.infoLabel.text = "学院  \(self.userInfoModel?.school)"
-                self.gradeInfoCell.infoLabel.text = "年级  \(self.userInfoModel?.grade)"
-                self.trueNameInfoCell.infoLabel.text = "姓名  \(self.userInfoModel?.true_name)"
+                var info = "学校  "
+                if let _college = self.userInfoModel?.college{
+                    info.append(_college)
+                }
+                self.schoolInfoCell.infoLabel.text = info
                 return self.schoolInfoCell
             }
             if indexPath.row == 1{
+                var info = "学院  "
+                if let academy = self.userInfoModel?.school{
+                    info.append(academy)
+                }
+                self.academyInfoCell.infoLabel.text = info
                 return self.academyInfoCell
             }
             if indexPath.row == 2{
+                var info = "年级  "
+                if let grade = self.userInfoModel?.grade{
+                    info.append(grade)
+                }
+                self.gradeInfoCell.infoLabel.text = info
                 return self.gradeInfoCell
             }
             if indexPath.row == 3{
+                var info = "姓名  "
+                if let name = self.userInfoModel?.true_name{
+                    info.append(name)
+                    self.trueNameInfoCell.questionBtn.isHidden = true
+                }else{
+                    self.trueNameInfoCell.questionBtn.isHidden = false
+                }
+                self.trueNameInfoCell.infoLabel.text = info
                 return self.trueNameInfoCell
             }
         }

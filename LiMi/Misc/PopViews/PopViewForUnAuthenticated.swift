@@ -52,7 +52,7 @@ class PopViewForUnAuthenticated: PopView {
         self.notNowBtn.setTitle("先去逛逛", for: .normal)
         self.centerContianView.addSubview(self.notNowBtn)
         self.notNowBtn.snp.makeConstraints {[unowned self] (make) in
-            make.top.equalTo(self.infoLabel.snp.bottom).offset(15)
+            make.top.greaterThanOrEqualTo(self.infoLabel.snp.bottom).offset(15)
             make.left.equalTo(self.centerContianView).offset(18)
             make.bottom.equalTo(self.centerContianView).offset(-15)
             make.height.equalTo(40)

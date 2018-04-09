@@ -30,9 +30,11 @@ class CommentModel: BaseModel {
     var create_time:String?
     var grade:String?
     var head_pic:String?
+    var back_pic:String?
     var school:String?
     var sex:String?
     var true_name:String?
+    var nickname:String?
     var user_id:Int?
     var user_info_status:Int?
     
@@ -49,9 +51,11 @@ class CommentModel: BaseModel {
         grade<-map["grade"]
 
         head_pic<-map["head_pic"]
+        back_pic <- map["back_pic"]
         school<-map["school"]
         sex<-map["sex"]
         true_name<-map["true_name"]
+        nickname <- map["nickname"]
         user_id<-map["user_id"]
         user_info_status<-map["user_info_status"]
 

@@ -13,8 +13,7 @@ class ConditionScreeningCollectionCell: UICollectionViewCell {
     @IBOutlet weak var info: UILabel!
     
     @IBOutlet weak var rightBarImage: UIImageView!
-    @IBOutlet weak var arrowLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var arrowRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoRightConstraint: NSLayoutConstraint!
     var tapBlock:(()->Void)?
     var isSelectedStatus = false
     override func awakeFromNib() {
@@ -48,12 +47,10 @@ class ConditionScreeningCollectionCell: UICollectionViewCell {
     func configWith(model:ScreeningConditionsBaseModel?, isLast:Bool = false){
         //重置
         self.rightBarImage.isHidden = true
-        self.arrowLeftConstraint.constant = 0
-        self.arrowRightConstraint.constant = 0
+        self.infoRightConstraint.constant = 0
         //是否是最后一个
         if isLast{
-            self.arrowLeftConstraint.constant = 5
-            self.arrowRightConstraint.constant = 10
+            self.infoRightConstraint.constant = 20
             self.rightBarImage.isHidden = false
 
             //是否为空

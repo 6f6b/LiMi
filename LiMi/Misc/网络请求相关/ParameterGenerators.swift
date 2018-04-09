@@ -194,13 +194,13 @@ struct EditUsrInfo:TargetType,ParametersProtocol{
     var method: Moya.Method { return .post }
     var path: String { return "/User/edituser" }
 
-    var field:String?
-    var value:String?
+    var nickname:String?
+    var signature:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
-            "field":field,
-            "value":value
+            "nickname":nickname,
+            "signature":signature
         ]
         return handleRequestParameters(parameters: tmpParameters)
     }

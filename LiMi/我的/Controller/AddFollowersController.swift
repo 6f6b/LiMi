@@ -28,8 +28,12 @@ class AddFollowersController: ViewController {
         self.searchText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
         
         self.loadDefaultData()
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedNotificationWith(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
     }
-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     @IBAction func dealCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -37,6 +41,28 @@ class AddFollowersController: ViewController {
         super.didReceiveMemoryWarning()
     }
 
+    //MARK: - misc
+    @objc func receivedNotificationWith(notification:Notification?){
+        if let info = notification?.userInfo{
+            let userId = info[USER_ID_KEY] as? Int
+            let relationship = info[RELATIONSHIP_KEY] as? Int
+            var tmpDataArray:[UserInfoModel]!
+            if self.dataArray.count != 0{
+                tmpDataArray = self.dataArray
+            }else{
+                tmpDataArray = self.defaultDataArray
+            }
+            for i in 0..<tmpDataArray.count{
+                let userModel = tmpDataArray[i]
+                if userModel.user_id == userId{
+                    userModel.is_attention = relationship
+                    //is_attention=0 未关注 1 已关注 2 互关注
+                    self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                }
+            }
+        }
+    }
+    
     func loadDefaultData(){
         //TopAttentionList
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)

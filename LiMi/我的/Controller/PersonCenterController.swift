@@ -11,8 +11,11 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 import Kingfisher
+import TZImagePickerController
 
 class PersonCenterController: UITableViewController {
+    @IBOutlet weak var coverView: UIView!
+    //背景图
     @IBOutlet weak var backImageView: UIImageView!
     //头像
     @IBOutlet weak var headImgBtn: UIButton!
@@ -35,14 +38,15 @@ class PersonCenterController: UITableViewController {
     @IBOutlet weak var logOutBtn: UIButton!
     
     var personCenterModel:PersonCenterModel?
+    var imagePickerVc:TZImagePickerController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 1000
         self.logOutBtn.layer.cornerRadius = 5
         self.logOutBtn.clipsToBounds = true
-        self.headImgBtn.layer.cornerRadius = 35
-        self.headImgBtn.clipsToBounds = true
+//        self.headImgBtn.layer.cornerRadius = 35
+//        self.headImgBtn.clipsToBounds = true
         
         self.sexImg.image = nil
         
@@ -63,6 +67,10 @@ class PersonCenterController: UITableViewController {
         editBtn.layer.borderColor = UIColor.white.cgColor
         editBtn.addTarget(self, action: #selector(dealToEditInfo(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: editBtn)
+        
+        self.coverView.isUserInteractionEnabled = true
+        let tapG = UITapGestureRecognizer.init(target: self, action: #selector(dealTapBackImageView))
+        self.coverView.addGestureRecognizer(tapG)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +94,46 @@ class PersonCenterController: UITableViewController {
     }
 
     // MARK: - misc
+    @objc func dealTapBackImageView(){
+        self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
+        self.imagePickerVc?.allowPickingGif = false
+        self.imagePickerVc?.allowPickingVideo = false
+        self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
+            self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset])
+        }
+        self.present(imagePickerVc!, animated: true, completion: nil)
+    }
+    
+    func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        Toast.showStatusWith(text: "正在上传")
+        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+            var localMediaModel = LocalMediaModel.init()
+            localMediaModel.key = key
+            localMediaModel.image = image
+            
+            let moyaProvider = MoyaProvider<LiMiAPI>()
+            let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+key, type: "back")
+            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: {[unowned self] (response) in
+                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+                if resultModel?.commonInfoModel?.status == successState{
+                    self.backImageView.image = image
+                }
+                self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                Toast.showErrorWith(model: resultModel)
+            }, onError: { (error) in
+                Toast.showErrorWith(msg: error.localizedDescription)
+            })
+            
+            print("imageWidth:\(image.size.width)--imageHeight:\(image.size.height)--key:\(key)")
+        }, failedBlock: {
+            
+        }, completionBlock: {
+            Toast.dismiss()
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            self.tableView.reloadData()
+            print("上传结束")
+        }, tokenIDModel: nil)
+    }
     
     @IBAction func dealToMyFollows(_ sender: Any) {
         let followerListContainController = FollowerListContainController.init(initialIndex: 0)
@@ -133,7 +181,7 @@ class PersonCenterController: UITableViewController {
     //刷新界面
     func refreshUIWith(personCenterModel:PersonCenterModel?){
         self.personCenterModel = personCenterModel
-        var model = personCenterModel?.user_info
+        let model = personCenterModel?.user_info
         if let headPic = model?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
@@ -143,7 +191,11 @@ class PersonCenterController: UITableViewController {
             self.sexImg.image = UIImage.init(named: "ic_boy")
         }
         self.nickName.text = model?.nickname
-        self.signature.text = model?.signature
+        if let _signature = model?.signature{
+            self.signature.text = _signature
+        }else{
+            self.signature.text = "个性签名空空如也~"
+        }
         if let followsNum = model?.attention_num,let followersNum = model?.fans_num{
             let followsNumAttr = NSMutableAttributedString.init(string: followsNum, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
             let followsNumLabel = NSAttributedString.init(string: "  关注", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
@@ -272,4 +324,8 @@ class PersonCenterController: UITableViewController {
         
     }
 
+}
+
+extension PersonCenterController:TZImagePickerControllerDelegate{
+    
 }

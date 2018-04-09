@@ -19,7 +19,7 @@ class MyBlackListController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的拉黑"
-        self.tableView.register(UINib.init(nibName: "FollowerCell", bundle: nil), forCellReuseIdentifier: "FollowerCell")
+        self.tableView.register(UINib.init(nibName: "BlackerCell", bundle: nil), forCellReuseIdentifier: "BlackerCell")
         self.tableView.estimatedRowHeight = 100
         
         
@@ -36,6 +36,11 @@ class MyBlackListController: ViewController {
         self.tableView.dataSource = self
         
         self.loadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,6 +48,30 @@ class MyBlackListController: ViewController {
     }
     
     //MARK: - misc
+    @objc func dealDidMoreOperation(notification:Notification){
+        if let userInfo = notification.userInfo{
+            if let operationModel = userInfo[MORE_OPERATION_KEY] as? MoreOperationModel{
+                if operationModel.operationType == .cancelBlack{
+                    for i in 0..<self.dataArray.count{
+                        if dataArray[i].user_id == operationModel.user_id{
+                            dataArray.remove(at: i)
+                            self.tableView.reloadData()
+                            return
+                        }
+                    }
+                }
+//                //拉黑
+//                if operationModel.operationType == .defriend{
+//                    self.defriendUserWith(user_id: operationModel.user_id)
+//                }
+//                //删除
+//                if operationModel.operationType == .delete{
+//                    self.deleteTrendsWith(actionId: operationModel.action_id)
+//                }
+            }
+        }
+    }
+    
     func loadData(){
         //MyBlackList
         if self.pageIndex == 1{self.dataArray.removeAll()}
@@ -86,9 +115,9 @@ extension MyBlackListController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = self.dataArray[indexPath.row]
-        let followerCell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell", for: indexPath) as! FollowerCell
-        followerCell.configWith(model: model)
-        return followerCell
+        let blackCell = tableView.dequeueReusableCell(withIdentifier: "BlackerCell", for: indexPath) as! BlackerCell
+        blackCell.configWith(model: model)
+        return blackCell
     }
 }
 

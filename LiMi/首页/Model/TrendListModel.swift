@@ -41,6 +41,7 @@ class TrendModel: BaseModel {
     var skill:String?   //标签
     var true_name:String?
     var user_id:Int?
+    var nickname:String?
     var view_num:String?   //浏览人数
     var is_click:Int?   //0：未点赞，1：已点赞
     var is_over:Int?    //0：没有抢光，1：已经抢光
@@ -72,6 +73,7 @@ class TrendModel: BaseModel {
         skill<-map["skill"]
         true_name<-map["true_name"]
         user_id<-map["user_id"]
+        nickname <- map["nickname"]
         view_num<-map["view_num"]
         is_click<-map["is_click"]
         is_over<-map["is_over"]

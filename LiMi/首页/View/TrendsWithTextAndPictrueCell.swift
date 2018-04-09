@@ -112,10 +112,7 @@ extension TrendsWithTextAndPictrueCell:UICollectionViewDelegate,UICollectionView
             let broswer = SKPhotoBrowser(originImage: originImg ?? GetImgWith(size: SCREEN_RECT.size, color: .clear), photos: images, animatedFromView: cell)
             broswer.initializePageIndex(indexPath.row)
             UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
-            
-//            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: indexPath.row, imageCount: UInt(imgArr.count), datasource: self)
-//            photoBroswer?.browserStyle = .indexLabel
-//            photoBroswer?.setActionSheeWith(self)
+
         }
         if let _tapPictureBlock = self.tapPictureBlock{
             _tapPictureBlock(indexPath.row)

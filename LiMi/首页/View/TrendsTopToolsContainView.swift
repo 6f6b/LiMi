@@ -26,7 +26,7 @@ class TrendsTopToolsContainView: UIView {
         self.addSubview(headImgBtn)
         self.headImgBtn.layer.cornerRadius = 20
         self.headImgBtn.clipsToBounds = true
-        self.headImgBtn.setImage(UIImage.init(named: "touxiang1"), for: .normal)
+        self.headImgBtn.setImage(UIImage.init(named: "touxiang"), for: .normal)
         self.headImgBtn.addTarget(self, action: #selector(dealTapHeadBtn), for: .touchUpInside)
         self.headImgBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(15)
@@ -103,7 +103,7 @@ class TrendsTopToolsContainView: UIView {
             self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
         }
         //姓名
-        self.userName.text = model?.true_name
+        self.userName.text = model?.nickname
         //性别
         if cellStyle == .inMyTrendList{self.sexImg.isHidden = true}
         if cellStyle == .inPersonCenter{self.sexImg.isHidden = true}
@@ -164,9 +164,9 @@ class TrendsTopToolsContainView: UIView {
     
     func configWith(commentModel:CommentModel?){
         if let headImgUrl = commentModel?.head_pic{
-            self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal)
+            self.headImgBtn.kf.setImage(with: URL.init(string: headImgUrl), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.userName.text = commentModel?.true_name
+        self.userName.text = commentModel?.nickname
         if commentModel?.sex == "男"{
             self.sexImg.image = UIImage.init(named: "ic_boy")
         }else{

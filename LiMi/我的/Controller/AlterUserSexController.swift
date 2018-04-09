@@ -51,6 +51,7 @@ class AlterUserSexController: ViewController {
     
     //提交
     @objc func dealSumbit(){
+        return
         //判断是否选择了性别
         if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
             Toast.showErrorWith(msg: "请选择性别")
@@ -62,7 +63,7 @@ class AlterUserSexController: ViewController {
             sex = "1"
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUsrInfo = EditUsrInfo(field: "sex", value: sex)
+        let editUsrInfo = EditUsrInfo(nickname: "sex", signature: sex)
         _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{

@@ -69,7 +69,20 @@ class FollowerListController: ViewController {
                 let userModel = self.dataArray[i]
                 if userModel.user_id == userId{
                     userModel.is_attention = relationship
-                    self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                    //is_attention=0 未关注 1 已关注 2 互关注
+                    if self.followType == .followers{
+                        self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                    }
+                    if self.followType == .follows{
+                        if userModel.is_attention == 0{
+                            self.dataArray.remove(at: i)
+                            self.tableView.reloadData()
+                            return
+                        }
+                        if userModel.is_attention != 0{
+                            self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                        }
+                    }
                 }
             }
         }
@@ -126,6 +139,13 @@ extension FollowerListController:UITableViewDelegate,UITableViewDataSource{
         let followerCell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell", for: indexPath) as! FollowerCell
         followerCell.configWith(model: model)
         return followerCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.dataArray[indexPath.row]
+        let userDetailsController = UserDetailsController()
+        userDetailsController.userId = model.user_id!
+        self.navigationController?.pushViewController(userDetailsController, animated: true)
     }
 }
 

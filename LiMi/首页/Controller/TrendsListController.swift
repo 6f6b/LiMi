@@ -20,6 +20,7 @@ enum OperationType {
     case defriend
     case sendMsg
     case notInteresting
+    case cancelBlack
     case none
 }
 class TrendsListController: ViewController{

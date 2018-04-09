@@ -9,8 +9,35 @@
 import UIKit
 
 class SuspensionMenuItemCell: UITableViewCell {
-    @IBOutlet weak var itemTitle: UILabel!
+    var itemTitle: UILabel!
+    var separateView:UIView!
     var actionModel:SuspensionMenuAction?
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.itemTitle = UILabel()
+        self.itemTitle.textAlignment = .center
+        self.contentView.addSubview(self.itemTitle)
+        self.itemTitle.snp.makeConstraints {[unowned self] (make) in
+            make.top.equalTo(self.contentView).offset(15)
+            make.center.equalTo(self.contentView)
+        }
+        
+        self.separateView = UIView()
+        self.separateView.backgroundColor = RGBA(r: 239, g: 239, b: 239, a: 1)
+        self.contentView.addSubview(self.separateView)
+        self.separateView.snp.makeConstraints {[unowned self] (make) in
+            make.height.equalTo(1)
+            make.left.equalTo(self.contentView).offset(10)
+            make.right.equalTo(self.contentView).offset(-10)
+            make.bottom.equalTo(self.contentView)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

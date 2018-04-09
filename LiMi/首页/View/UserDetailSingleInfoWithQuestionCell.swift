@@ -19,6 +19,8 @@ class UserDetailSingleInfoWithQuestionCell: UserDetailSingleInfoCell {
             make.centerY.equalTo(self.contentView)
             make.left.equalTo(self.infoLabel.snp.right).offset(10)
         }
+        
+        self.questionBtn.addTarget(self, action: #selector(dealTapQuestion), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,13 +29,15 @@ class UserDetailSingleInfoWithQuestionCell: UserDetailSingleInfoCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
-
+    
+    @objc func dealTapQuestion(){
+        let popViewForTrueName = PopViewForTrueNameNotify.init(frame: SCREEN_RECT)
+        popViewForTrueName.show()
+    }
 }

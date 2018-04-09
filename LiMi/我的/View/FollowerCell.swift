@@ -31,6 +31,18 @@ class FollowerCell: UITableViewCell {
     
     @IBAction func dealTapRelationshipBtn(_ sender: Any) {
 //        AddAttention
+        if self.userInfoModel?.is_attention == 0{
+            self.dealChangeRelationship()
+        }else{
+            let popViewForChooseToUnFollow = PopViewForChooseToUnFollow.init(frame: SCREEN_RECT)
+            popViewForChooseToUnFollow.tapRightBlock = {[unowned self] () in
+                self.dealChangeRelationship()
+            }
+            popViewForChooseToUnFollow.show()
+        }
+    }
+    
+    func dealChangeRelationship(){
         if let userId = self.userInfoModel?.user_id{
             let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
             let addAttention = AddAttention.init(attention_id: userId)
@@ -40,19 +52,27 @@ class FollowerCell: UITableViewCell {
                     NotificationCenter.default.post(name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil, userInfo: [USER_ID_KEY:self.userInfoModel?.user_id,RELATIONSHIP_KEY:personCenterModel?.user_info?.is_attention])
                 }
                 Toast.showErrorWith(model: personCenterModel)
-            }, onError: { (error) in
-                Toast.showErrorWith(msg: error.localizedDescription)
-            })        }
+                }, onError: { (error) in
+                    Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }
     }
     
     func configWith(model:UserInfoModel?){
         self.userInfoModel = model
         self.nickName.text = model?.nickname
         if let headPic = model?.head_pic{
-            self.headPic.kf.setImage(with: URL.init(string: headPic), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+            self.headPic.kf.setImage(with: URL.init(string: headPic), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        guard let college = model?.college,let fansNum = model?.fans_num else{return}
-        self.infoLabel.text = "\(college)   粉丝  \(fansNum)"
+        
+        var info = ""
+        if let college = model?.college{
+            info.append(college)
+        }
+        if let fansNum = model?.fans_num{
+            info.append("  粉丝  \(fansNum)")
+        }
+        self.infoLabel.text = info
         self.refreshRelationshipBtnWith(userInfoModel: model)
     }
     
@@ -70,7 +90,6 @@ class FollowerCell: UITableViewCell {
             if _isAttention == 1{
                 self.relationshipBtn.setTitleColor(RGBA(r: 153, g: 153, b: 153, a: 1), for: .normal)
                 self.relationshipBtn.setImage(nil, for: .normal)
-                self.relationshipBtn.setImage(UIImage.init(named: "ic_tjgz"), for: .normal)
                 self.relationshipBtn.backgroundColor = RGBA(r: 238, g: 238, b: 238, a: 1)
                 self.relationshipBtn.setTitle("已关注", for: .normal)
                 self.relationshipBtn.imageEdgeInsets = UIEdgeInsets.zero
@@ -79,9 +98,8 @@ class FollowerCell: UITableViewCell {
             if _isAttention == 2{
                 self.relationshipBtn.setTitleColor(RGBA(r: 153, g: 153, b: 153, a: 1), for: .normal)
                 self.relationshipBtn.setImage(nil, for: .normal)
-                self.relationshipBtn.setImage(nil, for: .normal)
                 self.relationshipBtn.backgroundColor = RGBA(r: 238, g: 238, b: 238, a: 1)
-                self.relationshipBtn.setTitle("已关注", for: .normal)
+                self.relationshipBtn.setTitle("互相关注", for: .normal)
                 self.relationshipBtn.imageEdgeInsets = UIEdgeInsets.zero
                 self.relationshipBtn.titleEdgeInsets = UIEdgeInsets.zero
             }

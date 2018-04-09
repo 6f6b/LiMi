@@ -94,7 +94,7 @@ class IdentityAuthInfoWithSexAndNameController: UITableViewController {
     func refreshUIWith(model:IdentityInfoModel?){
         self.identityInfoModel = model
         if let headImg = model?.head_pic{
-            self.headImg.kf.setImage(with: URL.init(string: headImg), placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
+            self.headImg.kf.setImage(with: URL.init(string: headImg), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         self.userName.text = model?.true_name
         self.sex.text = model?.sex

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
 class UserDetailHeadView: UIView {
     @IBOutlet weak var backImageView: UIImageView!
@@ -72,10 +73,25 @@ class UserDetailHeadView: UIView {
     }
     
     @objc func dealTap(){
-        if let _ = self.userInfoModel?.head_pic,let _ = self.headImgBtn.imageView?.image{
-            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: 0, imageCount: 1, datasource: self)
-            photoBroswer?.browserStyle = .indexLabel
-            photoBroswer?.setActionSheeWith(self)
+        if let imgURL = self.userInfoModel?.head_pic,let originImg = self.headImgBtn.imageView?.image{
+            SKPhotoBrowserOptions.displayCounterLabel = false                         // counter label will be hidden
+            SKPhotoBrowserOptions.displayBackAndForwardButton = false                 // back / forward button will be hidden
+            SKPhotoBrowserOptions.displayAction = true                               // action button will be hidden
+            SKPhotoBrowserOptions.displayCloseButton = false
+            SKPhotoBrowserOptions.enableSingleTapDismiss = true
+            //SKPhotoBrowserOptions.bounceAnimation = true
+            
+            let photo = SKPhoto.photoWithImageURL(imgURL)
+            photo.shouldCachePhotoURLImage = true
+            let images = [photo]
+
+            let broswer = SKPhotoBrowser(originImage: originImg ?? GetImgWith(size: SCREEN_RECT.size, color: .clear), photos: images, animatedFromView: self.headImgBtn)
+            broswer.initializePageIndex(0)
+            UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
+            
+//            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: 0, imageCount: 1, datasource: self)
+//            photoBroswer?.browserStyle = .indexLabel
+//            photoBroswer?.setActionSheeWith(self)
         }
     }
 }

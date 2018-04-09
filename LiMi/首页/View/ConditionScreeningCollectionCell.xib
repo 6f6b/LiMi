@@ -22,14 +22,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-58-M1o">
                         <rect key="frame" x="0.0" y="0.0" width="169" height="91"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-+-" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ku-gE-KHP">
-                                <rect key="frame" x="0.0" y="0.0" width="113" height="91"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-+-" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ku-gE-KHP">
+                                <rect key="frame" x="0.0" y="0.0" width="169" height="91"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="aBs-oI-0MW">
-                                <rect key="frame" x="147" y="39.5" width="7" height="12"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="aBs-oI-0MW">
+                                <rect key="frame" x="152" y="39.5" width="7" height="12"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,8 +38,8 @@
                             <constraint firstItem="4ku-gE-KHP" firstAttribute="leading" secondItem="Mf9-58-M1o" secondAttribute="leading" id="AUA-rE-BP2"/>
                             <constraint firstItem="4ku-gE-KHP" firstAttribute="top" secondItem="Mf9-58-M1o" secondAttribute="top" id="HNT-yd-owv"/>
                             <constraint firstItem="aBs-oI-0MW" firstAttribute="centerY" secondItem="Mf9-58-M1o" secondAttribute="centerY" id="Lhu-qE-t5g"/>
-                            <constraint firstItem="aBs-oI-0MW" firstAttribute="leading" secondItem="4ku-gE-KHP" secondAttribute="trailing" constant="5" id="YeG-tV-qmf"/>
                             <constraint firstAttribute="bottom" secondItem="4ku-gE-KHP" secondAttribute="bottom" id="eEe-kP-OPt"/>
+                            <constraint firstAttribute="trailing" secondItem="4ku-gE-KHP" secondAttribute="trailing" id="wsA-Pd-Unc"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -53,11 +53,10 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="169" height="91"/>
             <connections>
-                <outlet property="arrowLeftConstraint" destination="YeG-tV-qmf" id="m99-lW-VXP"/>
-                <outlet property="arrowRightConstraint" destination="3Kq-pT-aRh" id="vHr-Mc-1My"/>
                 <outlet property="info" destination="4ku-gE-KHP" id="wel-UP-BTq"/>
                 <outlet property="infoContainView" destination="Mf9-58-M1o" id="1fy-So-1Cs"/>
-                <outlet property="rightBarImage" destination="aBs-oI-0MW" id="DKx-Qq-nM4"/>
+                <outlet property="infoRightConstraint" destination="wsA-Pd-Unc" id="5FH-1O-2VW"/>
+                <outlet property="rightBarImage" destination="aBs-oI-0MW" id="LXC-kx-3ej"/>
             </connections>
             <point key="canvasLocation" x="-34.5" y="72.5"/>
         </collectionViewCell>

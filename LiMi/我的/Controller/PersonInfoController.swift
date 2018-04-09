@@ -17,6 +17,7 @@ class PersonInfoController: UITableViewController {
     @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var sex: UILabel!
+    @IBOutlet weak var signature: UILabel!
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
@@ -65,8 +66,9 @@ class PersonInfoController: UITableViewController {
         _ = moyaProvider.rx.request(.targetWith(target: userInfoList)).subscribe(onSuccess: {[unowned self] (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             self.userInfoModel = personCenterModel?.user_info
+            self.tableView.reloadData()
             self.refreshUIWith(model: self.userInfoModel)
-            Toast.showErrorWith(model: self.userInfoModel)
+            Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
         })
@@ -74,11 +76,12 @@ class PersonInfoController: UITableViewController {
     
     func refreshUIWith(model:UserInfoModel?){
         if let headUrl = model?.head_pic{
-            self.headImg.kf.setImage(with: URL.init(string: headUrl), placeholder: UIImage.init(named: "touxiang1"), options: nil, progressBlock: nil, completionHandler: nil)
+            self.headImg.kf.setImage(with: URL.init(string: headUrl), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         self.userName.text = model?.true_name
         self.nickName.text = model?.nickname
         self.sex.text = model?.sex
+        self.signature.text = self.userInfoModel?.signature == nil ? "个性签名空空如也~" : self.userInfoModel?.signature
         self.school.text  = model?.college
         self.academy.text = model?.school
         self.grade.text = model?.grade
@@ -134,16 +137,17 @@ class PersonInfoController: UITableViewController {
     //去修改用户名
     func dealToAlterUserName(){
         let alterUserNameController = AlterUserNameController()
-        alterUserNameController.initialUserName = self.userName.text
+        alterUserNameController.initialUserName = self.userInfoModel?.nickname
         alterUserNameController.alterUserNameBlock = {[unowned self] (name) in
-            self.userName.text = name
+            self.userInfoModel?.nickname = name
+            self.refreshUIWith(model: self.userInfoModel)
         }
         self.navigationController?.pushViewController(alterUserNameController, animated: true)
     }
     
     //去修改用户性别
     func dealToAlterUserSex(){
-        let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
+        /*let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
             if sex == self.userInfoModel?.sex{return}
             var sexParameter = "1"
             if sex == "女"{sexParameter = "0"}
@@ -161,7 +165,7 @@ class PersonInfoController: UITableViewController {
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
-        dataPickerView?.toShow()
+        dataPickerView?.toShow()*/
 //        let alterUserSexController = AlterUserSexController()
 //        alterUserSexController.alterUserSexBlock = {(sex) in
 //            self.sex.text = sex
@@ -169,6 +173,15 @@ class PersonInfoController: UITableViewController {
 //        self.navigationController?.pushViewController(alterUserSexController, animated: true)
     }
 
+    func dealToAlterAutograph(){
+        let alterUserSinatureController = AlterUserSinatureController()
+        alterUserSinatureController.initialUserSinatrue = self.userInfoModel?.signature
+        alterUserSinatureController.alterSinatureBlock = {[unowned self] (signature) in
+            self.userInfoModel?.signature = signature
+            self.refreshUIWith(model: self.userInfoModel)
+        }
+        self.navigationController?.pushViewController(alterUserSinatureController, animated: true)
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -176,9 +189,9 @@ class PersonInfoController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{ return 3}
+        if section == 0{ return 4}
         if section == 1{
-            if self.userInfoModel?.is_access == 2{return 1}else{
+            if self.userInfoModel?.is_access == 2{return 0}else{
                 return 1
             }
         }
@@ -203,6 +216,7 @@ class PersonInfoController: UITableViewController {
         if indexPath.section == 0{
             if indexPath.row == 0{self.dealTapToSelectImg()}
             if indexPath.row == 1{self.dealToAlterUserName()}
+            if indexPath.row == 3{self.dealToAlterAutograph()}
         }
         if indexPath.section == 1{
             let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController

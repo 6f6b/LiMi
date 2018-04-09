@@ -106,6 +106,7 @@ class ConditionScreeningView: UIView {
 
     @IBAction func dealReset(_ sender: Any) {
         self.dataArray[1].removeAll()
+        self.collectionView.reloadSections([1])
         for i in 0 ..< 5{
             self.resetWith(section: i)
         }

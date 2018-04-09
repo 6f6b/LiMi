@@ -15,6 +15,8 @@ class SuspensionMenuAction: NSObject {
     var textColor:UIColor = UIColor.black
     ///文字大小
     var textFont:UIFont = UIFont.systemFont(ofSize: 17)
+    ///图片名称
+    var image:String?
     ///动作
     var actionBlock:(()->Void)?
 
