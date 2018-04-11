@@ -26,8 +26,8 @@ extension UITabBar{
         if index == 4{
             badgeX = 13/15.0*SCREEN_WIDTH
         }
-        badgeX = badgeX + SCREEN_WIDTH/15.0
-        let badgeY = 10.0
+        badgeX = badgeX + SCREEN_WIDTH/15.0 - 1
+        let badgeY = 12.0
         let badgeWidth = 8.0
         let badgeHeight = badgeWidth
         let bageFrame = CGRect.init(x: Double(badgeX), y: badgeY, width: badgeWidth, height: badgeHeight)

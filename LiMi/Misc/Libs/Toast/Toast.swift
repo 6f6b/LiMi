@@ -45,16 +45,24 @@ class Toast: NSObject {
                 }else{
                     ToastView.shared.showErrorWith(text: model?.commonInfoModel?.msg)
                 }
-            }else{ToastView.shared.dissmiss()}
-        }else{ToastView.shared.dissmiss()}
+            }else{
+                ToastView.shared.dissmiss()
+            }
+        }else{
+            ToastView.shared.dissmiss()
+        }
     }
     //只显示成功信息
     static func showSuccessWith(model:BaseModel?){
         if let status  = model?.commonInfoModel?.status{
             if status == successState{
                 ToastView.shared.showSuccessWith(text: model?.commonInfoModel?.msg)
-            }else{ToastView.shared.dissmiss()}
-        }else{ToastView.shared.dissmiss()}
+            }else{
+                ToastView.shared.dissmiss()
+            }
+        }else{
+            ToastView.shared.dissmiss()
+        }
     }
     //显示自定义错误信息
     static func showErrorWith(msg:String?){

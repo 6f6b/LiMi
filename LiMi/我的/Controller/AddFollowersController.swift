@@ -31,6 +31,16 @@ class AddFollowersController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receivedNotificationWith(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -95,6 +105,14 @@ extension AddFollowersController:UITableViewDelegate,UITableViewDataSource{
         let followerCell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell", for: indexPath) as! FollowerCell
         followerCell.configWith(model: model)
         return followerCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.dataArray.count == 0 ? self.defaultDataArray[indexPath.row] : self.dataArray[indexPath.row]
+        let userDetailsController = UserDetailsController()
+        userDetailsController.userId = model.user_id!
+        
+        self.navigationController?.pushViewController(userDetailsController, animated: true)
     }
 }
 

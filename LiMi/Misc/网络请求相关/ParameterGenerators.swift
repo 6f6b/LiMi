@@ -236,14 +236,14 @@ struct RegisterFinishNameAndSex:TargetType,ParametersProtocol{
 
     var id:Int?
     var token:String?
-    var true_name:String?
+    var nickname:String?
     var sex:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "id":id,
             "token":token,
-            "nickname":true_name,
+            "nickname":nickname,
             "sex":sex,
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
@@ -264,11 +264,11 @@ struct CollegeList:TargetType,ParametersProtocol{
         return "/User/collegeList"
     }
     
-    var provinceID:String?
+    var college:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
-            "provinceID":provinceID
+            "college":college
         ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -334,6 +334,7 @@ struct TrendsList:TargetType,ParametersProtocol{
     var grade_id:String?
     var sex:String?
     var skill_id:String?    //skill
+    var time:TimeInterval?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
@@ -344,6 +345,7 @@ struct TrendsList:TargetType,ParametersProtocol{
             "grade_id":grade_id,
             "sex":sex,
             "skill_id":skill_id,
+            "time":time
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -364,10 +366,12 @@ struct CommentList:TargetType,ParametersProtocol{
     
     var action_id:String?
     var page:Int?
+    var time:TimeInterval?
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "action_id":action_id,
-            "page":page
+            "page":page,
+            "time":time
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -435,11 +439,13 @@ struct UserDetails:TargetType,ParametersProtocol{
     var page:Int?
     var user_id:Int?
     var type:String?
+    var time:TimeInterval?
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page,
             "type":type,
             "user_id":user_id,
+            "time":time
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -504,9 +510,11 @@ struct MyTrends:TargetType,ParametersProtocol{
     }
     
     var page:Int?
+    var time:TimeInterval?
     
     func parameters() -> [String : Any] {
-        let tmpParameters = ["page":page]
+        let tmpParameters = ["page":page,
+                             "time":time] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -1013,9 +1021,15 @@ struct GetIMToken:TargetType,ParametersProtocol{
     }
     
     var to_uid:Int?
+    var id:Int?
+    var token:String?
     
     func parameters() -> [String : Any] {
-        let tmpParameters:[String:Any]? = ["to_uid":to_uid]
+        let tmpParameters:[String:Any]? = [
+            "to_uid":to_uid,
+            "id":id,
+            "token":token
+                                           ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -1196,13 +1210,14 @@ struct OneTopicList:TargetType,ParametersProtocol{
     var page:Int? //分页
     var topic_id:Int? //话题圈id
     var type:String? //最新、最热
-
+    var time:TimeInterval?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
             "page":page,
             "topic_id":topic_id,
             "type":type,
+            "time":time
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -1222,10 +1237,12 @@ struct AllTopicList:TargetType,ParametersProtocol{
     }
     
     var page:Int? //分页
+    var time:TimeInterval?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
             "page":page,
+            "time":time
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -1294,10 +1311,13 @@ struct DiscussList:TargetType,ParametersProtocol{
     
     var page:Int? //分页
     var topic_action_id:Int? //评论
+    var time:TimeInterval?
+    
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
             "page":page,
-            "topic_action_id":topic_action_id
+            "topic_action_id":topic_action_id,
+            "time":time
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }

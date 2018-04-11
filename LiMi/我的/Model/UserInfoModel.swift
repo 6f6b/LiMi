@@ -50,6 +50,7 @@ class UserInfoModel: BaseModel {
         fans_num <- map["fans_num"]
 
         is_access <- map["is_access"]
+        
         signature <- map["signature"]
         nickname<-map["nickname"]
         true_name<-map["true_name"]

@@ -78,7 +78,8 @@ class FollowerListContainController: ViewController {
     //MARK: - misc
     @objc func dealToAddFollowers(){
         let addFollowersController = AddFollowersController()
-        self.present(addFollowersController, animated: true, completion: nil)
+        let nav = NavigationController.init(rootViewController: addFollowersController)
+        self.present(nav, animated: true, completion: nil)
     }
 
 }

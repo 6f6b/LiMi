@@ -71,11 +71,6 @@ class LoginController: ViewController {
     
     //登录
     @IBAction func dealLogIn(_ sender: Any) {
-//        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-//        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
-//        return
-//        var name:String?
-//        print(name!)
         self.errorMsg.isHidden = true
         //检测手机号
         if !IS_PHONE_NUMBER(phoneNum: self.phoneNum.text){
@@ -94,14 +89,23 @@ class LoginController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: login)).subscribe(onSuccess: { (response) in
             let loginModel = Mapper<LoginModel>().map(jsonData: response.data)
             if loginModel?.commonInfoModel?.status ==  successState{
+                if Defaults[.userPhone] != self.phoneNum.text{
+                    Defaults[.isMindedToFinishSignatureInNearby] = false
+                    Defaults[.isMindedNotAuthenticated] = false
+                    Defaults[.isMindedAuthenticatedFailed] = false
+                }
+                
+                Defaults[.userCertificationState] = loginModel?.identity_status
+                
                 Defaults[.userPhone] = self.phoneNum.text
             }
             
             if loginModel?.commonInfoModel?.status != successState{
                 self.showErrorMsgOnLabelWith(msg: loginModel?.commonInfoModel?.msg)
+                return
             }
             //判断是否已经完善了基本信息
-            if loginModel?.identity_status == 0{
+            if loginModel?.user_info_status == 0{
                 //跳转性别、姓名填写界面
                 let finishPersonInfoController = FinishPersonInfoController()
                 finishPersonInfoController.loginModel = loginModel

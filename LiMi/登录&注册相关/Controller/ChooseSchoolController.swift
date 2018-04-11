@@ -50,7 +50,7 @@ class ChooseSchoolController: ViewController {
     
     func requestData(){
         let moyaProvider = MoyaProvider<LiMiAPI>()
-        let collegeList = CollegeList(provinceID: "510000")
+        let collegeList = CollegeList(college: nil)
         
         _ = moyaProvider.rx.request(.targetWith(target: collegeList)).subscribe(onSuccess: { (response) in
             let collegeContainerModel = Mapper<CollegeContainerModel>().map(jsonData: response.data)
@@ -137,5 +137,22 @@ extension ChooseSchoolController{
         self.placeHolderImage.isHidden = !isTextFieldEmpty
         self.placeHolderText.isHidden = !isTextFieldEmpty
         print("开始执行搜索")
+        if IsEmpty(textField: self.searchText){return }
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        let collegeList = CollegeList(college: textField.text)
+        
+        _ = moyaProvider.rx.request(.targetWith(target: collegeList)).subscribe(onSuccess: { (response) in
+            let collegeContainerModel = Mapper<CollegeContainerModel>().map(jsonData: response.data)
+            self.dataArray.removeAll()
+            if let colleges = collegeContainerModel?.colleges{
+                for college in colleges{
+                    self.dataArray.append(college)
+                }
+                self.tableView.reloadData()
+            }
+            Toast.showErrorWith(model: collegeContainerModel)
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
     }
 }

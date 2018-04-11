@@ -26,8 +26,8 @@ extension DefaultsKeys{
     ///用户accid
     static let userAccid = DefaultsKey<String?>("userAccid")
     
-    ///是否第一次进入附近的人
-    static let isFirstTimeToNearbyPerson = DefaultsKey<Bool?>("isFirstTimeToNearbyPerson")
+    ///是否提醒过设置附近的人个性签名
+    static let isMindedToFinishSignatureInNearby = DefaultsKey<Bool?>("isMindedToFinishSignatureInNearby")
     ///是否提醒过没认证
     static let isMindedNotAuthenticated = DefaultsKey<Bool?>("isMindedNotAuthenticated")
     ///是否提醒过认证失败

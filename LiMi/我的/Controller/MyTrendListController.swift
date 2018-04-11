@@ -17,6 +17,7 @@ class MyTrendListController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1
+    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,9 +53,12 @@ class MyTrendListController: ViewController {
 
     //MARK: - misc
     func loadData(){
-        if self.pageIndex == 1{self.dataArray.removeAll()}
+        if self.pageIndex == 1{
+            self.dataArray.removeAll()
+            self.refreshTimeInterval = Date().timeIntervalSince1970
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let myTrendList = MyTrends(page: self.pageIndex)
+        let myTrendList = MyTrends(page: self.pageIndex,time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: myTrendList)).subscribe(onSuccess: { (response) in
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
             if let trends = trendsListModel?.trends{

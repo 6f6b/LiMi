@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 import Moya
 import ObjectMapper
 import SVProgressHUD
 import Kingfisher
 import TZImagePickerController
+import MobileCoreServices
 
 class PersonCenterController: UITableViewController {
     @IBOutlet weak var coverView: UIView!
@@ -99,27 +101,36 @@ class PersonCenterController: UITableViewController {
         self.imagePickerVc?.allowPickingGif = false
         self.imagePickerVc?.allowPickingVideo = false
         self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
-            self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset])
+            self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset],type: "back")
         }
         self.present(imagePickerVc!, animated: true, completion: nil)
     }
     
-    func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
-        Toast.showStatusWith(text: "正在上传")
+    func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?,type:String? = "head"){
+        Toast.showStatusWith(text: "正在上传..")
         FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
-            var localMediaModel = LocalMediaModel.init()
-            localMediaModel.key = key
-            localMediaModel.image = image
-            
+            Toast.showStatusWith(text: "正在保存..")
+
             let moyaProvider = MoyaProvider<LiMiAPI>()
-            let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+key, type: "back")
+            let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+key, type: type)
             _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: {[unowned self] (response) in
-                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                if resultModel?.commonInfoModel?.status == successState{
-                    self.backImageView.image = image
+                let pictureResultModel = Mapper<PictureResultModel>().map(jsonData: response.data)
+                if pictureResultModel?.commonInfoModel?.status == successState{
+                    if type == "back"{
+                        if let url = pictureResultModel?.url{
+                            self.personCenterModel?.user_info?.back_pic = url
+                            self.backImageView.kf.setImage(with: URL.init(string: url), placeholder: image, options: nil, progressBlock: nil, completionHandler: nil)
+                        }
+                    }
+                    if type == "head"{
+                        if let url = pictureResultModel?.url{
+                            self.personCenterModel?.user_info?.head_pic = url
+                            self.headImgBtn.kf.setImage(with: URL.init(string: url), for: .normal, placeholder: image, options: nil, progressBlock: nil, completionHandler: nil)
+                        }
+                    }
                 }
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                Toast.showErrorWith(model: resultModel)
+                Toast.showErrorWith(model: pictureResultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
@@ -128,7 +139,6 @@ class PersonCenterController: UITableViewController {
         }, failedBlock: {
             
         }, completionBlock: {
-            Toast.dismiss()
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
             self.tableView.reloadData()
             print("上传结束")
@@ -136,11 +146,13 @@ class PersonCenterController: UITableViewController {
     }
     
     @IBAction func dealToMyFollows(_ sender: Any) {
+        if !AppManager.shared.checkUserStatus(){return}
         let followerListContainController = FollowerListContainController.init(initialIndex: 0)
         self.navigationController?.pushViewController(followerListContainController, animated: true)
     }
     
     @IBAction func dealToMyFollowers(_ sender: Any) {
+        if !AppManager.shared.checkUserStatus(){return}
         let followerListContainController = FollowerListContainController.init(initialIndex: 1)
         self.navigationController?.pushViewController(followerListContainController, animated: true)
     }
@@ -150,6 +162,50 @@ class PersonCenterController: UITableViewController {
     }
     //点击头像
     @IBAction func dealTapHeadImgBtn(_ sender: Any) {
+        //查看大图、拍照、从相册中选择
+        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actionLookBigImage = UIAlertAction.init(title: "查看大图", style: .default) {[unowned self] (_) in
+            if let imgURL = self.personCenterModel?.user_info?.head_pic,let originImg = self.headImgBtn.imageView?.image{
+                SKPhotoBrowserOptions.displayCounterLabel = false                         // counter label will be hidden
+                SKPhotoBrowserOptions.displayBackAndForwardButton = false                 // back / forward button will be hidden
+                SKPhotoBrowserOptions.displayAction = true                               // action button will be hidden
+                SKPhotoBrowserOptions.displayCloseButton = false
+                SKPhotoBrowserOptions.enableSingleTapDismiss = true
+                //SKPhotoBrowserOptions.bounceAnimation = true
+                
+                let photo = SKPhoto.photoWithImageURL(imgURL)
+                photo.shouldCachePhotoURLImage = true
+                let images = [photo]
+                
+                let broswer = SKPhotoBrowser(originImage: originImg ?? GetImgWith(size: SCREEN_RECT.size, color: .clear), photos: images, animatedFromView: self.headImgBtn)
+                broswer.initializePageIndex(0)
+                UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
+            }
+        }
+        let actionTakePhoto = UIAlertAction.init(title: "拍照", style: .default) {[unowned self] (_) in
+            let pickerController = UIImagePickerController.init()
+            pickerController.sourceType = .camera
+            pickerController.allowsEditing = true
+            pickerController.delegate = self
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        let actionTakeFromAlbum = UIAlertAction.init(title: "从相册选择", style: .default) {[unowned self] (_) in
+            self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
+            self.imagePickerVc?.allowPickingGif = false
+            self.imagePickerVc?.allowPickingVideo = false
+            self.imagePickerVc?.allowCrop = true
+
+            self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
+                self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset],type: "head")
+            }
+            self.present(self.imagePickerVc!, animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        alertController.addAction(actionLookBigImage)
+        alertController.addAction(actionTakePhoto)
+        alertController.addAction(actionTakeFromAlbum)
+        alertController.addAction(actionCancel)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //点击退出登录
@@ -170,6 +226,14 @@ class PersonCenterController: UITableViewController {
         let personCenter = PersonCenter()
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
+            
+            let tmpIdentityStatus = Defaults[.userCertificationState]
+            Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
+            if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
+                //发通知
+                NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+            }
+            
             self.refreshUIWith(personCenterModel: personCenterModel)
             Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
@@ -288,6 +352,7 @@ class PersonCenterController: UITableViewController {
         if indexPath.section == 1{
             //我的现金
             if indexPath.row == 0{
+                if !AppManager.shared.checkUserStatus(){return}
                 let myCashController = MyCashController()
                 myCashController.personCenterModel = self.personCenterModel
                 self.navigationController?.pushViewController(myCashController, animated: true)
@@ -306,6 +371,7 @@ class PersonCenterController: UITableViewController {
             }
             //我的拉黑
             if indexPath.row == 3{
+                if !AppManager.shared.checkUserStatus(){return}
                 let myBlackListController = MyBlackListController()
                 self.navigationController?.pushViewController(myBlackListController, animated: true)
             }
@@ -329,3 +395,45 @@ class PersonCenterController: UITableViewController {
 extension PersonCenterController:TZImagePickerControllerDelegate{
     
 }
+
+extension PersonCenterController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let mediaType = info[UIImagePickerControllerMediaType] as! String
+        if mediaType == kUTTypeImage as String{
+            var image:UIImage!
+            if picker.allowsEditing{
+                image = info[UIImagePickerControllerEditedImage] as! UIImage
+            }
+            if !picker.allowsEditing{
+                image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            }
+            self.uploadImageWith(images: [image], phAssets: nil, type: "head")
+            picker.dismiss(animated: true, completion: nil)
+        }
+//        NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
+//        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {//如果是拍照
+//            UIImage *image;
+//            //如果允许编辑则获得编辑后的照片，否则获取原始照片
+//            if (picker.allowsEditing) {
+//                image=[info objectForKey:UIImagePickerControllerEditedImage];//获取编辑后的照片
+//            }else{
+//                image=[info objectForKey:UIImagePickerControllerOriginalImage];//获取原始照片
+//            }
+//            self.resultImgView.image = image;
+//            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);//保存到相簿
+//        }else if([mediaType isEqualToString:(NSString *)kUTTypeMovie]){//如果是录制视频
+//            NSLog(@"video...");
+//            NSURL *url=[info objectForKey:UIImagePickerControllerMediaURL];//视频路径
+//            NSString *urlStr=[url path];
+//            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(urlStr)) {
+//                //保存视频到相簿，注意也可以使用ALAssetsLibrary来保存
+//                UISaveVideoAtPathToSavedPhotosAlbum(urlStr, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);//保存视频到相簿
+//            }
+//
+//        }
+//
+//        [picker dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+

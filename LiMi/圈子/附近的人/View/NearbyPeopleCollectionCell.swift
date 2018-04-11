@@ -26,7 +26,7 @@ class NearbyPeopleCollectionCell: UICollectionViewCell {
         if let _url = model?.head_pic{
             self.headImg.kf.setImage(with: URL.init(string: _url), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.userName.text = model?.true_name ?? " "
+        self.userName.text = model?.nickname ?? " "
         if let _content = model?.content{
             if _content.lengthOfBytes(using: String.Encoding.utf8) < 1{
                 self.autograph.text = " "

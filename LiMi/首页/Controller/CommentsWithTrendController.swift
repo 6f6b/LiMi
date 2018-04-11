@@ -27,6 +27,7 @@ class CommentsWithTrendController: ViewController {
     var trendModel:TrendModel?
     var dataArray = [CommentModel]()
     var pageIndex = 1
+    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "评论"
@@ -94,13 +95,17 @@ class CommentsWithTrendController: ViewController {
 
     // MARK: - misc
     func loadData(){
-        if pageIndex == 1{self.dataArray.removeAll()}
+        if pageIndex == 1{
+            self.dataArray.removeAll()
+            self.refreshTimeInterval = Date().timeIntervalSince1970
+
+        }
         //判断种类
         var body:TargetType!
         if self.trendModel?.topic_action_id == nil{
-            body = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex)
+            body = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex,time:self.refreshTimeInterval)
         }else{
-            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.topic_action_id)
+            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.topic_action_id,time:self.refreshTimeInterval)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in

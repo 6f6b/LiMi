@@ -17,7 +17,7 @@
                 <outlet property="girlBtn" destination="nBq-0p-TeX" id="oMq-gC-ysc"/>
                 <outlet property="headImgBtn" destination="aQn-q7-pYc" id="o6P-m9-kbt"/>
                 <outlet property="nextBtn" destination="NMI-Mf-hO8" id="ROx-Qa-syI"/>
-                <outlet property="realName" destination="pMb-mx-HeX" id="umN-aI-qWF"/>
+                <outlet property="nickName" destination="pMb-mx-HeX" id="HoE-aQ-rpL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -186,6 +186,6 @@
         <image name="login_girl_nol" width="92" height="92"/>
         <image name="login_girl_pre" width="92" height="92"/>
         <image name="sctx" width="20" height="20"/>
-        <image name="touxiang" width="70" height="70"/>
+        <image name="touxiang" width="100" height="100"/>
     </resources>
 </document>

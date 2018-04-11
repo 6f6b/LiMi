@@ -27,15 +27,11 @@ class LoginModel: BaseModel {
         token<-map["data.token"]
         user_info_status<-map["data.user_info_status"]
         identity_status<-map["data.identity_status"]
-        let tmpIdentityStatus = Defaults[.userCertificationState]
-        Defaults[.userCertificationState] = identity_status
-//        Defaults[.userId] = id
-//        Defaults[.userToken] = token795 46
         
-        if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
-            //发通知
-            NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
-        }
+//        if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
+//            //发通知
+//            NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+//        }
         
     }
 }

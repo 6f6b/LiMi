@@ -27,12 +27,14 @@ class TrendsListController: ViewController{
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1
+    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
     var type:String?
     var collegeModel:CollegeModel?
     var academyModel:AcademyModel?
     var gradeModel:GradeModel?
     var sexModel:SexModel?
     var skillModel:SkillModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的动态"
@@ -94,10 +96,13 @@ class TrendsListController: ViewController{
     }
     
     func loadData(){
-        if self.pageIndex == 1{self.dataArray.removeAll()}
+        if self.pageIndex == 1{
+            self.dataArray.removeAll()
+            self.refreshTimeInterval =  Date().timeIntervalSince1970
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         
-        let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue())
+        let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue(),time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: trendsList)).subscribe(onSuccess: { (response) in
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
             if let trends = trendsListModel?.trends{

@@ -361,7 +361,9 @@ func RequestQiNiuUploadToken(type:MediaType,onSuccess:((QNUploadTokenModel?)->Vo
     let getQNUploadToken = GetQNUploadToken(type: tokenType, id: tokenIDModel?.Id, token: tokenIDModel?.token)
     _ = moyaProvider.rx.request(.targetWith(target: getQNUploadToken)).subscribe(onSuccess: { (response) in
         let qnUploadTokenModel = Mapper<QNUploadTokenModel>().map(jsonData: response.data)
-        Toast.showErrorWith(model: qnUploadTokenModel)
+        if qnUploadTokenModel?.commonInfoModel?.status != successState{
+            Toast.showErrorWith(model: qnUploadTokenModel)
+        }
         if let _onSuccess = onSuccess{
             _onSuccess(qnUploadTokenModel)
         }
@@ -436,19 +438,47 @@ func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock
 ///和某人聊天
 func ChatWith(toUserId:Int?){
     //请求对方accid
-    let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-    let getImToken = GetIMToken(to_uid: toUserId)
-    _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
-        let imModel = Mapper<IMModel>().map(jsonData: response.data)
-        if let _accid = imModel?.accid,let _ = imModel?.token{
-            let session = NIMSession.init((_accid), type: .P2P)
-            let sessionVC = NTESSessionViewController.init(session: session)
-            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-            let nav = tbc.selectedViewController as! NavigationController
-            nav.pushViewController(sessionVC!, animated: true)
+    if !NIMSDK.shared().loginManager.isLogined(){
+        AppManager.shared.manualLoginIM(userId: nil, userToken: nil, handle: { (error) in
+            if nil == error{
+                let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+                let getImToken = GetIMToken.init(to_uid: toUserId, id: nil, token: nil)
+                _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+                    let imModel = Mapper<IMModel>().map(jsonData: response.data)
+                    if let _accid = imModel?.accid,let _ = imModel?.token{
+                        let session = NIMSession.init((_accid), type: .P2P)
+                        let sessionVC = NTESSessionViewController.init(session: session)
+                        sessionVC?.defaultTitle = imModel?.name
+                        let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                        let nav = tbc.selectedViewController as! NavigationController
+                        nav.pushViewController(sessionVC!, animated: true)
+                    }
+                    Toast.showErrorWith(model: imModel)
+                }) { (error) in
+                    Toast.showErrorWith(msg: error.localizedDescription)
+                }
+            }
+            if nil != error{
+                Toast.showErrorWith(msg: error?.localizedDescription)
+            }
+        })
+    }else{
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let getImToken = GetIMToken.init(to_uid: toUserId, id: nil, token: nil)
+        _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
+            let imModel = Mapper<IMModel>().map(jsonData: response.data)
+            if let _accid = imModel?.accid,let _ = imModel?.token{
+                let session = NIMSession.init((_accid), type: .P2P)
+                let sessionVC = NTESSessionViewController.init(session: session)
+                sessionVC?.defaultTitle = imModel?.name
+                let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                let nav = tbc.selectedViewController as! NavigationController
+                nav.pushViewController(sessionVC!, animated: true)
+            }
+            Toast.showErrorWith(model: imModel)
+        }) { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
         }
-    }) { (error) in
-        Toast.showErrorWith(msg: error.localizedDescription)
     }
 }
 

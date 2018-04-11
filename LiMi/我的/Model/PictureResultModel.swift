@@ -1,16 +1,16 @@
 //
-//  PersonCenterModel.swift
+//  PictureResultModel.swift
 //  LiMi
 //
-//  Created by dev.liufeng on 2018/1/15.
+//  Created by dev.liufeng on 2018/4/11.
 //  Copyright © 2018年 dev.liufeng. All rights reserved.
 //
 
 import Foundation
 import ObjectMapper
 
-class PersonCenterModel: BaseModel {
-    var user_info:UserInfoModel?
+class PictureResultModel: BaseModel {
+    var url:String?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -18,6 +18,6 @@ class PersonCenterModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        user_info<-map["data"]
+        url<-map["data.url"]
     }
 }

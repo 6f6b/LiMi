@@ -195,6 +195,9 @@
             break;
         case NIMSessionTypeP2P:{
             title = [NIMKitUtil showNick:self.session.sessionId inSession:self.session];
+            NIMUser *user = [[NIMSDK.sharedSDK userManager] userInfo:self.session.sessionId];
+            title = [[user userInfo] nickName];
+            title = title == nil ? self.defaultTitle : title;
         }
             break;
         default:

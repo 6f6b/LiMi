@@ -80,40 +80,45 @@ class AppManager:NSObject {
         }
     }
     
-    ///根据本地存储的accid、IMtoken等信息，自动登录im,并返回登录状态
-    ///
-    /// - Returns: 是否为登录状态
-    func autoLoginIM()->Void{
-        if NIMSDK.shared().loginManager.isLogined(){return }else{
-            if let account = Defaults[.userAccid],let token = Defaults[.userImToken]{
-                let data = NIMAutoLoginData.init()
-                data.account = account
-                data.token = token
-//                NIMSDK.shared().loginManager.autoLogin(data)
-                NIMSDK.shared().loginManager.login(account, token: token, completion: { (error) in
-                    if let _error = error{
-                        Toast.showErrorWith(msg: _error.localizedDescription)
-                    }
-                })
-                NTESServiceManager.shared().start()
-            }
+
+    func loginIM()->Void{
+        print(Defaults[.userCertificationState])
+        if Defaults[.userCertificationState] != 2{return}
+        if NIMSDK.shared().loginManager.isLogined(){return}
+        guard let userAccount = Defaults[.userId],let userToken = Defaults[.userToken] else{return}
+        if let imAccount = Defaults[.userAccid],let imToken = Defaults[.userImToken]{
+            print("IM掉线，进行自动登录")
+            let data = NIMAutoLoginData.init()
+            data.account = imAccount
+            data.token = imToken
+            NIMSDK.shared().loginManager.autoLogin(data)
+        }else{
+            print("IM掉线，进行手动登录")
+            self.manualLoginIM(userId: userAccount, userToken: userToken, handle: { (error) in
+                Toast.showErrorWith(msg: error?.localizedDescription)
+            })
         }
+        //已存储信息则自动登录
+        //未存储信息则手动登录
     }
     
     
     /// 向服务器请求accid、IMtoken等信息，并进行登录
-    func manualLoginIM(){
+    func manualLoginIM(userId:Int? = nil,userToken:String? = nil,handle:@escaping NIMLoginHandler){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let getImToken = GetIMToken()
+        let getImToken = GetIMToken.init(to_uid: nil, id: userId, token: userToken)
         _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { [unowned self] (response) in
             let imModel = Mapper<IMModel>().map(jsonData: response.data)
             if let _accid = imModel?.accid,let _token = imModel?.token{
                 Defaults[.userImToken] = _token
                 Defaults[.userAccid] = _accid
-                self.autoLoginIM()
+                print("token:\(_token)")
+                print("accid:\(_accid)")
+                NIMSDK.shared().loginManager.login(_accid, token: _token, completion: handle)
             }
         }, onError: { (error) in
-            Toast.showErrorWith(msg: error.localizedDescription)
+            handle(error)
+            //Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
@@ -153,6 +158,6 @@ class AppManager:NSObject {
 //认证通过通知
 extension AppManager{
     @objc func dealIdentityStatusOk(){
-        self.manualLoginIM()
+        self.loginIM()
     }
 }

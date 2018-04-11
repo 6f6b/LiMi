@@ -14,7 +14,7 @@ import ObjectMapper
 import Kingfisher
 
 class FinishPersonInfoController: ViewController {
-    @IBOutlet weak var realName: UITextField!
+    @IBOutlet weak var nickName: UITextField!
     @IBOutlet weak var boyBtn: UIButton!
     @IBOutlet weak var girlBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
@@ -31,6 +31,8 @@ class FinishPersonInfoController: ViewController {
         self.nextBtn.clipsToBounds = true
         self.headImgBtn.layer.cornerRadius = 50
         self.headImgBtn.clipsToBounds = true
+        
+        self.refreshFinishBtnStatus()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,16 +40,37 @@ class FinishPersonInfoController: ViewController {
 
     }
     
+    //MARK: - misc
+    func refreshFinishBtnStatus(){
+        var isFinishOk = true
+        if self.headImageUrl == nil{isFinishOk = false}
+        if IsEmpty(textField: self.nickName){isFinishOk = false}
+        if !self.boyBtn.isSelected && !self.girlBtn.isSelected{
+            isFinishOk = false
+        }
+        
+        if isFinishOk{
+            self.nextBtn.backgroundColor = APP_THEME_COLOR
+            self.nextBtn.isUserInteractionEnabled = true
+        }
+        if !isFinishOk{
+            self.nextBtn.backgroundColor = RGBA(r: 204, g: 204, b: 204, a: 1)
+            self.nextBtn.isUserInteractionEnabled = false
+        }
+    }
+    
     //选择男性
     @IBAction func dealSelectBoy(_ sender: Any) {
         self.girlBtn.isSelected = false
         self.boyBtn.isSelected = true
+        self.refreshFinishBtnStatus()
     }
     
     //选择女性
     @IBAction func dealSelectGirl(_ sender: Any) {
         self.girlBtn.isSelected = true
         self.boyBtn.isSelected = false
+        self.refreshFinishBtnStatus()
     }
     
     @IBAction func dealTapHeadImg(_ sender: Any) {
@@ -76,7 +99,7 @@ class FinishPersonInfoController: ViewController {
         FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
             let moyaProvider = MoyaProvider<LiMiAPI>()
             let headImgUpLoad = HeadImgUpLoad(id: self.loginModel?.id, token: self.loginModel?.token, image: "/"+key, type: "head")
-            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
+            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: {[unowned self] (response) in
                 let model = Mapper<BaseModel>().map(jsonData: response.data)
                 if model?.commonInfoModel?.status == successState{
                     self.headImgBtn.setImage(image, for: .normal)
@@ -84,6 +107,7 @@ class FinishPersonInfoController: ViewController {
                 }
                 Toast.showResultWith(model: model)
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                self.refreshFinishBtnStatus()
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
@@ -95,7 +119,7 @@ class FinishPersonInfoController: ViewController {
     }
 
     
-    //下一步
+    //完成基本信息设置
     @IBAction func dealTapNext(_ sender: Any) {
         //判断是否选择了性别
         if self.boyBtn.isSelected == false && self.girlBtn.isSelected == false{
@@ -103,7 +127,7 @@ class FinishPersonInfoController: ViewController {
             return
         }
         //判断是否填写了姓名
-        if IsEmpty(textField: self.realName){
+        if IsEmpty(textField: self.nickName){
             Toast.showErrorWith(msg: "请输入姓名")
             return
         }
@@ -115,7 +139,7 @@ class FinishPersonInfoController: ViewController {
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>()
         let sex = self.boyBtn.isSelected ? 1:0
-        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id, token: self.loginModel?.token, true_name: self.realName.text, sex: sex.stringValue())
+        let registerFinishNameAndSex = RegisterFinishNameAndSex(id: self.loginModel?.id, token: self.loginModel?.token, nickname: self.nickName.text, sex: sex.stringValue())
         _ = moyaProvider.rx.request(.targetWith(target: registerFinishNameAndSex)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
@@ -123,8 +147,6 @@ class FinishPersonInfoController: ViewController {
                 Defaults[.userId] = self.loginModel?.id
                 Defaults[.userToken] = self.loginModel?.token
                 LoginServiceToMainController(loginRootController: self.navigationController)
-//                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-//                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
             }
             Toast.showErrorWith(model: baseModel)
         }, onError: { (error) in

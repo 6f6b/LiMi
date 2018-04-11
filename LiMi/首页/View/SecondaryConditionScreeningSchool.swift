@@ -42,7 +42,7 @@ class SecondaryConditionScreeningSchool: SecondaryConditionScreeningView {
     
     func loadData(){
         let moyaProvider = MoyaProvider<LiMiAPI>()
-        let collegeList = CollegeList(provinceID: "510000")
+        let collegeList = CollegeList(college: nil)
         
         _ = moyaProvider.rx.request(.targetWith(target: collegeList)).subscribe(onSuccess: { (response) in
             let collegeContainerModel = Mapper<CollegeContainerModel>().map(jsonData: response.data)

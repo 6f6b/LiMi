@@ -55,8 +55,8 @@ class PeopleNearbyController: ViewController {
 //        self.navigationItem.rightBarButtonItem =
         
         self.loadData()
-        if Defaults[.isFirstTimeToNearbyPerson] == nil{
-            Defaults[.isFirstTimeToNearbyPerson] = false
+        if Defaults[.isMindedToFinishSignatureInNearby] != true{
+            Defaults[.isMindedToFinishSignatureInNearby] = true
             let editAutographView = GET_XIB_VIEW(nibName: "EditAutographView") as! EditAutographView
             editAutographView.frame = SCREEN_RECT
             UIApplication.shared.keyWindow?.addSubview(editAutographView)

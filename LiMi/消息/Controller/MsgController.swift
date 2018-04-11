@@ -51,7 +51,8 @@ class MsgController: ViewController {
         actionToMyFollow.image = "nav_ic_wdgz"
         let actionAddFollow = SuspensionMenuAction.init(title: "添加关注") {
             let addFollowersController = AddFollowersController()
-            self.present(addFollowersController, animated: true, completion: nil)
+            let nav = NavigationController.init(rootViewController: addFollowersController)
+            self.present(nav, animated: true, completion: nil)
         }
         actionAddFollow.image = "nav_ic_tjgz"
         let actionIgnore = SuspensionMenuAction.init(title: "忽略未读") {

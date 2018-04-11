@@ -33,10 +33,7 @@ class FileUploadManager: NSObject {
         }
         self.qnUploadManager = QNUploadManager(configuration: qnConfig)
     }
-    func uploadImageWith(index:Int,token:String,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?){
-//        if index >= self.tempImages.count{
-//            return
-//        }
+    private func uploadImageWith(index:Int,token:String,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?){
         let progressBlock:QNUpProgressHandler = { (str,flo) in
             //print("key:\(str)-进度：\(flo)")
         }
@@ -44,37 +41,66 @@ class FileUploadManager: NSObject {
             return false
         })
         let image = self.tempImages[index]
-        let phAsset = self.tempPhAssets[index]
-        let fileKey = imageNameWith(image: phAsset)
-        self.qnUploadManager?.put(phAsset, key: fileKey!, token: token, complete: { (info, str, dic) in
-            if let _successBlock = successBlock{_successBlock(image, str!)}
-            let _index = index + 1
-            if _index >= self.tempImages.count{
-                if let _completionBlock = completionBlock{
-                    Toast.dismiss()
-                    _completionBlock()
+        var fileKey:String? = ""
+        //根据PHAsset上传
+        if index < self.tempPhAssets.count{
+            let phAsset = self.tempPhAssets[index]
+            fileKey = imageNameWith(image: phAsset)
+            self.qnUploadManager?.put(phAsset, key: fileKey!, token: token, complete: { (info, str, dic) in
+                if let _successBlock = successBlock{_successBlock(image, str!)}
+                let _index = index + 1
+                if _index >= self.tempImages.count{
+                    if let _completionBlock = completionBlock{
+                        _completionBlock()
+                    }
+                    return
                 }
-                return
-            }
-            self.uploadImageWith(index: _index, token: token, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
-        }, option: option)
+                self.uploadImageWith(index: _index, token: token, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            }, option: option)
+        }
+        //根据UIImage上传
+        else{
+            fileKey = imageNameWith(image: image)
+            self.qnUploadManager?.put(UIImagePNGRepresentation(image)!, key: fileKey, token: token, complete: { (info, str, dic) in
+                if let _successBlock = successBlock{_successBlock(image, str!)}
+                let _index = index + 1
+                if _index >= self.tempImages.count{
+                    if let _completionBlock = completionBlock{
+                        _completionBlock()
+                    }
+                    return
+                }
+                self.uploadImageWith(index: _index, token: token, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            }, option: option)
+        }
     }
     
-    //上传图片
+    ///根据UIImage上传图片，单张
+    ///根据UIImage和PHAsset上传图片，单张
+
+    ///根据UIImage上传图片，多张
+    func uploadImagesWith(images:[UIImage]?,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?,tokenIDModel:TokenIDModel? = nil){
+        self.uploadImagesWith(images: images, phAssets: nil, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock, tokenIDModel: tokenIDModel)
+    }
+    
+    ///根据UIImage和PHAsset上传图片，多张
     func uploadImagesWith(images:[UIImage]?,phAssets:[PHAsset]?,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?,tokenIDModel:TokenIDModel? = nil){
-        guard let _images = images,let _phAssets = phAssets else {
+        guard let _images = images else {
             if let _failedBlock = failedBlock{_failedBlock()}
             return
         }
         RequestQiNiuUploadToken(type: .picture, onSuccess: { (uploadTokenModel) in
-            Toast.showStatusWith(text: "正在上传...")
             self.tempImages.removeAll()
             self.tempPhAssets.removeAll()
-            let count = _images.count >= _phAssets.count ? _phAssets.count : _images.count
+            let count = _images.count
             self.index = 0
+            if let _phAssets = phAssets{
+                for phAssest in _phAssets{
+                    self.tempPhAssets.append(phAssest)
+                }
+            }
             for i in 0..<count{
                 self.tempImages.append(_images[i])
-                self.tempPhAssets.append(_phAssets[i])
             }
             self.uploadImageWith(index: self.index, token: (uploadTokenModel?.token)!, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
         }, tokenIDModel: tokenIDModel)

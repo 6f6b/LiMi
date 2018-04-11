@@ -92,6 +92,10 @@ class HomePageController: ViewController {
         
         //检测是否登录
         if let _ = Defaults[.userToken],let _ = Defaults[.userId]{
+            if !NIMSDK.shared().loginManager.isLogined(){
+                AppManager.shared.loginIM()
+            }
+            
             //已登录
             //如果本地没有 性别信息、认证状态信息，则重新请求个人信息
             if Defaults[.userSex] == nil || Defaults[.userCertificationState] == nil{
@@ -142,9 +146,6 @@ class HomePageController: ViewController {
             systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
         
-        if !NIMSDK.shared().loginManager.isLogined(){
-            AppManager.shared.autoLoginIM()
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -160,6 +161,14 @@ class HomePageController: ViewController {
         _ = moyaProvider.rx.request(.targetWith(target: personCenter)).subscribe(onSuccess: { (response) in
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             Defaults[.userSex] = personCenterModel?.user_info?.sex
+            
+            let tmpIdentityStatus = Defaults[.userCertificationState]
+            Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
+            if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
+                //发通知
+                NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+            }
+            
             Toast.showErrorWith(model: personCenterModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)

@@ -149,6 +149,8 @@ class ReleaseController: ViewController {
 
     //MARK: - misc
     func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        self.videoArr.removeAll()
+        Toast.showStatusWith(text: "正在上传..")
         FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
             var localMediaModel = LocalMediaModel.init()
             localMediaModel.key = key
@@ -169,6 +171,7 @@ class ReleaseController: ViewController {
     //上传视频
     func uploadVideoWith(phAsset:PHAsset?,preImg:UIImage?){
         self.imgArr.removeAll()
+        Toast.showStatusWith(text: "正在上传..")
         FileUploadManager.share.uploadVideoWith(preImage: preImg, phAsset: phAsset, successBlock: { (image, key) in
             var localMediaModel = LocalMediaModel.init()
             localMediaModel.key = key

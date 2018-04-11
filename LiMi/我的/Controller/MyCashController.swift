@@ -39,9 +39,9 @@ class MyCashController: ViewController {
         transactionRecordBtn.addTarget(self, action: #selector(dealToTransactionRecord), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: transactionRecordBtn)
         
-        if let _money = self.personCenterModel?.money{
-            self.balance.text = _money.decimalValue()
-        }
+//        if let _money = self.personCenterModel?.money{
+//            self.balance.text = _money.decimalValue()
+//        }
         
     }
 

@@ -124,7 +124,7 @@ extension MyBlackListController:UITableViewDelegate,UITableViewDataSource{
 
 extension MyBlackListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "zmy_img_nodd")
+        return UIImage(named: "qsy_img_nogz")
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {

@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong)  NIMSession *session;
 
+@property (nonatomic,copy) NSString *defaultTitle;
+
 /**
  *  当前当初的菜单所关联的消息
  *

@@ -16,6 +16,8 @@ class TopicCircleController: ViewController {
     var tableView:UITableView!
     var dataArray = [TopicCircleModel]()
     var pageIndex = 1
+    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "话题圈"
@@ -104,9 +106,12 @@ class TopicCircleController: ViewController {
     
     func loadData(){
 //        AllTopicList
-        if self.pageIndex == 1{self.dataArray.removeAll()}
+        if self.pageIndex == 1{
+            self.dataArray.removeAll()
+            self.refreshTimeInterval =  Date().timeIntervalSince1970
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let allTopicList = AllTopicList(page: self.pageIndex)
+        let allTopicList = AllTopicList(page: self.pageIndex,time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: allTopicList)).subscribe(onSuccess: { (response) in
             let topicCircleContainModel = Mapper<TopicCircleContainModel>().map(jsonData: response.data)
             if let _topicCircleModels = topicCircleContainModel?.data{

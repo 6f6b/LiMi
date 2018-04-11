@@ -24,7 +24,6 @@ class NavigationController: UINavigationController {
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
             backBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
             backBtn.contentHorizontalAlignment = .left
-//            backBtn.backgroundColor = UIColor.red
             backBtn.addTarget(self, action: #selector(dealTapBack), for: .touchUpInside)
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backBtn)
         }

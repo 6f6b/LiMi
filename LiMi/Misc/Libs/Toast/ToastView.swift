@@ -13,6 +13,7 @@ enum ToastType {
     case successInfo
     case faildInfo
     case info
+    case none
 }
 
 class ToastView: UIView {
@@ -50,7 +51,7 @@ class ToastView: UIView {
     
     ///耗时操作下的显示
     func showStatusWith(text:String?){
-        self.resestToastViewWith(text: text)
+        self.resestToastViewWith(text: text,type: .loading)
         self.installContentViewWith(type: .loading, text: text)
         UIApplication.shared.keyWindow?.addSubview(self)
     }
@@ -77,9 +78,12 @@ class ToastView: UIView {
     }
     
     ///充值计时器，且将之前显示的删除掉
-    func resestToastViewWith(text:String?){
+    func resestToastViewWith(text:String?,type:ToastType? = .none){
         self.dissmiss()
-        let showTime = self.suitableShowTimeWith(text: text)
+        var showTime:Double = 1000
+        if type != .loading{
+            showTime = self.suitableShowTimeWith(text: text)
+        }
         self.timer = Timer.scheduledTimer(timeInterval: showTime, target: self, selector: #selector(dissmiss), userInfo: nil, repeats: false)
     }
     

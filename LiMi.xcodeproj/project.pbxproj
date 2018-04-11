@@ -495,6 +495,7 @@
 		68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3B20170CA80003A0CD /* SlidingMenu.swift */; };
 		68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */; };
 		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
+		682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */; };
 		683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107B62024040A0060B109 /* TrendsCellFactory.swift */; };
 		683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BA2024338A0060B109 /* EmptyCommentCell.swift */; };
 		683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BB2024338A0060B109 /* EmptyCommentCell.xib */; };
@@ -593,7 +594,6 @@
 		68880885200DF19300BC6AE9 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888087B200DF19300BC6AE9 /* View.swift */; };
 		68880886200DF19300BC6AE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888087C200DF19300BC6AE9 /* ViewController.swift */; };
 		6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888088A200DF1E600BC6AE9 /* MoyaExtension.swift */; };
-		6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888088E200DF2B600BC6AE9 /* SVProgressHUDExtension.swift */; };
 		68880891200DF32F00BC6AE9 /* BasicDataTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880890200DF32F00BC6AE9 /* BasicDataTypeExtension.swift */; };
 		68880893200DF41500BC6AE9 /* ObjectMapperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880892200DF41500BC6AE9 /* ObjectMapperExtension.swift */; };
 		68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880894200DF45100BC6AE9 /* UIKitExtension.swift */; };
@@ -643,7 +643,6 @@
 		688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */; };
 		688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */; };
 		688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C89200C866200BB5DF7 /* UserInfoModel.swift */; };
-		688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */; };
 		688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */; };
 		688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */; };
 		688A4C92200D9E8400BB5DF7 /* UserInfoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C91200D9E8400BB5DF7 /* UserInfoListModel.swift */; };
@@ -1651,6 +1650,7 @@
 		68282D3B20170CA80003A0CD /* SlidingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenu.swift; sourceTree = "<group>"; };
 		68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenuBar.swift; sourceTree = "<group>"; };
 		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
+		682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureResultModel.swift; sourceTree = "<group>"; };
 		683107B62024040A0060B109 /* TrendsCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCellFactory.swift; sourceTree = "<group>"; };
 		683107BA2024338A0060B109 /* EmptyCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommentCell.swift; sourceTree = "<group>"; };
 		683107BB2024338A0060B109 /* EmptyCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCommentCell.xib; sourceTree = "<group>"; };
@@ -1756,7 +1756,6 @@
 		6888087B200DF19300BC6AE9 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		6888087C200DF19300BC6AE9 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6888088A200DF1E600BC6AE9 /* MoyaExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaExtension.swift; sourceTree = "<group>"; };
-		6888088E200DF2B600BC6AE9 /* SVProgressHUDExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVProgressHUDExtension.swift; sourceTree = "<group>"; };
 		68880890200DF32F00BC6AE9 /* BasicDataTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDataTypeExtension.swift; sourceTree = "<group>"; };
 		68880892200DF41500BC6AE9 /* ObjectMapperExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMapperExtension.swift; sourceTree = "<group>"; };
 		68880894200DF45100BC6AE9 /* UIKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
@@ -1809,7 +1808,6 @@
 		688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoWithSexAndNameController.swift; sourceTree = "<group>"; };
 		688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterModel.swift; sourceTree = "<group>"; };
 		688A4C89200C866200BB5DF7 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
-		688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityStatusModel.swift; sourceTree = "<group>"; };
 		688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherExtension.swift; sourceTree = "<group>"; };
 		688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityInfoModel.swift; sourceTree = "<group>"; };
 		688A4C91200D9E8400BB5DF7 /* UserInfoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoListModel.swift; sourceTree = "<group>"; };
@@ -4737,7 +4735,6 @@
 				68880890200DF32F00BC6AE9 /* BasicDataTypeExtension.swift */,
 				68880894200DF45100BC6AE9 /* UIKitExtension.swift */,
 				6888088A200DF1E600BC6AE9 /* MoyaExtension.swift */,
-				6888088E200DF2B600BC6AE9 /* SVProgressHUDExtension.swift */,
 				68880892200DF41500BC6AE9 /* ObjectMapperExtension.swift */,
 				6888089B200DF7E900BC6AE9 /* DefaultsKeysExtension.swift */,
 				689D53872027FC2E009C771C /* UIImageViewExtension.swift */,
@@ -4963,7 +4960,6 @@
 			children = (
 				688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */,
 				688A4C89200C866200BB5DF7 /* UserInfoModel.swift */,
-				688A4C8B200C8B5900BB5DF7 /* IdentityStatusModel.swift */,
 				688A4C8F200CB21D00BB5DF7 /* IdentityInfoModel.swift */,
 				688A4C91200D9E8400BB5DF7 /* UserInfoListModel.swift */,
 				68358258201F18DD00798462 /* TransactonListModel.swift */,
@@ -4971,6 +4967,7 @@
 				689D53AF20299E97009C771C /* SignedResultModel.swift */,
 				689D53FC202AE198009C771C /* AlipayResultContainModel.swift */,
 				6864AC5A20495A6200422CD8 /* WeekendTourOrderContainModel.swift */,
+				682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5610,6 +5607,7 @@
 				6801DFBE202C6EA800C106E1 /* NIMSessionLocationContentView.m in Sources */,
 				6801E026202C6EA900C106E1 /* NTESChatroomListCell.m in Sources */,
 				688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */,
+				682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */,
 				6825486D2015B9180033410A /* CommentListHeaderView.swift in Sources */,
 				6801E015202C6EA800C106E1 /* NTESPersonalCardViewController.m in Sources */,
 				6801DFAE202C6EA800C106E1 /* NIMKitLocationPoint.m in Sources */,
@@ -5977,7 +5975,6 @@
 				6801E077202C6EA900C106E1 /* NTESTeamMeetingCallingViewController.m in Sources */,
 				6801DF8F202C6EA800C106E1 /* NIMContactSelectViewController.m in Sources */,
 				6801DFCB202C6EA800C106E1 /* NIMTeamCardOperationItem.m in Sources */,
-				688A4C8C200C8B5900BB5DF7 /* IdentityStatusModel.swift in Sources */,
 				6801E057202C6EA900C106E1 /* NTESSessionJankenponContentView.m in Sources */,
 				6819B9FA2060EDE800E026F9 /* PHAsset+Utilities.m in Sources */,
 				6801D939202C44D000C106E1 /* TADotView.m in Sources */,
@@ -6032,7 +6029,6 @@
 				6801DF83202C6EA800C106E1 /* NIMKitNotificationFirer.m in Sources */,
 				6801DF80202C6EA800C106E1 /* NIMCustomLeftBarView.m in Sources */,
 				68A3EE09206E16CC00BD3097 /* PopView.swift in Sources */,
-				6888088F200DF2B600BC6AE9 /* SVProgressHUDExtension.swift in Sources */,
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				6801E086202C6EA900C106E1 /* renderer_rgb.c in Sources */,
 				68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */,

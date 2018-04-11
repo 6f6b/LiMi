@@ -28,10 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //百度统计
         let statTracker = BaiduMobStat.default()
         statTracker?.shortAppVersion = APP_VERSION
-        statTracker?.enableDebugOn = true
+        statTracker?.enableDebugOn = false
         statTracker?.start(withAppId: "3572f7dc26")
         
-        self.window?.backgroundColor = APP_THEME_COLOR
+        self.window?.backgroundColor = UIColor.white
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
@@ -239,7 +239,7 @@ extension AppDelegate{
         let message = NTESSessionUtil.formatAutoLoginMessage(error) ?? "自动登录失败"
         let alertController = UIAlertController.init(title: "自动登录失败", message: message, preferredStyle: .alert)
         let actionRetry = UIAlertAction.init(title: "重试", style: .default) { _ in
-            AppManager.shared.autoLoginIM()
+            AppManager.shared.loginIM()
         }
         let actionLogOut = UIAlertAction.init(title: "注销", style: .destructive) { _ in
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil)

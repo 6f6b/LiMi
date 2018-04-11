@@ -24,7 +24,8 @@ class UserDetailsController: ViewController {
     var userInfoModel:UserInfoModel?
     var type = "action"
     var skillPage = 1
-    @objc var actionPage = 1
+    var actionPage = 1
+    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
     var skillDataArray = [TrendModel]()
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
@@ -117,6 +118,7 @@ class UserDetailsController: ViewController {
     
     //改变关注关系
     @IBAction func dealChangeRelationship(_ sender: Any) {
+        if !AppManager.shared.checkUserStatus(){return}
         if self.userInfoModel?.is_attention == 0{
             self.changeRelationship()
         }else{
@@ -130,6 +132,7 @@ class UserDetailsController: ViewController {
     }
     
     func changeRelationship(){
+        Toast.showStatusWith(text: nil)
         if let userId = self.userInfoModel?.user_id{
             let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
             let addAttention = AddAttention.init(attention_id: userId)
@@ -195,10 +198,15 @@ class UserDetailsController: ViewController {
     func loadData(){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let pageIndex = self.type == "action" ? self.actionPage : self.skillPage
-        let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type)
+        let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type,time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: {[unowned self] (response) in
             let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
+            self.userInfoModel = userDetailModel?.user
+            self.userDetailHeadView?.configWith(model: self.userInfoModel)
             self.refreshToolContainViewWith(model: userDetailModel?.user)
+            Toast.showErrorWith(model: userDetailModel)
+            self.tableView.mj_footer.endRefreshing()
+
             if let trends = userDetailModel?.action_list{
                 if self.type == "action"{
                     if self.actionPage == 1{self.actionDataArray.removeAll()}
@@ -212,13 +220,10 @@ class UserDetailsController: ViewController {
                         self.skillDataArray.append(trend)
                     }
                 }
-                if trends.count > 0 || self.actionDataArray.count == 0 || self.skillDataArray.count == 0{
-                    self.userInfoModel = userDetailModel?.user
-                    self.tableView.reloadData()
-                }
+                if self.type == "action" && self.actionPage > 1 && trends.count == 0{return}
+                if self.type == "skill" && self.skillPage > 1 && trends.count == 0{return}
+                self.tableView.reloadData()
             }
-            self.tableView.mj_footer.endRefreshing()
-            Toast.showErrorWith(model: userDetailModel)
         }, onError: { (error) in
             self.tableView.mj_footer.endRefreshing()
             Toast.showErrorWith(msg: error.localizedDescription)
@@ -226,7 +231,6 @@ class UserDetailsController: ViewController {
     }
     
     @IBAction func dealLiao(_ sender: Any) {
-        //
         if !AppManager.shared.checkUserStatus(){return}
         //判断登录状态
         let appState = AppManager.shared.appState()
@@ -236,29 +240,6 @@ class UserDetailsController: ViewController {
         if appState == .imOnlineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
         }
-//        if appState == .imOfflineBusinessOnline{
-//            //判断是否认证
-//            if Defaults[.userCertificationState] == 0{
-//                Toast.showInfoWith(text: "还未认证")
-//                return
-//            }
-//            if Defaults[.userCertificationState] == 1{
-//                Toast.showInfoWith(text: "认证中")
-//                return
-//            }
-//            if Defaults[.userCertificationState] == 2{
-//                NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"IM登录已失效，请重新登录"])
-//                return
-//            }
-//            if Defaults[.userCertificationState] == 3{
-//                Toast.showInfoWith(text: "认证失败")
-//                return
-//            }
-//            if Defaults[.userCertificationState] == nil{
-//                Toast.showInfoWith(text: "可能发生异步错误")
-//                return
-//            }
-//        }
         if appState == .imOffLineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])
         }
@@ -328,6 +309,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 self.type = index == 0 ? "action" : "skill"
                 self.emptyInfo = index == 0 ?  "太低调了，还没发动态" : "太低调了，还没发需求"
                 self.loadData()
+                self.tableView.reloadData()
             }
             return userDetailSelectTrendsTypeView
         }
@@ -369,6 +351,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                     info.append(name)
                     self.trueNameInfoCell.questionBtn.isHidden = true
                 }else{
+                    info.append("无法透露")
                     self.trueNameInfoCell.questionBtn.isHidden = false
                 }
                 self.trueNameInfoCell.infoLabel.text = info
@@ -403,35 +386,6 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
                 return emptyTrendsCell
             }
         }
-//
-//        if indexPath.section == 1{
-//            var dataArray = self.type == "action" ? self.actionDataArray : self.skillDataArray
-//            if dataArray.count != 0{
-//                if indexPath.row >= dataArray.count{
-//                    return UITableViewCell()
-//                }
-//                let model = dataArray[indexPath.row]
-//                let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
-//                //评论
-//                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
-//                    let commentsWithTrendController = CommentsWithTrendController()
-//                    commentsWithTrendController.trendModel = model
-//                    self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
-//                }
-//                //抢红包
-//                trendsCell.catchRedPacketBlock = {[unowned self] in
-//                    let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-//                    catchRedPacketView.showWith(trendModel: model)
-//                }
-//                trendsCell.configWith(model: model)
-//                return trendsCell
-//            }
-//            if dataArray.count == 0{
-//                let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
-//                emptyTrendsCell.configWith(info: self.emptyInfo, style: .inPersonCenter)
-//                return emptyTrendsCell
-//            }
-//        }
         return UITableViewCell()
     }
     
