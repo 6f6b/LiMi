@@ -336,8 +336,8 @@ struct TrendsList:TargetType,ParametersProtocol{
     var grade_id:String?
     var sex:String?
     var skill_id:String?    //skill
-    var time:TimeInterval?
-    
+    var time:Int?
+
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "type":type,
@@ -368,7 +368,7 @@ struct CommentList:TargetType,ParametersProtocol{
     
     var action_id:String?
     var page:Int?
-    var time:TimeInterval?
+    var time:Int?
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "action_id":action_id,
@@ -441,7 +441,7 @@ struct UserDetails:TargetType,ParametersProtocol{
     var page:Int?
     var user_id:Int?
     var type:String?
-    var time:TimeInterval?
+    var time:Int?
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page,
@@ -512,8 +512,8 @@ struct MyTrends:TargetType,ParametersProtocol{
     }
     
     var page:Int?
-    var time:TimeInterval?
-    
+    var time:Int?
+
     func parameters() -> [String : Any] {
         let tmpParameters = ["page":page,
                              "time":time] as [String : Any]
@@ -1212,7 +1212,7 @@ struct OneTopicList:TargetType,ParametersProtocol{
     var page:Int? //分页
     var topic_id:Int? //话题圈id
     var type:String? //最新、最热
-    var time:TimeInterval?
+    var time:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
@@ -1239,8 +1239,8 @@ struct AllTopicList:TargetType,ParametersProtocol{
     }
     
     var page:Int? //分页
-    var time:TimeInterval?
-    
+    var time:Int?
+
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
             "page":page,
@@ -1313,7 +1313,7 @@ struct DiscussList:TargetType,ParametersProtocol{
     
     var page:Int? //分页
     var topic_action_id:Int? //评论
-    var time:TimeInterval?
+    var time:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [

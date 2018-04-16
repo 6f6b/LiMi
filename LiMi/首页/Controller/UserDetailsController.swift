@@ -25,7 +25,7 @@ class UserDetailsController: ViewController {
     var type = "action"
     var skillPage = 1
     var actionPage = 1
-    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
+    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
     var skillDataArray = [TrendModel]()
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
@@ -158,7 +158,7 @@ class UserDetailsController: ViewController {
         if operationType == .delete{type = "delete"}
         if operationType == .report{type = "report"}
         if operationType == .sendMsg{
-            ChatWith(toUserId: self.userId)
+            ChatWith(toUserId: self.userId, navigationController: self.navigationController)
             return
         }
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
@@ -183,7 +183,7 @@ class UserDetailsController: ViewController {
             self.dealMoreOperationWith(operationType: .sendMsg)
         })
 
-        var actions = [actionReport,actionDefriend,actionSendMsg]
+        let actions = [actionReport,actionDefriend,actionSendMsg]
         let suspensionExpandMenu = SuspensionExpandMenu.init(actions: actions)
         suspensionExpandMenu.showAround(view: self.navigationItem.rightBarButtonItem?.customView)
     }
@@ -228,7 +228,7 @@ class UserDetailsController: ViewController {
         //判断登录状态
         let appState = AppManager.shared.appState()
         if appState == .imOnlineBusinessOnline || appState == .imOfflineBusinessOnline{
-            ChatWith(toUserId: self.userId)
+            ChatWith(toUserId: self.userId, navigationController: self.navigationController)
         }
         if appState == .imOnlineBusinessOffline{
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil, userInfo: [LOG_OUT_MESSAGE_KEY:"请先登录APP"])

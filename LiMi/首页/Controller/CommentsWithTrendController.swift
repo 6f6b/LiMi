@@ -27,7 +27,7 @@ class CommentsWithTrendController: ViewController {
     var trendModel:TrendModel?
     var dataArray = [CommentModel]()
     var pageIndex = 1
-    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
+    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "评论"
@@ -97,7 +97,7 @@ class CommentsWithTrendController: ViewController {
     func loadData(){
         if pageIndex == 1{
             self.dataArray.removeAll()
-            self.refreshTimeInterval = Date().timeIntervalSince1970
+            self.refreshTimeInterval = Int(Date().timeIntervalSince1970)
 
         }
         //判断种类

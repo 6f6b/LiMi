@@ -15,7 +15,6 @@ struct TokenIDModel {
     var Id:Int?
 }
 
-//typealias <#type name#> = <#type expression#>
 
 class FileUploadManager: NSObject {
     static let share = FileUploadManager()
@@ -124,7 +123,7 @@ class FileUploadManager: NSObject {
         // 生成 "0000-9999" 4位验证码
         let num = arc4random() % 10000
         let randomNumber = String.init(format: "%.4d", num)
-        let timeStampStr = Date().timeIntervalSince1970.stringValue()
+        let timeStampStr = Int(Date().timeIntervalSince1970).stringValue()
         //图片格式
         var imageType:String? = ""
         if let _image = image as? UIImage{
@@ -157,7 +156,8 @@ class FileUploadManager: NSObject {
     func imageTypeWith(phAsset:PHAsset?)->String?{
         if phAsset == nil{return nil}
         let resource = PHAssetResource.assetResources(for: phAsset!).first
-        return resource?.originalFilename
+        let type = resource?.originalFilename.components(separatedBy: ".").last
+        return type
     }
     ///根据data返回图片格式
     func imageTypeWith(data:Data?)->String?{

@@ -38,9 +38,14 @@ class APPUpgradeRemindingView: UIView {
     
     //升级
     @IBAction func dealToUpgrade(_ sender: Any) {
-        let urlString = "https://itunes.apple.com/us/app/hi-tu/id1190319380?l=zh&ls=1&mt=8"
-        let url = NSURL(string: urlString)
-        UIApplication.shared.openURL(url! as URL)
+        var upgradeURL:URL!
+        if let _url = self.upgradeModel?.update_url{
+            
+            upgradeURL = URL.init(string: _url)
+        }else{
+            upgradeURL = URL.init(string: "https://itunes.apple.com/cn/app/id1364395349?mt=8")
+        }
+        UIApplication.shared.openURL(upgradeURL)
     }
     //暂不升级
     @IBAction func dealNotUpgradeNow(_ sender: Any) {

@@ -150,7 +150,7 @@ class TrendsTopToolsContainView: UIView {
         self.sexImg.isHidden = true
 
         //个人资料
-        if let _trueName = topicCircleModel?.true_name{
+        if let _trueName = topicCircleModel?.nickname{
             self.userInfo.text = "基于“\(_trueName)”推荐"
         }else{
             self.userInfo.text = "官方推荐"

@@ -128,41 +128,42 @@ class PersonInfoController: UITableViewController {
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
         self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
-            let compressImg = CompressImgWith(img: photos?.first, maxKB: HEAD_IMG_MAX_MEMERY_SIZE)
-            self.uploadHeadImgWith(img: compressImg)
+            self.uploadImageWith(images: photos, phAssets: (assets as? [PHAsset]?)!)
         }
         self.present(self.imagePickerVc!, animated: true, completion: nil)
     }
     
-    //上传头像
-    func uploadHeadImgWith(img:UIImage?){
-        GetQiNiuUploadToken(type: .picture, onSuccess: { (tokenModel) in
-            if let filePath = GenerateImgPathlWith(img: img){
-                let fileName = uploadFileName(type: .picture)
-                QiNiuUploadManager?.putFile(filePath, key: fileName, token: tokenModel?.token, complete: { (response, str, dic) in
-                    //开始上传服务器
-                    Toast.showStatusWith(text: "正在上传..")
-                    let moyaProvider = MoyaProvider<LiMiAPI>()
-                    let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/"+str!, type: "head")
-                    _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: { (response) in
-                        do {
-                            let model = try response.mapObject(BaseModel.self)
-                            if model.commonInfoModel?.status == successState{
-                                self.headImg.image = img
-                            }
-                            Toast.showResultWith(model: model)
-                        }
-                        catch{Toast.showErrorWith(msg: error.localizedDescription)}
-                        self.imagePickerVc?.dismiss(animated: true, completion: nil)
-                    }, onError: { (error) in
-                        Toast.showErrorWith(msg: error.localizedDescription)
-                    })
-                    
-                }, option: nil)
-            }
-        }, id: nil, token: nil)
+    func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        Toast.showStatusWith(text: "正在上传..")
+        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+            Toast.showStatusWith(text: "正在保存..")
+            
+            let moyaProvider = MoyaProvider<LiMiAPI>()
+            let headImgUpLoad = HeadImgUpLoad(id: Defaults[.userId], token: Defaults[.userToken], image: "/" + key, type: "head")
+            _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: {[unowned self] (response) in
+                let pictureResultModel = Mapper<PictureResultModel>().map(jsonData: response.data)
+                if pictureResultModel?.commonInfoModel?.status == successState{
+                    if let url = pictureResultModel?.url{
+                        self.userInfoModel?.head_pic = url
+                        print(url)
+                        self.headImg.kf.setImage(with: URL.init(string: url), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
+                    }
+                }
+                self.imagePickerVc?.dismiss(animated: true, completion: nil)
+                Toast.showErrorWith(model: pictureResultModel)
+                }, onError: { (error) in
+                    Toast.showErrorWith(msg: error.localizedDescription)
+            })
+            
+        }, failedBlock: {
+            
+        }, completionBlock: {
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            self.tableView.reloadData()
+            print("上传结束")
+        }, tokenIDModel: nil)
     }
-    
+
     //去修改用户名
     func dealToAlterUserName(){
         let alterUserNameController = AlterUserNameController()

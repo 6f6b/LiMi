@@ -42,7 +42,7 @@ class MsgController: ViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
-    
+
     @objc func dealMoreOperation(){
         let actionToMyFollow = SuspensionMenuAction.init(title: "我的关注") {
             let followerListContainController = FollowerListContainController.init(initialIndex: 0)

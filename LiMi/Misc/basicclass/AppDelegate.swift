@@ -98,7 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         NIMSDK.shared().updateApnsToken(deviceToken)
-        print("didRegisterForRemoteNotificationsWithDeviceToken：\(deviceToken)")
+        let nsdataStr = NSData.init(data: deviceToken)
+        
+        let datastr = nsdataStr.description.replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: " ", with: "")
+        print("didRegisterForRemoteNotificationsWithDeviceToken：\(datastr)")
     }
     
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {

@@ -23,7 +23,7 @@ class TopicListController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var topicType:TopicType = .newest
     var pageIndex = 1
-    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
+    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
     var topicsContainModel:TopicsContainModel?
     var dataArray = [TrendModel]()
     var topicCircleModel:TopicCircleModel?
@@ -86,7 +86,7 @@ class TopicListController: ViewController {
         
         if self.pageIndex == 1{
             self.dataArray.removeAll()
-            self.refreshTimeInterval =  Date().timeIntervalSince1970
+            self.refreshTimeInterval =  Int(Date().timeIntervalSince1970)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let type = self.topicType == .hottest ? "hot" : "new"

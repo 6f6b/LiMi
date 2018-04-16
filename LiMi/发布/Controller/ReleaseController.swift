@@ -184,7 +184,6 @@ class ReleaseController: ViewController {
             self.tableView.reloadData()
             self.RefreshReleasBtnEnable()
         })
-        
     }
     
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{

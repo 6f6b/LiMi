@@ -47,6 +47,8 @@ class AddFollowersController: ViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @IBAction func dealCancel(_ sender: Any) {
+        //self.navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: false, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
     override func didReceiveMemoryWarning() {

@@ -389,21 +389,6 @@ func uploadFileName(type:MediaType)->String{
     return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
 }
 
-//func uploadFileNameWith(asset:PHAsset?,complet:((String)->Void)?){
-//    if let _asset = asset{
-//        _asset.getImageComplete({ (data, fileName) in
-//            
-//            if let _complet = complet{
-//                if _asset.mediaType == .video{
-//                    _complet("uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(fileName)")
-//                }
-//                if _asset.mediaType == .image{
-//                    _complet("uploads/user/images/\(timeStr)/\(timeStampStr)_i\(fileName)")
-//                }
-//            }
-//        })
-//    }
-//}
 
 func mjGifHeaderWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshGifHeader{
     let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)
@@ -436,7 +421,7 @@ func mjGifFooterWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock
 }
 
 ///和某人聊天
-func ChatWith(toUserId:Int?){
+func ChatWith(toUserId:Int?,navigationController:UINavigationController? = nil){
     //请求对方accid
     if !NIMSDK.shared().loginManager.isLogined(){
         AppManager.shared.manualLoginIM(userId: nil, userToken: nil, handle: { (error) in
@@ -451,9 +436,13 @@ func ChatWith(toUserId:Int?){
                             let session = NIMSession.init((_accid), type: .P2P)
                             let sessionVC = NTESSessionViewController.init(session: session)
                             sessionVC?.defaultTitle = imModel?.name
-                            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                            let nav = tbc.selectedViewController as! NavigationController
-                            nav.pushViewController(sessionVC!, animated: true)
+                            if let _navigationController = navigationController{
+                                _navigationController.pushViewController(sessionVC!, animated: true)
+                            }else{
+                                let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                                let nav = tbc.selectedViewController as! NavigationController
+                                nav.pushViewController(sessionVC!, animated: true)
+                            }
                         }
                     }
                     Toast.showErrorWith(model: imModel)
@@ -476,9 +465,13 @@ func ChatWith(toUserId:Int?){
                     let session = NIMSession.init((_accid), type: .P2P)
                     let sessionVC = NTESSessionViewController.init(session: session)
                     sessionVC?.defaultTitle = imModel?.name
-                    let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                    let nav = tbc.selectedViewController as! NavigationController
-                    nav.pushViewController(sessionVC!, animated: true)
+                    if let _navigationController = navigationController{
+                        _navigationController.pushViewController(sessionVC!, animated: true)
+                    }else{
+                        let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                        let nav = tbc.selectedViewController as! NavigationController
+                        nav.pushViewController(sessionVC!, animated: true)
+                    }
                 }
             }
             Toast.showErrorWith(model: imModel)

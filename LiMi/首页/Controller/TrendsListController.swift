@@ -27,7 +27,7 @@ class TrendsListController: ViewController{
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1
-    var refreshTimeInterval:TimeInterval = Date().timeIntervalSince1970
+    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
     var type:String?
     var collegeModel:CollegeModel?
     var academyModel:AcademyModel?
@@ -111,7 +111,8 @@ class TrendsListController: ViewController{
     func loadData(){
         if self.pageIndex == 1{
             self.dataArray.removeAll()
-            self.refreshTimeInterval =  Date().timeIntervalSince1970
+
+            self.refreshTimeInterval =  Int(Date().timeIntervalSince1970)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         

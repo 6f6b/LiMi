@@ -29,7 +29,7 @@ class TopicCircleModel: BaseModel {
     var title:String?
     var content:String?
     var head_pic:String?
-    var true_name:String?
+    var nickname:String?
     var pics:[String]?
     var pics_num:Int?
     
@@ -45,7 +45,7 @@ class TopicCircleModel: BaseModel {
         title<-map["title"]
         content<-map["content"]
         head_pic<-map["head_pic"]
-        true_name<-map["true_name"]
+        nickname<-map["nickname"]
         pics<-map["pics"]
         pics_num<-map["pics_num"]
     }
