@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Extensions/UITabBar+Extension.swift"
-            timestampString = "545124300.734152"
+            filePath = "LiMi/Misc/Globals/GlobalFunction.swift"
+            timestampString = "545534509.3192869"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "showBadgeOnItemAt(index:)"
-            landmarkType = "7">
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "ChatWith(toUserId:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

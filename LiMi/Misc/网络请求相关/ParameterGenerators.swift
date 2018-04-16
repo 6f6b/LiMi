@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/apps2"
+let serverAddress = "http://app.youhongtech.com/index.php/apps2"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -196,12 +196,14 @@ struct EditUsrInfo:TargetType,ParametersProtocol{
 
     var nickname:String?
     var signature:String?
+    var sex:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "nickname":nickname,
-            "signature":signature
-        ]
+            "signature":signature,
+            "sex":sex
+            ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -701,7 +703,7 @@ struct MyBlackList:TargetType,ParametersProtocol{
 }
 
 
-//MARK: - 我的黑名单
+//MARK: - 我的关注
 struct TopAttentionList:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试

@@ -44,6 +44,7 @@ class FollowerCell: UITableViewCell {
     
     func dealChangeRelationship(){
         if let userId = self.userInfoModel?.user_id{
+            Toast.showStatusWith(text: nil)
             let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
             let addAttention = AddAttention.init(attention_id: userId)
             _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in

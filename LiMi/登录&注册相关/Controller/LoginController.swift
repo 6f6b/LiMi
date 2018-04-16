@@ -110,7 +110,6 @@ class LoginController: ViewController {
                 let finishPersonInfoController = FinishPersonInfoController()
                 finishPersonInfoController.loginModel = loginModel
                 self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
-                return
             }else{
                 //存储userid、token
                 Defaults[.userId] = loginModel?.id
@@ -125,6 +124,7 @@ class LoginController: ViewController {
             //Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
+    
     
     @IBAction func dealRequestVertificationCode(_ sender: Any) {
         self.errorMsg.isHidden = true

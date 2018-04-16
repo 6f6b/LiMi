@@ -496,6 +496,7 @@
 		68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */; };
 		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
 		682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */; };
+		682BD8B52080696B0088BEAC /* RecommendFollowerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */; };
 		683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107B62024040A0060B109 /* TrendsCellFactory.swift */; };
 		683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BA2024338A0060B109 /* EmptyCommentCell.swift */; };
 		683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BB2024338A0060B109 /* EmptyCommentCell.xib */; };
@@ -1651,6 +1652,7 @@
 		68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenuBar.swift; sourceTree = "<group>"; };
 		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
 		682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureResultModel.swift; sourceTree = "<group>"; };
+		682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFollowerHeaderView.swift; sourceTree = "<group>"; };
 		683107B62024040A0060B109 /* TrendsCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCellFactory.swift; sourceTree = "<group>"; };
 		683107BA2024338A0060B109 /* EmptyCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommentCell.swift; sourceTree = "<group>"; };
 		683107BB2024338A0060B109 /* EmptyCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCommentCell.xib; sourceTree = "<group>"; };
@@ -4388,7 +4390,6 @@
 				6888085B200DF0F100BC6AE9 /* Misc */,
 				689DF77620045C33007FAE9C /* 首页 */,
 				689DF76E20045C33007FAE9C /* 圈子 */,
-				688808F220119E7B00BC6AE9 /* 发布 */,
 				689DF77A20045C34007FAE9C /* 消息 */,
 				689DF77220045C33007FAE9C /* 我的 */,
 				689DF79E2004750A007FAE9C /* 登录&注册相关 */,
@@ -4425,6 +4426,7 @@
 				681389C920568B9100F65623 /* SuspensionMenuAction.swift */,
 				681389CB2057695000F65623 /* SuspensionMenuItemCell.swift */,
 				68B55DC0207B0C2D00DF6FF7 /* SuspensionMenuItemWithImageCell.swift */,
+				68B3F33A204FB9120004C3D9 /* Toast */,
 			);
 			path = SuspensionExpandMenu;
 			sourceTree = "<group>";
@@ -4479,6 +4481,7 @@
 		681C95A02045366E009CDE3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				688808F220119E7B00BC6AE9 /* 发布 */,
 				681C95A12045366E009CDE3B /* CircleHomeBannerCell.swift */,
 				681C95A22045366E009CDE3B /* CircleHomeBannerCell.xib */,
 				681C95A32045366E009CDE3B /* TopicCircleCellFactory.swift */,
@@ -4767,8 +4770,6 @@
 			children = (
 				68A90892206A2E2400AE4362 /* 百度统计 */,
 				681389C420568AC700F65623 /* SuspensionExpandMenu */,
-				68B3F33A204FB9120004C3D9 /* Toast */,
-				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,
 				681C96032047E0FD009CDE3B /* ICarouse */,
 				6801D90C202C44D000C106E1 /* XLPhotoBrowser+CoderXL */,
@@ -4852,12 +4853,12 @@
 		689D53F7202AD74B009C771C /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */,
 				689D5423202B2E55009C771C /* PayManager.swift */,
 				6801E0DB202D4FDF00C106E1 /* AppManager.swift */,
 				681C95CE204553F5009CDE3B /* LocationManager.swift */,
 				68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */,
 				68A3EE12206E373B00BD3097 /* FileUploadManager.swift */,
-				68A3EE10206E33D600BD3097 /* ImageUploadManager.swift */,
 				68A3EE14206E377700BD3097 /* VideoUploadManager.swift */,
 			);
 			path = utilities;
@@ -4992,6 +4993,7 @@
 				681389C02051652500F65623 /* WeekendTourOrderStatusView.xib */,
 				68B55D6820747F4400DF6FF7 /* FollowerCell.swift */,
 				68B55D6920747F4400DF6FF7 /* FollowerCell.xib */,
+				682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */,
 				68B55DBC207AFF5A00DF6FF7 /* BlackerCell.swift */,
 				68B55DBD207AFF5A00DF6FF7 /* BlackerCell.xib */,
 			);
@@ -5226,6 +5228,7 @@
 		68B3F33A204FB9120004C3D9 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
+				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				68B3F33B204FB92D0004C3D9 /* Toast.swift */,
 				68B3F33F204FBCD20004C3D9 /* ToastView.swift */,
 			);
@@ -5875,6 +5878,7 @@
 				6801E0B2202C6EA900C106E1 /* NTESSettingPortraitCell.m in Sources */,
 				6801DFF9202C6EA800C106E1 /* UIActionSheet+NTESBlock.m in Sources */,
 				6801E02E202C6EA900C106E1 /* NTESCustomSysNotificationSender.m in Sources */,
+				682BD8B52080696B0088BEAC /* RecommendFollowerHeaderView.swift in Sources */,
 				681C95AB2045366E009CDE3B /* CreateTopicCircleController.swift in Sources */,
 				6801DFE4202C6EA800C106E1 /* NIMKitRobotTemplateLayout.m in Sources */,
 				6801E0AB202C6EA900C106E1 /* NTESMobileSettingViewController.m in Sources */,
@@ -6322,7 +6326,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LiMi/LiMi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (

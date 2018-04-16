@@ -17,7 +17,15 @@ class PersonInfoController: UITableViewController {
     @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var sex: UILabel!
+    @IBOutlet weak var sexRightBar: UIImageView!
+    @IBOutlet weak var sexRightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var signature: UILabel!
+    
+    @IBOutlet weak var certificationState: UILabel!
+    @IBOutlet weak var certificationRightBar: UIImageView!
+    @IBOutlet weak var certificationRightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var school: UILabel!
     //学院
     @IBOutlet weak var academy: UILabel!
@@ -37,7 +45,6 @@ class PersonInfoController: UITableViewController {
         self.academy.text = nil
         self.grade.text = nil
         
-        self.requestData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +56,7 @@ class PersonInfoController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         self.navigationController?.navigationBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: NAVIGATION_BAR_SEPARATE_LINE_HEIGHT), color: NAVIGATION_BAR_SEPARATE_COLOR)
 
+        self.requestData()
     }
     
     deinit {
@@ -80,8 +88,29 @@ class PersonInfoController: UITableViewController {
         }
         self.userName.text = model?.true_name
         self.nickName.text = model?.nickname
-        self.sex.text = model?.sex
         self.signature.text = self.userInfoModel?.signature == nil ? "个性签名空空如也~" : self.userInfoModel?.signature
+        self.sex.text = model?.sex
+        if self.userInfoModel?.is_access == 0{
+            self.certificationState.text = "去认证"
+            self.sexRightBar.isHidden = false
+            self.certificationRightBar.isHidden = false
+            self.sexRightConstraint.constant = 10
+            self.certificationRightConstraint.constant = 10
+        }
+        if self.userInfoModel?.is_access == 1{
+            self.certificationState.text = "认证中"
+            self.sexRightBar.isHidden = true
+            self.certificationRightBar.isHidden = true
+            self.sexRightConstraint.constant = -7
+            self.certificationRightConstraint.constant = -7
+        }
+        if self.userInfoModel?.is_access == 2{
+            self.certificationState.text = "已认证"
+            self.sexRightBar.isHidden = true
+            self.certificationRightBar.isHidden = true
+            self.sexRightConstraint.constant = -7
+            self.certificationRightConstraint.constant = -7
+        }
         self.school.text  = model?.college
         self.academy.text = model?.school
         self.grade.text = model?.grade
@@ -147,30 +176,25 @@ class PersonInfoController: UITableViewController {
     
     //去修改用户性别
     func dealToAlterUserSex(){
-        /*let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
+        let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
             if sex == self.userInfoModel?.sex{return}
-            var sexParameter = "1"
-            if sex == "女"{sexParameter = "0"}
+            var sexParameter = 1
+            if sex == "女"{sexParameter = 0}
             Toast.showStatusWith(text: nil)
             let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-            let editUsrInfo = EditUsrInfo(field: "sex", value: sexParameter)
-            _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
+            let editUserInfo = EditUsrInfo(nickname: nil, signature: nil,sex:sexParameter)
+            _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: {[unowned self] (response) in
                 let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
                 if resultModel?.commonInfoModel?.status == successState{
-                    self.sex.text = sex
                     self.userInfoModel?.sex = sex
+                    self.refreshUIWith(model: self.userInfoModel)
                 }
                 Toast.showResultWith(model: resultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
-        dataPickerView?.toShow()*/
-//        let alterUserSexController = AlterUserSexController()
-//        alterUserSexController.alterUserSexBlock = {(sex) in
-//            self.sex.text = sex
-//        }
-//        self.navigationController?.pushViewController(alterUserSexController, animated: true)
+        dataPickerView?.toShow()
     }
 
     func dealToAlterAutograph(){
@@ -191,9 +215,7 @@ class PersonInfoController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{ return 4}
         if section == 1{
-            if self.userInfoModel?.is_access == 2{return 0}else{
-                return 1
-            }
+            return 1
         }
         if section == 2{return 4}
         return 0
@@ -216,14 +238,20 @@ class PersonInfoController: UITableViewController {
         if indexPath.section == 0{
             if indexPath.row == 0{self.dealTapToSelectImg()}
             if indexPath.row == 1{self.dealToAlterUserName()}
+            if indexPath.row == 2{
+                if Defaults[.userCertificationState] == 2{return}
+                self.dealToAlterUserSex()
+            }
             if indexPath.row == 3{self.dealToAlterAutograph()}
         }
         if indexPath.section == 1{
+            if Defaults[.userCertificationState] != 0{return}
             let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
             self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
         }
     }
 }
+
 
 extension PersonInfoController:TZImagePickerControllerDelegate{
     

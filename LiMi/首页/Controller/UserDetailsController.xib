@@ -62,6 +62,13 @@
                                 <action selector="dealLiao:" destination="-1" eventType="touchUpInside" id="SFI-i5-qdG"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swc-84-yPu">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="3RQ-6j-pYt"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -72,9 +79,12 @@
                         <constraint firstItem="RFu-Xf-fFZ" firstAttribute="centerY" secondItem="s6G-A8-rfo" secondAttribute="centerY" id="MXu-gr-eHn"/>
                         <constraint firstAttribute="bottom" secondItem="raC-T0-EMA" secondAttribute="bottom" id="OMz-XH-17M"/>
                         <constraint firstItem="2yZ-d5-uB1" firstAttribute="top" secondItem="s6G-A8-rfo" secondAttribute="top" id="OjF-Tt-oJx"/>
+                        <constraint firstItem="swc-84-yPu" firstAttribute="top" secondItem="s6G-A8-rfo" secondAttribute="top" id="UhP-pb-JUX"/>
                         <constraint firstItem="RFu-Xf-fFZ" firstAttribute="centerX" secondItem="s6G-A8-rfo" secondAttribute="centerX" id="cVy-Ol-a3K"/>
                         <constraint firstAttribute="trailing" secondItem="raC-T0-EMA" secondAttribute="trailing" id="f5N-T6-KKb"/>
+                        <constraint firstItem="swc-84-yPu" firstAttribute="leading" secondItem="s6G-A8-rfo" secondAttribute="leading" id="mr0-c1-7a9"/>
                         <constraint firstAttribute="height" constant="50" id="vEQ-GO-4yv"/>
+                        <constraint firstAttribute="trailing" secondItem="swc-84-yPu" secondAttribute="trailing" id="yqL-CI-3PS"/>
                         <constraint firstItem="raC-T0-EMA" firstAttribute="top" secondItem="s6G-A8-rfo" secondAttribute="top" id="z8E-Bk-cVf"/>
                     </constraints>
                 </view>

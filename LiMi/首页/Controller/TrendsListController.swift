@@ -56,6 +56,7 @@ class TrendsListController: ViewController{
     
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealTapedTabBar(notification:)), name: TAPED_TABBAR_NOTIFICATION, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +76,7 @@ class TrendsListController: ViewController{
     deinit {
         NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: TAPED_TABBAR_NOTIFICATION, object: nil)
         print("动态列表销毁")
 
     }
@@ -84,6 +86,17 @@ class TrendsListController: ViewController{
     }
 
     //MARK: - misc
+    
+    @objc func dealTapedTabBar(notification:Notification?){
+        if let index = notification?.userInfo![TABBAR_INDEX_KEY] as? Int{
+            if index == 0{
+                //self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+                if self.tableView.contentOffset.y > 0{
+                    self.tableView.mj_header.beginRefreshing()
+                }
+            }
+        }
+    }
     
    @objc func tableViewRefresh(){
         self.pageIndex = 1

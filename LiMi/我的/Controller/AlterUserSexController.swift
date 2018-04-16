@@ -63,7 +63,7 @@ class AlterUserSexController: ViewController {
             sex = "1"
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUsrInfo = EditUsrInfo(nickname: "sex", signature: sex)
+        let editUsrInfo = EditUsrInfo.init(nickname: nil, signature: nil, sex: nil)
         _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{

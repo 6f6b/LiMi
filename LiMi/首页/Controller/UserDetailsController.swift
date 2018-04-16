@@ -30,7 +30,7 @@ class UserDetailsController: ViewController {
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
     var emptyInfo = "太低调了，还没有发动态"
-    var isSpread:Bool = true
+    var isSpread:Bool = false
     var schoolInfoCell = UserDetailSingleInfoCell()
     var academyInfoCell = UserDetailSingleInfoCell()
     var gradeInfoCell = UserDetailSingleInfoCell()
@@ -92,12 +92,6 @@ class UserDetailsController: ViewController {
     }
 
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-        self.navigationController?.navigationBar.barStyle = .default
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -106,12 +100,15 @@ class UserDetailsController: ViewController {
     func refreshToolContainViewWith(model:UserInfoModel?){
         if model?.is_attention == 0{
             self.followBtn.setTitle("关注", for: .normal)
+            self.followBtn.setImage(UIImage.init(named: "xq_ic_guanzhu"), for: .normal)
         }
         if model?.is_attention == 1{
             self.followBtn.setTitle("已关注", for: .normal)
+            self.followBtn.setImage(UIImage.init(named: "xq_ic_guanzhu"), for: .normal)
         }
         if model?.is_attention == 2{
             self.followBtn.setTitle("互相关注", for: .normal)
+            self.followBtn.setImage(UIImage.init(named: "xq_ic_hxgz"), for: .normal)
         }
         
     }
@@ -162,7 +159,6 @@ class UserDetailsController: ViewController {
         if operationType == .report{type = "report"}
         if operationType == .sendMsg{
             ChatWith(toUserId: self.userId)
-
             return
         }
         let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
@@ -175,24 +171,21 @@ class UserDetailsController: ViewController {
     }
     
     @objc func dealMoreOperation(_ sender: Any) {
-        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let actionReport = UIAlertAction.init(title: "举报", style: .default, handler: { _ in
+        let actionReport = SuspensionMenuAction.init(title: "举报", action: {
             self.dealMoreOperationWith(operationType: .report)
         })
-        let actionDefriend = UIAlertAction.init(title: "拉黑", style: .default, handler: { _ in
+        
+        let actionDefriend = SuspensionMenuAction(title: "拉黑", action: {
             self.dealMoreOperationWith(operationType: .defriend)
         })
-        let actionSendMsg = UIAlertAction.init(title: "发消息", style: .default, handler: { _ in
+        
+        let actionSendMsg = SuspensionMenuAction(title: "发消息", action: {
             self.dealMoreOperationWith(operationType: .sendMsg)
         })
-        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel)
-        
-        actionController.addAction(actionReport)
-        actionController.addAction(actionDefriend)
-        actionController.addAction(actionSendMsg)
-        actionController.addAction(actionCancel)
-        
-        self.present(actionController, animated: true, completion: nil)
+
+        var actions = [actionReport,actionDefriend,actionSendMsg]
+        let suspensionExpandMenu = SuspensionExpandMenu.init(actions: actions)
+        suspensionExpandMenu.showAround(view: self.navigationItem.rightBarButtonItem?.customView)
     }
     
     func loadData(){
@@ -255,7 +248,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         if section == 0{return 0}
         if section == 1{
             if self.isSpread{return 4}
-            if !self.isSpread{return 0}
+            if !self.isSpread{return 2}
         }
         if section == 2{
             let dataArray = self.type == "action" ? self.actionDataArray :self.skillDataArray
@@ -275,8 +268,8 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{return UITableViewAutomaticDimension}
-        if section == 1{return 50}
-        if section == 2{return 50}
+        if section == 1{return UITableViewAutomaticDimension}
+        if section == 2{return UITableViewAutomaticDimension}
         return 0.001
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -292,7 +285,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
             let userDetailChooseHiddenOrNotView = UserDetailChooseHiddenOrNotView.init(isSpread: self.isSpread)
             userDetailChooseHiddenOrNotView.tapBtnBlock = {[unowned self] (button) in
                 self.isSpread = !button.isSelected
-                self.tableView.reloadSections([1], with: .fade)
+                self.tableView.reloadData()
             }
             return userDetailChooseHiddenOrNotView
         }

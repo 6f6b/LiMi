@@ -19,7 +19,8 @@ class UserDetailSingleInfoCell: UITableViewCell {
         self.infoLabel.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
         self.contentView.addSubview(self.infoLabel)
         self.infoLabel.snp.makeConstraints {[unowned self] (make) in
-            make.centerY.equalTo(self)
+            make.top.equalTo(self.contentView).offset(15)
+            make.bottom.equalTo(self.contentView)
             make.left.equalTo(self.contentView).offset(15)
         }
     }

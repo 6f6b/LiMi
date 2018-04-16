@@ -16,7 +16,7 @@ class UserDetailSingleInfoWithQuestionCell: UserDetailSingleInfoCell {
         self.questionBtn.setImage(UIImage.init(named: "zsxm"), for: .normal)
         self.contentView.addSubview(self.questionBtn)
         self.questionBtn.snp.makeConstraints {[unowned self] (make) in
-            make.centerY.equalTo(self.contentView)
+            make.centerY.equalTo(self.infoLabel)
             make.left.equalTo(self.infoLabel.snp.right).offset(10)
         }
         

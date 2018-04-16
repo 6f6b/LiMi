@@ -29,7 +29,7 @@ class ThumbUpAndCommentMessageModel:BaseModel{
     var type_id:Int?
     var user_id:Int?
     var sex:String?
-    var true_name:String?
+    var nickname:String?
     var head_pic:String?
     var msg:String?
     var text:String?
@@ -47,7 +47,7 @@ class ThumbUpAndCommentMessageModel:BaseModel{
         type_id <- map["type_id"]
         user_id <- map["user_id"]
         sex <- map["sex"]
-        true_name <- map["true_name"]
+        nickname <- map["nickname"]
         head_pic <- map["head_pic"]
         msg <- map["msg"]
         text <- map["text"]

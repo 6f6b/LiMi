@@ -27,6 +27,7 @@ class SystemMsgListController: ViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.estimatedSectionHeaderHeight = 100
         self.tableView.register(UINib.init(nibName: "SystemMsgWithThumUpOrCommentsCell", bundle: nil), forCellReuseIdentifier: "SystemMsgWithThumUpOrCommentsCell")
         
         self.loadData()
@@ -116,6 +117,14 @@ extension SystemMsgListController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

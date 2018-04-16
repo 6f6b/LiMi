@@ -19,16 +19,15 @@ class UserDetailChooseHiddenOrNotView: UIView {
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.leftLabel = UILabel.init()
         self.leftLabel.text = "个人资料"
         self.leftLabel.textColor = APP_THEME_COLOR
         self.leftLabel.font = UIFont.systemFont(ofSize: 17)
         self.addSubview(self.leftLabel)
         self.leftLabel.snp.makeConstraints {[unowned self] (make) in
-            make.centerY.equalTo(self)
+            make.top.equalTo(self).offset(20)
+            make.bottom.equalTo(self)
             make.left.equalTo(self).offset(15)
-            make.top.equalTo(self).offset(15)
         }
         
         self.rightBtn = UIButton()
@@ -37,8 +36,10 @@ class UserDetailChooseHiddenOrNotView: UIView {
         self.rightBtn.addTarget(self, action: #selector(dealTapBtn), for: .touchUpInside)
         self.addSubview(self.rightBtn)
         self.rightBtn.snp.makeConstraints {[unowned self] (make) in
-            make.centerY.equalTo(self)
+            make.centerY.equalTo(self.leftLabel)
             make.right.equalTo(self).offset(-15)
+            make.height.equalTo(44)
+            make.width.equalTo(44)
         }
     }
     

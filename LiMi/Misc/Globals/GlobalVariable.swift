@@ -91,6 +91,10 @@ let ALL_UNREAD_COUNT_CHANGED_NOTIFICATION = Notification.Name.init("ALL_UNREAD_C
 let WITHDRAW_SUCCESSED_NOTIFICATION = Notification.Name.init("WITHDRAW_SUCCESSED_NOTIFICATION")
 ///通过认证通知
 let IDENTITY_STATUS_OK_NOTIFICATION = Notification.Name.init("IDENTITY_STATUS_OK_NOTIFICATION")
+///点击了Tabbar通知
+let TAPED_TABBAR_NOTIFICATION = Notification.Name.init("TAPED_TABBAR_NOTIFICATION")
+
+
 
 ///清空点赞和评论消息成功
 let CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS = Notification.Name.init("CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS")
@@ -109,6 +113,8 @@ let LOG_OUT_MESSAGE_KEY = "LOG_OUT_MESSAGE_KEY"
 let USER_ID_KEY = "USER_ID_KEY"
 ///关注关系key
 let RELATIONSHIP_KEY = "RELATIONSHIP_KEY"
+///点击Tabbar的index key
+let  TABBAR_INDEX_KEY = "TABBAR_INDEX_KEY"
 
 //国内https上传
 let qnConfig = QNConfiguration.build { (builder) in

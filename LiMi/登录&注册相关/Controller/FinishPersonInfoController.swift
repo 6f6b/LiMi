@@ -79,6 +79,7 @@ class FinishPersonInfoController: ViewController {
         var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
         rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
         self.imagePickerVc?.cropRect = rect
+        self.imagePickerVc?.showSelectBtn = false
         //self.imagePickerVc?.autoDismiss = true
         self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
@@ -95,8 +96,10 @@ class FinishPersonInfoController: ViewController {
     }
     
     func uploadHeadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
+        Toast.showStatusWith(text: "正在上传..")
         let tokenIdModel = TokenIDModel.init(token: self.loginModel?.token, Id: self.loginModel?.id)
         FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+            Toast.showStatusWith(text: "正在保存")
             let moyaProvider = MoyaProvider<LiMiAPI>()
             let headImgUpLoad = HeadImgUpLoad(id: self.loginModel?.id, token: self.loginModel?.token, image: "/"+key, type: "head")
             _ = moyaProvider.rx.request(.targetWith(target: headImgUpLoad)).subscribe(onSuccess: {[unowned self] (response) in
@@ -112,7 +115,7 @@ class FinishPersonInfoController: ViewController {
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
         }, failedBlock: {
-            
+            Toast.showErrorWith(msg: "上传失败")
         }, completionBlock: {
             
         }, tokenIDModel: tokenIdModel)

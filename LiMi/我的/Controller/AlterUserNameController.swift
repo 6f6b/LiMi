@@ -42,7 +42,7 @@ class AlterUserNameController: ViewController {
     @objc func dealSumbit(){
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUserInfo = EditUsrInfo(nickname: self.userName.text, signature: nil)
+        let editUserInfo = EditUsrInfo(nickname: self.userName.text, signature: nil,sex:nil)
         _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{

@@ -180,14 +180,14 @@ class IdentityAuthInfoController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if isShowNotice && section == 0{
-            let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
-            headerView.deleteBlock = {[unowned self] in
-                self.isShowNotice = false
-                tableView.reloadData()
-            }
-            return headerView
-        }
+//        if isShowNotice && section == 0{
+//            let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
+//            headerView.deleteBlock = {[unowned self] in
+//                self.isShowNotice = false
+//                tableView.reloadData()
+//            }
+//            return headerView
+//        }
         return nil
     }
     
@@ -196,7 +196,7 @@ class IdentityAuthInfoController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 && self.isShowNotice{return UITableViewAutomaticDimension}
+        //if section == 0 && self.isShowNotice{return UITableViewAutomaticDimension}
         if section == 1{return 7}
         return 0.001
     }

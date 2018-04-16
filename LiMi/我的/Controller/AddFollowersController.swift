@@ -25,6 +25,8 @@ class AddFollowersController: ViewController {
         self.tableView.register(UINib.init(nibName: "FollowerCell", bundle: nil), forCellReuseIdentifier: "FollowerCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedSectionHeaderHeight = 100
         self.searchText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
         
         self.loadDefaultData()
@@ -67,7 +69,8 @@ class AddFollowersController: ViewController {
                 if userModel.user_id == userId{
                     userModel.is_attention = relationship
                     //is_attention=0 未关注 1 已关注 2 互关注
-                    self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                    self.tableView.reloadData()
+                    //self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
                 }
             }
         }
@@ -97,9 +100,32 @@ extension AddFollowersController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if self.dataArray.count != 0{return 0.001}
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if self.dataArray.count != 0{return nil}
+        let recommendFollowerHeaderView = RecommendFollowerHeaderView()
+        return recommendFollowerHeaderView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataArray.count == 0 ? self.defaultDataArray.count : self.dataArray.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = self.dataArray.count == 0 ? self.defaultDataArray[indexPath.row] : self.dataArray[indexPath.row]
         let followerCell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell", for: indexPath) as! FollowerCell
@@ -114,6 +140,13 @@ extension AddFollowersController:UITableViewDelegate,UITableViewDataSource{
         
         self.navigationController?.pushViewController(userDetailsController, animated: true)
     }
+
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if self.searchText.isFirstResponder{
+            self.searchText.resignFirstResponder()
+        }
+    }
 }
 
 extension AddFollowersController{
@@ -122,7 +155,11 @@ extension AddFollowersController{
         self.placeHolderImage.isHidden = !isTextFieldEmpty
         self.placeHolderText.isHidden = !isTextFieldEmpty
         print("开始执行搜索")
-        if isTextFieldEmpty {return}
+        if isTextFieldEmpty {
+            self.dataArray.removeAll()
+            self.tableView.reloadData()
+            return
+        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let searchUser = SearchUser.init(nickname: textField.text)
         _ = moyaProvider.rx.request(.targetWith(target: searchUser)).subscribe(onSuccess: { (response) in

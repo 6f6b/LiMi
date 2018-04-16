@@ -31,7 +31,7 @@ class FollowerListContainController: ViewController {
         addFollowersBtn.addTarget(self, action: #selector(dealToAddFollowers), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: addFollowersBtn)
         
-        self.controllersContainScrollView = UIScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64-49))
+        self.controllersContainScrollView = UIScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
         self.controllersContainScrollView.isPagingEnabled = true
         self.controllersContainScrollView.delegate = self
         self.controllersContainScrollView.showsHorizontalScrollIndicator = false

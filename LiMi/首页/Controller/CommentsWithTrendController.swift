@@ -427,4 +427,10 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if self.contentText.isFirstResponder{
+            self.contentText.resignFirstResponder()
+        }
+    }
 }

@@ -135,10 +135,14 @@ class AppManager:NSObject {
         let certificationState = Defaults[.userCertificationState]
         //是否通过认证
         if certificationState == 0{
-            let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-            let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-            let navController = tabBarController.selectedViewController as! NavigationController
-            navController.pushViewController(identityAuthInfoController, animated: true)
+            let popViewForUnAuthenticated = PopViewForUnAuthenticated.init(frame: SCREEN_RECT)
+            popViewForUnAuthenticated.tapRightBlock = { () in
+                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+                let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                let navController = tabBarController.selectedViewController as! NavigationController
+                navController.pushViewController(identityAuthInfoController, animated: true)
+            }
+            popViewForUnAuthenticated.show()
             return false
         }
         if certificationState == 1{

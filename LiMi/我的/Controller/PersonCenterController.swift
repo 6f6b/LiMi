@@ -191,12 +191,16 @@ class PersonCenterController: UITableViewController {
         }
         let actionTakeFromAlbum = UIAlertAction.init(title: "从相册选择", style: .default) {[unowned self] (_) in
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate: self)
-            self.imagePickerVc?.allowPickingGif = false
-            self.imagePickerVc?.allowPickingVideo = false
             self.imagePickerVc?.allowCrop = true
-
+            self.imagePickerVc?.autoDismiss = false
+            self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
+                self.imagePickerVc?.dismiss(animated: true, completion: nil)
+            }
+            var rect = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH)
+            rect.origin.y = SCREEN_HEIGHT*0.5-SCREEN_WIDTH*0.5
+            self.imagePickerVc?.cropRect = rect
             self.imagePickerVc?.didFinishPickingPhotosHandle = {[unowned self] (photos,assets,isOriginal) in
-                self.uploadImageWith(images: photos, phAssets: assets as? [PHAsset],type: "head")
+                self.uploadImageWith(images: photos, phAssets: nil,type: "head")
             }
             self.present(self.imagePickerVc!, animated: true, completion: nil)
         }
@@ -337,7 +341,9 @@ class PersonCenterController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1{return 55.0}
         return UITableViewAutomaticDimension
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

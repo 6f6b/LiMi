@@ -43,7 +43,7 @@ class SystemMsgWithThumUpOrCommentsCell: UITableViewCell {
         if let _headPic = model?.head_pic{
             self.headImage.kf.setImage(with: URL.init(string: _headPic))
         }
-        self.userName.text = model?.true_name
+        self.userName.text = model?.nickname
         self.time.text = model?.time
         if model?.sex == "0"{
             self.sexImg.image = UIImage.init(named: "ic_girl")

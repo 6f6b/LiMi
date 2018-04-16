@@ -441,17 +441,20 @@ func ChatWith(toUserId:Int?){
     if !NIMSDK.shared().loginManager.isLogined(){
         AppManager.shared.manualLoginIM(userId: nil, userToken: nil, handle: { (error) in
             if nil == error{
+                Toast.showStatusWith(text: nil)
                 let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
                 let getImToken = GetIMToken.init(to_uid: toUserId, id: nil, token: nil)
                 _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
                     let imModel = Mapper<IMModel>().map(jsonData: response.data)
-                    if let _accid = imModel?.accid,let _ = imModel?.token{
-                        let session = NIMSession.init((_accid), type: .P2P)
-                        let sessionVC = NTESSessionViewController.init(session: session)
-                        sessionVC?.defaultTitle = imModel?.name
-                        let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                        let nav = tbc.selectedViewController as! NavigationController
-                        nav.pushViewController(sessionVC!, animated: true)
+                    if imModel?.commonInfoModel?.status == successState{
+                        if let _accid = imModel?.accid,let _ = imModel?.token{
+                            let session = NIMSession.init((_accid), type: .P2P)
+                            let sessionVC = NTESSessionViewController.init(session: session)
+                            sessionVC?.defaultTitle = imModel?.name
+                            let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                            let nav = tbc.selectedViewController as! NavigationController
+                            nav.pushViewController(sessionVC!, animated: true)
+                        }
                     }
                     Toast.showErrorWith(model: imModel)
                 }) { (error) in
@@ -463,17 +466,20 @@ func ChatWith(toUserId:Int?){
             }
         })
     }else{
+        Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let getImToken = GetIMToken.init(to_uid: toUserId, id: nil, token: nil)
         _ = moyaProvider.rx.request(.targetWith(target: getImToken)).subscribe(onSuccess: { (response) in
             let imModel = Mapper<IMModel>().map(jsonData: response.data)
-            if let _accid = imModel?.accid,let _ = imModel?.token{
-                let session = NIMSession.init((_accid), type: .P2P)
-                let sessionVC = NTESSessionViewController.init(session: session)
-                sessionVC?.defaultTitle = imModel?.name
-                let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                let nav = tbc.selectedViewController as! NavigationController
-                nav.pushViewController(sessionVC!, animated: true)
+            if imModel?.commonInfoModel?.status == successState{
+                if let _accid = imModel?.accid,let _ = imModel?.token{
+                    let session = NIMSession.init((_accid), type: .P2P)
+                    let sessionVC = NTESSessionViewController.init(session: session)
+                    sessionVC?.defaultTitle = imModel?.name
+                    let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                    let nav = tbc.selectedViewController as! NavigationController
+                    nav.pushViewController(sessionVC!, animated: true)
+                }
             }
             Toast.showErrorWith(model: imModel)
         }) { (error) in

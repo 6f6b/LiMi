@@ -33,7 +33,7 @@ class UserDetailSelectTrendsTypeView: UIView {
         self.addSubview(self.leftBtn)
         self.leftBtn.snp.makeConstraints {[unowned self] (make) in
             make.left.equalTo(self).offset(15)
-            make.centerY.equalTo(self)
+            make.top.equalTo(self).offset(40)
         }
         
         self.rightBtn = UIButton.init(type: .custom)
@@ -57,6 +57,7 @@ class UserDetailSelectTrendsTypeView: UIView {
             make.width.equalTo(30)
             make.height.equalTo(3)
             make.top.equalTo(self.leftBtn.snp.bottom).offset(0)
+            make.bottom.equalTo(self)
         }
         
         self.rightBottomeLine = UIView.init()
@@ -68,7 +69,7 @@ class UserDetailSelectTrendsTypeView: UIView {
             make.centerX.equalTo(self.rightBtn)
             make.width.equalTo(30)
             make.height.equalTo(3)
-            make.top.equalTo(self.rightBtn.snp.bottom).offset(0)
+            make.centerY.equalTo(self.leftBottomLine)
         }
         
     }

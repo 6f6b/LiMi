@@ -100,8 +100,12 @@ class TabBarController: UITabBarController {
 }
 
 extension TabBarController:UITabBarControllerDelegate{
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+    }
     //控制是否跳转
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        NotificationCenter.default.post(name: TAPED_TABBAR_NOTIFICATION, object: nil, userInfo: [TABBAR_INDEX_KEY:tabBarController.selectedIndex])
         if viewController == self.viewControllers![2]{
             if !AppManager.shared.checkUserStatus(){return false}
 

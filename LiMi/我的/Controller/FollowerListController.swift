@@ -71,16 +71,15 @@ class FollowerListController: ViewController {
                     userModel.is_attention = relationship
                     //is_attention=0 未关注 1 已关注 2 互关注
                     if self.followType == .followers{
-                        self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                        self.tableView.reloadData()
                     }
                     if self.followType == .follows{
                         if userModel.is_attention == 0{
-                            self.dataArray.remove(at: i)
                             self.tableView.reloadData()
                             return
                         }
                         if userModel.is_attention != 0{
-                            self.tableView.reloadRows(at: [IndexPath.init(row: i, section: 0)], with: .none)
+                            self.tableView.reloadData()
                         }
                     }
                 }
