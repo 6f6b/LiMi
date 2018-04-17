@@ -34,7 +34,7 @@ class FileUploadManager: NSObject {
     }
     private func uploadImageWith(index:Int,token:String,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?){
         let progressBlock:QNUpProgressHandler = { (str,flo) in
-            //print("key:\(str)-进度：\(flo)")
+            print("key:\(str)-进度：\(flo)")
         }
         let option = QNUploadOption(mime: "", progressHandler: progressBlock, params: ["":""], checkCrc: false, cancellationSignal: { () -> Bool in
             return false
@@ -44,9 +44,17 @@ class FileUploadManager: NSObject {
         //根据PHAsset上传
         if index < self.tempPhAssets.count{
             let phAsset = self.tempPhAssets[index]
-            fileKey = imageNameWith(image: phAsset)
+            fileKey = mediaFileNameWith(file: phAsset)
+            
             self.qnUploadManager?.put(phAsset, key: fileKey!, token: token, complete: { (info, str, dic) in
-                if let _successBlock = successBlock{_successBlock(image, str!)}
+                if (info?.isOK)!{
+                    if let _successBlock = successBlock{_successBlock(image, str!)}
+                }
+                if !(info?.isOK)!{
+                    if let _failedBlock = failedBlock{
+                        _failedBlock()
+                    }
+                }
                 let _index = index + 1
                 if _index >= self.tempImages.count{
                     if let _completionBlock = completionBlock{
@@ -59,7 +67,7 @@ class FileUploadManager: NSObject {
         }
         //根据UIImage上传
         else{
-            fileKey = imageNameWith(image: image)
+            fileKey = mediaFileNameWith(file: image)
             self.qnUploadManager?.put(UIImagePNGRepresentation(image)!, key: fileKey, token: token, complete: { (info, str, dic) in
                 if let _successBlock = successBlock{_successBlock(image, str!)}
                 let _index = index + 1
@@ -88,7 +96,11 @@ class FileUploadManager: NSObject {
             if let _failedBlock = failedBlock{_failedBlock()}
             return
         }
-        RequestQiNiuUploadToken(type: .picture, onSuccess: { (uploadTokenModel) in
+        var type:MediaType = .picture
+        if let _phAsset = phAssets?.last{
+            if _phAsset.mediaType == .video{type = .video}
+        }
+        RequestQiNiuUploadToken(type: type, onSuccess: { (uploadTokenModel) in
             self.tempImages.removeAll()
             self.tempPhAssets.removeAll()
             let count = _images.count
@@ -115,8 +127,8 @@ class FileUploadManager: NSObject {
     }
     
     //MARK: - 工具方法
-    ///图片名称
-    func imageNameWith(image:AnyObject?)->String?{
+    ///媒体文件名称
+    func mediaFileNameWith(file:AnyObject?)->String?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyymmdd"
         let timeStr = dateFormatter.string(from: Date())
@@ -124,19 +136,26 @@ class FileUploadManager: NSObject {
         let num = arc4random() % 10000
         let randomNumber = String.init(format: "%.4d", num)
         let timeStampStr = Int(Date().timeIntervalSince1970).stringValue()
-        //图片格式
-        var imageType:String? = ""
-        if let _image = image as? UIImage{
-            imageType = imageTypeWith(image: _image)
+        var isVideo = false
+        var mediaType:String? = ""
+        if let _image = file as? UIImage{
+            mediaType = imageTypeWith(image: _image)
         }
-        if let _image = image as? PHAsset{
-            imageType = imageTypeWith(phAsset: _image)
+        if let _phassest = file as? PHAsset{
+            mediaType = mediaFileTypeWith(phAsset: _phassest)
+            if _phassest.mediaType == .video{isVideo = true}
         }
-        if let _image = image as? Data{
-            imageType = imageTypeWith(data: _image)
+        if let _data = file as? Data{
+            mediaType = imageTypeWith(data: _data)
         }
-        if let _type = imageType{
-            return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).\(_type)"
+        
+        if let _type = mediaType{
+            if isVideo{
+                return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).\(_type)"
+            }
+            if !isVideo{
+                return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).\(_type)"
+            }
         }
         return nil
     }
@@ -152,13 +171,15 @@ class FileUploadManager: NSObject {
         }
         return nil
     }
-    ///根据PHAsset返回图片格式
-    func imageTypeWith(phAsset:PHAsset?)->String?{
+    
+    ///返回多媒体文件的类型
+    func mediaFileTypeWith(phAsset:PHAsset?)->String?{
         if phAsset == nil{return nil}
         let resource = PHAssetResource.assetResources(for: phAsset!).first
         let type = resource?.originalFilename.components(separatedBy: ".").last
         return type
     }
+
     ///根据data返回图片格式
     func imageTypeWith(data:Data?)->String?{
         if let _data = data{

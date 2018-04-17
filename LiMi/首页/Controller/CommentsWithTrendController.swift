@@ -41,7 +41,7 @@ class CommentsWithTrendController: ViewController {
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 1000
         registerTrendsCellFor(tableView: self.tableView)
-        self.tableView.register(TrendCommentCell.self, forCellReuseIdentifier: "TrendCommentCell")
+        TrendCommentCellFactory.shared.registerTrendCommentCellWith(tableView: self.tableView)
         self.tableView.register(UINib.init(nibName: "EmptyCommentCell", bundle: nil), forCellReuseIdentifier: "EmptyCommentCell")
         
         self.inputContainView.layer.cornerRadius = 20
@@ -408,7 +408,7 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 1{
             if self.dataArray.count != 0{
                 let commentModel = self.dataArray[indexPath.row]
-                let trendCommentCell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath) as! TrendCommentCell
+                let trendCommentCell = TrendCommentCellFactory.shared.trendCommentCellWith(indexPath: indexPath, tableView: tableView, commentModel: commentModel)
                 trendCommentCell.configWith(model: commentModel)
                 trendCommentCell.commentTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
                     let userDetailsController = UserDetailsController()

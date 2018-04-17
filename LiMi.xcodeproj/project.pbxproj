@@ -497,6 +497,10 @@
 		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
 		682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */; };
 		682BD8B52080696B0088BEAC /* RecommendFollowerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */; };
+		682BD8B720859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B620859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift */; };
+		682BD8B920859F970088BEAC /* SubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B820859F970088BEAC /* SubCommentCell.swift */; };
+		682BD8BB20859FC60088BEAC /* CheckMoreSubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */; };
+		682BD8BD2085A9730088BEAC /* TrendCommentCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8BC2085A9730088BEAC /* TrendCommentCellFactory.swift */; };
 		683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107B62024040A0060B109 /* TrendsCellFactory.swift */; };
 		683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BA2024338A0060B109 /* EmptyCommentCell.swift */; };
 		683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BB2024338A0060B109 /* EmptyCommentCell.xib */; };
@@ -641,7 +645,6 @@
 		688809152011E64000BC6AE9 /* RechargeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688809132011E64000BC6AE9 /* RechargeController.xib */; };
 		6888091820123A9900BC6AE9 /* DeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888091620123A9800BC6AE9 /* DeleteController.swift */; };
 		6888091920123A9900BC6AE9 /* DeleteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6888091720123A9800BC6AE9 /* DeleteController.xib */; };
-		688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */; };
 		688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */; };
 		688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C89200C866200BB5DF7 /* UserInfoModel.swift */; };
 		688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */; };
@@ -1653,6 +1656,10 @@
 		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
 		682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureResultModel.swift; sourceTree = "<group>"; };
 		682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFollowerHeaderView.swift; sourceTree = "<group>"; };
+		682BD8B620859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCommentWithSubCommentCell.swift; sourceTree = "<group>"; };
+		682BD8B820859F970088BEAC /* SubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCommentCell.swift; sourceTree = "<group>"; };
+		682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMoreSubCommentCell.swift; sourceTree = "<group>"; };
+		682BD8BC2085A9730088BEAC /* TrendCommentCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCommentCellFactory.swift; sourceTree = "<group>"; };
 		683107B62024040A0060B109 /* TrendsCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCellFactory.swift; sourceTree = "<group>"; };
 		683107BA2024338A0060B109 /* EmptyCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommentCell.swift; sourceTree = "<group>"; };
 		683107BB2024338A0060B109 /* EmptyCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCommentCell.xib; sourceTree = "<group>"; };
@@ -1807,7 +1814,6 @@
 		688809132011E64000BC6AE9 /* RechargeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechargeController.xib; sourceTree = "<group>"; };
 		6888091620123A9800BC6AE9 /* DeleteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteController.swift; sourceTree = "<group>"; };
 		6888091720123A9800BC6AE9 /* DeleteController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteController.xib; sourceTree = "<group>"; };
-		688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityAuthInfoWithSexAndNameController.swift; sourceTree = "<group>"; };
 		688A4C87200C862100BB5DF7 /* PersonCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCenterModel.swift; sourceTree = "<group>"; };
 		688A4C89200C866200BB5DF7 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		688A4C8D200C8FFB00BB5DF7 /* KingfisherExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherExtension.swift; sourceTree = "<group>"; };
@@ -4918,7 +4924,6 @@
 			children = (
 				689DF7C42005EE1F007FAE9C /* PersonCenterController.swift */,
 				689DF7C62005F9C4007FAE9C /* PersonInfoController.swift */,
-				688A4C85200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift */,
 				688A4C93200DD12E00BB5DF7 /* AlterUserNameController.swift */,
 				688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */,
 				68B55DC4207B422800DF6FF7 /* AlterUserSinatureController.swift */,
@@ -5063,9 +5068,13 @@
 				688808E72011852500BC6AE9 /* TrendsImageCollectionCell.xib */,
 				683107BE2024402C0060B109 /* EmptyTrendsCell.swift */,
 				683107BF2024402C0060B109 /* EmptyTrendsCell.xib */,
+				682BD8BC2085A9730088BEAC /* TrendCommentCellFactory.swift */,
 				6825486C2015B9180033410A /* CommentListHeaderView.swift */,
 				6825486620159E990033410A /* CommentTopToolsContainView.swift */,
 				6825486420159D260033410A /* TrendCommentCell.swift */,
+				682BD8B620859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift */,
+				682BD8B820859F970088BEAC /* SubCommentCell.swift */,
+				682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */,
 				683107BA2024338A0060B109 /* EmptyCommentCell.swift */,
 				683107BB2024338A0060B109 /* EmptyCommentCell.xib */,
 				682548722015C46D0033410A /* UserDetailHeadView.swift */,
@@ -5626,7 +5635,6 @@
 				685E396E206A2422003B505E /* SecondaryConditionScreeningSkills.swift in Sources */,
 				68B55D74207489B300DF6FF7 /* AddFollowersController.swift in Sources */,
 				68880886200DF19300BC6AE9 /* ViewController.swift in Sources */,
-				688A4C86200C656000BB5DF7 /* IdentityAuthInfoWithSexAndNameController.swift in Sources */,
 				6801DFF7202C6EA800C106E1 /* NSDictionary+NTESJson.m in Sources */,
 				6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */,
 				68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */,
@@ -5741,6 +5749,7 @@
 				6801DF95202C6EA800C106E1 /* NIMInputEmoticonContainerView.m in Sources */,
 				6801DFA3202C6EA800C106E1 /* NIMBaseSessionContentConfig.m in Sources */,
 				6801DF7B202C6EA800C106E1 /* NIMKitSetting.m in Sources */,
+				682BD8B720859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift in Sources */,
 				68B55DBE207AFF5A00DF6FF7 /* BlackerCell.swift in Sources */,
 				6801DF7D202C6EA800C106E1 /* NIMKit.m in Sources */,
 				6801E034202C6EA900C106E1 /* NTESContactUtilCell.m in Sources */,
@@ -5837,6 +5846,7 @@
 				6801DFB3202C6EA800C106E1 /* NIMSessionConfigurator.m in Sources */,
 				6801DFBB202C6EA800C106E1 /* NIMSessionAudioContentView.m in Sources */,
 				685E396820689B39003B505E /* ScreeningConditionsBaseModel.swift in Sources */,
+				682BD8BD2085A9730088BEAC /* TrendCommentCellFactory.swift in Sources */,
 				688808A3200F1E0300BC6AE9 /* DataPickerView.m in Sources */,
 				681C95B02045366E009CDE3B /* TopicListContainController.swift in Sources */,
 				68B55D7B20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift in Sources */,
@@ -5910,6 +5920,7 @@
 				6888090C2011ABDF00BC6AE9 /* ReleaseContentAddImgCollectionCell.swift in Sources */,
 				6825486A2015B6EF0033410A /* UserDetailsController.swift in Sources */,
 				6801DFDE202C6EA800C106E1 /* NIMKitFileLocationHelper.m in Sources */,
+				682BD8BB20859FC60088BEAC /* CheckMoreSubCommentCell.swift in Sources */,
 				6801DFAA202C6EA800C106E1 /* NIMTipContentConfig.m in Sources */,
 				6801D93D202C44D000C106E1 /* XLZoomingScrollView.m in Sources */,
 				685E39602064EFB4003B505E /* SecondaryConditionScreeningView.swift in Sources */,
@@ -6001,6 +6012,7 @@
 				6801E0BA202C6EA900C106E1 /* NTESCADisplayLinkHolder.m in Sources */,
 				6801E08F202C6EA900C106E1 /* NTESRecordSelectView.m in Sources */,
 				6801E028202C6EA900C106E1 /* NTESChatroomSegmentedControl.m in Sources */,
+				682BD8B920859F970088BEAC /* SubCommentCell.swift in Sources */,
 				6801DFC7202C6EA800C106E1 /* NIMSessionViewController.m in Sources */,
 				688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */,
 				6801DFF6202C6EA800C106E1 /* NSData+NTES.m in Sources */,

@@ -158,7 +158,7 @@ class ReleaseController: ViewController {
             self.imgArr.append(localMediaModel)
             print("imageWidth:\(image.size.width)--imageHeight:\(image.size.height)--key:\(key)")
         }, failedBlock: {
-            
+            Toast.showErrorWith(msg: "上传失败")
         }, completionBlock: {
             Toast.dismiss()
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
@@ -179,7 +179,7 @@ class ReleaseController: ViewController {
             self.videoArr.append(localMediaModel)
             Toast.dismiss()
         }, failedBlock: {
-            
+            Toast.showErrorWith(msg: "上传失败")
         }, completionBlock: {
             self.tableView.reloadData()
             self.RefreshReleasBtnEnable()

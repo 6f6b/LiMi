@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/IM&#x901a;&#x4fe1;/Classes/Util/NTESConfig.m"
-            timestampString = "545571458.015198"
+            filePath = "LiMi/&#x53d1;&#x5e03;/Controller/ReleaseController.swift"
+            timestampString = "545650323.163319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-init"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/basicclass/AppDelegate.swift"
-            timestampString = "545571458.015414"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "application(_:didRegister:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "uploadImageWith(images:phAssets:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

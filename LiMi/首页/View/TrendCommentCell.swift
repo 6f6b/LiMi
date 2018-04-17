@@ -9,7 +9,8 @@
 import UIKit
 
 class TrendCommentCell: UITableViewCell {
-    var commentContainView:UIView!   //最底层容器
+    ///最底层容器
+    var commentContainView:UIView!
     
     /******************顶部工具栏******************/
     var commentTopToolsContainView:CommentTopToolsContainView!    //顶部工具栏容器
@@ -25,7 +26,7 @@ class TrendCommentCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.commentContainView = UIView()
-        //        self.trendsContainView.backgroundColor = UIColor.red
+        //self.commentContainView.backgroundColor = UIColor.red
         self.contentView.addSubview(commentContainView)
         self.commentContainView.snp.makeConstraints { (make) in
             make.top.equalTo(self.contentView)
@@ -36,7 +37,7 @@ class TrendCommentCell: UITableViewCell {
         
         self.commentTopToolsContainView = CommentTopToolsContainView()
         self.commentTopToolsContainView.moreOperationBtn.isHidden = true
-//        self.commentTopToolsContainView.backgroundColor = UIColor.orange
+        //self.commentTopToolsContainView.backgroundColor = UIColor.orange
         self.commentContainView.addSubview(self.commentTopToolsContainView)
         self.commentTopToolsContainView.tapHeadBtnBlock = {
             print("点击了头像")
@@ -48,7 +49,7 @@ class TrendCommentCell: UITableViewCell {
         }
         
         self.commentContentContainView = UIView()
-//        self.commentContentContainView.backgroundColor = UIColor.green
+        //self.commentContentContainView.backgroundColor = UIColor.green
         self.commentContainView.addSubview(self.commentContentContainView)
         self.commentContentContainView.snp.makeConstraints { (make) in
             make.top.equalTo(self.commentTopToolsContainView.snp.bottom)

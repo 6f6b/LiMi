@@ -371,24 +371,6 @@ func RequestQiNiuUploadToken(type:MediaType,onSuccess:((QNUploadTokenModel?)->Vo
         Toast.showErrorWith(msg: error.localizedDescription)
     })}
 
-/// 上传文件名称
-///
-/// - Parameter type: 文件种类
-/// - Returns: 名称
-func uploadFileName(type:MediaType)->String{
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyymmdd"
-    let timeStr = dateFormatter.string(from: Date())
-    // 生成 "0000-9999" 4位验证码
-    let num = arc4random() % 10000
-    let randomNumber = String.init(format: "%.4d", num)
-    let timeStampStr = Date().timeIntervalSince1970.stringValue()
-    if type == .picture{
-        return "uploads/user/images/\(timeStr)/\(timeStampStr)_i\(randomNumber).gif"
-    }
-    return "uploads/user/videos/\(timeStr)/\(timeStampStr)_i\(randomNumber).mp4"
-}
-
 
 func mjGifHeaderWith(refreshingBlock:@escaping MJRefreshComponentRefreshingBlock)->MJRefreshGifHeader{
     let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)
