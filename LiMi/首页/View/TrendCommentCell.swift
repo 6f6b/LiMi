@@ -19,12 +19,15 @@ class TrendCommentCell: UITableViewCell {
     var commentContentContainView:UIView!
     
     var comment:UILabel!    //内容
+    var commentModel:CommentModel?
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
+        
         self.commentContainView = UIView()
         //self.commentContainView.backgroundColor = UIColor.red
         self.contentView.addSubview(commentContainView)
@@ -94,6 +97,7 @@ class TrendCommentCell: UITableViewCell {
     
     //MARK: - misc
     func configWith(model:CommentModel?){
+        self.commentModel = model
         self.commentTopToolsContainView.configWith(commentModel: model)
         self.comment.text = model?.content
     }

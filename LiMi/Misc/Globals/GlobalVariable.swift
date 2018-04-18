@@ -94,7 +94,12 @@ let IDENTITY_STATUS_OK_NOTIFICATION = Notification.Name.init("IDENTITY_STATUS_OK
 ///点击了Tabbar通知
 let TAPED_TABBAR_NOTIFICATION = Notification.Name.init("TAPED_TABBAR_NOTIFICATION")
 
-
+///评论短点击通知
+let TAPED_COMMENT_NOTIFICATION = Notification.Name.init("TAPED_COMMENT_NOTIFICATION")
+///评论长按通知
+let LONGPRESS_COMMENT_NOTIFICATION = Notification.Name.init("LONGPRESS_COMMENT_NOTIFICATION")
+///人名短点击通知
+let TAPED_COMMENT_PERSON_NAME_NOTIFICATION = Notification.Name.init("TAPED_COMMENT_PERSON_NAME_NOTIFICATION")
 
 ///清空点赞和评论消息成功
 let CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS = Notification.Name.init("CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS")
@@ -115,6 +120,8 @@ let USER_ID_KEY = "USER_ID_KEY"
 let RELATIONSHIP_KEY = "RELATIONSHIP_KEY"
 ///点击Tabbar的index key
 let  TABBAR_INDEX_KEY = "TABBAR_INDEX_KEY"
+///评论模型Key
+let COMMENT_MODEL_KEY = "COMMENT_MODEL_KEY"
 
 //国内https上传
 let qnConfig = QNConfiguration.build { (builder) in

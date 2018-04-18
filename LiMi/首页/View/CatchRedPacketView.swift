@@ -125,7 +125,7 @@ class CatchRedPacketView: UIView {
     /// - Parameter trendModel: 动态模型
     func showWith(trendModel:TrendModel?){
         self.trendModel = trendModel
-        if let personName = trendModel?.true_name{
+        if let personName = trendModel?.nickname{
             self.userInfo.text = "\(personName)的打赏红包"
             self.noAthuUserInfo.text = "\(personName)的打赏红包"
         }

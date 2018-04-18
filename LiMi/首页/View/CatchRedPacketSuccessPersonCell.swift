@@ -26,7 +26,7 @@ class CatchRedPacketSuccessPersonCell: UITableViewCell {
         if let headPic = model?.head_pic{
             self.headImgV.kf.setImage(with: URL.init(string: headPic), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.userName.text = model?.true_name
+        self.userName.text = model?.nickname
         if let _money = model?.money?.decimalValue(){
             self.amount.text = _money + "元"
         }

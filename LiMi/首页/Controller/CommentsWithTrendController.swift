@@ -60,7 +60,12 @@ class CommentsWithTrendController: ViewController {
             self.loadData()
         }
         self.loadData()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentPersonNameWith(notification:)), name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentWith(notification:)), name: TAPED_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealLongpressCommentWith(notification:)), name: LONGPRESS_COMMENT_NOTIFICATION, object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,6 +91,7 @@ class CommentsWithTrendController: ViewController {
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self)
         print("评论界面销毁")
     }
     
@@ -94,6 +100,30 @@ class CommentsWithTrendController: ViewController {
     }
 
     // MARK: - misc
+    //短点击评论人名
+    @objc func dealTapCommentPersonNameWith(notification:Notification){
+        if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            if let userId = commentModel.user_id{
+                let userDetailsController = UserDetailsController()
+                userDetailsController.userId = userId
+                self.navigationController?.pushViewController(userDetailsController, animated: true)
+            }
+        }
+    }
+    //短点击评论
+    @objc func dealTapCommentWith(notification:Notification){
+        if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            if let _name = commentModel.nickname{
+                self.contentText.placeholder = "回复：\(_name)"
+            }
+            _ = self.contentText.becomeFirstResponder()
+        }
+    }
+    //长按评论
+    @objc func  dealLongpressCommentWith(notification:Notification){
+        
+    }
+    
     func loadData(){
         if pageIndex == 1{
             self.dataArray.removeAll()

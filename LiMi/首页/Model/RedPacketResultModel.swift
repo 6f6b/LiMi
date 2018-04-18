@@ -28,6 +28,7 @@ class PersonCatchedRedPacketModel:Mappable {
     var money:Double?
     var true_name:String?
     var uid:String?
+    var nickname:String?
     
     required init?(map: Map) {
         
@@ -38,6 +39,6 @@ class PersonCatchedRedPacketModel:Mappable {
         money<-map["money"]
         true_name<-map["true_name"]
         uid<-map["uid"]
-
+        nickname <- map["nickname"]
     }
 }
