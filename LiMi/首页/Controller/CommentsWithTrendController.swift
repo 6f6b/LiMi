@@ -27,7 +27,8 @@ class CommentsWithTrendController: ViewController {
     var trendModel:TrendModel?
     var dataArray = [CommentModel]()
     var pageIndex = 1
-    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
+    var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
+    var becommentedSubCommentModel:CommentModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "评论"
@@ -40,14 +41,14 @@ class CommentsWithTrendController: ViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 1000
+        self.tableView.estimatedSectionFooterHeight = 100
+        self.tableView.estimatedSectionHeaderHeight = 100
         registerTrendsCellFor(tableView: self.tableView)
         TrendCommentCellFactory.shared.registerTrendCommentCellWith(tableView: self.tableView)
         self.tableView.register(UINib.init(nibName: "EmptyCommentCell", bundle: nil), forCellReuseIdentifier: "EmptyCommentCell")
         
         self.inputContainView.layer.cornerRadius = 20
         self.inputContainView.clipsToBounds = true
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
 
         self.contentText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: .editingChanged)
         self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
@@ -60,12 +61,7 @@ class CommentsWithTrendController: ViewController {
             self.loadData()
         }
         self.loadData()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentPersonNameWith(notification:)), name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentWith(notification:)), name: TAPED_COMMENT_NOTIFICATION, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dealLongpressCommentWith(notification:)), name: LONGPRESS_COMMENT_NOTIFICATION, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDeleteCommentWith(notification:)), name: DELETE_COMMENT_SUCCESS_NOTIFICATION, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,6 +71,15 @@ class CommentsWithTrendController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
+        //NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: LONGPRESS_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,12 +90,17 @@ class CommentsWithTrendController: ViewController {
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dealDidMoreOperation(notification:)), name: DID_MORE_OPERATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentPersonNameWith(notification:)), name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentWith(notification:)), name: TAPED_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealLongpressCommentWith(notification:)), name: LONGPRESS_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dealCheckMoreSubCommentsWith(notification:)), name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.removeObserver(self)
         print("评论界面销毁")
     }
@@ -100,6 +110,27 @@ class CommentsWithTrendController: ViewController {
     }
 
     // MARK: - misc
+    
+    @objc func dealDeleteCommentWith(notification:Notification){
+        if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            if commentModel.action_id == self.trendModel?.action_id{
+                self.loadData()
+            }
+        }
+    }
+    
+    //查看更多子评论
+    @objc func dealCheckMoreSubCommentsWith(notification:Notification){
+        if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            if let commentId = commentModel.id{
+                let commentsWithParentCommentController = CommentsWithParentCommentController()
+                commentsWithParentCommentController.parentCommentId = commentId
+                commentsWithParentCommentController.trendModel = self.trendModel
+                self.navigationController?.pushViewController(commentsWithParentCommentController, animated: true)
+            }
+        }
+    }
+    
     //短点击评论人名
     @objc func dealTapCommentPersonNameWith(notification:Notification){
         if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
@@ -113,6 +144,7 @@ class CommentsWithTrendController: ViewController {
     //短点击评论
     @objc func dealTapCommentWith(notification:Notification){
         if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            self.becommentedSubCommentModel = commentModel
             if let _name = commentModel.nickname{
                 self.contentText.placeholder = "回复：\(_name)"
             }
@@ -121,14 +153,44 @@ class CommentsWithTrendController: ViewController {
     }
     //长按评论
     @objc func  dealLongpressCommentWith(notification:Notification){
-        
+        if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
+            if commentModel.action_id == self.trendModel?.action_id && self.trendModel?.user_id == Defaults[.userId]{
+                let alertController = UIAlertController.init(title: "确认删除该条评论吗？", message: nil, preferredStyle: .alert)
+                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: {[unowned self] (_) in
+                    self.deleteCommentWith(commentModel: commentModel)
+                })
+                alertController.addAction(actionCancel)
+                alertController.addAction(actionOK)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func deleteCommentWith(commentModel:CommentModel?){
+        Toast.showStatusWith(text: nil)
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        var body:TargetType!
+        if self.trendModel?.topic_action_id == nil{
+            body = DeleteDiscuss.init(discuss_id: commentModel?.id)
+        }
+        if self.trendModel?.topic_action_id != nil{
+            body = TopicDeleteDiscuss.init(discuss_id: commentModel?.id)
+        }
+        _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
+            let model = Mapper<BaseModel>().map(jsonData: response.data)
+            if model?.commonInfoModel?.status == successState{
+                NotificationCenter.default.post(name: DELETE_COMMENT_SUCCESS_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:commentModel])
+            }
+            Toast.showErrorWith(model: model)
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
     }
     
     func loadData(){
         if pageIndex == 1{
             self.dataArray.removeAll()
-            self.refreshTimeInterval = Int(Date().timeIntervalSince1970)
-
         }
         //判断种类
         var body:TargetType!
@@ -140,7 +202,7 @@ class CommentsWithTrendController: ViewController {
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let commentListModel = Mapper<CommentListModel>().map(jsonData: response.data)
-            
+            self.refreshTimeInterval = commentListModel?.timestamp == nil ? self.refreshTimeInterval : commentListModel?.timestamp
             if nil != commentListModel?.trend{
                 self.trendModel = commentListModel?.trend
             }
@@ -178,12 +240,11 @@ class CommentsWithTrendController: ViewController {
     }
     
     @IBAction func dealSent(_ sender: Any) {
-        self.contentText.resignFirstResponder()
         var body:TargetType!
         if nil == self.trendModel?.topic_action_id{
-            body = AddComment(action_id: self.trendModel?.action_id?.stringValue(), content: self.contentText.text)
+            body = AddComment(action_id: self.trendModel?.action_id, content: self.contentText.text, parent_id: self.becommentedSubCommentModel?.id, parent_uid: self.becommentedSubCommentModel?.user_id)
         }else{
-            body = DiscussAction(topic_action_id: self.trendModel?.action_id, content: self.contentText.text)
+            body = DiscussAction(topic_action_id: self.trendModel?.action_id, content: self.contentText.text, parent_id: self.becommentedSubCommentModel?.id, parent_uid: self.becommentedSubCommentModel?.user_id)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
@@ -196,6 +257,7 @@ class CommentsWithTrendController: ViewController {
         })
         self.contentText.text = nil
         self.sendBtn.isEnabled = false
+        self.contentText.resignFirstResponder()
     }
     
     @objc func textFieldValueChanged(textField:UITextField!){
@@ -224,6 +286,8 @@ class CommentsWithTrendController: ViewController {
     
     @objc func keyboardWillHidden(notification:Notification){
         self.topCoverView.isHidden = true
+        self.becommentedSubCommentModel = nil
+        self.contentText.placeholder = "写下你的评论"
         let userInfo  = notification.userInfo!
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
@@ -321,12 +385,11 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{return 0.001}
-        return 47
+        if section == 1{return UITableViewAutomaticDimension}
+        return 0.001
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0{return 7}
         return 0.001
     }
     
@@ -349,7 +412,7 @@ extension CommentsWithTrendController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             let model = self.trendModel
-            let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model,trendsCellStyle: .normal)
+            let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model,trendsCellStyle: .inCommentList)
             //点击头像
             trendsCell.trendsTopToolsContainView.tapHeadBtnBlock = {[unowned self] in
                 let userDetailsController = UserDetailsController()

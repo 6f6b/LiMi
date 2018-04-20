@@ -239,20 +239,7 @@ class TrendsCell: UITableViewCell {
     //MARK: - misc
     ///对约束进行更新
     func refreshUI(){
-//        self.contentView.backgroundColor = UIColor.groupTableViewBackground
-//
-//        self.trendsContainViewTopDivider = UIView()
-//        self.contentView.addSubview(self.trendsContainViewTopDivider)
-//        self.trendsContainViewTopDivider.snp.remakeConstraints { [unowned self] (make) in
-//            make.top.equalTo(self.contentView)
-//            make.left.equalTo(self.contentView)
-//            make.right.equalTo(self.contentView)
-//            make.height.equalTo(0)
-//        }
-//
-//        self.trendsContainView = UIView()
-//        self.trendsContainView.backgroundColor = UIColor.white
-//        self.contentView.addSubview(trendsContainView)
+
         self.trendsContainView.snp.remakeConstraints {[unowned self]  (make) in
             make.top.equalTo(self.trendsContainViewTopDivider.snp.bottom)
             make.left.equalTo(self.contentView).offset(self.trendsContainViewMarginToWindow)
@@ -260,120 +247,40 @@ class TrendsCell: UITableViewCell {
             make.right.equalTo(self.contentView).offset(-self.trendsContainViewMarginToWindow)
         }
         
-//        self.trendsContainViewBottomDivider = UIView()
-//        self.contentView.addSubview(self.trendsContainViewBottomDivider)
-//        self.trendsContainViewBottomDivider.snp.remakeConstraints {[unowned self]   (make) in
-//            make.top.equalTo(self.trendsContainView.snp.bottom)
-//            make.left.equalTo(self.contentView)
-//            make.bottom.equalTo(self.contentView)
-//            make.right.equalTo(self.contentView)
-//            make.height.equalTo(0)
-//        }
-        
-//        self.trendsTopToolsContainViewTopDivider = UIView()
-//        self.trendsContainView.addSubview(self.trendsTopToolsContainViewTopDivider)
-//        self.trendsTopToolsContainViewTopDivider.snp.remakeConstraints {[unowned self]    (make) in
-//            make.top.equalTo(self.trendsContainView)
-//            make.left.equalTo(self.trendsContainView)
-//            make.right.equalTo(self.trendsContainView)
-//            make.height.equalTo(0)
-//        }
-        
-//        self.trendsTopToolsContainView = TrendsTopToolsContainView()
-//        self.trendsContainView.addSubview(self.trendsTopToolsContainView)
-//        self.trendsTopToolsContainView.tapHeadBtnBlock = {
-//            print("点击了头像")
-//        }
-//        self.trendsTopToolsContainView.tapMoreOperationBtnBlock = {
-//            print("点击了更多")
-//        }
         self.trendsTopToolsContainView.snp.remakeConstraints {[unowned self]    (make) in
             make.top.equalTo(self.self.trendsTopToolsContainViewTopDivider.snp.bottom)
             make.left.equalTo(self.trendsContainView).offset(self.topToolsContainViewMarginToTrendsContainView)
             make.right.equalTo(self.trendsContainView).offset(-self.topToolsContainViewMarginToTrendsContainView)
         }
-        
-//        self.trendsTopToolsContainViewBottomDivider = UIView()
-//        self.trendsContainView.addSubview(self.trendsTopToolsContainViewBottomDivider)
-//        self.trendsTopToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
-//            make.top.equalTo(self.trendsTopToolsContainView.snp.bottom)
-//            make.left.equalTo(self.trendsContainView)
-//            make.right.equalTo(self.trendsContainView)
-//            make.height.equalTo(0)
-//        }
-        
-//        self.grayBar = UIView()
-//        self.trendsContainView.addSubview(self.grayBar)
-//        self.grayBar.backgroundColor = UIColor.groupTableViewBackground
-//        self.grayBar.snp.remakeConstraints { (make) in
-//            make.bottom.equalTo(self.trendsContainView)
-//            make.left.equalTo(self.trendsContainView)
-//            make.right.equalTo(self.trendsContainView)
-//            make.height.equalTo(0)
-//        }
-        
-//        self.trendsContentContainView = UIView()
-//        //        self.trendsContentContainView.backgroundColor = UIColor.green
-//        self.trendsContainView.addSubview(self.trendsContentContainView)
+
         self.trendsContentContainView.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsTopToolsContainViewBottomDivider.snp.bottom)
             make.left.equalTo(self.trendsContainView).offset(self.trendsContentContainViewMarginToTrendsContainView)
             make.right.equalTo(self.trendsContainView).offset(-self.trendsContentContainViewMarginToTrendsContainView)
         }
-        
-//        self.trendsBottomToolsContainViewTopDivider = UIView()
-//        self.trendsContainView.addSubview(self.trendsBottomToolsContainViewTopDivider)
-//        self.trendsBottomToolsContainViewTopDivider.snp.remakeConstraints { (make) in
-//            make.top.equalTo(self.trendsContentContainView.snp.bottom)
-//            make.left.equalTo(self.trendsContainView)
-//            make.right.equalTo(self.trendsContainView)
-//            make.height.equalTo(0)
-//        }
-        
-//        self.trendsBottomToolsContainView = TrendsBottomToolsContainView()
-//        self.trendsContainView.addSubview(self.trendsBottomToolsContainView)
-//        self.trendsBottomToolsContainView.tapCommentBtnBlock = {
-//            print("点击了评论")
-//        }
+
         self.trendsBottomToolsContainView.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsBottomToolsContainViewTopDivider.snp.bottom)
             make.left.equalTo(self.trendsContainView).offset(self.bottomToolsContainViewMarginToTrendsContainView)
             make.right.equalTo(self.trendsContainView).offset(-self.bottomToolsContainViewMarginToTrendsContainView)
         }
-        
-//        self.trendsBottomToolsContainViewBottomDivider = UIView()
-//        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.groupTableViewBackground
-//        self.trendsContainView.addSubview(self.trendsBottomToolsContainViewBottomDivider)
-//        self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
-//            make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
-//            make.left.equalTo(self.trendsContainView)
-//            make.right.equalTo(self.trendsContainView)
-//            make.bottom.equalTo(self.trendsContainView)
-//            make.height.equalTo(7)
-//        }
-        
-        
-//        self.redPacketBtn = UIButton()
-//        self.redPacketBtn.isHidden = true
-//        self.redPacketBtn.setImage(UIImage.init(named: "btn_hongbao_1"), for: .normal)
-//        self.redPacketBtn.addTarget(self, action: #selector(dealCatchRedPacket), for: .touchUpInside)
-//        self.redPacketBtn.sizeToFit()
-//        self.trendsContainView.addSubview(redPacketBtn)
-//        self.redPacketBtn.snp.remakeConstraints { (make) in
-//            make.bottom.equalTo(self.trendsBottomToolsContainView).offset(-15)
-//            make.right.equalTo(self.trendsContainView)
-//        }
-    }
-    
-    func configWith(model:TrendModel?,tableView:UITableView?,indexPath:IndexPath?){
-//        self.tableView = tableView
-//        self.indexPath = indexPath
-        //self.configWith(model: model)
+
     }
     
     func configWith(model:TrendModel?){
         self.model = model
         self.trendsTopToolsContainView.configWith(model: model,cellStyle: self.cellStyle)
+        
+        if self.cellStyle == .inCommentList{
+            self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
+                make.left.equalTo(self.trendsContainView)
+                make.right.equalTo(self.trendsContainView)
+                make.bottom.equalTo(self.trendsContainView)
+                make.height.equalTo(0)
+            }
+        }
+        
         if let _redType = model?.red_type{
             self.redPacketBtn.isHidden = false
             var imgName = "btn_hongbao_all"

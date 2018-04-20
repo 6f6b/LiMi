@@ -15,7 +15,10 @@ class CheckMoreSubCommentCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
+        self.contentView.backgroundColor = RGBA(r: 250, g: 250, b: 250, a: 1)
+        
         self.commentNumInfo = UILabel()
+        //self.commentNumInfo.backgroundColor = UIColor.orange
         self.commentNumInfo.textColor = APP_THEME_COLOR
         self.commentNumInfo.font = UIFont.systemFont(ofSize: 15)
         self.contentView.addSubview(self.commentNumInfo)

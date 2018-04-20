@@ -17,19 +17,22 @@ class SubCommentCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
+        self.contentView.backgroundColor = RGBA(r: 250, g: 250, b: 250, a: 1)
+        
         self.commentLabel = YYLabel.init()
+        //self.commentLabel.backgroundColor = UIColor.purple
         self.commentLabel.numberOfLines = 0
-        self.commentLabel.lineBreakMode = .byWordWrapping
+        self.commentLabel.lineBreakMode = .byCharWrapping
+        self.commentLabel.preferredMaxLayoutWidth = SCREEN_WIDTH-62-12-30
         self.commentLabel.font = UIFont.systemFont(ofSize: 15)
         self.contentView.addSubview(self.commentLabel)
         self.commentLabel.snp.makeConstraints {[unowned self] (make) in
-            make.top.equalTo(self.contentView)
-            make.bottom.equalTo(self.contentView)
+//            make.top.equalTo(self.contentView)
+//            make.bottom.equalTo(self.contentView)
             make.left.equalTo(self.contentView)
             make.right.equalTo(self.contentView)
         }
         
-        //let shortTap = UITapGestureRecognizer.init(target: <#T##Any?#>, action: <#T##Selector?#>)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,16 +81,16 @@ class SubCommentCell: UITableViewCell {
             
             //评论内容
             let attCommentContent = NSMutableAttributedString.init(string: commentContent)
-            attCommentContent.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15)])
-            let nsCommentContent = NSString.init(string: commentContent)
-            let attCommentContentRange = nsCommentContent.range(of: commentContent)
-            attCommentContent.yy_setTextHighlight(attCommentContentRange, color: RGBA(r: 51, g: 51, b: 51, a: 1), backgroundColor: nil, userInfo: nil, tapAction: { (view, nsAttStr, range, rect) in
-                NotificationCenter.default.post(name: TAPED_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.subCommentModel])
-                print("短点击：\(nsAttStr)")
-            }, longPressAction: { (view, nsAttStr, range, rect) in
-                NotificationCenter.default.post(name: LONGPRESS_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.subCommentModel])
-                print("长按：\(nsAttStr)")
-            })
+            attCommentContent.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15),NSAttributedStringKey.foregroundColor.rawValue:RGBA(r: 51, g: 51, b: 51, a: 51)])
+//            let nsCommentContent = NSString.init(string: commentContent)
+//            let attCommentContentRange = nsCommentContent.range(of: commentContent)
+//            attCommentContent.yy_setTextHighlight(attCommentContentRange, color: RGBA(r: 51, g: 51, b: 51, a: 1), backgroundColor: nil, userInfo: nil, tapAction: { (view, nsAttStr, range, rect) in
+//                NotificationCenter.default.post(name: TAPED_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.subCommentModel])
+//                print("短点击：\(nsAttStr)")
+//            }, longPressAction: { (view, nsAttStr, range, rect) in
+//                NotificationCenter.default.post(name: LONGPRESS_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.subCommentModel])
+//                print("长按：\(nsAttStr)")
+//            })
             
             //单纯评论
             if model?.parent_id == model?.group_id{

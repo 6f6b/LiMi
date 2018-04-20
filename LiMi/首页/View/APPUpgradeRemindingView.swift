@@ -62,10 +62,13 @@ class APPUpgradeRemindingView: UIView {
             UIApplication.shared.keyWindow?.addSubview(self)
             
             //刷新信息
+            //可选更新
             if _upgradeModel.update == 0{
-                self.forceUpgradeContainView.isHidden = false
-            }else{
                 self.upgradeContainView.isHidden = false
+            }
+            //强制更新
+            if _upgradeModel.update == 1{
+                self.forceUpgradeContainView.isHidden = false
             }
             self.tableView.reloadData()
             if let _versionNum = upgradeModel?.version{

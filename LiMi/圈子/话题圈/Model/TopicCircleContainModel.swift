@@ -11,6 +11,7 @@ import ObjectMapper
 
 class TopicCircleContainModel: BaseModel {
     var data:[TopicCircleModel]?
+    var timestamp:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -18,6 +19,7 @@ class TopicCircleContainModel: BaseModel {
     override func mapping(map: Map) {
         super.mapping(map: map)
         data<-map["data"]
+        timestamp<-map["msg.timestamp"]
     }
 }
 

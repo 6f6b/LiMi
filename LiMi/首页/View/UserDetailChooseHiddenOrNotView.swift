@@ -31,8 +31,8 @@ class UserDetailChooseHiddenOrNotView: UIView {
         }
         
         self.rightBtn = UIButton()
-        self.rightBtn.setImage(UIImage.init(named: "sx_btn_zhankai"), for: .normal)
-        self.rightBtn.setImage(UIImage.init(named: "sx_btn_shouqi"), for: .selected)
+        self.rightBtn.setImage(UIImage.init(named: "sx_btn_shouqi"), for: .normal)
+        self.rightBtn.setImage(UIImage.init(named: "sx_btn_zhankai"), for: .selected)
         self.rightBtn.addTarget(self, action: #selector(dealTapBtn), for: .touchUpInside)
         self.addSubview(self.rightBtn)
         self.rightBtn.snp.makeConstraints {[unowned self] (make) in

@@ -17,12 +17,12 @@ class TrendCommentCellFactory: NSObject {
     }
     
     func trendCommentCellWith(indexPath:IndexPath,tableView:UITableView,commentModel:CommentModel?) -> TrendCommentCell{
-//        if let child = commentModel?.child{
-//            if child.count > 0{
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentWithSubCommentCell", for: indexPath) as! TrendCommentWithSubCommentCell
-//                return cell
-//            }
-//        }
+        if let child = commentModel?.child{
+            if child.count > 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentWithSubCommentCell", for: indexPath) as! TrendCommentWithSubCommentCell
+                return cell
+            }
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrendCommentCell", for: indexPath) as! TrendCommentCell
         return cell
     }

@@ -9,11 +9,18 @@
 import Foundation
 
 enum TrendsCellStyle {
-    case normal //正常
-    case inPersonCenter   //用户主页中
-    case inMyTrendList   //我的动态列表中
-    case inTopicCircleList    //在话题圈列表中
+    ///正常
+    case normal
+    ///用户主页中
+    case inPersonCenter
+    ///我的动态列表中
+    case inMyTrendList
+    ///在话题圈列表中
+    case inTopicCircleList
+    ///在话题列表中
     case inTopicList
+    ///在评论列表中
+    case inCommentList
 }
 
 func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsCellStyle:TrendsCellStyle = .normal)->TrendsCell{
@@ -89,7 +96,6 @@ func cellFor(indexPath:IndexPath,tableView:UITableView,model:TrendModel?,trendsC
     
     //配置
     trendsCell.cellStyle = trendsCellStyle
-    //trendsCell.configWith(model: model)
     //相关block在对应controller中实现
     print("classNmae:\(object_getClass(trendsCell))---classSize:\(class_getInstanceSize(object_getClass(trendsCell)))")
     return trendsCell

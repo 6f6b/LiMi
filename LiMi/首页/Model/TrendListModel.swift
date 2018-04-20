@@ -11,7 +11,7 @@ import ObjectMapper
 
 class TrendsListModel: BaseModel {
     var trends:[TrendModel]?
-    
+    var timestamp:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -19,6 +19,7 @@ class TrendsListModel: BaseModel {
     override func mapping(map: Map) {
         super.mapping(map: map)
         trends<-map["data"]
+        timestamp<-map ["msg.timestamp"]
     }
 }
 

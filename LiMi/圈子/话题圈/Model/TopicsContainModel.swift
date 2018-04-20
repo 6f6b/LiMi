@@ -12,6 +12,7 @@ import ObjectMapper
 class TopicsContainModel: BaseModel {
     var actionList:[TrendModel]?
     var topicCircleModel:TopicCircleModel?
+    var timestamp:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -20,5 +21,6 @@ class TopicsContainModel: BaseModel {
         super.mapping(map: map)
         actionList<-map["data.actionList"]
         topicCircleModel <- map["data.topic"]
+        timestamp<-map["msg.timestamp"]
     }
 }

@@ -57,4 +57,19 @@ extension UILabel {
     }
 }
 
+extension String{
+    ///获取字符串在限定宽度内的size
+    func sizeWith(limitWidth:CGFloat,font:CGFloat)->CGSize{
+        let nsStr = NSString.init(string: self)
+        let rect = nsStr.boundingRect(with: CGSize.init(width: 10000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: font)], context: nil)
+        var lines = rect.width / limitWidth
+        let remainder = lines.truncatingRemainder(dividingBy: 1)
+        if remainder != 0{
+            lines = CGFloat(Int(lines) + 1)
+        }
+        let width = rect.width < limitWidth ? rect.width : limitWidth
+        return CGSize.init(width: width, height: rect.height*lines)
+    }
+}
+
 

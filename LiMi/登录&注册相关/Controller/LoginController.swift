@@ -99,7 +99,7 @@ class LoginController: ViewController {
                 
                 Defaults[.userPhone] = self.phoneNum.text
             }
-            
+            Toast.dismiss()
             if loginModel?.commonInfoModel?.status != successState{
                 self.showErrorMsgOnLabelWith(msg: loginModel?.commonInfoModel?.msg)
                 return
@@ -117,7 +117,6 @@ class LoginController: ViewController {
                 //进入主界面
                 LoginServiceToMainController(loginRootController: self.navigationController)
             }
-            Toast.dismiss()
         }, onError: { (error) in
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
             Toast.dismiss()

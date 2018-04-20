@@ -23,7 +23,7 @@ class TopicListController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var topicType:TopicType = .newest
     var pageIndex = 1
-    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
+    var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
     var topicsContainModel:TopicsContainModel?
     var dataArray = [TrendModel]()
     var topicCircleModel:TopicCircleModel?
@@ -86,7 +86,6 @@ class TopicListController: ViewController {
         
         if self.pageIndex == 1{
             self.dataArray.removeAll()
-            self.refreshTimeInterval =  Int(Date().timeIntervalSince1970)
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let type = self.topicType == .hottest ? "hot" : "new"
@@ -94,6 +93,7 @@ class TopicListController: ViewController {
         let oneTopicList = OneTopicList(page: pageIndex, topic_id: self.topicCircleModel?.id, type: type,time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: oneTopicList)).subscribe(onSuccess: { (response) in
             let topicsContainModel = Mapper<TopicsContainModel>().map(jsonData: response.data)
+            self.refreshTimeInterval = topicsContainModel?.timestamp == nil ? self.refreshTimeInterval : topicsContainModel?.timestamp
             if nil == self.topicsContainModel{
                 self.topicsContainModel = topicsContainModel
             }

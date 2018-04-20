@@ -12,6 +12,7 @@ import ObjectMapper
 class UserDetailModel: BaseModel {
     var user:UserInfoModel?
     var action_list:[TrendModel]?
+    var timestamp:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -20,6 +21,7 @@ class UserDetailModel: BaseModel {
         super.mapping(map: map)
         user<-map["data.user"]
         action_list<-map["data.action_list"]
+        timestamp<-map["msg.timestamp"]
     }
 }
 

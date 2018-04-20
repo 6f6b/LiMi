@@ -24,7 +24,6 @@ class ThumbUpAndCommentMessageContainModel: BaseModel {
 }
 
 class ThumbUpAndCommentMessageModel:BaseModel{
-
     var type:Int?
     var type_id:Int?
     var user_id:Int?
@@ -36,6 +35,16 @@ class ThumbUpAndCommentMessageModel:BaseModel{
     var img:String?
     var video:String?
     var time:String?
+    
+    ///评论id
+    var discuss_id:Int?
+    ///所属评论组id
+    var group_id:Int?
+    ///父评论的 评论人 昵称
+    var parent_nickname:String?
+    ///父评论的评论人id
+    var parent_uid:Int?
+    
     
     required init?(map: Map) {
         super.init(map: map)

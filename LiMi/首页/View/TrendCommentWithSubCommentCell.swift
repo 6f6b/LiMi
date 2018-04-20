@@ -40,10 +40,12 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
         }
         
         self.subCommentTableView = UITableView()
+        //self.subCommentTableView.estimatedRowHeight = 100
+        self.subCommentTableView.backgroundColor = self.subCommentContainView.backgroundColor
+        self.subCommentTableView.isScrollEnabled = false
         self.subCommentTableView.separatorStyle = .none
         self.subCommentTableView.delegate = self
         self.subCommentTableView.dataSource = self
-        self.subCommentTableView.estimatedRowHeight = 100
         self.subCommentTableView.register(SubCommentCell.self, forCellReuseIdentifier: "SubCommentCell")
         self.subCommentTableView.register(CheckMoreSubCommentCell.self, forCellReuseIdentifier: "CheckMoreSubCommentCell")
         self.subCommentContainView.addSubview(self.subCommentTableView)
@@ -66,22 +68,46 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
     }
     
     //MARK: - misc
-    override func configWith(model: CommentModel?) {
+    override func configWith(model: CommentModel?, isForSubComment: Bool) {
         super.configWith(model: model)
         self.subCommentTableView.reloadData()
-        let delayTime:TimeInterval = 0.001
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delayTime, execute: {
-            let tableViewHeight = self.subCommentTableView.contentSize.height
-            self.subCommentTableView.snp.remakeConstraints {[unowned self] (make) in
-                make.top.equalTo(self.subCommentContainView).offset(15)
-                make.bottom.equalTo(self.subCommentContainView).offset(-15)
-                make.left.equalTo(self.subCommentContainView).offset(15)
-                make.right.equalTo(self.subCommentContainView).offset(-15)
-                make.height.equalTo(tableViewHeight)
-            }
-        })
+        let tableViewHeight = self.tableViewHeightWith(model: model)
+//        let tableViewHeight = self.subCommentTableView.contentSize.height
+        self.subCommentTableView.snp.remakeConstraints {[unowned self] (make) in
+            make.top.equalTo(self.subCommentContainView).offset(15)
+            make.bottom.equalTo(self.subCommentContainView).offset(-15)
+            make.left.equalTo(self.subCommentContainView).offset(15)
+            make.right.equalTo(self.subCommentContainView).offset(-15)
+            print(tableViewHeight)
+            make.height.equalTo(tableViewHeight)
+        }
     }
 
+    ////根据评论模型计算tableview高度
+    func tableViewHeightWith(model:CommentModel?)->CGFloat{
+        var tableViewHeight:CGFloat = 0.0
+        let limitWidth = SCREEN_WIDTH-62-30-12
+        if let childs = model?.child{
+            if childs.count > 2{
+                for i in 0..<2{
+                    if let _str = self.subCommentTextWith(model: childs[i]){
+                        let size = _str.sizeWith(limitWidth: limitWidth, font: 15)
+                        tableViewHeight += size.height
+                    }
+                }
+                tableViewHeight += "LIMI".sizeWith(limitWidth: limitWidth, font: 15).height
+            }
+            if childs.count <= 2{
+                for child in childs{
+                    if let _str = self.subCommentTextWith(model: child){
+                        let size = _str.sizeWith(limitWidth: limitWidth, font: 15)
+                        tableViewHeight += size.height
+                    }
+                }
+            }
+        }
+        return tableViewHeight
+    }
 }
 
 extension TrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSource{
@@ -113,6 +139,21 @@ extension TrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSour
         return 0.001
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0{
+            if let childs = self.commentModel?.child{
+                if let str = self.subCommentTextWith(model: childs[indexPath.row]){
+                    let size = str.sizeWith(limitWidth: (SCREEN_WIDTH-62-30-12), font: 15)
+                    return size.height
+                }
+            }
+        }
+        if indexPath.section == 1{
+            return "limi".sizeWith(limitWidth: 100, font: 15).height
+        }
+        return 0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
@@ -122,9 +163,32 @@ extension TrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSour
             return subCommentCell
         }
         if indexPath.section == 1{
-            let checkMoreSubCommentCell = tableView.dequeueReusableCell(withIdentifier: "CheckMoreSubCommentCell", for: indexPath)
+            let checkMoreSubCommentCell = tableView.dequeueReusableCell(withIdentifier: "CheckMoreSubCommentCell", for: indexPath) as! CheckMoreSubCommentCell
+            checkMoreSubCommentCell.configWith(num: self.commentModel?.child_num)
             return checkMoreSubCommentCell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NotificationCenter.default.post(name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+    }
+    
+    func subCommentTextWith(model:SubCommentModel?)->String?{
+        if let commentContent = model?.content,let commentPersonName = model?.nickname,let beCommentedPersonName = model?.parent_name{
+            //单纯评论
+            if model?.parent_id == model?.group_id{
+                //冒号
+                let colon = ":"
+                return commentPersonName + ":" + commentContent
+            }
+            //回复
+            if model?.parent_id != model?.group_id{
+                //回复 @ person ：
+                let reply = "  回复 @ \(beCommentedPersonName) :"
+                return commentPersonName + reply + commentContent
+            }
+        }
+        return nil
     }
 }

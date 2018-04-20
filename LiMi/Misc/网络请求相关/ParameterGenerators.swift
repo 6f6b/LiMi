@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://app.youhongtech.com/index.php/apps2"
+let serverAddress = "http://testapp.youhongtech.com/index.php/apps2"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -379,6 +379,100 @@ struct CommentList:TargetType,ParametersProtocol{
     }
 }
 
+
+struct DeleteDiscuss:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "action/deleteDiscuss"
+    }
+    
+    var discuss_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "discuss_id":discuss_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct TopicDeleteDiscuss:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "topic/deleteDiscuss"
+    }
+    
+    var discuss_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "discuss_id":discuss_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//子评论列表
+struct DiscussOneFather:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/action/discussOneFather"
+    }
+    
+    var discuss_father_id:Int?
+    var page:Int?
+    var time:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "discuss_father_id":discuss_father_id,
+            "page":page,
+            "time":time
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct TopicDiscussOneFather:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "topic/discussOneFather"
+    }
+    
+    var discuss_father_id:Int?
+    var page:Int?
+    var time:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "discuss_father_id":discuss_father_id,
+            "page":page,
+            "time":time
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 //MARK: - 18 添加评论处理接口（已对接）
 struct AddComment:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -392,13 +486,20 @@ struct AddComment:TargetType,ParametersProtocol{
         return "/Action/discussAction"
     }
     
-    var action_id:String?
+    var action_id:Int?
     var content:String?
+    ///父级评论id
+    var parent_id:Int?
+    ///父级评论人的id
+    var parent_uid:Int?
+    
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "action_id":action_id,
-            "content":content
-        ]
+            "content":content,
+            "parent_id":parent_id,
+            "parent_uid":parent_uid
+            ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
@@ -1186,11 +1287,15 @@ struct DiscussAction:TargetType,ParametersProtocol{
     
     var topic_action_id:Int? //话题id
     var content:String?
+    var parent_id:Int?
+    var parent_uid:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
             "topic_action_id":topic_action_id,
-            "content":content
+            "content":content,
+            "parent_id":parent_id,
+            "parent_uid":parent_uid
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }

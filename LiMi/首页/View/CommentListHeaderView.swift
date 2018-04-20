@@ -12,15 +12,17 @@ class CommentListHeaderView: UIView {
     var infoLabel:UILabel!
      override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = RGBA(r: 245, g: 245, b: 245, a: 1)
         
         self.infoLabel = UILabel()
         self.infoLabel.font = UIFont.systemFont(ofSize: 14)
-        self.infoLabel.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
+        self.infoLabel.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         self.infoLabel.text = "评论"
         self.addSubview(self.infoLabel)
         self.infoLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self)
+            make.top.equalTo(self).offset(15)
+            make.bottom.equalTo(self).offset(-15)
             make.left.equalTo(self).offset(12)
         }
         

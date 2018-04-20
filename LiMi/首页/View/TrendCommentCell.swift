@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYText
 
 class TrendCommentCell: UITableViewCell {
     ///最底层容器
@@ -18,7 +19,7 @@ class TrendCommentCell: UITableViewCell {
     /******************发布内容区域******************/
     var commentContentContainView:UIView!
     
-    var comment:UILabel!    //内容
+    var comment:YYLabel!    //内容
     var commentModel:CommentModel?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,12 +62,13 @@ class TrendCommentCell: UITableViewCell {
             make.right.equalTo(self.commentContainView).offset(-12)
         }
         
-        self.comment = UILabel()
+        self.comment = YYLabel()
         self.comment.text = nil
         self.comment.font = UIFont.systemFont(ofSize: 14)
         self.comment.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
         self.comment.numberOfLines = 0
         self.comment.lineBreakMode = .byWordWrapping
+        self.comment.preferredMaxLayoutWidth = SCREEN_WIDTH-62-12
         self.commentContentContainView.addSubview(self.comment)
         self.comment.snp.makeConstraints { (make) in
             make.top.equalTo(self.commentContentContainView)
@@ -96,10 +98,51 @@ class TrendCommentCell: UITableViewCell {
     }
     
     //MARK: - misc
-    func configWith(model:CommentModel?){
+    func configWith(model:CommentModel?,isForSubComment:Bool = false){
         self.commentModel = model
         self.commentTopToolsContainView.configWith(commentModel: model)
-        self.comment.text = model?.content
+        
+        var attContent = NSMutableAttributedString.init(string: "")
+        if isForSubComment{
+            if let beCommentedPersonName = model?.parent_name{
+                let attReply = NSMutableAttributedString.init(string: "回复  @ ")
+                attReply.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15),NSAttributedStringKey.foregroundColor.rawValue:RGBA(r: 51, g: 51, b: 51, a: 51)])
+                
+                let attBecommentPersonName = NSMutableAttributedString.init(string: beCommentedPersonName)
+                attBecommentPersonName.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15)])
+                
+                let nsBecommentPersonName = NSString.init(string: beCommentedPersonName)
+                let attBecommentPersonNameRange = nsBecommentPersonName.range(of: beCommentedPersonName)
+                attBecommentPersonName.yy_setTextHighlight(attBecommentPersonNameRange, color: APP_THEME_COLOR, backgroundColor: nil, userInfo: nil, tapAction: { (view, nsAttStr, range, rect) in
+                    NotificationCenter.default.post(name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+                    print("短点击：\(nsAttStr)")
+                }, longPressAction: { (view, nsAttStr, range, rect) in
+                    print("长按：\(nsAttStr)")
+                })
+                let attColon = NSMutableAttributedString.init(string: ":")
+                attColon.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15),NSAttributedStringKey.foregroundColor.rawValue:RGBA(r: 51, g: 51, b: 51, a: 51)])
+                
+                attContent.append(attReply)
+                attContent.append(attBecommentPersonName)
+                attContent.append(attColon)
+            }
+        }
+        if let commentContent = model?.content{
+            let attCommentContent = NSMutableAttributedString.init(string: commentContent)
+            attCommentContent.yy_setAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 15)])
+            let nsCommentContent = NSString.init(string: commentContent)
+            let attCommentContentRange = nsCommentContent.range(of: commentContent)
+            attCommentContent.yy_setTextHighlight(attCommentContentRange, color: RGBA(r: 51, g: 51, b: 51, a: 1), backgroundColor: nil, userInfo: nil, tapAction: { (view, nsAttStr, range, rect) in
+                NotificationCenter.default.post(name: TAPED_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+                print("短点击：\(nsAttStr)")
+            }, longPressAction: { (view, nsAttStr, range, rect) in
+                NotificationCenter.default.post(name: LONGPRESS_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+                print("长按：\(nsAttStr)")
+            })
+            
+            attContent.append(attCommentContent)
+        }
+        self.comment.attributedText = attContent
     }
 
 }

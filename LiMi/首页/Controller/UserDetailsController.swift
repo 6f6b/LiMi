@@ -25,7 +25,7 @@ class UserDetailsController: ViewController {
     var type = "action"
     var skillPage = 1
     var actionPage = 1
-    var refreshTimeInterval:Int = Int(Date().timeIntervalSince1970)
+    var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
     var skillDataArray = [TrendModel]()
     var actionDataArray = [TrendModel]()
     @objc var userId:Int = 0
@@ -104,7 +104,7 @@ class UserDetailsController: ViewController {
         }
         if model?.is_attention == 1{
             self.followBtn.setTitle("已关注", for: .normal)
-            self.followBtn.setImage(UIImage.init(named: "xq_ic_guanzhu"), for: .normal)
+            self.followBtn.setImage(UIImage.init(named: "xq_ic_ygz"), for: .normal)
         }
         if model?.is_attention == 2{
             self.followBtn.setTitle("互相关注", for: .normal)
@@ -194,6 +194,7 @@ class UserDetailsController: ViewController {
         let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type,time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: {[unowned self] (response) in
             let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
+            self.refreshTimeInterval = userDetailModel?.timestamp == nil ? self.refreshTimeInterval : userDetailModel?.timestamp
             self.userInfoModel = userDetailModel?.user
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
             self.refreshToolContainViewWith(model: userDetailModel?.user)
