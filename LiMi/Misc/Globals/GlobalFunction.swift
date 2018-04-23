@@ -98,32 +98,6 @@ func IS_AuthCode(authCode:String?)->Bool{
     return false
 }
 
-//压缩图片
-func CompressImgWith(img:UIImage?,maxKB:Double)->UIImage?{
-    if let _compressImgData = GetCompressImgDataWith(img: img, maxKB: maxKB){
-        let finalImg = UIImage.init(data: _compressImgData)
-        return finalImg
-    }else{return nil}
-}
-
-//生成图片压缩后的Data
-func GetCompressImgDataWith(img:UIImage?,maxKB:Double)->Data?{
-    if let originalImg = img{
-        //计算零压缩条件下的大小
-        let tempData = UIImageJPEGRepresentation(originalImg, 1)
-        //压缩率
-        var compRatio = 1.0
-        if maxKB*1024/Double((tempData?.count)!)<1.0{
-            compRatio = maxKB*1024/Double((tempData?.count)!)
-        }
-        //将Image图片转为JPEG格式的二进制数据
-        let data = UIImageJPEGRepresentation(originalImg, CGFloat(compRatio))
-        return data
-    }else{
-        return nil
-    }
-}
-
 
 func GetImgNameWith(asset:PHAsset?,complet:((String?)->Void)?){
     if let _asset = asset{
