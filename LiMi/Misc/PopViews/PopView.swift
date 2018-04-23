@@ -28,7 +28,7 @@ class PopView: View {
         self.centerContianView.snp.makeConstraints {[unowned self] (make) in
             make.center.equalTo(self)
             make.width.equalTo(295)
-            make.height.greaterThanOrEqualTo(265)
+//            make.height.greaterThanOrEqualTo(265)
         }
     }
     

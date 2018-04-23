@@ -151,6 +151,16 @@ class ReleaseController: ViewController {
     func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
         self.videoArr.removeAll()
         Toast.showStatusWith(text: "正在上传..")
+//        FileUploadManager.share.uploadMultiImageWith(images: images, phAssets: phAssets, progressBlock: { (progress, index, fileUploadModel) in
+//            print("progress:\(progress)--index:\(index)")
+//        }, successBlock: { (index, fileUploadModel, qnResponseInfo) in
+//
+//        }, failedBlock: { (index, fileUploadModel, failedResult) in
+//
+//        },completionBlock: {
+//            Toast.dismiss()
+//        }, tokenIDModel: nil)
+        
         FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
             var localMediaModel = LocalMediaModel.init()
             localMediaModel.key = key

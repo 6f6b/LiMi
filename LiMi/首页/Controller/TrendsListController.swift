@@ -116,6 +116,7 @@ class TrendsListController: ViewController{
         
         let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue(),time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: trendsList)).subscribe(onSuccess: {[unowned self] (response) in
+            //self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
             self.refreshTimeInterval = trendsListModel?.timestamp == nil ? self.refreshTimeInterval : trendsListModel?.timestamp
             if let trends = trendsListModel?.trends{
@@ -126,6 +127,7 @@ class TrendsListController: ViewController{
                 if self.dataArray.count == 0{self.tableView.reloadData()}
             }else{self.tableView.reloadData()}
             self.tableView.mj_footer.endRefreshing()
+            self.tableView.mj_header.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: trendsListModel)
             if self.tableView.emptyDataSetDelegate == nil{

@@ -28,7 +28,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zmy_ico_fwsj" translatesAutoresizingMaskIntoConstraints="NO" id="Fr1-Au-HMa">
                         <rect key="frame" x="136.5" y="17" width="17" height="17"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="aQ9-id-npR">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQ9-id-npR">
                         <rect key="frame" x="20" y="56" width="120" height="80"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="CVx-Bg-V03"/>
@@ -41,8 +41,8 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="地址成都市春熙路" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adx-rg-2Ek">
-                        <rect key="frame" x="160" y="85" width="82" height="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="地址成都市春熙路" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adx-rg-2Ek">
+                        <rect key="frame" x="160" y="85" width="208" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -81,6 +81,7 @@
                     <constraint firstItem="09H-mR-t1X" firstAttribute="centerY" secondItem="J2G-vq-MZh" secondAttribute="centerY" id="hgK-uy-41E"/>
                     <constraint firstItem="jBh-7k-cBZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="jTR-x6-jBJ"/>
                     <constraint firstItem="J2G-vq-MZh" firstAttribute="leading" secondItem="aQ9-id-npR" secondAttribute="trailing" constant="20" id="mWW-Xe-BfE"/>
+                    <constraint firstAttribute="trailing" secondItem="adx-rg-2Ek" secondAttribute="trailing" constant="20" id="tZt-GU-9bu"/>
                     <constraint firstItem="EbV-BU-gGP" firstAttribute="top" secondItem="adx-rg-2Ek" secondAttribute="bottom" constant="16" id="uCI-3A-9w1"/>
                     <constraint firstItem="aQ9-id-npR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="xRY-cb-1TD"/>
                 </constraints>
@@ -96,7 +97,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="zhuye_bj" width="375" height="230"/>
         <image name="zmy_ico_fwsj" width="17" height="17"/>
         <image name="zmy_ico_zxsj" width="13" height="13"/>
         <image name="zmy_icon_shiming" width="55" height="14"/>

@@ -12,9 +12,16 @@ import QiniuUpload
 
 //successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?)
 
-typealias SuccessBlock = ((FileUploadModel,QNResponseInfo?)->Void)
-typealias FailedBlock = ((FileUploadModel,QNResponseInfo)->Void)
-typealias CompletionBock = (()->Void)?
+class FailedResult{
+    var qnResponseInfo:QNResponseInfo?
+    var message:String?
+}
+
+typealias SuccessBlock = ((Int,FileUploadModel,QNResponseInfo?)->Void)
+typealias FailedBlock = ((Int,FileUploadModel,FailedResult)->Void)
+/// 进度，index，模型
+typealias ProgressBlock = ((Float,Int,FileUploadModel)->Void)
+typealias CompletionBock = (()->Void)
 
 struct TokenIDModel {
     var token:String?
@@ -28,12 +35,13 @@ class FileUploadManager: NSObject {
     private var tempImages = [UIImage]()
     private var tempPhAssets = [PHAsset]()
     private var qnUploadManager:QNUploadManager?
-    private var index = 0
+    private var index = 200
     
     /*FileUploadManager2.0*/
     ///存储需要上传的FileModel
     private var fileUploadModels = [FileUploadModel]()
-    
+    ///单张图片最大内存
+    private var maxUploadKB:Double = 200.0
     
     override init() {
         super.init()
@@ -45,9 +53,127 @@ class FileUploadManager: NSObject {
     }
     
     ///上传多张图片
+    func uploadMultiImageWith(images:[UIImage]?, phAssets:[PHAsset]?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
+        guard let _images = images else {return false}
+        var type:MediaType = .picture
+        if let _phAsset = phAssets?.last{
+            if _phAsset.mediaType == .video{type = .video}
+        }
+        RequestQiNiuUploadToken(type: type, onSuccess: {[unowned self] (uploadTokenModel) in
+            self.fileUploadModels.removeAll()
+            self.index = 0
+            for i in 0..<_images.count{
+                var phAsset:PHAsset?
+                if let _phAssets = phAssets{
+                    phAsset = _phAssets[i]
+                }
+                if let fileUploadModel = self.generateFileUploadModelWith(image: _images[i], phAsset: phAsset){
+                    self.fileUploadModels.append(fileUploadModel)
+                }
+            }
+            self.uploadFileWith(index: self.index, token: (uploadTokenModel?.token)!, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+        }, tokenIDModel: tokenIDModel)
+        return true
+    }
     ///上传单张图片
+    func uploadImageWith(image:UIImage?, phAsset:PHAsset?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
+        if let _image = image{
+            var phAssets:[PHAsset]?
+            if let _phAsset = phAsset{
+                phAssets = [_phAsset]
+            }else{
+                phAssets = nil
+            }
+            return self.uploadMultiImageWith(images: [_image], phAssets: phAssets, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock,tokenIDModel: tokenIDModel)
+        }else{
+            return false
+        }
+    }
     ///上传多个视频
+    func uploadMultiVideoWith(images:[UIImage]?, phAssets:[PHAsset]?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
+        return self.uploadMultiVideoWith(images: images, phAssets: phAssets, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock,tokenIDModel: tokenIDModel)
+    }
     ///上传单个视频
+    func uploadVideoWith(image:UIImage?, phAsset:PHAsset?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
+        return self.uploadImageWith(image: image, phAsset: phAsset, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock,tokenIDModel:tokenIDModel)
+    }
+    
+    private func uploadFileWith(index:Int,token:String,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?){
+        //如果index >= fileUploadModels.count 返回
+        if index >= self.fileUploadModels.count{
+            if let _completionBlock = completionBlock{
+                _completionBlock()
+                return
+            }
+        }
+        let fileUploadModel = self.fileUploadModels[index]
+        let progressHandler:QNUpProgressHandler =  {[unowned self] (key,progress) in
+            if let _progressBlock = progressBlock{
+                _progressBlock(progress, index, fileUploadModel)
+            }
+        }
+        let option = QNUploadOption(mime: "", progressHandler: progressHandler, params: ["":""], checkCrc: false) { () -> Bool in
+            return false
+        }
+        //判断类型
+        if fileUploadModel.uploadWay == .data{
+            if let data = fileUploadModel.file?.data,let key = fileUploadModel.uploadFileKey{
+                self.qnUploadManager?.put(data, key: key, token: token, complete: { (info, key, dic) in
+                    if info?.isOK == true{
+                        if let _successBlock = successBlock{
+                            _successBlock(index, fileUploadModel, info)
+                        }
+                    }
+                    if info?.isOK == false{
+                        if let _failedBlock = failedBlock{
+                            let failedResult = FailedResult()
+                            failedResult.qnResponseInfo = info
+                            _failedBlock(index, fileUploadModel, failedResult)
+                        }
+                    }
+                    let _index =  index + 1
+                    self.uploadFileWith(index: _index, token: token, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+                }, option: option)
+            }else{
+                let failedResult = FailedResult()
+                failedResult.message = "上传data为空"
+                if let _failedBlock = failedBlock{
+                    _failedBlock(index, fileUploadModel, failedResult)
+                }
+                let _index =  index + 1
+                self.uploadFileWith(index: _index, token: token, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            }
+        }
+        if fileUploadModel.uploadWay == .phAssest{
+            if let phAsset = fileUploadModel.file?.phAsset,let key = fileUploadModel.uploadFileKey{
+                self.qnUploadManager?.put(phAsset, key: key, token: token, complete: { (info, key, dic) in
+                    if info?.isOK == true{
+                        if let _successBlock = successBlock{
+                            _successBlock(index, fileUploadModel, info)
+                        }
+                    }
+                    if info?.isOK == false{
+                        if let _failedBlock = failedBlock{
+                            let failedResult = FailedResult()
+                            failedResult.qnResponseInfo = info
+                            _failedBlock(index, fileUploadModel, failedResult)
+                        }
+                    }
+                    let _index =  index + 1
+                    self.uploadFileWith(index: _index, token: token, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+                }, option: option)
+            }else{
+                let failedResult = FailedResult()
+                failedResult.message = "上传data为空"
+                if let _failedBlock = failedBlock{
+                    _failedBlock(index, fileUploadModel, failedResult)
+                }
+                let _index =  index + 1
+                self.uploadFileWith(index: _index, token: token, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            }
+        }
+        if fileUploadModel.uploadWay == .none{}
+    }
     
     ///压缩图片并转为Data,默认压缩为JPEG格式
     func compressImgDataWith(img:UIImage?,maxKB:Double)->Data?{
@@ -99,102 +225,77 @@ class FileUploadManager: NSObject {
         return nil
     }
     ///根据UIImage、PHAsset生成FileUploadModel
-    func generateFileUploadModelWith(image:UIImage?,phAsset:PHAsset?,maxKB:Double)->FileUploadModel?{
-        let fileUploadModel = FileUploadModel()
-//        ///上传的key
-//        var uploadFileKey:String?
-//        
-//        ///指定上传方式
-//        var uploadWay:UploadWay = .none
-//
-//        ///上传的FileModel
-//        var file:FileModel?
-        
-//        ///文件尺寸
-//        var size:CGSize?
-//        ///文件占据内存大小
-//        var memorySize:Int?
-//        ///data数据
-//        var data:Data?
-//        ///PHAsset数据
-//        var phAsset:PHAsset?
-        
-        if phAsset != nil{
+    func generateFileUploadModelWith(image:UIImage?,phAsset:PHAsset?)->FileUploadModel?{
+        if image == nil{return nil}
+        if image != nil && phAsset != nil{
+            let _image = image!
             let _phAsset = phAsset!
-            //图片
             if _phAsset.mediaType == .image{
                 let imageFormat = self.fileFormatWith(phAsset: _phAsset)
                 if imageFormat == "gif" || imageFormat == "GIF"{
-                    fileUploadModel.uploadFileKey = self.generateUploadFileKeyWith(file: _phAsset)
-                    fileUploadModel.uploadWay = .phAssest
-                    let imageModel = ImageModel()
-                    imageModel.size = image?.size
-                    imageModel.phAsset = _phAsset
-                    fileUploadModel.file = imageModel
-                    return fileUploadModel
+                    return self.generateGIFFileUploadModelWith(image: _image, phAsset: _phAsset)
                 }else{
-                    let compressedImageData = compressImgDataWith(img: image, maxKB: maxKB)
-                    let fileKey = generateUploadFileKeyWith(file: compressedImageData as AnyObject)
-                    fileUploadModel.uploadFileKey = fileKey
-                    fileUploadModel.uploadWay = .data
-                    let imageModel = ImageModel()
-                    if let _data = compressedImageData{
-                        let compressedImage = UIImage.init(data: _data)
-                        imageModel.image = compressedImage
-                        imageModel.size = compressedImage?.size
-                    }
-                    fileUploadModel.file = imageModel
-                    return fileUploadModel
+                    return self.generateImageFileUploadModelWith(image: _image)
                 }
             }
-            //视频
             if _phAsset.mediaType == .video{
-                let compressedImageData = compressImgDataWith(img: image, maxKB: maxKB)
-                fileUploadModel.uploadFileKey = generateUploadFileKeyWith(file: _phAsset)
-                fileUploadModel.uploadWay = .phAssest
-                let videoModel = VideoModel()
-                videoModel.coverImage = ImageModel()
-                if let _data = compressedImageData{
-                    let compressedImage = UIImage.init(data: _data)
-                    videoModel.size = compressedImage?.size
-                    videoModel.coverImage?.image = compressedImage
-                    videoModel.coverImage?.data = _data
-                }
-                fileUploadModel.file = videoModel
-                return fileUploadModel
+                return self.generateVideoFileUploadModelWith(image: _image, phAsset: _phAsset)
             }
-            //音频
-            if _phAsset.mediaType == .audio{
-                
-            }
-            //unknown
-            if _phAsset.mediaType == .unknown{}
-            return nil
         }
-        if image != nil{
+        if image != nil && phAsset == nil{
             let _image = image!
-            let compressedImageData = compressImgDataWith(img: _image, maxKB: maxKB)
-            let fileKey = generateUploadFileKeyWith(file: compressedImageData as AnyObject)
-            fileUploadModel.uploadFileKey = fileKey
-            fileUploadModel.uploadWay = .data
-            let imageModel = ImageModel()
-            if let _data = compressedImageData{
-                let compressedImage = UIImage.init(data: _data)
-                imageModel.image = compressedImage
-                imageModel.size = compressedImage?.size
-                imageModel.data = _data
-            }
-            fileUploadModel.file = imageModel
-            return fileUploadModel
+            return self.generateImageFileUploadModelWith(image: _image)
         }
         return nil
+    }
+    //根据Image、PHAsset（视频）生成FileUploadModel
+    func generateVideoFileUploadModelWith(image:UIImage,phAsset:PHAsset)->FileUploadModel{
+        let fileUploadModel = FileUploadModel()
+        let compressedImageData = compressImgDataWith(img: image, maxKB: self.maxUploadKB)
+        fileUploadModel.uploadFileKey = generateUploadFileKeyWith(file: phAsset)
+        fileUploadModel.uploadWay = .phAssest
+        let videoModel = VideoModel()
+        videoModel.coverImage = ImageModel()
+        if let _data = compressedImageData{
+            let compressedImage = UIImage.init(data: _data)
+            videoModel.size = compressedImage?.size
+            videoModel.coverImage?.image = compressedImage
+            videoModel.coverImage?.data = _data
+        }
+        fileUploadModel.file = videoModel
+        return fileUploadModel
+    }
+    //根据Image、PHAsset（GIF）生成FileUploadModel
+    func generateGIFFileUploadModelWith(image:UIImage,phAsset:PHAsset)->FileUploadModel{
+        let fileUploadModel = FileUploadModel()
+        fileUploadModel.uploadFileKey = self.generateUploadFileKeyWith(file: phAsset)
+        fileUploadModel.uploadWay = .phAssest
+        let imageModel = ImageModel()
+        imageModel.size = image.size
+        imageModel.phAsset = phAsset
+        fileUploadModel.file = imageModel
+        return fileUploadModel
+    }
+    //根据Image生成FileUploadModel
+    func generateImageFileUploadModelWith(image:UIImage)->FileUploadModel{
+        let fileUploadModel = FileUploadModel()
+        let compressedImageData = compressImgDataWith(img: image, maxKB: self.maxUploadKB)
+        let fileKey = generateUploadFileKeyWith(file: compressedImageData as AnyObject)
+        fileUploadModel.uploadFileKey = fileKey
+        fileUploadModel.uploadWay = .data
+        let imageModel = ImageModel()
+        if let _data = compressedImageData{
+            let compressedImage = UIImage.init(data: _data)
+            imageModel.image = compressedImage
+            imageModel.size = compressedImage?.size
+            imageModel.data = _data
+        }
+        fileUploadModel.file = imageModel
+        return fileUploadModel
     }
     ///根据Data生成FileUploadModel
     
     ///
-    private func uploadFileWith(index:Int,token:String,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?){
-        
-    }
     
     private func uploadImageWith(index:Int,token:String,successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?){
         let progressBlock:QNUpProgressHandler = { (str,flo) in
@@ -290,7 +391,6 @@ class FileUploadManager: NSObject {
     }
     
     //MARK: - 工具方法
-    
     ///根据UIImage返回图片格式
     func imageTypeWith(image:UIImage?)->String?{
         if image == nil {return nil}
