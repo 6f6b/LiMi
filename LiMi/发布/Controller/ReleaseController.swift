@@ -78,6 +78,7 @@ class ReleaseController: ViewController {
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
             self.imagePickerVc?.allowPickingGif = true
+            self.imagePickerVc?.allowPickingMultipleVideo = false
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }

@@ -20,6 +20,8 @@
 #import "NIMKitInfoFetchOption.h"
 #import "NIMKitTitleView.h"
 #import "NIMKitKeyboardInfo.h"
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
 
 @interface NIMSessionViewController ()<NIMMediaManagerDelegate,NIMInputDelegate>
 
@@ -71,7 +73,8 @@
     //进入会话时，标记所有消息已读，并发送已读回执
     [self markRead];
     //更新已读位置
-    [self uiCheckReceipt];    
+    [self uiCheckReceipt];
+    
 }
 
 - (void)setupNav
@@ -603,6 +606,18 @@
     if (copyText) {
         [items addObject:[[UIMenuItem alloc] initWithTitle:@"复制"
                                                     action:@selector(copyText:)]];
+    }
+    if (message.messageType == NIMMessageTypeCustom)
+    {
+        NIMCustomObject *object = message.messageObject;
+        if ([object.attachment isKindOfClass:[NTESLiMiSystemMsgAttachment class]])
+        {
+            return items;
+        }
+        if ([object.attachment isKindOfClass:[NTESNewFlowersAttachment class]])
+        {
+            return items;
+        }
     }
     [items addObject:[[UIMenuItem alloc] initWithTitle:@"删除"
                                                 action:@selector(deleteMsg:)]];

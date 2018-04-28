@@ -12,6 +12,8 @@
 #import "NTESChatroomRobotContentConfig.h"
 #import "NTESWhiteboardAttachment.h"
 #import "NTESRedPacketTipAttachment.h"
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
 
 @interface NTESCellLayoutConfig ()
 @property (nonatomic,strong)    NSArray    *types;
@@ -32,7 +34,9 @@
                    @"NTESChartletAttachment",
                    @"NTESWhiteboardAttachment",
                    @"NTESRedPacketAttachment",
-                   @"NTESRedPacketTipAttachment"
+                   @"NTESRedPacketTipAttachment",
+                   @"NTESLiMiSystemMsgAttachment",
+                   @"NTESNewFlowersAttachment"
                    ];
         _sessionCustomconfig = [[NTESSessionCustomContentConfig alloc] init];
         _chatroomTextConfig  = [[NTESChatroomTextContentConfig alloc] init];

@@ -103,6 +103,37 @@
     return message;
 }
 
++ (NIMMessage *)msgWithLiMiSystemMsgAttachment:(NTESLiMiSystemMsgAttachment *)attachment{
+    NIMMessage *message               = [[NIMMessage alloc] init];
+    NIMCustomObject *customObject     = [[NIMCustomObject alloc] init];
+    customObject.attachment           = attachment;
+    message.messageObject             = customObject;
+    message.apnsContent = @"新的系统消息";
+    
+    NIMMessageSetting *setting = [[NIMMessageSetting alloc] init];
+    setting.historyEnabled = NO;
+    setting.roamingEnabled = NO;
+    setting.syncEnabled    = NO;
+    message.setting = setting;
+    
+    return message;
+}
+
++ (NIMMessage *)msgWithNewFlowersAttachment:(NTESNewFlowersAttachment *)attachment{
+    NIMMessage *message               = [[NIMMessage alloc] init];
+    NIMCustomObject *customObject     = [[NIMCustomObject alloc] init];
+    customObject.attachment           = attachment;
+    message.messageObject             = customObject;
+    message.apnsContent = @"新的关注";
+    
+    NIMMessageSetting *setting = [[NIMMessageSetting alloc] init];
+    setting.historyEnabled = NO;
+    setting.roamingEnabled = NO;
+    setting.syncEnabled    = NO;
+    message.setting = setting;
+    
+    return message;
+}
 
 + (NIMMessage*)msgWithFilePath:(NSString*)path{
     NIMFileObject *fileObject = [[NIMFileObject alloc] initWithSourcePath:path];

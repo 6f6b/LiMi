@@ -14,10 +14,12 @@ import DZNEmptyDataSet
 enum FollowType {
     case follows
     case followers
+    case recentFollowers
 }
 
 class FollowerListController: ViewController {
-    @IBOutlet weak var tableView: UITableView!
+   
+    var tableView: UITableView!
     var pageIndex = 1
     var followType:FollowType = .follows
     var dataArray = [UserInfoModel]()
@@ -33,6 +35,9 @@ class FollowerListController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView = UITableView.init(frame: self.view.bounds)
+        self.view.addSubview(self.tableView)
+        self.tableView.separatorStyle = .none
         self.tableView.register(UINib.init(nibName: "FollowerCell", bundle: nil), forCellReuseIdentifier: "FollowerCell")
         self.tableView.estimatedRowHeight = 100
         self.tableView.delegate = self
@@ -95,6 +100,9 @@ class FollowerListController: ViewController {
             target = MyAttentionList(page: self.pageIndex)
         }
         if self.followType == .followers{
+            target = MyFansList(page: self.pageIndex)
+        }
+        if self.followType == .recentFollowers{
             target = MyFansList(page: self.pageIndex)
         }
         _ = moyaProvider.rx.request(.targetWith(target: target)).subscribe(onSuccess: { (response) in

@@ -132,6 +132,7 @@ NIMEventSubscribeManagerDelegate>
     [super viewDidLayoutSubviews];
     self.fpsLabel.right = self.view.width;
     self.fpsLabel.top   = self.tableView.top + self.tableView.contentInset.top;
+    
 }
 
 

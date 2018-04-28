@@ -14,6 +14,14 @@ class CommentTopToolsContainView: TrendsTopToolsContainView {
         super.init(frame: frame)
     }
     
+    override func configWith(model: TrendModel?, cellStyle: TrendsCellStyle) {
+        super.configWith(model: model, cellStyle: .inCommentList)
+    }
+    
+    override func configWith(commentModel: CommentModel?) {
+        super.configWith(commentModel: commentModel)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -25,13 +25,31 @@ class CommentsWithTrendController: ViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     var keyboard:STEmojiKeyboard?
     var trendModel:TrendModel?
+    var _actionId:Int?
+    var _topicActionId:Int?
+    @objc var actionId:Int {
+        get{
+            return 0
+        }
+        set{
+            _actionId = newValue
+        }
+    }
+    @objc var topicActionId:Int{
+        get{
+            return 0
+        }
+        set{
+            _topicActionId = newValue
+        }
+    }
     var dataArray = [CommentModel]()
     var pageIndex = 1
     var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
     var becommentedSubCommentModel:CommentModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "评论"
+        self.title = "动态详情"
         
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
@@ -194,10 +212,20 @@ class CommentsWithTrendController: ViewController {
         }
         //判断种类
         var body:TargetType!
-        if self.trendModel?.topic_action_id == nil{
-            body = CommentList(action_id: self.trendModel?.action_id?.stringValue(),page:self.pageIndex,time:self.refreshTimeInterval)
-        }else{
-            body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.topic_action_id,time:self.refreshTimeInterval)
+        if self.trendModel == nil{
+            if self._actionId != nil{
+                body = CommentList(action_id: self._actionId,page:self.pageIndex,time:self.refreshTimeInterval)
+            }
+            if self._topicActionId != nil{
+                body = DiscussList(page: self.pageIndex, topic_action_id: self._topicActionId,time:self.refreshTimeInterval)
+            }
+        }
+        if self.trendModel != nil{
+            if self.trendModel?.topic_action_id == nil{
+                body = CommentList(action_id: self.trendModel?.action_id,page:self.pageIndex,time:self.refreshTimeInterval)
+            }else{
+                body = DiscussList(page: self.pageIndex, topic_action_id: self.trendModel?.topic_action_id,time:self.refreshTimeInterval)
+            }
         }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in

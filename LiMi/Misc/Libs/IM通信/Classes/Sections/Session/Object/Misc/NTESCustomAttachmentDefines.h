@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger,NTESCustomMessageType){
     CustomMessageTypeWhiteboard = 4, //白板会话
     CustomMessageTypeRedPacket  = 5, //红包消息
     CustomMessageTypeRedPacketTip = 6, //红包提示消息
+    CustomMessageTypeLiMiSystemMsg = 7,//粒米系统消息
+    CustomMessageTypeNewFollowersMsg = 8//有新的关注
 };
 
 
@@ -38,6 +40,20 @@ typedef NS_ENUM(NSInteger,NTESCustomMessageType){
 #define CMRedPacketSendId     @"sendPacketId"
 #define CMRedPacketOpenId     @"openPacketId"
 #define CMRedPacketDone       @"isGetDone"
+//粒米系统消息
+#define CMLiMiSystemMsgTitle @"title"
+#define CMLiMiSystemMsgImage @"image"
+#define CMLiMiSystemMsgLinkID @"link_id"
+#define CMLiMiSystemMsgLinkSubID @"link_subid"
+#define CMLiMiSystemMsgLinkType @"link_type"
+#define CMLiMiSystemMsgTXT @"txt"
+#define CMLiMiSystemMsgURL @"url"
+#define CMLiMiSystemMsgImageHeight @"image_h"
+#define CMLiMiSystemMsgImageWidth @"image_w"
+
+//新的好友
+#define CMNewFridendTitle @"title"
+
 #endif
 
 

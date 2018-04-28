@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/apps2"
+let serverAddress = "http://app.youhongtech.com/index.php/apps1_2"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -366,7 +366,7 @@ struct CommentList:TargetType,ParametersProtocol{
         return "/Action/discussList"
     }
     
-    var action_id:String?
+    var action_id:Int?
     var page:Int?
     var time:Int?
     func parameters() -> [String : Any] {

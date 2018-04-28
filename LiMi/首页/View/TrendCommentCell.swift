@@ -20,6 +20,7 @@ class TrendCommentCell: UITableViewCell {
     var commentContentContainView:UIView!
     
     var comment:YYLabel!    //内容
+    var blankView:UIView!
     var commentModel:CommentModel?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,6 +65,7 @@ class TrendCommentCell: UITableViewCell {
         
         self.comment = YYLabel()
         self.comment.text = nil
+        //self.comment.backgroundColor = UIColor.orange
         self.comment.font = UIFont.systemFont(ofSize: 14)
         self.comment.textColor = RGBA(r: 51, g: 51, b: 51, a: 1)
         self.comment.numberOfLines = 0
@@ -74,6 +76,21 @@ class TrendCommentCell: UITableViewCell {
             make.top.equalTo(self.commentContentContainView)
             make.left.equalTo(self.commentContentContainView)
             make.bottom.equalTo(self.commentContentContainView)
+            make.right.lessThanOrEqualTo(self.commentContainView)
+            //make.right.equalTo(self.commentContentContainView)
+        }
+        
+        self.blankView = UIView()
+        //self.blankView.backgroundColor = UIColor.purple
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(dealTapLabel))
+        let longPress = UILongPressGestureRecognizer.init(target: self, action: #selector(dealLongPresslabel))
+        self.blankView.addGestureRecognizer(tap)
+        self.blankView.addGestureRecognizer(longPress)
+        self.commentContainView.addSubview(blankView)
+        self.blankView.snp.makeConstraints {[unowned self] (make) in
+            make.top.equalTo(self.comment)
+            make.bottom.equalTo(self.comment)
+            make.left.equalTo(self.comment.snp.right)
             make.right.equalTo(self.commentContentContainView)
         }
         
@@ -98,6 +115,14 @@ class TrendCommentCell: UITableViewCell {
     }
     
     //MARK: - misc
+    @objc func dealLongPresslabel(){
+        NotificationCenter.default.post(name: LONGPRESS_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+    }
+    
+    @objc func dealTapLabel(){
+        NotificationCenter.default.post(name: TAPED_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+    }
+    
     func configWith(model:CommentModel?,isForSubComment:Bool = false){
         self.commentModel = model
         self.commentTopToolsContainView.configWith(commentModel: model)

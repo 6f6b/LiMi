@@ -13,7 +13,8 @@
 #import "NIMAvatarImageView.h"
 #import "NIMKitUtil.h"
 #import "NIMKit.h"
-
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
 
 @interface NIMSessionListViewController ()
 
@@ -195,6 +196,18 @@
              atIndexPath:(NSIndexPath *)indexPath{};
 
 - (void)onSelectedRecent:(NIMRecentSession *)recentSession atIndexPath:(NSIndexPath *)indexPath{
+//    NIMCustomObject *object = recentSession.lastMessage.messageObject;
+//    if (recentSession.lastMessage.messageType == NIMMessageTypeCustom) {
+//        if([object.attachment isKindOfClass:[NTESLiMiSystemMsgAttachment class]]){
+//            NIMLiMiSysteMsgSessionViewController *vc = [[NIMLiMiSysteMsgSessionViewController alloc] initWithSession:recentSession.session];
+//            [self.navigationController pushViewController:vc animated:true];
+//        }
+//        if([object.attachment isKindOfClass:[NTESNewFlowersAttachment class]]){
+//            NIMNewFollowersController *vc = [[NIMNewFollowersController alloc] init];
+//            [self.navigationController pushViewController:vc animated:true];
+//        }
+//    }
+    
     NIMSessionViewController *vc = [[NIMSessionViewController alloc] initWithSession:recentSession.session];
     [self.navigationController pushViewController:vc animated:YES];
 }

@@ -31,6 +31,7 @@ class WeekendTourSubjectHeaderView: UIView {
         self.infoContainView.clipsToBounds = true
         
         cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 220), delegate: self, placeholderImage: UIImage())
+        cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
         self.bannerContainView.addSubview(cycleScrollView)
     }
     

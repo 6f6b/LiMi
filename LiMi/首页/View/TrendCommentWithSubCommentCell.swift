@@ -8,6 +8,8 @@
 
 import UIKit
 
+///子评论区域最大显示条数
+let maxSubCommentsNum = 3
 class TrendCommentWithSubCommentCell: TrendCommentCell {
     ///子评论容器
     var subCommentContainView:UIView!
@@ -24,7 +26,8 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
         self.comment.snp.remakeConstraints {[unowned self] (make) in
             make.top.equalTo(self.commentContentContainView)
             make.left.equalTo(self.commentContentContainView)
-            make.right.equalTo(self.commentContentContainView)
+            make.right.lessThanOrEqualTo(self.commentContainView)
+            //make.right.equalTo(self.commentContentContainView)
         }
         
         self.subCommentContainView = UIView.init()
@@ -87,21 +90,23 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
     func tableViewHeightWith(model:CommentModel?)->CGFloat{
         var tableViewHeight:CGFloat = 0.0
         let limitWidth = SCREEN_WIDTH-62-30-12
-        if let childs = model?.child{
-            if childs.count > 2{
-                for i in 0..<2{
+        if let childs = model?.child,let childNum = model?.child_num{
+            if childNum > maxSubCommentsNum{
+                for i in 0..<maxSubCommentsNum{
                     if let _str = self.subCommentTextWith(model: childs[i]){
                         let size = _str.sizeWith(limitWidth: limitWidth, font: 15)
                         tableViewHeight += size.height
+                        tableViewHeight += 10
                     }
                 }
                 tableViewHeight += "LIMI".sizeWith(limitWidth: limitWidth, font: 15).height
             }
-            if childs.count <= 2{
+            if childNum <= maxSubCommentsNum{
                 for child in childs{
                     if let _str = self.subCommentTextWith(model: child){
                         let size = _str.sizeWith(limitWidth: limitWidth, font: 15)
                         tableViewHeight += size.height
+                        tableViewHeight += 10
                     }
                 }
             }
@@ -113,16 +118,16 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
 extension TrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if let count = self.commentModel?.child?.count{
-            if count > 2{return 2}
+        if let count = self.commentModel?.child_num{
+            if count > maxSubCommentsNum{return 2}
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
-            if let count = self.commentModel?.child?.count{
-                return count > 2 ? 2 :count
+            if let count = self.commentModel?.child_num{
+                return count > maxSubCommentsNum ? maxSubCommentsNum :count
             }
         }
         if section == 1{
@@ -144,7 +149,7 @@ extension TrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSour
             if let childs = self.commentModel?.child{
                 if let str = self.subCommentTextWith(model: childs[indexPath.row]){
                     let size = str.sizeWith(limitWidth: (SCREEN_WIDTH-62-30-12), font: 15)
-                    return size.height
+                    return size.height + 10
                 }
             }
         }

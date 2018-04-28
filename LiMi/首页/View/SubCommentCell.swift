@@ -16,7 +16,6 @@ class SubCommentCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        
         self.contentView.backgroundColor = RGBA(r: 250, g: 250, b: 250, a: 1)
         
         self.commentLabel = YYLabel.init()
@@ -27,8 +26,8 @@ class SubCommentCell: UITableViewCell {
         self.commentLabel.font = UIFont.systemFont(ofSize: 15)
         self.contentView.addSubview(self.commentLabel)
         self.commentLabel.snp.makeConstraints {[unowned self] (make) in
-//            make.top.equalTo(self.contentView)
-//            make.bottom.equalTo(self.contentView)
+            make.top.equalTo(self.contentView)
+            make.bottom.equalTo(self.contentView).offset(-10)
             make.left.equalTo(self.contentView)
             make.right.equalTo(self.contentView)
         }

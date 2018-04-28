@@ -15,6 +15,8 @@
 @class NTESWhiteboardAttachment;
 @class NTESRedPacketAttachment;
 @class NTESRedPacketTipAttachment;
+@class NTESLiMiSystemMsgAttachment;
+@class NTESNewFlowersAttachment;
 
 @interface NTESSessionMsgConverter : NSObject
 
@@ -35,6 +37,11 @@
 + (NIMMessage *)msgWithChartletAttachment:(NTESChartletAttachment *)attachment;
 
 + (NIMMessage *)msgWithWhiteboardAttachment:(NTESWhiteboardAttachment *)attachment;
+
++ (NIMMessage *)msgWithLiMiSystemMsgAttachment:(NTESLiMiSystemMsgAttachment *)attachment;
+
++ (NIMMessage *)msgWithNewFlowersAttachment:(NTESNewFlowersAttachment *)attachment;
+
 
 + (NIMMessage *)msgWithFilePath:(NSString *)path;
 

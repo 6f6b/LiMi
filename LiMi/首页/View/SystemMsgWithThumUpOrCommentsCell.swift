@@ -50,7 +50,14 @@ class SystemMsgWithThumUpOrCommentsCell: UITableViewCell {
         }else{
             self.sexImg.image = UIImage.init(named: "ic_boy")
         }
-        self.contentText.text = model?.msg
+        var msg = ""
+        if let _ = model?.parent_nickname{
+            msg.append("回复：")
+        }
+        if let _msg = model?.msg{
+            msg.append(_msg)
+        }
+        self.contentText.text = msg
         if let _trendsImg = model?.img{
             self.trendsImg.kf.setImage(with: URL.init(string: _trendsImg))
         }

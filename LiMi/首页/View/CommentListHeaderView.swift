@@ -27,7 +27,8 @@ class CommentListHeaderView: UIView {
         }
         
         let separateLine = UIView()
-        separateLine.backgroundColor = RGBA(r: 228, g: 228, b: 228, a: 1)
+        separateLine.backgroundColor = self.backgroundColor
+//        separateLine.backgroundColor = RGBA(r: 228, g: 228, b: 228, a: 1)
         self.addSubview(separateLine)
         separateLine.snp.makeConstraints { (make) in
             make.left.equalTo(self)

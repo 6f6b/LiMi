@@ -92,6 +92,7 @@ class TrendsCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         
         self.contentView.backgroundColor = UIColor.groupTableViewBackground
         
@@ -283,11 +284,11 @@ class TrendsCell: UITableViewCell {
         
         if let _redType = model?.red_type{
             self.redPacketBtn.isHidden = false
-            var imgName = "btn_hongbao_all"
+            var imgName = "hb_ic_pin"
             if _redType == "0"{imgName = "hb_ic_girl"}  //女性专属
             if _redType == "1"{imgName = "hb_ic_noy"}   //男性专属
             if _redType == "2"{imgName = "hb_ic_pin"}   //所有人都可领
-            if _redType == "3"{imgName = "hb_ic_kong"}  //已经领过了
+            if _redType == "3"{imgName = "hb_ic_kong-1"}  //已经领过了
             if _redType == "4"{imgName = "hb_ic_kong"}  //过期
             if _redType == "5"{imgName = "hb_ic_kong"} //抢光了
             if _redType == "null"{self.redPacketBtn.isHidden = true }   //没有红包

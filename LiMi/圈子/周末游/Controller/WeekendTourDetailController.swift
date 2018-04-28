@@ -13,7 +13,16 @@ import MJRefresh
 
 class WeekendTourDetailController: ViewController {
     @IBOutlet weak var tableView: UITableView!
-    var weekendId:Int?
+    var _weekendId:Int?
+    @objc var weekendId:Int{
+        get{
+            if _weekendId != nil{return _weekendId!}
+            return 0
+        }
+        set{
+            _weekendId = newValue
+        }
+    }
     var weekendTourDetailModel:WeekendTourDetailModel?
     override func viewDidLoad() {
         super.viewDidLoad()

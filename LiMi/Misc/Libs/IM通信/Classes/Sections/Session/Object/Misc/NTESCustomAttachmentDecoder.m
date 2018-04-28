@@ -14,6 +14,8 @@
 #import "NTESWhiteboardAttachment.h"
 #import "NTESRedPacketAttachment.h"
 #import "NTESRedPacketTipAttachment.h"
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
 #import "NSDictionary+NTESJson.h"
 #import "NTESSessionUtil.h"
 
@@ -76,6 +78,26 @@
                     ((NTESRedPacketTipAttachment *)attachment).openPacketId = [data jsonString:CMRedPacketOpenId];
                 }
                     break;
+                case CustomMessageTypeLiMiSystemMsg:
+                {
+                    attachment = [[NTESLiMiSystemMsgAttachment alloc] init];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).title = [data jsonString:CMLiMiSystemMsgTitle];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).image = [data jsonString:CMLiMiSystemMsgImage];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).link_id = [data jsonInteger:CMLiMiSystemMsgLinkID];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).link_subid = [data jsonInteger:CMLiMiSystemMsgLinkSubID];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).link_type = [data jsonInteger:CMLiMiSystemMsgLinkType];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).image_h = [data jsonInteger:CMLiMiSystemMsgImageHeight];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).image_w = [data jsonInteger:CMLiMiSystemMsgImageWidth];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).txt = [data jsonString:CMLiMiSystemMsgTXT];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).url = [data jsonString:CMLiMiSystemMsgURL];
+                }
+                    break;
+                    case CustomMessageTypeNewFollowersMsg:
+                {
+                    attachment = [[NTESNewFlowersAttachment alloc] init];
+                    ((NTESNewFlowersAttachment *)attachment).title = [data jsonString:CMNewFridendTitle];
+                }
+                    break;
                 default:
                     break;
             }
@@ -94,6 +116,14 @@
         check = (value>=CustomJanKenPonValueKen && value<=CustomJanKenPonValuePon) ? YES : NO;
     }
     else if ([attachment isKindOfClass:[NTESSnapchatAttachment class]])
+    {
+        check = YES;
+    }
+    else if ([attachment isKindOfClass:[NTESLiMiSystemMsgAttachment class]])
+    {
+        check = YES;
+    }
+    else if ([attachment isKindOfClass:[NTESNewFlowersAttachment class]])
     {
         check = YES;
     }

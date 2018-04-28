@@ -17,12 +17,19 @@
 #import "NTESJanKenPonAttachment.h"
 #import "NTESChartletAttachment.h"
 #import "NTESWhiteboardAttachment.h"
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
 #import "NTESSessionUtil.h"
 #import "NTESPersonalCardViewController.h"
 #import "NTESRobotCardViewController.h"
 #import "NTESRedPacketAttachment.h"
 #import "NTESRedPacketTipAttachment.h"
 #define SessionListTitle @"云信 Demo"
+
+#import "NTESLiMiSystemMsgAttachment.h"
+#import "NTESNewFlowersAttachment.h"
+#import "NTESLiMiSystemMsgSessionViewController.h"
+#import "LiMi-Swift.h"
 
 @interface NTESSessionListViewController ()<NIMLoginManagerDelegate,NTESListHeaderDelegate,NIMEventSubscribeManagerDelegate,UIViewControllerPreviewingDelegate>
 
@@ -138,6 +145,34 @@
 }
 
 - (void)onSelectedRecent:(NIMRecentSession *)recent atIndexPath:(NSIndexPath *)indexPath{
+    //系统消息
+    if([recent.session.sessionId isEqualToString:@"4f9d0f3e655276395466a9ecce78a4cc"]){
+        NTESLiMiSystemMsgSessionViewController *vc = [[NTESLiMiSystemMsgSessionViewController alloc] initWithSession:recent.session];
+        [self.navigationController pushViewController:vc animated:true];
+        return;
+    }
+    //新的好友
+    if([recent.session.sessionId isEqualToString:@"fe141c0a799a0b8380b35cfc2fc60fdc"]){
+        NTESNewFollowersController *vc = [[NTESNewFollowersController alloc] init];
+        vc.session = recent.session;
+        [self.navigationController pushViewController:vc animated:true];
+        return;
+    }
+    NIMCustomObject *object = recent.lastMessage.messageObject;
+    if (recent.lastMessage.messageType == NIMMessageTypeCustom) {
+        if([object.attachment isKindOfClass:[NTESLiMiSystemMsgAttachment class]]){
+            NTESLiMiSystemMsgSessionViewController *vc = [[NTESLiMiSystemMsgSessionViewController alloc] initWithSession:recent.session];
+            [self.navigationController pushViewController:vc animated:true];
+            return;
+        }
+        if([object.attachment isKindOfClass:[NTESNewFlowersAttachment class]]){
+            NTESNewFollowersController *vc = [[NTESNewFollowersController alloc] init];
+            vc.session = recent.session;
+            [self.navigationController pushViewController:vc animated:true];
+            return;
+        }
+    }
+    
     NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:recent.session];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -378,6 +413,14 @@
         {
             NTESRedPacketTipAttachment *attach = (NTESRedPacketTipAttachment *)object.attachment;
             text = attach.formatedMessage;
+        }
+        else if([object.attachment isKindOfClass:[NTESLiMiSystemMsgAttachment class]]){
+            NTESLiMiSystemMsgAttachment *attach = (NTESLiMiSystemMsgAttachment *)object.attachment;
+            text = attach.title;
+        }
+        else if([object.attachment isKindOfClass:[NTESNewFlowersAttachment class]]){
+            NTESNewFlowersAttachment *attach = (NTESNewFlowersAttachment *)object.attachment;
+            text = attach.title;
         }
         else
         {

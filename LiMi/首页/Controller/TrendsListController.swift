@@ -1,4 +1,4 @@
-//
+ //
 //  TrendsListController.swift
 //  LiMi
 //
@@ -24,7 +24,7 @@ enum OperationType {
     case none
 }
 class TrendsListController: ViewController{
-    @IBOutlet weak var tableView: UITableView!
+    var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1
     var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
@@ -34,10 +34,15 @@ class TrendsListController: ViewController{
     var gradeModel:GradeModel?
     var sexModel:SexModel?
     var skillModel:SkillModel?
+    var enableToRefresh = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的动态"
+        
+        self.tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64-49))
+        self.tableView.separatorStyle = .none
+        self.view.addSubview(self.tableView)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 1000
@@ -61,16 +66,18 @@ class TrendsListController: ViewController{
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-
-        
         if self.dataArray.count == 0{
             self.loadData()
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.enableToRefresh = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.enableToRefresh = false
     }
     
     deinit {
@@ -78,7 +85,6 @@ class TrendsListController: ViewController{
         NotificationCenter.default.removeObserver(self, name: DID_MORE_OPERATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: TAPED_TABBAR_NOTIFICATION, object: nil)
         print("动态列表销毁")
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,8 +95,7 @@ class TrendsListController: ViewController{
     
     @objc func dealTapedTabBar(notification:Notification?){
         if let index = notification?.userInfo![TABBAR_INDEX_KEY] as? Int{
-            if index == 0{
-                //self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            if index == 0 && self.enableToRefresh{
                 if self.tableView.contentOffset.y > 0{
                     self.tableView.mj_header.beginRefreshing()
                 }
@@ -109,17 +114,17 @@ class TrendsListController: ViewController{
     }
     
     func loadData(){
-        if self.pageIndex == 1{
-            self.dataArray.removeAll()
-        }
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         
         let trendsList = TrendsList(type: self.type, page: self.pageIndex.stringValue(), college_id: self.collegeModel?.coid?.stringValue(), school_id: self.academyModel?.scid?.stringValue(), grade_id: self.gradeModel?.id?.stringValue(), sex: self.sexModel?.id?.stringValue(), skill_id: self.skillModel?.id?.stringValue(),time:self.refreshTimeInterval)
         _ = moyaProvider.rx.request(.targetWith(target: trendsList)).subscribe(onSuccess: {[unowned self] (response) in
-            //self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
             let trendsListModel = Mapper<TrendsListModel>().map(jsonData: response.data)
             self.refreshTimeInterval = trendsListModel?.timestamp == nil ? self.refreshTimeInterval : trendsListModel?.timestamp
             if let trends = trendsListModel?.trends{
+                if self.pageIndex == 1{
+                    print("Delete all")
+                    self.dataArray.removeAll()
+                }
                 for trend in trends{
                     self.dataArray.append(trend)
                 }

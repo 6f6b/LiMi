@@ -131,11 +131,15 @@ class LoginController: ViewController {
             self.showErrorMsgOnLabelWith(msg: "请输入正确的手机号")
             return
         }
-        MakeAuthCodeBtnCannotBeHandleWith(button: sender as! UIButton)
+        MakeAuthCodeBtnCannotBeHandleWith(button: sender as? UIButton)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let requestAuthCode = RequestAuthCode(phone: self.phoneNum.text)
         _ = moyaProvider.rx.request(.targetWith(target: requestAuthCode)).subscribe(onSuccess: { (response) in
             if let authCodeModel = Mapper<TmpAuthCodeModel>().map(jsonData: response.data){
+                #if DEBUG
+                    self.veritificationCode.text = authCodeModel.code
+                #else
+                #endif
                 Toast.showResultWith(model: authCodeModel)
             }
         }, onError: { (error) in

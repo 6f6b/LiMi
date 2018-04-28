@@ -63,5 +63,11 @@ class ThumbUpAndCommentMessageModel:BaseModel{
         img <- map["img"]
         video <- map["video"]
         time <- map["time"]
+        
+        discuss_id <- map["discuss_id"]
+        group_id <- map["group_id"]
+        parent_nickname <- map["parent_nickname"]
+        parent_uid <- map["parent_uid"]
+
     }
 }

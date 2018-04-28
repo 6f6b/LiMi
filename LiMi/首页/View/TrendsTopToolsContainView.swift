@@ -119,7 +119,7 @@ class TrendsTopToolsContainView: UIView {
         if cellStyle == .inPersonCenter{
             self.userInfo.text = model?.create_time
         }
-        if cellStyle == .normal{
+        if cellStyle == .normal || cellStyle == .inCommentList{
             if let college = model?.college,let academy = model?.school{
                 self.userInfo.text = "\(college)|\(academy)"
             }else{self.userInfo.text = "个人资料待认证"}
@@ -172,10 +172,12 @@ class TrendsTopToolsContainView: UIView {
         }else{
             self.sexImg.image = UIImage.init(named: "ic_girl")
         }
-        if let _college = commentModel?.college,let _academy = commentModel?.school{
-            self.userInfo.text = "\(_college)|\(_academy)"
-        }
-        self.releaseTime.text = commentModel?.create_time
+        self.userInfo.text = commentModel?.create_time
+//        if let _college = commentModel?.college,let _academy = commentModel?.school{
+//            self.userInfo.text = "\(_college)|\(_academy)"
+//        }
+        self.releaseTime.isHidden = true
+        //self.releaseTime.text = commentModel?.create_time
     }
     
     /// 点击了头像

@@ -68,7 +68,7 @@ func GET_XIB_VIEW(nibName:String)->UIView?{
 //检测手机号码格式
 func IS_PHONE_NUMBER(phoneNum:String?)->Bool{
     if let phoneNum = phoneNum{
-        let regex = "^1(3|4|5|7|8)\\d{9}$"
+        let regex = "^1(3|4|5|7|8|9)\\d{9}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = predicate.evaluate(with: phoneNum)
         return isValid

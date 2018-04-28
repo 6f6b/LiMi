@@ -136,7 +136,7 @@ extension CircleController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if 2 == indexPath.section{
             let weekendTourDetailController = WeekendTourDetailController()
-            weekendTourDetailController.weekendId = self.dataArray[indexPath.row].id
+            weekendTourDetailController._weekendId = self.dataArray[indexPath.row].id
             self.navigationController?.pushViewController(weekendTourDetailController, animated: true)
         }
     }

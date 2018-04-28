@@ -623,7 +623,6 @@
 		688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */; };
 		688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */; };
 		688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C8201081CD00BC6AE9 /* TrendsListController.swift */; };
-		688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C9201081CD00BC6AE9 /* TrendsListController.xib */; };
 		688808CD2010829F00BC6AE9 /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CC2010829F00BC6AE9 /* HomePageController.swift */; };
 		688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CE201083BC00BC6AE9 /* TrendsCell.swift */; };
 		688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */; };
@@ -724,6 +723,12 @@
 		68A90895206A2E2E00AE4362 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A90894206A2E2E00AE4362 /* libBaiduMobStat.a */; };
 		68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A908AC206B829A00AE4362 /* TrendsWithSingleImageCell.swift */; };
 		68A908B1206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A908B0206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift */; };
+		68AE8A372092BAD600CB10B0 /* NTESLiMiSystemMsgAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A342092BAD500CB10B0 /* NTESLiMiSystemMsgAttachment.m */; };
+		68AE8A382092BAD600CB10B0 /* NTESNewFlowersAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A362092BAD600CB10B0 /* NTESNewFlowersAttachment.m */; };
+		68AE8A462092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A452092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.m */; };
+		68AE8A4F20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A4E20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m */; };
+		68AE8A552094592A00CB10B0 /* NTESLiMiWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A542094592A00CB10B0 /* NTESLiMiWebController.swift */; };
+		68AE8A572094784100CB10B0 /* NTESNewFollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A562094784100CB10B0 /* NTESNewFollowersController.swift */; };
 		68B3F33C204FB92D0004C3D9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33B204FB92D0004C3D9 /* Toast.swift */; };
 		68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33F204FBCD20004C3D9 /* ToastView.swift */; };
 		68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */; };
@@ -731,7 +736,6 @@
 		68B55D6A20747F4400DF6FF7 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D6820747F4400DF6FF7 /* FollowerCell.swift */; };
 		68B55D6B20747F4400DF6FF7 /* FollowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D6920747F4400DF6FF7 /* FollowerCell.xib */; };
 		68B55D6E207480E000DF6FF7 /* FollowerListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D6C207480E000DF6FF7 /* FollowerListController.swift */; };
-		68B55D6F207480E000DF6FF7 /* FollowerListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D6D207480E000DF6FF7 /* FollowerListController.xib */; };
 		68B55D71207481A100DF6FF7 /* FollowerListContainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */; };
 		68B55D74207489B300DF6FF7 /* AddFollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B55D72207489B300DF6FF7 /* AddFollowersController.swift */; };
 		68B55D75207489B300DF6FF7 /* AddFollowersController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68B55D73207489B300DF6FF7 /* AddFollowersController.xib */; };
@@ -1798,7 +1802,6 @@
 		688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRecordCell.swift; sourceTree = "<group>"; };
 		688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionRecordCell.xib; sourceTree = "<group>"; };
 		688808C8201081CD00BC6AE9 /* TrendsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsListController.swift; sourceTree = "<group>"; };
-		688808C9201081CD00BC6AE9 /* TrendsListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrendsListController.xib; sourceTree = "<group>"; };
 		688808CC2010829F00BC6AE9 /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
 		688808CE201083BC00BC6AE9 /* TrendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCell.swift; sourceTree = "<group>"; };
 		688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithTextCell.swift; sourceTree = "<group>"; };
@@ -2181,6 +2184,16 @@
 		68A90894206A2E2E00AE4362 /* libBaiduMobStat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobStat.a; sourceTree = "<group>"; };
 		68A908AC206B829A00AE4362 /* TrendsWithSingleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithSingleImageCell.swift; sourceTree = "<group>"; };
 		68A908B0206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWithSingleImageAndTextCell.swift; sourceTree = "<group>"; };
+		68AE8A332092BAD500CB10B0 /* NTESNewFlowersAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNewFlowersAttachment.h; sourceTree = "<group>"; };
+		68AE8A342092BAD500CB10B0 /* NTESLiMiSystemMsgAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESLiMiSystemMsgAttachment.m; sourceTree = "<group>"; };
+		68AE8A352092BAD500CB10B0 /* NTESLiMiSystemMsgAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESLiMiSystemMsgAttachment.h; sourceTree = "<group>"; };
+		68AE8A362092BAD600CB10B0 /* NTESNewFlowersAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNewFlowersAttachment.m; sourceTree = "<group>"; };
+		68AE8A442092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESLiMiSystemMsgSessionViewController.h; sourceTree = "<group>"; };
+		68AE8A452092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESLiMiSystemMsgSessionViewController.m; sourceTree = "<group>"; };
+		68AE8A4D20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESSessionLiMiSystemMsgContentView.h; sourceTree = "<group>"; };
+		68AE8A4E20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESSessionLiMiSystemMsgContentView.m; sourceTree = "<group>"; };
+		68AE8A542094592A00CB10B0 /* NTESLiMiWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTESLiMiWebController.swift; sourceTree = "<group>"; };
+		68AE8A562094784100CB10B0 /* NTESNewFollowersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTESNewFollowersController.swift; sourceTree = "<group>"; };
 		68B3F33B204FB92D0004C3D9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		68B3F33F204FBCD20004C3D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
@@ -2188,7 +2201,6 @@
 		68B55D6820747F4400DF6FF7 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		68B55D6920747F4400DF6FF7 /* FollowerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerCell.xib; sourceTree = "<group>"; };
 		68B55D6C207480E000DF6FF7 /* FollowerListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListController.swift; sourceTree = "<group>"; };
-		68B55D6D207480E000DF6FF7 /* FollowerListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerListController.xib; sourceTree = "<group>"; };
 		68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListContainController.swift; sourceTree = "<group>"; };
 		68B55D72207489B300DF6FF7 /* AddFollowersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFollowersController.swift; sourceTree = "<group>"; };
 		68B55D73207489B300DF6FF7 /* AddFollowersController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFollowersController.xib; sourceTree = "<group>"; };
@@ -3699,6 +3711,10 @@
 				6801DE2F202C6EA700C106E1 /* NTESSnapchatAttachment.m */,
 				6801DE30202C6EA700C106E1 /* NTESWhiteboardAttachment.h */,
 				6801DE31202C6EA700C106E1 /* NTESWhiteboardAttachment.m */,
+				68AE8A352092BAD500CB10B0 /* NTESLiMiSystemMsgAttachment.h */,
+				68AE8A342092BAD500CB10B0 /* NTESLiMiSystemMsgAttachment.m */,
+				68AE8A332092BAD500CB10B0 /* NTESNewFlowersAttachment.h */,
+				68AE8A362092BAD600CB10B0 /* NTESNewFlowersAttachment.m */,
 			);
 			path = Atttach;
 			sourceTree = "<group>";
@@ -3773,6 +3789,8 @@
 				6801DE52202C6EA700C106E1 /* NTESSessionTipContentView.m */,
 				6801DE53202C6EA700C106E1 /* NTESSessionWhiteBoardContentView.h */,
 				6801DE54202C6EA700C106E1 /* NTESSessionWhiteBoardContentView.m */,
+				68AE8A4D20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.h */,
+				68AE8A4E20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m */,
 			);
 			path = SessionContentView;
 			sourceTree = "<group>";
@@ -3780,6 +3798,7 @@
 		6801DE55202C6EA700C106E1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				68AE8A502094587B00CB10B0 /* Web */,
 				6801DE56202C6EA700C106E1 /* Audio */,
 				6801DE5A202C6EA700C106E1 /* File */,
 				6801DE61202C6EA700C106E1 /* Gallery */,
@@ -3791,6 +3810,9 @@
 				6801DE6C202C6EA700C106E1 /* NTESSessionRemoteHistoryViewController.m */,
 				6801DE6D202C6EA700C106E1 /* NTESSessionViewController.h */,
 				6801DE6E202C6EA700C106E1 /* NTESSessionViewController.m */,
+				68AE8A442092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.h */,
+				68AE8A452092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.m */,
+				68AE8A562094784100CB10B0 /* NTESNewFollowersController.swift */,
 				6801DE6F202C6EA700C106E1 /* RealTimeSession */,
 				6801DE76202C6EA700C106E1 /* Video */,
 				6801DE7A202C6EA700C106E1 /* VideoChat */,
@@ -4976,7 +4998,6 @@
 				6864AC5120494A8B00422CD8 /* MyOrderListController.xib */,
 				68B55D70207481A100DF6FF7 /* FollowerListContainController.swift */,
 				68B55D6C207480E000DF6FF7 /* FollowerListController.swift */,
-				68B55D6D207480E000DF6FF7 /* FollowerListController.xib */,
 				68B55D72207489B300DF6FF7 /* AddFollowersController.swift */,
 				68B55D73207489B300DF6FF7 /* AddFollowersController.xib */,
 				68B55D7620748B8F00DF6FF7 /* MyBlackListController.swift */,
@@ -5044,7 +5065,6 @@
 			children = (
 				688808CC2010829F00BC6AE9 /* HomePageController.swift */,
 				688808C8201081CD00BC6AE9 /* TrendsListController.swift */,
-				688808C9201081CD00BC6AE9 /* TrendsListController.xib */,
 				6825485820137BDC0033410A /* CommentsWithTrendController.swift */,
 				6825485920137BDC0033410A /* CommentsWithTrendController.xib */,
 				6814A5F320871F92002B3BBC /* CommentsWithParentCommentController.swift */,
@@ -5260,6 +5280,14 @@
 			path = "百度统计";
 			sourceTree = "<group>";
 		};
+		68AE8A502094587B00CB10B0 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				68AE8A542094592A00CB10B0 /* NTESLiMiWebController.swift */,
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
 		68B3F33A204FB9120004C3D9 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -5445,7 +5473,6 @@
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				6801E0D2202C6EA900C106E1 /* SPaySDKResource.bundle in Resources */,
 				689DF7B32004A2DA007FAE9C /* IdentityAuthInfoHeaderView.xib in Resources */,
-				68B55D6F207480E000DF6FF7 /* FollowerListController.xib in Resources */,
 				681C95D320456D12009CDE3B /* EditAutographView.xib in Resources */,
 				6801E046202C6EA900C106E1 /* NTESSystemNotificationCell.xib in Resources */,
 				6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */,
@@ -5478,7 +5505,6 @@
 				689D5421202AFB32009C771C /* README.txt in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
 				681C95FE2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib in Resources */,
-				688808CB201081CD00BC6AE9 /* TrendsListController.xib in Resources */,
 				6801E0CA202C6EA900C106E1 /* jrmf.cer in Resources */,
 				6801E06B202C6EA900C106E1 /* NTESWhiteboardViewController.xib in Resources */,
 				6801E075202C6EA900C106E1 /* NTESAudioChatViewController.xib in Resources */,
@@ -5647,6 +5673,7 @@
 				6801E026202C6EA900C106E1 /* NTESChatroomListCell.m in Sources */,
 				688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */,
 				682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */,
+				68AE8A4F20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m in Sources */,
 				6825486D2015B9180033410A /* CommentListHeaderView.swift in Sources */,
 				6801E015202C6EA800C106E1 /* NTESPersonalCardViewController.m in Sources */,
 				6801DFAE202C6EA800C106E1 /* NIMKitLocationPoint.m in Sources */,
@@ -5663,6 +5690,7 @@
 				68B55D74207489B300DF6FF7 /* AddFollowersController.swift in Sources */,
 				68880886200DF19300BC6AE9 /* ViewController.swift in Sources */,
 				6801DFF7202C6EA800C106E1 /* NSDictionary+NTESJson.m in Sources */,
+				68AE8A462092D08F00CB10B0 /* NTESLiMiSystemMsgSessionViewController.m in Sources */,
 				6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */,
 				68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */,
 				688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */,
@@ -5685,6 +5713,7 @@
 				6801E03D202C6EA900C106E1 /* NTESLoginViewController.m in Sources */,
 				6801DF9C202C6EA800C106E1 /* NIMKitEvent.m in Sources */,
 				6801E0D7202C707900C106E1 /* NTESAppDelegate.m in Sources */,
+				68AE8A552094592A00CB10B0 /* NTESLiMiWebController.swift in Sources */,
 				68EFB903203FE1C600FE1A59 /* AboutUsController.swift in Sources */,
 				6801E0BE202C6EA900C106E1 /* NTESFileLocationHelper.m in Sources */,
 				6801E0AD202C6EA900C106E1 /* NTESSignSettingViewController.m in Sources */,
@@ -5791,6 +5820,7 @@
 				6801E05A202C6EA900C106E1 /* NTESSessionSnapchatContentView.m in Sources */,
 				6801E066202C6EA900C106E1 /* NTESSessionLocalHistoryViewController.m in Sources */,
 				6801E09A202C6EA900C106E1 /* NTESLogManager.m in Sources */,
+				68AE8A372092BAD600CB10B0 /* NTESLiMiSystemMsgAttachment.m in Sources */,
 				6801E004202C6EA800C106E1 /* UIViewController+Swizzling.m in Sources */,
 				6801D93A202C44D000C106E1 /* TAPageControl.m in Sources */,
 				6801E053202C6EA900C106E1 /* NTESSessionMsgConverter.m in Sources */,
@@ -5969,6 +5999,7 @@
 				6801E0A8202C6EA900C106E1 /* NTESBirthSettingViewController.m in Sources */,
 				6801E0C5202C6EA900C106E1 /* NTESPinyinConverter.m in Sources */,
 				6801DFDC202C6EA800C106E1 /* NIMKitAuthorizationTool.m in Sources */,
+				68AE8A572094784100CB10B0 /* NTESNewFollowersController.swift in Sources */,
 				6801DF71202C6EA800C106E1 /* UIImage+NIMKit.m in Sources */,
 				6801DFE5202C6EA800C106E1 /* NIMPinyinConverter.m in Sources */,
 				6801DFD4202C6EA800C106E1 /* NIMTeamMemberListViewController.m in Sources */,
@@ -6109,6 +6140,7 @@
 				688A4C90200CB21D00BB5DF7 /* IdentityInfoModel.swift in Sources */,
 				6864AC222048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.swift in Sources */,
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
+				68AE8A382092BAD600CB10B0 /* NTESNewFlowersAttachment.m in Sources */,
 				6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */,
 				6801E00D202C6EA800C106E1 /* NTESCellLayoutConfig.m in Sources */,
 				6801E05B202C6EA900C106E1 /* NTESSessionTipContentView.m in Sources */,
@@ -6371,6 +6403,7 @@
 				CODE_SIGN_ENTITLEMENTS = LiMi/LiMi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6451,6 +6484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LiMi/LiMi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P5GZX4D2XE;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
