@@ -729,6 +729,8 @@
 		68AE8A4F20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A4E20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m */; };
 		68AE8A552094592A00CB10B0 /* NTESLiMiWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A542094592A00CB10B0 /* NTESLiMiWebController.swift */; };
 		68AE8A572094784100CB10B0 /* NTESNewFollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A562094784100CB10B0 /* NTESNewFollowersController.swift */; };
+		68AE8A622099926A00CB10B0 /* NewFollowersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE8A602099926900CB10B0 /* NewFollowersCell.swift */; };
+		68AE8A632099926A00CB10B0 /* NewFollowersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE8A612099926900CB10B0 /* NewFollowersCell.xib */; };
 		68B3F33C204FB92D0004C3D9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33B204FB92D0004C3D9 /* Toast.swift */; };
 		68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F33F204FBCD20004C3D9 /* ToastView.swift */; };
 		68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */; };
@@ -2194,6 +2196,8 @@
 		68AE8A4E20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESSessionLiMiSystemMsgContentView.m; sourceTree = "<group>"; };
 		68AE8A542094592A00CB10B0 /* NTESLiMiWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTESLiMiWebController.swift; sourceTree = "<group>"; };
 		68AE8A562094784100CB10B0 /* NTESNewFollowersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTESNewFollowersController.swift; sourceTree = "<group>"; };
+		68AE8A602099926900CB10B0 /* NewFollowersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFollowersCell.swift; sourceTree = "<group>"; };
+		68AE8A612099926900CB10B0 /* NewFollowersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewFollowersCell.xib; sourceTree = "<group>"; };
 		68B3F33B204FB92D0004C3D9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		68B3F33F204FBCD20004C3D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		68B3F341204FFA340004C3D9 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
@@ -3747,6 +3751,8 @@
 			isa = PBXGroup;
 			children = (
 				6801DE3F202C6EA700C106E1 /* SessionCell */,
+				68AE8A602099926900CB10B0 /* NewFollowersCell.swift */,
+				68AE8A612099926900CB10B0 /* NewFollowersCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5503,6 +5509,7 @@
 				68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */,
 				681C95FA2047CE40009CDE3B /* WeekendTourDetailCell.xib in Resources */,
 				689D5421202AFB32009C771C /* README.txt in Resources */,
+				68AE8A632099926A00CB10B0 /* NewFollowersCell.xib in Resources */,
 				682548792015D9730033410A /* PayPasswordInputView.xib in Resources */,
 				681C95FE2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.xib in Resources */,
 				6801E0CA202C6EA900C106E1 /* jrmf.cer in Resources */,
@@ -6199,6 +6206,7 @@
 				688808CA201081CD00BC6AE9 /* TrendsListController.swift in Sources */,
 				688808E52010922F00BC6AE9 /* TrendsBottomToolsContainView.swift in Sources */,
 				6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */,
+				68AE8A622099926A00CB10B0 /* NewFollowersCell.swift in Sources */,
 				6801E09E202C6EA900C106E1 /* NTESNetDetectViewController.m in Sources */,
 				689DFA1820061BC8007FAE9C /* ParameterGenerators.swift in Sources */,
 				6801DFA1202C6EA800C106E1 /* NIMTimestampModel.m in Sources */,

@@ -23,7 +23,7 @@ class NTESLiMiWebController: ViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.wkWebView = WKWebView.init(frame: self.view.bounds)
+        self.wkWebView = WKWebView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
         self.view.addSubview(self.wkWebView)
         self.wkWebView.uiDelegate = self
         self.wkWebView.navigationDelegate = self
@@ -55,12 +55,12 @@ extension NTESLiMiWebController:WKNavigationDelegate{
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        Toast.showStatusWith(text: nil)
+        //Toast.showStatusWith(text: nil)
         self.title = "加载中..."
         print(webView.title)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        Toast.showErrorWith(msg: error.localizedDescription)
+        //Toast.showErrorWith(msg: error.localizedDescription)
     }
 }

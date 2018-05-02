@@ -52,8 +52,10 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = true;
-//        _imageView.backgroundColor = [UIColor purpleColor];
         [self addSubview:_imageView];
+        _imageView.userInteractionEnabled = true;
+        UITapGestureRecognizer *tapImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage)];
+        [_imageView addGestureRecognizer:tapImageView];
     }
     return self;
 }
@@ -99,6 +101,9 @@
     //求urlsize
     [label setText:@"点击查看"];
     CGSize urlSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    if(attachment.url == nil && attachment.link_id == nil){
+        urlSize = CGSizeZero;
+    }
 
     //图片size
     CGSize imageSize = CGSizeZero;
@@ -129,6 +134,14 @@
     NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
     [userInfo setObject:self.model forKey:@"NIMMessageModel"];
     [NSNotificationCenter.defaultCenter postNotificationName:@"DEAL_TAP_LINK" object:nil userInfo:userInfo];
+}
+
+- (void)showImage
+{
+    //查看图片
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+    [userInfo setObject:self.model  forKey:@"NIMMessageModel"];
+    [NSNotificationCenter.defaultCenter postNotificationName:@"DEAL_TAP_IMAGE" object:nil userInfo:userInfo];
 }
 
 - (void)layoutSubviews{

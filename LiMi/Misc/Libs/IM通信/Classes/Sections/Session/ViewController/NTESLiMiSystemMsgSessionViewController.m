@@ -9,6 +9,7 @@
 #import "NTESLiMiSystemMsgSessionViewController.h"
 #import "NTESLiMiSystemMsgAttachment.h"
 #import "LiMi-Swift.h"
+#import "NTESGalleryViewController.h"
 
 @interface NTESLiMiSystemMsgSessionViewController ()
 
@@ -23,6 +24,39 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receiveNotificationWith:) name:@"DEAL_TAP_LINK" object:nil];
 //    [userInfo setObject:self.model forKey:@"NIMMessageModel"];
 //    [NSNotificationCenter.defaultCenter postNotificationName:@"DEAL_TAP_LINK" object:nil userInfo:userInfo];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(receivedTapImageNotificationWith:) name:@"DEAL_TAP_IMAGE" object:nil];
+//    [userInfo setObject:self.model.message  forKey:@"NIMMessageModel"];
+//    [NSNotificationCenter.defaultCenter postNotificationName:@"DEAL_TAP_IMAGE" object:nil userInfo:userInfo];
+}
+
+- (void)dealloc{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+- (void)receivedTapImageNotificationWith:(NSNotification *)notification{
+    NSDictionary *dic = notification.userInfo;
+    NIMMessageModel *messageModel = [dic objectForKey:@"NIMMessageModel"];
+    NIMCustomObject * customObject     = (NIMCustomObject*)messageModel.message.messageObject;
+    NTESLiMiSystemMsgAttachment *attachment = (NTESLiMiSystemMsgAttachment *)customObject.attachment;
+    //查看图片
+        NTESGalleryItem *item = [[NTESGalleryItem alloc] init];
+        item.thumbPath      = [attachment image];
+        item.imageURL       = [attachment image];
+        item.itemId         = [messageModel.message messageId];
+    //
+        NIMSession *session = [self isMemberOfClass:[NTESSessionViewController class]]? self.session : nil;
+        NTESGalleryViewController *vc = [[NTESGalleryViewController alloc] initWithItem:item session:session];
+        [self.navigationController pushViewController:vc animated:YES];
+    //    if(![[NSFileManager defaultManager] fileExistsAtPath:object.thumbPath]){
+    //        //如果缩略图下跪了，点进看大图的时候再去下一把缩略图
+    //        __weak typeof(self) wself = self;
+    //        [[NIMSDK sharedSDK].resourceManager download:object.thumbUrl filepath:object.thumbPath progress:nil completion:^(NSError *error) {
+    //            if (!error) {
+    //                [wself uiUpdateMessage:message];
+    //            }
+    //        }];
+    //    }
 }
 
 - (void)receiveNotificationWith:(NSNotification *)notification{
@@ -65,6 +99,10 @@
             return;
         }
     }
+}
+
+- (BOOL)onTapAvatar:(NIMMessage *)message{
+    return false;
 }
 
 - (void)didReceiveMemoryWarning {

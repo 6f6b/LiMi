@@ -568,7 +568,7 @@ NIMEventSubscribeManagerDelegate>
         UserDetailsController *userDetailsController = [[UserDetailsController alloc] init];
         userDetailsController.userId = user.userInfo.ext.integerValue;
         vc = userDetailsController;
-        //vc = [[NTESPersonalCardViewController alloc] initWithUserId:userId];
+//        vc = [[NTE SPersonalCardViewController alloc] initWithUserId:userId];
     }
     
     [self.navigationController pushViewController:vc animated:YES];

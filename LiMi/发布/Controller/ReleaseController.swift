@@ -78,7 +78,6 @@ class ReleaseController: ViewController {
             }
             self.imagePickerVc = TZImagePickerController.init(maxImagesCount: 9-self.imgArr.count, delegate: self)
             self.imagePickerVc?.allowPickingGif = true
-            self.imagePickerVc?.allowPickingMultipleVideo = false
             self.imagePickerVc?.imagePickerControllerDidCancelHandle = {[unowned self] in
                 self.imagePickerVc?.dismiss(animated: true, completion: nil)
             }
@@ -152,49 +151,74 @@ class ReleaseController: ViewController {
     func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
         self.videoArr.removeAll()
         Toast.showStatusWith(text: "正在上传..")
-//        FileUploadManager.share.uploadMultiImageWith(images: images, phAssets: phAssets, progressBlock: { (progress, index, fileUploadModel) in
-//            print("progress:\(progress)--index:\(index)")
-//        }, successBlock: { (index, fileUploadModel, qnResponseInfo) in
-//
-//        }, failedBlock: { (index, fileUploadModel, failedResult) in
-//
-//        },completionBlock: {
-//            Toast.dismiss()
-//        }, tokenIDModel: nil)
-        
-        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+        FileUploadManager.share.uploadMultiImageWith(images: images, phAssets: phAssets, progressBlock: { (progress, index, fileUploadModel) in
+            Toast.showStatusWith(text: "index:\(index),上传进度：\(progress)")
+        }, successBlock: { (index, fileUploadModel, qnResponseInfo) in
             var localMediaModel = LocalMediaModel.init()
-            localMediaModel.key = key
-            localMediaModel.image = image
+            localMediaModel.key = fileUploadModel.uploadFileKey
+            let imageModel = fileUploadModel.file as? ImageModel
+            localMediaModel.image = imageModel?.image
             self.imgArr.append(localMediaModel)
-            print("imageWidth:\(image.size.width)--imageHeight:\(image.size.height)--key:\(key)")
-        }, failedBlock: {
+        }, failedBlock: { (index, fileUploadModel, failedResult) in
             Toast.showErrorWith(msg: "上传失败")
-        }, completionBlock: {
+        },completionBlock: {
             Toast.dismiss()
             self.imagePickerVc?.dismiss(animated: true, completion: nil)
             self.tableView.reloadData()
             self.RefreshReleasBtnEnable()
-            print("上传结束")
         }, tokenIDModel: nil)
+        
+//        FileUploadManager.share.uploadImagesWith(images: images, phAssets: phAssets, successBlock: { (image, key) in
+//            var localMediaModel = LocalMediaModel.init()
+//            localMediaModel.key = key
+//            localMediaModel.image = image
+//            self.imgArr.append(localMediaModel)
+//            print("imageWidth:\(image.size.width)--imageHeight:\(image.size.height)--key:\(key)")
+//        }, failedBlock: {
+//            Toast.showErrorWith(msg: "上传失败")
+//        }, completionBlock: {
+//            Toast.dismiss()
+//            self.imagePickerVc?.dismiss(animated: true, completion: nil)
+//            self.tableView.reloadData()
+//            self.RefreshReleasBtnEnable()
+//            print("上传结束")
+//        }, tokenIDModel: nil)
     }
     
     //上传视频
     func uploadVideoWith(phAsset:PHAsset?,preImg:UIImage?){
         self.imgArr.removeAll()
         Toast.showStatusWith(text: "正在上传..")
-        FileUploadManager.share.uploadVideoWith(preImage: preImg, phAsset: phAsset, successBlock: { (image, key) in
+        FileUploadManager.share.uploadVideoWith(image: preImg, phAsset: phAsset, progressBlock: { (progress, index, fileUploadModel) in
+            Toast.showStatusWith(text: "index:\(index),上传进度：\(progress)")
+        }, successBlock: { (index, fileUploadModel, respInfo) in
+            
             var localMediaModel = LocalMediaModel.init()
-            localMediaModel.key = key
-            localMediaModel.image = preImg
+            localMediaModel.key = fileUploadModel.uploadFileKey
+            let videoModel = fileUploadModel.file as? VideoModel
+            localMediaModel.image = videoModel?.coverImage?.image
             self.videoArr.append(localMediaModel)
             Toast.dismiss()
-        }, failedBlock: {
+        }, failedBlock: {  (index, fileUploadModel, respInfo)  in
             Toast.showErrorWith(msg: "上传失败")
         }, completionBlock: {
+            Toast.dismiss()
+            self.imagePickerVc?.dismiss(animated: true, completion: nil)
             self.tableView.reloadData()
             self.RefreshReleasBtnEnable()
-        })
+        }, tokenIDModel: nil)
+//        FileUploadManager.share.uploadVideoWith(preImage: preImg, phAsset: phAsset, successBlock: { (image, key) in
+//            var localMediaModel = LocalMediaModel.init()
+//            localMediaModel.key = key
+//            localMediaModel.image = preImg
+//            self.videoArr.append(localMediaModel)
+//            Toast.dismiss()
+//        }, failedBlock: {
+//            Toast.showErrorWith(msg: "上传失败")
+//        }, completionBlock: {
+//            self.tableView.reloadData()
+//            self.RefreshReleasBtnEnable()
+//        })
     }
     
     func generateMediaParameterWith(medias:[LocalMediaModel])->String{

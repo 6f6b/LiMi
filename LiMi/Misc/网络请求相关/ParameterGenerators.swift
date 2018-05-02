@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://app.youhongtech.com/index.php/apps1_2"
+let serverAddress = "http://app.youhongtech.com/index.php/app1_3"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -700,6 +700,29 @@ struct MyFansList:TargetType,ParametersProtocol{
     var method: Moya.Method { return .get }
     var path: String {
         return "/user/myFansList"
+    }
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//最新关注列表
+///Message/getNewAttentionList
+struct GetNewAttentionList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "/Message/getNewAttentionList"
     }
     var page:Int?
     

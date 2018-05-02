@@ -82,9 +82,12 @@
     CGSize txtSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
     
     //求urlsize
-    [label setText:@"URL"];
+    [label setText:@"点击查看"];
     CGSize urlSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
-
+    if(self.url == nil && self.link_id == nil){
+        urlSize = CGSizeZero;
+    }
+    
     //图片size
     CGSize imageSize = CGSizeZero;
     if(self.image != Nil){

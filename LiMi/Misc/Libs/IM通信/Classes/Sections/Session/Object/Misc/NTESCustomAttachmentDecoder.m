@@ -81,15 +81,17 @@
                 case CustomMessageTypeLiMiSystemMsg:
                 {
                     attachment = [[NTESLiMiSystemMsgAttachment alloc] init];
-                    ((NTESLiMiSystemMsgAttachment *)attachment).title = [data jsonString:CMLiMiSystemMsgTitle];
-                    ((NTESLiMiSystemMsgAttachment *)attachment).image = [data jsonString:CMLiMiSystemMsgImage];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).title = [data jsonString:CMLiMiSystemMsgTitle].length == 0 ? nil :  [data jsonString:CMLiMiSystemMsgTitle];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).image = [data jsonString:CMLiMiSystemMsgImage].length == 0 ? nil : [data jsonString:CMLiMiSystemMsgImage] ;
                     ((NTESLiMiSystemMsgAttachment *)attachment).link_id = [data jsonInteger:CMLiMiSystemMsgLinkID];
                     ((NTESLiMiSystemMsgAttachment *)attachment).link_subid = [data jsonInteger:CMLiMiSystemMsgLinkSubID];
-                    ((NTESLiMiSystemMsgAttachment *)attachment).link_type = [data jsonInteger:CMLiMiSystemMsgLinkType];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).link_type = [data jsonInteger:CMLiMiSystemMsgLinkType] ;
                     ((NTESLiMiSystemMsgAttachment *)attachment).image_h = [data jsonInteger:CMLiMiSystemMsgImageHeight];
                     ((NTESLiMiSystemMsgAttachment *)attachment).image_w = [data jsonInteger:CMLiMiSystemMsgImageWidth];
-                    ((NTESLiMiSystemMsgAttachment *)attachment).txt = [data jsonString:CMLiMiSystemMsgTXT];
-                    ((NTESLiMiSystemMsgAttachment *)attachment).url = [data jsonString:CMLiMiSystemMsgURL];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).txt = [data jsonString:CMLiMiSystemMsgTXT].length == 0 ? nil :   [data jsonString:CMLiMiSystemMsgTXT];
+                    ((NTESLiMiSystemMsgAttachment *)attachment).url = [data jsonString:CMLiMiSystemMsgURL].length == 0 ? nil :  [data jsonString:CMLiMiSystemMsgURL];
+                    
+//                    if(((NTESLiMiSystemMsgAttachment *)attachment).title)
                 }
                     break;
                     case CustomMessageTypeNewFollowersMsg:

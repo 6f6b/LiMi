@@ -35,13 +35,13 @@ class FileUploadManager: NSObject {
     private var tempImages = [UIImage]()
     private var tempPhAssets = [PHAsset]()
     private var qnUploadManager:QNUploadManager?
-    private var index = 200
+    private var index = 0
     
     /*FileUploadManager2.0*/
     ///存储需要上传的FileModel
     private var fileUploadModels = [FileUploadModel]()
     ///单张图片最大内存
-    private var maxUploadKB:Double = 200.0
+    private var maxUploadKB:Double = 1000.0
     
     override init() {
         super.init()
@@ -71,7 +71,15 @@ class FileUploadManager: NSObject {
                     self.fileUploadModels.append(fileUploadModel)
                 }
             }
-            self.uploadFileWith(index: self.index, token: (uploadTokenModel?.token)!, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            if let token = uploadTokenModel?.token{
+                self.uploadFileWith(index: self.index, token: (uploadTokenModel?.token)!, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock)
+            }else{
+                if let _failedBlock = failedBlock{
+                    let failedResult = FailedResult.init()
+                    failedResult.message = "token 获取失败"
+                    _failedBlock(self.index,self.fileUploadModels[self.index],failedResult)
+                }
+            }
         }, tokenIDModel: tokenIDModel)
         return true
     }
@@ -91,7 +99,8 @@ class FileUploadManager: NSObject {
     }
     ///上传多个视频
     func uploadMultiVideoWith(images:[UIImage]?, phAssets:[PHAsset]?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
-        return self.uploadMultiVideoWith(images: images, phAssets: phAssets, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock,tokenIDModel: tokenIDModel)
+        //return self.upl
+        return self.uploadMultiImageWith(images: images, phAssets: phAssets, progressBlock: progressBlock, successBlock: successBlock, failedBlock: failedBlock, completionBlock: completionBlock,tokenIDModel: tokenIDModel)
     }
     ///上传单个视频
     func uploadVideoWith(image:UIImage?, phAsset:PHAsset?,progressBlock:ProgressBlock?,successBlock:SuccessBlock?,failedBlock:FailedBlock?,completionBlock:CompletionBock?,tokenIDModel:TokenIDModel? = nil)->Bool{
@@ -109,7 +118,9 @@ class FileUploadManager: NSObject {
         let fileUploadModel = self.fileUploadModels[index]
         let progressHandler:QNUpProgressHandler =  {[unowned self] (key,progress) in
             if let _progressBlock = progressBlock{
-                _progressBlock(progress, index, fileUploadModel)
+                DispatchQueue.main.async {
+                    _progressBlock(progress, index, fileUploadModel)
+                }
             }
         }
         let option = QNUploadOption(mime: "", progressHandler: progressHandler, params: ["":""], checkCrc: false) { () -> Bool in
@@ -256,6 +267,7 @@ class FileUploadManager: NSObject {
         fileUploadModel.uploadWay = .phAssest
         let videoModel = VideoModel()
         videoModel.coverImage = ImageModel()
+        videoModel.phAsset = phAsset
         if let _data = compressedImageData{
             let compressedImage = UIImage.init(data: _data)
             videoModel.size = compressedImage?.size
