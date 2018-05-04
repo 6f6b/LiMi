@@ -11,7 +11,7 @@
 #import "M80AttributedLabel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface NTESSessionLiMiSystemMsgContentView()
+@interface NTESSessionLiMiSystemMsgContentView()<M80AttributedLabelDelegate>
 @property (nonatomic,strong) M80AttributedLabel *titleLabel;
 @property (nonatomic,strong) M80AttributedLabel *contentLabel;
 @property (nonatomic,strong) UIButton *linkBtn;
@@ -33,7 +33,8 @@
         
         _contentLabel = [[M80AttributedLabel alloc] initWithFrame:CGRectZero];
 //        _contentLabel.backgroundColor = [UIColor purpleColor];
-        _contentLabel.autoDetectLinks = NO;
+        _contentLabel.autoDetectLinks = TRUE;
+        _contentLabel.delegate = self;
         _contentLabel.font = [UIFont systemFontOfSize:Message_Font_Size];
         _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _contentLabel.numberOfLines = 0;
@@ -60,6 +61,15 @@
     return self;
 }
 
+- (void)m80AttributedLabel:(M80AttributedLabel *)label clickedOnLink:(id)linkData{
+    if([linkData isKindOfClass:[NSString class]]){
+        NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+        [userInfo setObject:linkData forKey:@"LinkURL"];
+        [NSNotificationCenter.defaultCenter postNotificationName:@"DEAL_TAP_LINK" object:nil userInfo:userInfo];
+
+    }
+}
+
 - (void)refresh:(NIMMessageModel*)data
 {
     [super refresh:data];
@@ -81,7 +91,7 @@
     CGFloat contentLeftToBubble  = 15;
     CGFloat contentRightToBubble = 15;
     CGFloat msgBubbleMinWidth = msgBubbleMaxWidth - (msgBubbleMaxWidth - contentLeftToBubble - contentRightToBubble)*0.5;
-    label.autoDetectLinks = NO;
+    label.autoDetectLinks = TRUE;
     label.font = [UIFont systemFontOfSize:Message_Font_Size];
 //
     //求得最终宽度

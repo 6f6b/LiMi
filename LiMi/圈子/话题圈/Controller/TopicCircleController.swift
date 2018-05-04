@@ -210,7 +210,7 @@ extension TopicCircleController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let topicListContainController = TopicListContainController()
-        topicListContainController.topicCircleModel = self.dataArray[indexPath.row]
+        topicListContainController.topicCircleId = self.dataArray[indexPath.row].id
         self.navigationController?.pushViewController(topicListContainController, animated: true)
     }
 }

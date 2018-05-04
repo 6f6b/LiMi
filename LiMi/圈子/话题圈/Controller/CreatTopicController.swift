@@ -24,7 +24,7 @@ class CreatTopicController: ViewController {
     var imagePickerVc:TZImagePickerController?
     var qnUploadManager:QNUploadManager!
     var phAsset:PHAsset?
-    var topicCircleModel:TopicCircleModel?
+    var topicCircleId:Int?
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -127,7 +127,7 @@ class CreatTopicController: ViewController {
         if let data = try? JSONSerialization.data(withJSONObject: picInfo, options: .prettyPrinted){
             pic = String.init(data: data, encoding: String.Encoding.utf8)
         }
-        let addTopicAction = AddTopicAction(pic: pic, topic_id: self.topicCircleModel?.id, content: self.releaseContentTextInputCell.contentText.text)
+        let addTopicAction = AddTopicAction(pic: pic, topic_id: self.topicCircleId, content: self.releaseContentTextInputCell.contentText.text)
         _ = moyaProvider.rx.request(.targetWith(target: addTopicAction)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{

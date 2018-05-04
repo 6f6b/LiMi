@@ -84,8 +84,9 @@ class NTESNewFollowersController: ViewController {
                 for userInfo in userInfos{
                     self.dataArray.append(userInfo)
                 }
-                if userInfos.count > 0{self.tableView.reloadData()}
+                //if userInfos.count > 0{self.tableView.reloadData()}
             }
+            self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             self.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: userInfoListModel)

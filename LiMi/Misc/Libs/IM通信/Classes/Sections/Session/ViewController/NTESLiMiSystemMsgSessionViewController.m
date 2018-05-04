@@ -62,42 +62,53 @@
 - (void)receiveNotificationWith:(NSNotification *)notification{
     NSDictionary *dic = notification.userInfo;
     NIMMessageModel *messageModel = [dic objectForKey:@"NIMMessageModel"];
-    NIMCustomObject * customObject     = (NIMCustomObject*)messageModel.message.messageObject;
-    NTESLiMiSystemMsgAttachment *attachment = (NTESLiMiSystemMsgAttachment *)customObject.attachment;
-    if(attachment.url != nil){
-        NTESLiMiWebController *webController = [[NTESLiMiWebController alloc] init];
-        webController.url = attachment.url;
-        [self.navigationController pushViewController:webController animated:true];
+    NSString *linkURL = [dic objectForKey:@"LinkURL"];
+    if(messageModel != nil){
+        NIMCustomObject * customObject     = (NIMCustomObject*)messageModel.message.messageObject;
+        NTESLiMiSystemMsgAttachment *attachment = (NTESLiMiSystemMsgAttachment *)customObject.attachment;
+        if(attachment.url != nil){
+            NTESLiMiWebController *webController = [[NTESLiMiWebController alloc] init];
+            webController.url = attachment.url;
+            [self.navigationController pushViewController:webController animated:true];
+            return;
+        }
+        if(attachment.url == nil){
+            //动态
+            if(attachment.link_type == 1){
+                CommentsWithTrendController *commentsWithTrendController = [[CommentsWithTrendController alloc] init];
+                commentsWithTrendController.actionId = attachment.link_id;
+                [self.navigationController pushViewController:commentsWithTrendController animated:true];
+                return;
+            }
+            //话题
+            if(attachment.link_type == 2){
+                
+                TopicListContainController *topicListContainController = [[TopicListContainController alloc] init];
+                topicListContainController._topicCircleId = attachment.link_id;
+                [self.navigationController pushViewController:topicListContainController animated:true];
+                return;
+            }
+            //周末游
+            if(attachment.link_type == 3){
+                if(attachment.link_id != nil){
+                    WeekendTourDetailController *weekendTourDetailController = [[WeekendTourDetailController alloc] init];
+                    weekendTourDetailController.weekendId = attachment.link_id;
+                    [self.navigationController pushViewController:weekendTourDetailController animated:true];
+                }
+                if(attachment.link_id == nil){
+                    WeekendTourController *weekendTourController = [[WeekendTourController alloc] init];
+                    [self.navigationController pushViewController:weekendTourController animated:true];
+                }
+                return;
+            }
+        }
         return;
     }
-    if(attachment.url == nil){
-        //动态
-        if(attachment.link_type == 1){
-            CommentsWithTrendController *commentsWithTrendController = [[CommentsWithTrendController alloc] init];
-            commentsWithTrendController.actionId = attachment.link_id;
-            [self.navigationController pushViewController:commentsWithTrendController animated:true];
-            return;
-        }
-        //话题
-        if(attachment.link_type == 2){
-            CommentsWithTrendController *commentsWithTrendController = [[CommentsWithTrendController alloc] init];
-            commentsWithTrendController.topicActionId = attachment.link_id;
-            [self.navigationController pushViewController:commentsWithTrendController animated:true];
-            return;
-        }
-        //周末游
-        if(attachment.link_type == 3){
-            if(attachment.link_id != nil){
-                WeekendTourDetailController *weekendTourDetailController = [[WeekendTourDetailController alloc] init];
-                weekendTourDetailController.weekendId = attachment.link_id;
-                [self.navigationController pushViewController:weekendTourDetailController animated:true];
-            }
-            if(attachment.link_id == nil){
-                WeekendTourController *weekendTourController = [[WeekendTourController alloc] init];
-                [self.navigationController pushViewController:weekendTourController animated:true];
-            }
-            return;
-        }
+    if(linkURL != nil){
+        NTESLiMiWebController *webController = [[NTESLiMiWebController alloc] init];
+        webController.url = linkURL;
+        [self.navigationController pushViewController:webController animated:true];
+        return ;
     }
 }
 

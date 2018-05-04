@@ -152,7 +152,7 @@ class ReleaseController: ViewController {
         self.videoArr.removeAll()
         Toast.showStatusWith(text: "正在上传..")
         FileUploadManager.share.uploadMultiImageWith(images: images, phAssets: phAssets, progressBlock: { (progress, index, fileUploadModel) in
-            Toast.showStatusWith(text: "index:\(index),上传进度：\(progress)")
+            Toast.showStatusWith(text: "index:\(index),上传进度：\(Int(progress*100))%")
         }, successBlock: { (index, fileUploadModel, qnResponseInfo) in
             var localMediaModel = LocalMediaModel.init()
             localMediaModel.key = fileUploadModel.uploadFileKey
@@ -190,7 +190,7 @@ class ReleaseController: ViewController {
         self.imgArr.removeAll()
         Toast.showStatusWith(text: "正在上传..")
         FileUploadManager.share.uploadVideoWith(image: preImg, phAsset: phAsset, progressBlock: { (progress, index, fileUploadModel) in
-            Toast.showStatusWith(text: "index:\(index),上传进度：\(progress)")
+            Toast.showStatusWith(text: "index:\(index),上传进度：\(Int(progress*100))%")
         }, successBlock: { (index, fileUploadModel, respInfo) in
             
             var localMediaModel = LocalMediaModel.init()

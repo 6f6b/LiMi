@@ -35,7 +35,8 @@ class FollowerListController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView = UITableView.init(frame: self.view.bounds)
+        
+        self.tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib.init(nibName: "FollowerCell", bundle: nil), forCellReuseIdentifier: "FollowerCell")

@@ -58,7 +58,6 @@ class PersonCenterController: UITableViewController {
         }else{
             self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
         }
-        
         let editBtn = UIButton.init()
         let cancelAttributeTitle = NSAttributedString.init(string: "编辑", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
         editBtn.setAttributedTitle(cancelAttributeTitle, for: .normal)

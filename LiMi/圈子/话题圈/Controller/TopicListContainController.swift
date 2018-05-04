@@ -14,8 +14,15 @@ class TopicListContainController: ViewController {
     var newestTopicListController:TopicListController!
     var hottestTopicListController:TopicListController!
     var addTopicBtn:UIButton!
-    var topicCircleModel:TopicCircleModel?
-    
+    var topicCircleId:Int?
+    @objc var _topicCircleId:Int{
+        get{
+            return topicCircleId!
+        }
+        set{
+            topicCircleId = newValue
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
@@ -42,7 +49,7 @@ class TopicListContainController: ViewController {
             })
         }
         let newestTopicListController = TopicListController()
-        newestTopicListController.topicCircleModel = self.topicCircleModel
+        newestTopicListController.topicCircleId = self.topicCircleId
         self.newestTopicListController = newestTopicListController
         newestTopicListController.topicType = .newest
         self.addChildViewController(newestTopicListController)
@@ -51,7 +58,7 @@ class TopicListContainController: ViewController {
         self.controllersContainScrollView.addSubview(newestTopicListControllerView!)
         
         let  hottestTopicListController = TopicListController()
-        hottestTopicListController.topicCircleModel = self.topicCircleModel
+        hottestTopicListController.topicCircleId = self.topicCircleId
         self.hottestTopicListController = hottestTopicListController
         hottestTopicListController.topicType = .hottest
         self.addChildViewController(hottestTopicListController)
@@ -104,7 +111,7 @@ class TopicListContainController: ViewController {
     @objc func dealAddTopic(){
         if !AppManager.shared.checkUserStatus(){return}
         let creatTopicController = CreatTopicController()
-        creatTopicController.topicCircleModel = self.topicCircleModel
+        creatTopicController.topicCircleId = self.topicCircleId
         let navCreatTopicController = NavigationController(rootViewController: creatTopicController)
         self.present(navCreatTopicController, animated: true, completion: nil)
     }
