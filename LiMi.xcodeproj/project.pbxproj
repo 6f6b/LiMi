@@ -4759,7 +4759,6 @@
 		6888085B200DF0F100BC6AE9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				68A3EE03206E162C00BD3097 /* PopViews */,
 				689D53F7202AD74B009C771C /* utilities */,
 				6888089D200F1E0300BC6AE9 /* Libs */,
 				68880896200DF52200BC6AE9 /* Globals */,
@@ -4829,6 +4828,7 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				68A3EE03206E162C00BD3097 /* PopViews */,
 				68A90892206A2E2400AE4362 /* 百度统计 */,
 				681389C420568AC700F65623 /* SuspensionExpandMenu */,
 				681C960B20481060009CDE3B /* YBAttributeTextTapAction */,

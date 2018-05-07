@@ -70,7 +70,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>粒米校园想使用你的相机</string>
+	<string>粒米校园想使用你的相机以拍摄照片</string>
 	<key>NSContactsUsageDescription</key>
 	<string>粒米校园想使用你的联系人</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -78,7 +78,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>粒米校园想使用你的地理位置以确定你与对方的距离</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>粒米校园想使用您的麦克风</string>
+	<string>粒米校园想使用您的麦克风以录制音频</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>粒米校园想访问你的相册以保存照片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
