@@ -44,13 +44,14 @@
         _linkBtn.userInteractionEnabled = true;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dealTapLink)];
         [_linkBtn addGestureRecognizer:tap];
-//        _linkLabel.backgroundColor = [UIColor purpleColor];
+//        _linkBtn.backgroundColor = [UIColor purpleColor];
         UIColor *titleColor = [UIColor colorWithRed:47/255.0 green:196/255.0 blue:233/255.0 alpha:1];
         [_linkBtn setTitleColor:titleColor forState:UIControlStateNormal];
         _linkBtn.titleLabel.font = [UIFont systemFontOfSize:Message_Font_Size];
         [self addSubview:_linkBtn];
         
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+//        _imageView.backgroundColor = [UIColor purpleColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = true;
         [self addSubview:_imageView];
@@ -102,15 +103,15 @@
 
     //求title的size
     [label setText:attachment.title];
-    CGSize titleSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize titleSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
 
     //求txt的size
     [label setText:attachment.txt];
-    CGSize txtSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize txtSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
 
     //求urlsize
     [label setText:@"点击查看"];
-    CGSize urlSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize urlSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
     if(attachment.url == nil && attachment.link_id == nil){
         urlSize = CGSizeZero;
     }

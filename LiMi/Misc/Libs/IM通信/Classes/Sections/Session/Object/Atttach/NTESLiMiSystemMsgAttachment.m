@@ -58,6 +58,7 @@
     totalEmptySpace += 12;
     //求最长字符串，以便求得最大宽度
     NSString *longestString =  MAX(self.title, self.txt);
+    longestString = MAX(longestString, @"点击查看");
     
     M80AttributedLabel *label = [[M80AttributedLabel alloc] initWithFrame:CGRectZero];
     CGFloat msgBubbleMaxWidth    = (UIScreenWidth - 130);
@@ -75,17 +76,19 @@
     
     //求title的size
     [label setText:self.title];
-    CGSize titleSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize titleSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
     
     //求txt的size
     [label setText:self.txt];
-    CGSize txtSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize txtSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
+    if(self.txt == nil){totalEmptySpace -= 7;}
     
     //求urlsize
     [label setText:@"点击查看"];
-    CGSize urlSize = [label sizeThatFits:CGSizeMake(labelSize.width, CGFLOAT_MAX)];
+    CGSize urlSize = [label sizeThatFits:CGSizeMake(bubbleWidth, CGFLOAT_MAX)];
     if(self.url == nil && self.link_id == nil){
         urlSize = CGSizeZero;
+        totalEmptySpace -= 7;
     }
     
     //图片size
@@ -98,6 +101,8 @@
         CGFloat imageHeight = MIN(tmpImageHeight, 200);
         imageSize.height = imageHeight;
         imageSize.width = imageWidth;
+    }else{
+        totalEmptySpace -= 7;
     }
     CGSize contentSize = CGSizeMake(bubbleWidth, totalEmptySpace + titleSize.height + txtSize.height + urlSize.height +imageSize.height);
     return contentSize;
