@@ -72,4 +72,25 @@ extension String{
     }
 }
 
+extension UIButton{
+    func setContentInCenter(){
+        var imageViewSize:CGSize?
+        var titleSize:CGSize?
+        var btnSize: CGSize?
+
+        var imageViewEdge : UIEdgeInsets?
+        var titleEdge : UIEdgeInsets?
+        var heightSpace = self.frame.size.height
+        
+        imageViewSize = self.imageView?.bounds.size
+        titleSize = self.titleLabel?.bounds.size
+        btnSize = self.bounds.size
+        
+        imageViewEdge = UIEdgeInsets.init(top: CGFloat(heightSpace), left: 0.0, bottom: (btnSize?.height)!-(imageViewSize?.height)!, right: (-titleSize!.width))
+        self.imageEdgeInsets = imageViewEdge!
+        titleEdge = UIEdgeInsets.init(top: imageViewSize!.height + CGFloat(heightSpace), left: -imageViewSize!.width, bottom: 0.0, right: 0.0)
+        self.titleEdgeInsets = titleEdge!
+    }
+}
+
 

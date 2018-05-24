@@ -8,9 +8,11 @@
 
 import UIKit
 import SKPhotoBrowser
+import SnapKit
 
 class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     var collectionView:UICollectionView!
+    var collectionViewHeightConstraint:Constraint?
     var tapPictureBlock:((Int)->Void)?
     var singleImageView:UIImageView!
     override func awakeFromNib() {
@@ -19,12 +21,7 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentText.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
-            //make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
-        }
+        self.contentTextBottomeConstraint?.deactivate()
         
         let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(mediaContainViewMarginToWindow*2 + self.trendsContentContainViewMarginToTrendsContainView*2), height: 0)
         let layout = UICollectionViewFlowLayout()
@@ -40,7 +37,14 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
         self.collectionView.dataSource = self
         collectionView.register(UINib(nibName: "TrendsImageCollectionCell", bundle: nil), forCellWithReuseIdentifier: "TrendsImageCollectionCell")
         self.trendsContentContainView.addSubview(collectionView)
-
+        print("初始化：\(self)")
+        self.collectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentText.snp.bottom).offset(5)
+            make.left.equalTo(self.trendsContentContainView)
+            make.bottom.equalTo(self.trendsContentContainView)
+            make.right.equalTo(self.trendsContentContainView)
+        }
+        
         self.singleImageView = UIImageView()
         self.trendsContentContainView.addSubview(self.singleImageView)
     }
@@ -62,16 +66,14 @@ class TrendsWithTextAndPictrueCell: TrendsWithTextCell {
     
     override func configWith(model: TrendModel?) {
         super.configWith(model: model)
-        self.collectionView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.contentText.snp.bottom).offset(5)
-            make.left.equalTo(self.trendsContentContainView)
-            make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView)
-        }
         self.collectionView.reloadData()
-        self.collectionView.snp.makeConstraints { (make) in
-            make.height.equalTo(self.collectionView.collectionViewLayout.collectionViewContentSize.height)
+        self.collectionViewHeightConstraint?.deactivate()
+        print("约束：\(self.collectionViewHeightConstraint)---对象:\(self)")
+        
+        self.collectionView.snp.makeConstraints {[unowned self] (make) in
+            self.collectionViewHeightConstraint = make.height.equalTo(self.collectionView.collectionViewLayout.collectionViewContentSize.height).constraint
         }
+        print("对象:\(self)")
     }
 }
 

@@ -122,7 +122,6 @@ class TrendsListController: ViewController{
             self.refreshTimeInterval = trendsListModel?.timestamp == nil ? self.refreshTimeInterval : trendsListModel?.timestamp
             if let trends = trendsListModel?.trends{
                 if self.pageIndex == 1{
-                    print("Delete all")
                     self.dataArray.removeAll()
                 }
                 for trend in trends{

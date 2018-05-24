@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2A41F873426068D5EB575500BCC63BF7'
-               BlueprintName = 'M80AttributedLabel'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'M80AttributedLabel.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2A41F873426068D5EB575500BCC63BF7"
+               BlueprintName = "M80AttributedLabel"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "M80AttributedLabel.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

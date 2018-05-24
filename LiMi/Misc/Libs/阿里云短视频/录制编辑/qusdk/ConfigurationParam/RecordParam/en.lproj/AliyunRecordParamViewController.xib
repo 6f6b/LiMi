@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AliyunRecordParamViewController">
+            <connections>
+                <outlet property="tableView" destination="3ga-pe-ruZ" id="RcH-xf-Tnb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LN-aO-8aT">
+                    <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="录制参数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vg-6M-vJR">
+                            <rect key="frame" x="158.5" y="13.5" width="57.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRH-NW-zpN" userLabel="Back Button">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="daP-UV-PMK"/>
+                            </constraints>
+                            <state key="normal" image="QPSDK.bundle/back"/>
+                            <connections>
+                                <action selector="buttonBackClick:" destination="-1" eventType="touchUpInside" id="SY1-zl-zHM"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="2Vg-6M-vJR" firstAttribute="centerY" secondItem="1LN-aO-8aT" secondAttribute="centerY" id="Zlb-pb-AU2"/>
+                        <constraint firstItem="ZRH-NW-zpN" firstAttribute="top" secondItem="1LN-aO-8aT" secondAttribute="top" id="hgt-JE-Dnm"/>
+                        <constraint firstItem="ZRH-NW-zpN" firstAttribute="leading" secondItem="1LN-aO-8aT" secondAttribute="leading" id="mQa-Cy-AF3"/>
+                        <constraint firstAttribute="height" constant="44" id="ncd-i3-UdG"/>
+                        <constraint firstAttribute="bottom" secondItem="ZRH-NW-zpN" secondAttribute="bottom" id="vbt-df-v4R"/>
+                        <constraint firstItem="2Vg-6M-vJR" firstAttribute="centerX" secondItem="1LN-aO-8aT" secondAttribute="centerX" id="vdr-nA-1lE"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="3ga-pe-ruZ">
+                    <rect key="frame" x="0.0" y="88" width="375" height="579"/>
+                    <color key="backgroundColor" red="0.13725490868091583" green="0.16470588743686676" blue="0.25882354378700256" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="OY1-fI-6tn"/>
+                        <outlet property="delegate" destination="-1" id="7xR-pL-x9r"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.13725490868091583" green="0.16470588743686676" blue="0.25882354378700256" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3ga-pe-ruZ" secondAttribute="bottom" id="41g-ny-UYe"/>
+                <constraint firstItem="1LN-aO-8aT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="Lm1-vB-KHQ"/>
+                <constraint firstItem="1LN-aO-8aT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RDJ-2h-grl"/>
+                <constraint firstAttribute="trailing" secondItem="3ga-pe-ruZ" secondAttribute="trailing" id="Yl4-mq-Lzm"/>
+                <constraint firstAttribute="trailing" secondItem="1LN-aO-8aT" secondAttribute="trailing" id="afX-ea-6ZW"/>
+                <constraint firstItem="3ga-pe-ruZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jj6-0O-O2y"/>
+                <constraint firstItem="3ga-pe-ruZ" firstAttribute="top" secondItem="1LN-aO-8aT" secondAttribute="bottom" id="s0H-zC-Zyb"/>
+            </constraints>
+            <point key="canvasLocation" x="-193" y="1"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="QPSDK.bundle/back" width="16" height="16"/>
+    </resources>
+</document>

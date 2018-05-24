@@ -57,7 +57,7 @@ class TrendsBottomToolsContainView: UIView {
         
         self.viewNum = UILabel()
         self.topToolsContainView.addSubview(self.viewNum)
-        self.viewNum.text = "-++-"
+        self.viewNum.text = ""
         self.viewNum.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         self.viewNum.font = UIFont.systemFont(ofSize: 12)
         self.viewNum.snp.makeConstraints { (make) in

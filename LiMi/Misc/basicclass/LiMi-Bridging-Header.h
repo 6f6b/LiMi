@@ -57,4 +57,24 @@
 #import "NTESSessionListViewController.h"
 #import "NTESSessionViewController.h"
 
+/*阿里云短视频相关*/
+//短视频录制处理
+#import <AliyunVideoSDKPro/AliyunIRecorder.h>
+#import "AliyunPathManager.h"
+#import "AliyunRecordViewController.h"
+#import "AliyunRootViewController.h"
+#import "AliyunVideoBase.h"
+#import "AliyunMediator.h"
+#import "AliyunMediaConfig.h"
+#import "AliyunIConfig.h"
+#import "AliyunEffectPrestoreManager.h"
+#import "AliyunEditViewController.h"
+#import "PhotoViewController.h"
+#import "AliyunPathManager.h"
+//#import <AliyunVideoSDKPro/AliyunVideoSDKPro.h>
+//#import "AliyunMediaConfig.h"
+//#import "AliyunRecordViewController.h"
+//短视频上传
+//短视频播放
+
 #endif /* LiMi_Bridging_Header_h */

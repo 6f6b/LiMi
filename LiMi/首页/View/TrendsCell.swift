@@ -33,6 +33,7 @@ class TrendsCell: UITableViewCell {
     var indexPath:IndexPath?
     var cellStyle:TrendsCellStyle = .normal
     
+    var trendsBottomToolsContainViewBottomDividerHeightConstraint:Constraint?
     /************************部分变量****************************/
     ///容器到屏幕两边的距离
     var trendsContainViewMarginToWindow = CGFloat(0)
@@ -113,6 +114,7 @@ class TrendsCell: UITableViewCell {
             make.left.equalTo(self.contentView).offset(self.trendsContainViewMarginToWindow)
             //make.bottom.equalTo(self.contentView)
             make.right.equalTo(self.contentView).offset(-self.trendsContainViewMarginToWindow)
+
         }
         
         self.trendsContainViewBottomDivider = UIView()
@@ -204,7 +206,7 @@ class TrendsCell: UITableViewCell {
             make.left.equalTo(self.trendsContainView)
             make.right.equalTo(self.trendsContainView)
             make.bottom.equalTo(self.trendsContainView)
-            make.height.equalTo(7)
+            self.trendsBottomToolsContainViewBottomDividerHeightConstraint = make.height.equalTo(7).constraint
         }
         
         
@@ -240,7 +242,6 @@ class TrendsCell: UITableViewCell {
     //MARK: - misc
     ///对约束进行更新
     func refreshUI(){
-
         self.trendsContainView.snp.remakeConstraints {[unowned self]  (make) in
             make.top.equalTo(self.trendsContainViewTopDivider.snp.bottom)
             make.left.equalTo(self.contentView).offset(self.trendsContainViewMarginToWindow)
@@ -273,11 +274,8 @@ class TrendsCell: UITableViewCell {
         self.trendsTopToolsContainView.configWith(model: model,cellStyle: self.cellStyle)
         
         if self.cellStyle == .inCommentList{
-            self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
-                make.left.equalTo(self.trendsContainView)
-                make.right.equalTo(self.trendsContainView)
-                make.bottom.equalTo(self.trendsContainView)
+            self.trendsBottomToolsContainViewBottomDividerHeightConstraint?.deactivate()
+            self.trendsBottomToolsContainViewBottomDivider.snp.makeConstraints { (make) in
                 make.height.equalTo(0)
             }
         }

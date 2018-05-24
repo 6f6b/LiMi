@@ -25,12 +25,17 @@ class TrendsWithTextAndVideoCell: TrendsWithTextCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentText.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
-            //make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
-        }
+        self.contentTextBottomeConstraint?.deactivate()
+//        self.contentText.snp.remakeConstraints { (make) in
+//            make.top.equalTo(self.trendsContentContainView)
+//            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
+//            //make.bottom.equalTo(self.trendsContentContainView)
+//            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
+//        }
+
+//        self.contentText.snp.updateConstraints {[unowned self] (make) in
+//            make.bottom.equalTo(self.trendsContentContainView).constraint.deactivate()
+//        }
         
         self.videoContainView = UIView()
         self.trendsContentContainView.addSubview(self.videoContainView)

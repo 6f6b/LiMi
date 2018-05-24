@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C74EDEC61BE497948978DF1E402CFA43'
-               BlueprintName = 'ZFPlayer'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ZFPlayer.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C74EDEC61BE497948978DF1E402CFA43"
+               BlueprintName = "ZFPlayer"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "ZFPlayer.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.6.0)
+  - AliyunVideoSDKPro (3.5.0.1):
+    - QuCore-ThirdParty (~> 3.4.0)
   - Bugly (2.5.0)
   - CocoaLumberjack (3.2.1):
     - CocoaLumberjack/Default (= 3.2.1)
@@ -27,6 +29,7 @@ PODS:
   - Qiniu (7.2.3):
     - HappyDNS (~> 0.3)
   - QiniuUpload (3.0.0)
+  - QuCore-ThirdParty (3.4.0.1)
   - Reachability (3.2)
   - Realm (3.1.0):
     - Realm/Headers (= 3.1.0)
@@ -56,6 +59,7 @@ PODS:
     - Masonry
 
 DEPENDENCIES:
+  - AliyunVideoSDKPro (~> 3.5.0)
   - Bugly
   - CocoaLumberjack (~> 3.2.1)
   - DZNEmptyDataSet
@@ -86,8 +90,47 @@ DEPENDENCIES:
   - YYText
   - ZFPlayer
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - AliyunVideoSDKPro
+    - Bugly
+    - CocoaLumberjack
+    - DZNEmptyDataSet
+    - FMDB
+    - HappyDNS
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - M80AttributedLabel
+    - Masonry
+    - MJRefresh
+    - Moya
+    - ObjectMapper
+    - Qiniu
+    - QiniuUpload
+    - QuCore-ThirdParty
+    - Reachability
+    - Realm
+    - RealmSwift
+    - Result
+    - RxSwift
+    - SDCycleScrollView
+    - SDWebImage
+    - SKPhotoBrowser
+    - SnapKit
+    - SSZipArchive
+    - SVProgressHUD
+    - SwiftyJSON
+    - SwiftyUserDefaults
+    - Toast
+    - TZImagePickerController
+    - YYImage
+    - YYText
+    - ZFPlayer
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  AliyunVideoSDKPro: 072ac2a3e00191984ff33103c47fe32fc7f5549c
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -102,6 +145,7 @@ SPEC CHECKSUMS:
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   Qiniu: ae0fea1cc379fae1560d8748ac537e0fbeb8626e
   QiniuUpload: b1b3dda4883b9bacf9e2efc9e28978cdd6a26c70
+  QuCore-ThirdParty: 57ea35c76ec4d5d910ee33263bfb83aee0855189
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
   RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
@@ -121,6 +165,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: 7d7bbd237eb40e0f96520089e8866d819d1fa5d5
+PODFILE CHECKSUM: 84c8940f0a20a0d79c62fa1a1a76662eec0ac5e5
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.0

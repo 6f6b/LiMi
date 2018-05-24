@@ -4,19 +4,235 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/utilities/ImageUploadManager.swift"
-            timestampString = "546944901.647169"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Record/View/FilterAndBeautyView.m"
+            timestampString = "548871669.696717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "FilterAndBeautyView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/PhotoViewController.m"
+            timestampString = "548871669.696864"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "-backBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/AliyunCropViewController.m"
+            timestampString = "548871669.697477"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
+            landmarkName = "-onClickRatioButton"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/ConfigurationParam/RecordParam/AliyunRecordParamViewController.m"
+            timestampString = "548848851.800974"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/ConfigurationParam/RecordParam/AliyunRecordParamViewController.m"
+            timestampString = "548848869.4053119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.69778"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-playError:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.697863"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "-seekDidEnd"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.698007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "-save"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.698095"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1010"
+            endingLineNumber = "1010"
+            landmarkName = "-didSelectEffectMV:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.698171"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "-exporterDidEnd"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "548871669.698254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
+            landmarkName = "-updateSubViews"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/PhotoViewController.m"
+            timestampString = "548871669.698321"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/AliyunPhotoViewController.m"
+            timestampString = "548871072.550741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-setupSubViews"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/AliyunCropViewController.m"
+            timestampString = "548871669.698729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
+            landmarkName = "-didStartClip"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

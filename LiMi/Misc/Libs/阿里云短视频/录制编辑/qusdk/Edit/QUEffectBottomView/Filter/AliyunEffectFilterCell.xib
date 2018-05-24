@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AliyunEffectFilterCell">
+            <rect key="frame" x="0.0" y="0.0" width="214" height="183"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="214" height="183"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QTe-6e-hxx">
+                        <rect key="frame" x="40" y="40" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="JId-8z-3y9"/>
+                            <constraint firstAttribute="width" constant="18" id="c92-9d-GHw"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uJ7-8S-mmE">
+                        <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="uJ7-8S-mmE" secondAttribute="height" multiplier="1:1" id="Q7K-mv-XSj"/>
+                            <constraint firstAttribute="width" constant="98" id="yp9-UA-RuW"/>
+                        </constraints>
+                    </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xuanzhe" translatesAutoresizingMaskIntoConstraints="NO" id="IBx-E6-3bw">
+                        <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="98" id="43q-yk-j8w"/>
+                            <constraint firstAttribute="width" secondItem="IBx-E6-3bw" secondAttribute="height" id="52G-nx-QG2"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BL2-7v-gYm">
+                        <rect key="frame" x="0.0" y="103" width="98" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="IBx-E6-3bw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0dM-yv-9Ls"/>
+                <constraint firstAttribute="trailing" secondItem="uJ7-8S-mmE" secondAttribute="trailing" id="3T1-Xp-ggT"/>
+                <constraint firstItem="QTe-6e-hxx" firstAttribute="centerX" secondItem="uJ7-8S-mmE" secondAttribute="centerX" id="AU0-hp-Xju"/>
+                <constraint firstItem="IBx-E6-3bw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Bw5-g4-Lb9"/>
+                <constraint firstItem="QTe-6e-hxx" firstAttribute="centerY" secondItem="uJ7-8S-mmE" secondAttribute="centerY" id="DUD-Pp-Eee"/>
+                <constraint firstItem="BL2-7v-gYm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="G2F-WW-MAm"/>
+                <constraint firstAttribute="trailing" secondItem="IBx-E6-3bw" secondAttribute="trailing" id="H8V-7u-8pk"/>
+                <constraint firstItem="BL2-7v-gYm" firstAttribute="top" secondItem="uJ7-8S-mmE" secondAttribute="bottom" constant="5" id="lHV-cz-n2o"/>
+                <constraint firstItem="uJ7-8S-mmE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="mC4-H4-Aar"/>
+                <constraint firstAttribute="trailing" secondItem="BL2-7v-gYm" secondAttribute="trailing" id="sKt-Ka-bRN"/>
+                <constraint firstItem="uJ7-8S-mmE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="sWu-IT-x6U"/>
+            </constraints>
+            <size key="customSize" width="214" height="186"/>
+            <connections>
+                <outlet property="MvDecorateImage" destination="QTe-6e-hxx" id="OQm-tO-x4u"/>
+                <outlet property="coverImage" destination="IBx-E6-3bw" id="imI-NZ-3Rk"/>
+                <outlet property="imageView" destination="uJ7-8S-mmE" id="4as-zD-5Sv"/>
+                <outlet property="nameLabel" destination="BL2-7v-gYm" id="Qdl-0n-m6G"/>
+            </connections>
+            <point key="canvasLocation" x="-42" y="143.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="xuanzhe" width="56" height="56"/>
+    </resources>
+</document>

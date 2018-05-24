@@ -50,8 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.setupMainViewController()
         NTESRedPacketManager.shared().application(application, didFinishLaunchingWithOptions: launchOptions)
         LocationManager.shared.startLocateWith(success: nil, failed: nil)
-        
-        
+        let prestor = AliyunEffectPrestoreManager.init()
+        prestor.insertInitialData()
         return true
     }
 

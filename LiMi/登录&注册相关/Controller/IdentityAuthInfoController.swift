@@ -180,14 +180,7 @@ class IdentityAuthInfoController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        if isShowNotice && section == 0{
-//            let headerView = GET_XIB_VIEW(nibName: "IdentityAuthInfoHeaderView") as! IdentityAuthInfoHeaderView
-//            headerView.deleteBlock = {[unowned self] in
-//                self.isShowNotice = false
-//                tableView.reloadData()
-//            }
-//            return headerView
-//        }
+
         return nil
     }
     

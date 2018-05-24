@@ -14,12 +14,7 @@ class TrendsWithSingleImageAndTextCell: TrendsWithTextCell {
     var singleImageView:UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentText.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.trendsContentContainView)
-            make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
-            //make.bottom.equalTo(self.trendsContentContainView)
-            make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
-        }
+        self.contentTextBottomeConstraint?.deactivate()
         
         self.singleImageView = UIImageView()
         self.singleImageView.contentMode = .scaleAspectFill

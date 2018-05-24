@@ -1,0 +1,85 @@
+/* 
+  Localizable.strings
+  qusdk
+
+  Created by Vienta on 2017/4/10.
+  Copyright 2010-2017 Alibaba Group Holding Limited.. All rights reserved.
+*/
+
+"record_brand" = "拍摄"; //品牌页面拍摄入口（非用户）
+"magic_camera_brand" = "魔法相机"; //品牌也魔法相机入口（非用户）
+"import_entry_brand" = "导入编辑"; //品牌页导入编辑入口（非用户）
+"cut_entry_brand" = "导入裁剪"; //品牌页导入裁剪入口（非用户）
+"live_entry_brand" = "直播"; //品牌也直播入口（非用户）
+"ui_component_brand" = "其他"; //品牌页其他入口（非用户）
+"duration_current_record" = ""; //录制界面，当前录制时间
+"video_record" = "视频"; //录制界面，录制视频文案
+"photo_record" = "照片"; //录制界面，拍摄照片文案
+"edit_nav_edit" = "编辑"; //编辑界面导航栏标题
+"finish_subtitle_edit" = "完成"; //字幕编辑完成按钮文案
+"fill_subtitle_edit" = "填充"; //字幕编辑颜色填充
+"border_subtitle_edit" = "描边"; //字幕编辑描边颜色
+"time_positon_edit" = ""; //编辑界面当前帧的时间
+"hide_elements_edit" = "点击屏幕隐藏所有功能按钮"; //编辑界面隐藏界面元素提醒文案
+"show_elements_edit" = "点击屏幕显示所有功能按钮"; //编辑界面显示界面元素提醒下文案
+"speed_edit" = "速度"; //编辑界面变速功能速度调节文案
+"times_speed_edit" = "1.0X"; //编辑界面变速倍数文案
+"more_motion_sticker_nav_edit" = "更多动图"; //更多动图页面导航栏文案
+"more_subtitle_nav_edit" = "更多字幕"; //更多字幕页面导航栏文案
+"more_mv_nav_edit" = "更多MV"; //更多MV页面导航栏文案
+"effect_mananger_nav_edit" = "特效管理"; //特效管理页面导航栏文案
+"motion_sticker_effect_manager" = "动图"; //特效管理页面动图tab文案
+"subtitle_effect_manager" = "字幕"; //特效管理页面字幕tab文案
+"font_effect_manager" = "字体"; //特效管理页面字体tab文案
+"mv_effect_manager" = "MV"; //特效管理页面MVtab文案
+"music_effect_manager" = "音乐"; //特效管理页面音乐tab文案
+"delete_effect_manager" = "删除"; //特效管理页面删除特效文案
+"finish_effect_manager" = "完成"; //特效管理页面完成按钮文案
+"use_effect_edit" = "使用"; //使用特效的文案（这里使用各种特效统一）
+"download_effect_edit" = "下载"; //下载特效的文案（这里各种特效统一）
+"mute_music_edit" = "静音"; //音乐界面静音按钮文案
+"original_music_edit" = "原音"; //音乐界面音乐调节原音
+"music_edit" = "音乐"; //音乐界面音乐调节音乐文案
+"no_music_edit" = "无音乐"; //音乐界面无音乐按钮文案
+"dub_music_edit" = "配音"; //音乐界面配音按钮文案
+"my_music_edit" = "我的音乐"; //音乐界面我的音乐tab文案
+"local_music_edit" = "本地音乐"; //音乐界面本地音乐tab文案
+"camera_roll__nav_import" = "胶卷相机"; //导入界面胶卷相机导航栏文案
+"cancel_camera_import" = "取消"; //导入界面胶圈相机取消按钮文案
+"total_duration_label_import" = "总时长"; //总时长提示文案
+"total_duration_import" = ""; //总时长时间显示（如03:12:21)
+"reorder_import" = "长按以拖动排序"; //长按拖动文案提醒
+"next_camera_roll_import" = "下一步"; //胶卷相机下一步按钮文案
+"duration_video_import" = ""; //导入视频单个视频时长文案
+"message_max_duration_import" = "请控制总时长在5分钟之内"; //导入总时长过程时提醒文案
+"time_positon_cut" = ""; //裁剪界面当前帧的时间（拖动剪刀时显示，跟随）
+
+"minDuration" = "最小时长";
+"minDuration_placeholder" = "最小时长大于0,默认值2s";
+"maxDuration" = "最大时长";
+"maxDuration_placeholder" = "建议不超过300s,默认值30s";
+"key_frame_interval" = "关键帧间隔";
+"key_frame_interval_placeholder" = "建议1-300，默认5";
+"video_quality" = "视频质量";
+"resolution" = "分辨率";
+"start_recording" = "start";
+
+"video_quality_low_Configure" = "低"; //导入参数配置界面 视频质量
+"video_quality_mid_Configure" = "中"; //导入参数配置界面 视频质量
+"video_quality_high_Configure" = "高"; //导入参数配置界面 视频质量
+"video_quality_skyhigh_Configure" = "极高"; //导入参数配置界面 视频质量
+"video_film_composition" = "相机胶卷"; //导入界面相机胶卷title
+"nonsupport_video_type_composition" = "不支持的视频格式"; // 导入界面选择不支持的视频格式弹窗文案
+"video_affirm_common" = "确定"; // 确认 通用
+"video_reminder_common" = "提示"; // 提示 通用
+"video_error_edit" = "该视频为错误视频"; // 编辑界面错误视频 文案
+"video_is_exporting_edit" = "正在导出视频"; // 编辑界面导出视频弹窗文案
+"video_exporting_finish_edit" = "导出完成"; // 编辑界面导出完成文案
+"video_exporting_finish_fail_edit" = "导出失败"; // 编辑界面导出完成文案
+"video_exporting_check_autho" = "请检查是否有相册权限或其他";
+"video_local_save_edit" = "已保存到手机相册"; // 编辑界面保存到手机相册文案
+"video_remove_mv_edit" = "请先移除MV效果再添加音乐"; // 编辑界面MV与音乐不能叠加弹窗文案
+"video_title_edit" = "编辑"; // 编辑界面title
+"music_none_lable_edit" = "无音乐"; // 音乐选择界面 无音乐按钮
+"music_import_itunes_edit" = "当前无音乐，请在iTunes导入音乐"; // itunes无音乐时提示导入音乐文案
+

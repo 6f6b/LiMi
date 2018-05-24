@@ -118,12 +118,7 @@ class ReleaseController: ViewController {
         self.releaseContentRedBagInputCell.leftLabel.text = "打赏红包"
         self.releaseContentRedBagInputCell.leftImgV.image = UIImage.init(named: "fb_icon_hb")
         self.releaseContentRedBagInputCell.rightLabel.text = nil
-        
-//        //国内https上传
-//        let qnConfig = QNConfiguration.build { (builder) in
-//            builder?.setZone(QNFixedZone.zone0())
-//        }
-//        self.qnUploadManager = QNUploadManager(configuration: qnConfig)
+
     }
 
     deinit {

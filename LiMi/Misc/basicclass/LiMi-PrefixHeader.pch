@@ -17,29 +17,48 @@
 #import "NTESGlobalMacro.h"
 #import "NIMKit.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-//#import "UIView+Toast.h"
 
 
-//IM相关
-//#import "NTESLoginViewController.h"
-//#import "UIView+Toast.h"
-//#import "NTESService.h"
-//#import "NTESNotificationCenter.h"
-//#import "NTESLogManager.h"
-//#import "NTESConfig.h"
-//#import "NTESSessionUtil.h"
-//#import "NTESMainTabController.h"
-//#import "NTESLoginManager.h"
-//#import "NTESCustomAttachmentDecoder.h"
-//#import "NTESClientUtil.h"
-//#import "NTESNotificationCenter.h"
-//#import "NIMKit.h"
-//#import "NTESSDKConfigDelegate.h"
-//#import "NTESCellLayoutConfig.h"
-//#import "NTESSubscribeManager.h"
-//#import "NTESRedPacketManager.h"
-//#import "NTESBundleSetting.h"
-//#import "NTESSessionViewController.h"
+/****************************短视频相关****************************/
+#define ScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight  [UIScreen mainScreen].bounds.size.height
+#define SizeWidth(W) (W *CGRectGetWidth([[UIScreen mainScreen] bounds])/320)
+#define SizeHeight(H) (H *(ScreenHeight)/568)
+#define RGBToColor(R,G,B)  [UIColor colorWithRed:(R * 1.0) / 255.0 green:(G * 1.0) / 255.0 blue:(B * 1.0) / 255.0 alpha:1.0]
+#define rgba(R,G,B,A)  [UIColor colorWithRed:(R * 1.0) / 255.0 green:(G * 1.0) / 255.0 blue:(B * 1.0) / 255.0 alpha:A]
+#define BundleID [[NSBundle mainBundle] bundleIdentifier]
+
+// 注释为Release版
+//#define kQPEnableDevNetwork
+
+#ifdef kQPEnableDevNetwork
+#define kQPResourceHostUrl @"http://m.api.inner.alibaba.net"
+#else
+#define kQPResourceHostUrl @"https://m-api.qupaicloud.com"
+#endif
+
+// Demo模块入口
+#define DebugModule 0b111101
+#define SDK_VERSION 3           //当前的版本 默认为自定义版本
+
+#define SDK_VERSION_BASE 1      //基础版本
+#define SDK_VERSION_STANDARD 2  //标准版本
+#define SDK_VERSION_CUSTOM 3    //自定义版本
+
+
+#ifdef __OBJC__
+#if SDK_VERSION != SDK_VERSION_BASE
+#import "AliyunIConfig.h"
+#import "AliyunImage.h"
+#endif
+#endif
+#define IS_IPHONEX (([[UIScreen mainScreen] bounds].size.height-812)?NO:YES)
+#define SafeTop (([[UIScreen mainScreen] bounds].size.height-812) ? 0 : 44)
+#define SafeBottom (([[UIScreen mainScreen] bounds].size.height-812) ? 0 : 43)
+#define StatusBarHeight (([[UIScreen mainScreen] bounds].size.height-812) ? 20 : 44)
+
+#import <AliyunVideoSDKPro/AliyunIRecorder.h>
+/****************************短视频相关****************************/
 
 #ifdef DEBUG
 static DDLogLevel ddLogLevel = DDLogLevelVerbose;

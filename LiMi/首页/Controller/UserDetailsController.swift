@@ -196,6 +196,7 @@ class UserDetailsController: ViewController {
             let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
             self.refreshTimeInterval = userDetailModel?.timestamp == nil ? self.refreshTimeInterval : userDetailModel?.timestamp
             self.userInfoModel = userDetailModel?.user
+            //self.tableView.reloadData()
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
             self.refreshToolContainViewWith(model: userDetailModel?.user)
             Toast.showErrorWith(model: userDetailModel)
@@ -243,6 +244,7 @@ class UserDetailsController: ViewController {
 
 extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.userInfoModel == nil{return 0}
         return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

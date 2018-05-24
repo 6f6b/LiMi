@@ -39,13 +39,16 @@ target ‘LiMi' do
 
     pod 'SDCycleScrollView','~> 1.75'
 
-
+#    pod 'TuSDK', '~> 2.9.1'
+#    pod 'TuSDK/Core', '~> 2.9.1'
+#    pod 'TuSDK/ImageGeeV1', '~> 2.9.1'
+#    pod 'TuSDK/ImageGeeV2', '~> 2.9.1'
 #    pod 'KSPhotoBrowser'
-
 #    pod 'NIMKit/Full'
 #    pod 'XLPagerTabStrip', '~> 8.0'
 #    pod 'AGEmojiKeyboard'
 #    pod 'PageMenu'
 #    pod 'SPPageMenu'
 #   pod 'Moya/RxSwift'
+pod 'AliyunVideoSDKPro', '~> 3.5.0'
 end

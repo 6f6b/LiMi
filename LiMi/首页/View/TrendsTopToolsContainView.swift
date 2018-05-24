@@ -40,7 +40,7 @@ class TrendsTopToolsContainView: UIView {
         self.userName.textColor = APP_THEME_COLOR
         self.addSubview(self.userName)
         self.userName.font = UIFont.boldSystemFont(ofSize: 14)
-        self.userName.text = "--"
+        self.userName.text = ""
         self.userName.snp.makeConstraints { (make) in
             make.top.equalTo(self.headImgBtn)
             make.left.equalTo(self.headImgBtn.snp.right).offset(10)
@@ -48,7 +48,7 @@ class TrendsTopToolsContainView: UIView {
         
         self.sexImg = UIImageView()
         self.addSubview(self.sexImg)
-        self.sexImg.image = UIImage.init(named: "boy")
+        self.sexImg.image = nil
         self.sexImg.snp.makeConstraints { (make) in
             make.left.equalTo(self.userName.snp.right).offset(10)
             make.centerY.equalTo(self.userName)
@@ -57,7 +57,7 @@ class TrendsTopToolsContainView: UIView {
         self.userInfo = UILabel()
         self.addSubview(self.userInfo)
         self.userInfo.font = UIFont.systemFont(ofSize: 12)
-        self.userInfo.text = "电机工程学院"
+        self.userInfo.text = ""
         self.userInfo.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         self.userInfo.snp.makeConstraints { (make) in
             make.left.equalTo(self.headImgBtn.snp.right).offset(10)

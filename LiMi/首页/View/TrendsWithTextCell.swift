@@ -8,9 +8,11 @@
 
 import UIKit
 import YYText
+import SnapKit
 
 class TrendsWithTextCell: TrendsCell {
     var contentText:YYLabel!
+    var contentTextBottomeConstraint:Constraint?
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -29,7 +31,7 @@ class TrendsWithTextCell: TrendsCell {
         self.contentText.snp.makeConstraints { (make) in
             make.top.equalTo(self.trendsContentContainView)
             make.left.equalTo(self.trendsContentContainView).offset(textAreaMarginToWindow)
-            make.bottom.equalTo(self.trendsContentContainView)
+            self.contentTextBottomeConstraint = make.bottom.equalTo(self.trendsContentContainView).constraint
             make.right.equalTo(self.trendsContentContainView).offset(-textAreaMarginToWindow)
         }
     }
@@ -44,7 +46,6 @@ class TrendsWithTextCell: TrendsCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
 
     //MARK: - misc

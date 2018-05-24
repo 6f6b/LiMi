@@ -8,8 +8,30 @@
 
 import Foundation
 import Dispatch
+import Kingfisher
+
+typealias DownloadProgressBlock = ((_ receivedSize: Int64, _ totalSize: Int64) -> Void)
 
 extension UIImageView{
+    
+    //设置网络图片
+    func setImageWith(imageURL:String?,placeholder:String?,progressBlock:DownloadProgressBlock? = nil,completionBlock:(()->Void)? = nil){
+        if let _imageURL = imageURL{
+            let url = URL.init(string: _imageURL)
+            var placeHolderImage:UIImage?
+            if let _placeholder = placeholder{
+                placeHolderImage = UIImage.init(named: _placeholder)
+            }
+            let completionHandler:CompletionHandler = {(_,_,_,_) in
+                if let _completionBlock = completionBlock{
+                    _completionBlock()
+                }
+            }
+            self.kf.setImage(with: url, placeholder: placeHolderImage, options: nil, progressBlock: progressBlock, completionHandler: completionHandler)
+        }
+    }
+    
+    /*根据视屏链接获取封面*/
     func setVideoPreImageWith(videoURL:String?){
         //根据地址判断本地是否存有图片
         if let _videoPreImg = getVideoPreImageFromLocalWith(videoURL: videoURL){
@@ -32,7 +54,7 @@ extension UIImageView{
 ///
 /// - Parameter videoURL: 视频链接
 /// - Returns: 预览图
-func getVideoPreImageFromLocalWith(videoURL:String?)->UIImage?{
+private func getVideoPreImageFromLocalWith(videoURL:String?)->UIImage?{
     if let _videoURL = videoURL{
         let tempDir = NSTemporaryDirectory()
         let imageName = NSString.init(string: _videoURL).md5() + ".jpg"
@@ -48,7 +70,7 @@ func getVideoPreImageFromLocalWith(videoURL:String?)->UIImage?{
 /// - Parameters:
 ///   - videoURL: 视频链接
 ///   - image: 视频预览图
-func saveVidoPreImageToLocalWith(videoURL:String?,image:UIImage?){
+private func saveVidoPreImageToLocalWith(videoURL:String?,image:UIImage?){
     if let _image = image,let _videoURL = videoURL{
         let tempDir = NSTemporaryDirectory()
         let imageName = NSString.init(string: _videoURL).md5() + ".jpg"
@@ -62,7 +84,7 @@ func saveVidoPreImageToLocalWith(videoURL:String?,image:UIImage?){
     }
 }
 
-func requestVideoPreImageFromIntelnetWith(videoURL:String?,successBlock:((UIImage)->Void)?,faildBlock:(()->Void)?){
+private func requestVideoPreImageFromIntelnetWith(videoURL:String?,successBlock:((UIImage)->Void)?,faildBlock:(()->Void)?){
     let myQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.default)
     myQueue.async {
         if let _videoUrl = videoURL{

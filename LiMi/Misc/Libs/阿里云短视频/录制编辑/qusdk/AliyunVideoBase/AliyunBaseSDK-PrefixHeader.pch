@@ -1,0 +1,28 @@
+//
+//  AliyunBaseSDK-PrefixHeader.pch
+//  AliyunVideo
+//
+//  Created by TripleL on 17/5/4.
+//  Copyright (C) 2010-2017 Alibaba Group Holding Limited. All rights reserved.
+//
+
+#ifndef AliyunBaseSDK_PrefixHeader_pch
+#define AliyunBaseSDK_PrefixHeader_pch
+
+#define ScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight  [UIScreen mainScreen].bounds.size.height
+#define SizeWidth(W) (W *CGRectGetWidth([[UIScreen mainScreen] bounds])/320)
+#define SizeHeight(H) (H *(ScreenHeight)/568)
+
+#define RGBToColor(R,G,B)  [UIColor colorWithRed:(R * 1.0) / 255.0 green:(G * 1.0) / 255.0 blue:(B * 1.0) / 255.0 alpha:1.0]
+#define rgba(R,G,B,A)  [UIColor colorWithRed:(R * 1.0) / 255.0 green:(G * 1.0) / 255.0 blue:(B * 1.0) / 255.0 alpha:A]
+
+#ifdef __OBJC__
+#import "AliyunIConfig.h"
+#import "AliyunImage.h"
+#endif
+
+
+//#define AliyunVideoBaseSDK
+
+#endif /* AliyunBaseSDK_PrefixHeader_pch */

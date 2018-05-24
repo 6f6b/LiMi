@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5D7D1E03082A77B8D262A14AFF16BE26'
-               BlueprintName = 'SnapKit'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SnapKit.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5D7D1E03082A77B8D262A14AFF16BE26"
+               BlueprintName = "SnapKit"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "SnapKit.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

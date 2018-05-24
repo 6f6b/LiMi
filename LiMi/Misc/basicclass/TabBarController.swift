@@ -115,8 +115,9 @@ extension TabBarController:UITabBarControllerDelegate{
         if viewController == self.viewControllers![2]{
             if !AppManager.shared.checkUserStatus(){return false}
 
-            let releaseController = ReleaseController()
-            let releaseNav = NavigationController(rootViewController: releaseController)
+            let releaseTypeController = ReleaseTypeController()
+//            let releaseController = ReleaseController()
+            let releaseNav = NavigationController(rootViewController: releaseTypeController)
             self.present(releaseNav, animated: true, completion: nil)
             return false
         }
