@@ -120,14 +120,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [self addSubviews];
     
     // editor
-    NSString *taskPath = @"";
-    
-    NSArray *taskPaths = [_taskPath componentsSeparatedByString:@"cut"];
-    taskPath = taskPaths.firstObject;
-    if(taskPaths.count > 1){
-        taskPath = [taskPath stringByAppendingString:@"cut"];
-    }
-    self.editor = [[AliyunEditor alloc] initWithPath:taskPath preview:self.movieView];
+    self.editor = [[AliyunEditor alloc] initWithPath:_taskPath preview:self.movieView];
     self.editor.delegate = (id)self;
 
     // player

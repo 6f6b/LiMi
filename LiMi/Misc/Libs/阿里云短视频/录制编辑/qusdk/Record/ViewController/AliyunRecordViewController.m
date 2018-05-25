@@ -123,7 +123,6 @@
     _recorder.beautifyValue = self.beautifyValue;
     _recorder.bitrate = _quVideo.bitrate;
     [_recorder startPreview];
-//    _previewView.backgroundColor = [UIColor clearColor];
     
     //录制片段设置
     _clipManager = _recorder.clipManager;

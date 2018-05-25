@@ -35,9 +35,15 @@
     NSString *videoSavePath = [[[AliyunPathManager createCutDir] stringByAppendingPathComponent:[AliyunPathManager uuidString]] stringByAppendingPathExtension:@"mp4"];
     NSString *taskPath = [AliyunPathManager createCutDir];
     _cutInfo.outputPath = videoSavePath;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:taskPath]) {
+    BOOL isDir = NO;
+    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:taskPath isDirectory:&isDir];
+    if (!(isExist && isDir)) {
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:taskPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }else{
         [[NSFileManager defaultManager] removeItemAtPath:taskPath error:nil];
     }
+    
+    NSString *rec  = [AliyunPathManager createRecrodDir];
     
     self.photoCollectionView.alwaysBounceVertical = YES;
     [self.photoCollectionView registerClass:[AliyunPhotoListViewCell class] forCellWithReuseIdentifier:@"AliyunPhotoListViewCell"];
@@ -227,6 +233,11 @@
 
 - (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath{
     AliyunEditViewController *editVC = (AliyunEditViewController *)AliyunMediator.shared.editViewController;
+    NSArray *taskPaths = [videoPath componentsSeparatedByString:@"cut"];
+    NSString *taskPath = taskPaths.firstObject;
+    if(taskPaths.count > 1){
+        taskPath = [taskPath stringByAppendingString:@"cut"];
+    }
     editVC.taskPath = videoPath;
     editVC.config = self.cutInfo;
     [self.navigationController pushViewController:editVC animated:true];
