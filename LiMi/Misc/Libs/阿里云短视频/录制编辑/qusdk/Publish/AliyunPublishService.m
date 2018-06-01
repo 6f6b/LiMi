@@ -27,6 +27,15 @@
     return self;
 }
 
++ (instancetype)share{
+    static dispatch_once_t onceToken;
+    static AliyunPublishService *service = nil;
+    dispatch_once(&onceToken, ^{
+        service = [[AliyunPublishService alloc] init];
+    });
+    return service;
+}
+
 + (instancetype)service {
     static dispatch_once_t onceToken;
     static AliyunPublishService *service = nil;

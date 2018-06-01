@@ -15,7 +15,10 @@
 #import "AliyunPhotoLibraryManager.h"
 #import "AliyunCycleProgressView.h"
 #import "AliyunCropViewBottomView.h"
-
+#import "AliyunPathManager.h"
+#import <AliyunVideoSDKPro/AliyunImporter.h>
+#import "AliyunEditViewController.h"
+#import "AliyunMediator.h"
 
 static NSString *const PlayerItemStatus = @"_playerItem.status";
 
@@ -45,7 +48,8 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 @property (nonatomic, strong) id timeObserver;
 @property (nonatomic, assign) CMTime currentTime;
 
-@property (nonatomic, assign) CGFloat destRatio;
+//@property (nonatomic, assign) CGFloat destRatio;
+@property (nonatomic, assign) CGFloat screenRatio;
 @property (nonatomic, assign) CGFloat orgVideoRatio;
 @property (nonatomic, assign) CGSize originalMediaSize;
 
@@ -70,17 +74,18 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     [self setupSubViews];
     
     
-    
+    self.view.backgroundColor = UIColor.blackColor;
     if (_cutInfo.phAsset) {//是图片资源
         _originalMediaSize = CGSizeMake(_cutInfo.phAsset.pixelWidth, _cutInfo.phAsset.pixelHeight);
-        _destRatio = _cutInfo.outputSize.width / _cutInfo.outputSize.height;
+//        _destRatio = _cutInfo.outputSize.width / _cutInfo.outputSize.height;
         _orgVideoRatio = _originalMediaSize.width / _originalMediaSize.height;
         [self setupStillImageLayer];
     } else {
         NSURL *sourceURL = [NSURL fileURLWithPath:_cutInfo.sourcePath];
         _avAsset = [AVAsset assetWithURL:sourceURL];
         _originalMediaSize = [_avAsset avAssetNaturalSize];
-        _destRatio = _cutInfo.outputSize.width / _cutInfo.outputSize.height;
+        _screenRatio = ScreenWidth/ScreenHeight;
+//        _destRatio = _cutInfo.outputSize.width / _cutInfo.outputSize.height;
         _orgVideoRatio = _originalMediaSize.width / _originalMediaSize.height;
         
         [self setAVPlayer];
@@ -97,11 +102,11 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
+    
 }
 
 - (void)setupSubViews {
     
-    self.view.backgroundColor = [AliyunIConfig config].backgroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewTapGesture)];
     self.previewScrollView = [[UIScrollView alloc] init];
@@ -216,15 +221,24 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 }
 
 - (void)cropViewFitRect {
-    
-    _previewHeight = ScreenWidth / _destRatio;
+    CGSize size = CGSizeZero;
+    if (_screenRatio >= _orgVideoRatio){
+        CGFloat heightRatio = ScreenHeight/_originalMediaSize.height;
+        size.height = ScreenHeight;
+        size.width = _originalMediaSize.width*heightRatio;
+    }
+    if ( _screenRatio < _orgVideoRatio){
+        CGFloat widthRatio = ScreenWidth/_originalMediaSize.width;
+        size.width = ScreenWidth;
+        size.height = _originalMediaSize.height*widthRatio;
+    }
     
     CGRect frame = _previewScrollView.frame;
-    frame.size.height = _previewHeight;
-    if (_destRatio == 9.0/16.0) {
-        frame.origin.y = SafeTop;
-    }
+    frame.size = size;
+    
     _previewScrollView.frame = frame;
+    _previewScrollView.center = self.view.center;
+    _avPlayerLayer.frame = _previewScrollView.bounds;
     _previewScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     if (_cutInfo.cutMode) {
         // 1 : 裁剪
@@ -235,49 +249,50 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
         [self.bottomView.ratioButton setImage:[AliyunImage imageNamed:@"normal"] forState:0];
         [self fitModeFill];
     }
+    
 }
 
 - (void)fitModeCut {
-    if (_orgVideoRatio > _destRatio) {
-        _previewScrollView.contentSize = CGSizeMake(_previewHeight * _orgVideoRatio, _previewHeight);
-        if (_cutInfo.phAsset) {
-            _stillImageLayer.frame = CGRectMake(0, 0, _previewHeight * _orgVideoRatio, _previewHeight);
-        } else {
-            _avPlayerLayer.frame = CGRectMake(0, 0, _previewHeight * _orgVideoRatio, _previewHeight);
-        }
-        [_previewScrollView setContentOffset:CGPointMake((_previewHeight *_orgVideoRatio - ScreenWidth)/2.0, 0)];
-    } else {
-        _previewScrollView.contentSize = CGSizeMake(ScreenWidth, ScreenWidth / _orgVideoRatio);
-        if (_cutInfo.phAsset) {
-            _stillImageLayer.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth / _orgVideoRatio);
-        } else {
-            _avPlayerLayer.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth / _orgVideoRatio);
-        }
-        
-        [_previewScrollView setContentOffset:CGPointMake(0, (ScreenWidth / _orgVideoRatio - _previewHeight) / 2.0)];
-    }
-    _preViewOffset = _previewScrollView.contentOffset;
+//    if (_orgVideoRatio > _destRatio) {
+//        _previewScrollView.contentSize = CGSizeMake(_previewHeight * _orgVideoRatio, _previewHeight);
+//        if (_cutInfo.phAsset) {
+//            _stillImageLayer.frame = CGRectMake(0, 0, _previewHeight * _orgVideoRatio, _previewHeight);
+//        } else {
+//            _avPlayerLayer.frame = CGRectMake(0, 0, _previewHeight * _orgVideoRatio, _previewHeight);
+//        }
+//        [_previewScrollView setContentOffset:CGPointMake((_previewHeight *_orgVideoRatio - ScreenWidth)/2.0, 0)];
+//    } else {
+//        _previewScrollView.contentSize = CGSizeMake(ScreenWidth, ScreenWidth / _orgVideoRatio);
+//        if (_cutInfo.phAsset) {
+//            _stillImageLayer.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth / _orgVideoRatio);
+//        } else {
+//            _avPlayerLayer.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth / _orgVideoRatio);
+//        }
+//
+//        [_previewScrollView setContentOffset:CGPointMake(0, (ScreenWidth / _orgVideoRatio - _previewHeight) / 2.0)];
+//    }
+//    _preViewOffset = _previewScrollView.contentOffset;
 }
 
 - (void)fitModeFill {
-    _previewScrollView.contentSize = CGSizeMake(0, 0);
-    
-    if (_cutInfo.phAsset) {
-        
-        if (_orgVideoRatio > _destRatio) {
-            //上下黑
-            CGFloat top = (CGRectGetHeight(_previewScrollView.bounds) - ScreenWidth / _orgVideoRatio) / 2;
-            _stillImageLayer.frame = CGRectMake(0, top, ScreenWidth, ScreenWidth / _orgVideoRatio);
-            
-        } else {
-            //左右黑
-            CGFloat left = (CGRectGetWidth(_previewScrollView.bounds) - CGRectGetHeight(_previewScrollView.bounds) * _orgVideoRatio) / 2;
-            _stillImageLayer.frame = CGRectMake(left, 0, _orgVideoRatio * CGRectGetHeight(_previewScrollView.bounds) , CGRectGetHeight(_previewScrollView.bounds));
-        }
-        
-    } else {
-        _avPlayerLayer.frame = _previewScrollView.bounds;
-    }
+//    _previewScrollView.contentSize = CGSizeMake(0, 0);
+//
+//    if (_cutInfo.phAsset) {
+//
+//        if (_orgVideoRatio > _destRatio) {
+//            //上下黑
+//            CGFloat top = (CGRectGetHeight(_previewScrollView.bounds) - ScreenWidth / _orgVideoRatio) / 2;
+//            _stillImageLayer.frame = CGRectMake(0, top, ScreenWidth, ScreenWidth / _orgVideoRatio);
+//
+//        } else {
+//            //左右黑
+//            CGFloat left = (CGRectGetWidth(_previewScrollView.bounds) - CGRectGetHeight(_previewScrollView.bounds) * _orgVideoRatio) / 2;
+//            _stillImageLayer.frame = CGRectMake(left, 0, _orgVideoRatio * CGRectGetHeight(_previewScrollView.bounds) , CGRectGetHeight(_previewScrollView.bounds));
+//        }
+//
+//    } else {
+//        _avPlayerLayer.frame = _previewScrollView.bounds;
+//    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -340,9 +355,7 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
             return;
         }
         
-        if (self.delegate) {
-            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
-        }
+            [self cropViewControllerFinish:self.cutInfo viewController:self];
     }
 }
 
@@ -367,9 +380,7 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     
     self.cutInfo.phImage = image;
     
-    if (self.delegate) {
-        [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
-    }
+    [self cropViewControllerFinish:self.cutInfo viewController:self];
 }
 
 - (void)didStartClip {
@@ -389,9 +400,7 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     }
 
     if (_fakeCrop) {
-        if (self.delegate) {
-            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
-        }
+        [self cropViewControllerFinish:self.cutInfo viewController:self];
         return;
     }
 
@@ -419,8 +428,6 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     _cutPanel.startTime = _cutInfo.startTime;
     _cutPanel.endTime = _cutInfo.endTime;
     
-//    _cutPanel.startTime = 0;
-//    _cutPanel.endTime = 5;
     
     _cutPanel.fadeDuration = 0;
     _cutPanel.gop = _cutInfo.gop;
@@ -443,28 +450,28 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 
 
 - (CGRect)configureReservationRect {
-    CGFloat x = 0, y = 0, w = 0, h = 0;
+    CGFloat x = 0, y = 0, w = _originalMediaSize.width, h = _originalMediaSize.height;
     y = _preViewOffset.y;
-    if (_orgVideoRatio > _destRatio) {
-        if (_preViewOffset.x == 0 || _previewScrollView.contentSize.width == 0 ||_originalMediaSize.width == 0) {
-            x = 0;
-        } else {
-            x = _preViewOffset.x / _previewScrollView.contentSize.width * _originalMediaSize.width;
-        }
-        h = _originalMediaSize.height;
-        w = h * _destRatio;
-    } else {
-        if (_preViewOffset.y == 0 || _previewScrollView.contentSize.height == 0 ||_originalMediaSize.height == 0) {
-            y = 0;
-        } else {
-            y = _preViewOffset.y / _previewScrollView.contentSize.height * _originalMediaSize.height;
-        }
-        w = _originalMediaSize.width;
-        h = _originalMediaSize.width / _destRatio;
-    }
-    if (!y) {
-        y = 0;
-    }
+//    if (_orgVideoRatio > _destRatio) {
+//        if (_preViewOffset.x == 0 || _previewScrollView.contentSize.width == 0 ||_originalMediaSize.width == 0) {
+//            x = 0;
+//        } else {
+//            x = _preViewOffset.x / _previewScrollView.contentSize.width * _originalMediaSize.width;
+//        }
+//        h = _originalMediaSize.height;
+//        w = h * _destRatio;
+//    } else {
+//        if (_preViewOffset.y == 0 || _previewScrollView.contentSize.height == 0 ||_originalMediaSize.height == 0) {
+//            y = 0;
+//        } else {
+//            y = _preViewOffset.y / _previewScrollView.contentSize.height * _originalMediaSize.height;
+//        }
+//        w = _originalMediaSize.width;
+//        h = _originalMediaSize.width / _destRatio;
+//    }
+//    if (!y) {
+//        y = 0;
+//    }
     return CGRectMake(x, y, w, h);
 }
 
@@ -584,7 +591,6 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification {
     [self didStopCut];
-
    // sleep(1);
     [self pauseVideo];
 //    _isCancel = YES;
@@ -639,4 +645,45 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     
 }
 
+- (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
+    if (mediaInfo.phAsset) {//图片资源
+        [self cropFinished:controller mediaType:kPhotoMediaTypePhoto photo:mediaInfo.phImage videoPath:nil];
+    } else {
+        [self cropFinished:controller videoPath:mediaInfo.outputPath sourcePath:mediaInfo.sourcePath];
+    }
+    //Refresh
+}
+
+- (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath{
+    
+    NSString *taskPath = [AliyunPathManager createCutDir];
+    
+    AliyunImporter *importor = [[AliyunImporter alloc] initWithPath:taskPath outputSize:_cutInfo.outputSize];
+    [importor addVideoWithPath:videoPath animDuration:0];
+    AliyunVideoParam *param = [[AliyunVideoParam alloc] init];
+    param.fps = _cutInfo.fps;
+    param.gop = _cutInfo.gop;
+    param.bitrate = _cutInfo.bitrate;
+    param.videoQuality = (AliyunVideoQuality)_cutInfo.videoQuality;
+    param.scaleMode = (AliyunScaleMode)_cutInfo.cutMode;
+    [importor setVideoParam:param];
+    [importor generateProjectConfigure];
+    
+    AliyunEditViewController *editVC = (AliyunEditViewController *)AliyunMediator.shared.editViewController;
+    editVC.taskPath = taskPath;
+    editVC.config = self.cutInfo;
+    [self.navigationController pushViewController:editVC animated:true];
+}
+
+/**
+ 裁剪完成回调，裁剪对象有两种：视频或者图片
+ 
+ @param cropViewController 裁剪viewController
+ @param type 媒体类型
+ @param photo 如果媒体类型是图像，则返回裁剪出来的图像，否则返回nil
+ @param videoPath 如果媒体类型是视频，则返回裁剪出来的视频路径，否则返回nil
+ */
+- (void)cropFinished:(UIViewController *)cropViewController mediaType:(kPhotoMediaType)type photo:(UIImage *)photo videoPath:(NSString *)videoPath{
+    
+}
 @end

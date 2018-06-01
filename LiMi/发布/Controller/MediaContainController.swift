@@ -13,6 +13,7 @@ class MediaContainController: ViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
     @IBOutlet weak var bottomLineLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomToolsContainView: UIView!
     
     var recordViewController:AliyunRecordViewController!
     var photoViewController:PhotoViewController!
@@ -21,7 +22,6 @@ class MediaContainController: ViewController {
         self.view.backgroundColor = UIColor.white
         
         self.setupSDKUI()
-        
         self.scrollView.frame = SCREEN_RECT
         self.scrollView.contentSize = CGSize.init(width: SCREEN_WIDTH*2, height: SCREEN_HEIGHT)
         self.scrollView.isScrollEnabled = false
@@ -29,20 +29,15 @@ class MediaContainController: ViewController {
         self.recordViewController = AliyunMediator.shared().recordViewController() as? AliyunRecordViewController
         let quVideo = AliyunMediaConfig.init()
         quVideo.outputSize = SCREEN_RECT.size
-        quVideo.minDuration = 3
+        quVideo.minDuration = 2
         quVideo.maxDuration = 30
+        quVideo.cutMode = .scaleAspectCut;
         recordViewController?.delegate = self
         recordViewController?.quVideo = quVideo
-        
-        let cutInfo = AliyunMediaConfig.init()
-        cutInfo.minDuration = 3;
-        cutInfo.maxDuration = 30;
-        cutInfo.outputSize = CGSize.init(width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-        cutInfo.cutMode = AliyunMediaCutMode.scaleAspectFill
-        cutInfo.videoOnly = true
-        cutInfo.backgroundColor = UIColor.black
+
         self.photoViewController = PhotoViewController()
-        self.photoViewController.cutInfo = cutInfo
+        self.photoViewController.minDuration = 2;
+        self.photoViewController.maxDuration = 30;
         self.photoViewController.delegate = self
         
         self.addChildViewController(self.recordViewController)
@@ -53,9 +48,21 @@ class MediaContainController: ViewController {
         albumFrame.origin.x = SCREEN_WIDTH
         self.photoViewController.view.frame = albumFrame
         self.scrollView.addSubview(self.photoViewController.view)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(recordingStatusChangedWith(notification:)), name: Notification.Name.init("RecordingStatusChaged"), object: nil)
     }
     
+    @objc func recordingStatusChangedWith(notification:Notification) -> Void {
 
+        if let isRecording = notification.userInfo!["isRecording"] as? Bool{
+            self.bottomToolsContainView.isHidden = isRecording;
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -76,9 +83,9 @@ class MediaContainController: ViewController {
     func setupSDKUI(){
         let config = AliyunIConfig.init()
         config.backgroundColor = UIColor.clear
-        config.timelineBackgroundCollor = RGBA(r: 127, g: 110, b: 241, a: 1);
+        config.timelineBackgroundCollor = RGBA(r: 255, g: 255, b: 255, a: 0.2);
         config.timelineDeleteColor = UIColor.orange
-        config.timelineTintColor = UIColor.brown
+        config.timelineTintColor = RGBA(r: 127, g: 110, b: 241, a: 1);
         config.durationLabelTextColor = UIColor.red
         config.hiddenDurationLabel = false
         config.hiddenFlashButton = false

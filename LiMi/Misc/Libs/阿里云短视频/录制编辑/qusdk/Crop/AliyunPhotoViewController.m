@@ -159,20 +159,20 @@
 //    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
-//    [self.navigationController popViewControllerAnimated:YES];
-    if (mediaInfo.phAsset) {//图片资源
-        if (self.delegate) {
-            [self.delegate cropFinished:controller mediaType:kPhotoMediaTypePhoto photo:mediaInfo.phImage videoPath:nil];
-        }
-    } else {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(cropFinished:videoPath:sourcePath:)]) {
-            [self.delegate cropFinished:controller videoPath:mediaInfo.outputPath sourcePath:mediaInfo.sourcePath];
-        }
-    }
-    //Refresh
-    [self fetchPhotoData];
-}
+//- (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
+////    [self.navigationController popViewControllerAnimated:YES];
+//    if (mediaInfo.phAsset) {//图片资源
+//        if (self.delegate) {
+//            [self.delegate cropFinished:controller mediaType:kPhotoMediaTypePhoto photo:mediaInfo.phImage videoPath:nil];
+//        }
+//    } else {
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(cropFinished:videoPath:sourcePath:)]) {
+//            [self.delegate cropFinished:controller videoPath:mediaInfo.outputPath sourcePath:mediaInfo.sourcePath];
+//        }
+//    }
+//    //Refresh
+//    [self fetchPhotoData];
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     AliyunAssetModel *model = _libraryDataArray[indexPath.row];
@@ -183,6 +183,7 @@
         
         return;
     }
+
     [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (model.type == AliyunAssetModelMediaTypeVideo) {
         [[AliyunPhotoLibraryManager sharedManager] getVideoWithAsset:model.asset completion:^(AVAsset *avAsset, NSDictionary *info) {
@@ -191,6 +192,7 @@
             _cutInfo.endTime = 0.f;
             _cutInfo.sourceDuration = 0.f;
             _cutInfo.avAsset = avAsset;
+            
             _cutInfo.phAsset = nil;
             _cutInfo.phImage = nil;
             if (!_cutInfo.outputPath) {
@@ -200,7 +202,7 @@
             _cutInfo.sourcePath = url.path;
             AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
             cut.cutInfo = _cutInfo;
-            cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
+//            cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
             [self.navigationController pushViewController:cut animated:YES];
         }];
     } else {
@@ -211,7 +213,7 @@
                 _cutInfo.phImage = image;
                 AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
                 cut.cutInfo = _cutInfo;
-                cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
+//                cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
                 [self.navigationController pushViewController:cut animated:YES];
             });
         }];

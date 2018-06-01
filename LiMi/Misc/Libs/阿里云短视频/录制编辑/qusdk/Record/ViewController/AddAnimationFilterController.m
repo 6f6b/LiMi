@@ -142,12 +142,11 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [super didReceiveMemoryWarning];
 }
 - (IBAction)cancelButtonClicked:(id)sender {
-    for (int i=0; i<self.animationFilters.count; i++) {
-        AliyunEffectFilter *currentFilter = [self.animationFilters objectAtIndex:i];
+    while (self.animationFilters.count > 0) {
+        AliyunEffectFilter *currentFilter = [self.animationFilters lastObject];
         [self.editor removeAnimationFilter:currentFilter];
-        [self.animationFilters removeLastObject];
-        //TODO:这里删除
         [self removeLastAnimtionFilterItemFromTimeLineView];
+        [self.animationFilters removeLastObject];
     }
     [self dismissViewControllerAnimated:true completion:nil];
 }

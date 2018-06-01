@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gTV-IL-0wX" customClass="MusicPickCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="112" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="112" height="170"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfy-rE-et6">
+                        <rect key="frame" x="0.0" y="0.0" width="112" height="104"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="qfy-rE-et6" secondAttribute="height" id="eSb-32-rgA"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="music name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lL2-py-Jy9">
+                        <rect key="frame" x="0.0" y="120" width="68" height="21"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.11764705882352941" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="zanting" translatesAutoresizingMaskIntoConstraints="NO" id="KWH-ne-gmq">
+                        <rect key="frame" x="26" y="27" width="42" height="51"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxk-FP-1S3">
+                        <rect key="frame" x="5" y="80" width="32" height="10"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="Yym-7w-N9b"/>
+                            <constraint firstAttribute="height" constant="12" id="bm0-24-ufJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="qfy-rE-et6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2GI-01-qaG"/>
+                <constraint firstItem="KWH-ne-gmq" firstAttribute="centerX" secondItem="qfy-rE-et6" secondAttribute="centerX" id="4zN-DX-1aX"/>
+                <constraint firstItem="lL2-py-Jy9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="B4v-kt-dzK"/>
+                <constraint firstAttribute="trailing" secondItem="qfy-rE-et6" secondAttribute="trailing" id="Cm6-sS-Ob7"/>
+                <constraint firstItem="qfy-rE-et6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Dgp-Mg-dfY"/>
+                <constraint firstAttribute="bottom" secondItem="qfy-rE-et6" secondAttribute="bottom" constant="35" id="FBb-Vx-XjR"/>
+                <constraint firstItem="sxk-FP-1S3" firstAttribute="leading" secondItem="qfy-rE-et6" secondAttribute="leading" constant="5" id="LYe-Wb-7IB"/>
+                <constraint firstItem="lL2-py-Jy9" firstAttribute="top" secondItem="qfy-rE-et6" secondAttribute="bottom" constant="8" id="QeX-Y4-h74"/>
+                <constraint firstItem="KWH-ne-gmq" firstAttribute="centerY" secondItem="qfy-rE-et6" secondAttribute="centerY" id="Sbg-G0-GWo"/>
+                <constraint firstItem="sxk-FP-1S3" firstAttribute="bottom" secondItem="qfy-rE-et6" secondAttribute="bottom" id="lqf-RA-UcD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="112" height="170"/>
+            <connections>
+                <outlet property="musicImageView" destination="qfy-rE-et6" id="XJ6-tG-p2a"/>
+                <outlet property="musicLength" destination="sxk-FP-1S3" id="T4q-rs-D3h"/>
+                <outlet property="musicName" destination="lL2-py-Jy9" id="Du2-ER-ysC"/>
+                <outlet property="zantingImageView" destination="KWH-ne-gmq" id="9oL-tP-7cL"/>
+            </connections>
+            <point key="canvasLocation" x="-81" y="14"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="zanting" width="28" height="28"/>
+    </resources>
+</document>

@@ -36,6 +36,8 @@
 
 @interface AliyunRecordControlView : UIView
 @property (nonatomic,weak) AliyunIRecorder *recoder;
+@property (nonatomic,weak) AliyunClipManager *clipManager;
+
     /*底部工具栏*/
 @property (nonatomic, assign) CGFloat minDuration;
 @property (nonatomic, assign) CGFloat maxDuration;

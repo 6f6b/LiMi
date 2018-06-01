@@ -72,7 +72,7 @@
 - (void)setProgress:(CGFloat)progress {
     _progress =progress;
     [self setNeedsDisplay];
-    if (_progress <= 0) {
+    if (_progress <= 0 || _progress == 1)  {
         [self setHidden:YES];
     } else {
         [self setHidden:NO];

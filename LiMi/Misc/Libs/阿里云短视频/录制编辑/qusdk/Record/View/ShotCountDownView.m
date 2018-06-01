@@ -22,15 +22,17 @@
     
     - (instancetype)initWithFrame:(CGRect)frame{
         if (self=[super initWithFrame:frame]){
-            UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+            CGRect timeLabelFrame = CGRectMake(0, 0, 200, 200);
+            UILabel *timeLabel = [[UILabel alloc] initWithFrame:timeLabelFrame];
             self.timeLabel = timeLabel;
 //            [self.timeLabel sizeToFit];
             self.timeLabel.center = self.center;
+            self.timeLabel.textAlignment = NSTextAlignmentCenter;
             self.timeLabel.font = [UIFont systemFontOfSize:150 weight:UIFontWeightBold];
             self.timeLabel.textColor = UIColor.whiteColor;
-            self.timeLabel.backgroundColor = UIColor.greenColor;
+            self.timeLabel.backgroundColor = UIColor.clearColor;
             [self addSubview:self.timeLabel];
-            self.backgroundColor = rgba(255, 0, 0, 0.4);
+            self.backgroundColor = rgba(0, 0, 0, 0.4);
         }
         return self;
     }
@@ -39,7 +41,7 @@
     self.time = time;
     [UIApplication.sharedApplication.keyWindow addSubview:self];
     self.timeLabel.text = [NSString stringWithFormat:@"%d",self.time];
-    [self.timeLabel sizeToFit];
+    //[self.timeLabel sizeToFit];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
         self.time -= 1;
         if(self.time <= 0){

@@ -18,6 +18,7 @@
 #import "AliyunMediator.h"
 #import "AliyunMediaConfig.h"
 #import "AliyunPathManager.h"
+#import <AliyunVideoSDKPro/AliyunImporter.h>
 
 @interface PhotoViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *photoCollectionView;
@@ -31,19 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addNotifications];
-    
-    NSString *videoSavePath = [[[AliyunPathManager createCutDir] stringByAppendingPathComponent:[AliyunPathManager uuidString]] stringByAppendingPathExtension:@"mp4"];
-    NSString *taskPath = [AliyunPathManager createCutDir];
-    _cutInfo.outputPath = videoSavePath;
-    BOOL isDir = NO;
-    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:taskPath isDirectory:&isDir];
-    if (!(isExist && isDir)) {
-        BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:taskPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }else{
-        [[NSFileManager defaultManager] removeItemAtPath:taskPath error:nil];
-    }
-    
-    NSString *rec  = [AliyunPathManager createRecrodDir];
+
     
     self.photoCollectionView.alwaysBounceVertical = YES;
     [self.photoCollectionView registerClass:[AliyunPhotoListViewCell class] forCellWithReuseIdentifier:@"AliyunPhotoListViewCell"];
@@ -95,8 +84,8 @@
 
 - (void)fetchPhotoData {
     if ([[AliyunPhotoLibraryManager sharedManager] authorizationStatusAuthorized]) {
-        VideoDurationRange duration = {_cutInfo.minDuration, _cutInfo.maxDuration};
-        BOOL videoOnly = self.cutInfo.videoOnly;
+        VideoDurationRange duration = {_minDuration, _maxDuration};
+        BOOL videoOnly = true;
         [[AliyunPhotoLibraryManager sharedManager] getCameraRollAssetWithallowPickingVideo:YES allowPickingImage:!videoOnly durationRange:duration completion:^(NSArray<AliyunAssetModel *> *models, NSInteger videoCount) {
             [self reloadCollocation:models];
         }];
@@ -105,7 +94,7 @@
             if (authorization) {
                 VideoDurationRange duration = {0, 0};
                 
-                BOOL videoOnly = self.cutInfo.videoOnly;
+                BOOL videoOnly = true;
                 
                 [[AliyunPhotoLibraryManager sharedManager] getCameraRollAssetWithallowPickingVideo:YES allowPickingImage:!videoOnly durationRange:duration completion:^(NSArray<AliyunAssetModel *> *models, NSInteger videoCount) {
                     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -151,34 +140,46 @@
         return;
     }
     [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    AliyunMediaConfig *cutInfo = [[AliyunMediaConfig alloc] init];
+    
+    NSString *videoSavePath = [[[AliyunPathManager createCutDir] stringByAppendingPathComponent:[AliyunPathManager uuidString]] stringByAppendingPathExtension:@"mp4"];
+    NSString *taskPath = [AliyunPathManager createCutDir];
+    [[NSFileManager defaultManager] removeItemAtPath:taskPath error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:taskPath withIntermediateDirectories:YES attributes:nil error:nil];
+    cutInfo.outputPath = videoSavePath;
+    cutInfo.minDuration = _minDuration;
+    cutInfo.maxDuration = _maxDuration;
+    cutInfo.outputSize = CGSizeMake(model.asset.pixelWidth, model.asset.pixelHeight);
+    cutInfo.cutMode = AliyunMediaCutModeScaleAspectCut;
+    cutInfo.backgroundColor = UIColor.blackColor;
     if (model.type == AliyunAssetModelMediaTypeVideo) {
         [[AliyunPhotoLibraryManager sharedManager] getVideoWithAsset:model.asset completion:^(AVAsset *avAsset, NSDictionary *info) {
             [QUMBProgressHUD hideHUDForView:self.view animated:YES];
-            _cutInfo.startTime = 0.f;
-            _cutInfo.endTime = 0.f;
-            _cutInfo.sourceDuration = 0.f;
-            _cutInfo.avAsset = avAsset;
-            _cutInfo.phAsset = nil;
-            _cutInfo.phImage = nil;
-            if (!_cutInfo.outputPath) {
-                _cutInfo.outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/cutVideo.mp4"];
+            cutInfo.startTime = 0.f;
+            cutInfo.endTime = 0.f;
+            cutInfo.sourceDuration = 0.f;
+            cutInfo.avAsset = avAsset;
+            cutInfo.phAsset = nil;
+            cutInfo.phImage = nil;
+            if (!cutInfo.outputPath) {
+                cutInfo.outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/cutVideo.mp4"];
             }
             NSURL *url = (NSURL *)[[(AVURLAsset *)avAsset URL] fileReferenceURL];
-            _cutInfo.sourcePath = url.path;
+            cutInfo.sourcePath = url.path;
             AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
-            cut.cutInfo = _cutInfo;
-            cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
+            cut.cutInfo = cutInfo;
+//            cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
             [self.navigationController pushViewController:cut animated:YES];
         }];
     } else {
         [[AliyunPhotoLibraryManager sharedManager] getPhotoWithAsset:model.asset thumbnailWidth:200 completion:^(UIImage *image, UIImage *thumbnailImage, NSDictionary *info) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [QUMBProgressHUD hideHUDForView:self.view animated:YES];
-                _cutInfo.phAsset = model.asset;
-                _cutInfo.phImage = image;
+                cutInfo.phAsset = model.asset;
+                cutInfo.phImage = image;
                 AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
-                cut.cutInfo = _cutInfo;
-                cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
+                cut.cutInfo = cutInfo;
+//                cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
                 [self.navigationController pushViewController:cut animated:YES];
             });
         }];
@@ -214,45 +215,10 @@
     //    [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark -  AliyunCropViewControllerDelegate
-- (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
-    //    [self.navigationController popViewControllerAnimated:YES];
-    if (mediaInfo.phAsset) {//图片资源
-            [self cropFinished:controller mediaType:kPhotoMediaTypePhoto photo:mediaInfo.phImage videoPath:nil];
-    } else {
-        [self cropFinished:controller videoPath:mediaInfo.outputPath sourcePath:mediaInfo.sourcePath];
-    }
-    //Refresh
-    [self fetchPhotoData];
-}
 
 /**/
 - (void)recodBtnClick:(UIViewController *)vc{
     [self.delegate recodBtnClick];
-}
-
-- (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath{
-    AliyunEditViewController *editVC = (AliyunEditViewController *)AliyunMediator.shared.editViewController;
-    NSArray *taskPaths = [videoPath componentsSeparatedByString:@"cut"];
-    NSString *taskPath = taskPaths.firstObject;
-    if(taskPaths.count > 1){
-        taskPath = [taskPath stringByAppendingString:@"cut"];
-    }
-    editVC.taskPath = videoPath;
-    editVC.config = self.cutInfo;
-    [self.navigationController pushViewController:editVC animated:true];
-}
-
-/**
- 裁剪完成回调，裁剪对象有两种：视频或者图片
- 
- @param cropViewController 裁剪viewController
- @param type 媒体类型
- @param photo 如果媒体类型是图像，则返回裁剪出来的图像，否则返回nil
- @param videoPath 如果媒体类型是视频，则返回裁剪出来的视频路径，否则返回nil
- */
-- (void)cropFinished:(UIViewController *)cropViewController mediaType:(kPhotoMediaType)type photo:(UIImage *)photo videoPath:(NSString *)videoPath{
-
 }
 
 - (void)backBtnClick:(UIViewController *)vc{

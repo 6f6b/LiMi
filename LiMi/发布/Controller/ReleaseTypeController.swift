@@ -25,7 +25,7 @@ class ReleaseTypeController: ViewController {
     //MARK: - misc
     func setupSDKUI(){
         let config = AliyunIConfig.init()
-        config.backgroundColor = UIColor.clear
+        config.backgroundColor = UIColor.init(red: 30, green: 30, blue: 30, alpha: 1)
         config.timelineBackgroundCollor = RGBA(r: 127, g: 110, b: 241, a: 1);
         config.timelineDeleteColor = UIColor.orange
         config.timelineTintColor = UIColor.brown

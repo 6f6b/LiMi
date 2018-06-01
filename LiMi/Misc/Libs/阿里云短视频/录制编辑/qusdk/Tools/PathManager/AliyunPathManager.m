@@ -58,6 +58,13 @@
     return [[self aliyunRootPath] stringByAppendingPathComponent:@"cut"];
 }
 
++ (NSString *)createExportDir {
+    return [[self aliyunRootPath] stringByAppendingPathComponent:@"export"];
+}
+
++ (NSString *)creatMusicDownloadDir{
+    return [[self quCachePath] stringByAppendingPathComponent:@"musicDownload"];
+}
 + (NSString *)createMagicRecordDir {
     return [[self aliyunRootPath] stringByAppendingPathComponent:@"magicRecord"];
 }

@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://app.youhongtech.com/index.php/app1_3"
+let serverAddress = "http://testapp.youhongtech.com/index.php/app1_4"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -1764,6 +1764,83 @@ struct ClearMessage:TargetType,ParametersProtocol{
         let tmpParameters:[String:Any]? = [
             "type":type,
             ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+/*短视频部分*/
+struct MusicList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "Music/musicList"
+    }
+    
+    var type:String?
+    var name:String?
+    var page:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "type":type,
+            "name":name,
+            "page":page
+            ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct ShortVideoCreateUploadCertificate:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Aliyunvideo/shortVideoCreateUpload"
+    }
+    
+    var title:String = "limi"
+    var fileName:String = "limi.mp4"
+    var fileDes:String = "limi"
+    var fileCover:String = "http://video.youhongtech.com/fdsjfldsjflds.png"
+    var tags:String = "limi"
+    
+    func parameters() -> [String : Any] {
+            let tmpParameters = ["title":title,
+            "fileName":fileName,
+            "fileDes":fileDes,
+//            "fileCover":fileCover,
+            "tags":tags
+        ]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+/*下载*/
+struct Downloader:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: filePath)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return ""
+    }
+    
+    var filePath:String!
+    func parameters() -> [String : Any] {
+        let tmpParameters:[String:Any]? = [
+            "":""
+        ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }

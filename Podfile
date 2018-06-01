@@ -51,4 +51,5 @@ target ‘LiMi' do
 #    pod 'SPPageMenu'
 #   pod 'Moya/RxSwift'
 pod 'AliyunVideoSDKPro', '~> 3.5.0'
+pod 'VODUpload'
 end

@@ -20,6 +20,7 @@
 //#import <AliyunVideoSDKPro/AliyunNativeParser.h>
 //#import <AliyunVideoSDKPro/AliyunCrop.h>
 #import "QUMBProgressHUD.h"
+#import "AliyunDownloadManager.h"
 
 @interface AliyunMusicPickViewController () <UITableViewDelegate, UITableViewDataSource, AliyunMusicPickHeaderViewDelegate, AliyunMusicPickCellDelegate, AliyunMusicPickTopViewDelegate, AliyunMusicPickTabViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;

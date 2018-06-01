@@ -48,6 +48,10 @@
 
 + (NSString *)createCutDir ;
 
++ (NSString *)creatMusicDownloadDir;
+
++ (NSString *)createExportDir;
+
 + (NSString *)createMagicRecordDir;
 
 + (NSString *)createResourceDir;

@@ -25,16 +25,16 @@
 #import "AliyunEffectMVView.h"
 #import "AliyunMusicPickViewController.h"
 #import "AliyunMagicCameraEffectCell.h"
+#import "LiMi-Swift.h"
 //#import "FURenderer.h"
 //#import "AuthFaceUnity.h"
 
 
-@interface AliyunRecordViewController ()<AliyunIRecorderDelegate,UIGestureRecognizerDelegate>
+@interface AliyunRecordViewController ()<AliyunIRecorderDelegate,UIGestureRecognizerDelegate,MusicPickViewControllerDelegate>
 
 
 //@property (nonatomic, strong) AliyunRecordNavigationView *navigationView;
 @property (nonatomic, strong) AliyunRecordControlView *controlView;
-@property (nonatomic, strong) AliyunRecordFocusView *focusView;
 @property (nonatomic, strong) AliyunClipManager *clipManager;
 @property (nonatomic, strong) AliyunRecoderFilterPlugin *filterPlugin;
 @property (nonatomic, strong) UIView *previewView;
@@ -86,9 +86,7 @@
     [super viewDidLoad];
     
     _isFirstLoad = YES;
-    
-    [self addNotifications];
-    
+        
     NSString *videoSavePath = [[[AliyunPathManager createRecrodDir] stringByAppendingPathComponent:[AliyunPathManager uuidString]] stringByAppendingPathExtension:@"mp4"];
     NSString *taskPath = [AliyunPathManager createRecrodDir];
     if ([[NSFileManager defaultManager] fileExistsAtPath:taskPath]) {
@@ -96,13 +94,8 @@
     }
 
     
-//    self.magicCameraView = [[AliyunMagicCameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) videoSize:CGSizeMake(ScreenWidth, ScreenHeight)];
-//    self.magicCameraView.backgroundColor = UIColor.purpleColor;
-//    self.magicCameraView.delegate = (id)self;
-//    [self.view addSubview:self.magicCameraView];
     _previewView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    self.view.backgroundColor = UIColor.orangeColor;
-    self.previewView.backgroundColor = UIColor.whiteColor;
+    self.previewView.backgroundColor = UIColor.blackColor;
     [self.view addSubview:_previewView];
     
     _recorder = [[AliyunIRecorder alloc] initWithDelegate:self videoSize:_quVideo.outputSize];
@@ -199,8 +192,6 @@
     }
 
     [self.view addSubview:self.controlView];
-    [_previewView addSubview:self.focusView];
-    [self addGesture];
     [self.controlView setupBeautyStatus:self.beautifyStatus flashStatus:self.torchMode];
     [self updateUIWithVideoSize:_quVideo.outputSize];
     
@@ -254,67 +245,6 @@
     
 }
 
-
-- (void)addGesture {
-    UITapGestureRecognizer *previewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewTapGesture:)];
-    previewTap.delegate = self;
-//    [_previewView addGestureRecognizer:previewTap];
-    
-    UIPanGestureRecognizer *previewPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(previewPanGesture:)];
-    previewPan.delegate = self;
-//    [_previewView addGestureRecognizer:previewPan];
-    
-    UIPinchGestureRecognizer *previewPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(previewPinchGesture:)];
-    previewPinch.delegate = self;
-//    [_previewView addGestureRecognizer:previewPinch];
-}
-
-//需要旋转 缩放同时起效 设置delegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    
-    return YES;
-}
-
-
-- (void)previewTapGesture:(UITapGestureRecognizer *)gesture {
-    CGPoint point = [gesture locationInView:_previewView];
-    _recorder.focusPoint = point;
-    _focusView.center = point;
-    [_focusView refreshPosition];
-}
-
-- (void)previewPanGesture:(UIPanGestureRecognizer *)gesture {
-    if (_focusView.alpha == 0 || gesture.numberOfTouches == 2) {
-        return;
-    }
-    CGPoint point = [gesture translationInView:_previewView];
-    CGFloat y = point.y;
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        _lastPanY = y;
-    }
-    if (fabs(y) > fabs(point.x)) {
-        CGFloat v = (_lastPanY - y)/CGRectGetHeight(_previewView.bounds);
-        _recorder.exposureValue += v;
-        [_focusView changeExposureValue:_recorder.exposureValue];
-    }
-    _lastPanY = y;
-}
-
-- (void)pausePreview {
-    [_recorder stopPreview];
-    [_motionManager stopDeviceMotionUpdates];
-}
-    
-- (void)previewPinchGesture:(UIPinchGestureRecognizer *)gesture {
-    if (isnan(gesture.velocity) || gesture.numberOfTouches != 2) {
-        return;
-    }
-    _recorder.videoZoomFactor = gesture.velocity;
-    gesture.scale = 1;
-    
-    return;
-}
-
     
 #pragma mark --- AliyunIRecorderDelegate
 
@@ -333,6 +263,11 @@
 
 - (void)recorderDidFinishRecording {
     if (_delegate) {
+        NSURL *sourceURL = [NSURL fileURLWithPath:_recorder.outputPath];
+        AVAsset *avAsset = [AVAsset assetWithURL:sourceURL];
+        CGSize outputSize = [avAsset avAssetNaturalSize];
+        self.quVideo.outputSize = outputSize;
+        
         [_delegate recoderFinish:self videopath:_recorder.outputPath];
     }
 }
@@ -349,7 +284,6 @@
         NSLog(@"已录制:%f",duration);
         [_controlView updateVideoDuration:duration];
         [_controlView updateNavigationStatusWithDuration:duration];
-        [self showDuration:duration];
     });
 }
 
@@ -362,11 +296,6 @@
     [_controlView updateNavigationStatusWithDuration:_clipManager.duration];
 }
 
-- (void)showDuration:(CGFloat)duration {
-    int d = duration;
-    int m = d / 60;
-    int s = d % 60;
-}
 ////接入faceunity
 //- (NSInteger)recorderOutputVideoPixelBuffer:(CVPixelBufferRef)pixelBuffer textureName:(NSInteger)textureName {
 //    if (tmpItem == NULL) {
@@ -429,16 +358,42 @@
 -(void)didCancelPick {
     [self.navigationController popViewControllerAnimated:YES];
 }
-    
+
+#pragma mark - MusicPickViewControllerDelegate
+- (void)musicPickViewControllerSelectedNone{
+    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:nil];
+    effectMusic.startTime = 0;
+    effectMusic.duration = 0;
+    [_recorder applyMusic:effectMusic];
+}
+
+- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
+    effectMusic.startTime = startTime;
+    effectMusic.duration = duration;
+    [_recorder applyMusic:effectMusic];
+}
+
 #pragma mark --- AliyunRecordControlViewDelegate
 - (void)musicButtonClick{
     [self pausePreview];
-    AliyunMusicPickViewController *vc = [[AliyunMusicPickViewController alloc] init];
-    vc.duration = _clipManager.maxDuration;
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
-}
     
+    MusicPickViewController *musicPickViewController = [[MusicPickViewController alloc] init];
+    musicPickViewController.delegate = self;
+    musicPickViewController.duration = (30);
+    [self.navigationController pushViewController:musicPickViewController animated:true];
+    
+//    AliyunMusicPickViewController *vc = [[AliyunMusicPickViewController alloc] init];
+//    vc.duration = _clipManager.maxDuration;
+//    vc.delegate = self;
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pausePreview {
+    [_recorder stopPreview];
+    [_motionManager stopDeviceMotionUpdates];
+}
+
 - (void)navigationBackButtonClick {
     if (_delegate) {
         [_delegate exitRecord];
@@ -494,30 +449,11 @@
     
 }
 
-- (void)navigationCamerationPositionDidChanged:(BOOL)front {
-    [_recorder switchCameraPosition];
-}
-
-- (NSInteger)navigationFlashModeDidChanged {
-    if (_recorder.torchMode == AliyunIRecorderTorchModeOff){
-        [_recorder switchTorchWithMode:AliyunIRecorderTorchModeOn];
-    }
-    else if(_recorder.torchMode == AliyunIRecorderTorchModeOn){
-        [_recorder switchTorchWithMode:AliyunIRecorderTorchModeOff];
-    }
-    else if(_recorder.torchMode == AliyunIRecorderTorchModeAuto){
-        [_recorder switchTorchWithMode:AliyunIRecorderTorchModeOff];
-    }
-    _torchMode = _recorder.torchMode;
-    
-    return (int)_torchMode;
-}
-
 
 - (void)bottomViewRecordVideo {
-//    if ([_clipManager partCount] == 0) {
-        _recorder.cameraRotate = _cameraRotate; // 旋转角度以第一段视频为准  产品需求更改:不以第一段视频角度计算
-//    }
+    if ([_clipManager partCount] == 0) {
+        _recorder.cameraRotate = 0; // 旋转角度以第一段视频为准  产品需求更改:不以第一段视频角度计算
+    }
 
     [_recorder startRecording];
 
@@ -583,22 +519,12 @@
         _controlView = [[AliyunRecordControlView alloc] initWithFrame:rect];
         _controlView.backgroundColor = [UIColor clearColor];
         _controlView.recoder = self.recorder;
+        _controlView.clipManager = self.clipManager;
         _controlView.delegate = (id<AliyunRecordControlViewDelegate>)self;
         _controlView.minDuration = _quVideo.minDuration;
         _controlView.maxDuration = _quVideo.maxDuration;
     }
     return _controlView;
-}
-
-- (AliyunRecordFocusView *)focusView {
-    if (!_focusView) {
-        _focusView = [[AliyunRecordFocusView alloc] init];
-        _focusView.bounds = CGRectMake(0, 0, 72, 72);
-        _focusView.center = CGPointMake(ScreenWidth /2.f, CGRectGetMidY(_previewView.bounds));
-        _focusView.alpha = 0;
-        _focusView.userInteractionEnabled = NO;
-    }
-    return _focusView;
 }
 
 - (BOOL)prefersStatusBarHidden {

@@ -31,23 +31,23 @@
 //    self.tintColor = rgba(255,255,255,0.6);
     [self setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:15]}
                            forState:UIControlStateNormal];
-    [self setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:15]}
+    [self setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor],NSFontAttributeName:[UIFont systemFontOfSize:15]}
                         forState:UIControlStateSelected];
     
-    [self setBackgroundImage:[self imageWithBgColor:rgba(255,255,255,0.5)]
+    [self setBackgroundImage:[self imageWithBgColor:rgba(0, 0, 0, 0.4)]
                     forState:UIControlStateNormal
                   barMetrics:UIBarMetricsDefault];
     
-    [self setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}
+    [self setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}
                         forState:UIControlStateSelected];
-    [self setBackgroundImage:[self imageWithBgColor:rgba(255,255,255,1)]
+    [self setBackgroundImage:[self imageWithBgColor:[UIColor whiteColor]]
                     forState:UIControlStateSelected
                   barMetrics:UIBarMetricsDefault];
-    [self setBackgroundImage:[self imageWithBgColor:rgba(0,194,221,1)]
+    [self setBackgroundImage:[self imageWithBgColor:[UIColor whiteColor]]
                     forState:UIControlStateHighlighted
                   barMetrics:UIBarMetricsDefault];
     
-    [self setDividerImage:[self imageWithBgColor:rgba(255,255,255,0.5)] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self setDividerImage:[self imageWithBgColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     self.layer.borderWidth = 0;
     self.layer.cornerRadius = 20;
     self.layer.masksToBounds = YES;

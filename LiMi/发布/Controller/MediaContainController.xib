@@ -15,6 +15,7 @@
             <connections>
                 <outlet property="albumButton" destination="i3q-ib-1RP" id="V9t-Nc-met"/>
                 <outlet property="bottomLineLeftConstraint" destination="dwA-4G-XMK" id="gko-nZ-0Q8"/>
+                <outlet property="bottomToolsContainView" destination="XEq-GE-cpy" id="TQg-ub-33G"/>
                 <outlet property="recordButton" destination="baF-Ks-YIh" id="bzK-P1-sJX"/>
                 <outlet property="scrollView" destination="4wG-Ua-RuQ" id="7Tn-Vc-1Gi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -29,8 +30,8 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEq-GE-cpy">
-                    <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XEq-GE-cpy">
+                    <rect key="frame" x="0.0" y="618" width="375" height="24"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xy4-pN-RB9">
                             <rect key="frame" x="0.0" y="47" width="187.5" height="2"/>

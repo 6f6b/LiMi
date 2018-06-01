@@ -16,6 +16,8 @@
 
 + (instancetype)service;
 
++ (instancetype)share;
+
 - (BOOL)exportWithTaskPath:(NSString *)taskPath outputPath:(NSString *)outputPath;
 
 - (void)setTailWaterMark:(UIImage *)image frame:(CGRect)frame duration:(CGFloat)duration;

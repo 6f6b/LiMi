@@ -94,6 +94,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fN4-jE-BMp">
                     <rect key="frame" x="74.5" y="84" width="171" height="303"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="171" id="C6Q-S4-wtA"/>
+                        <constraint firstAttribute="height" constant="303" id="eSd-wC-NI2"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -22,7 +22,9 @@
 //@property (nonatomic, assign) int videoQuality;
 //@property (nonatomic, assign) int fps;
 //@property (nonatomic, assign) int gop;
-@property (nonatomic, strong) AliyunMediaConfig *cutInfo;
+@property (nonatomic,assign) int minDuration;
+@property (nonatomic,assign) int maxDuration;
+
 
 @property (nonatomic, weak) id<PhotoViewControllerDelegate> delegate;
 @end

@@ -32,7 +32,7 @@
     
     UIView *topView = [[UIView alloc] init];
     topView.frame = CGRectMake(0, 0, ScreenWidth, self.frame.size.height);
-    topView.backgroundColor = [AliyunIConfig config].backgroundColor;;
+    topView.backgroundColor =rgba(30, 30, 30, 1);;
     [self addSubview:topView];
     
     UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -47,8 +47,9 @@
     
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.frame = CGRectMake((ScreenWidth-68)/2, StatusBarHeight, 68, 44);
-    self.nameLabel.font = [UIFont systemFontOfSize:14.f];
+    self.nameLabel.font = [UIFont systemFontOfSize:16.f];
     self.nameLabel.textColor = [UIColor whiteColor];
+    self.nameLabel.backgroundColor = UIColor.clearColor;
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.text = @"我的视频";
     [topView addSubview:self.nameLabel];

@@ -42,6 +42,7 @@
         }
         AliyunUploadSVideoInfo *info = [AliyunUploadSVideoInfo new];
         info.title = @"test video";
+        //[[AliyunPublishService service] uploadWithImagePath:<#(NSString *)#> svideoInfo:<#(AliyunUploadSVideoInfo *)#> accessKeyId:<#(NSString *)#> accessKeySecret:<#(NSString *)#> accessToken:<#(NSString *)#>]
         [[AliyunPublishService service] uploadWithImagePath:_coverImagePath svideoInfo:info accessKeyId:keyId accessKeySecret:keySecret accessToken:token];
     }];
 }

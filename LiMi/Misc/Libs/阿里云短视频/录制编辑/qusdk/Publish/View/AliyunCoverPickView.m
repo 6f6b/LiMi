@@ -45,7 +45,7 @@
     UIView *view = [[UIView alloc] initWithFrame:self.bounds];
     view.backgroundColor = [UIColor clearColor];
     [self addSubview:view];
-    _progressView = [[UIImageView alloc] initWithImage:[AliyunImage imageNamed:@"icon_cover_slide"]];
+    _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_cover_slide"]];
     _progressView.frame = CGRectMake(0, 0, 4, CGRectGetHeight(self.frame));
     [view addSubview:_progressView];
 }

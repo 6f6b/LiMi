@@ -21,6 +21,8 @@
 #import "AliyunMagicCameraEffectCell.h"
 #import <AliyunVideoSDKPro/AliyunHttpClient.h>
 #import "FilterAndBeautyView.h"
+#import "AliyunRecordFocusView.h"
+#import "LiMi-Swift.h"
 
 @interface AliyunRecordControlView ()
     /*底部*/
@@ -31,6 +33,7 @@
     @property (nonatomic, strong) UIButton *photoLibraryButton;//?
     @property (nonatomic, strong) AliyunRateSelectView *rateView;
     @property (nonatomic, strong) FilterAndBeautyView *filterView;
+@property (nonatomic, strong) UILabel *durationLabel;
 
 
     @property (nonatomic, assign) BOOL recording;
@@ -52,15 +55,19 @@
     @property (nonatomic, strong) UIButton *nextButton;
 
     @property (nonatomic, assign) CGFloat currentRatio;
-    
+@property (nonatomic, strong) AliyunRecordFocusView *focusView;
+
     /*添加魔法*/
     @property (nonatomic, strong) MagicCameraView *magicCameraView;
+@property (nonatomic, assign) CGFloat lastPanY;
+@property (nonatomic,assign) CGFloat duration;
+/* 闪光灯模式 */
+@property (nonatomic, assign) AliyunIRecorderTorchMode torchMode;
 @end
 
 @implementation AliyunRecordControlView
     {
         AliyunEffectPaster *_currentEffectPaster;
-        AliyunClipManager *_clipManager;
         CFTimeInterval _recordingDuration;
     }
     
@@ -80,12 +87,14 @@
     backgroundView.backgroundColor = [AliyunIConfig config].backgroundColor;
     backgroundView.alpha = 0.5;
     [self addSubview:backgroundView];
+    [self addSubview:self.durationLabel];
     [self addSubview:self.recordButton];
     [self addSubview:self.deleteButton];
     [self addSubview:self.progressView];
     [self addSubview:self.magicButton];
     //[self addSubview:self.photoLibraryButton];
-    
+    [self addSubview:self.focusView];
+    [self addGesture];
     self.photoLibraryButton.hidden = [AliyunIConfig config].hiddenImportButton;
     self.finishButton.hidden = [AliyunIConfig config].hiddenFinishButton;
     self.finishButton.enabled = NO;
@@ -97,6 +106,7 @@
     
     _nextButton = [self createButtonWithImage:NULL];
     [_nextButton setBackgroundColor:rgba(185, 175, 254, 1)];
+    _nextButton.enabled = NO;
     [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
     _nextButton.titleLabel.font = [UIFont systemFontOfSize:12];
     _nextButton.layer.cornerRadius = 4;
@@ -110,6 +120,7 @@
     NSInteger distance = 0;
     if (![AliyunIConfig config].hiddenFlashButton) {
         _flashButton  = [self createButtonWithImage:[UIImage imageNamed:@"sgd_close"]];
+        _flashButton.enabled = NO;
         _flashButton.frame = CGRectMake((_nextButton.frame.origin.x - 60-28), y, 28, 28);
         distance ++;
     }
@@ -127,26 +138,35 @@
     
     CGFloat x = ScreenWidth-28-20;
     _countDownButton = [self createButtonWithImage:[UIImage imageNamed:@"time"]];
+//    _countDownButton.backgroundColor = UIColor.grayColor;
     [_countDownButton addTarget:self action:@selector(countDownButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _countDownButton.frame = CGRectMake(x, CGRectGetMaxY(_nextButton.frame)+46, 28, 28);
     [_countDownButton setTitle:@"倒计时" forState:UIControlStateNormal];
     _countDownButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_countDownButton sizeToFitTitleBelowImageWithDistance:7];
+//    _countDownButton.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
     
+    x = x+(_countDownButton.frame.size.width-28)/2;
     _beautyButton = [self createButtonWithImage:[UIImage imageNamed:@"meiyan"] ];
     _beautyButton.frame = CGRectMake(x, CGRectGetMaxY(_countDownButton.frame)+38, 28, 28);
     [_beautyButton setTitle:@"美颜" forState:UIControlStateNormal];
     _beautyButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_beautyButton sizeToFitTitleBelowImageWithDistance:7];
     
     _musicButton = [self createButtonWithImage:[UIImage imageNamed:@"music"]];
     _musicButton.frame = CGRectMake(x, CGRectGetMaxY(_beautyButton.frame)+38, 28, 28);
     [_musicButton setTitle:@"音乐" forState:UIControlStateNormal];
     _musicButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_musicButton sizeToFitTitleBelowImageWithDistance:7];
+
     
     _speedButton = [self createButtonWithImage:[UIImage imageNamed:@"biansu"]];
     [_speedButton addTarget:self action:@selector(speedButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _speedButton.frame = CGRectMake(x, CGRectGetMaxY(_musicButton.frame)+38, 28, 28);
     [_speedButton setTitle:@"变速" forState:UIControlStateNormal];
     _speedButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_speedButton sizeToFitTitleBelowImageWithDistance:7];
+
     
     [_backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [_ratioButton addTarget:self action:@selector(ratioButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -158,13 +178,73 @@
     [_ratioButton setImage:[AliyunImage imageNamed:@"record_ratio_dis"] forState:UIControlStateDisabled];
     [_beautyButton setImage:[UIImage imageNamed:@"meiyan"] forState:UIControlStateDisabled];
     [_cameraButton setImage:[AliyunImage imageNamed:@"camera_id_dis"] forState:UIControlStateDisabled];
-    [_flashButton setImage:[AliyunImage imageNamed:@"camera_flash_dis"] forState:UIControlStateDisabled];
+    [_flashButton setImage:[UIImage imageNamed:@"sgd_no"] forState:UIControlStateDisabled];
     [_beautyButton setImage:[AliyunImage imageNamed:@"meiyan"] forState:UIControlStateSelected];
     _beautyButton.selected = YES;
     _ratioButton.hidden = NO;
 
 }
+
+- (void)addGesture {
+    UITapGestureRecognizer *previewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewTapGesture:)];
+    previewTap.delegate = self;
+        [self addGestureRecognizer:previewTap];
     
+    UIPanGestureRecognizer *previewPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(previewPanGesture:)];
+    previewPan.delegate = self;
+        [self addGestureRecognizer:previewPan];
+    
+    UIPinchGestureRecognizer *previewPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(previewPinchGesture:)];
+    previewPinch.delegate = self;
+        [self addGestureRecognizer:previewPinch];
+}
+
+//需要旋转 缩放同时起效 设置delegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    return YES;
+}
+
+
+- (void)previewTapGesture:(UITapGestureRecognizer *)gesture {
+    CGPoint point = [gesture locationInView:self];
+    self.recoder.focusPoint = point;
+    _focusView.center = point;
+    [_focusView refreshPosition];
+}
+
+- (void)previewPanGesture:(UIPanGestureRecognizer *)gesture {
+    if (_focusView.alpha == 0 || gesture.numberOfTouches == 2) {
+        return;
+    }
+    CGPoint point = [gesture translationInView:self];
+    CGFloat y = point.y;
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        _lastPanY = y;
+    }
+    if (fabs(y) > fabs(point.x)) {
+        CGFloat v = (_lastPanY - y)/CGRectGetHeight(self.bounds);
+        self.recoder.exposureValue += v;
+        [_focusView changeExposureValue:self.recoder.exposureValue];
+    }
+    _lastPanY = y;
+}
+
+- (void)pausePreview {
+    [self.recoder stopPreview];
+//    [_motionManager stopDeviceMotionUpdates];
+}
+
+- (void)previewPinchGesture:(UIPinchGestureRecognizer *)gesture {
+    if (isnan(gesture.velocity) || gesture.numberOfTouches != 2) {
+        return;
+    }
+    self.recoder.videoZoomFactor = gesture.velocity;
+    gesture.scale = 1;
+    
+    return;
+}
+
 - (void)setMaxDuration:(CGFloat)maxDuration {
     _maxDuration = maxDuration;
     _progressView.maxDuration = maxDuration;
@@ -177,7 +257,6 @@
     
 - (void)updateRecordStatus {
     _deleteButton.enabled = YES;
-    _progressView.showBlink = YES;
 }
     
 -(void)updateHeight:(CGFloat)height {
@@ -191,8 +270,9 @@
     
     
     _recordButton.frame = CGRectMake((ScreenWidth/2.0-72/2.0), ScreenHeight-46-72, 72, 72);
-    
     CGPoint center = _recordButton.center;
+    self.durationLabel.center = center;
+//    [self bringSubviewToFront:self.recordButton];
     _deleteButton.frame = CGRectMake(0, 0, 36, 36);
     _deleteButton.center = CGPointMake(center.x+36+58+18, center.y);
     
@@ -210,13 +290,16 @@
     } else {
         _finishButton.enabled = NO;
     }
-    
-    if (duration > 0 && _deleteButton.hidden && ![AliyunIConfig config].hiddenDeleteButton) {
-        if (![AliyunIConfig config].hiddenDeleteButton) {
-            _deleteButton.hidden = NO;
-        }
-        _photoLibraryButton.hidden = YES;
+
+    if(duration > 0 && !self.recoder.isRecording){
+        [self.deleteButton setHidden:NO];
     }
+//    if (duration > 0 && _deleteButton.hidden && ![AliyunIConfig config].hiddenDeleteButton) {
+//        if (![AliyunIConfig config].hiddenDeleteButton) {
+//            _deleteButton.hidden = NO;
+//        }
+//        _photoLibraryButton.hidden = YES;
+//    }
     
     if (duration <=0) {
         [self.finishButton removeFromSuperview];
@@ -232,8 +315,6 @@
     _startTime = 0;
     [self updateRecordTypeToEndRecord];
     [_delegate bottomViewPauseVideo];
-    _progressView.showBlink = YES;
-    
     _deleteButton.enabled = YES;
     
     if ([AliyunIConfig config].recordOnePart) {
@@ -244,9 +325,8 @@
 }
     
 - (void)updateRecordTypeToEndRecord {
-    [self.recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_normal"]forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"btn_psz"]forState:UIControlStateNormal];
     _recording = NO;
-    _progressView.showBlink = YES;
     [self changeOtherButtonType];
 }
     
@@ -262,10 +342,10 @@
             }
         }else{
             if (_recording) {
-                [_recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_suspend"]forState:UIControlStateNormal];
+                [_recordButton setBackgroundImage:[UIImage imageNamed:@"btn_paishe"]forState:UIControlStateNormal];
                 
             }else{
-                [_recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_normal"]forState:UIControlStateNormal];
+                [_recordButton setBackgroundImage:[UIImage imageNamed:@"btn_psz"]forState:UIControlStateNormal];
             }
         }
         break;
@@ -275,9 +355,9 @@
         
         case AliyunIRecordActionTypeClick:
         if (_recording) {
-            [_recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_suspend"]forState:UIControlStateNormal];
+            [_recordButton setBackgroundImage:[UIImage imageNamed:@"btn_paishe"]forState:UIControlStateNormal];
         }else{
-            [_recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_normal"]forState:UIControlStateNormal];
+            [_recordButton setBackgroundImage:[UIImage imageNamed:@"btn_psz"]forState:UIControlStateNormal];
         }
         break;
         default:
@@ -333,13 +413,13 @@
     }
     
 - (void)deleteButtonClick:(UIButton *)buttonClick {
-    NSLog(@"delete   %d", self.deleteButton.selected);
-    buttonClick.selected = !buttonClick.selected;
-    if (buttonClick.selected) {
-        _progressView.selectedIndex = _progressView.videoCount - 1;
-    } else {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除上一段视频？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _progressView.videoCount--;
-        [_delegate bottomViewDeleteFinished];
+        [self bottomViewDeleteFinished];
         if (_progressView.videoCount <= 0) {
             if (![AliyunIConfig config].hiddenImportButton) {
                 _photoLibraryButton.hidden = NO;
@@ -347,7 +427,27 @@
             
             _deleteButton.hidden = YES;
         }
-    }
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    UIViewController *controller = self.delegate;
+    [controller presentViewController:alertController animated:true completion:nil];
+    
+//    NSLog(@"delete   %d", self.deleteButton.selected);
+//    buttonClick.selected = !buttonClick.selected;
+//    if (buttonClick.selected) {
+//        _progressView.selectedIndex = _progressView.videoCount - 1;
+//    } else {
+//        _progressView.videoCount--;
+//        [self bottomViewDeleteFinished];
+//        if (_progressView.videoCount <= 0) {
+//            if (![AliyunIConfig config].hiddenImportButton) {
+//                _photoLibraryButton.hidden = NO;
+//            }
+//            
+//            _deleteButton.hidden = YES;
+//        }
+//    }
 }
     
 - (void)deleteLastProgress {
@@ -380,12 +480,11 @@
 - (UIButton *)recordButton {
     if (!_recordButton) {
         _recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _recordButton.bounds = CGRectMake(0, 0, 60, 60);
+        _recordButton.bounds = CGRectMake(0, 0, 72, 72);
         _recordButton.backgroundColor = [UIColor clearColor];
         _recordButton.adjustsImageWhenHighlighted = NO;
-        [_recordButton setBackgroundImage:[AliyunImage imageNamed:@"record_btn_normal"]forState:UIControlStateNormal];
+        [_recordButton setBackgroundImage:[UIImage imageNamed:@"btn_paishe"]forState:UIControlStateNormal];
         _recordButton.layer.masksToBounds = YES;
-        _recordButton.layer.cornerRadius = 30;
         [_recordButton addTarget:self action:@selector(recordButtonTouchUp) forControlEvents:UIControlEventTouchUpInside];
         [_recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
         [_recordButton addTarget:self action:@selector(recordButtonTouchUp) forControlEvents:UIControlEventTouchDragOutside];
@@ -396,7 +495,8 @@
 - (QUProgressView *)progressView {
     if (!_progressView) {
         _progressView = [[QUProgressView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 5)];
-        _progressView.showBlink = YES;
+        [_progressView setHidden:YES];
+        _progressView.showBlink = NO;
         _progressView.showNoticePoint = NO;
     }
     return _progressView;
@@ -409,7 +509,10 @@
         _magicButton.hidden = NO;
         [_magicButton setImage:[UIImage imageNamed:@"mofa"] forState:0];
         [_magicButton setImage:[UIImage imageNamed:@"mofa"] forState:(UIControlStateSelected)];
+        [_magicButton setTitle:@"魔法" forState:UIControlStateNormal];
+        _magicButton.titleLabel.font = [UIFont systemFontOfSize:12];
         [_magicButton addTarget:self action:@selector(magicButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_magicButton sizeToFitTitleBelowImageWithDistance:7];
     }
     return _magicButton;
 }
@@ -445,7 +548,18 @@
     }
     return _photoLibraryButton;
 }
-    
+
+- (AliyunRecordFocusView *)focusView {
+    if (!_focusView) {
+        _focusView = [[AliyunRecordFocusView alloc] init];
+        _focusView.bounds = CGRectMake(0, 0, 72, 72);
+        _focusView.center = CGPointMake(ScreenWidth /2.f, CGRectGetMidY(self.bounds));
+        _focusView.alpha = 0;
+        _focusView.userInteractionEnabled = NO;
+    }
+    return _focusView;
+}
+
     - (FilterAndBeautyView *)filterView {
         if (!_filterView) {
             _filterView = [[[NSBundle mainBundle] loadNibNamed:@"FilterAndBeautyView" owner:nil options:nil] lastObject];
@@ -458,27 +572,86 @@
         }
         return _filterView;
     }
-    
+
+- (UILabel *)durationLabel {
+    if (!_durationLabel) {
+        _durationLabel = [[UILabel alloc] init];
+        _durationLabel.hidden = true;
+        _durationLabel.bounds = CGRectMake(0, 0, 72, 72);
+        CGPoint p = CGPointMake(ScreenWidth / 2.f, ScreenWidth * 4/3.f );
+        _durationLabel.center = p;
+        _durationLabel.textAlignment = NSTextAlignmentCenter;
+        _durationLabel.textColor = UIColor.whiteColor;
+        _durationLabel.font = [UIFont systemFontOfSize:10];
+        _durationLabel.hidden = YES;
+        _durationLabel.text = @"00:00";
+    }
+    return _durationLabel;
+}
+
 - (void)setupBeautyStatus:(BOOL)isBeauty flashStatus:(NSInteger)flashStatus {
     
 //    self.beautyButton.selected = isBeauty;
     //[self updateNavigationFlashStatus:flashStatus];
 }
-    
+
+
+
 - (void)updateNavigationStatusWithDuration:(CGFloat)duration {
-    if (duration > 0 && _ratioButton.enabled) {
-        _ratioButton.enabled = NO;
+    self.duration = duration;
+        int d = duration;
+        int m = d / 60;
+        int s = d % 60;
+    
+    NSString *recordImageName = self.recoder.isRecording ? @"btn_psz" : @"btn_paishe";
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:recordImageName] forState:UIControlStateNormal];
+    
+    BOOL isRecording = self.recoder.isRecording;
+    if(!isRecording && self.duration >= self.progressView.minDuration){
+        [_nextButton setBackgroundColor:rgba(127, 110, 241, 1)];
+        _nextButton.enabled = YES;
+    }else{
+        [_nextButton setBackgroundColor:rgba(185, 175, 254, 1)];
+        _nextButton.enabled = NO;
     }
-    if (duration <= 0 && !_ratioButton.enabled) {
-        _ratioButton.enabled = YES;
-    }
+    self.progressView.hidden = duration <= 0 ? YES : NO;
+    if(duration <= 0){}
+    _durationLabel.text = [NSString stringWithFormat:@"%02d:%02d",m,s];
 }
     
 - (void)updateNavigationStatusWithRecord:(BOOL)isRecording {
-    _flashButton.enabled  = !isRecording;
-    _beautyButton.enabled = !isRecording;
-    _cameraButton.enabled = !isRecording;
-    _backButton.enabled = !isRecording;
+    //NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [self.progressView setHidden:!isRecording];
+    if(self.duration > 0){[self.progressView setHidden:NO];}
+    if(!isRecording && self.duration >= self.progressView.minDuration){
+        [_nextButton setBackgroundColor:rgba(127, 110, 241, 1)];
+        _nextButton.enabled = YES;
+    }else{
+        [_nextButton setBackgroundColor:rgba(185, 175, 254, 1)];
+        _nextButton.enabled = NO;
+    }
+    NSDictionary *info = @{@"isRecording":[NSNumber numberWithBool:isRecording]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:[NSNotification notificationWithName:@"RecordingStatusChaged" object:nil] object:nil userInfo:info];
+    [self.backButton setHidden:isRecording];
+    [self.cameraButton setHidden:isRecording];
+    [self.flashButton setHidden:isRecording];
+    [self.nextButton setHidden:isRecording];
+    [self.countDownButton setHidden:isRecording];
+    [self.beautyButton setHidden:isRecording];
+    [self.musicButton setHidden:isRecording];
+    [self.speedButton setHidden:isRecording];
+    [self.deleteButton setHidden:isRecording];
+    
+//    [self.recordButton setHidden:isRecording];
+    [self.magicButton setHidden:isRecording];
+    [self.durationLabel setHidden:!isRecording];
+    NSString *recordImageName = isRecording ? @"btn_psz" : @"btn_paishe";
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:recordImageName] forState:UIControlStateNormal];
+//    _flashButton.enabled  = !isRecording;
+//    _beautyButton.enabled = !isRecording;
+//    _cameraButton.enabled = !isRecording;
+//    _backButton.enabled = !isRecording;
+    
 }
     
 - (void)backButtonClick {
@@ -512,8 +685,23 @@
     }
     
 - (void)flashButtonClick {
-    NSInteger status = [_delegate navigationFlashModeDidChanged];
+    NSInteger status = [self navigationFlashModeDidChanged];
     [self updateNavigationFlashStatus:status];
+}
+
+- (NSInteger)navigationFlashModeDidChanged {
+    if (_recoder.torchMode == AliyunIRecorderTorchModeOff){
+        [_recoder switchTorchWithMode:AliyunIRecorderTorchModeOn];
+    }
+    else if(_recoder.torchMode == AliyunIRecorderTorchModeOn){
+        [_recoder switchTorchWithMode:AliyunIRecorderTorchModeOff];
+    }
+    else if(_recoder.torchMode == AliyunIRecorderTorchModeAuto){
+        [_recoder switchTorchWithMode:AliyunIRecorderTorchModeOff];
+    }
+    _torchMode = _recoder.torchMode;
+    
+    return (int)_torchMode;
 }
     
 - (void)speedButtonClick:(UIButton *)button{
@@ -524,7 +712,8 @@
         self.rateView.selectedSegmentIndex = 2;
         //[self.rateView addTarget:self action:@selector(rateChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.rateView];
-    }else{
+    }
+    else{
         [self rateChanged:self.rateView];
         [self.rateView removeFromSuperview];
     }
@@ -533,19 +722,16 @@
     - (void)countDownButtonClick:(UIButton *)button{
         ShotCountDownView *countDownView = [[ShotCountDownView alloc] init];
         countDownView.completeBlock = ^{
-            [self recordButtonTouchUp];
+            [self recordButtonTouchDown];
         };
         [countDownView showWith:3];
     }
 
 - (void)updateNavigationFlashStatus:(NSInteger)status {
-    
     if (status == 0) {
         [_flashButton setImage:[UIImage imageNamed:@"sgd_close"] forState:0];
     } else if (status == 1) {
         [_flashButton setImage:[UIImage imageNamed:@"sgd_open"] forState:0];
-    } else {
-        [_flashButton setImage:[AliyunImage imageNamed:@"camera_flash_auto"] forState:0];
     }
 }
     
@@ -560,10 +746,18 @@
 }
     
 - (void)cameraButtonClick {
-    _cameraButton.selected = !_cameraButton.selected;
-    [_delegate navigationCamerationPositionDidChanged:_cameraButton.selected];
+    AliyunIRecorderCameraPosition cameraPosition = [self.recoder switchCameraPosition];
+    [self.recoder switchTorchWithMode:AliyunIRecorderTorchModeOff];
+    _torchMode = AliyunIRecorderTorchModeOff;
+    [self updateNavigationFlashStatus:(int)_torchMode];
+
+    if(cameraPosition == AliyunIRecorderCameraPositionFront){
+        self.flashButton.enabled = NO;
+    }else{
+        self.flashButton.enabled = YES;
+    }
 }
-    
+
 - (UIButton *)createButtonWithImage:(UIImage *)imageName{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:imageName forState:0];
@@ -594,6 +788,27 @@
         break;
     }
     [self.delegate didSelectRate:rate];
+}
+
+- (void)bottomViewRecordVideo {
+    //    if ([_clipManager partCount] == 0) {
+//    _recorder.cameraRotate = _cameraRotate; // 旋转角度以第一段视频为准  产品需求更改:不以第一段视频角度计算
+    //    }
+    
+    [self.recoder startRecording];
+    
+    [self updateNavigationStatusWithRecord:YES];
+}
+
+- (void)bottomViewPauseVideo {
+    [self.recoder stopRecording];
+    [self updateNavigationStatusWithRecord:NO];
+}
+
+- (void)bottomViewDeleteFinished {
+    [_clipManager deletePart];
+    [self updateVideoDuration:_clipManager.duration];
+    [self updateNavigationStatusWithDuration:_clipManager.duration];
 }
 
     

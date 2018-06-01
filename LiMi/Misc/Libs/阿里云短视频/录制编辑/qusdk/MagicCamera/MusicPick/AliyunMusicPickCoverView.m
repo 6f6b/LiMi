@@ -43,7 +43,7 @@
     self.left = [[UIView alloc] initWithFrame:CGRectZero];
     self.left.backgroundColor = rgba(0, 0, 0, 0.3);
     [self addSubview:self.left];
-    self.middle = [[UIImageView alloc] initWithImage:[AliyunImage imageNamed:@"CropBox"]];
+    self.middle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CropBox"]];
     [self addSubview:self.middle];
     self.right = [[UIView alloc] initWithFrame:CGRectZero];
     self.right.backgroundColor = rgba(0, 0, 0, 0.3);

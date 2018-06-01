@@ -41,7 +41,7 @@
 #import "AddAnimationFilterController.h"
 #import "FilterAndBeautyView.h"
 #import "AliyunPathManager.h"
-
+#import "LiMi-Swift.h"
 typedef enum : NSUInteger {
     AliyunEditSouceClickTypeNone = 0,
     AliyunEditSouceClickTypeFilter,
@@ -69,7 +69,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 @property (nonatomic, strong) AliyunTabController *tabController;
 @property (nonatomic, strong) UIButton *backgroundTouchButton;
 @property (nonatomic, strong) UILabel *currentTimeLabel;
-@property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) FilterAndBeautyView *filterView;
 
 @property (nonatomic, strong) AliyunPasterManager *pasterManager;
@@ -116,7 +115,8 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     _outputSize = [_config fixedSize];
     
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:35.0/255 green:42.0/255 blue:66.0/255 alpha:1];
+    
+    self.view.backgroundColor =UIColor.blackColor;
     [self addSubviews];
     
     // editor
@@ -125,18 +125,18 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
     // player
     self.player = [self.editor getPlayer];
-    self.exporter = [self.editor getExporter];
+//    self.exporter = [self.editor getExporter];
     
     // setup pasterEditZoneView
-    self.editZoneView = [[AliyunEditZoneView alloc] initWithFrame:self.movieView.bounds];
-    self.editZoneView.delegate = (id)self;
-    [self.movieView addSubview:self.editZoneView];
+//    self.editZoneView = [[AliyunEditZoneView alloc] initWithFrame:self.movieView.bounds];
+//    self.editZoneView.delegate = (id)self;
+//    [self.movieView addSubview:self.editZoneView];
     
     // setup pasterManager
-    self.pasterManager = [self.editor getPasterManager];
-    self.pasterManager.displaySize = self.editZoneView.bounds.size;
-    self.pasterManager.outputSize = _outputSize;
-    self.pasterManager.delegate = (id)self;
+//    self.pasterManager = [self.editor getPasterManager];
+//    self.pasterManager.displaySize = self.editZoneView.bounds.size;
+//    self.pasterManager.outputSize = _outputSize;
+//    self.pasterManager.delegate = (id)self;
     
     [self.editor setRenderBackgroundColor:[UIColor blackColor]];
  
@@ -195,20 +195,49 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.movieView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-    [self.view addSubview:self.movieView];
-    [self.view addSubview:self.editHeaderView];
-    [self.view addSubview:self.editButtonsView];
-    self.editor.delegate =(id) self;
+//    CGSize size = CGSizeZero;
+//    CGFloat _screenRatio = ScreenWidth/ScreenHeight;
+//    CGFloat _orgVideoRatio =  _config.outputSize.width/_config.outputSize.height;
+//    CGSize _originalMediaSize = _config.outputSize;
+//    if (_screenRatio >= _orgVideoRatio){
+//        CGFloat heightRatio = ScreenHeight/_originalMediaSize.height;
+//        size.height = ScreenHeight;
+//        size.width = _originalMediaSize.width*heightRatio;
+//    }
+//    if ( _screenRatio < _orgVideoRatio){
+//        CGFloat widthRatio = ScreenWidth/_originalMediaSize.width;
+//        size.width = ScreenWidth;
+//        size.height = _originalMediaSize.height*widthRatio;
+//    }
+//
+//    CGRect frame = CGRectZero;
+//    frame.size = size;
+//
+//    self.movieView.frame = frame;
+//    self.movieView.center = self.view.center;
+//
+//    [self.view addSubview:self.movieView];
+//    [self.view addSubview:self.editHeaderView];
+//    [self.view addSubview:self.editButtonsView];
+//    self.editor.delegate =(id) self;
+//    [self.editor startEdit];
+//    //[self.player play];
+//
+//    self.timelineView.actualDuration = [self.player getDuration]; //为了让导航条播放时长匹配，必须在这里设置时长
+//    _prePlaying = YES;
+    
     [self.editor startEdit];
     [self.player play];
-    
-    [self.playButton setSelected:NO];
-//    NSString *watermarkPath = [[NSBundle mainBundle] pathForResource:@"watermark" ofType:@"png"];
-//    [self.editor setWaterMark:watermarkPath frame:CGRectMake(10, 10, 35, 25)];
+    NSString *watermarkPath = [[NSBundle mainBundle] pathForResource:@"watermark" ofType:@"png"];
+    [self.editor setWaterMark:watermarkPath frame:CGRectMake(10, 10, 35, 25)];
     self.timelineView.actualDuration = [self.player getDuration]; //为了让导航条播放时长匹配，必须在这里设置时长
     _prePlaying = YES;
 
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -260,7 +289,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
         [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
         self.isExporting = NO;
     }else {
-        self.playButton.selected = NO;
     }
     [self.player setActive:YES];
     [self.player play];
@@ -308,7 +336,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 - (void)playError:(int)errorCode {
     NSLog(@"demo :Errorcode:%d", errorCode);
     [self.player pause];
-    [self.playButton setSelected:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_reminder_common", nil) message:NSLocalizedString(@"video_error_edit", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"video_affirm_common", nil) otherButtonTitles: nil];
         [alert show];
@@ -326,71 +353,71 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 #pragma mark - AliyunIExporterCallback 
 
--(void)exporterDidStart {
-    NSLog(@"TestLog, %@:%@", @"log_edit_start_time", @([NSDate date].timeIntervalSince1970));
+//-(void)exporterDidStart {
+//    NSLog(@"TestLog, %@:%@", @"log_edit_start_time", @([NSDate date].timeIntervalSince1970));
+//
+//    QUMBProgressHUD *hud = [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.mode = QUMBProgressHUDModeDeterminate;
+//    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:UIControlStateNormal];
+//    [hud.button addTarget:self action:@selector(cancelExport) forControlEvents:UIControlEventTouchUpInside];
+//    hud.label.text = NSLocalizedString(@"video_is_exporting_edit", nil);
+//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+//}
 
-    QUMBProgressHUD *hud = [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = QUMBProgressHUDModeDeterminate;
-    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:UIControlStateNormal];
-    [hud.button addTarget:self action:@selector(cancelExport) forControlEvents:UIControlEventTouchUpInside];
-    hud.label.text = NSLocalizedString(@"video_is_exporting_edit", nil);
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-}
+//-(void)exporterDidEnd {
+//    NSLog(@"TestLog, %@:%@", @"log_edit_complete_time", @([NSDate date].timeIntervalSince1970));
+//
+//    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+//    if (self.isExporting) {
+//        self.isExporting = NO;
+//
+//        NSURL *outputPathURL = [NSURL fileURLWithPath:_config.outputPath];
+//        AVAsset *as = [AVAsset assetWithURL:outputPathURL];
+//        CGSize size = [as aliyunNaturalSize];
+//        CGFloat videoDuration = [as aliyunVideoDuration];
+//        float frameRate = [as aliyunFrameRate];
+//        float bitRate = [as aliyunBitrate];
+//        float estimatedKeyframeInterval =  [as aliyunEstimatedKeyframeInterval];
+//
+//        NSLog(@"TestLog, %@:%@", @"log_output_resolution", NSStringFromCGSize(size));
+//        NSLog(@"TestLog, %@:%@", @"log_video_duration", @(videoDuration));
+//        NSLog(@"TestLog, %@:%@", @"log_frame_rate", @(frameRate));
+//        NSLog(@"TestLog, %@:%@", @"log_bit_rate", @(bitRate));
+//        NSLog(@"TestLog, %@:%@", @"log_i_frame_interval", @(estimatedKeyframeInterval));
+//
+//
+//        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+//        [library writeVideoAtPathToSavedPhotosAlbum:outputPathURL
+//                                    completionBlock:^(NSURL *assetURL, NSError *error)
+//        {
+//            /* process assetURL */
+//            if (!error) {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_edit", nil) message:NSLocalizedString(@"video_local_save_edit", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//                [alert show];
+//            } else {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_fail_edit", nil) message:NSLocalizedString(@"video_exporting_check_autho", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//                [alert show];
+//            }
+//        }];
+//    }
+//    [self.player play];
+//}
 
--(void)exporterDidEnd {
-    NSLog(@"TestLog, %@:%@", @"log_edit_complete_time", @([NSDate date].timeIntervalSince1970));
-
-    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    if (self.isExporting) {
-        self.isExporting = NO;
-        
-        NSURL *outputPathURL = [NSURL fileURLWithPath:_config.outputPath];
-        AVAsset *as = [AVAsset assetWithURL:outputPathURL];
-        CGSize size = [as aliyunNaturalSize];
-        CGFloat videoDuration = [as aliyunVideoDuration];
-        float frameRate = [as aliyunFrameRate];
-        float bitRate = [as aliyunBitrate];
-        float estimatedKeyframeInterval =  [as aliyunEstimatedKeyframeInterval];
-        
-        NSLog(@"TestLog, %@:%@", @"log_output_resolution", NSStringFromCGSize(size));
-        NSLog(@"TestLog, %@:%@", @"log_video_duration", @(videoDuration));
-        NSLog(@"TestLog, %@:%@", @"log_frame_rate", @(frameRate));
-        NSLog(@"TestLog, %@:%@", @"log_bit_rate", @(bitRate));
-        NSLog(@"TestLog, %@:%@", @"log_i_frame_interval", @(estimatedKeyframeInterval));
-        
-        
-        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-        [library writeVideoAtPathToSavedPhotosAlbum:outputPathURL
-                                    completionBlock:^(NSURL *assetURL, NSError *error)
-        {
-            /* process assetURL */
-            if (!error) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_edit", nil) message:NSLocalizedString(@"video_local_save_edit", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                [alert show];
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_fail_edit", nil) message:NSLocalizedString(@"video_exporting_check_autho", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                [alert show];
-            }
-        }];
-    }
-    [self.player play];
-}
-
--(void)exporterDidCancel {
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    [self.player play];
-}
-
-- (void)exportProgress:(float)progress {
-  [QUMBProgressHUD HUDForView:self.view].progress = progress;
-}
-
--(void)exportError:(int)errorCode {
-    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    [self.player play];
-}
+//-(void)exporterDidCancel {
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+//    [self.player play];
+//}
+//
+//- (void)exportProgress:(float)progress {
+//  [QUMBProgressHUD HUDForView:self.view].progress = progress;
+//}
+//
+//-(void)exportError:(int)errorCode {
+//    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+//    [self.player play];
+//}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -399,9 +426,27 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 - (void)addSubviews
 {
-    //CGFloat factor = _outputSize.height/_outputSize.width;
-    self.movieView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    self.movieView.backgroundColor = rgba(30, 30, 30, 1);
+    CGSize size = CGSizeZero;
+    CGFloat _screenRatio = ScreenWidth/ScreenHeight;
+    CGFloat _orgVideoRatio =  _config.outputSize.width/_config.outputSize.height;
+    CGSize _originalMediaSize = _config.outputSize;
+    if (_screenRatio >= _orgVideoRatio){
+        CGFloat heightRatio = ScreenHeight/_originalMediaSize.height;
+        size.height = ScreenHeight;
+        size.width = _originalMediaSize.width*heightRatio;
+    }
+    if ( _screenRatio < _orgVideoRatio){
+        CGFloat widthRatio = ScreenWidth/_originalMediaSize.width;
+        size.width = ScreenWidth;
+        size.height = _originalMediaSize.height*widthRatio;
+    }
+    
+    CGRect frame = CGRectZero;
+    frame.size = size;
+    
+    self.movieView = [[UIView alloc] initWithFrame:frame];
+    self.movieView.center = self.view.center;
+    self.movieView.backgroundColor = UIColor.blackColor;
     [self.view addSubview:self.movieView];
     
     self.editHeaderView = [[AliyunEditHeaderView alloc] initWithFrame:CGRectMake(0, SafeTop, ScreenWidth, 44)];
@@ -421,25 +466,9 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //    [self.view addSubview:self.timelineView];
 
     
-//    self.currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 12)];
-//    self.currentTimeLabel.backgroundColor = RGBToColor(27, 33, 51);
-//    self.currentTimeLabel.textColor = [UIColor whiteColor];
-//    self.currentTimeLabel.textAlignment = NSTextAlignmentCenter;
-//    self.currentTimeLabel.font = [UIFont systemFontOfSize:11];
-//    self.currentTimeLabel.center = CGPointMake(ScreenWidth / 2, self.timelineView.frame.origin.y + CGRectGetHeight(self.timelineView.bounds) + 6);
-//    [self.currentTimeLabel sizeToFit];
-//    [self.view addSubview:self.currentTimeLabel];
-    
-    self.editButtonsView = [[AliyunEditButtonsView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 40 - SafeBottom, ScreenWidth, 40)];
+    self.editButtonsView = [[AliyunEditButtonsView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 68 - SafeBottom, ScreenWidth, 68)];
     [self.view addSubview:self.editButtonsView];
     self.editButtonsView.delegate = (id)self;
-    
-//    _playButton = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(self.view.frame) - 120 - SafeTop - SafeBottom, 64, 64)];
-//    [_playButton setImage:[AliyunImage imageNamed:@"qu_pause"] forState:UIControlStateNormal];
-//    [_playButton setImage:[AliyunImage imageNamed:@"qu_play"] forState:UIControlStateSelected];
-//    [_playButton setAdjustsImageWhenHighlighted:NO];
-//    [_playButton addTarget:self action:@selector(playControlClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_playButton];
     
     
 }
@@ -466,25 +495,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 #pragma mark - Action
 
-- (void)playControlClick:(UIButton *)sender {
-//if (self.isExported) {
-//        self.isExported = NO;
-//        [self.player replay];
-//        sender.selected = NO;
-//    } else {
-        if (!sender.selected) {
-            [self.player pause];
-            sender.selected = YES;
-            _prePlaying = NO;
-        } else {
-            [self forceFinishLastEditPasterView];
-            [self.player resume];
-            sender.selected = NO;
-            _prePlaying = YES;
-        }    
-//    }
-}
-
 #pragma mark - Private Methods -
 
 - (void)back {
@@ -504,12 +514,19 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //    self.isExporting = YES;
 
     // 发布页面合成视频
-    AliyunPublishViewController *vc = [[AliyunPublishViewController alloc] init];
-    vc.taskPath = _taskPath;
-    vc.config = _config;
-    vc.outputSize = _outputSize;
-    vc.backgroundImage = _timelineView.coverImage;
-    [self.navigationController pushViewController:vc animated:YES];
+    PulishViewController *pulishViewController = [[PulishViewController alloc] init];
+    pulishViewController.taskPath = _taskPath;
+    pulishViewController.config = _config;
+    pulishViewController.outputSize = _outputSize;
+    pulishViewController.backgroundImage = _timelineView.coverImage;
+    [self.navigationController pushViewController:pulishViewController animated:true];
+    
+//    AliyunPublishViewController *vc = [[AliyunPublishViewController alloc] init];
+//    vc.taskPath = _taskPath;
+//    vc.config = _config;
+//    vc.outputSize = _outputSize;
+//    vc.backgroundImage = _timelineView.coverImage;
+//    [self.navigationController pushViewController:vc animated:YES];
 
 }
 
@@ -744,7 +761,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 }
 
 - (void)timelineBeginDragging {
-    self.playButton.selected = YES;
     [self forceFinishLastEditPasterView];
 }
 
@@ -758,7 +774,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 - (void)timelineEndDraggingAndDecelerate:(CGFloat)time  {
     if (_prePlaying) {
         [self.player resume];
-        [self.playButton setSelected:NO];
     }
 }
 
@@ -794,7 +809,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     AliyunPasterController *pasterController = [self.pasterManager touchPoint:point atTime:[self.player getCurrentTime]];
     if (pasterController) {
         [self.player pause];
-        [self.playButton setSelected:YES];
         AliyunPasterView *pasterView = (AliyunPasterView *)[pasterController pasterView];
         if (pasterView) {//当前点击的位置有动图 逻辑：将上次有编辑的动图完成，让该次选择的动图进入编辑状态
             [self forceFinishLastEditPasterView];
@@ -879,10 +893,36 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 }
 //音乐
 - (void)musicButtonClicked {
-    [self forceFinishLastEditPasterView];
-    [self presentBackgroundButton];
-    _editSouceClickType = AliyunEditSouceClickTypeMusic;
-    [self showEffectView:self.musicView duration:0.2f];
+    MusicPickViewController *musicPickViewController = [[MusicPickViewController alloc] init];
+    musicPickViewController.delegate = self;
+    musicPickViewController.duration = (30);
+    [self.navigationController pushViewController:musicPickViewController animated:true];
+    
+//    [self forceFinishLastEditPasterView];
+//    [self presentBackgroundButton];
+//    _editSouceClickType = AliyunEditSouceClickTypeMusic;
+//    [self showEffectView:self.musicView duration:0.2f];
+}
+
+#pragma mark - MusicPickViewControllerDelegate
+- (void)musicPickViewControllerSelectedNone{
+    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:nil];
+    effectMusic.startTime = 0;
+    effectMusic.duration = 0;
+    [_editor applyMusic:effectMusic];
+}
+
+- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
+    effectMusic.startTime = startTime;
+    effectMusic.duration = duration;
+    [_editor applyMusic:effectMusic];
+
+//    AliyunEffectMusic *music = [[AliyunEffectMusic alloc] initWithFile:path];
+//
+//
+//    [self.editor applyMusic:music];
+//    [self.player replay];
 }
 
 - (void)filterButtonClicked:(AliyunEditButtonType)type {
@@ -925,7 +965,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     }
     _editSouceClickType = AliyunEditSouceClickTypePaint;
     [self showEffectView:self.paintShowView duration:0];
-    [self.playButton setHidden:YES];
     [self.paintShowView updateDrawRect:self.movieView.frame];
 }
 
@@ -1010,7 +1049,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     }
     [self.editor applyMV:[[AliyunEffectMV alloc] initWithFile:str]];
     [self.player replay];
-    [self.playButton setSelected:NO];
 }
 
 - (void)didSelectEffectMoreMv {
@@ -1025,7 +1063,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 - (void)animtionFilterButtonClick {
 //    [self.player pause];
-    [self.playButton setSelected:YES];
 }
 
 //长按开始时，由于结束时间未定，先将结束时间设置为较长的时间  !!!注意这里的实现方式!!!
@@ -1066,15 +1103,15 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 
 //长按进行时 更新
-- (void)didTouchingProgress {
-    if (_processAnimationFilter) {
-        if (_processAnimationFilter.endTime < _processAnimationFilter.startTime) {
-            return;
-        }
-        _processAnimationFilter.endTime = [self.player getCurrentTime];
-        [self updateAnimationFilterToTimeline:_processAnimationFilter];
-    }
-}
+//- (void)didTouchingProgress {
+//    if (_processAnimationFilter) {
+//        if (_processAnimationFilter.endTime < _processAnimationFilter.startTime) {
+//            return;
+//        }
+//        _processAnimationFilter.endTime = [self.player getCurrentTime];
+//        [self updateAnimationFilterToTimeline:_processAnimationFilter];
+//    }
+//}
 
 //手势结束后，将当前正在编辑的特效滤镜删掉，重新加一个 这时动效滤镜的开始和结束时间都确定了
 - (void)didEndLongPress {
@@ -1144,7 +1181,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     
     [self.editor applyMusic:music];
     [self.player replay];
-    [self.playButton setSelected:NO];
 }
 
 #pragma mark - AliyunPasterTextInputView -
@@ -1164,7 +1200,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //添加普通动图
 - (void)onClickPasterWithPasterModel:(AliyunEffectPasterInfo *)pasterInfo {
     [self.player pause];
-    [self.playButton setSelected:YES];
     [self forceFinishLastEditPasterView];
     
     AliyunPasterRange range = [self calculatePasterStartTimeWithDuration:[pasterInfo defaultDuration]];
@@ -1201,7 +1236,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     self.paintImage = [[AliyunEffectImage alloc] initWithFile:path];
     self.paintImage.frame = self.movieView.bounds;
     [self.editor applyPaint:self.paintImage];
-    [self.playButton setHidden:NO];
     [self dismissEffectView:self.paintShowView duration:0];
 }
 
@@ -1209,7 +1243,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     if (self.paintImage) {
         self.paintImage = nil;
     }
-    [self.playButton setHidden:NO];
     [self dismissEffectView:self.paintShowView duration:0];
 }
 
@@ -1217,7 +1250,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //添加字幕动图
 - (void)onClickCaptionWithPasterModel:(AliyunEffectPasterInfo *)pasterInfo {
     [self.player pause];
-    [self.playButton setSelected:YES];
     [self forceFinishLastEditPasterView];
     
     AliyunPasterRange range = [self calculatePasterStartTimeWithDuration:[pasterInfo defaultDuration]];
@@ -1229,7 +1261,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 - (void)onClickFontWithFontInfo:(AliyunEffectFontInfo *)font {
     [self.player pause];
-    [self.playButton setSelected:YES];
     [self forceFinishLastEditPasterView];
     
     [self presentBackgroundButton];

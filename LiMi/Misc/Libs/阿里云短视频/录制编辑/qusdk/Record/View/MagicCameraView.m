@@ -47,7 +47,7 @@
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-230)];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     [self.topView addGestureRecognizer:tap];
-    self.topView.backgroundColor = rgba(0, 0, 0, 0.4);
+    self.topView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.topView];
     
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight-240, ScreenWidth, 250)];

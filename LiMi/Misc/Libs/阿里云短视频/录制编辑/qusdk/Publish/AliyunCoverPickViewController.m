@@ -29,11 +29,11 @@
 
 - (void)setupSubviews {
     self.topView = [[AliyunPublishTopView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, StatusBarHeight+44)];
-    self.topView.nameLabel.text = @"编辑封面";
-        [self.topView.cancelButton setImage:[AliyunImage imageNamed:@"cancel"] forState:UIControlStateNormal];
-    [self.topView.cancelButton setTitle:nil forState:UIControlStateNormal];
-    [self.topView.finishButton setImage:[AliyunImage imageNamed:@"check"] forState:UIControlStateNormal];
-    [self.topView.finishButton setTitle:nil forState:UIControlStateNormal];
+    self.topView.nameLabel.hidden = true;
+    [self.topView.cancelButton setImage:nil forState:UIControlStateNormal];
+    [self.topView.cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [self.topView.finishButton setImage:nil forState:UIControlStateNormal];
+    [self.topView.finishButton setTitle:@"保存" forState:UIControlStateNormal];
     self.topView.delegate = self;
     self.topView.delegate = self;
     [self.view addSubview:self.topView];
@@ -59,9 +59,12 @@
     self.pickView.videoPath = _videoPath;
     self.pickView.outputSize = _outputSize;
     [self.view addSubview:self.pickView];
-    self.view.backgroundColor = [AliyunIConfig config].backgroundColor;
+    self.view.backgroundColor = rgba(30, 30, 30, 1);
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 #pragma mark - top view delegate
 
 -(void)cancelButtonClicked {
