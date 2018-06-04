@@ -1794,6 +1794,7 @@ struct MusicList:TargetType,ParametersProtocol{
     }
 }
 
+//获取短视频授权
 struct ShortVideoCreateUploadCertificate:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -1803,25 +1804,64 @@ struct ShortVideoCreateUploadCertificate:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "Aliyunvideo/shortVideoCreateUpload"
+        return "video/getStsAuth"
     }
     
-    var title:String = "limi"
+    var title:String = "粒米短视频"
     var fileName:String = "limi.mp4"
     var fileDes:String = "limi"
     var fileCover:String = "http://video.youhongtech.com/fdsjfldsjflds.png"
     var tags:String = "limi"
-    
+    var type:String = "upload"
     func parameters() -> [String : Any] {
             let tmpParameters = ["title":title,
             "fileName":fileName,
             "fileDes":fileDes,
 //            "fileCover":fileCover,
-            "tags":tags
+            "tags":tags,
+            "type":type
         ]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
+
+//发布视频到自己服务器
+//title    发布标题：限制128位字符    是    [string]
+//tags    标签【多个标签英文逗号分隔】 限制50位字符        [string]    美女,MV
+//video_addr    视频id :32位字符串，视频上传完毕后接口返回    是    [string]    c9c7f7272ed1417dba8dc6288acfb29c
+//music_id    音乐id        [string]    10
+//music_start    音乐片段开始时间 待定        [string]
+//music_end    音乐片段结束时间 待定        [string]
+//view_auth    1:所有人可见 2：粉丝可见 3：自己可见        [int]
+//video_cover 视频封面
+
+struct PublishVideo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/getStsAuth"
+    }
+    
+    var title:String?
+    var video_addr:String?
+    var view_auth:Int?
+    var video_cover:String?
+
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["title":title,
+                             "video_addr":video_addr,
+                             "view_auth":view_auth,
+                            "video_cover":video_cover
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{

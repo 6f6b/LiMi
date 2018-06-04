@@ -631,7 +631,7 @@
         _nextButton.enabled = NO;
     }
     NSDictionary *info = @{@"isRecording":[NSNumber numberWithBool:isRecording]};
-    [[NSNotificationCenter defaultCenter] postNotificationName:[NSNotification notificationWithName:@"RecordingStatusChaged" object:nil] object:nil userInfo:info];
+    [NSNotificationCenter.defaultCenter postNotificationName:@"RecordingStatusChaged" object:nil userInfo:info];
     [self.backButton setHidden:isRecording];
     [self.cameraButton setHidden:isRecording];
     [self.flashButton setHidden:isRecording];

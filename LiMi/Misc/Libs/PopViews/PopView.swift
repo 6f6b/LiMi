@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopView: View {
+class PopView: UIView {
     ///中央容器视图
     var centerContianView:UIView!
 

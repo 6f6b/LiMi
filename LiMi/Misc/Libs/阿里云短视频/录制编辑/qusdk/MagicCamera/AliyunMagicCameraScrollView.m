@@ -322,8 +322,9 @@ static bool _longTouchEnd = NO;
                 [effectCell.imageView setImage:iconImage];
             }
         } else {
-            NSURL *url = [NSURL URLWithString:pasterInfo.icon];
-            [effectCell.imageView sd_setImageWithURL:url];
+            effectCell.imageView.image = [UIImage imageNamed:@"wu"];
+//            NSURL *url = [NSURL URLWithString:pasterInfo.icon];
+//            [effectCell.imageView sd_setImageWithURL:url];
         }
         if (pasterInfo.icon == nil) {
             [effectCell borderHidden:YES];

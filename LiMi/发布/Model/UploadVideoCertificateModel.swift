@@ -10,6 +10,11 @@ import Foundation
 import ObjectMapper
 
 class UploadVideoCertificateModel: BaseModel {
+    var AccessKeySecret:String?
+    var AccessKeyId:String?
+    var Expiration:String?
+    var SecurityToken:String?
+    
     var address:String?
     var auth:String?
     var authDecode:AuthDecode?
@@ -21,6 +26,11 @@ class UploadVideoCertificateModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
+        AccessKeySecret<-map["data.AccessKeySecret"]
+        AccessKeyId<-map["data.AccessKeyId"]
+        Expiration<-map["data.Expiration"]
+        SecurityToken<-map["data.SecurityToken"]
+
         address<-map["data.address"]
         auth<-map["data.auth"]
         authDecode<-map["data.authDecode"]

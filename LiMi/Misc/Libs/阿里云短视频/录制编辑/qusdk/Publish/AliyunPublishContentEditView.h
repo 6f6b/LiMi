@@ -11,5 +11,5 @@
 @interface AliyunPublishContentEditView : UIView
 @property (nonatomic,copy) NSString *placeholder;
 @property (nonatomic,assign) NSInteger maxCharacterNum;
-//@property (nonatomic,)
+@property (nonatomic,readonly) NSString *content;
 @end

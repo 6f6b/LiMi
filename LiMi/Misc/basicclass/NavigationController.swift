@@ -20,7 +20,7 @@ class NavigationController: UINavigationController {
             //push时隐藏TabBar
             viewController.hidesBottomBarWhenPushed = true
             //替换ViewController的导航栏返回按钮
-            let backBtn = SuitableHotSpaceButton.init(type: .custom)
+            let backBtn = UIButton.init(type: .custom)
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
             backBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
             backBtn.contentHorizontalAlignment = .left

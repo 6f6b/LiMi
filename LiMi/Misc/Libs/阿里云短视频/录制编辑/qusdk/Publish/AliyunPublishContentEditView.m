@@ -44,6 +44,10 @@
     self.placeholderLabel.text = placeholder;
 }
 
+- (NSString *)content{
+    return self.textView.text;
+}
+
 - (void)setMaxCharacterNum:(NSInteger)maxCharacterNum{
     _maxCharacterNum = maxCharacterNum;
     _characterNumberLabel.text = [NSString stringWithFormat:@"%lu/%lu",_textView.text.length,maxCharacterNum];

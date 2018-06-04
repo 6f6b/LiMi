@@ -20,7 +20,7 @@ class HomePageController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let screeningBtn = SuitableHotSpaceButton.init(type: .custom)
+        let screeningBtn = UIButton.init(type: .custom)
         screeningBtn.setImage(UIImage.init(named: "home_ic_sx"), for: .normal)
         screeningBtn.sizeToFit()
         screeningBtn.addTarget(self, action: #selector(dealScreening), for: .touchUpInside)

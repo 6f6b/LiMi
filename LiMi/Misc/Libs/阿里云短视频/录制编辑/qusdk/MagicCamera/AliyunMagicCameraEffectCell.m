@@ -9,6 +9,10 @@
 #import "AliyunMagicCameraEffectCell.h"
 #import "UIView+Progress.h"
 
+@interface AliyunMagicCameraEffectCell ()
+@property (nonatomic,strong) UIImageView *backImageView;
+@end
+
 @implementation AliyunMagicCameraEffectCell
 {
     UIView *_pieView;
@@ -17,21 +21,25 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetHeight(frame), CGRectGetHeight(frame))];
+        self.backImageView.image = [UIImage imageNamed:@"xzmf"];
+        [self addSubview:self.backImageView];
+        
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetHeight(frame), CGRectGetHeight(frame))];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageView.clipsToBounds = YES;
+        //self.imageView.clipsToBounds = NO;
         [self addSubview:self.imageView];
         
-        self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = frame.size.height/2;
-        self.imageView.layer.borderWidth = 1.0;
-        self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.imageView.layer.masksToBounds = NO;
+        //self.imageView.layer.cornerRadius = frame.size.height/8;
+        //self.imageView.layer.borderWidth = 5.0;
+        //self.imageView.layer.borderColor =rgba(127, 110, 241, 1).CGColor;
         
         self.backgroundColor =[UIColor clearColor];
         
-        self.downloadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetHeight(frame) - 16, CGRectGetHeight(frame) - 16, 16, 16)];
+        self.downloadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetHeight(frame) - 8, CGRectGetHeight(frame) - 8, 16, 16)];
         self.downloadImageView.backgroundColor = [UIColor clearColor];
-        self.downloadImageView.image = [AliyunImage imageNamed:@"download.png"];
+        self.downloadImageView.image = [UIImage imageNamed:@"xiazai"];
         [self addSubview:self.downloadImageView];
         self.downloadImageView.hidden = YES;
         

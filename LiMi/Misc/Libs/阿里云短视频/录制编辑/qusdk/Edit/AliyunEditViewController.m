@@ -125,7 +125,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
     // player
     self.player = [self.editor getPlayer];
-//    self.exporter = [self.editor getExporter];
+    self.exporter = [self.editor getExporter];
     
     // setup pasterEditZoneView
 //    self.editZoneView = [[AliyunEditZoneView alloc] initWithFrame:self.movieView.bounds];
@@ -195,41 +195,38 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    CGSize size = CGSizeZero;
-//    CGFloat _screenRatio = ScreenWidth/ScreenHeight;
-//    CGFloat _orgVideoRatio =  _config.outputSize.width/_config.outputSize.height;
-//    CGSize _originalMediaSize = _config.outputSize;
-//    if (_screenRatio >= _orgVideoRatio){
-//        CGFloat heightRatio = ScreenHeight/_originalMediaSize.height;
-//        size.height = ScreenHeight;
-//        size.width = _originalMediaSize.width*heightRatio;
-//    }
-//    if ( _screenRatio < _orgVideoRatio){
-//        CGFloat widthRatio = ScreenWidth/_originalMediaSize.width;
-//        size.width = ScreenWidth;
-//        size.height = _originalMediaSize.height*widthRatio;
-//    }
-//
-//    CGRect frame = CGRectZero;
-//    frame.size = size;
-//
-//    self.movieView.frame = frame;
-//    self.movieView.center = self.view.center;
-//
-//    [self.view addSubview:self.movieView];
-//    [self.view addSubview:self.editHeaderView];
-//    [self.view addSubview:self.editButtonsView];
-//    self.editor.delegate =(id) self;
-//    [self.editor startEdit];
-//    //[self.player play];
-//
-//    self.timelineView.actualDuration = [self.player getDuration]; //为了让导航条播放时长匹配，必须在这里设置时长
-//    _prePlaying = YES;
+//    NSURL *sourceURL = [NSURL fileURLWithPath:_config.outputPath];
+//    AVAsset *_avAsset = [AVAsset assetWithURL:sourceURL];
+//    CGSize _originalMediaSize = [_avAsset avAssetNaturalSize];
     
+    CGSize size = CGSizeZero;
+    CGFloat _screenRatio = ScreenWidth/ScreenHeight;
+    CGFloat _orgVideoRatio =  _config.outputSize.width/_config.outputSize.height;
+    CGSize _originalMediaSize = _config.outputSize;
+    if (_screenRatio >= _orgVideoRatio){
+        CGFloat heightRatio = ScreenHeight/_originalMediaSize.height;
+        size.height = ScreenHeight;
+        size.width = _originalMediaSize.width*heightRatio;
+    }
+    if ( _screenRatio < _orgVideoRatio){
+        CGFloat widthRatio = ScreenWidth/_originalMediaSize.width;
+        size.width = ScreenWidth;
+        size.height = _originalMediaSize.height*widthRatio;
+    }
+
+    CGRect frame = CGRectZero;
+    frame.size = size;
+
+    self.movieView.frame = frame;
+    self.movieView.center = self.view.center;
+
+    [self.view addSubview:self.movieView];
+    [self.view addSubview:self.editHeaderView];
+    [self.view addSubview:self.editButtonsView];
+    self.editor.delegate =(id) self;
     [self.editor startEdit];
     [self.player play];
-    NSString *watermarkPath = [[NSBundle mainBundle] pathForResource:@"watermark" ofType:@"png"];
-    [self.editor setWaterMark:watermarkPath frame:CGRectMake(10, 10, 35, 25)];
+
     self.timelineView.actualDuration = [self.player getDuration]; //为了让导航条播放时长匹配，必须在这里设置时长
     _prePlaying = YES;
 
@@ -353,71 +350,71 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 #pragma mark - AliyunIExporterCallback 
 
-//-(void)exporterDidStart {
-//    NSLog(@"TestLog, %@:%@", @"log_edit_start_time", @([NSDate date].timeIntervalSince1970));
-//
-//    QUMBProgressHUD *hud = [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.mode = QUMBProgressHUDModeDeterminate;
-//    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:UIControlStateNormal];
-//    [hud.button addTarget:self action:@selector(cancelExport) forControlEvents:UIControlEventTouchUpInside];
-//    hud.label.text = NSLocalizedString(@"video_is_exporting_edit", nil);
-//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-//}
+-(void)exporterDidStart {
+    NSLog(@"TestLog, %@:%@", @"log_edit_start_time", @([NSDate date].timeIntervalSince1970));
 
-//-(void)exporterDidEnd {
-//    NSLog(@"TestLog, %@:%@", @"log_edit_complete_time", @([NSDate date].timeIntervalSince1970));
-//
-//    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
-//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-//    if (self.isExporting) {
-//        self.isExporting = NO;
-//
-//        NSURL *outputPathURL = [NSURL fileURLWithPath:_config.outputPath];
-//        AVAsset *as = [AVAsset assetWithURL:outputPathURL];
-//        CGSize size = [as aliyunNaturalSize];
-//        CGFloat videoDuration = [as aliyunVideoDuration];
-//        float frameRate = [as aliyunFrameRate];
-//        float bitRate = [as aliyunBitrate];
-//        float estimatedKeyframeInterval =  [as aliyunEstimatedKeyframeInterval];
-//
-//        NSLog(@"TestLog, %@:%@", @"log_output_resolution", NSStringFromCGSize(size));
-//        NSLog(@"TestLog, %@:%@", @"log_video_duration", @(videoDuration));
-//        NSLog(@"TestLog, %@:%@", @"log_frame_rate", @(frameRate));
-//        NSLog(@"TestLog, %@:%@", @"log_bit_rate", @(bitRate));
-//        NSLog(@"TestLog, %@:%@", @"log_i_frame_interval", @(estimatedKeyframeInterval));
-//
-//
-//        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-//        [library writeVideoAtPathToSavedPhotosAlbum:outputPathURL
-//                                    completionBlock:^(NSURL *assetURL, NSError *error)
-//        {
-//            /* process assetURL */
-//            if (!error) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_edit", nil) message:NSLocalizedString(@"video_local_save_edit", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//                [alert show];
-//            } else {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_fail_edit", nil) message:NSLocalizedString(@"video_exporting_check_autho", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//                [alert show];
-//            }
-//        }];
-//    }
-//    [self.player play];
-//}
+    QUMBProgressHUD *hud = [QUMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = QUMBProgressHUDModeDeterminate;
+    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:UIControlStateNormal];
+    [hud.button addTarget:self action:@selector(cancelExport) forControlEvents:UIControlEventTouchUpInside];
+    hud.label.text = NSLocalizedString(@"video_is_exporting_edit", nil);
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
 
-//-(void)exporterDidCancel {
-//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-//    [self.player play];
-//}
-//
-//- (void)exportProgress:(float)progress {
-//  [QUMBProgressHUD HUDForView:self.view].progress = progress;
-//}
-//
-//-(void)exportError:(int)errorCode {
-//    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
-//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-//    [self.player play];
-//}
+-(void)exporterDidEnd {
+    NSLog(@"TestLog, %@:%@", @"log_edit_complete_time", @([NSDate date].timeIntervalSince1970));
+
+    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    if (self.isExporting) {
+        self.isExporting = NO;
+
+        NSURL *outputPathURL = [NSURL fileURLWithPath:_config.outputPath];
+        AVAsset *as = [AVAsset assetWithURL:outputPathURL];
+        CGSize size = [as aliyunNaturalSize];
+        CGFloat videoDuration = [as aliyunVideoDuration];
+        float frameRate = [as aliyunFrameRate];
+        float bitRate = [as aliyunBitrate];
+        float estimatedKeyframeInterval =  [as aliyunEstimatedKeyframeInterval];
+
+        NSLog(@"TestLog, %@:%@", @"log_output_resolution", NSStringFromCGSize(size));
+        NSLog(@"TestLog, %@:%@", @"log_video_duration", @(videoDuration));
+        NSLog(@"TestLog, %@:%@", @"log_frame_rate", @(frameRate));
+        NSLog(@"TestLog, %@:%@", @"log_bit_rate", @(bitRate));
+        NSLog(@"TestLog, %@:%@", @"log_i_frame_interval", @(estimatedKeyframeInterval));
+
+
+        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+        [library writeVideoAtPathToSavedPhotosAlbum:outputPathURL
+                                    completionBlock:^(NSURL *assetURL, NSError *error)
+        {
+            /* process assetURL */
+            if (!error) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_edit", nil) message:NSLocalizedString(@"video_local_save_edit", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"video_exporting_finish_fail_edit", nil) message:NSLocalizedString(@"video_exporting_check_autho", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }
+        }];
+    }
+    [self.player play];
+}
+
+-(void)exporterDidCancel {
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.player play];
+}
+
+- (void)exportProgress:(float)progress {
+  [QUMBProgressHUD HUDForView:self.view].progress = progress;
+}
+
+-(void)exportError:(int)errorCode {
+    [[QUMBProgressHUD HUDForView:self.view] hideAnimated:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.player play];
+}
 
 - (BOOL)prefersStatusBarHidden
 {

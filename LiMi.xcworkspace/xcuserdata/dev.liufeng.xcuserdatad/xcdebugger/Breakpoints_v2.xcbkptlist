@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.280898"
+            timestampString = "549555521.933328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
@@ -25,72 +25,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281042"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "uploadProgress(withUploadedSize:totalSize:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281157"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "uploadSuccess(withVid:imageUrl:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281257"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
-            landmarkName = "uploadRetry()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281341"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-            landmarkName = "uploadRetryResume()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Record/ViewController/AliyunRecordViewController.m"
-            timestampString = "549460966.28141"
+            timestampString = "549555521.933558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "294"
@@ -105,40 +41,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281478"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "pulishButtonClicked()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549460966.281536"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "requestCertificationWith(completeBlock:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Crop/AliyunCropViewController.m"
-            timestampString = "549460966.281608"
+            timestampString = "549528862.243425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
@@ -154,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Record/ViewController/AddAnimationFilterController.m"
-            timestampString = "549460966.2817"
+            timestampString = "549509845.3983901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "355"
@@ -169,44 +73,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Record/ViewController/AddAnimationFilterController.m"
-            timestampString = "549460966.281778"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-cancelButtonClicked:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
-            timestampString = "549460966.28186"
+            timestampString = "549555521.93378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "919"
-            endingLineNumber = "919"
-            landmarkName = "-musicPickViewControllerSelectedWithMusicPath:startTime:duration:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
-            timestampString = "549460966.282533"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "-playerDidEnd"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
-            timestampString = "549460966.283034"
+            timestampString = "549555521.933928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "-playError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,12 +106,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
-            timestampString = "549460966.283437"
+            timestampString = "549555521.934029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "-seekDidEnd"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Edit/AliyunEditViewController.m"
+            timestampString = "549555521.934104"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "-cancelExport"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
+            timestampString = "549555521.9341739"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
+            landmarkName = "uploadFailed(withCode:message:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LiMi.PulishViewController.uploadFailed(withCode: Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;, message: Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "LiMi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E8%A7%86%E9%A2%91/%E5%BD%95%E5%88%B6%E7%BC%96%E8%BE%91/qusdk/Publish/PulishViewController.swift"
+                  timestampString = "549555523.786654"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "429"
+                  endingLineNumber = "429"
+                  offsetFromSymbolStart = "73">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in LiMi.PulishViewController.uploadFailed(withCode: Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;, message: Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "LiMi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E8%A7%86%E9%A2%91/%E5%BD%95%E5%88%B6%E7%BC%96%E8%BE%91/qusdk/Publish/PulishViewController.swift"
+                  timestampString = "549555523.788813"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "430"
+                  endingLineNumber = "430"
+                  offsetFromSymbolStart = "71">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
+            timestampString = "549555521.934273"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "uploadTokenExpired()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

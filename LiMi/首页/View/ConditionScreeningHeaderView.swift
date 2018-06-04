@@ -36,7 +36,7 @@ class ConditionScreeningHeaderView: UICollectionReusableView {
             make.left.equalTo(self.headImgV.snp.right).offset(5)
         }
         
-        self.spreadBtn = SuitableHotSpaceButton()
+        self.spreadBtn = UIButton()
 //        self.spreadBtn.backgroundColor = UIColor.red
         self.spreadBtn.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 3, bottom: 0, right: -3)
         self.spreadBtn.setImage(UIImage.init(named: "sx_btn_shouqi"), for: .normal)

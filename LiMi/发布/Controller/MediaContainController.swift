@@ -28,7 +28,9 @@ class MediaContainController: ViewController {
         
         self.recordViewController = AliyunMediator.shared().recordViewController() as? AliyunRecordViewController
         let quVideo = AliyunMediaConfig.init()
-        quVideo.outputSize = SCREEN_RECT.size
+        let height = Int(SCREEN_HEIGHT)/2*2
+        let width = Int(SCREEN_WIDTH)/2*2
+        quVideo.outputSize = CGSize.init(width: width, height: height)
         quVideo.minDuration = 2
         quVideo.maxDuration = 30
         quVideo.cutMode = .scaleAspectCut;

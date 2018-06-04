@@ -25,10 +25,10 @@
     [self.allVisiableContainView addGestureRecognizer:tapAll];
     
     UITapGestureRecognizer *tapFollowers = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAllFollowersContainView)];
-    [self.allVisiableContainView addGestureRecognizer:tapFollowers];
+    [self.allFollowersContainView addGestureRecognizer:tapFollowers];
     
     UITapGestureRecognizer *tapOnlySelf = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnlySelfContainView)];
-    [self.allVisiableContainView addGestureRecognizer:tapOnlySelf];
+    [self.onlySelfContainView addGestureRecognizer:tapOnlySelf];
 }
 
 - (BOOL)prefersStatusBarHidden {

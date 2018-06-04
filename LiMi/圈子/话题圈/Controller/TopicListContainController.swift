@@ -69,7 +69,7 @@ class TopicListContainController: ViewController {
         self.controllersContainScrollView.addSubview(hottestTopicListControllerView!)
         self.slidingMenuBar.select(index: 0)
         
-        self.addTopicBtn = SuitableHotSpaceButton(type: .custom)
+        self.addTopicBtn = UIButton(type: .custom)
         self.addTopicBtn.setImage(UIImage.init(named: "ic_publish_pressed"), for: .normal)
         self.addTopicBtn.sizeToFit()
         self.addTopicBtn.addTarget(self, action: #selector(dealAddTopic), for: .touchUpInside)

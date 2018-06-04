@@ -64,7 +64,7 @@ class TrendsTopToolsContainView: UIView {
             make.top.equalTo(self.userName.snp.bottom).offset(8)
         }
         
-        self.moreOperationBtn = SuitableHotSpaceButton()
+        self.moreOperationBtn = UIButton()
         self.addSubview(self.moreOperationBtn)
         self.moreOperationBtn.contentMode = .right
         self.moreOperationBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)

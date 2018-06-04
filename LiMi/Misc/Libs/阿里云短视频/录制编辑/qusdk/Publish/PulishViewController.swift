@@ -35,15 +35,10 @@ import ObjectMapper
     var outputPath:String!;
     override var prefersStatusBarHidden: Bool{return true}
 
-    var client:VODUploadSVideoClient!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addNotifications()
         self.setupSubviews()
-        
-        self.client = VODUploadSVideoClient.init()
-        self.client.delegate = self;
-        self.client.transcode = true;
     }
 
     override func didReceiveMemoryWarning() {
@@ -156,6 +151,11 @@ import ObjectMapper
     }
     
     @objc func saveToLocalButtonClicked(){
+        if !self.finished && !failed{
+            Toast.showErrorWith(msg: "合成还未结束")
+            return
+        }
+
         Toast.showStatusWith(text: nil)
         PHPhotoLibrary.shared().performChanges({
             let fileURL = NSURL.fileURL(withPath: self.outputPath)
@@ -202,6 +202,10 @@ import ObjectMapper
     }
     
     @objc func pulishButtonClicked(){
+        if !self.finished && !failed{
+            Toast.showErrorWith(msg: "合成还未结束")
+            return
+        }
         self.requestCertificationWith { (uploadVideoCertificateModel) in
             let coverPath = NSString.init(string: self.taskPath).appendingPathComponent("cover.png");
             let data = UIImagePNGRepresentation(self.image!);
@@ -211,15 +215,11 @@ import ObjectMapper
                 Toast.showErrorWith(msg: error.localizedDescription)
                 return
             }
-            let info = VodSVideoInfo.init()
-            if let accessKeyId = uploadVideoCertificateModel.authDecode?.AccessKeyId,let accessKeySecret = uploadVideoCertificateModel.authDecode?.AccessKeySecret,let accessKeyToken = uploadVideoCertificateModel.authDecode?.SecurityToken{
-//                AliyunPublishService.share().upload(withImagePath: coverPath, svideoInfo: <#T##AliyunUploadSVideoInfo!#>, accessKeyId: <#T##String!#>, accessKeySecret: <#T##String!#>, accessToken: <#T##String!#>)
-                var accessKeyId = "8WhYnMydRgDNDNbzUwf4w9xNN7JBaxs3yHRF2jDsVvwq";
-                var accessKeySecret = "STS.NHCAnyrSCQdViUrsQGLvXi3hJ";
-                var accessKeyToken = "CAIS8gF1q6Ft5B2yfSjIr4v2CtTNn4xi5qa9a3PDl1ESQPl0hvbDqDz2IH5LfHlvBO8Wvv01nmtV7fgTlqxtSpNIQhQFjCe7PdAFnzm6aq/t5uaXj9Vd+rDHdEGXDxnkprywB8zyUNLafNq0dlnAjVUd6LDmdDKkLTfHWN/z/vwBVNkMWRSiZjdrHcpfIhAYyPUXLnzML/2gQHWI6yjydBMz4FYm0TgitPjhmJDBtUTk4QekmrNPlePYOYO5asRgBpB7Xuqu0fZ+Hqi7i3APs0gVqfgm3PUeo2ya5Y/MGT9L5BGLKOrT6MFxLQN0Ybj6wyn/dhs5/xqAAVq7fl0cocEqyoUGlOesNaww5S6SW449PxS4SYhYXWNWH5zDRhwDyRFC9J7QuwPSBZvFzDtIQScLTQD0AxbEhVwnUnIrWIIoeZvPBASgJGSOR1LGgHQYzPU2Btk4az4/HP71dsMisLIpwWner12ojJdGjrAOoHD3K763F1seYqSS"
-                self.client.upload(withVideoPath: self.outputPath, imagePath: coverPath, svideoInfo: info, accessKeyId: accessKeyId, accessKeySecret: accessKeySecret, accessToken: accessKeyToken)
+            let info = AliyunUploadSVideoInfo.init()
+            info.title = "\(NSTimeIntervalSince1970).mp4"
+            if let accessKeyId = uploadVideoCertificateModel.AccessKeyId,let accessKeySecret = uploadVideoCertificateModel.AccessKeySecret,let accessKeyToken = uploadVideoCertificateModel.SecurityToken{
+                    AliyunPublishService.share().upload(withImagePath: coverPath, svideoInfo: info, accessKeyId: accessKeyId, accessKeySecret: accessKeySecret, accessToken: accessKeyToken)
             }
-
         }
     }
 
@@ -239,16 +239,42 @@ import ObjectMapper
         })
     }
     
+    //请求上传凭证
+    func pulishToServerWith(title:String?,videoId:String,viewAuth:Int,videoCover:String?){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
+        _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
+            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            if baseModel?.commonInfoModel?.status == successState{
+                Toast.showSuccessWith(msg: "发布成功!")
+                //延时1秒返回主界面
+                let delayTime : TimeInterval = 1.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
+                    Toast.dismiss()
+                    UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
+                }
+            }else{
+                Toast.showErrorWith(model: baseModel)
+            }
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !self.finished{
             do{
-                try FileManager.default.removeItem(atPath: AliyunPathManager.createExportDir())
+                if FileManager.default.fileExists(atPath: AliyunPathManager.createExportDir()){
+                    try FileManager.default.removeItem(atPath: AliyunPathManager.createExportDir())
+                }
                 try FileManager.default.createDirectory(atPath: AliyunPathManager.createExportDir(), withIntermediateDirectories: true, attributes: nil)
                 let outputTaskPath = NSString.init(string: AliyunPathManager.createExportDir())
                 let outputPath = outputTaskPath.appendingPathComponent(NSString.init(string: AliyunPathManager.uuidString()).appendingPathExtension("mp4")!)
                 self.outputPath = outputPath
                 AliyunPublishService.share().exportCallback = self;
+                AliyunPublishService.share().uploadCallback = self;
                 AliyunPublishService.share().export(withTaskPath: self.taskPath, outputPath: self.outputPath)
             }catch{
                 Toast.showErrorWith(msg: error.localizedDescription)
@@ -352,6 +378,7 @@ extension PulishViewController:AliyunIExporterCallback{
         self.publishProgressView.isHidden = true;
     }
 
+    
 }
 
 extension PulishViewController:AliyunPublishTopViewDelegate{
@@ -361,6 +388,7 @@ extension PulishViewController:AliyunPublishTopViewDelegate{
             let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             let actionCofirm = UIAlertAction.init(title: "确定", style: .default) { (_) in
                 AliyunPublishService.share().cancelExport()
+                //self.navigationController?.popViewController(animated: true)
             }
             alertController.addAction(actionCancel)
             alertController.addAction(actionCofirm)
@@ -376,30 +404,25 @@ extension PulishViewController:AliyunPublishTopViewDelegate{
     
 }
 
-extension PulishViewController:VODUploadSVideoClientDelegate{
+extension PulishViewController:AliyunIUploadCallback{
     func uploadProgress(withUploadedSize uploadedSize: Int64, totalSize: Int64) {
-        let progress = Float(uploadedSize)/Float(totalSize)
+        let progress = Float(uploadedSize)/Float(totalSize)*100
+        print("上传进度：\(progress)%")
         DispatchQueue.main.async {
-            Toast.showErrorWith(msg: "上传进度:\(progress)")
+            Toast.showStatusWith(text: "上传进度:\(Int(progress))%")
         }
 
-//        if (totalSize) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                CGFloat progress = uploadedSize/(double)totalSize;
-//                [_progressView setProgress:progress];
-//                [self updateUploadLabelWithProgress:progress];
-//                });
-//        }
     }
     
     func uploadTokenExpired() {
-//        [self requestSTSWithHandler:^(NSString *keyId, NSString *keySecret, NSString *token, NSString *expireTime, NSError *error) {
-//            if (error) {
-//            [[AliyunPublishService service] cancelUpload];
-//            }else {
-//            [[AliyunPublishService service] refreshWithAccessKeyId:keyId accessKeySecret:keySecret accessToken:token expireTime:expireTime];
-//            }
-//            }];
+        
+        self.requestCertificationWith { (uploadVideoCertificateModel) in
+            if let accessKeyId = uploadVideoCertificateModel.AccessKeyId,let accessKeySecret = uploadVideoCertificateModel.AccessKeySecret,let accessKeyToken = uploadVideoCertificateModel.SecurityToken,let expireTime = uploadVideoCertificateModel.Expiration{
+//                AliyunPublishService.share().cancelUpload()
+                AliyunPublishService.share().refresh(withAccessKeyId: accessKeyId, accessKeySecret: accessKeySecret, accessToken: accessKeyToken, expireTime: expireTime)
+                //AliyunPublishService.share().upload(withImagePath: coverPath, svideoInfo: info, accessKeyId: accessKeyId, accessKeySecret: accessKeySecret, accessToken: accessKeyToken)
+            }
+        }
     }
     
     func uploadFailed(withCode code: String!, message: String!) {
@@ -409,9 +432,8 @@ extension PulishViewController:VODUploadSVideoClientDelegate{
     }
     
     func uploadSuccess(withVid vid: String!, imageUrl: String!) {
-        DispatchQueue.main.async {
-            Toast.showSuccessWith(msg: "上传成功-vid:\(vid)\nimageURL:\(imageUrl)")
-        }
+        print("上传成功")
+        self.pulishToServerWith(title: self.publishContentEditView.content, videoId: vid, viewAuth: 1, videoCover: imageUrl)
     }
     
     func uploadRetry() {
