@@ -33,8 +33,15 @@ import ObjectMapper
     var image:UIImage?;
     
     var outputPath:String!;
+    
     override var prefersStatusBarHidden: Bool{return true}
-
+    /*可见权限*/
+    var visiableType:VisibleChooseType = .all
+    /*音乐信息*/
+    var music_id:String?
+    var music_start:String?
+    var music_end:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addNotifications()
@@ -188,15 +195,16 @@ import ObjectMapper
         let visibleChooseController = AliyunVisibleChooseController.init()
         visibleChooseController.visibleType = .all;
         visibleChooseController.chooseTypeBlock = {type in
-                if type == .all{
-                    self.aliyunAuthorityChooseView.rightInfoLabel.text = "所有人可见";
-                }
-                if type == .followers{
-                    self.aliyunAuthorityChooseView.rightInfoLabel.text = "粉丝可见";
-                }
-                if type == .onlySelf{
-                    self.aliyunAuthorityChooseView.rightInfoLabel.text = "自己可见";
-                }
+            self.visiableType = type
+            if self.visiableType == .all{
+                self.aliyunAuthorityChooseView.rightInfoLabel.text = "所有人可见";
+            }
+            if self.visiableType == .followers{
+                self.aliyunAuthorityChooseView.rightInfoLabel.text = "粉丝可见";
+            }
+            if self.visiableType == .onlySelf{
+                self.aliyunAuthorityChooseView.rightInfoLabel.text = "自己可见";
+            }
         }
         self.navigationController?.pushViewController(visibleChooseController, animated: true)
     }
@@ -239,10 +247,11 @@ import ObjectMapper
         })
     }
     
-    //请求上传凭证
+    //发布到服务器
     func pulishToServerWith(title:String?,videoId:String,viewAuth:Int,videoCover:String?){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
+        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.music_id, music_start: self.music_start, music_end: self.music_end)
+       // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
@@ -433,7 +442,8 @@ extension PulishViewController:AliyunIUploadCallback{
     
     func uploadSuccess(withVid vid: String!, imageUrl: String!) {
         print("上传成功")
-        self.pulishToServerWith(title: self.publishContentEditView.content, videoId: vid, viewAuth: 1, videoCover: imageUrl)
+        
+        self.pulishToServerWith(title: self.publishContentEditView.content, videoId: vid, viewAuth: self.visiableType.rawValue, videoCover: imageUrl)
     }
     
     func uploadRetry() {

@@ -84,6 +84,7 @@
 #import "AliyunCoverPickViewController.h"
 #import <VODUpload/VODUploadClient.h>
 #import <VODUpload/VODUploadSVideoClient.h>
+#import <AliyunVodPlayerSDK/AliyunVodPlayerSDK.h>
 //#import <AliyunVideoSDKPro/AliyunVideoSDKPro.h>
 //#import "AliyunMediaConfig.h"
 //#import "AliyunRecordViewController.h"

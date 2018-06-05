@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, VisibleChooseType) {
-    VisibleChooseTypeAll,//默认从0开始
-    VisibleChooseTypeFollowers,
-    VisibleChooseTypeOnlySelf
+    VisibleChooseTypeAll = 1,//默认从0开始
+    VisibleChooseTypeFollowers = 2,
+    VisibleChooseTypeOnlySelf = 3
 };
 
 @interface AliyunVisibleChooseController : UIViewController

@@ -12,16 +12,20 @@ import NIMSDK
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let homePageController = HomePageController()
-        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
+        
+        let homeContainViewController = HomeContainViewController()
+        self.addControllerWith(controller: homeContainViewController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
+//        let homePageController = HomePageController()
+//        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
+        
         let circleController = CircleController()
          self.addControllerWith(controller: circleController, title: "圈子", tbImg: "home_ic_qz", tbSelectedImg: "home_ic_qzpre")
         
         let blankController = ViewController()
-        self.addControllerWith(controller: blankController, title: "", tbImg: "home_ic_fb", tbSelectedImg: "home_ic_fb")
+        self.addControllerWith(controller: blankController, title: "", tbImg: "home_ps", tbSelectedImg: "home_ps")
         
         let msgController = MsgController()
-         self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_im", tbSelectedImg: "home_ic_impre")
+         self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
         let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
         self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "home_ic_me", tbSelectedImg: "home_ic_mepre")
         self.delegate = self
@@ -35,10 +39,11 @@ class TabBarController: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
         self.refreshMyMessageBadge()
         
-        self.tabBar.backgroundColor = UIColor.white
+        self.tabBar.backgroundColor = UIColor.clear
         self.tabBar.barTintColor = UIColor.white
-        self.tabBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 1), color: RGBA(r: 228, g: 228, b: 228, a: 1))
+        self.tabBar.shadowImage = UIImage()
         self.tabBar.backgroundImage = UIImage()
+        //self.tabBar.shadowImage = GetImgWith(size: CGSize.init(width: SCREEN_WIDTH, height: 1), color: RGBA(r: 228, g: 228, b: 228, a: 1))
     }
 
     deinit{
@@ -112,15 +117,25 @@ extension TabBarController:UITabBarControllerDelegate{
     }
     //控制是否跳转
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        /*判断发布按钮*/
         if viewController == self.viewControllers![2]{
             if !AppManager.shared.checkUserStatus(){return false}
 
-            let releaseTypeController = ReleaseTypeController()
-//            let releaseController = ReleaseController()
-            let releaseNav = NavigationController(rootViewController: releaseTypeController)
-            self.present(releaseNav, animated: true, completion: nil)
+            print("\(NSDate.init())")
+            let mediaContainController = MediaContainController()
+            print("\(NSDate.init())")
+            let mediaContainControllerNav = NavigationController.init(rootViewController: mediaContainController)
+            self.present(mediaContainControllerNav, animated: true, completion: nil)
             return false
         }
+        /*颜色改变*/
+        if viewController == self.viewControllers![0]{
+            tabBarController.tabBar.backgroundColor = UIColor.clear
+        }else{
+            tabBarController.tabBar.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        }
+        
+        /*其他*/
         if viewController == self.viewControllers![3]{
             if !AppManager.shared.checkUserStatus(){
                 return false

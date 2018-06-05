@@ -135,7 +135,7 @@ extension MediaContainController:PhotoViewControllerDelegate{
 
 extension MediaContainController:AliyunRecordViewControllerDelegate{
     func exitRecord() {
-        self.navigationController?.popViewController(animated: true)
+        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
         print("退出录制")
     }
     func recoderFinish(_ vc: UIViewController!, videopath videoPath: String!) {

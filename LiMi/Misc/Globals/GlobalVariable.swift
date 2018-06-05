@@ -21,10 +21,13 @@ let SCREEN_HEIGHT = UIScreen.main.bounds.height
 
 let SCREEN_RECT = UIScreen.main.bounds
 
+///导航栏高度
 let NAVIGATION_BAR_HEIGHT = CGFloat(44.0)
 
-let STATUS_BAR_HEIGHT = CGFloat(20.0)
+///状态栏高度
+let STATUS_BAR_HEIGHT = SCREEN_HEIGHT >= 812 ? CGFloat(44) : CGFloat(20) //UIApplication.shared.statusBarFrame.size.height
 
+///Tabbar高度
 let TAB_BAR_HEIGHT = CGFloat(49.0)
 
 ///导航栏分割线高度

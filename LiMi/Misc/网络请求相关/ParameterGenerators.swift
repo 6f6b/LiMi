@@ -1852,16 +1852,48 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var view_auth:Int?
     var video_cover:String?
 
+    var music_id:String?
+    var music_start:String?
+    var music_end:String?
+    
     func parameters() -> [String : Any] {
         let tmpParameters = ["title":title,
                              "video_addr":video_addr,
                              "view_auth":view_auth,
-                            "video_cover":video_cover
+                            "video_cover":video_cover,
+                            "music_id":music_id,
+                            "music_start":music_start,
+                            "music_end":music_end
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
 
+struct GetVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/getVideoList"
+    }
+    
+    var page:Int?
+    var time_old:String?
+    var time_new:String?
+
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["page":page,
+                             "time_old":time_old,
+                             "time_new":time_new
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{

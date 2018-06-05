@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-target ‘LiMi' do
+target 'LiMi' do
     pod 'Kingfisher'
     pod 'SnapKit', '~> 4.0'
 	pod 'MJRefresh', '~> 3.1.12'
@@ -52,4 +52,5 @@ target ‘LiMi' do
 #   pod 'Moya/RxSwift'
 pod 'AliyunVideoSDKPro', '~> 3.5.0'
 pod 'VODUpload'
+pod 'AliyunPlayer_iOS/AliyunVodPlayerSDK'
 end

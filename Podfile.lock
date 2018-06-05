@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (4.6.0)
   - AliyunOSSiOS (2.10.3)
+  - AliyunPlayer_iOS/AliyunPlayerSDK (3.4.4)
+  - AliyunPlayer_iOS/AliyunVodPlayerSDK (3.4.4):
+    - AliyunPlayer_iOS/AliyunPlayerSDK
   - AliyunVideoCore (1.0.1)
   - AliyunVideoSDKPro (3.5.0.1):
     - QuCore-ThirdParty (~> 3.4.0)
@@ -64,6 +67,7 @@ PODS:
     - Masonry
 
 DEPENDENCIES:
+  - AliyunPlayer_iOS/AliyunVodPlayerSDK
   - AliyunVideoSDKPro (~> 3.5.0)
   - Bugly
   - CocoaLumberjack (~> 3.2.1)
@@ -100,6 +104,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AliyunOSSiOS
+    - AliyunPlayer_iOS
     - AliyunVideoCore
     - AliyunVideoSDKPro
     - Bugly
@@ -140,6 +145,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AliyunOSSiOS: 46cba1f1a641fd2562fcd4c7110465a9408ad8b1
+  AliyunPlayer_iOS: ec6b88e78476803ad5c048a168345a8c63df60f3
   AliyunVideoCore: 5d588e3cca7943f0fc1ce1cee91c90043dbceac3
   AliyunVideoSDKPro: 072ac2a3e00191984ff33103c47fe32fc7f5549c
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
@@ -177,6 +183,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: 41f90285e50fc2bcb2f2b5c64eec16485840955d
+PODFILE CHECKSUM: f4597b7a1e853c6332ed814f895499b3e5796e11
 
 COCOAPODS: 1.5.0

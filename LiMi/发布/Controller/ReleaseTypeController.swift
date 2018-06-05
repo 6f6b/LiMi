@@ -50,15 +50,6 @@ class ReleaseTypeController: ViewController {
     
     @IBAction func dealChooseVideo(_ sender: Any) {
         let mediaContainController  = MediaContainController()
-        
-//        let recordViewController = AliyunMediator.shared().recordViewController() as? AliyunRecordViewController
-//        let quVideo = AliyunMediaConfig.init()
-//        quVideo.outputSize = SCREEN_RECT.size
-//        quVideo.minDuration = 2
-//        quVideo.maxDuration = 30
-//
-//        recordViewController?.delegate = self
-//        recordViewController?.quVideo = quVideo
         self.navigationController?.pushViewController(mediaContainController, animated: true)
     }
     
