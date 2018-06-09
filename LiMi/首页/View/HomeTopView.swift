@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HomeTopViewDelegate {
-    func homeTopViewSegmentButtonClicked(index:Int)
+    func homeTopViewSegmentButtonClicked(button:UIButton , index:Int)
     func homeTopViewMsgButtonClicked()
 }
 class HomeTopView: UIView {
@@ -18,6 +18,7 @@ class HomeTopView: UIView {
     private var recommendButton:UIButton!
     private var followsButton:UIButton!
     private var schoolButton:UIButton!
+    
     
     convenience init(frame: CGRect ,initialIndex:Int,delegate:HomeTopViewDelegate) {
         self.init(frame: frame)
@@ -44,11 +45,25 @@ class HomeTopView: UIView {
         self.recommendButton = self.addSegmentButtonWith(title: "推荐", frame: CGRect.init(x: 15, y: 0, width: 40, height: 20),tag: 0)
         self.followsButton = self.addSegmentButtonWith(title: "关注", frame: CGRect.init(x: self.recommendButton.frame.maxX+5, y: 0, width: 40, height: 20),tag: 1)
         self.schoolButton = self.addSegmentButtonWith(title: "学校", frame: CGRect.init(x: self.followsButton.frame.maxX + 5, y: 0, width: 40, height: 20),tag: 2)
+        self.schoolButton.setImage(UIImage.init(named: "sch_ic_xiala"), for: .selected)
+//        self.schoolButton.sizeToFitTitleLeftImageWith(distance: 0)
         
+        let systemMessageNumView = GET_XIB_VIEW(nibName: "SystemMessageNumView") as! SystemMessageNumView
+        systemMessageNumView.frame = CGRect.init(x: SCREEN_WIDTH-15-50, y: 0, width: 44, height: 44)
+        systemMessageNumView.tapBlock = {[unowned self] in
+            let appState = AppManager.shared.appState()
+            if appState ==  .imOffLineBusinessOffline{return}
+            self.delegate?.homeTopViewMsgButtonClicked()
+        }
+        var center = systemMessageNumView.center
+        center.y = frame.size.height * 0.5
+        systemMessageNumView.center = center
+        
+        self.navigationBarView.addSubview(systemMessageNumView)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented") 
     }
     
     func addSegmentButtonWith(title:String!,frame:CGRect,tag:Int)->UIButton!{
@@ -74,6 +89,6 @@ class HomeTopView: UIView {
         self.schoolButton.isSelected = false
 
         button.isSelected = true
-        self.delegate?.homeTopViewSegmentButtonClicked(index: button.tag)
+        self.delegate?.homeTopViewSegmentButtonClicked(button: button, index: button.tag)
     }
 }

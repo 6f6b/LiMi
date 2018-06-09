@@ -16,6 +16,7 @@ class SystemmsgContainController: ViewController {
     var findTrendsListController:TrendsListController!
     var trendsListController:TrendsListController!
     
+    var isNavigationBarHidden:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = nil
@@ -86,6 +87,9 @@ class SystemmsgContainController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.isNavigationBarHidden = (self.navigationController?.navigationBar.isHidden)!
+        self.navigationController?.navigationBar.isHidden = false
+        
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
@@ -95,6 +99,11 @@ class SystemmsgContainController: ViewController {
         //标记评论为已读
         AppManager.shared.customSystemMessageManager.markAllCommentMessageRead()
         self.refreshNum()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = self.isNavigationBarHidden
     }
     
     override func didReceiveMemoryWarning() {

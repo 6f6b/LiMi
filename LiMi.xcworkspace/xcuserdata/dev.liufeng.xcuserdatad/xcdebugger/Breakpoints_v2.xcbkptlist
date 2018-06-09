@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549808216.7059751"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "requestCertificationWith(completeBlock:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Record/ViewController/AliyunRecordViewController.m"
             timestampString = "549808216.706468"
             startingColumnNumber = "9223372036854775807"
@@ -138,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549808216.708131"
+            timestampString = "550161075.143832"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "438"
@@ -154,7 +138,7 @@
                   moduleName = "LiMi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E8%A7%86%E9%A2%91/%E5%BD%95%E5%88%B6%E7%BC%96%E8%BE%91/qusdk/Publish/PulishViewController.swift"
-                  timestampString = "549873153.486867"
+                  timestampString = "550219205.66538"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "438"
@@ -169,7 +153,7 @@
                   moduleName = "LiMi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/Libs/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E8%A7%86%E9%A2%91/%E5%BD%95%E5%88%B6%E7%BC%96%E8%BE%91/qusdk/Publish/PulishViewController.swift"
-                  timestampString = "549873153.4906451"
+                  timestampString = "550219205.672573"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "439"
@@ -186,12 +170,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/Misc/Libs/&#x963f;&#x91cc;&#x4e91;&#x77ed;&#x89c6;&#x9891;/&#x5f55;&#x5236;&#x7f16;&#x8f91;/qusdk/Publish/PulishViewController.swift"
-            timestampString = "549808216.708387"
+            timestampString = "550161075.143941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "429"
             endingLineNumber = "429"
             landmarkName = "uploadTokenExpired()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x9996;&#x9875;/Controller/OtherUserDetailVideoAndLikedVideosController.swift"
+            timestampString = "550219203.9143651"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "scanVideosControllerRequestDataWith(scanVideosController:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

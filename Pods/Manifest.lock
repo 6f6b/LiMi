@@ -78,7 +78,7 @@ DEPENDENCIES:
   - M80AttributedLabel (~> 1.6.3)
   - Masonry
   - MJRefresh
-  - MJRefresh (~> 3.1.12)
+  - MJRefresh (~> 3.1.15.3)
   - Moya/RxSwift
   - ObjectMapper
   - Qiniu (~> 7.2.2)
@@ -183,6 +183,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: f4597b7a1e853c6332ed814f895499b3e5796e11
+PODFILE CHECKSUM: aa9b8093ebd10efe7056013f5b66cc720181f4a5
 
 COCOAPODS: 1.5.0

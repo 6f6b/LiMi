@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SchoolListController" customModule="LiMi" customModuleProvider="target">
+            <connections>
+                <outlet property="clearSearchTextButton" destination="aNw-3i-Tx2" id="Xu9-nd-H3W"/>
+                <outlet property="placeHolderImage" destination="VGK-yx-JYC" id="Pbd-8V-vkU"/>
+                <outlet property="placeHolderText" destination="KAB-W2-Io9" id="5tj-E8-6P1"/>
+                <outlet property="searchText" destination="dWL-Od-hNU" id="YlE-K2-6j8"/>
+                <outlet property="searchTopConstraint" destination="fVm-rw-H38" id="6t7-XC-pIC"/>
+                <outlet property="tableView" destination="X6a-am-M5f" id="V9v-fP-HfQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-oV-1ja">
+                    <rect key="frame" x="15" y="84" width="345" height="40"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="VGK-yx-JYC">
+                            <rect key="frame" x="15" y="9" width="22" height="22"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入学校名称搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAB-W2-Io9">
+                            <rect key="frame" x="47" y="11" width="122.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-Od-hNU">
+                            <rect key="frame" x="15" y="0.0" width="330" height="40"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNw-3i-Tx2">
+                            <rect key="frame" x="307" y="9" width="22" height="22"/>
+                            <state key="normal" image="shanchu"/>
+                            <connections>
+                                <action selector="clearSearchTextButtonClicked:" destination="-1" eventType="touchUpInside" id="vbE-QA-v2v"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="dWL-Od-hNU" secondAttribute="bottom" id="0qv-Kk-NPF"/>
+                        <constraint firstAttribute="trailing" secondItem="dWL-Od-hNU" secondAttribute="trailing" id="BBD-SS-3Jh"/>
+                        <constraint firstItem="VGK-yx-JYC" firstAttribute="centerY" secondItem="HOM-oV-1ja" secondAttribute="centerY" id="CJN-Qx-a2q"/>
+                        <constraint firstItem="dWL-Od-hNU" firstAttribute="leading" secondItem="HOM-oV-1ja" secondAttribute="leading" constant="15" id="VCC-bK-dqh"/>
+                        <constraint firstAttribute="height" constant="40" id="e4T-aV-gcr"/>
+                        <constraint firstItem="dWL-Od-hNU" firstAttribute="top" secondItem="HOM-oV-1ja" secondAttribute="top" id="g7Q-6X-U9U"/>
+                        <constraint firstItem="VGK-yx-JYC" firstAttribute="leading" secondItem="HOM-oV-1ja" secondAttribute="leading" constant="15" id="hgJ-js-qsE"/>
+                        <constraint firstAttribute="trailing" secondItem="aNw-3i-Tx2" secondAttribute="trailing" constant="16" id="reU-X0-wWZ"/>
+                        <constraint firstItem="KAB-W2-Io9" firstAttribute="centerY" secondItem="VGK-yx-JYC" secondAttribute="centerY" id="sbe-f8-N3E"/>
+                        <constraint firstItem="KAB-W2-Io9" firstAttribute="leading" secondItem="VGK-yx-JYC" secondAttribute="trailing" constant="10" id="z8F-qd-OwN"/>
+                        <constraint firstItem="aNw-3i-Tx2" firstAttribute="centerY" secondItem="HOM-oV-1ja" secondAttribute="centerY" id="zu7-r3-JNt"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="18"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X6a-am-M5f">
+                    <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eme-Qy-D0F">
+                    <rect key="frame" x="15" y="40" width="25" height="25"/>
+                    <state key="normal" image="btn_close"/>
+                    <connections>
+                        <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="4E1-8M-l8e"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="X6a-am-M5f" firstAttribute="top" secondItem="HOM-oV-1ja" secondAttribute="bottom" id="3IE-cd-6tU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="X6a-am-M5f" secondAttribute="bottom" id="UqG-8h-bbt"/>
+                <constraint firstItem="eme-Qy-D0F" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="Znu-lt-dId"/>
+                <constraint firstItem="X6a-am-M5f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bLd-7I-APz"/>
+                <constraint firstItem="HOM-oV-1ja" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="64" id="fVm-rw-H38"/>
+                <constraint firstItem="eme-Qy-D0F" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="hSb-Ds-DsM"/>
+                <constraint firstItem="HOM-oV-1ja" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="jBo-9b-qAr"/>
+                <constraint firstAttribute="trailing" secondItem="X6a-am-M5f" secondAttribute="trailing" id="oHl-wr-JFy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HOM-oV-1ja" secondAttribute="trailing" constant="15" id="rkO-37-ieG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="34.5" y="53.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_close" width="25" height="25"/>
+        <image name="search" width="22" height="22"/>
+        <image name="shanchu" width="22" height="22"/>
+    </resources>
+</document>

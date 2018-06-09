@@ -11,6 +11,8 @@ import ObjectMapper
 
 class VideoTrendListModel: BaseModel {
     var data:[VideoTrendModel]?
+    var time:Int?
+    //var timestamp:Int?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -18,7 +20,9 @@ class VideoTrendListModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        data<-map["data"]
+        data<-map["data.data"]
+        //time<-map["data.time"]
+        time <- map["data.timestamp"]
     }
 }
 
@@ -37,6 +41,9 @@ class VideoTrendModel: BaseModel {
     var video:String?
     var video_cover:String?
     var view_num:Int?
+    var is_click:Bool?
+    var v_create_time:String?
+    var is_attention:Bool?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -58,7 +65,9 @@ class VideoTrendModel: BaseModel {
         video<-map["video"]
         video_cover<-map["video_cover"]
         view_num<-map["view_num"]
-
+        is_click <- map["is_click"]
+        v_create_time <- map["v_create_time"]
+        is_attention <- map["is_attention"]
     }
 }
 

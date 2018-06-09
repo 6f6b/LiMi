@@ -12,7 +12,9 @@ import UIKit
 //import Moya
 
 class ViewController: UIViewController {
-
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white

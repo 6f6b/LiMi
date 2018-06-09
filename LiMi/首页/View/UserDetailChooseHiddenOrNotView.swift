@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserDetailChooseHiddenOrNotView: UIView {
+class UserDetailChooseHiddenOrNotView: UICollectionReusableView {
     var leftLabel:UILabel!
     var rightBtn:UIButton!
     var tapBtnBlock:((UIButton)->Void)?
@@ -19,6 +19,8 @@ class UserDetailChooseHiddenOrNotView: UIView {
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+
         self.leftLabel = UILabel.init()
         self.leftLabel.text = "个人资料"
         self.leftLabel.textColor = APP_THEME_COLOR

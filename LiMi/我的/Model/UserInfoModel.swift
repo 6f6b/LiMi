@@ -13,8 +13,9 @@ class UserInfoModel: BaseModel {
     var nickname:String?
     var signature:String?
     var is_access:Int?
-    var attention_num:String?
-    var fans_num:String?
+    var attention_num:Int?
+    var fans_num:Int?
+    var click_num:Int?
     var is_attention:Int?
     
     var true_name:String?
@@ -48,6 +49,7 @@ class UserInfoModel: BaseModel {
         super.mapping(map: map)
         is_attention <- map["is_attention"]
         attention_num <- map["attention_num"]
+        click_num <- map["click_num"]
         fans_num <- map["fans_num"]
 
         is_access <- map["is_access"]

@@ -255,7 +255,7 @@ import ObjectMapper
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
-                Toast.showSuccessWith(msg: "发布成功!")
+                Toast.showSuccessWith(msg: baseModel?.commonInfoModel?.msg)
                 //延时1秒返回主界面
                 let delayTime : TimeInterval = 1.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {

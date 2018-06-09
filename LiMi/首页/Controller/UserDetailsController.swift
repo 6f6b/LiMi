@@ -13,57 +13,80 @@ import SVProgressHUD
 import ObjectMapper
 
 class UserDetailsController: ViewController {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     @IBOutlet weak var toolsContainView: UIView!
     @IBOutlet weak var liaoBtn: UIButton!
     @IBOutlet weak var followBtn: UIButton!
     @IBOutlet weak var toolContainViewBottomConstraint: NSLayoutConstraint!
     
+    override var prefersStatusBarHidden: Bool{
+        return false
+    }
+
+    @IBOutlet weak var collectionViewTopConstriant: NSLayoutConstraint!
+    @IBOutlet weak var customNavigationBar: UIView!
+    @IBOutlet weak var customNavigationBarTopConstraint: NSLayoutConstraint!
+        @IBOutlet weak var customMoreOperationButton: UIButton!
+    
     var userDetailHeadView:UserDetailHeadView?
     var userDetailSelectTrendsTypeCell:UserDetailSelectTrendsTypeCell?
     var userInfoModel:UserInfoModel?
-    var type = "action"
-    var skillPage = 1
-    var actionPage = 1
+    var type :MyCenterVideoListType = .myVideo
+    var myVideoPageIndex = 1
+    var myLikedVideoPageIndex = 1
     var refreshTimeInterval:Int? = Int(Date().timeIntervalSince1970)
-    var skillDataArray = [TrendModel]()
-    var actionDataArray = [TrendModel]()
+    var myVideoDataArray = [VideoTrendModel]()
+    var myLikedVideoDataArray = [VideoTrendModel]()
     @objc var userId:Int = 0
     var emptyInfo = "太低调了，还没有发动态"
     var isSpread:Bool = false
-    var schoolInfoCell = UserDetailSingleInfoCell()
-    var academyInfoCell = UserDetailSingleInfoCell()
-    var gradeInfoCell = UserDetailSingleInfoCell()
-    var trueNameInfoCell = UserDetailSingleInfoWithQuestionCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        if SYSTEM_VERSION <= 11.0{
-            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        if (self.navigationController?.navigationBar.isHidden)!{
+            self.collectionViewTopConstriant.constant = 0
+            self.customNavigationBarTopConstraint.constant = 0
         }else{
-            self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+            self.customNavigationBar.isHidden = true
+            if SYSTEM_VERSION <= 11.0{
+                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+            }else{
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+            }
         }
-        self.tableView.estimatedRowHeight = 1000
-        self.tableView.estimatedSectionFooterHeight = 100
-        self.tableView.estimatedSectionHeaderHeight = 100
-        registerTrendsCellFor(tableView: self.tableView)
-        self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(SingleInfoCollectionViewCell.self, forCellWithReuseIdentifier: "SingleInfoCollectionViewCell")
+        self.collectionView.register(UserDetailSingleInfoWithQuestionCell.self, forCellWithReuseIdentifier: "UserDetailSingleInfoWithQuestionCell")
 
-        self.tableView.mj_footer = mjGifFooterWith {[unowned self] in
-            if self.type == "skill"{self.skillPage += 1}
-            if self.type == "action"{self.actionPage += 1}
+        self.collectionView.register(UINib.init(nibName: "VideoListInPersonCenterCell", bundle: nil), forCellWithReuseIdentifier: "VideoListInPersonCenterCell")
+        self.collectionView.register(UINib.init(nibName: "UserDetailHeadView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailHeadView")
+        self.collectionView.register(UserDetailChooseHiddenOrNotView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView")
+        self.collectionView.register(UserDetailSelectTrendsTypeView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView")
+
+        
+//        registerTrendsCellFor(tableView: self.tableView)
+//        self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
+
+        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
+            
+            if self.type == .myVideo{self.myVideoPageIndex += 1}
+            if self.type == .iLikedVideo{self.myLikedVideoPageIndex += 1}
             self.loadData()
         }
         
         if self.userId != Defaults[.userId]{
+            self.customMoreOperationButton.isHidden = false
+            
             let moreBtn = UIButton.init(type: .custom)
             moreBtn.setImage(UIImage.init(named: "xq_nav_more"), for: .normal)
             moreBtn.sizeToFit()
             moreBtn.addTarget(self, action: #selector(dealMoreOperation(_:)), for: .touchUpInside)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreBtn)
+        }else{
+            self.customMoreOperationButton.isHidden = true
         }
         
         loadData()
@@ -78,7 +101,6 @@ class UserDetailsController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
@@ -125,7 +147,6 @@ class UserDetailsController: ViewController {
             }
             popViewForChooseToUnFollow.show()
         }
-        
     }
     
     func changeRelationship(){
@@ -190,41 +211,44 @@ class UserDetailsController: ViewController {
     
     func loadData(){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let pageIndex = self.type == "action" ? self.actionPage : self.skillPage
-        let userDetails = UserDetails(page: pageIndex, user_id: self.userId, type: self.type,time:self.refreshTimeInterval)
-        _ = moyaProvider.rx.request(.targetWith(target: userDetails)).subscribe(onSuccess: {[unowned self] (response) in
-            let userDetailModel = Mapper<UserDetailModel>().map(jsonData: response.data)
-            self.refreshTimeInterval = userDetailModel?.timestamp == nil ? self.refreshTimeInterval : userDetailModel?.timestamp
-            self.userInfoModel = userDetailModel?.user
-            //self.tableView.reloadData()
+        let pageIndex = self.type == .myVideo ? self.myVideoPageIndex : self.myLikedVideoPageIndex
+        let videoPersonalDetails = VideoPersonalDetails.init(user_id: self.userId, time: self.refreshTimeInterval, page: pageIndex, type: self.type.hashValue)
+        _ = moyaProvider.rx.request(.targetWith(target: videoPersonalDetails)).subscribe(onSuccess: {[unowned self] (response) in
+            let videoUserDetailModel = Mapper<VideoUserDetailModel>().map(jsonData: response.data)
+            self.refreshTimeInterval = videoUserDetailModel?.timestamp == nil ? self.refreshTimeInterval : videoUserDetailModel?.timestamp
+            self.userInfoModel = videoUserDetailModel?.user
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
-            self.refreshToolContainViewWith(model: userDetailModel?.user)
-            Toast.showErrorWith(model: userDetailModel)
-            self.tableView.mj_footer.endRefreshing()
-
-            if let trends = userDetailModel?.action_list{
-                if self.type == "action"{
-                    if self.actionPage == 1{self.actionDataArray.removeAll()}
-                    for trend in trends{
-                        self.actionDataArray.append(trend)
+            self.refreshToolContainViewWith(model: videoUserDetailModel?.user)
+            Toast.showErrorWith(model: videoUserDetailModel)
+            self.collectionView.mj_footer.endRefreshing()
+            print(videoUserDetailModel?.video_list)
+            if let videoTrends = videoUserDetailModel?.video_list{
+                if self.type == .myVideo{
+                    if self.myVideoPageIndex == 1{self.myVideoDataArray.removeAll()}
+                    for videoTrend in videoTrends{
+                        self.myVideoDataArray.append(videoTrend)
                     }
                 }
-                if self.type == "skill"{
-                    if self.skillPage == 1{self.skillDataArray.removeAll()}
-                    for trend in trends{
-                        self.skillDataArray.append(trend)
+                if self.type == .iLikedVideo{
+                    if self.myLikedVideoPageIndex == 1{self.myVideoDataArray.removeAll()}
+                    for videoTrend in videoTrends{
+                        self.myLikedVideoDataArray.append(videoTrend)
                     }
                 }
-                if self.type == "action" && self.actionPage > 1 && trends.count == 0{return}
-                if self.type == "skill" && self.skillPage > 1 && trends.count == 0{return}
-                self.tableView.reloadData()
             }
+            self.collectionView.reloadData()
         }, onError: { (error) in
-            self.tableView.mj_footer.endRefreshing()
+            self.collectionView.mj_footer.endRefreshing()
             Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
     
+    @IBAction func customMoreOperationButtonClicked(_ sender: Any) {
+        self.dealMoreOperation(self.customMoreOperationButton)
+    }
+    @IBAction func backButtonClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func dealLiao(_ sender: Any) {
         if !AppManager.shared.checkUserStatus(){return}
         //判断登录状态
@@ -242,175 +266,179 @@ class UserDetailsController: ViewController {
     
 }
 
-extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         if self.userInfoModel == nil{return 0}
         return 3
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0{return 0}
         if section == 1{
             if self.isSpread{return 4}
             if !self.isSpread{return 2}
         }
         if section == 2{
-            let dataArray = self.type == "action" ? self.actionDataArray :self.skillDataArray
-            if dataArray.count == 0{return 1}
+            let dataArray = self.type == .myVideo ? self.myVideoDataArray :self.myLikedVideoDataArray
+            //if dataArray.count == 0{return 1}
             return dataArray.count
         }
         return 0
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0{}
-        if indexPath.section == 1{return UITableViewAutomaticDimension}
-        if indexPath.section == 2{return UITableViewAutomaticDimension}
-        return 0.001
-    }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{return UITableViewAutomaticDimension}
-        if section == 1{return UITableViewAutomaticDimension}
-        if section == 2{return UITableViewAutomaticDimension}
-        return 0.001
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let section = indexPath.section
         if section == 0{
-            if let _ = self.userDetailHeadView{}else{
-                self.userDetailHeadView = GET_XIB_VIEW(nibName: "UserDetailHeadView") as? UserDetailHeadView
-                self.userDetailHeadView?.backImageView?.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
-            }
-            self.userDetailHeadView?.configWith(model: self.userInfoModel)
+            let userDetailHeadView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailHeadView", for: indexPath) as! UserDetailHeadView
+            self.userDetailHeadView?.backImageView?.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
+            userDetailHeadView.configWith(model: self.userInfoModel)
             return userDetailHeadView
         }
         if section == 1{
-            let userDetailChooseHiddenOrNotView = UserDetailChooseHiddenOrNotView.init(isSpread: self.isSpread)
+            let userDetailChooseHiddenOrNotView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView", for: indexPath) as! UserDetailChooseHiddenOrNotView
+            userDetailChooseHiddenOrNotView.rightBtn.isSelected = self.isSpread
+            print(self.isSpread)
             userDetailChooseHiddenOrNotView.tapBtnBlock = {[unowned self] (button) in
-                self.isSpread = !button.isSelected
-                self.tableView.reloadData()
+                self.isSpread = button.isSelected
+                print(self.isSpread)
+                print(button.isSelected)
+                self.collectionView.reloadData()
             }
             return userDetailChooseHiddenOrNotView
         }
         if section == 2{
-            var userDetailSelectTrendsTypeView:UserDetailSelectTrendsTypeView!
-            if self.type == "action"{
-                 userDetailSelectTrendsTypeView = UserDetailSelectTrendsTypeView(initialIndex: 0)
+            let  userDetailSelectTrendsTypeView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView", for: indexPath) as! UserDetailSelectTrendsTypeView
+            var initialIndex = 0
+            if self.type == .myVideo{
+                initialIndex = 0
             }else{
-                userDetailSelectTrendsTypeView = UserDetailSelectTrendsTypeView(initialIndex: 1)
+                initialIndex = 1
             }
+            userDetailSelectTrendsTypeView.initialIndex = initialIndex
+            userDetailSelectTrendsTypeView.refreshUIWith(selectedIndex: initialIndex)
             userDetailSelectTrendsTypeView.tapBlock = {[unowned self] (index) in
-                if self.type == "action" && index == 0{return}
-                if self.type == "skill" && index == 1{return}
-                self.type = index == 0 ? "action" : "skill"
+                if self.type == .myVideo && index == 0{return}
+                if self.type == .iLikedVideo && index == 1{return}
+                self.type = index == 0 ? .myVideo : .iLikedVideo
                 self.emptyInfo = index == 0 ?  "太低调了，还没发动态" : "太低调了，还没发需求"
                 self.loadData()
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
             return userDetailSelectTrendsTypeView
         }
-        return nil
+        return UICollectionReusableView.init()
     }
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return nil
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0{return CGSize.init(width: SCREEN_WIDTH, height: 280)}
+        if section == 1{return CGSize.init(width: SCREEN_WIDTH, height: 50)}
+        if section == 2{return CGSize.init(width: SCREEN_WIDTH, height: 50)}
+        return CGSize.zero
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{return UITableViewCell()}
-        if indexPath.section == 1{
-            if indexPath.row == 0{
-                var info = "学校  "
-                if let _college = self.userInfoModel?.college{
-                    info.append(_college)
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                if indexPath.section == 0{return UICollectionViewCell()}
+                if indexPath.section == 1{
+                    let infoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleInfoCollectionViewCell", for: indexPath) as! SingleInfoCollectionViewCell
+                    if indexPath.row == 0{
+                        var info = "学校  "
+                        if let _college = self.userInfoModel?.college{
+                            info.append(_college)
+                        }
+                        infoCell.infoLabel.text = info
+                    }
+                    if indexPath.row == 1{
+                        var info = "学院  "
+                        if let academy = self.userInfoModel?.school{
+                            info.append(academy)
+                        }
+                        infoCell.infoLabel.text = info
+                    }
+                    if indexPath.row == 2{
+                        var info = "年级  "
+                        if let grade = self.userInfoModel?.grade{
+                            info.append(grade)
+                        }
+                        infoCell.infoLabel.text = info
+                    }
+                    if indexPath.row == 3{
+                        let userDetailSingleInfoWithQuestionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserDetailSingleInfoWithQuestionCell", for: indexPath) as! UserDetailSingleInfoWithQuestionCell
+                        var info = "姓名  "
+                        if let name = self.userInfoModel?.true_name{
+                            info.append(name)
+                            userDetailSingleInfoWithQuestionCell.questionBtn.isHidden = true
+                        }else{
+                            info.append("无法透露")
+                            userDetailSingleInfoWithQuestionCell.questionBtn.isHidden = false
+                        }
+                        userDetailSingleInfoWithQuestionCell.infoLabel.text = info
+                        return userDetailSingleInfoWithQuestionCell
+                    }
+                    return infoCell
                 }
-                self.schoolInfoCell.infoLabel.text = info
-                return self.schoolInfoCell
-            }
-            if indexPath.row == 1{
-                var info = "学院  "
-                if let academy = self.userInfoModel?.school{
-                    info.append(academy)
+                if indexPath.section == 2{
+                    let videoListInPersonCenterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListInPersonCenterCell", for: indexPath) as! VideoListInPersonCenterCell
+                    let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
+                    let videoTrendModel = dataArray[indexPath.row]
+                    videoListInPersonCenterCell.configWith(model: videoTrendModel)
+                    return videoListInPersonCenterCell
                 }
-                self.academyInfoCell.infoLabel.text = info
-                return self.academyInfoCell
-            }
-            if indexPath.row == 2{
-                var info = "年级  "
-                if let grade = self.userInfoModel?.grade{
-                    info.append(grade)
-                }
-                self.gradeInfoCell.infoLabel.text = info
-                return self.gradeInfoCell
-            }
-            if indexPath.row == 3{
-                var info = "姓名  "
-                if let name = self.userInfoModel?.true_name{
-                    info.append(name)
-                    self.trueNameInfoCell.questionBtn.isHidden = true
-                }else{
-                    info.append("无法透露")
-                    self.trueNameInfoCell.questionBtn.isHidden = false
-                }
-                self.trueNameInfoCell.infoLabel.text = info
-                return self.trueNameInfoCell
-            }
-        }
-        if indexPath.section == 2{
-            var dataArray = self.type == "action" ? self.actionDataArray : self.skillDataArray
-            if dataArray.count != 0{
-                if indexPath.row >= dataArray.count{
-                    return UITableViewCell()
-                }
-                let model = dataArray[indexPath.row]
-                let trendsCell = cellFor(indexPath: indexPath, tableView: tableView, model: model, trendsCellStyle: .inPersonCenter)
-                //评论
-                trendsCell.trendsBottomToolsContainView.tapCommentBtnBlock = {[unowned self] in
-                    let commentsWithTrendController = CommentsWithTrendController()
-                    commentsWithTrendController.trendModel = model
-                    self.navigationController?.pushViewController(commentsWithTrendController, animated: true)
-                }
-                //抢红包
-                trendsCell.catchRedPacketBlock = {[unowned self] in
-                    let catchRedPacketView = GET_XIB_VIEW(nibName: "CatchRedPacketView") as! CatchRedPacketView
-                    catchRedPacketView.showWith(trendModel: model)
-                }
-                trendsCell.configWith(model: model)
-                return trendsCell
-            }
-            if dataArray.count == 0{
-                let emptyTrendsCell = tableView.dequeueReusableCell(withIdentifier: "EmptyTrendsCell", for: indexPath) as! EmptyTrendsCell
-                emptyTrendsCell.configWith(info: self.emptyInfo, style: .inPersonCenter)
-                return emptyTrendsCell
-            }
-        }
-        return UITableViewCell()
+                return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 1{return CGSize.init(width: SCREEN_WIDTH, height: 30)}
+//        layOut.minimumLineSpacing = 1
+//        layOut.minimumInteritemSpacing = 1
+        let width = (SCREEN_WIDTH-2.5)/3
+        let height = width/0.75
+        return CGSize.init(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 1{return 0}
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 1{return 0}
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
+        let otherUserDetailVideoAndLikedVideosController = OtherUserDetailVideoAndLikedVideosController.init(type: self.type.hashValue, currentVideoTrendIndex: indexPath.row, dataArray: dataArray, userId: self.userId)
+        self.navigationController?.pushViewController(otherUserDetailVideoAndLikedVideosController, animated: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.contentOffset.y > 230{
-//            //导航栏颜色
-//            self.navigationController?.navigationBar.backgroundColor = UIColor.white
-//            //返回按钮颜色
-//            let backBtn = self.navigationItem.leftBarButtonItem?.customView as! UIButton
-//            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-//            //title
-//            self.title = "个人中心"
-//            //更多
-//            let moreBtn = self.navigationItem.rightBarButtonItem?.customView as! UIButton
-//            moreBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)
-//        }else{
-//            //导航栏颜色
-//            self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-//            //返回按钮颜色
-//            let backBtn = self.navigationItem.leftBarButtonItem?.customView as! UIButton
-//            backBtn.setImage(UIImage.init(named: "nav_back"), for: .normal)
-//            //title
-//            self.title = nil
-//            //更多
-//            
-//            if let moreBtn = self.navigationItem.rightBarButtonItem?.customView as? UIButton{
-//                moreBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
-//            }
-//        }
+        //        if scrollView.contentOffset.y > 230{
+        //            //导航栏颜色
+        //            self.navigationController?.navigationBar.backgroundColor = UIColor.white
+        //            //返回按钮颜色
+        //            let backBtn = self.navigationItem.leftBarButtonItem?.customView as! UIButton
+        //            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        //            //title
+        //            self.title = "个人中心"
+        //            //更多
+        //            let moreBtn = self.navigationItem.rightBarButtonItem?.customView as! UIButton
+        //            moreBtn.setImage(UIImage.init(named: "btn_jubao"), for: .normal)
+        //        }else{
+        //            //导航栏颜色
+        //            self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        //            //返回按钮颜色
+        //            let backBtn = self.navigationItem.leftBarButtonItem?.customView as! UIButton
+        //            backBtn.setImage(UIImage.init(named: "nav_back"), for: .normal)
+        //            //title
+        //            self.title = nil
+        //            //更多
+        //
+        //            if let moreBtn = self.navigationItem.rightBarButtonItem?.customView as? UIButton{
+        //                moreBtn.setImage(UIImage.init(named: "nav_btn_jubao"), for: .normal)
+        //            }
+        //        }
         return
         let offsetY = -scrollView.contentOffset.y
         if offsetY > 0{
@@ -425,6 +453,7 @@ extension UserDetailsController:UITableViewDelegate,UITableViewDataSource{
         }
     }
 }
+
 
 extension UserDetailsController:NIMLoginManagerDelegate{
     func onLogin(_ step: NIMLoginStep) {

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class UserDetailSingleInfoWithQuestionCell: UserDetailSingleInfoCell {
+class UserDetailSingleInfoWithQuestionCell: SingleInfoCollectionViewCell {
     var questionBtn:UIButton!
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.questionBtn = UIButton()
         self.questionBtn.setImage(UIImage.init(named: "zsxm"), for: .normal)
         self.contentView.addSubview(self.questionBtn)
@@ -26,15 +26,7 @@ class UserDetailSingleInfoWithQuestionCell: UserDetailSingleInfoCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
     
     @objc func dealTapQuestion(){
         let popViewForTrueName = PopViewForTrueNameNotify.init(frame: SCREEN_RECT)

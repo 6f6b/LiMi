@@ -17,8 +17,17 @@ class VideoListController: ViewController {
     var bottomBackGroundView:UIView!
     var dataArray = [VideoTrendModel]()
     var pageIndex:Int = 1
-    var oldTime:String?
-    var newTime:String?
+    var time:Int? = Int(Date().timeIntervalSince1970)
+    var type:Int?{
+        get{
+            return nil
+        }
+    }
+    var collegeId:Int?{
+        get{
+            return nil
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,17 +36,61 @@ class VideoListController: ViewController {
         self.view.addSubview(self.topBackGroundView)
         
         let collectionFrame = CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT)
-        let layOut = UICollectionViewLayout.init()
+        let layOut = UICollectionViewFlowLayout.init()
+        layOut.minimumLineSpacing = 1
+        layOut.minimumInteritemSpacing = 1
+        let width = (SCREEN_WIDTH-2)/2
+        let height = width/0.75
+        layOut.itemSize = CGSize.init(width: width, height: height)
+        
         self.collectionView = UICollectionView.init(frame: collectionFrame, collectionViewLayout: layOut)
-        self.collectionView.backgroundColor = RGBA(r: 255, g: 30, b: 30, a: 1)
+        self.collectionView.register(UINib.init(nibName: "VideoListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "VideoListCollectionViewCell")
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
+            self.pageIndex = 1
+            self.loadData()
+        }
+        
+        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
+            self.pageIndex += 1
+            self.loadData()
+        }
+        self.collectionView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.view.addSubview(self.collectionView)
         
         self.bottomBackGroundView = UIView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-TAB_BAR_HEIGHT, width: SCREEN_WIDTH, height: TAB_BAR_HEIGHT))
         self.bottomBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.view.addSubview(self.bottomBackGroundView)
-        
+        self.loadData()
+
     }
 
+    func loadData(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let indexVideoList = IndexVideoList.init(page: pageIndex, time: time, type: type, college_id: collegeId)
+        _ = moyaProvider.rx.request(.targetWith(target: indexVideoList)).subscribe(onSuccess: {[unowned self] (response) in
+            let videoTrendListModel = Mapper<VideoTrendListModel>().map(jsonData: response.data)
+            self.time = videoTrendListModel?.time
+            if let trends = videoTrendListModel?.data{
+                if self.pageIndex == 1{
+                    self.dataArray.removeAll()
+                }
+                for trend in trends{
+                    self.dataArray.append(trend)
+                }
+                self.collectionView.reloadData()
+            }
+            self.collectionView.mj_header.endRefreshing()
+            self.collectionView.mj_footer.endRefreshing()
+            Toast.showErrorWith(model: videoTrendListModel)
+            }, onError: { (error) in
+                self.collectionView.mj_header.endRefreshing()
+                self.collectionView.mj_footer.endRefreshing()
+                Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -47,4 +100,25 @@ class VideoListController: ViewController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.dataArray.count
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let videoListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListCollectionViewCell", for: indexPath) as! VideoListCollectionViewCell
+        videoListCollectionViewCell.configWith(model: self.dataArray[indexPath.row])
+        return videoListCollectionViewCell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let followAndSchoolVideoContainController = FollowAndSchoolVideoContainController.init(type: type, currentVideoTrendIndex: indexPath.row, dataArray: self.dataArray, collegeId: nil)
+//        self.navigationController?.pushViewController(followAndSchoolVideoContainController, animated: true)
+    }
 }

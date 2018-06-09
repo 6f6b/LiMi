@@ -5,7 +5,7 @@ use_frameworks!
 target 'LiMi' do
     pod 'Kingfisher'
     pod 'SnapKit', '~> 4.0'
-	pod 'MJRefresh', '~> 3.1.12'
+	pod 'MJRefresh', '~> 3.1.15.3'
 	pod 'SVProgressHUD'
 	pod 'SwiftyJSON'
 	pod 'IQKeyboardManagerSwift'

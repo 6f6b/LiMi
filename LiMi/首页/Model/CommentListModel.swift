@@ -11,6 +11,8 @@ import ObjectMapper
 
 class CommentListModel: BaseModel {
     var comments:[CommentModel]?
+    var discuss_list:[CommentModel]?
+    var discuss_num:String?
     var trend:TrendModel?
     var timestamp:Int?
     required init?(map: Map) {
@@ -22,6 +24,9 @@ class CommentListModel: BaseModel {
         comments<-map["data.discuss"]
         trend<-map["data.action"]
         timestamp<-map["msg.timestamp"]
+        
+        discuss_list <- map["data.discuss_list"]
+        discuss_num <- map["data.discuss_num"]
     }
 }
 
@@ -56,6 +61,9 @@ class CommentModel: BaseModel {
     ///父级评论人id
     var parent_uid:Int?
     
+    var video_id:Int?
+    var is_click:Bool?
+    var click_num:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -90,7 +98,9 @@ class CommentModel: BaseModel {
         parent_id<-map["parent_id"]
         parent_name<-map["parent_name"]
         parent_uid<-map["parent_uid"]
-        
+        video_id <- map["video_id"]
+        is_click <- map["is_click"]
+        click_num <- map["click_num"]
     }
 }
 

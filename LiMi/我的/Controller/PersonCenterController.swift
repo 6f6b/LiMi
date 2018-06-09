@@ -35,7 +35,8 @@ class PersonCenterController: UITableViewController {
     @IBOutlet weak var follows: UILabel!
     //粉丝
     @IBOutlet weak var followers: UILabel!
-    
+    //收获的点赞
+    @IBOutlet weak var beLikedNum: UILabel!
     
     @IBOutlet weak var logOutBtn: UIButton!
     
@@ -155,6 +156,11 @@ class PersonCenterController: UITableViewController {
         let followerListContainController = FollowerListContainController.init(initialIndex: 1)
         self.navigationController?.pushViewController(followerListContainController, animated: true)
     }
+    
+    @IBAction func beLikedNumButtonCliked(_ sender: Any) {
+        
+    }
+    
     @objc func dealToEditInfo(_ sender: Any) {
             let personInfoController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonInfoController")
             self.navigationController?.pushViewController(personInfoController, animated: true)
@@ -263,16 +269,21 @@ class PersonCenterController: UITableViewController {
         }else{
             self.signature.text = "个性签名空空如也~"
         }
-        if let followsNum = model?.attention_num,let followersNum = model?.fans_num{
-            let followsNumAttr = NSMutableAttributedString.init(string: followsNum, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+        if let followsNum = model?.attention_num,let followersNum = model?.fans_num,let clickedNum = model?.click_num{
+            let followsNumAttr = NSMutableAttributedString.init(string: followsNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
             let followsNumLabel = NSAttributedString.init(string: "  关注", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
             followsNumAttr.append(followsNumLabel)
             self.follows.attributedText = followsNumAttr
             
-            let followersNumAttr = NSMutableAttributedString.init(string: followersNum, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+            let followersNumAttr = NSMutableAttributedString.init(string: followersNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
             let followersNumLabel = NSAttributedString.init(string: "  粉丝", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
             followersNumAttr.append(followersNumLabel)
             self.followers.attributedText = followersNumAttr
+            
+            let beLikedNumAttr = NSMutableAttributedString.init(string: clickedNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+            let beLikedNumLabel = NSAttributedString.init(string: "  被赞", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
+            beLikedNumAttr.append(beLikedNumLabel)
+            self.beLikedNum.attributedText = beLikedNumAttr
         }
         if let backPic = model?.back_pic{
             self.backImageView.kf.setImage(with: URL.init(string: backPic), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
@@ -365,8 +376,10 @@ class PersonCenterController: UITableViewController {
             //我的动态
             if indexPath.row == 1{
                 if !AppManager.shared.checkUserStatus(){return}
-                let myTrendListController = MyTrendListController()
-                self.navigationController?.pushViewController(myTrendListController, animated: true)
+                let myVideosAndLikedVideosContainController = MyVideosAndLikedVideosContainController.init(initialIndex: 0)
+                self.navigationController?.pushViewController(myVideosAndLikedVideosContainController, animated: true)
+//                let myTrendListController = MyTrendListController()
+//                self.navigationController?.pushViewController(myTrendListController, animated: true)
             }
             //我的订单
             if indexPath.row == 2{

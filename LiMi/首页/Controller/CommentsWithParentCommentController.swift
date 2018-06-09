@@ -24,6 +24,9 @@ class CommentsWithParentCommentController: ViewController {
     
     //评论所属动态
     var trendModel:TrendModel?
+    
+    var videoTrendModel:VideoTrendModel?
+    
     //父级评论id
     var parentCommentId:Int?
     //父级评论模型，通过网络请求获取
@@ -140,15 +143,29 @@ class CommentsWithParentCommentController: ViewController {
     //长按评论
     @objc func  dealLongpressCommentWith(notification:Notification){
         if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
-            if commentModel.action_id == self.trendModel?.action_id && self.trendModel?.user_id == Defaults[.userId]{
-                let alertController = UIAlertController.init(title: "确认删除该条评论吗？", message: nil, preferredStyle: .alert)
-                let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-                let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: {[unowned self] (_) in
-                    self.deleteCommentWith(commentModel: commentModel)
-                })
-                alertController.addAction(actionCancel)
-                alertController.addAction(actionOK)
-                self.present(alertController, animated: true, completion: nil)
+            if commentModel.action_id != nil{
+                if commentModel.action_id == self.trendModel?.action_id && self.trendModel?.user_id == Defaults[.userId]{
+                    let alertController = UIAlertController.init(title: "确认删除该条评论吗？", message: nil, preferredStyle: .alert)
+                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: {[unowned self] (_) in
+                        self.deleteCommentWith(commentModel: commentModel)
+                    })
+                    alertController.addAction(actionCancel)
+                    alertController.addAction(actionOK)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+            if commentModel.video_id != nil{
+                if commentModel.video_id == self.videoTrendModel?.id && self.videoTrendModel?.user_id == Defaults[.userId]{
+                    let alertController = UIAlertController.init(title: "确认删除该条评论吗？", message: nil, preferredStyle: .alert)
+                    let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                    let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: {[unowned self] (_) in
+                        self.deleteCommentWith(commentModel: commentModel)
+                    })
+                    alertController.addAction(actionCancel)
+                    alertController.addAction(actionOK)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
     }

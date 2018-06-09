@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserDetailSelectTrendsTypeView: UIView {
+class UserDetailSelectTrendsTypeView: UICollectionReusableView {
     var leftBtn:UIButton!
     var rightBtn:UIButton!
     var leftBottomLine:UIView!
@@ -24,6 +24,8 @@ class UserDetailSelectTrendsTypeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+
         
         self.leftBtn = UIButton.init(type: .custom)
         self.leftBtn.addTarget(self, action: #selector(dealTapBtn(btn:)), for: .touchUpInside)
@@ -33,7 +35,7 @@ class UserDetailSelectTrendsTypeView: UIView {
         self.addSubview(self.leftBtn)
         self.leftBtn.snp.makeConstraints {[unowned self] (make) in
             make.left.equalTo(self).offset(15)
-            make.top.equalTo(self).offset(40)
+            make.centerY.equalTo(self)
         }
         
         self.rightBtn = UIButton.init(type: .custom)

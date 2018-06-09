@@ -78,6 +78,7 @@ NIMEventSubscribeManagerDelegate>
 @property (nonatomic,strong)    UIView *currentSingleSnapView;
 @property (nonatomic,strong)    NTESFPSLabel *fpsLabel;
 @property (nonatomic,strong)    NIMKitMediaFetcher *mediaFetcher;
+@property (nonatomic,assign) BOOL isNavigationBarHidden;
 @end
 
 
@@ -140,11 +141,14 @@ NIMEventSubscribeManagerDelegate>
     [super viewWillDisappear:animated];
     [[NIMSDK sharedSDK].mediaManager stopRecord];
     [[NIMSDK sharedSDK].mediaManager stopPlay];
+    [self.navigationController.navigationBar setHidden:self.isNavigationBarHidden];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    self.isNavigationBarHidden = self.navigationController.navigationBar.isHidden;
+    [self.navigationController.navigationBar setHidden:false];
+    
     UIApplication *application = [UIApplication sharedApplication];
     application.statusBarStyle = UIStatusBarStyleDefault;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_back_img__white"] forBarMetrics:UIBarMetricsDefault];

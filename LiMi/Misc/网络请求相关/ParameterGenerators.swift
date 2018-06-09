@@ -1807,18 +1807,9 @@ struct ShortVideoCreateUploadCertificate:TargetType,ParametersProtocol{
         return "video/getStsAuth"
     }
     
-    var title:String = "粒米短视频"
-    var fileName:String = "limi.mp4"
-    var fileDes:String = "limi"
-    var fileCover:String = "http://video.youhongtech.com/fdsjfldsjflds.png"
-    var tags:String = "limi"
     var type:String = "upload"
     func parameters() -> [String : Any] {
-            let tmpParameters = ["title":title,
-            "fileName":fileName,
-            "fileDes":fileDes,
-//            "fileCover":fileCover,
-            "tags":tags,
+            let tmpParameters = [
             "type":type
         ]
         return handleRequestParameters(parameters: tmpParameters)
@@ -1844,7 +1835,7 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "video/getStsAuth"
+        return "video/publishVideo"
     }
     
     var title:String?
@@ -1876,20 +1867,253 @@ struct GetVideoList:TargetType,ParametersProtocol{
     var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
     var validate: Bool { return true }
     var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .post }
+    var method: Moya.Method { return .get }
     var path: String {
         return "video/getVideoList"
     }
     
     var page:Int?
-    var time_old:String?
-    var time_new:String?
+    var time:Int?
+//    var time_old:String?
+//    var time_new:String?
 
     
     func parameters() -> [String : Any] {
         let tmpParameters = ["page":page,
-                             "time_old":time_old,
-                             "time_new":time_new
+                             "time":time
+//                             "time_old":time_old,
+//                             "time_new":time_new
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+/// 首页-同校/关注
+struct IndexVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/indexVideoList"
+    }
+    
+    var page:Int?
+    var time:Int?
+    var type:Int?
+    var college_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["page":page,
+                             "time":time,
+                             "type":type,
+                             "college_id":college_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoDiscussList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/discussList"
+    }
+    
+    var page:Int?
+    var time:String?
+    var video_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["page":page,
+                             "time":time,
+                             "video_id":video_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoDiscussAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/discussAction"
+    }
+    
+    var video_id:Int?
+    var content : String?
+    var parent_id:Int?
+    var parent_uid:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["video_id":video_id,
+                             "content":content,
+                             "parent_id":parent_id,
+                             "parent_uid":parent_uid
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoDeleteDiscuss:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/deleteDiscuss"
+    }
+    
+    var discuss_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = ["discuss_id":discuss_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoMultiFunction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/multiFunction"
+    }
+    
+    var type:String?
+    var video_id:Int?
+    var user_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "video_id":video_id,
+            "user_id":user_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoClickAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/videoClickAction"
+    }
+    
+    var video_id:Int?
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "video_id":video_id,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+///用户详情页
+struct VideoPersonalDetails:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/personalDetails"
+    }
+    
+    var user_id:Int? //    头像 id    是    [string]
+    var time:Int?    //        是    [string]
+    var page:Int?   //        是    [string]
+    var type:Int?   //
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "user_id":user_id,
+            "time":time,
+            "page":page,
+            "type":type,
+
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+///用户个人主页
+
+///我的作品
+struct VideoMyVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/myVideoList"
+    }
+    
+    var time:Int?    //        是    [string]
+    var page:Int?   //        是    [string]
+    var type:Int?   //
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "time":time,
+            "page":page,
+            "type":type,
+            
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct DiscussClickAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "video/discussClickAction"
+    }
+    
+    var discuss_id:Int?    //
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "discuss_id":discuss_id
+            
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

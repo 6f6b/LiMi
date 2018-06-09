@@ -7,7 +7,10 @@
 //
 
 import UIKit
-
+enum CollegeCellStyle {
+    case defaultStyle
+    case black
+}
 class CollegeCell: UITableViewCell {
     @IBOutlet weak var collegeName: UILabel!
     
@@ -15,8 +18,12 @@ class CollegeCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func configWithTitle(title:String?){
+    func configWithTitle(title:String?,style:CollegeCellStyle = .defaultStyle){
         self.collegeName.text = title
+        if style == .black{
+            self.collegeName.textColor = UIColor.white
+            self.contentView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

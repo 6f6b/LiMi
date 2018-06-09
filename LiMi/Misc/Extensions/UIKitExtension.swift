@@ -73,6 +73,35 @@ extension String{
 }
 
 extension UIButton{
+    @objc func sizeToFitTitleLeftImageWith(distance:CGFloat){
+        let selectStatus = self.isSelected
+        self.isSelected = true
+        var imageWidth = CGFloat(0)
+        var titleWidth = CGFloat(0)
+        if let titleLabel  = self.titleLabel,let imageView = self.imageView{
+            self.sizeToFit()
+            imageWidth = imageView.frame.size.width
+            titleWidth = titleLabel.frame.size.width
+            self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
+            self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
+        }
+        self.isSelected = false
+        if let titleLabel  = self.titleLabel,let imageView = self.imageView{
+            if (imageView.frame.size.width + titleLabel.frame.size.width) > (imageWidth+titleWidth){
+                imageWidth = imageView.frame.size.width
+                titleWidth = titleLabel.frame.size.width
+                
+                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
+                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
+                self.sizeToFit()
+            }
+        }
+        var frame = self.frame
+        frame.size.width = imageWidth+titleWidth
+        self.frame = frame
+        self.isSelected = selectStatus
+    }
+    
     @objc func sizeToFitTitleBelowImageWith(distance:CGFloat){
         self.sizeToFit()
         self.imageView?.sizeToFit()
@@ -80,14 +109,10 @@ extension UIButton{
         if let imageFrame = self.imageView?.frame,let titleFrame = self.titleLabel?.frame{
             let height = imageFrame.size.height+distance+titleFrame.size.height
             let width = imageFrame.size.width > titleFrame.size.width ? imageFrame.size.width : titleFrame.size.width
-            var _imageFrame = imageFrame;
-//            _imageFrame.origin.x = width*0.5-imageFrame.size.width*0.5;
-//            _imageFrame.origin.y = 0;
-//            self.imageView?.frame = _imageFrame;
-            var _titleFrame = titleFrame;
-//            _titleFrame.origin.x = 0;
-//            _titleFrame.origin.y = height-titleFrame.size.height;
-//            self.titleLabel?.frame = _titleFrame;
+            let _imageFrame = imageFrame;
+
+            let _titleFrame = titleFrame;
+
             
             var _frame = self.frame;
             _frame.size.width = width;
@@ -96,10 +121,6 @@ extension UIButton{
             
             self.titleEdgeInsets = UIEdgeInsets.init(top: _imageFrame.size.height+distance/2, left: -imageFrame.size.width, bottom: 0, right: 0);
             self.imageEdgeInsets = UIEdgeInsets.init(top: -_titleFrame.size.height-distance/2, left: 0, bottom: 0, right: -_titleFrame.size.width);
-//            btnLeft.titleEdgeInsets = UIEdgeInsets(top: btnLeft.imageView!.frame.size.height, left: -btnLeft.imageView!.frame.size.width, bottom: 0, right: 0)
-//
-//            //设置图片偏移：向上偏移文字高度＋向右偏移文字宽度 （偏移量是根据［文字］大小来的，这点是关键）
-//            btnLeft.imageEdgeInsets = UIEdgeInsets(top: -btnLeft.titleLabel!.bounds.size.height, left: 0, bottom: 0, right: -btnLeft.titleLabel!.bounds.size.width)
         }
     }
     func setContentInCenter(){

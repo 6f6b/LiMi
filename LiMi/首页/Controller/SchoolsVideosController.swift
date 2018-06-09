@@ -9,7 +9,14 @@
 import UIKit
 
 class SchoolsVideosController: VideoListController {
-
+    var collegeModel:CollegeModel?
+    override var collegeId: Int?{
+        return self.collegeModel?.coid
+    }
+    override var type: Int? {
+        get{return 1}
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,14 +29,9 @@ class SchoolsVideosController: VideoListController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let followAndSchoolVideoContainController = FollowAndSchoolVideoContainController.init(type: type, currentVideoTrendIndex: indexPath.row, dataArray: self.dataArray, collegeId: self.collegeModel?.id)
+        self.navigationController?.pushViewController(followAndSchoolVideoContainController, animated: true)
     }
-    */
 
 }

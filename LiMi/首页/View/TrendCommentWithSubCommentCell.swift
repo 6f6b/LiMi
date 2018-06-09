@@ -16,6 +16,8 @@ class TrendCommentWithSubCommentCell: TrendCommentCell {
     ///子评论列表
     var subCommentTableView:UITableView!
     
+    var isSpread:Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

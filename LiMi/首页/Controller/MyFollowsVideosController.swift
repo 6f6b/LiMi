@@ -9,7 +9,9 @@
 import UIKit
 
 class MyFollowsVideosController: VideoListController {
-
+    override var type: Int? {
+        get{return 0}
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,15 +23,9 @@ class MyFollowsVideosController: VideoListController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let followAndSchoolVideoContainController = FollowAndSchoolVideoContainController.init(type: type, currentVideoTrendIndex: indexPath.row, dataArray: self.dataArray, collegeId: nil)
+        self.navigationController?.pushViewController(followAndSchoolVideoContainController, animated: true)
     }
-    */
 
 }

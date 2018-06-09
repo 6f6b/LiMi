@@ -100,6 +100,11 @@ extension Int{
         let string = String.init(format: "%d", self)
         return string
     }
+    
+    func suitableStringValue()->String{
+        let string = String.init(format: "%d", self)
+        return string
+    }
 }
 
 extension Date{
