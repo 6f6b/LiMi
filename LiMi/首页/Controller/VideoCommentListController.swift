@@ -134,6 +134,7 @@ class VideoCommentListController: ViewController {
     
     //查看更多子评论
     @objc func dealCheckMoreSubCommentsWith(notification:Notification){
+        self.tableView.reloadData()
         if let commentModel = notification.userInfo![COMMENT_MODEL_KEY] as? CommentModel{
             if let commentId = commentModel.id{
 //                let commentsWithParentCommentController = CommentsWithParentCommentController()
@@ -250,6 +251,7 @@ class VideoCommentListController: ViewController {
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             self.pageIndex = 1
             self.loadData()
+            NotificationCenter.default.post(name: COMMENT_SUCCESS_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:self.videoTrendModel])
             Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
@@ -312,6 +314,13 @@ extension VideoCommentListController:UITableViewDelegate,UITableViewDataSource{
         return self.dataArray.count
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.dataArray.count != 0{

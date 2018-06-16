@@ -15,6 +15,8 @@ import Moya
 import ObjectMapper
 
 class FeedBackController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var tableView: UITableView!
     var feedBackQuestionCategoryCell:FeedBackQuestionCategoryCell!
     var releaseContentTextInputCell:ReleaseContentTextInputCell!

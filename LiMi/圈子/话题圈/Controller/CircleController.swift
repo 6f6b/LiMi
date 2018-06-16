@@ -16,14 +16,15 @@ class CircleController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [WeekendTourModel]()
     var circleHomeBannerCell:CircleHomeBannerCell!
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableViewTopConstraint.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
         self.tableView.separatorStyle = .none
         if SYSTEM_VERSION <= 11.0{
             self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         }else{
-            self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
         }
 
         self.tableView.estimatedRowHeight = 1000

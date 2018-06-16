@@ -9,6 +9,7 @@
 import UIKit
 
 class MyVideosAndLikedVideosContainController: ViewController {
+     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
     var videoListMyVideo:VideoListInMyCenterController!

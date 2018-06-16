@@ -11,6 +11,8 @@ import ObjectMapper
 import Moya
 
 class AlterUserSinatureController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var signature: UITextField!
     var initialUserSinatrue:String?
     var alterSinatureBlock:((String?)->Void)?

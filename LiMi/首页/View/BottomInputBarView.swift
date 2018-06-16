@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BottomInputBarViewDelegate {
+@objc protocol BottomInputBarViewDelegate {
     func sentContentButtonClicked(button:UIButton,textFeild:UITextField?)
 }
 class BottomInputBarView: UIView {
@@ -18,7 +18,7 @@ class BottomInputBarView: UIView {
     var sentContentButton:UIButton!
     var seperateLine:UIView!
     
-    var delegate:BottomInputBarViewDelegate?
+    weak var delegate:BottomInputBarViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

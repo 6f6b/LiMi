@@ -10,6 +10,7 @@ import Foundation
 
 extension UITabBar{
     func showBadgeOnItemAt(index:Int){
+        if index == 0 {return} //暂时屏蔽
         var badgeX = CGFloat(0)
         if index == 0{
             badgeX = 1/15.0*SCREEN_WIDTH

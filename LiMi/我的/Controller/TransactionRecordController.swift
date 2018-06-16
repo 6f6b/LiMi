@@ -14,6 +14,8 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class TransactionRecordController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TransactionModel]()
     var pageIndex = 1

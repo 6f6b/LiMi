@@ -16,6 +16,7 @@
 #define AvatarWidth 40
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self) {
         _avatarImageView = [[NIMAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [self addSubview:_avatarImageView];
@@ -39,6 +40,18 @@
         
         _badgeView = [NIMBadgeView viewWithBadgeTip:@""];
         [self addSubview:_badgeView];
+        
+        self.nameLabel.textColor = UIColor.whiteColor;
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        self.messageLabel.textColor = rgba(114, 114, 114, 1);
+        self.messageLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.textColor = rgba(114, 114, 114, 1);
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = rgba(30, 30, 30, 1);
+        
+        self.seperateView = [[UIView alloc] initWithFrame:CGRectMake(0, 68, ScreenWidth, 1)];
+        self.seperateView.backgroundColor = rgba(58, 58, 58, 1);
+        [self.contentView addSubview:self.seperateView];
     }
     return self;
 }
@@ -81,6 +94,10 @@
     _timeLabel.nim_top           = sessionListTimeTop;
     _badgeView.nim_right         = self.nim_width - sessionBadgeTimeRight;
     _badgeView.nim_bottom        = self.nim_height - sessionBadgeTimeBottom;
+//    _seperateView.nim_left = self.nim_left;
+//    _seperateView.nim_right = self.nim_right;
+////    _seperateView.nim_height = 1;
+//    _seperateView.nim_bottom = self.nim_bottom;
 }
 
 

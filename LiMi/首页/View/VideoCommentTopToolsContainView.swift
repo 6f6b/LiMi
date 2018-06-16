@@ -17,6 +17,20 @@ class VideoCommentTopToolsContainView: CommentTopToolsContainView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.userName.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+        self.userName.font = UIFont.systemFont(ofSize: 12)
+        self.sexImg.isHidden = true
+        
+        self.headImgBtn.layer.cornerRadius = 14
+        self.headImgBtn.clipsToBounds = true
+        self.headImgBtn.snp.remakeConstraints { (make) in
+            make.top.equalTo(self).offset(15)
+            make.left.equalTo(self).offset(15)
+            make.bottom.equalTo(self).offset(-15)
+            make.height.equalTo(28)
+            make.width.equalTo(28)
+        }
+        
         self.thumbsUpButton = UIButton.init(frame: CGRect.init(x: SCREEN_WIDTH-22-15, y: 22, width: 22, height: 22))
         self.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonClicked(button:)), for: .touchUpInside)
         self.thumbsUpButton.titleLabel?.textAlignment = .center

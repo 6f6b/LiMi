@@ -10,9 +10,9 @@ import UIKit
 import Moya
 import ObjectMapper
 import DZNEmptyDataSet
+import MJRefresh
 
-protocol ScanVideosControllerDelegate {
-//    func scanVideosControllervarCurrentSelectedVideoWith(model:VideoTrendModel)
+protocol ScanVideosControllerDelegate :NSObjectProtocol{
     
     /*变量*/
     var pageIndex:Int{get set}
@@ -25,35 +25,55 @@ protocol ScanVideosControllerDelegate {
 }
 
 class ScanVideosController: ViewController {
-    var collectionView:UICollectionView!
-    var delegate:ScanVideosControllerDelegate!
-    var playVideoCertificateModel:UploadVideoCertificateModel?
+    var tableViewContainView:UIView!
+    var tableView:UITableView!
+    weak var delegate:ScanVideosControllerDelegate!
     var videoCommentListNavController:NavigationController?
     var isNavigationBarHidden:Bool = true
-    
+    var isVisiable = true
     var isFirstIn = true
-
+    var currentVideoPlayCell:VideoPlayCell?
+    var player:AliyunVodPlayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.player = AliyunVodPlayer.init()
+        self.player.displayMode = .fitWithCropping
+        self.player.circlePlay = true
+        self.player.isAutoPlay = true
+        self.player.delegate = self
+        self.player.quality = .videoHD
+        self.player.playerView.backgroundColor = UIColor.clear
+        self.player.playerView.frame = SCREEN_RECT
         
-        let layOut = UICollectionViewFlowLayout.init()
-        layOut.itemSize = SCREEN_RECT.size
-        self.collectionView = UICollectionView.init(frame: SCREEN_RECT, collectionViewLayout: layOut)
-        self.collectionView.backgroundColor = UIColor.white
-        self.collectionView.register(UINib.init(nibName: "VideoPlayCell", bundle: nil), forCellWithReuseIdentifier: "VideoPlayCell")
-        self.collectionView.isPagingEnabled = true
-        self.view.addSubview(self.collectionView)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        self.edgesForExtendedLayout = UIRectEdge.left;
+        self.extendedLayoutIncludesOpaqueBars = false;
+        self.modalPresentationCapturesStatusBarAppearance = false;
+        self.automaticallyAdjustsScrollViewInsets = false
         
-        self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
+        self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        
+        self.tableViewContainView = UIView.init(frame: SCREEN_RECT)
+        self.tableViewContainView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        self.view.addSubview(self.tableViewContainView)
+        
+        self.tableView = UITableView.init(frame: SCREEN_RECT, style: .plain)
+        self.tableView.separatorStyle = .none
+        self.tableView.backgroundColor = UIColor.init(red: 30, green: 30, blue: 30, alpha: 1)
+        self.tableView.estimatedRowHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.estimatedSectionHeaderHeight = 0
+        self.tableView.register(UINib.init(nibName: "VideoPlayCell", bundle: nil), forCellReuseIdentifier: "VideoPlayCell")
+        self.tableView.register(UINib.init(nibName: "NoMoreDataViewCell", bundle: nil), forCellReuseIdentifier: "NoMoreDataViewCell")
+        
+        self.tableView.isPagingEnabled = true
+        self.tableViewContainView.addSubview(self.tableView)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        
+        self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.delegate.pageIndex = 1
-            self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
-        }
-        
-        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
-            self.delegate.pageIndex += 1
             self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
         }
         
@@ -63,139 +83,177 @@ class ScanVideosController: ViewController {
             self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
         }
         
-        self.requestCertificationWith { (model) in
-        }
-        
         //离开播放页
         NotificationCenter.default.addObserver(self, selector: #selector(leave), name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
         //进入播放页
         NotificationCenter.default.addObserver(self, selector: #selector(into), name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
-
+    
+    @objc func appDidBecomeActive(){
+        if self.isVisiable{self.player.resume()}
+    }
+    
+    @objc func appWillResignActive(){
+        self.player.pause()
+    }
+    
+    @objc func appDidEnterBackground(){
+        self.player.pause()
+    }
+    
+    @objc func appWillEnterForeground(){
+        if self.isVisiable{self.player.resume()}
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        self.player.release()
+        print("视频播放界面销毁")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.view.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.isNavigationBarHidden = (self.navigationController?.navigationBar.isHidden)!
         self.navigationController?.navigationBar.isHidden = true
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let index = self.delegate.currentVideoTrendIndex
+        self.tableView.layoutIfNeeded()
+        self.tableView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(index)), animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = self.isNavigationBarHidden
         NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-    }
-    
-    //互相校验
-    func requestCertificationWith(completeBlock:((UploadVideoCertificateModel)->Void)?){
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let shortVideoCreateUploadCertificate = ShortVideoCreateUploadCertificate.init(type: "play")
-        _ = moyaProvider.rx.request(.targetWith(target: shortVideoCreateUploadCertificate)).subscribe(onSuccess: { (response) in
-            let playVideoCertificateModel = Mapper<UploadVideoCertificateModel>().map(jsonData: response.data)
-            if playVideoCertificateModel?.commonInfoModel?.status == successState{
-                self.playVideoCertificateModel = playVideoCertificateModel
-                self.reloadCollectionData()
-                if let _block = completeBlock{
-                    _block(playVideoCertificateModel!)
-                }
-            }else{
-                Toast.showErrorWith(model: playVideoCertificateModel)
-            }
-        }, onError: { (error) in
-            Toast.showErrorWith(msg: error.localizedDescription)
-        })
+
     }
     
     //刷新数据
     func reloadCollectionData(){
-        if self.playVideoCertificateModel == nil{return}
-        self.collectionView.reloadData()
-        let indexPath = IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)
-        if self.delegate.dataArray.count <= indexPath.row{return}
-        //self.collectionView.layoutIfNeeded()//这个必须先执行，否则没效果
-        self.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-        self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
-        var offset = self.collectionView.contentOffset
-        offset.y = offset.y + 100
-        self.collectionView.setContentOffset(offset, animated: true)
-        self.collectionView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(indexPath.row)), animated: false)
-    }
-    
-//    func playWith(videoPlayCell:VideoPlayCell){
-//        videoPlayCell
-//    }
-//    func playWith(index:Int){
-//        if let videoPlayCell
-//        self.delegate.currentVideoTrendIndex = index
-//        cell.play()
-//    }
-}
-
-extension ScanVideosController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.delegate.dataArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let videoPlayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayCell", for: indexPath) as! VideoPlayCell
-        videoPlayCell.delegate = self
-        let videoModel = self.delegate.dataArray[indexPath.row]
-        videoPlayCell.configWith(videoTrendModel: videoModel, playCertificateModel: self.playVideoCertificateModel)
-        if indexPath.row == self.delegate.currentVideoTrendIndex{
-            if isFirstIn{
-                isFirstIn = false
-                videoPlayCell.play()
+        if VideoCertificateManager.shared.playCertificateModel == nil{
+            VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
+                self.reloadCollectionData()
             }
         }
+        if self.delegate.pageIndex == 1{self.player.stop()}
+        self.tableView.reloadData()
+        let indexPath = IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)
+        if self.delegate.dataArray.count <= indexPath.row{return}
+        self.tableView.layoutIfNeeded()//这个必须先执行，否则没效果
+        self.tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+        if let currentPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)) as? VideoPlayCell{
+            if (isFirstIn && self.delegate.dataArray.count > 0) || self.delegate.pageIndex == 1{
+                isFirstIn = false
+                self.player.reset()
+                let playerView = self.player.playerView
+                playerView?.frame = SCREEN_RECT
+                self.currentVideoPlayCell = currentPlayCell
+                currentPlayCell.addPlayerView(playerView: playerView!)
+                let videoTrendModel = self.delegate.dataArray[indexPath.row]
+                let vid = videoTrendModel.video ?? ""
+                let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
+                let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
+                let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
+                self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
+            }
+        }
+        self.tableView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(indexPath.row)), animated: false)
+        print("刷新了一盘数据")
+    }
+}
+
+extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{return self.delegate.dataArray.count}
+        if section == 1{return self.delegate.dataArray.count > 0 ? 1 : 0}
+        return 0
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1{return 50}
+        return SCREEN_HEIGHT
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 1{
+            let noMoreDataViewCell = tableView.dequeueReusableCell(withIdentifier: "NoMoreDataViewCell", for: indexPath) as! NoMoreDataViewCell
+            return noMoreDataViewCell
+        }
+        let videoPlayCell = tableView.dequeueReusableCell(withIdentifier: "VideoPlayCell", for: indexPath) as! VideoPlayCell
+        videoPlayCell.delegate = self
+        let videoModel = self.delegate.dataArray[indexPath.row]
+        videoPlayCell.configWith(videoTrendModel: videoModel)
         return videoPlayCell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return SCREEN_RECT.size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        //这里面要做的工作
+        //1.刷新播放状态
+        //2.判断是否需要提前加载数据
         let index = Int(scrollView.contentOffset.y/scrollView.frame.size.height)
+        print("Stoped Decelerating by ---->\(index)")
         if self.delegate.dataArray.count <= index{return}
-        let videoTrendModel = self.delegate.dataArray[index]
-        if let currentCell = self.collectionView.cellForItem(at: IndexPath.init(row: index, section: 0)) as? VideoPlayCell{
-            self.stopCollectionViewAllPlayCellsExcept(videoTrendModel: videoTrendModel)
+        if self.delegate.currentVideoTrendIndex == index{return}
+        
+        //提前加载数据
+        if (self.delegate.dataArray.count - index - 1) <= 5 && self.delegate.dataArray.count >= 20{
+            self.delegate.pageIndex += 1
+            self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
+        }
+        //重刷新播放状态
+        if let currentPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: index, section: 0)) as? VideoPlayCell{
+            self.currentVideoPlayCell = currentPlayCell
             self.delegate.currentVideoTrendIndex = index
-            currentCell.play()
+            let videoTrendModel = self.delegate.dataArray[index]
+            let vid = videoTrendModel.video ?? ""
+            let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
+            let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
+            let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
+            self.player.reset()
+            let playerView = self.player.playerView
+            currentPlayCell.addPlayerView(playerView: playerView!)
+            self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.contentOffset = CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(index))
         }
     }
     
-    func stopCollectionViewAllPlayCellsExcept(videoTrendModel:VideoTrendModel){
-        for subView in self.collectionView.subviews{
-            if let videoPlayCell  = subView as? VideoPlayCell{
-                if videoPlayCell.videoTrendModel?.id != videoTrendModel.id{
-                    videoPlayCell.stop()
-                }
+    func videoFrameWith(height:Int?,width:Int?)->CGRect{
+        if let _height = height,let _width = width{
+            if _height >= _width{
+                return SCREEN_RECT
+            }else{
+                let vWidth = SCREEN_WIDTH
+                let vHeight = SCREEN_WIDTH*(CGFloat(CGFloat(_height)/CGFloat(_width)))
+                let vX = CGFloat(0)
+                let vY = (SCREEN_HEIGHT-vHeight)/2
+                return CGRect.init(x: vX, y: vY, width: vWidth, height: vHeight)
             }
+        }else{
+            return SCREEN_RECT
         }
     }
     
-    func stopCollectionViewAllPlayCells(){
-        for subView in self.collectionView.subviews{
-            if let videoPlayCell  = subView as? VideoPlayCell{
-                videoPlayCell.stop()
-            }
-        }
-    }
 }
 
 extension ScanVideosController:VideoPlayCellDelegate{
@@ -248,6 +306,7 @@ extension ScanVideosController:VideoPlayCellDelegate{
         })
     }
     func videoPlayCellCommentButtonClicked(button:UIButton){
+        if !AppManager.shared.checkUserStatus(){return}
         let videoCommentListController = VideoCommentListController()
         videoCommentListController.view.frame = SCREEN_RECT
         let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
@@ -264,24 +323,43 @@ extension ScanVideosController:VideoPlayCellDelegate{
         let moreOperationController = MoreOperationController()
         moreOperationController.statusBarHidden = true
         moreOperationController.delegate = self
+        let index = self.delegate.currentVideoTrendIndex
+        moreOperationController.videoTrendModel = self.delegate.dataArray[index]
         moreOperationController.modalPresentationStyle = .overFullScreen
         self.definesPresentationContext = true
         self.present(moreOperationController, animated: true, completion: nil)
     }
+    ///单击了播放cell
+    @objc func videoPlayCellSingleClick(videoPlayCell:VideoPlayCell){
+            if self.player.playerState() == .pause{
+                self.player.resume()
+            }else{
+                self.player.pause()
+            }
+    }
+    ///双击了播放cell
+    @objc func videoPlayCellDoubleClick(videoPlayCell:VideoPlayCell){
+        self.videoPlayCellThumbsUpButtonClicked(button: videoPlayCell.thumbsUpButton)
+    }
+    ///左滑播放cell
+    @objc func videoPlayCellSwipeLeft(videoPlayCell:VideoPlayCell){
+        self.videoPlayCellUserHeadButtonClicked(button: videoPlayCell.userHeadButton)
+    }
 }
 
+//mark: - 离开停止，进入播放
 extension ScanVideosController{
     @objc func leave(){
         print("离开停止")
-        self.stopCollectionViewAllPlayCells()
+        self.isVisiable = false
+        self.player.pause()
+        //self.stopCollectionViewAllPlayCells()
     }
     
     @objc func into(){
         print("进入播放")
-        let indexPath = IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)
-        if let videoPlayCell = self.collectionView.cellForItem(at: indexPath) as? VideoPlayCell{
-            videoPlayCell.play()
-        }
+        self.isVisiable = true
+        self.player.resume()
     }
 }
 
@@ -291,7 +369,6 @@ extension ScanVideosController:MoreOperationControllerDelegate{
     }
     func moreOperationBlackClicked(){
         self.doMoreOperationWith(type: "black")
-
     }
     func moreOperationDeleteClicked(){
         self.doMoreOperationWith(type: "delete")
@@ -329,4 +406,105 @@ extension ScanVideosController:MoreOperationControllerDelegate{
         })
     }
 
+}
+
+extension ScanVideosController:AliyunVodPlayerDelegate{
+    /**
+     * 功能：播放事件协议方法,主要内容 AliyunVodPlayerEventPrepareDone状态下，此时获取到播放视频数据（时长、当前播放数据、视频宽高等）
+     * 参数：event 视频事件
+     */
+    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, onEventCallback event: AliyunVodPlayerEvent) {
+        if vodPlayer.isPlaying{self.currentVideoPlayCell?.playButton.isHidden = true}
+        
+        if event == .prepareDone{
+            print("播放器状态变更--->准备完毕")
+            self.player.start()
+        }
+        if event == .play{
+            self.currentVideoPlayCell?.playButton.isHidden = true
+            print("播放器状态变更--->播放中")
+        }
+        if event == .firstFrame{
+            print("播放器状态变更--->第一帧")
+            self.currentVideoPlayCell?.videoCoverImageView.isHidden = true
+        }
+        if event == .pause{
+            print("播放器状态变更--->暂停")
+            self.currentVideoPlayCell?.playButton.isHidden = false
+        }
+        if event == .stop{
+            print("播放器状态变更--->停止")
+        }
+        if event == .finish{
+            print("播放器状态变更--->finish")
+        }
+        if event == .beginLoading{
+            print("播放器状态变更--->开始加载")
+            self.currentVideoPlayCell?.bottomBufferView.startAnimation()
+        }
+        if event == .endLoading{
+            print("播放器状态变更--->加载完毕")
+            self.currentVideoPlayCell?.bottomBufferView.stopAnimation()
+        }
+        if event == .seekDone{
+            print("播放器状态变更--->seekdone")
+        }
+        
+    }
+    
+    /**
+     * 功能：播放器播放时发生错误时，回调信息
+     * 参数：errorModel 播放器报错时提供的错误信息对象
+     */
+    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, playBack errorModel: AliyunPlayerVideoErrorModel!) {
+        
+    }
+    
+    //@optional
+    
+    /**
+     * 功能：播放器播放即将切换清晰度时
+     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
+     videoDefinition ： 媒体转码播放方式的清晰度
+     */
+    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, willSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
+        
+    }
+    /**
+     * 功能：播放器播放切换清晰度完成
+     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
+     videoDefinition ： 媒体转码播放方式的清晰度
+     */
+    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, didSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
+        
+    }
+    /**
+     * 功能：播放器播放切换清晰度失败
+     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
+     videoDefinition ： 媒体转码播放方式的清晰度
+     */
+    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, failSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
+        
+    }
+    /**
+     * 功能：1.播放器设置了循环播放，此代理方法才会有效。2.播放器播放完成后，开始循环播放后，此协议被调用
+     */
+    func onCircleStart(with vodPlayer: AliyunVodPlayer!) {
+        
+    }
+    /*
+     *功能：播放器请求时，通知用户传入的参数鉴权过期。
+     */
+    func onTimeExpiredError(with vodPlayer: AliyunVodPlayer!) {
+        
+    }
+    /*
+     *功能：播放地址将要过期时，提示用户当前播放地址过期。 （策略：当前播放器地址过期时间2小时，我们在播放地址差1分钟过期时提供回调；（7200-60）秒时发送）
+     *参数：videoid：将过期时播放的videoId
+     *参数：quality：将过期时播放的清晰度，playauth播放方式和STS播放方式有效。
+     *参数：videoDefinition：将过期时播放的清晰度，MPS播放方式时有效。
+     */
+    func vodPlayerPlaybackAddressExpired(withVideoId videoId: String!, quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
+        
+    }
 }

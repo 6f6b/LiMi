@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.startLocateWith(success: nil, failed: nil)
         let prestor = AliyunEffectPrestoreManager.init()
         prestor.insertInitialData()
+        //请求播放证书
+//        VideoCertificateManager.shared.requestPlayCertificationWith(completeBlock: nil)
         return true
     }
 
@@ -82,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //MARK: - Notification
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-        
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {

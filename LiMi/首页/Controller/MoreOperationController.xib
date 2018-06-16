@@ -13,6 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoreOperationController" customModule="LiMi" customModuleProvider="target">
             <connections>
                 <outlet property="bottomTopView" destination="F7P-26-k4b" id="wTy-Jr-EXX"/>
+                <outlet property="deleteContainVIew" destination="DNm-78-ulE" id="IXA-dJ-UQk"/>
+                <outlet property="stackView" destination="OeL-9T-JPo" id="khT-0q-XIC"/>
                 <outlet property="topView" destination="73i-4L-q76" id="tLh-8m-Ilh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

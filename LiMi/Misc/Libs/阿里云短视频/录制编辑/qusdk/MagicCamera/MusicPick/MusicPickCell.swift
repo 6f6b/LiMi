@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum MusicPickCellState {
+    case none
+    case pause
+    case playing
+}
 class MusicPickCell: UICollectionViewCell {
     @IBOutlet weak var musicName: UILabel!
     @IBOutlet weak var zantingImageView: UIImageView!
@@ -22,8 +27,10 @@ class MusicPickCell: UICollectionViewCell {
         
     }
 
-    func configWith(musicModel:MusicModel?,pauseImageHidden:Bool = true){
-        self.zantingImageView.isHidden = pauseImageHidden;
+    func configWith(musicModel:MusicModel?,state:MusicPickCellState = .none){
+        self.zantingImageView.isHidden = state == .none ? true : false
+        let imageName = state == .playing ? "zanting" : "bofang"
+        self.zantingImageView.image = UIImage.init(named: imageName)
         self.musicModel = musicModel;
         self.musicImageView.setImageWith(imageURL: musicModel?.pic, placeholder: nil);
         self.musicName.text = musicModel?.name;

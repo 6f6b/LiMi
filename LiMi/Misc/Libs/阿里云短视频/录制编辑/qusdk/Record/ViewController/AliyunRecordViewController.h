@@ -22,6 +22,9 @@
 @property (nonatomic, weak) id<AliyunRecordViewControllerDelegate> delegate;
 @property (nonatomic, strong) AliyunIRecorder *recorder;
 
+@property (nonatomic,assign) NSInteger musicId;
+@property (nonatomic,assign) float startTime;
+@property (nonatomic,assign) float duration;
     
 /* 摄像头方向 */
 @property (nonatomic, assign) BOOL isCameraBack;

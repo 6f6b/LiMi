@@ -82,7 +82,6 @@ class AppManager:NSObject {
     
 
     func loginIM()->Void{
-        print(Defaults[.userCertificationState])
         if Defaults[.userCertificationState] != 2{return}
         if NIMSDK.shared().loginManager.isLogined(){return}
         guard let userAccount = Defaults[.userId],let userToken = Defaults[.userToken] else{return}

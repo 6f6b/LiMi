@@ -9,6 +9,8 @@
 import UIKit
 
 class FollowerListContainController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
     var myFollowsController:FollowerListController!

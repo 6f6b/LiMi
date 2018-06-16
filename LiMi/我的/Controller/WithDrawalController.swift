@@ -10,6 +10,8 @@ import UIKit
 import SVProgressHUD
 
 class WithDrawalController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var withdrawalContainView: UIView!
     @IBOutlet weak var ableToBeWithdrawal: UILabel! //可提现金额
     @IBOutlet weak var withDrawAmount: UITextField! //提现金额

@@ -31,7 +31,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgY-9r-2Ua">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="285.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="rlB-XI-Nz1">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rlB-XI-Nz1">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="285.5"/>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zj-eW-dhl">
@@ -451,11 +451,11 @@
                                         <rect key="frame" x="0.0" y="662" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="63i-0g-Gku" id="0gH-69-GKR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcu-cY-C23">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="49.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="49"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_ic_fankui" translatesAutoresizingMaskIntoConstraints="NO" id="RDi-lS-xLv">
                                                             <rect key="frame" x="0.0" y="12.5" width="25" height="25"/>
@@ -485,7 +485,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttv-GY-tfU">
-                                                    <rect key="frame" x="0.0" y="48" width="375" height="1"/>
+                                                    <rect key="frame" x="0.0" y="48.5" width="375" height="1"/>
                                                     <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="CsR-1x-mHA"/>
@@ -508,27 +508,27 @@
                                         <rect key="frame" x="0.0" y="712" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CJr-gs-EGe" id="6yo-II-ila">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJW-MW-GyZ">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="49"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="49.5"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_ic_about" translatesAutoresizingMaskIntoConstraints="NO" id="5Nt-v1-zI8">
-                                                            <rect key="frame" x="0.0" y="12.5" width="25" height="25"/>
+                                                            <rect key="frame" x="0.0" y="13" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="3gr-In-4Lx"/>
                                                                 <constraint firstAttribute="width" constant="25" id="Ynh-03-Btu"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于粒米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uI-Bf-92l">
-                                                            <rect key="frame" x="35" y="16.5" width="61.5" height="18"/>
+                                                            <rect key="frame" x="35" y="17" width="61.5" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightbar" translatesAutoresizingMaskIntoConstraints="NO" id="j5P-pw-x3U">
-                                                            <rect key="frame" x="338" y="19.5" width="7" height="12"/>
+                                                            <rect key="frame" x="338" y="20" width="7" height="12"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1128,6 +1128,5 @@
         <image name="me_ic_order" width="25" height="25"/>
         <image name="rightbar" width="7" height="12"/>
         <image name="touxiang" width="100" height="100"/>
-        <image name="zhuye_bj" width="375" height="230"/>
     </resources>
 </document>

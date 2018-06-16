@@ -44,16 +44,26 @@ class UserDetailsController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.customNavigationBar.backgroundColor = UIColor.red
         if (self.navigationController?.navigationBar.isHidden)!{
-            self.collectionViewTopConstriant.constant = 0
-            self.customNavigationBarTopConstraint.constant = 0
+            if SYSTEM_VERSION <= 11.0{
+                self.collectionViewTopConstriant.constant = 0
+                self.customNavigationBarTopConstraint.constant = STATUS_BAR_HEIGHT
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+            if SYSTEM_VERSION > 11.0{
+                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT
+                self.customNavigationBarTopConstraint.constant = 0
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
         }else{
             self.customNavigationBar.isHidden = true
             if SYSTEM_VERSION <= 11.0{
-                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-            }else{
-                self.collectionView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+            if SYSTEM_VERSION > 11.0{
+                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
             }
         }
         self.collectionView.delegate = self
@@ -132,7 +142,6 @@ class UserDetailsController: ViewController {
             self.followBtn.setTitle("互相关注", for: .normal)
             self.followBtn.setImage(UIImage.init(named: "xq_ic_hxgz"), for: .normal)
         }
-        
     }
     
     //改变关注关系

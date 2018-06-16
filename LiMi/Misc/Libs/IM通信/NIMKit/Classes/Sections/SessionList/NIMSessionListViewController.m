@@ -219,12 +219,14 @@
 
 
 - (NSString *)nameForRecentSession:(NIMRecentSession *)recent{
+    NSString *name = @"";
     if (recent.session.sessionType == NIMSessionTypeP2P) {
-        return [NIMKitUtil showNick:recent.session.sessionId inSession:recent.session];
+        name = [NIMKitUtil showNick:recent.session.sessionId inSession:recent.session];
     }else{
         NIMTeam *team = [[NIMSDK sharedSDK].teamManager teamById:recent.session.sessionId];
-        return team.teamName;
+        name = team.teamName;
     }
+    return name.length > 30 ? @"" : name;
 }
 
 - (NSAttributedString *)contentForRecentSession:(NIMRecentSession *)recent{

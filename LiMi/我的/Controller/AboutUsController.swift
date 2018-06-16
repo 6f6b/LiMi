@@ -9,6 +9,8 @@
 import UIKit
 
 class AboutUsController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var versionNum: UILabel!
     
     override func viewDidLoad() {

@@ -11,6 +11,8 @@ import Moya
 import ObjectMapper
 
 class AddFollowersController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var placeHolderImage: UIImageView!
@@ -40,7 +42,6 @@ class AddFollowersController: ViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = false
     }
     
     deinit {
@@ -49,6 +50,7 @@ class AddFollowersController: ViewController {
     @IBAction func dealCancel(_ sender: Any) {
         //self.navigationController?.popViewController(animated: true)
 //        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.navigationBar.isHidden = false
         self.dismiss(animated: true, completion: nil)
     }
     override func didReceiveMemoryWarning() {

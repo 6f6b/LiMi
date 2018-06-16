@@ -67,7 +67,7 @@
 {
     
     AliyunPasterInfo *empty1 = [[AliyunPasterInfo alloc] init];
-    AliyunPasterInfo *empty2 = [[AliyunPasterInfo alloc] init];
+    //AliyunPasterInfo *empty2 = [[AliyunPasterInfo alloc] init];
     
     NSString *filterName = [NSString stringWithFormat:@"hanfumei-800"];
     NSString *path = [[NSBundle mainBundle] pathForResource:filterName ofType:nil];
@@ -78,7 +78,7 @@
     [self.effectGifItems addObject:empty1];
     [self.effectGifItems addObject:paster];
     [self.effectGifItems addObjectsFromArray:self.allPasterInfoArray];
-    [self.effectGifItems addObject:empty2];
+    //[self.effectGifItems addObject:empty2];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self loadEffectData:self.effectGifItems];
@@ -153,6 +153,7 @@
                 __weak typeof(self) weakSelf = self;
                 task.completionHandler = ^(NSString *path, NSError *err) {
                     [weakSelf.delegate addEffectWithPath:path];
+//                    self.scro
                 };
             } else {
     

@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/app1_4"
+let serverAddress = "http://app.youhongtech.com/index.php/app1_4"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -1843,9 +1843,9 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var view_auth:Int?
     var video_cover:String?
 
-    var music_id:String?
-    var music_start:String?
-    var music_end:String?
+    var music_id:Int?
+    var music_start:Float?
+    var music_duration:Float?
     
     func parameters() -> [String : Any] {
         let tmpParameters = ["title":title,
@@ -1854,7 +1854,7 @@ struct PublishVideo:TargetType,ParametersProtocol{
                             "video_cover":video_cover,
                             "music_id":music_id,
                             "music_start":music_start,
-                            "music_end":music_end
+                            "music_end":music_duration
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

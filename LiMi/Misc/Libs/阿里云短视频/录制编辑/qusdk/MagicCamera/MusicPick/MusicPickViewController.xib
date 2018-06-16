@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MusicPickViewController" customModule="LiMi" customModuleProvider="target">
             <connections>
+                <outlet property="clearButton" destination="fqc-Cl-2hi" id="F0t-j2-8xh"/>
                 <outlet property="collectionView" destination="2fc-pQ-H6C" id="Xwz-JF-XUe"/>
                 <outlet property="hotMusicButton" destination="Za4-fa-SZK" id="7zw-Yi-A4v"/>
                 <outlet property="musicProgressContainView" destination="Svh-kS-yAw" id="QNM-7h-lyB"/>
@@ -60,13 +61,22 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqc-Cl-2hi">
+                            <rect key="frame" x="308" y="7" width="22" height="22"/>
+                            <state key="normal" image="shanchu"/>
+                            <connections>
+                                <action selector="clearButtonClicked:" destination="-1" eventType="touchUpInside" id="7eC-tX-nKA"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Xb1-xd-gOM" firstAttribute="leading" secondItem="xQd-kI-PxS" secondAttribute="leading" constant="15" id="4KO-0V-qj1"/>
+                        <constraint firstItem="fqc-Cl-2hi" firstAttribute="centerY" secondItem="xQd-kI-PxS" secondAttribute="centerY" id="Kgo-42-exp"/>
                         <constraint firstAttribute="bottom" secondItem="Xb1-xd-gOM" secondAttribute="bottom" id="M9O-TJ-tb7"/>
                         <constraint firstAttribute="height" constant="36" id="P5y-uG-S7A"/>
                         <constraint firstItem="165-5M-KeA" firstAttribute="leading" secondItem="xQd-kI-PxS" secondAttribute="leading" constant="15" id="Qce-S4-MiS"/>
+                        <constraint firstAttribute="trailing" secondItem="fqc-Cl-2hi" secondAttribute="trailing" constant="15" id="SYo-fB-xm0"/>
                         <constraint firstItem="Xb1-xd-gOM" firstAttribute="top" secondItem="xQd-kI-PxS" secondAttribute="top" id="V1t-3W-7ro"/>
                         <constraint firstItem="165-5M-KeA" firstAttribute="centerY" secondItem="xQd-kI-PxS" secondAttribute="centerY" id="YtI-iX-fON"/>
                         <constraint firstItem="RVU-jI-hPe" firstAttribute="leading" secondItem="165-5M-KeA" secondAttribute="trailing" constant="10" id="qqK-Zs-Su4"/>
@@ -75,7 +85,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="20"/>
+                            <integer key="value" value="18"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
@@ -161,12 +171,13 @@
                 <constraint firstItem="YPZ-xx-Kwp" firstAttribute="top" secondItem="xQd-kI-PxS" secondAttribute="bottom" id="xWa-ZZ-Yvc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="34.5" y="53.5"/>
+            <point key="canvasLocation" x="-58" y="-150"/>
         </view>
     </objects>
     <resources>
         <image name="ic_nomusic_pre" width="25" height="25"/>
         <image name="login_sousuo" width="21" height="21"/>
+        <image name="shanchu" width="22" height="22"/>
         <image name="short_video_back" width="25" height="25"/>
     </resources>
 </document>

@@ -44,7 +44,8 @@ class VideoTrendModel: BaseModel {
     var is_click:Bool?
     var v_create_time:String?
     var is_attention:Bool?
-    
+    var height:Int?
+    var width:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -68,6 +69,8 @@ class VideoTrendModel: BaseModel {
         is_click <- map["is_click"]
         v_create_time <- map["v_create_time"]
         is_attention <- map["is_attention"]
+        height <- map["height"]
+        width <- map["width"]
     }
 }
 

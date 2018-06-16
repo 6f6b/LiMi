@@ -90,6 +90,10 @@
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
     [self setUpNavItem];
+    
+    self.tableView.backgroundColor = rgba(30, 30, 30, 1);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.view.backgroundColor = rgba(30, 30, 30, 1);
 }
 
 - (void)setUpNavItem{

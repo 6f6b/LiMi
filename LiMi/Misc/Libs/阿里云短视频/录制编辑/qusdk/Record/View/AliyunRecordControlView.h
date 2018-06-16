@@ -42,6 +42,10 @@
 @property (nonatomic, assign) CGFloat minDuration;
 @property (nonatomic, assign) CGFloat maxDuration;
 @property (nonatomic, weak) id<AliyunRecordControlViewDelegate> delegate;
+
+@property (nonatomic,assign) CGFloat duration;
+
+
 - (void)updateVideoDuration:(CGFloat)duration;
     
 - (void)updateRecordStatus;

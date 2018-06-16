@@ -44,26 +44,38 @@ class OtherUserDetailVideoAndLikedVideosController: ScanVideosContainController 
 
     /*函数*/
     override func scanVideosControllerRequestDataWith(scanVideosController: ScanVideosController) {
-        
+        let _time = self.time ?? Int(Date().timeIntervalSince1970)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let videoPersonalDetails = VideoPersonalDetails.init(user_id: self.user_id, time: self.time, page: pageIndex, type: self.type)
+        let videoPersonalDetails = VideoPersonalDetails.init(user_id: self.user_id, time:_time, page: pageIndex, type: self.type)
         
         _ = moyaProvider.rx.request(.targetWith(target: videoPersonalDetails)).subscribe(onSuccess: {[unowned self] (response) in
             let videoTrendListModel = Mapper<VideoTrendListModel>().map(jsonData: response.data)
-            self.time = videoTrendListModel?.time ?? self.time
+            if let _time = videoTrendListModel?.time{
+                self.time = _time
+            }
             if let trends = videoTrendListModel?.data{
                 if self.pageIndex == 1{
                     self._dataArray.removeAll()
                 }
-                for trend in trends{
-                    self._dataArray.append(trend)
+                var isAdd = true
+                let firstTrend = trends.first
+                for trend in self.dataArray{
+                    if trend.id == firstTrend?.id{
+                        isAdd = false
+                        break
+                    }
+                }
+                if isAdd{
+                    for trend in trends{
+                        self.dataArray.append(trend)
+                    }
                 }
                 scanVideosController.reloadCollectionData()
             }
-            scanVideosController.collectionView.mj_header.endRefreshing()
+            scanVideosController.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: videoTrendListModel)
             }, onError: { (error) in
-                scanVideosController.collectionView.mj_header.endRefreshing()
+                scanVideosController.tableView.mj_header.endRefreshing()
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }

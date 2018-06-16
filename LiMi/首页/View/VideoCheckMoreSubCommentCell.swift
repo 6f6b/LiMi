@@ -10,7 +10,7 @@ import UIKit
 
 class VideoCheckMoreSubCommentCell: UITableViewCell {
     var commentNumInfo:UILabel!
-    
+    var spreadImageView:UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -29,6 +29,17 @@ class VideoCheckMoreSubCommentCell: UITableViewCell {
             make.right.equalTo(self.contentView)
             
         }
+        
+        self.spreadImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 11, height: 11))
+        self.spreadImageView.backgroundColor = UIColor.red
+        self.spreadImageView.image = UIImage.init(named: "pl_xiala")
+        self.contentView.addSubview(self.spreadImageView)
+        self.spreadImageView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.commentNumInfo)
+            make.left.equalTo(self.commentNumInfo.snp.right).offset(9)
+            make.height.equalTo(11)
+            make.width.equalTo(11)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,10 +55,15 @@ class VideoCheckMoreSubCommentCell: UITableViewCell {
         
     }
     
-    func configWith(num:Int?){
-        if let _num = num{
-            self.commentNumInfo.text = "查看\(_num)条回复"
+    func configWith(num:Int?,isSpread:Bool){
+        if isSpread{
+            self.commentNumInfo.text = "收起"
+        }else{
+            if let _num = num{
+                self.commentNumInfo.text = "查看\(_num)条回复"
+            }
         }
+        
     }
     
 }

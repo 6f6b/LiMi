@@ -8,13 +8,14 @@
 
 import UIKit
 ///子评论区域最大显示条数
-//let maxSubCommentsNum = 3
+let maxSubCommentsNum = 3
 class VideoTrendCommentWithSubCommentCell: VideoTrendCommentCell {
     ///子评论容器
     var subCommentContainView:UIView!
     ///子评论列表
     var subCommentTableView:UITableView!
-    
+    var isSpread:Bool = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -92,7 +93,8 @@ class VideoTrendCommentWithSubCommentCell: VideoTrendCommentCell {
         let limitWidth = SCREEN_WIDTH-62-30-12
         if let childs = model?.child,let childNum = model?.child_num{
             if childNum > maxSubCommentsNum{
-                for i in 0..<maxSubCommentsNum{
+                var num = isSpread ? childNum : maxSubCommentsNum
+                for i in 0..<num{
                     if let _str = self.subCommentTextWith(model: childs[i]){
                         let size = _str.sizeWith(limitWidth: limitWidth, font: 15)
                         tableViewHeight += size.height
@@ -118,15 +120,17 @@ class VideoTrendCommentWithSubCommentCell: VideoTrendCommentCell {
 extension VideoTrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         if let count = self.commentModel?.child_num{
-            if count > maxSubCommentsNum{return 2}
+            if count <= maxSubCommentsNum{return 1}
         }
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             if let count = self.commentModel?.child_num{
+                if isSpread {return count}
                 return count > maxSubCommentsNum ? maxSubCommentsNum :count
             }
         }
@@ -169,14 +173,17 @@ extension VideoTrendCommentWithSubCommentCell:UITableViewDelegate,UITableViewDat
         }
         if indexPath.section == 1{
             let checkMoreSubCommentCell = tableView.dequeueReusableCell(withIdentifier: "VideoCheckMoreSubCommentCell", for: indexPath) as! VideoCheckMoreSubCommentCell
-            checkMoreSubCommentCell.configWith(num: self.commentModel?.child_num)
+            checkMoreSubCommentCell.configWith(num: self.commentModel?.child_num,isSpread: self.isSpread)
             return checkMoreSubCommentCell
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+        if indexPath.section == 1{
+            self.isSpread = !self.isSpread
+            NotificationCenter.default.post(name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil, userInfo: [COMMENT_MODEL_KEY:self.commentModel])
+        }
     }
     
     func subCommentTextWith(model:SubCommentModel?)->String?{

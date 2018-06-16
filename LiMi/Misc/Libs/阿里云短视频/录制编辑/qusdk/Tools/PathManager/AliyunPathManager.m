@@ -29,13 +29,6 @@
     return @"Documents/com.duanqu.demo";
 }
 
-//+ (NSString *)createCompositionDir {
-//    NSString *root = [self compositionRootDir];
-//    NSString *dir = [root stringByAppendingPathComponent:[self uuidString]];
-//    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
-//    return dir;
-//}
-
 + (void)clearDir:(NSString *)dirPath {
     [[NSFileManager defaultManager] removeItemAtPath:dirPath error:nil];
     [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -48,6 +41,12 @@
     CFRelease(puuid);
     CFRelease(uuidString);
     return result;
+}
+
+
+//创建编辑路径
++ (NSString *)createEditDir {
+    return [[self aliyunRootPath] stringByAppendingPathComponent:@"edit"];
 }
 
 + (NSString *)createRecrodDir {

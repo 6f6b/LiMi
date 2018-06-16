@@ -12,6 +12,8 @@ import ObjectMapper
 import Moya
 
 class AlterUserSexController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var girlPreImg: UIImageView!
     @IBOutlet weak var boyPreImg: UIImageView!
     var alterUserSexBlock:((String?)->Void)?

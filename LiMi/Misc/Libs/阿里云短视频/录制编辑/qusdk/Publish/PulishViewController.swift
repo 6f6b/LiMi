@@ -16,6 +16,10 @@ import ObjectMapper
     @objc var config:AliyunMediaConfig!
     @objc var outputSize:CGSize = CGSize.zero
     
+    @objc var musicId:NSInteger = 0;
+    @objc var  startTime:Float = 0;
+    @objc var duration:Float = 0;
+    
     var containerView:UIView!;
     var topView:AliyunPublishTopView!;
     var backgroundView:UIImageView!;
@@ -37,10 +41,6 @@ import ObjectMapper
     override var prefersStatusBarHidden: Bool{return true}
     /*可见权限*/
     var visiableType:VisibleChooseType = .all
-    /*音乐信息*/
-    var music_id:String?
-    var music_start:String?
-    var music_end:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,7 +250,7 @@ import ObjectMapper
     //发布到服务器
     func pulishToServerWith(title:String?,videoId:String,viewAuth:Int,videoCover:String?){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.music_id, music_start: self.music_start, music_end: self.music_end)
+        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration)
        // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)

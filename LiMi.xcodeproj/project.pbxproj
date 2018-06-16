@@ -612,10 +612,10 @@
 		687CA33D20C515FB0016FB4A /* ScanVideosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA33C20C515FB0016FB4A /* ScanVideosController.swift */; };
 		687CA33F20C5180D0016FB4A /* VideoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA33E20C5180D0016FB4A /* VideoListController.swift */; };
 		687CA37B20C521500016FB4A /* HomeTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA37A20C521500016FB4A /* HomeTopView.swift */; };
-		687CA40120C6320A0016FB4A /* VideoPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA3FF20C6320A0016FB4A /* VideoPlayCell.swift */; };
-		687CA40220C6320A0016FB4A /* VideoPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687CA40020C6320A0016FB4A /* VideoPlayCell.xib */; };
 		687CA40420C63AB40016FB4A /* MusicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA40320C63AB40016FB4A /* MusicInfoView.swift */; };
 		687CA40820C666CB0016FB4A /* VideoTrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA40720C666CB0016FB4A /* VideoTrendListModel.swift */; };
+		6881034120D251C900A496CD /* BufferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881034020D251C900A496CD /* BufferView.swift */; };
+		6881034420D3A94900A496CD /* NIMKitEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6801E112202DA83700C106E1 /* NIMKitEmoticon.bundle */; };
 		6888086B200DF0F200BC6AE9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68880860200DF0F100BC6AE9 /* Info.plist */; };
 		6888087D200DF19300BC6AE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880873200DF19300BC6AE9 /* AppDelegate.swift */; };
 		6888087E200DF19300BC6AE9 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68880874200DF19300BC6AE9 /* BaseModel.swift */; };
@@ -1020,6 +1020,11 @@
 		68DFD1A020B421C8009B8373 /* FilterAndBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFD19F20B421C8009B8373 /* FilterAndBeautyView.m */; };
 		68DFD1A220B42306009B8373 /* FilterAndBeautyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DFD1A120B42306009B8373 /* FilterAndBeautyView.xib */; };
 		68E7D81820CB765000A8CC98 /* VideoCommentTopToolsContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D81720CB765000A8CC98 /* VideoCommentTopToolsContainView.swift */; };
+		68E7D82320CC299300A8CC98 /* VideoPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */; };
+		68E7D82420CC299300A8CC98 /* VideoPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */; };
+		68E7D82920CE308100A8CC98 /* NoMoreDataViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D82720CE308100A8CC98 /* NoMoreDataViewCell.swift */; };
+		68E7D82A20CE308100A8CC98 /* NoMoreDataViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E7D82820CE308100A8CC98 /* NoMoreDataViewCell.xib */; };
+		68E7D82C20CE53CA00A8CC98 /* VideoCertificateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D82B20CE53CA00A8CC98 /* VideoCertificateManager.swift */; };
 		68EFB903203FE1C600FE1A59 /* AboutUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EFB901203FE1C600FE1A59 /* AboutUsController.swift */; };
 		68EFB904203FE1C600FE1A59 /* AboutUsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68EFB902203FE1C600FE1A59 /* AboutUsController.xib */; };
 		68EFB907203FE53F00FE1A59 /* FeedBackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EFB905203FE53F00FE1A59 /* FeedBackController.swift */; };
@@ -2061,10 +2066,9 @@
 		687CA33C20C515FB0016FB4A /* ScanVideosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanVideosController.swift; sourceTree = "<group>"; };
 		687CA33E20C5180D0016FB4A /* VideoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListController.swift; sourceTree = "<group>"; };
 		687CA37A20C521500016FB4A /* HomeTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopView.swift; sourceTree = "<group>"; };
-		687CA3FF20C6320A0016FB4A /* VideoPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayCell.swift; sourceTree = "<group>"; };
-		687CA40020C6320A0016FB4A /* VideoPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayCell.xib; sourceTree = "<group>"; };
 		687CA40320C63AB40016FB4A /* MusicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoView.swift; sourceTree = "<group>"; };
 		687CA40720C666CB0016FB4A /* VideoTrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTrendListModel.swift; sourceTree = "<group>"; };
+		6881034020D251C900A496CD /* BufferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferView.swift; sourceTree = "<group>"; };
 		68880860200DF0F100BC6AE9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68880873200DF19300BC6AE9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68880874200DF19300BC6AE9 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -2922,6 +2926,11 @@
 		68DFD19F20B421C8009B8373 /* FilterAndBeautyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterAndBeautyView.m; sourceTree = "<group>"; };
 		68DFD1A120B42306009B8373 /* FilterAndBeautyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAndBeautyView.xib; sourceTree = "<group>"; };
 		68E7D81720CB765000A8CC98 /* VideoCommentTopToolsContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCommentTopToolsContainView.swift; sourceTree = "<group>"; };
+		68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayCell.swift; sourceTree = "<group>"; };
+		68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayCell.xib; sourceTree = "<group>"; };
+		68E7D82720CE308100A8CC98 /* NoMoreDataViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMoreDataViewCell.swift; sourceTree = "<group>"; };
+		68E7D82820CE308100A8CC98 /* NoMoreDataViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoMoreDataViewCell.xib; sourceTree = "<group>"; };
+		68E7D82B20CE53CA00A8CC98 /* VideoCertificateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCertificateManager.swift; sourceTree = "<group>"; };
 		68EFB901203FE1C600FE1A59 /* AboutUsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsController.swift; sourceTree = "<group>"; };
 		68EFB902203FE1C600FE1A59 /* AboutUsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsController.xib; sourceTree = "<group>"; };
 		68EFB905203FE53F00FE1A59 /* FeedBackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackController.swift; sourceTree = "<group>"; };
@@ -5619,6 +5628,7 @@
 				68B3F3452050EB160004C3D9 /* CustomSystemMessageManager.swift */,
 				6814A5F72089CFFC002B3BBC /* 文件上传 */,
 				68A3EE14206E377700BD3097 /* VideoUploadManager.swift */,
+				68E7D82B20CE53CA00A8CC98 /* VideoCertificateManager.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -5893,12 +5903,15 @@
 				68B973F820C6832200162547 /* CustomNavigationBarView.swift */,
 				68B973FA20C6834200162547 /* CutomWithNavigationBarAndStatusBarView.swift */,
 				687CA37A20C521500016FB4A /* HomeTopView.swift */,
-				687CA3FF20C6320A0016FB4A /* VideoPlayCell.swift */,
-				687CA40020C6320A0016FB4A /* VideoPlayCell.xib */,
+				68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */,
+				68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */,
+				6881034020D251C900A496CD /* BufferView.swift */,
 				687CA40320C63AB40016FB4A /* MusicInfoView.swift */,
 				6824487720C67388009D1AED /* VideoListCollectionViewCell.swift */,
 				6824487820C67388009D1AED /* VideoListCollectionViewCell.xib */,
 				68B9747420C9341800162547 /* SingleInfoCollectionViewCell.swift */,
+				68E7D82720CE308100A8CC98 /* NoMoreDataViewCell.swift */,
+				68E7D82820CE308100A8CC98 /* NoMoreDataViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7097,6 +7110,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6881034420D3A94900A496CD /* NIMKitEmoticon.bundle in Resources */,
 				688809052011A7DD00BC6AE9 /* ReleaseContentOtherInputCell.xib in Resources */,
 				68B973FF20C68C9D00162547 /* SchoolListController.xib in Resources */,
 				6801E09D202C6EA900C106E1 /* NTESLogViewController.xib in Resources */,
@@ -7112,6 +7126,7 @@
 				681C95B22045366E009CDE3B /* TopicListController.xib in Resources */,
 				681C95F22047AD13009CDE3B /* WeekendTourDetailController.xib in Resources */,
 				6801E078202C6EA900C106E1 /* NTESTeamMeetingCallingViewController.xib in Resources */,
+				68E7D82420CC299300A8CC98 /* VideoPlayCell.xib in Resources */,
 				680E16A62003548C006CC5B9 /* LaunchScreen.storyboard in Resources */,
 				68DFABAD20AC1792009B8373 /* AliyunFontItemCell.xib in Resources */,
 				68B9745B20C9124C00162547 /* VideoListInPersonCenterCell.xib in Resources */,
@@ -7144,6 +7159,7 @@
 				6801E07E202C6EA900C106E1 /* NTESVideoChatViewController.xib in Resources */,
 				6801E109202DA6CE00C106E1 /* video_chat_tip_OnCall.aac in Resources */,
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
+				68E7D82A20CE308100A8CC98 /* NoMoreDataViewCell.xib in Resources */,
 				68C5F296203FF00200769A92 /* ContactWayInputCell.xib in Resources */,
 				681C96022047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib in Resources */,
 				6801E106202DA6CE00C106E1 /* message.wav in Resources */,
@@ -7297,7 +7313,6 @@
 				68DFAB2C20AC1792009B8373 /* LaunchScreen.strings in Resources */,
 				683107C12024402C0060B109 /* EmptyTrendsCell.xib in Resources */,
 				681389C12051652500F65623 /* WeekendTourOrderStatusView.xib in Resources */,
-				687CA40220C6320A0016FB4A /* VideoPlayCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7496,6 +7511,7 @@
 				6888089C200DF7E900BC6AE9 /* DefaultsKeysExtension.swift in Sources */,
 				68DFAB6F20AC1792009B8373 /* AliyunEffectResourceModel.m in Sources */,
 				68A3EE0B206E170300BD3097 /* PopViewForUnAuthenticated.swift in Sources */,
+				68E7D82320CC299300A8CC98 /* VideoPlayCell.swift in Sources */,
 				68DFABA720AC1792009B8373 /* AliyunEditButtonsView.m in Sources */,
 				688808A4200F1E0300BC6AE9 /* PickerView.m in Sources */,
 				68DFAD2920AC1794009B8373 /* FMResultSet.m in Sources */,
@@ -7588,7 +7604,6 @@
 				6801E08B202C6EA900C106E1 /* mvp.vsh.c in Sources */,
 				6801E04C202C6EA900C106E1 /* NTESRedPacketAttachment.m in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
-				687CA40120C6320A0016FB4A /* VideoPlayCell.swift in Sources */,
 				6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */,
 				6801E041202C6EA900C106E1 /* NTESCustomNotificationDB.m in Sources */,
 				68DFAB3120AC1792009B8373 /* AliyunIConfig.m in Sources */,
@@ -7978,6 +7993,7 @@
 				6801E030202C6EA900C106E1 /* NTESGroupedContacts.m in Sources */,
 				68B9745720C90B9900162547 /* VideoListInMyCenterController.swift in Sources */,
 				6801DFB0202C6EA800C106E1 /* NIMMessageCellFactory.m in Sources */,
+				6881034120D251C900A496CD /* BufferView.swift in Sources */,
 				68DFAB5020AC1792009B8373 /* AliyunMagicCameraViewController.m in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				68DFAD2520AC1794009B8373 /* FMDatabaseQueue.m in Sources */,
@@ -8039,6 +8055,7 @@
 				6801DFF6202C6EA800C106E1 /* NSData+NTES.m in Sources */,
 				681C95CC204542B0009CDE3B /* NearbyPeopleCollectionCell.swift in Sources */,
 				6862E5302019BC130058B878 /* STInputBar.m in Sources */,
+				68E7D82C20CE53CA00A8CC98 /* VideoCertificateManager.swift in Sources */,
 				68DFABB620AC1792009B8373 /* AliyunPublishTopView.m in Sources */,
 				68DFAD4120AC1794009B8373 /* JSONModel+networking.m in Sources */,
 				6801E04A202C6EA900C106E1 /* NTESChartletAttachment.m in Sources */,
@@ -8092,6 +8109,7 @@
 				688A4C92200D9E8400BB5DF7 /* UserInfoListModel.swift in Sources */,
 				6801E037202C6EA900C106E1 /* NTESBlackListViewController.m in Sources */,
 				6801DFCE202C6EA800C106E1 /* NIMUsrInfoData.m in Sources */,
+				68E7D82920CE308100A8CC98 /* NoMoreDataViewCell.swift in Sources */,
 				681C95FD2047D0D8009CDE3B /* WeekendTourServiceMerchantCell.swift in Sources */,
 				6801E04F202C6EA900C106E1 /* NTESWhiteboardAttachment.m in Sources */,
 				68DFAB7720AC1792009B8373 /* AliyunResourceFontRequest.m in Sources */,

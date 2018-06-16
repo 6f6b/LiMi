@@ -8,16 +8,28 @@
 //
 
 import UIKit
-protocol VideoPlayCellDelegate {
-    func videoPlayCellUserHeadButtonClicked(button:UIButton)
-    func videoPlayCellAddFollowButtonClicked(button:UIButton)
-    func videoPlayCellThumbsUpButtonClicked(button:UIButton)
-    func videoPlayCellCommentButtonClicked(button:UIButton)
-    func videoPlayCellMoreOperationButtonClicked(button:UIButton)
+
+let clickDetectionTime = Float(0.3)
+@objc protocol VideoPlayCellDelegate {
+    ///点击头像回调
+    @objc func videoPlayCellUserHeadButtonClicked(button:UIButton)
+    ///点击添加关注回调
+    @objc func videoPlayCellAddFollowButtonClicked(button:UIButton)
+    ///点击点赞回调
+     @objc func videoPlayCellThumbsUpButtonClicked(button:UIButton)
+    ///点击评论按钮回调
+    @objc func videoPlayCellCommentButtonClicked(button:UIButton)
+    ///点击更多操作
+    @objc func videoPlayCellMoreOperationButtonClicked(button:UIButton)
+    ///单击了播放cell
+    @objc func videoPlayCellSingleClick(videoPlayCell:VideoPlayCell)
+    ///双击了播放cell
+    @objc func videoPlayCellDoubleClick(videoPlayCell:VideoPlayCell)
+    ///左滑播放cell
+    @objc func videoPlayCellSwipeLeft(videoPlayCell:VideoPlayCell)
 }
-class VideoPlayCell: UICollectionViewCell {
+class VideoPlayCell: UITableViewCell {
     var videoTrendModel:VideoTrendModel?
-    var playCertificateModel:UploadVideoCertificateModel?
     var player:AliyunVodPlayer!
     var indexPath:IndexPath?
     
@@ -31,7 +43,7 @@ class VideoPlayCell: UICollectionViewCell {
     var commentButton:UIButton!
     //更多操作
     var moreOperationButton:UIButton!
-
+    
     //用户名字
     var userNameLabel:UILabel!
     //视频title
@@ -42,38 +54,48 @@ class VideoPlayCell: UICollectionViewCell {
     var musicNameLabel:UILabel!
     //音乐封面图
     var musicCoverImageView:UIImageView!
+    var videoCoverImageView:UIImageView!
+    //底部遮罩
+    var bottomMaskImageView:UIImageView?
+    //底部加载视图
+    var bottomBufferView:BufferView!
     
-    var delegate:VideoPlayCellDelegate?
+    weak var delegate:VideoPlayCellDelegate?
     var playButton:UIButton!
     
-    var isAllowToPlay:Bool = false
+    var playerContainView:UIView!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var clickedCount:Int = 0
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         print("生成一个新的播放CELL")
-        //fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("播放CELL销毁")
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //开始播放
-        NotificationCenter.default.addObserver(self, selector: #selector(cellEnterIntoPlayStatusWith(notification:)), name: CELL_START_PLAY_NOTIFICATION, object: nil)
-
+        //开始播放        
         NotificationCenter.default.addObserver(self, selector: #selector(thumbsUpButtonRefresh(notification:)), name: THUMBS_UP_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addFollowButtonRefresh(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(commentSuccessed(notification:)), name: COMMENT_SUCCESS_NOTIFICATION, object: nil)
+        self.contentView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 30)
         
-        self.contentView.backgroundColor = UIColor.init(red: 30, green: 30, blue: 30, alpha: 30)
-        self.player = AliyunVodPlayer.init()
-        self.player.displayMode = .fitWithCropping
-        self.player.circlePlay = true
-        self.player.isAutoPlay = false
-        self.player.delegate = self
-        self.player.playerView.frame = SCREEN_RECT
-//        self.contentView.addSubview(self.player.playerView)
+        self.playerContainView = UIView.init(frame: SCREEN_RECT)
+        self.contentView.addSubview(self.playerContainView)
+        
+        self.videoCoverImageView = UIImageView.init(frame: SCREEN_RECT)
+        self.videoCoverImageView.contentMode = .scaleAspectFill
+        self.videoCoverImageView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        self.contentView.addSubview(self.videoCoverImageView)
         
         let x = SCREEN_WIDTH-15-44
         let userHeadButtonY = CGFloat(233)
@@ -89,7 +111,7 @@ class VideoPlayCell: UICollectionViewCell {
         self.addFollowButton.setImage(UIImage.init(named: "home_gz"), for: .normal)
         self.calibrationCenterXWith(referButton: userHeadButton, calibrationButton: addFollowButton)
         self.contentView.addSubview(self.addFollowButton)
-    
+        
         self.thumbsUpButton = UIButton.init(frame: CGRect.init(x: x, y: self.userHeadButton.frame.maxY+30, width: 36, height: 36))
         self.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonClicked(button:)), for: .touchUpInside)
         self.thumbsUpButton.titleLabel?.textAlignment = .center
@@ -120,12 +142,19 @@ class VideoPlayCell: UICollectionViewCell {
         
         self.playButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
         self.playButton.setImage(UIImage.init(named: "home_ic_bofang"), for: .normal)
-        self.playButton.center = self.contentView.center
+        self.playButton.center = CGPoint.init(x: SCREEN_WIDTH*0.5, y: SCREEN_HEIGHT*0.5)
         self.playButton.isHidden = true
         self.playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
         self.contentView.addSubview(self.playButton);
         
-        self.userNameLabel = UILabel.init(frame: CGRect.init(x: 15, y: SCREEN_HEIGHT-140+13, width: 200, height: 16))
+        let bottomToolsHeight = 140-49+TAB_BAR_HEIGHT
+        
+        self.bottomMaskImageView = UIImageView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-bottomToolsHeight, width: SCREEN_WIDTH, height: bottomToolsHeight))
+//        self.bottomMaskImageView?.backgroundColor = UIColor.red
+        self.bottomMaskImageView?.image = UIImage.init(named: "zhezhao_down")
+        self.contentView.addSubview(self.bottomMaskImageView!)
+        
+        self.userNameLabel = UILabel.init(frame: CGRect.init(x: 15, y: SCREEN_HEIGHT-bottomToolsHeight+13, width: 200, height: 16))
         self.userNameLabel.textColor = UIColor.white
         self.userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         self.contentView.addSubview(self.userNameLabel)
@@ -154,17 +183,31 @@ class VideoPlayCell: UICollectionViewCell {
         self.musicCoverImageView.clipsToBounds = true
         self.contentView.addSubview(self.musicCoverImageView)
         
-        let tapPlayerView = UITapGestureRecognizer.init(target: self, action: #selector(tapedPlayerView))
-        self.player.playerView.addGestureRecognizer(tapPlayerView)
-    }
-    
-    deinit {
-        print("播放CELL销毁")
-        NotificationCenter.default.removeObserver(self)
-        self.player.release()
+        self.bottomBufferView = BufferView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-TAB_BAR_HEIGHT, width: SCREEN_WIDTH, height: 1))
+        self.contentView.addSubview(self.bottomBufferView)
+        
+        //添加单击手势
+        let singleClick = UITapGestureRecognizer.init(target: self, action: #selector(clickedContentView))
+        singleClick.numberOfTapsRequired = 1
+        self.contentView.addGestureRecognizer(singleClick)
+        
+        //添加左滑手势
+        let swipeLeft = UISwipeGestureRecognizer.init(target: self, action: #selector(dealSwipeLeft))
+        swipeLeft.direction = .left
+        self.contentView.addGestureRecognizer(swipeLeft)
+        
     }
     
     //MARK: - action
+    @objc func commentSuccessed(notification:Notification){
+        if let videoTrendModel = notification.userInfo![TREND_MODEL_KEY] as? VideoTrendModel{
+            if videoTrendModel.id == self.videoTrendModel?.id{
+                let discussNum = (self.videoTrendModel?.discuss_num)! + 1
+                self.videoTrendModel?.discuss_num = discussNum
+                self.commentButton.setTitle(self.videoTrendModel?.discuss_num?.suitableStringValue(), for: .normal)
+            }
+        }
+    }
     
     @objc func userHeadButtonClicked(button:UIButton){
         self.delegate?.videoPlayCellUserHeadButtonClicked(button: button)
@@ -174,7 +217,7 @@ class VideoPlayCell: UICollectionViewCell {
     }
     @objc func thumbsUpButtonClicked(button:UIButton){
         self.delegate?.videoPlayCellThumbsUpButtonClicked(button: button)
-
+        
     }
     @objc func commentButtonClicked(button:UIButton){
         self.delegate?.videoPlayCellCommentButtonClicked(button: button)
@@ -182,36 +225,42 @@ class VideoPlayCell: UICollectionViewCell {
     @objc func moreOperationButtonClicked(button:UIButton){
         self.delegate?.videoPlayCellMoreOperationButtonClicked(button: button)
     }
-
+    
+    @objc func clickedContentView(){
+        if self.clickedCount == 0{
+            self.perform(#selector(detectionClickedCount), with: nil, afterDelay: TimeInterval.init(clickDetectionTime))
+        }
+        self.clickedCount += 1
+    }
+    
+    @objc func detectionClickedCount(){
+        if self.clickedCount == 1{self.dealSingleClick()}else{
+            self.dealDoubleClick()
+        }
+        self.clickedCount = 0
+    }
     
     @objc func playButtonClicked(){
-        self.tapedPlayerView()
+        self.dealSingleClick()
     }
     
-    @objc func tapedPlayerView(){
-        if self.player.playerState() == .pause{
-            self.resume()
-        }else{
-            self.pause()
-        }
+    @objc func dealSingleClick(){
+        self.delegate?.videoPlayCellSingleClick(videoPlayCell: self)
     }
     
-    @objc func cellEnterIntoPlayStatusWith(notification:Notification){
-        if let userInfo = notification.userInfo{
-            if let videoPlayCell = userInfo[CELL_INSTANCE_KEY] as? VideoPlayCell{
-                if videoPlayCell.videoTrendModel?.id != self.videoTrendModel?.id{
-//                    self.stop()
-                }
-            }
-        }
+    @objc func dealDoubleClick(){
+        self.delegate?.videoPlayCellDoubleClick(videoPlayCell: self)
+    }
+    @objc func dealSwipeLeft(gesture:UISwipeGestureRecognizer){
+        self.delegate?.videoPlayCellSwipeLeft(videoPlayCell: self)
     }
     
     @objc func thumbsUpButtonRefresh(notification:Notification){
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
                 if let _is_click = trendModel.is_click{
-                        self.thumbsUpButton.isSelected = _is_click
-                        self.thumbsUpButton.setTitle(trendModel.click_num?.suitableStringValue(), for: .normal)
+                    self.thumbsUpButton.isSelected = _is_click
+                    self.thumbsUpButton.setTitle(trendModel.click_num?.suitableStringValue(), for: .normal)
                 }
             }
         }
@@ -233,11 +282,17 @@ class VideoPlayCell: UICollectionViewCell {
         calibrationButton.center = center
     }
     
-    func configWith(videoTrendModel:VideoTrendModel?,playCertificateModel:UploadVideoCertificateModel?){
+    func configWith(videoTrendModel:VideoTrendModel?){
         self.videoTrendModel = videoTrendModel
-        self.playCertificateModel = playCertificateModel
         self.reset()
-        self.prepareWith(videoTrendModel: videoTrendModel, playCertificateModel: playCertificateModel)
+        self.videoCoverImageView.frame = self.videoFrameWith(height: videoTrendModel?.height, width: videoTrendModel?.width)
+        self.videoCoverImageView.image = nil
+        if let videoCoverImage = videoTrendModel?.video_cover{
+            let url = URL.init(string: videoCoverImage)
+            self.videoCoverImageView.kf.setImage(with: url)
+        }else{
+            self.videoCoverImageView.isHidden = true
+        }
         
         if let headPic = videoTrendModel?.user_head_pic{
             let url = URL.init(string: headPic)
@@ -248,11 +303,16 @@ class VideoPlayCell: UICollectionViewCell {
         self.thumbsUpButton.setTitle(videoTrendModel?.click_num?.suitableStringValue(), for: .normal)
         self.thumbsUpButton.sizeToFitTitleBelowImageWith(distance: 8)
         
+        //加关注按钮
         if let _is_click = videoTrendModel?.is_click{
             self.thumbsUpButton.isSelected = _is_click
         }
         if let _is_attention = videoTrendModel?.is_attention{
             self.addFollowButton.isHidden = _is_attention
+        }
+        
+        if videoTrendModel?.user_id == Defaults[.userId]{
+            self.addFollowButton.isHidden = true
         }
         
         //用户姓名
@@ -291,156 +351,33 @@ class VideoPlayCell: UICollectionViewCell {
         }
     }
     
-    func prepareWith(videoTrendModel:VideoTrendModel?,playCertificateModel:UploadVideoCertificateModel?){
-        let vid = videoTrendModel?.video ?? ""
-        let keyId = playCertificateModel?.AccessKeyId ?? ""
-        let keySecret = playCertificateModel?.AccessKeySecret ?? ""
-        let securityToken = playCertificateModel?.SecurityToken ?? ""
-        self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
+    func videoFrameWith(height:Int?,width:Int?)->CGRect{
+        if let _height = height,let _width = width{
+            if _height >= _width{
+                return SCREEN_RECT
+            }else{
+                let vWidth = SCREEN_WIDTH
+                let vHeight = SCREEN_WIDTH*(CGFloat(CGFloat(_height)/CGFloat(_width)))
+                let vX = CGFloat(0)
+                let vY = (SCREEN_HEIGHT-vHeight)/2
+                return CGRect.init(x: vX, y: vY, width: vWidth, height: vHeight)
+            }
+        }else{
+            return SCREEN_RECT
+        }
+    }
+    
+    func addPlayerView(playerView:UIView){
+        playerView.frame = self.videoFrameWith(height: videoTrendModel?.height, width: videoTrendModel?.width)
+        self.playerContainView.addSubview(playerView)
     }
     
     func reset(){
-        self.player.stop()
+        self.videoCoverImageView.isHidden = false
         self.playButton.isHidden = true
-        self.isAllowToPlay = false
     }
-    
-    //播放
-    func play(){
-        self.contentView.backgroundColor = UIColor.green
-//        print("播放链接--->\(self.videoTrendModel?.video)")
-//        self.isAllowToPlay = true
-//        if self.player.isPlaying{return}
-//        if self.player.playerState() == .prepared{
-//            self.player.start()
-//        }else{
-//            self.prepareWith(videoTrendModel: self.videoTrendModel, playCertificateModel: self.playCertificateModel)
-//        }
-    }
-    //停止
-    func stop(){
-        self.contentView.backgroundColor = UIColor.red
-//        self.isAllowToPlay = false
-//        self.player.stop()
-//        self.prepareWith(videoTrendModel: self.videoTrendModel, playCertificateModel: self.playCertificateModel)
-    }
-    //暂停
-    func pause(){
-        self.isAllowToPlay = false
-        self.player.pause()
-    }
-    //恢复
-    func resume(){
-        self.isAllowToPlay = true
-        self.player.resume()
-    }
+
 }
-
-extension VideoPlayCell:AliyunVodPlayerDelegate{
-    /**
-     * 功能：播放事件协议方法,主要内容 AliyunVodPlayerEventPrepareDone状态下，此时获取到播放视频数据（时长、当前播放数据、视频宽高等）
-     * 参数：event 视频事件
-     */
-    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, onEventCallback event: AliyunVodPlayerEvent) {
-        if vodPlayer.isPlaying{self.playButton.isHidden = true}
-        
-        if event == .prepareDone{
-            print("播放器状态变更--->准备完毕")
-            if self.isAllowToPlay{
-                self.player.start()
-            }
-        }
-        if event == .play{
-            self.playButton.isHidden = true
-            print("播放器状态变更--->播放中")
-        }
-        if event == .firstFrame{
-            print("播放器状态变更--->第一帧")
-            
-            if self.isAllowToPlay{
-                NotificationCenter.default.post(name: CELL_START_PLAY_NOTIFICATION, object: nil, userInfo: [CELL_INSTANCE_KEY:self])
-            }
-            
-        }
-        if event == .pause{
-            self.playButton.isHidden = false
-        }
-        if event == .stop{
-            print("播放器状态变更--->停止")
-        }
-        if event == .finish{
-            print("播放器状态变更--->finish")
-        }
-        if event == .beginLoading{
-            print("播放器状态变更--->开始加载")
-
-        }
-        if event == .endLoading{
-            print("播放器状态变更--->加载完毕")
-        }
-        if event == .seekDone{
-            print("播放器状态变更--->seekdone")
-        }
-        
-    }
-    
-    /**
-     * 功能：播放器播放时发生错误时，回调信息
-     * 参数：errorModel 播放器报错时提供的错误信息对象
-     */
-    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, playBack errorModel: AliyunPlayerVideoErrorModel!) {
-        
-    }
-    
-    //@optional
-    
-    /**
-     * 功能：播放器播放即将切换清晰度时
-     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
-     videoDefinition ： 媒体转码播放方式的清晰度
-     */
-    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, willSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
-        
-    }
-    /**
-     * 功能：播放器播放切换清晰度完成
-     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
-     videoDefinition ： 媒体转码播放方式的清晰度
-     */
-    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, didSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
-        
-    }
-    /**
-     * 功能：播放器播放切换清晰度失败
-     * 参数：quality ： vid+playauth播放方式、vid+sts播放方式时的清晰度
-     videoDefinition ： 媒体转码播放方式的清晰度
-     */
-    func vodPlayer(_ vodPlayer: AliyunVodPlayer!, failSwitchTo quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
-        
-    }
-    /**
-     * 功能：1.播放器设置了循环播放，此代理方法才会有效。2.播放器播放完成后，开始循环播放后，此协议被调用
-     */
-    func onCircleStart(with vodPlayer: AliyunVodPlayer!) {
-        
-    }
-    /*
-     *功能：播放器请求时，通知用户传入的参数鉴权过期。
-     */
-    func onTimeExpiredError(with vodPlayer: AliyunVodPlayer!) {
-        
-    }
-    /*
-     *功能：播放地址将要过期时，提示用户当前播放地址过期。 （策略：当前播放器地址过期时间2小时，我们在播放地址差1分钟过期时提供回调；（7200-60）秒时发送）
-     *参数：videoid：将过期时播放的videoId
-     *参数：quality：将过期时播放的清晰度，playauth播放方式和STS播放方式有效。
-     *参数：videoDefinition：将过期时播放的清晰度，MPS播放方式时有效。
-     */
-    func vodPlayerPlaybackAddressExpired(withVideoId videoId: String!, quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
-        
-    }
-}
-
 
 
 

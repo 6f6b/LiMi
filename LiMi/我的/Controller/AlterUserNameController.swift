@@ -12,6 +12,7 @@ import Moya
 
 class AlterUserNameController: ViewController {
     @IBOutlet weak var userName: UITextField!
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     var initialUserName:String?
     var alterUserNameBlock:((String?)->Void)?
     

@@ -35,37 +35,45 @@ class FollowAndSchoolVideoContainController: ScanVideosContainController {
         
     }
 
+    deinit {
+        print("关注和学校容器界面销毁")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func scanVideosControllerRequestDataWith(scanVideosController: ScanVideosController) {
+
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let indexVideoList = IndexVideoList.init(page: pageIndex, time: time, type: type, college_id: collegeId)
+        let _time = self.time ?? Int(Date().timeIntervalSince1970)
+        let indexVideoList = IndexVideoList.init(page: pageIndex, time: _time, type: type, college_id: collegeId)
         _ = moyaProvider.rx.request(.targetWith(target: indexVideoList)).subscribe(onSuccess: {[unowned self] (response) in
             let videoTrendListModel = Mapper<VideoTrendListModel>().map(jsonData: response.data)
-            self.time = videoTrendListModel?.time ?? self.time
+            if let _time = videoTrendListModel?.time{
+                self.time = _time
+            }
             if let trends = videoTrendListModel?.data{
-                if self.pageIndex == 1{
-                    self._dataArray.removeAll()
+                if self.pageIndex == 1{self.dataArray.removeAll()}
+                var isAdd = true
+                let firstTrend = trends.first
+                for trend in self.dataArray{
+                    if trend.id == firstTrend?.id{
+                        isAdd = false
+                        break
+                    }
                 }
-                for trend in trends{
-                    self._dataArray.append(trend)
+                if isAdd{
+                    for trend in trends{
+                        self.dataArray.append(trend)
+                    }
                 }
                 scanVideosController.reloadCollectionData()
-                if trends.count <= 0{
-//                    scanVideosController.collectionView.mj_footer.resetNoMoreData()
-                    //scanVideosController.collectionView.mj_footer.endRefreshingWithNoMoreData()
-                }
-            }else{
-//                scanVideosController.collectionView.mj_footer.endRefreshingWithNoMoreData()
+                scanVideosController.tableView.mj_header.endRefreshing()
             }
-            scanVideosController.collectionView.mj_footer.endRefreshing()
-//            scanVideosController.collectionView.mj_header.endRefreshing()
             Toast.showErrorWith(model: videoTrendListModel)
             }, onError: { (error) in
-                scanVideosController.collectionView.mj_footer.endRefreshing()
-                scanVideosController.collectionView.mj_header.endRefreshing()
+                scanVideosController.tableView.mj_header.endRefreshing()
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }

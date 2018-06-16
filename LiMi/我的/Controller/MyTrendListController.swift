@@ -14,6 +14,8 @@ import SVProgressHUD
 import DZNEmptyDataSet
 
 class MyTrendListController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1

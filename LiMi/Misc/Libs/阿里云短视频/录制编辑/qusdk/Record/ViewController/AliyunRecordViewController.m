@@ -95,7 +95,7 @@
 
     
     _previewView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    self.previewView.backgroundColor = UIColor.blackColor;
+    self.previewView.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:_previewView];
     
     _recorder = [[AliyunIRecorder alloc] initWithDelegate:self videoSize:_quVideo.outputSize];
@@ -115,7 +115,6 @@
     _recorder.beautifyStatus = self.beautifyStatus;
     _recorder.beautifyValue = self.beautifyValue;
     _recorder.bitrate = _quVideo.bitrate;
-    [_recorder startPreview];
     
     //录制片段设置
     _clipManager = _recorder.clipManager;
@@ -139,6 +138,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [_recorder startPreview];
+
     self.navigationController.navigationBarHidden = YES;
     if (_isFirstLoad) {
         _isFirstLoad = NO;
@@ -149,8 +150,7 @@
     [_recorder switchTorchWithMode:_torchMode];
     [self startMotionManager];
     
-    
-//   tmpItem = [[AuthFaceUnity share] loadItem];
+    //   tmpItem = [[AuthFaceUnity share] loadItem];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -184,7 +184,7 @@
 }
 
 - (void)setupSubViews {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     CGSize size = [UIScreen mainScreen].bounds.size;
     if (CGSizeEqualToSize(size, CGSizeMake(320, 480)) || CGSizeEqualToSize(size, CGSizeMake(480, 320))) {
@@ -347,27 +347,23 @@
 //}
 
 #pragma mark - AliyunMusicPickViewControllerDelegate
--(void)didSelectMusic:(AliyunMusicPickModel *)music {
-    [self.navigationController popViewControllerAnimated:YES];
-    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:music.path];
-    effectMusic.startTime = music.startTime;
-    effectMusic.duration = music.duration;
-    [_recorder applyMusic:effectMusic];
-}
-    
--(void)didCancelPick {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 #pragma mark - MusicPickViewControllerDelegate
 - (void)musicPickViewControllerSelectedNone{
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:nil];
     effectMusic.startTime = 0;
     effectMusic.duration = 0;
+    self.musicId = 0;
+    self.startTime = 0;
+    self.duration = 0;
     [_recorder applyMusic:effectMusic];
 }
 
-- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+    self.musicId = musicId;
+    self.startTime = startTime;
+    self.duration = duration;
+    
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
     effectMusic.startTime = startTime;
     effectMusic.duration = duration;
@@ -395,8 +391,21 @@
 }
 
 - (void)navigationBackButtonClick {
-    if (_delegate) {
-        [_delegate exitRecord];
+    if(self.controlView.duration > 0){
+        UIAlertController  *alertController = [UIAlertController alertControllerWithTitle:@"确定退出吗？" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (_delegate) {
+                [_delegate exitRecord];
+            }
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:true completion:nil];
+    }else{
+        if (_delegate) {
+            [_delegate exitRecord];
+        }
     }
 
 }
@@ -427,7 +436,8 @@
     y = CGRectGetMaxY(_previewView.frame);
 //    if (_belowiPhone4s) {
 //        if (r == 1) {
-            _controlView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        
+            _controlView.frame = CGRectMake(0, SafeTop, ScreenWidth, ScreenHeight);
 //        } else {
 //            _controlView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
 //        }

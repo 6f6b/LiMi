@@ -13,6 +13,8 @@ import ObjectMapper
 import Dispatch
 
 class RechargeController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var containView: UIView!
     @IBOutlet weak var rechargeAmount: UITextField!

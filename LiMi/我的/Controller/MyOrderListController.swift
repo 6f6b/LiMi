@@ -14,6 +14,8 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class MyOrderListController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var tableView: UITableView!
     var pageIndex = 1
     var dataArray = [WeekendTourOrderModel]()

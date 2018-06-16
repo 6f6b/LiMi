@@ -10,7 +10,6 @@
 #import "UIView+Progress.h"
 
 @interface AliyunMagicCameraEffectCell ()
-@property (nonatomic,strong) UIImageView *backImageView;
 @end
 
 @implementation AliyunMagicCameraEffectCell

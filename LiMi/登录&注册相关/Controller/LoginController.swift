@@ -13,6 +13,7 @@ import Moya
 import IQKeyboardManagerSwift
 
 class LoginController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var phoneNum: UITextField!
@@ -34,13 +35,13 @@ class LoginController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.statusBarStyle = .default
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     deinit {

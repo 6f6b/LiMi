@@ -25,6 +25,7 @@
 @property (nonatomic, weak) id<MagicCameraScrollViewDelegate> delegate;
 @property (nonatomic, copy) NSArray *effectItems;
 @property (nonatomic, assign) CGFloat recordPercent;
+@property (nonatomic,assign) NSInteger selectedIndex;
 
 - (id)initWithFrame:(CGRect)frame delegate:(id)delegate;
 

@@ -9,7 +9,7 @@
 import UIKit
 
 class UserAgreementController: ViewController {
-
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "用户协议"

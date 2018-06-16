@@ -13,12 +13,17 @@ protocol MoreOperationControllerDelegate {
     func moreOperationDeleteClicked()
 }
 class MoreOperationController: ViewController {
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var deleteContainVIew: UIView!
+    
     @IBOutlet weak var bottomTopView: UIView!
     @IBOutlet weak var topView: UIView!
     var statusBarHidden:Bool = false
     override var prefersStatusBarHidden: Bool{
         return self.statusBarHidden
     }
+    var videoTrendModel:VideoTrendModel?
+    
     var delegate:MoreOperationControllerDelegate?
     
 //    var reportButton:UIButton!
@@ -31,6 +36,9 @@ class MoreOperationController: ViewController {
         
         let tapTopView = UITapGestureRecognizer.init(target: self, action: #selector(clickedCancelButton(_:)))
         self.topView.addGestureRecognizer(tapTopView)
+        if self.videoTrendModel?.user_id != Defaults[.userId] || Defaults[.userId] == nil{
+            self.deleteContainVIew.removeFromSuperview()
+        }
     }
 
     override func didReceiveMemoryWarning() {

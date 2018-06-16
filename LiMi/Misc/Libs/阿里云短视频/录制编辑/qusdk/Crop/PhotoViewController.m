@@ -43,7 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden=YES;
+    self.navigationController.navigationBarHidden=YES;
 //    if (self.selectModel) {
 //        [self updateNavigationTitle:self.selectModel.albumName];
 //        [self reloadLibraryWithIndex:self.selectModel];
@@ -161,6 +161,14 @@
             cutInfo.avAsset = avAsset;
             cutInfo.phAsset = nil;
             cutInfo.phImage = nil;
+            
+//            let screenScale = UIScreen.main.scale
+//            let height = Int(1920)/2*2
+//            let width = Int(1080)/2*2
+//            quVideo.bitrate = Int32(3.87*screenScale*CGFloat(width*height))
+            
+            cutInfo.bitrate = 15000000;
+            cutInfo.fps = 30;
             if (!cutInfo.outputPath) {
                 cutInfo.outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/cutVideo.mp4"];
             }

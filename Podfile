@@ -17,7 +17,6 @@ target 'LiMi' do
     pod 'Masonry'
     pod 'YYText'
     pod 'YYImage'
-    pod 'MJRefresh'
     pod 'Qiniu', '~> 7.2.2'
     pod 'QiniuUpload'
     pod 'DZNEmptyDataSet'

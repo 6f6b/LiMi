@@ -60,9 +60,11 @@
     /*添加魔法*/
     @property (nonatomic, strong) MagicCameraView *magicCameraView;
 @property (nonatomic, assign) CGFloat lastPanY;
-@property (nonatomic,assign) CGFloat duration;
+
 /* 闪光灯模式 */
 @property (nonatomic, assign) AliyunIRecorderTorchMode torchMode;
+@property (nonatomic, assign) int selectedSegmentIndex;
+
 @end
 
 @implementation AliyunRecordControlView
@@ -210,6 +212,7 @@
     CGPoint point = [gesture locationInView:self];
     self.recoder.focusPoint = point;
     _focusView.center = point;
+    [self.rateView setHidden:true];
     [_focusView refreshPosition];
 }
 
@@ -268,19 +271,18 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    
-    _recordButton.frame = CGRectMake((ScreenWidth/2.0-72/2.0), ScreenHeight-46-72, 72, 72);
+    CGFloat recordButtonY  = ScreenHeight - 46 - 72 -SafeBottom;
+    _recordButton.frame = CGRectMake((ScreenWidth/2.0-72/2.0), recordButtonY, 72, 72);
     CGPoint center = _recordButton.center;
+    
     self.durationLabel.center = center;
-//    [self bringSubviewToFront:self.recordButton];
+
     _deleteButton.frame = CGRectMake(0, 0, 36, 36);
     _deleteButton.center = CGPointMake(center.x+36+58+18, center.y);
     
     _magicButton.frame = CGRectMake(0, 0, 36, 36);
     _magicButton.center = CGPointMake(center.x-36-58-18, center.y);
-//    _deleteButton.center = CGPointMake(SizeWidth(55), centerY);
-//    _finishButton.center = CGPointMake(w - SizeWidth(55), centerY);
-//    _photoLibraryButton.center = CGPointMake(SizeWidth(55), centerY);
+
 }
     
 - (void)updateVideoDuration:(CGFloat)duration {
@@ -294,6 +296,10 @@
     if(duration > 0 && !self.recoder.isRecording){
         [self.deleteButton setHidden:NO];
     }
+    
+    NSDictionary *info = @{@"duration":[NSNumber numberWithFloat:duration]};
+    [NSNotificationCenter.defaultCenter postNotificationName:@"RecordingDurationChaged" object:nil userInfo:info];
+    
 //    if (duration > 0 && _deleteButton.hidden && ![AliyunIConfig config].hiddenDeleteButton) {
 //        if (![AliyunIConfig config].hiddenDeleteButton) {
 //            _deleteButton.hidden = NO;
@@ -589,6 +595,19 @@
     return _durationLabel;
 }
 
+- (AliyunRateSelectView *)rateView{
+    if(!_rateView){
+        _rateView = [[AliyunRateSelectView alloc] initWithItems:@[@"极慢",@"慢",@"标准",@"快",@"极快"]];
+        _rateView.frame = CGRectMake(40, self.recordButton.frame.origin.y-40-20, ScreenWidth-80, 36);
+        _selectedSegmentIndex = 2;
+        _rateView.selectedSegmentIndex = _selectedSegmentIndex;
+        [_rateView setHidden:true];
+        [_rateView addTarget:self action:@selector(rateChanged:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:_rateView];
+    }
+    return _rateView;
+}
+
 - (void)setupBeautyStatus:(BOOL)isBeauty flashStatus:(NSInteger)flashStatus {
     
 //    self.beautyButton.selected = isBeauty;
@@ -617,6 +636,14 @@
     self.progressView.hidden = duration <= 0 ? YES : NO;
     if(duration <= 0){}
     _durationLabel.text = [NSString stringWithFormat:@"%02d:%02d",m,s];
+    
+    AliyunRecordViewController *recordController = (AliyunRecordViewController *)self.delegate;
+//    if(duration <= 0){
+//        [self.musicButton setHidden:false];
+//    }else{
+//        BOOL hidden = recordController.musicId == 0 ? false : true;
+//        [self.musicButton setHidden:hidden];
+//    }
 }
     
 - (void)updateNavigationStatusWithRecord:(BOOL)isRecording {
@@ -651,7 +678,6 @@
 //    _beautyButton.enabled = !isRecording;
 //    _cameraButton.enabled = !isRecording;
 //    _backButton.enabled = !isRecording;
-    
 }
     
 - (void)backButtonClick {
@@ -705,18 +731,8 @@
 }
     
 - (void)speedButtonClick:(UIButton *)button{
-    [button setSelected:!button.isSelected];
-    if(button.isSelected){
-        self.rateView = [[AliyunRateSelectView alloc] initWithItems:@[@"极慢",@"慢",@"标准",@"快",@"极快"]];
-        self.rateView.frame = CGRectMake(40, self.recordButton.frame.origin.y-40-20, ScreenWidth-80, 36);
-        self.rateView.selectedSegmentIndex = 2;
-        //[self.rateView addTarget:self action:@selector(rateChanged:) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:self.rateView];
-    }
-    else{
-        [self rateChanged:self.rateView];
-        [self.rateView removeFromSuperview];
-    }
+    self.rateView.selectedSegmentIndex = self.selectedSegmentIndex;
+    [self.rateView setHidden:false];
 }
     
     - (void)countDownButtonClick:(UIButton *)button{
@@ -767,6 +783,8 @@
 }
 
 - (void)rateChanged:(AliyunRateSelectView *)rateView {
+    [rateView setHidden:true];
+    self.selectedSegmentIndex = rateView.selectedSegmentIndex;
     CGFloat rate = 1.0f;
     switch (rateView.selectedSegmentIndex) {
         case 0:

@@ -58,9 +58,11 @@ class VideoTrendCommentCell: UITableViewCell {
         self.commentContainView.addSubview(self.commentContentContainView)
         self.commentContentContainView.snp.makeConstraints { (make) in
             make.top.equalTo(self.commentTopToolsContainView.snp.bottom)
-            make.left.equalTo(self.commentContainView).offset(62)
+            make.left.equalTo(self.commentTopToolsContainView.userName.snp.left)
+//            make.left.equalTo(self.commentContainView).offset(62)
             make.bottom.equalTo(self.commentContainView).offset(-15)
-            make.right.equalTo(self.commentContainView).offset(-12)
+//            make.right.equalTo(self.commentContainView).offset(-12)
+            make.right.equalTo(self.commentTopToolsContainView.thumbsUpButton.snp.left)
         }
         
         self.comment = YYLabel()

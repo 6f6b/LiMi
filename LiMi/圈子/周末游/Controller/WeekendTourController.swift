@@ -13,6 +13,7 @@ import SVProgressHUD
 import MJRefresh
 
 class WeekendTourController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     @IBOutlet weak var tableView: UITableView!
     var scrollArray = [String]()
     var dataArray = [WeekendTourModel]()
@@ -122,7 +123,9 @@ extension WeekendTourController:UITableViewDelegate,UITableViewDataSource{
             return weekendBannerCell
         }
         if 1 == indexPath.section{
-            let weekendTourSeparateCell = tableView.dequeueReusableCell(withIdentifier: "WeekendTourSeparateCell", for: indexPath)
+            let weekendTourSeparateCell = tableView.dequeueReusableCell(withIdentifier: "WeekendTourSeparateCell", for: indexPath) as! WeekendTourSeparateCell
+            weekendTourSeparateCell.contentView.backgroundColor = UIColor.white
+            weekendTourSeparateCell.info.textColor = UIColor.black
             return weekendTourSeparateCell
         }
         if 2 == indexPath.section{

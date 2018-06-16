@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *downloadImageView;
+@property (nonatomic,strong) UIImageView *backImageView;
+
 
 - (void)borderHidden:(BOOL)isHidden;
 - (void)shouldDownload:(BOOL)flag;

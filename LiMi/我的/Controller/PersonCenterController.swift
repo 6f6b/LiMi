@@ -16,6 +16,7 @@ import TZImagePickerController
 import MobileCoreServices
 
 class PersonCenterController: UITableViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var coverView: UIView!
     //背景图
     @IBOutlet weak var backImageView: UIImageView!
@@ -57,7 +58,7 @@ class PersonCenterController: UITableViewController {
         if SYSTEM_VERSION <= 11.0{
             self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         }else{
-            self.tableView.contentInset = UIEdgeInsets.init(top: -64, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
         }
         let editBtn = UIButton.init()
         let cancelAttributeTitle = NSAttributedString.init(string: "编辑", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])

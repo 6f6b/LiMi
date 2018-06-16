@@ -60,7 +60,7 @@ typedef struct _AliyunPasterRange {
 extern NSString * const AliyunEffectResourceDeleteNoti;
 
 //TODO:此类需再抽一层,否则会太庞大
-@interface AliyunEditViewController () <AliyunIExporterCallback, AliyunIPlayerCallback>
+@interface AliyunEditViewController () <AliyunIExporterCallback, AliyunIPlayerCallback,MusicPickViewControllerDelegate>
 
 @property (nonatomic, strong) UIView *movieView;
 @property (nonatomic, strong) AliyunTimelineView *timelineView;
@@ -516,6 +516,10 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     pulishViewController.config = _config;
     pulishViewController.outputSize = _outputSize;
     pulishViewController.backgroundImage = _timelineView.coverImage;
+    pulishViewController.musicId = self.musicId;
+    pulishViewController.startTime = self.startTime;
+    pulishViewController.duration = self.duration;
+    
     [self.navigationController pushViewController:pulishViewController animated:true];
     
 //    AliyunPublishViewController *vc = [[AliyunPublishViewController alloc] init];
@@ -906,21 +910,35 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:nil];
     effectMusic.startTime = 0;
     effectMusic.duration = 0;
+    self.musicId = 0;
+    self.startTime = 0;
+    self.duration = 0;
     [_editor applyMusic:effectMusic];
 }
 
-- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+    self.musicId = musicId;
+    self.startTime = startTime;
+    self.duration = duration;
+    
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
     effectMusic.startTime = startTime;
     effectMusic.duration = duration;
     [_editor applyMusic:effectMusic];
-
-//    AliyunEffectMusic *music = [[AliyunEffectMusic alloc] initWithFile:path];
-//
-//
-//    [self.editor applyMusic:music];
-//    [self.player replay];
 }
+//- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+//    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
+//    effectMusic.startTime = startTime;
+//    effectMusic.duration = duration;
+//    [_editor applyMusic:effectMusic];
+//
+
+////    AliyunEffectMusic *music = [[AliyunEffectMusic alloc] initWithFile:path];
+////
+////
+////    [self.editor applyMusic:music];
+////    [self.player replay];
+//}
 
 - (void)filterButtonClicked:(AliyunEditButtonType)type {
 //    [self forceFinishLastEditPasterView];

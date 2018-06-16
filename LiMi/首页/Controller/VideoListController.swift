@@ -62,16 +62,25 @@ class VideoListController: ViewController {
         self.bottomBackGroundView = UIView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-TAB_BAR_HEIGHT, width: SCREEN_WIDTH, height: TAB_BAR_HEIGHT))
         self.bottomBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.view.addSubview(self.bottomBackGroundView)
-        self.loadData()
-
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if Defaults[.userId] != nil && self.dataArray.count == 0{
+            self.loadData()
+        }
     }
 
     func loadData(){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let indexVideoList = IndexVideoList.init(page: pageIndex, time: time, type: type, college_id: collegeId)
+        let _time = self.time ?? Int(Date().timeIntervalSince1970)
+        let indexVideoList = IndexVideoList.init(page: pageIndex, time: _time, type: type, college_id: collegeId)
         _ = moyaProvider.rx.request(.targetWith(target: indexVideoList)).subscribe(onSuccess: {[unowned self] (response) in
             let videoTrendListModel = Mapper<VideoTrendListModel>().map(jsonData: response.data)
-            self.time = videoTrendListModel?.time
+            if let _time = videoTrendListModel?.time{
+                self.time = _time
+            }
             if let trends = videoTrendListModel?.data{
                 if self.pageIndex == 1{
                     self.dataArray.removeAll()
@@ -89,11 +98,6 @@ class VideoListController: ViewController {
                 self.collectionView.mj_footer.endRefreshing()
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
     }
     
     override func didReceiveMemoryWarning() {

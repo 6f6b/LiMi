@@ -15,7 +15,7 @@ class MsgController: ViewController {
         
         let moreOperationBtn = UIButton.init(type: .custom)
         self.moreOperationBtn = moreOperationBtn
-        moreOperationBtn.setImage(UIImage.init(named: "nav_xx_tj"), for: .normal)
+        moreOperationBtn.setImage(UIImage.init(named: "xx_ic_add"), for: .normal)
         moreOperationBtn.sizeToFit()
         moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreOperationBtn)
@@ -24,6 +24,12 @@ class MsgController: ViewController {
         sessionListController.view.frame = self.view.frame
         self.addChildViewController(sessionListController)
         self.view.addSubview(sessionListController.view)
+        
+        let leftLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 54, height: 27))
+        leftLabel.text = "消息"
+        leftLabel.textColor = UIColor.white
+        leftLabel.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftLabel)
     }
 
     deinit {
@@ -38,9 +44,11 @@ class MsgController: ViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: RGBA(r: 30, g: 30, b: 30, a: 1)), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 30, g: 30, b: 30, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+        
     }
 
     @objc func dealMoreOperation(){

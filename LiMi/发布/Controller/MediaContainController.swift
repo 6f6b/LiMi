@@ -20,6 +20,7 @@ class MediaContainController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        self.automaticallyAdjustsScrollViewInsets = false
         
         self.setupSDKUI()
         self.scrollView.frame = SCREEN_RECT
@@ -28,12 +29,27 @@ class MediaContainController: ViewController {
         
         self.recordViewController = AliyunMediator.shared().recordViewController() as? AliyunRecordViewController
         let quVideo = AliyunMediaConfig.init()
-        let height = Int(SCREEN_HEIGHT)/2*2
-        let width = Int(SCREEN_WIDTH)/2*2
+        
+        //2、获得scale：
+        let screenScale = UIScreen.main.scale
+
+        var height = 0
+        var width  = 0
+//        if SCREEN_HEIGHT >= 800{
+//            height = Int(SCREEN_HEIGHT)/2*2*3
+//            width  = Int(SCREEN_WIDTH)/2*2*3
+//        }else{
+            height = Int(1920)/2*2
+            width = Int(1080)/2*2
+//        }
+        
+        
         quVideo.outputSize = CGSize.init(width: width, height: height)
         quVideo.minDuration = 2
         quVideo.maxDuration = 30
         quVideo.cutMode = .scaleAspectCut;
+        quVideo.fps = 30;
+        quVideo.bitrate = Int32(3.87*screenScale*CGFloat(width*height))
         recordViewController?.delegate = self
         recordViewController?.quVideo = quVideo
 
@@ -41,7 +57,7 @@ class MediaContainController: ViewController {
         self.photoViewController.minDuration = 2;
         self.photoViewController.maxDuration = 30;
         self.photoViewController.delegate = self
-        
+
         self.addChildViewController(self.recordViewController)
         self.addChildViewController(self.photoViewController)
         
@@ -52,21 +68,31 @@ class MediaContainController: ViewController {
         self.scrollView.addSubview(self.photoViewController.view)
         
         NotificationCenter.default.addObserver(self, selector: #selector(recordingStatusChangedWith(notification:)), name: Notification.Name.init("RecordingStatusChaged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recordDurationChanged(notification:)), name: Notification.Name.init("RecordingDurationChaged"), object: nil)
+
     }
     
     @objc func recordingStatusChangedWith(notification:Notification) -> Void {
-
         if let isRecording = notification.userInfo!["isRecording"] as? Bool{
             self.bottomToolsContainView.isHidden = isRecording;
         }
     }
+    
+    @objc func recordDurationChanged(notification:Notification)->Void{
+        if let duration = notification.userInfo!["duration"] as? Float{
+            self.bottomToolsContainView.isHidden = duration > 0 ? true : false
+        }
+    }
 
     deinit {
+        print("录制容器界面销毁")
         NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,10 +176,46 @@ extension MediaContainController:AliyunRecordViewControllerDelegate{
 //                self.navigationController?.popViewController(animated: true)
 //            }
 //        }
+        
         let recordVc = vc as! AliyunRecordViewController
+
+        
+        let taskPath = AliyunPathManager.createEditDir()
+        AliyunPathManager.clearDir(taskPath)
+        let importor = AliyunImporter.init(path: taskPath, outputSize: recordVc.quVideo.outputSize)
+        importor?.addVideo(withPath: videoPath, animDuration: 0)
+        let param = AliyunVideoParam.init()
+        param.fps = recordVc.quVideo.fps
+        param.gop = recordVc.quVideo.gop
+        param.bitrate = recordVc.quVideo.bitrate
+        param.videoQuality = AliyunVideoQuality.init(rawValue: recordVc.quVideo.videoQuality.rawValue)!
+        param.scaleMode = AliyunScaleMode.init(rawValue: recordVc.quVideo.cutMode.rawValue)!
+        importor?.setVideoParam(param)
+        importor?.generateProjectConfigure()
+        
+//        NSString *taskPath = [AliyunPathManager createCutDir];
+//        AliyunImporter *importor = [[AliyunImporter alloc] initWithPath:taskPath outputSize:_cutInfo.outputSize];
+//        [importor addVideoWithPath:videoPath animDuration:0];
+//        AliyunVideoParam *param = [[AliyunVideoParam alloc] init];
+//        param.fps = _cutInfo.fps;
+//        param.gop = _cutInfo.gop;
+//        param.bitrate = _cutInfo.bitrate;
+//        param.videoQuality = (AliyunVideoQuality)_cutInfo.videoQuality;
+//        param.scaleMode = (AliyunScaleMode)_cutInfo.cutMode;
+//        [importor setVideoParam:param];
+//        [importor generateProjectConfigure];
+//
+//        AliyunEditViewController *editVC = (AliyunEditViewController *)AliyunMediator.shared.editViewController;
+//        editVC.taskPath = taskPath;
+//        editVC.config = self.cutInfo;
+        
         let editVC = AliyunMediator.shared().editViewController() as! AliyunEditViewController
-        editVC.taskPath = recordVc.recorder.taskPath
+        editVC.taskPath = taskPath
         editVC.config = recordVc.quVideo
+        editVC.musicId = recordVc.musicId
+        editVC.startTime = recordVc.startTime
+        editVC.duration = recordVc.duration
+        
         self.navigationController?.pushViewController(editVC, animated: true)
         print("结束录制")
     }

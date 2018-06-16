@@ -12,6 +12,8 @@ import Moya
 import ObjectMapper
 
 class SetPayPasswordController: ViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var containView: UIView!
     @IBOutlet weak var authCodeContainView: UIView!

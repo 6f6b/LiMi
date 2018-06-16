@@ -57,6 +57,7 @@
 #define SafeBottom (([[UIScreen mainScreen] bounds].size.height-812) ? 0 : 43)
 #define StatusBarHeight (([[UIScreen mainScreen] bounds].size.height-812) ? 20 : 44)
 
+
 #import <AliyunVideoSDKPro/AliyunIRecorder.h>
 /****************************短视频相关****************************/
 

@@ -306,7 +306,8 @@ static bool _longTouchEnd = NO;
     AliyunMagicCameraEffectCell *effectCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunMagicCameraEffectCell" forIndexPath:indexPath];
     
     AliyunPasterInfo *pasterInfo = [self.effectItems objectAtIndex:indexPath.row];
-    
+    BOOL isBackImageViewHidden = self.selectedIndex == indexPath.row ? NO : YES;
+    [effectCell.backImageView setHidden:isBackImageViewHidden];
     if (pasterInfo.bundlePath != nil) {
         UIImage *iconImage = [UIImage imageWithContentsOfFile:pasterInfo.icon];
         [effectCell.imageView setImage:iconImage];
@@ -322,9 +323,11 @@ static bool _longTouchEnd = NO;
                 [effectCell.imageView setImage:iconImage];
             }
         } else {
+            NSURL *url = [NSURL URLWithString:pasterInfo.icon];
+            [effectCell.imageView sd_setImageWithURL:url];
+        }
+        if(indexPath.row == 0){
             effectCell.imageView.image = [UIImage imageNamed:@"wu"];
-//            NSURL *url = [NSURL URLWithString:pasterInfo.icon];
-//            [effectCell.imageView sd_setImageWithURL:url];
         }
         if (pasterInfo.icon == nil) {
             [effectCell borderHidden:YES];
@@ -347,12 +350,15 @@ static bool _longTouchEnd = NO;
 //    CGFloat offsetX = indexPath.row * _flowLayoutWidth  + _originOffset.x;
 //    CGPoint offset = CGPointMake(offsetX, _originOffset.y);
 //    [collectionView setContentOffset:offset animated:YES];
-    
+    AliyunMagicCameraEffectCell *preSelecteCell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]];
+    [preSelecteCell.backImageView setHidden:YES];
     AliyunMagicCameraEffectCell *cell = (AliyunMagicCameraEffectCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    
+    [cell.backImageView setHidden:NO];
+    self.selectedIndex = indexPath.row;
     if (self.delegate && [self.delegate respondsToSelector:@selector(focusItemIndex:cell:)]) {
         [self.delegate focusItemIndex:indexPath.row cell:cell];
     }
+    //[collectionView reloadData];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

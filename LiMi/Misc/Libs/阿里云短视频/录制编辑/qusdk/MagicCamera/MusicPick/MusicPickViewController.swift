@@ -25,7 +25,7 @@ enum PlayerStatus {
 
 @objc protocol MusicPickViewControllerDelegate {
     func musicPickViewControllerSelectedNone();
-    func musicPickViewControllerSelected(musicPath:String,startTime:Float,duration:Float);
+    func musicPickViewControllerSelected(musicId:Int,musicPath:String,startTime:Float,duration:Float);
 }
 
 class MusicPickViewController: ViewController {
@@ -33,6 +33,7 @@ class MusicPickViewController: ViewController {
     @IBOutlet weak var searchTextFeild: UITextField!
     @IBOutlet weak var searchImage: UIImageView!
     @IBOutlet weak var searchPlaceholder: UILabel!
+    @IBOutlet weak var clearButton: UIButton!
     
     @IBOutlet weak var hotMusicButton: UIButton!
     @IBOutlet weak var newMusicButton: UIButton!
@@ -249,7 +250,11 @@ class MusicPickViewController: ViewController {
         self.musicType = .new
         self.refreshMusicList()
     }
+    @IBAction func clearButtonClicked(_ sender: Any) {
+        self.searchTextFeild.text = ""
+    }
 }
+
 extension MusicPickViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -262,9 +267,16 @@ extension MusicPickViewController:UICollectionViewDelegate,UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let musicModel = self.musics[indexPath.row];
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MusicPickCell", for: indexPath) as! MusicPickCell
-        var isPauseImageHidden = true;
-        if selectedIndex == indexPath.row && self.playerCurrentStatus == .playing{isPauseImageHidden = false}
-        cell.configWith(musicModel: musicModel, pauseImageHidden: isPauseImageHidden)
+        if selectedIndex == indexPath.row{
+            if self.playerCurrentStatus == .playing{
+                cell.configWith(musicModel: musicModel, state: .playing)
+            }
+            if self.playerCurrentStatus == .pause{
+                cell.configWith(musicModel: musicModel, state: .pause)
+            }
+        }else{
+            cell.configWith(musicModel: musicModel)
+        }
         return cell
     }
     
@@ -308,10 +320,12 @@ extension MusicPickViewController:UITextFieldDelegate{
         
         self.searchImage.isHidden = false;
         self.searchPlaceholder.isHidden = false;
+        self.clearButton.isHidden = true;
         if let _text = textFeild.text{
             if _text.lengthOfBytes(using: String.Encoding.utf8) > 0{
                 self.searchImage.isHidden = true;
                 self.searchPlaceholder.isHidden = true;
+                self.clearButton.isHidden = false;
             }
         }
 
@@ -333,11 +347,11 @@ extension MusicPickViewController:AliyunMusicPickViewDelegate{
         let model = self.musics[self.selectedIndex];
         model.duration = self.duration;
         
-        if let path = model.music,let startTime = model.startTime,let duration = model.duration{
+        if let path = model.music,let startTime = model.startTime,let duration = model.duration,let musicId = model.id{
             Toast.showStatusWith(text: "正在下载..")
             self.download(filePath: path) { (outputPath) in
                 Toast.dismiss()
-                self.delegate.musicPickViewControllerSelected(musicPath: outputPath, startTime: startTime, duration: duration)
+                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath, startTime: startTime, duration: duration)
                 self.navigationController?.popViewController(animated: true)
             }
             self.player.pause()

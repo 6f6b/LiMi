@@ -31,7 +31,7 @@ class SchoolListController: ViewController {
         super.viewDidLoad()
         self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.searchTopConstraint.constant = STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT
-        
+        self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -50,7 +50,7 @@ class SchoolListController: ViewController {
     }
 
     @IBAction func clearSearchTextButtonClicked(_ sender: Any) {
-        self.searchText.text = nil
+        self.searchText.text = ""
     }
     
     func requestData(){

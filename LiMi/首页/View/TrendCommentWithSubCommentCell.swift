@@ -9,14 +9,11 @@
 import UIKit
 
 ///子评论区域最大显示条数
-let maxSubCommentsNum = 3
 class TrendCommentWithSubCommentCell: TrendCommentCell {
     ///子评论容器
     var subCommentContainView:UIView!
     ///子评论列表
     var subCommentTableView:UITableView!
-    
-    var isSpread:Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

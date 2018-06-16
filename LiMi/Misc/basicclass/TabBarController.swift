@@ -1,3 +1,4 @@
+
 //
 //  TabBarController.swift
 //  LiMi
@@ -22,7 +23,7 @@ class TabBarController: UITabBarController {
          self.addControllerWith(controller: circleController, title: "圈子", tbImg: "home_ic_qz", tbSelectedImg: "home_ic_qzpre")
         
         let blankController = ViewController()
-        self.addControllerWith(controller: blankController, title: "", tbImg: "home_ps", tbSelectedImg: "home_ps")
+        self.addControllerWith(controller: blankController, title: "", tbImg: "home_ps", tbSelectedImg: "home_ps",imageInsets: UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0))
         
         let msgController = MsgController()
          self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
@@ -92,13 +93,13 @@ class TabBarController: UITabBarController {
         self.selectedIndex = 0
     }
     
-    func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!){
+    func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!,imageInsets:UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: -5, right: 0)){
         controller.title = title
         let navController = NavigationController(rootViewController: controller)
         navController.tabBarItem.image = UIImage.init(named: tbImg)?.withRenderingMode(.alwaysOriginal)
         navController.tabBarItem.selectedImage = UIImage.init(named: tbSelectedImg)?.withRenderingMode(.alwaysOriginal)
         navController.tabBarItem.title = nil
-        navController.tabBarItem.imageInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: -5, right: 0)
+        navController.tabBarItem.imageInsets = imageInsets
         self.addChildViewController(navController)
     }
     

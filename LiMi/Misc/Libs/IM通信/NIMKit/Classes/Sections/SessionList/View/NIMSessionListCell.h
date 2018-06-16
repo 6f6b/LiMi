@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) NIMBadgeView *badgeView;
 
+@property (nonatomic,strong) UIView *seperateView;
+
 - (void)refresh:(NIMRecentSession*)recent;
 
 @end

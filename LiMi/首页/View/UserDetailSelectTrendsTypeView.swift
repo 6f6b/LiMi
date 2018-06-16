@@ -30,7 +30,7 @@ class UserDetailSelectTrendsTypeView: UICollectionReusableView {
         self.leftBtn = UIButton.init(type: .custom)
         self.leftBtn.addTarget(self, action: #selector(dealTapBtn(btn:)), for: .touchUpInside)
         self.leftBtn.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
-        self.leftBtn.setTitle("动态", for: .normal)
+        self.leftBtn.setTitle("作品", for: .normal)
         self.leftBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         self.addSubview(self.leftBtn)
         self.leftBtn.snp.makeConstraints {[unowned self] (make) in
@@ -41,7 +41,7 @@ class UserDetailSelectTrendsTypeView: UICollectionReusableView {
         self.rightBtn = UIButton.init(type: .custom)
         self.rightBtn.addTarget(self, action: #selector(dealTapBtn(btn:)), for: .touchUpInside)
         self.rightBtn.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
-        self.rightBtn.setTitle("需求", for: .normal)
+        self.rightBtn.setTitle("喜欢", for: .normal)
         self.rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         self.addSubview(self.rightBtn)
         self.rightBtn.snp.makeConstraints {[unowned self] (make) in

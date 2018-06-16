@@ -13,20 +13,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="VideoListCollectionViewCell" customModule="LiMi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="321" height="520"/>
+            <rect key="frame" x="0.0" y="0.0" width="330" height="325"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="321" height="520"/>
+                <rect key="frame" x="0.0" y="0.0" width="330" height="325"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-tF-CNe">
-                        <rect key="frame" x="0.0" y="0.0" width="321" height="520"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhuye_bj" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-tF-CNe">
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="325"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TnB-Sl-DRp">
-                        <rect key="frame" x="0.0" y="480" width="321" height="40"/>
+                        <rect key="frame" x="0.0" y="285" width="330" height="40"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_gz_zhezhao" translatesAutoresizingMaskIntoConstraints="NO" id="Ivb-E0-0dI">
-                                <rect key="frame" x="0.0" y="0.0" width="321" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="330" height="40"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGR-Ml-DkM">
                                 <rect key="frame" x="8" y="10" width="20" height="20"/>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一天前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTk-02-JbE">
-                                <rect key="frame" x="274" y="13" width="37" height="14.5"/>
+                                <rect key="frame" x="283" y="13" width="37" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -82,18 +82,19 @@
                 <constraint firstAttribute="bottom" secondItem="QS6-tF-CNe" secondAttribute="bottom" id="qCC-lV-mzM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="321" height="520"/>
+            <size key="customSize" width="330" height="325"/>
             <connections>
                 <outlet property="publishTimeLabel" destination="bTk-02-JbE" id="4De-2U-t7N"/>
                 <outlet property="userHeadButton" destination="tGR-Ml-DkM" id="9cv-HQ-qku"/>
                 <outlet property="userNameLabel" destination="PUB-5b-Xbs" id="fiV-YW-biU"/>
                 <outlet property="videoCoverImageView" destination="QS6-tF-CNe" id="0zC-tr-d0h"/>
             </connections>
-            <point key="canvasLocation" x="14.5" y="67"/>
+            <point key="canvasLocation" x="19" y="-30.5"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="home_gz_zhezhao" width="187" height="40"/>
         <image name="touxiang" width="100" height="100"/>
+        <image name="zhuye_bj" width="375" height="230"/>
     </resources>
 </document>

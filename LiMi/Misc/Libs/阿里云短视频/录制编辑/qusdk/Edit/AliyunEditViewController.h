@@ -12,4 +12,7 @@
 @interface AliyunEditViewController : UIViewController
 @property (nonatomic, strong) NSString *taskPath;
 @property (nonatomic, strong) AliyunMediaConfig *config;
+@property (nonatomic,assign) NSInteger musicId;
+@property (nonatomic,assign) float startTime;
+@property (nonatomic,assign) float duration;
 @end

@@ -43,15 +43,22 @@
 
 + (void)clearDir:(NSString *)dirPath;
 
+///创建编辑路径
++ (NSString *)createEditDir;
 
+///创建录制路径
 + (NSString *)createRecrodDir;
 
+///创建剪切路径
 + (NSString *)createCutDir ;
 
+///音乐下载路径
 + (NSString *)creatMusicDownloadDir;
 
+///导出路径
 + (NSString *)createExportDir;
 
+///魔法相机录制路径
 + (NSString *)createMagicRecordDir;
 
 + (NSString *)createResourceDir;

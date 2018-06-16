@@ -18,7 +18,8 @@ enum FollowType {
 }
 
 class FollowerListController: ViewController {
-   
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+
     var tableView: UITableView!
     var pageIndex = 1
     var followType:FollowType = .follows

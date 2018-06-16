@@ -58,12 +58,16 @@ class ScanVideosContainController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.sharedManager().enable = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.sharedManager().enable = false
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        print("视频播放容器界面销毁")
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,6 +134,9 @@ extension ScanVideosContainController : BottomInputBarViewDelegate{
         _ = moyaProvider.rx.request(.targetWith(target: videoDiscussAction)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             Toast.showResultWith(model: resultModel)
+            if resultModel?.commonInfoModel?.status == successState{
+                NotificationCenter.default.post(name: COMMENT_SUCCESS_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoTrendModel])
+            }
         }, onError: { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
         })
