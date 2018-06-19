@@ -19,6 +19,7 @@ class CircleController: ViewController {
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.tableViewTopConstraint.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
         self.tableView.separatorStyle = .none
         if SYSTEM_VERSION <= 11.0{
@@ -54,7 +55,7 @@ class CircleController: ViewController {
         self.tableView.mj_header = mjGifHeaderWith {[unowned self] in
             self.loadData()
         }
-        
+        self.tableView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.loadData()
     }
     
