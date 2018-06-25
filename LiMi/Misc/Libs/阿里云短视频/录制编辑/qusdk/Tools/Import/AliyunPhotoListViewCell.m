@@ -73,7 +73,7 @@
     if (assetModel.timeLength.length > 0) {
         _durationLabel.text = assetModel.timeLength;
     }
-    
+    _imageView.image = nil;
     [[AliyunPhotoLibraryManager sharedManager] getPhotoWithAsset:assetModel.asset thumbnailImage:YES photoWidth:200 completion:^(UIImage *photo, NSDictionary *info) {
         _imageView.image = photo;
 

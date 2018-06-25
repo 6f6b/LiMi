@@ -44,28 +44,6 @@ class UserDetailsController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.customNavigationBar.backgroundColor = UIColor.red
-        if (self.navigationController?.navigationBar.isHidden)!{
-            if SYSTEM_VERSION <= 11.0{
-                self.collectionViewTopConstriant.constant = 0
-                self.customNavigationBarTopConstraint.constant = STATUS_BAR_HEIGHT
-                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
-            }
-            if SYSTEM_VERSION > 11.0{
-                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT
-                self.customNavigationBarTopConstraint.constant = 0
-                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
-            }
-        }else{
-            self.customNavigationBar.isHidden = true
-            if SYSTEM_VERSION <= 11.0{
-                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
-            }
-            if SYSTEM_VERSION > 11.0{
-                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
-                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
-            }
-        }
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(SingleInfoCollectionViewCell.self, forCellWithReuseIdentifier: "SingleInfoCollectionViewCell")
@@ -75,10 +53,6 @@ class UserDetailsController: ViewController {
         self.collectionView.register(UINib.init(nibName: "UserDetailHeadView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailHeadView")
         self.collectionView.register(UserDetailChooseHiddenOrNotView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView")
         self.collectionView.register(UserDetailSelectTrendsTypeView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView")
-
-        
-//        registerTrendsCellFor(tableView: self.tableView)
-//        self.tableView.register(UINib.init(nibName: "EmptyTrendsCell", bundle: nil), forCellReuseIdentifier: "EmptyTrendsCell")
 
         self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
             
@@ -102,10 +76,34 @@ class UserDetailsController: ViewController {
         loadData()
         //添加IM登录代理
         NIMSDK.shared().loginManager.add(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
     }
-
+    
+    @objc func didVideoTrendMoreOperation(notification:Notification){
+        //删除并切换video
+        if let moreOprationModel = notification.userInfo![MORE_OPERATION_KEY] as? MoreOperationModel{
+            if moreOprationModel.operationType == .delete{
+                for i in 0 ..< self.myVideoDataArray.count{
+                    if self.myVideoDataArray[i].id == moreOprationModel.action_id{
+                        self.myVideoDataArray.remove(at: i)
+                        break
+                    }
+                }
+                for i in 0 ..< self.myLikedVideoDataArray.count{
+                    if self.myLikedVideoDataArray[i].id == moreOprationModel.action_id{
+                        self.myLikedVideoDataArray.remove(at: i)
+                        break
+                    }
+                }
+                self.collectionView.reloadData()
+                return
+            }
+        }
+    }
+    
     deinit {
         NIMSDK.shared().loginManager.remove(self)
+        NotificationCenter.default.removeObserver(self)
         print("详情界面销毁")
     }
     
@@ -121,6 +119,29 @@ class UserDetailsController: ViewController {
             backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
         }
         if self.userId == Defaults[.userId]{self.toolContainViewBottomConstraint.constant = 50}
+        
+        if (self.navigationController?.navigationBar.isHidden)!{
+            self.customNavigationBar.isHidden = false
+            if SYSTEM_VERSION <= 11.0{
+                self.collectionViewTopConstriant.constant = 0
+                self.customNavigationBarTopConstraint.constant = STATUS_BAR_HEIGHT
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+            if SYSTEM_VERSION > 11.0{
+                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT
+                self.customNavigationBarTopConstraint.constant = 0
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+        }else{
+            self.customNavigationBar.isHidden = true
+            if SYSTEM_VERSION <= 11.0{
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+            if SYSTEM_VERSION > 11.0{
+                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
+                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+        }
     }
 
     

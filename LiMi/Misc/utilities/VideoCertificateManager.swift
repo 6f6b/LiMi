@@ -12,25 +12,29 @@ import ObjectMapper
 
 class VideoCertificateManager: NSObject {
     static let shared = VideoCertificateManager.init()
-    
+    var isRequesting:Bool = false
     var playCertificateModel:UploadVideoCertificateModel?
     var uploadCertificateModel:UploadVideoCertificateModel?
+    var completeBlock:((UploadVideoCertificateModel)->Void)?
     
-    func requestPlayCertificationWith(completeBlock:((UploadVideoCertificateModel)->Void)?){
+    func requestPlayCertificationWith(completeBlock:@escaping ((UploadVideoCertificateModel?)->Void)){
+        if isRequesting{return}
+        isRequesting = true
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let shortVideoCreateUploadCertificate = ShortVideoCreateUploadCertificate.init(type: "play")
-        _ = moyaProvider.rx.request(.targetWith(target: shortVideoCreateUploadCertificate)).subscribe(onSuccess: { (response) in
+        _ = moyaProvider.rx.request(.targetWith(target: shortVideoCreateUploadCertificate)).subscribe(onSuccess: {[unowned self] (response) in
             let playVideoCertificateModel = Mapper<UploadVideoCertificateModel>().map(jsonData: response.data)
             if playVideoCertificateModel?.commonInfoModel?.status == successState{
                 self.playCertificateModel = playVideoCertificateModel
-                if let _block = completeBlock{
-                    _block(playVideoCertificateModel!)
-                }
+                completeBlock(playVideoCertificateModel!)
             }else{
+                completeBlock(nil)
                 Toast.showErrorWith(model: playVideoCertificateModel)
             }
-            
-        }, onError: { (error) in
+            self.isRequesting = false
+        }, onError: {[unowned self] (error) in
+            self.isRequesting = false
+            completeBlock(nil)
             Toast.showErrorWith(msg: error.localizedDescription)
         })
     }

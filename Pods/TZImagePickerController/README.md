@@ -6,8 +6,7 @@
  A clone of UIImagePickerController, support picking multiple photos、original photo、video, also allow preview photo and video, support iOS6+.   
  一个支持多选、选原图和视频的图片选择器，同时有预览功能，支持iOS6+。
  
- ## 重要提示："prefs:root="已经被列为私有API，请大家尽快升级到1.9.0+版本。
- 其它同样使用了该API的库大家可以检查下，比如著名的[SVProgressHUD](http://www.cocoachina.com/bbs/read.php?tid=1722166)    
+ ## 重要提示：提issue前请先搜索，先从已有issue里找找线索。如果发现bug，请先和Demo对照自查下，如果Demo也有bug，请再提issue。Demo正常你那不正常的，提issue时请贴上你的初始化代码，注明必要的复现步骤。这样能避免多余的沟通，帮助你更快获取答案。
  
      关于升级iOS10和Xcdoe8的提示:    
  在Xcode8环境下将项目运行在iOS10的设备/模拟器中，访问相册和相机需要额外配置info.plist文件。分别是Privacy - Photo Library Usage Description和Privacy - Camera Usage Description字段，详见Demo中info.plist中的设置。
@@ -92,12 +91,20 @@ A：1.8.4版本已支持
 **Q：可否增加微信编辑图片的功能？**           
 A：考虑下，优先级低  
 
-      最近更新
-2.0.0.3 优化性能，提高选择器打开速度，新增越南语支持         
-2.0.0.2 新增繁体语言，可设置首选语言，国际化支持更强大；优化一些细节      
-1.9.8  支持Carthage，优化一些细节      
+      最近更新    
+2.1.6 新增allowCameraLocation属性，默认为YES，置为NO时不会在照相/摄像时定位，修复一个序号紊乱的bug              
+2.1.5 修复开启showSelectedIndex后照片列表页iCloud图片进度条紊乱的bug              
+2.1.4 新增多个页面和组件的样式自定义block，允许自定义绝大多数UI样式              
+2.1.2 新增showPhotoCannotSelectLayer属性，当已选照片张数达到最大可选张数时，可像微信一样让其它照片显示一个提示不可选的浮层            
+2.1.1 新增是否显示图片选中序号的属性，优化一些细节                 
+2.1.0.3 新增拍摄视频功能，优化一些细节           
+2.0.1 修复一些bug        
+2.0.0.6 优化自定义languageBundle的支持，加入使用示例       
+2.0.0.5 优化性能，提高选择器打开速度，新增越南语支持    
+2.0.0.2 新增繁体语言，可设置首选语言，国际化支持更强大；优化一些细节     
+1.9.8  支持Carthage，优化一些细节    
 1.9.6  优化视频预览和gif预览页toolbar在iPhoneX上的样式      
-1.9.5  优化视频导出API，和其它一些细节
+1.9.5  优化视频导出API，和其它一些细节     
 1.9.4  适配iPhoneX       
 1.9.0  移除"prefs:root="的调用，这个API已经被列为私有API，请大家尽快升级     
 ...   

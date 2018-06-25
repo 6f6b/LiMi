@@ -481,6 +481,24 @@ extension List: RealmCollection {
         return RLMIterator(collection: _rlmArray)
     }
 
+#if swift(>=4)
+    /**
+     Replace the given `subRange` of elements with `newElements`.
+
+     - parameter subrange:    The range of elements to be replaced.
+     - parameter newElements: The new elements to be inserted into the List.
+     */
+    public func replaceSubrange<C: Collection, R>(_ subrange: R, with newElements: C)
+        where C.Iterator.Element == Element, R: RangeExpression, List<Element>.Index == R.Bound {
+            let subrange = subrange.relative(to: self)
+            for _ in subrange.lowerBound..<subrange.upperBound {
+                remove(at: subrange.lowerBound)
+            }
+            for x in newElements.reversed() {
+                insert(x, at: subrange.lowerBound)
+            }
+    }
+#else
     /**
      Replace the given `subRange` of elements with `newElements`.
 
@@ -496,10 +514,7 @@ extension List: RealmCollection {
                 insert(x, at: subrange.lowerBound)
             }
     }
-
-    // This should be inferred, but Xcode 8.1 is unable to
-    /// :nodoc:
-    public typealias Indices = DefaultRandomAccessIndices<List>
+#endif
 
     /// The position of the first element in a non-empty collection.
     /// Identical to endIndex in an empty collection.
@@ -525,7 +540,11 @@ extension List: RealmCollection {
 #if swift(>=4.0)
 // MARK: - MutableCollection conformance, range replaceable collection emulation
 extension List: MutableCollection {
+#if swift(>=4.1)
+    public typealias SubSequence = Slice<List>
+#else
     public typealias SubSequence = RandomAccessSlice<List>
+#endif
 
     /**
      Returns the objects at the given range (get), or replaces the objects at the
@@ -592,7 +611,19 @@ extension List: MutableCollection {
             currentIndex += 1
         }
     }
+    #if swift(>=4.1.50)
+    /**
+     Removes objects from the list at the given range.
 
+     - warning: This method may only be called during a write transaction.
+     */
+    public func removeSubrange<R>(_ boundsExpression: R) where R : RangeExpression, List<Element>.Index == R.Bound {
+        let bounds = boundsExpression.relative(to: self)
+        for _ in bounds {
+            remove(at: bounds.lowerBound)
+        }
+    }
+    #else
     /**
      Removes objects from the list at the given range.
 
@@ -607,7 +638,7 @@ extension List: MutableCollection {
         removeSubrange(bounds.lowerBound...bounds.upperBound)
     }
 
-    //// :nodoc:
+    /// :nodoc:
     public func removeSubrange(_ bounds: CountableRange<Int>) {
         for _ in bounds {
             remove(at: bounds.lowerBound)
@@ -647,12 +678,14 @@ extension List: MutableCollection {
             insert(contentsOf: newElements, at: subrange.lowerBound)
     }
 
+
     /// :nodoc:
     public func replaceSubrange<C: Collection>(_ subrange: DefaultRandomAccessIndices<List>, with newElements: C)
         where C.Iterator.Element == Element {
             removeSubrange(subrange)
             insert(contentsOf: newElements, at: subrange.startIndex)
     }
+#endif
 }
 #else
 // MARK: - RangeReplaceableCollection support
@@ -670,7 +703,9 @@ extension List: RangeReplaceableCollection {
         _rlmArray.removeLastObject()
     }
 
-#if swift(>=3.1)
+#if swift(>=3.2)
+    // The issue described below is fixed in Swift 3.2 and above.
+#else
     // These should not be necessary, but Swift 3.1's compiler fails to infer the `SubSequence`,
     // and the standard library neglects to provide the default implementation of `subscript`
     /// :nodoc:

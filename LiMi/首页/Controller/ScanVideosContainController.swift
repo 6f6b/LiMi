@@ -57,12 +57,12 @@ class ScanVideosContainController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared.enable = false
     }
     
     deinit {

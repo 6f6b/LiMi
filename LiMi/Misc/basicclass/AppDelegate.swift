@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
-        let keyboardShareManager = IQKeyboardManager.sharedManager()
+        let keyboardShareManager = IQKeyboardManager.shared
         keyboardShareManager.enable = true
         keyboardShareManager.shouldResignOnTouchOutside = true  //控制点击背景是否收起键盘
         keyboardShareManager.keyboardDistanceFromTextField = 50 //输入框距离键盘的距离

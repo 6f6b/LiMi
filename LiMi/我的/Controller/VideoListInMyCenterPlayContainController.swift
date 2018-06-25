@@ -67,7 +67,7 @@ class VideoListInMyCenterPlayContainController: ScanVideosContainController {
                         self.dataArray.append(trend)
                     }
                 }
-                scanVideosController.reloadCollectionData()
+                scanVideosController.reloadTableViewData()
             }
             scanVideosController.tableView.mj_header.endRefreshing()
             Toast.showErrorWith(model: videoTrendListModel)

@@ -84,7 +84,7 @@ class CommentsWithTrendController: ViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -102,7 +102,7 @@ class CommentsWithTrendController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared.enable = false
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)

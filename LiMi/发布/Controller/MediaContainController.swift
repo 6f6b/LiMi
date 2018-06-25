@@ -55,7 +55,7 @@ class MediaContainController: ViewController {
 
         self.photoViewController = PhotoViewController()
         self.photoViewController.minDuration = 2;
-        self.photoViewController.maxDuration = 30;
+        self.photoViewController.maxDuration = 0;
         self.photoViewController.delegate = self
 
         self.addChildViewController(self.recordViewController)

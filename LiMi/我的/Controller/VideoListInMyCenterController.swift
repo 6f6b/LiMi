@@ -67,7 +67,26 @@ class VideoListInMyCenterController: ViewController {
         self.bottomBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.view.addSubview(self.bottomBackGroundView)
         self.loadData()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
+    }
+    
+    @objc func didVideoTrendMoreOperation(notification:Notification){
+        //删除并切换video
+        if let moreOprationModel = notification.userInfo![MORE_OPERATION_KEY] as? MoreOperationModel{
+            if moreOprationModel.operationType == .delete{
+                for i in 0 ..< self.dataArray.count{
+                    if self.dataArray[i].id == moreOprationModel.action_id{
+                        self.dataArray.remove(at: i)
+                        self.collectionView.reloadData()
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func loadData(){

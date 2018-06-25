@@ -107,7 +107,7 @@ class PeopleNearbyController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared.enable = false
         
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
@@ -118,7 +118,7 @@ class PeopleNearbyController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
     }
     
     deinit {

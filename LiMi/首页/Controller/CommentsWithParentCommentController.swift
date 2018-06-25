@@ -71,7 +71,8 @@ class CommentsWithParentCommentController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enable = true
         
         NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_NOTIFICATION, object: nil)
@@ -84,7 +85,7 @@ class CommentsWithParentCommentController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared.enable = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentPersonNameWith(notification:)), name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentWith(notification:)), name: TAPED_COMMENT_NOTIFICATION, object: nil)

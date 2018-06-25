@@ -36,8 +36,7 @@
 
 - (NSString *)getBucket:(NSDictionary *)info {
 
-    //edited by liufeng 2018/1/30 18:03
-    NSString *scope = [NSString stringWithFormat:@"%@",[info objectForKey:@"scope"]];
+    NSString *scope = [info objectForKey:@"scope"];
     if (!scope || [scope isKindOfClass:[NSNull class]]) {
         return @"";
     }

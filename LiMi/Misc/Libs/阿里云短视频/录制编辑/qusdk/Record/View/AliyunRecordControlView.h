@@ -12,13 +12,9 @@
     
     /*底部*/
 - (void)bottomViewRecordVideo;
-    
 - (void)bottomViewPauseVideo;
-    
 - (void)bottomViewFinishVideo;
-    
 - (void)bottomViewDeleteFinished;
-    
 - (void)bottomViewShowLibrary;
 - (void)didSelectRate:(CGFloat)rate;
 
@@ -44,7 +40,13 @@
 @property (nonatomic, weak) id<AliyunRecordControlViewDelegate> delegate;
 
 @property (nonatomic,assign) CGFloat duration;
+@property (nonatomic,weak) AliyunEffectPaster *currentEffectPaster;
 
+@property (nonatomic,strong) UIImageView *faceDetectFaildImageView;
+@property (nonatomic,strong) UILabel *faceDetectFaildInfo;
+//美颜相关
+@property (nonatomic,assign) int beautifyValue;
+@property (nonatomic,assign) int filterIndex;
 
 - (void)updateVideoDuration:(CGFloat)duration;
     

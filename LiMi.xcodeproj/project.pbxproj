@@ -1029,6 +1029,7 @@
 		68EFB904203FE1C600FE1A59 /* AboutUsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68EFB902203FE1C600FE1A59 /* AboutUsController.xib */; };
 		68EFB907203FE53F00FE1A59 /* FeedBackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EFB905203FE53F00FE1A59 /* FeedBackController.swift */; };
 		68EFB908203FE53F00FE1A59 /* FeedBackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68EFB906203FE53F00FE1A59 /* FeedBackController.xib */; };
+		68F1425C20E0860600236162 /* NoMoreDataFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F1425B20E0860600236162 /* NoMoreDataFooterView.swift */; };
 		68F903872015E9EF00B3028B /* SelectPayWayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F903862015E9EF00B3028B /* SelectPayWayView.swift */; };
 		68F903892015E9FB00B3028B /* SelectPayWayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68F903882015E9FB00B3028B /* SelectPayWayView.xib */; };
 		68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9038A201610B700B3028B /* CatchRedPacketView.swift */; };
@@ -2935,6 +2936,7 @@
 		68EFB902203FE1C600FE1A59 /* AboutUsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsController.xib; sourceTree = "<group>"; };
 		68EFB905203FE53F00FE1A59 /* FeedBackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackController.swift; sourceTree = "<group>"; };
 		68EFB906203FE53F00FE1A59 /* FeedBackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackController.xib; sourceTree = "<group>"; };
+		68F1425B20E0860600236162 /* NoMoreDataFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMoreDataFooterView.swift; sourceTree = "<group>"; };
 		68F903862015E9EF00B3028B /* SelectPayWayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPayWayView.swift; sourceTree = "<group>"; };
 		68F903882015E9FB00B3028B /* SelectPayWayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectPayWayView.xib; sourceTree = "<group>"; };
 		68F9038A201610B700B3028B /* CatchRedPacketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRedPacketView.swift; sourceTree = "<group>"; };
@@ -5910,6 +5912,7 @@
 				6824487720C67388009D1AED /* VideoListCollectionViewCell.swift */,
 				6824487820C67388009D1AED /* VideoListCollectionViewCell.xib */,
 				68B9747420C9341800162547 /* SingleInfoCollectionViewCell.swift */,
+				68F1425B20E0860600236162 /* NoMoreDataFooterView.swift */,
 				68E7D82720CE308100A8CC98 /* NoMoreDataViewCell.swift */,
 				68E7D82820CE308100A8CC98 /* NoMoreDataViewCell.xib */,
 			);
@@ -7783,6 +7786,7 @@
 				6801E069202C6EA900C106E1 /* NTESSessionViewController.m in Sources */,
 				68DFAB5120AC1792009B8373 /* AliyunRecoderFilterPlugin.m in Sources */,
 				6801E0C2202C6EA900C106E1 /* NTESSessionUtil.m in Sources */,
+				68F1425C20E0860600236162 /* NoMoreDataFooterView.swift in Sources */,
 				681389CD2057695100F65623 /* SuspensionMenuItemCell.swift in Sources */,
 				68C5F295203FF00200769A92 /* ContactWayInputCell.swift in Sources */,
 				68282CF22016DC0A0003A0CD /* CommentView.swift in Sources */,

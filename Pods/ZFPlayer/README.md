@@ -1,5 +1,6 @@
+
 <p align="center">
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/log.png" alt="ZFPlayer" title="ZFPlayer" width="557"/>
+<img src="https://upload-images.jianshu.io/upload_images/635942-092427e571756309.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ZFPlayer" title="ZFPlayer" width="557"/>
 </p>
 
 <p align="center">
@@ -10,304 +11,138 @@
 <a href="http://weibo.com/zifeng1300"><img src="https://img.shields.io/badge/weibo-@%E4%BB%BB%E5%AD%90%E4%B8%B0-yellow.svg?style=flat"></a>
 </p>
 
-A simple video player for iOS, based on AVPlayer. Support the vertical, horizontal screen(lock screen direction). Support adjust volume, brigtness and video progress.
+[中文说明](https://www.jianshu.com/p/90e55deb4d51)
 
+Before this, you used ZFPlayer, are you worried about encapsulating avplayer instead of using or modifying the source code to support other players, the control layer is not easy to customize, and so on? In order to solve these problems, I have wrote this player template, for player SDK you can conform the `ZFPlayerMediaPlayback` protocol, for control view you can conform the `ZFPlayerMediaControl` protocol, can custom the player and control view.
 
-[中文说明](https://github.com/renzifeng/ZFPlayer/blob/master/README.zh.md)&emsp;&emsp;[ZFPlayer剖析](http://www.jianshu.com/p/5566077bb25f)&emsp;&emsp;[哪些app使用ZFPlayer](http://www.jianshu.com/p/5fa55a05f87b)
+在此之前你使用ZFPlayer，是不是在烦恼播放器SDK自定义，控制层自定义等等问题。作者公司多个项目分别使用不同播放器SDK和每个项目控制层都不一样，但是为了统一管理、统一调用和各种自定义，我特意写了这个播放器壳子，意在解决各种痛点。播放器SDK只要遵守`ZFPlayerMediaPlayback`协议，控制层只要遵守`ZFPlayerMediaControl`协议，完全可以实现自定义播放器和控制层。
 
-## Features
-- [x] Support for horizontal and vertical play mode, in horizontal mode can also lock the screen direction
-- [x] Support play with online URL and local file
-- [x] Support in TableviewCell playing video
-- [x] Adjust brightness by slide vertical at left side of screen
-- [x] Adjust volume by slide vertical at right side of screen
-- [x] Slide horizontal to fast forward and rewind
-- [x] Full screen mode to drag the slider control progress, display video preview
-- [x] Download 
-- [x] Toggle video resolution
+![ZFPlayer.png](https://upload-images.jianshu.io/upload_images/635942-5662bfec6d457cba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## Requirements
 
 - iOS 7+
 - Xcode 8+
 
-
-## Statistics
-
-What App using ZFPlayer, and on AppStore, please tell me, help me to statistics.
-
-## Component
-
-- Breakpoint Download: [ZFDownload](https://github.com/renzifeng/ZFDownload)
-- ZFNavigationController: [ZFNavigationController](https://github.com/renzifeng/ZFNavigationController)
-- Layout: Masonry
-
 ## Installation
 
-### CocoaPods    
-
-```ruby
-pod 'ZFPlayer'
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
-```
-
-## Usage （Support IB and code）
-##### Set status bar color
-Please add the "View controller-based status bar appearance" field in info.plist and change it to NO
-
-##### IB usage
-Drag IB to UIView,the View class `ZFPlayerView` instead
-```objc
-// view
-ZFPlayerControlView *controlView = [[ZFPlayerControlView alloc] init];
-// model
-ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-playerModel.fatherView = ...
-playerModel.videoURL = ...
-playerModel.title = ...
-[self.playerView playerControlView:controlView playerModel:playerModel];
-// delegate
-self.playerView.delegate = self;
-// auto play the video
-[self.playerView autoPlayTheVideo];
-```
-
-`ZFPlayerDelegate`
-
-```
-/** backBtn event */
-- (void)zf_playerBackAction;
-/** downloadBtn event */
-- (void)zf_playerDownload:(NSString *)url;
-```
-
-##### Code implementation (Masonry) usage
+ZFPlayer is available through [CocoaPods](https://cocoapods.org). To install it,use player template simply add the following line to your Podfile:
 
 ```objc
-self.playerView = [[ZFPlayerView alloc] init];
-[self.view addSubview:self.playerView];
-[self.playerView mas_makeConstraints:^(MASConstraintMaker *make) {
- 	make.top.equalTo(self.view).offset(20);
- 	make.left.right.equalTo(self.view);
-	// Here a 16:9 aspect ratio, can customize the video aspect ratio
-    make.height.equalTo(self.playerView.mas_width).multipliedBy(9.0f/16.0f);
-}];
-// control view（you can custom）
-ZFPlayerControlView *controlView = [[ZFPlayerControlView alloc] init];
-// model
-ZFPlayerModel *playerModel = [[ZFPlayerModel alloc]init];
-playerModel.fatherView = ...
-playerModel.videoURL = ...
-playerModel.title = ...
-[self.playerView playerControlView:controlView playerModel:playerModel];
-
-// delegate
-self.playerView.delegate = self;
-// auto play the video
-[self.playerView autoPlayTheVideo];
+pod 'ZFPlayer', '~> 3.0.7'
 ```
 
-##### Set the fill mode for the video
+Use default controlView simply add the following line to your Podfile:
 
 ```objc
- // Set the fill mode of the video, the default settings (ZFPlayerLayerGravityResizeAspect: wait for a proportional fill, until a dimension reaches the area boundary).
- self.playerView.playerLayerGravity = ZFPlayerLayerGravityResizeAspect;
+pod 'ZFPlayer/ControlView', '~> 3.0.7'
 ```
-##### Is there a breakpoint download function
-```objc
- // Default is to close the breakpoint download function, such as the need for this feature set here
- self.playerView.hasDownload = YES;
-```
-
-##### Play video from XX seconds
-
- ```objc
- // Play video from XX seconds
- playerModel.seekTime = 15;
- ```
-
-##### Automatically play the video，not automatically play by default
-```objc
-// Automatically play the video
-[self.playerView autoPlayTheVideo];
-```
-
-##### Set the video placeholderImage 
+Use AVPlayer simply add the following line to your Podfile:
 
 ```objc
-//  The video placeholder image
-// If network image and local image set at the same time, ignore the local image, display the network images
-ZFPlayerModel *playerModel = [[ZFPlayerModel alloc]init];
-// local image
-playerModel.placeholderImage = [UIImage imageNamed: @"..."];
-// network image
-playerModel.placeholderImageURLString = @"https://xxx.jpg";
-self.playerView.playerModel = playerModel;
+pod 'ZFPlayer/AVPlayer', '~> 3.0.7'
+```
+如果使用AVPlayer边下边播可以参考使用[KTVHTTPCache](https://github.com/ChangbaDevs/KTVHTTPCache)
+
+Use ijkplayer simply add the following line to your Podfile:
+
+```objc
+pod 'ZFPlayer/ijkplayer', '~> 3.0.7'
+```
+[IJKMediaFramework SDK](https://gitee.com/renzifeng/IJKMediaFramework) support cocoapods
+
+Use KSYMediaPlayer simply add the following line to your Podfile:
+
+```objc
+pod 'ZFPlayer/KSYMediaPlayer', '~> 3.0.7'
+```
+[KSYMediaPlayer SDK](https://github.com/ksvc/KSYMediaPlayer_iOS) support cocoapods
+
+## Usage introduce
+
+####  ZFPlayerController
+Main classes, two initialization methods, normal mode initialization and list style initialization (tableView, collection)
+
+Normal style initialization 
+
+```objc
+ZFPlayerController *player = [ZFPlayerController playerWithPlayerManager:playerManager containerView:containerView];
+ZFPlayerController *player = [[ZFPlayerController alloc] initwithPlayerManager:playerManager containerView:containerView];
 ```
 
-##### Custom control layer
-`self.playerView.controlView = your customView;`
+List style initialization
 
-custom view you need to implement the following method in `.m`, you can reference`ZFPlayerControlView.m`
-
+```objc
+ZFPlayerController *player = [ZFPlayerController playerWithScrollView:tableView playerManager:playerManager containerViewTag:containerViewTag];
+ZFPlayerController *player = [ZFPlayerController alloc] initWithScrollView:tableView playerManager:playerManager containerViewTag:containerViewTag];
 ```
-/** 
- * Set playaer model 
- */
-- (void)zf_playerModel:(ZFPlayerModel *)playerModel;
 
-/** 
- * Show controlView
- */
-- (void)zf_playerShowControlView;
+#### ZFPlayerMediaPlayback
+For the playerMnager,you must conform `ZFPlayerMediaPlayback` protocol,custom playermanager can supports any player SDK，such as `AVPlayer`,`MPMoviePlayerController`,`ijkplayer`,`vlc`,`PLPlayerKit`,`KSYMediaPlayer`and so on，you can reference the `ZFAVPlayerManager`class.
 
-/** 
- * Hide controlView
- */
-- (void)zf_playerHideControlView;
+```objc
+Class<ZFPlayerMediaPlayback> *playerManager = ...;
+```
 
-/** 
- * Reset controlView 
- */
-- (void)zf_playerResetControlView;
+#### ZFPlayerMediaControl
+This class is used to display the control layer, and you must conform the ZFPlayerMediaControl protocol, you can reference the `ZFPlayerControlView` class.
 
-/** 
- * Reset controlView for resolution
- */
-- (void)zf_playerResetControlViewForResolution;
+```objc
+UIView<ZFPlayerMediaControl> *controlView = ...;
+player.controlView = controlView;
+```
 
-/** 
- * Cancel auto fadeout controlView 
- */
-- (void)zf_playerCancelAutoFadeOutControlView;
+## Usage
 
-/** 
- * Begin to play
- */
-- (void)zf_playerItemPlaying;
+#### Normal Style
 
-/** 
- * Play end 
- */
-- (void)zf_playerPlayEnd;
+```objc
+/// Your custom playerManager must conform `ZFPlayerMediaPlayback` protocol.
+Class<ZFPlayerMediaPlayback> *playerManager = ...;
 
-/** 
- * Has download function
- */
-- (void)zf_playerHasDownloadFunction:(BOOL)sender;
+/// playerController
+ZFPlayerController *player = [ZFPlayerController playerWithPlayerManager:playerManager containerView:self.containerView];
+player.controlView = controlView<ZFPlayerMediaControl>;
+playerManager.assetURL = [NSURL URLWithString:...];
+```
 
-/**
- * Resolution function
- */
-- (void)zf_playerResolutionArray:(NSArray *)resolutionArray;
+#### List style
 
-/** 
- * PlayBtn state (play or pause)
- */
-- (void)zf_playerPlayBtnState:(BOOL)state;
+```objc
+/// Your custom playerManager must conform `ZFPlayerMediaPlayback` protocol.
+Class<ZFPlayerMediaPlayback> *playerManager = ...;
 
-/** 
- * LockBtn state 
- */
-- (void)zf_playerLockBtnState:(BOOL)state;
+/// playerController
+ZFPlayerController *player = [ZFPlayerController playerWithScrollView:tableView playerManager:playerManager containerViewTag:tag<NSInteger>];
+player.controlView = controlView<ZFPlayerMediaControl>;
+self.player.assetURLs = array<NSURL *>;
+```
 
-/**
- * DownloadBtn state
- */
-- (void)zf_playerDownloadBtnState:(BOOL)state;
+Rotate the video the viewController must implement
 
-/** 
- * Player activity
- */
-- (void)zf_playerActivity:(BOOL)animated;
-
-/**
- * Set preview View
- */
-- (void)zf_playerDraggedTime:(NSInteger)draggedTime sliderImage:(UIImage *)image;
-
-/**
- * Dragged to control video progress
- 
- * @param draggedTime Dragged time for video
- * @param totalTime   Total time for video
- * @param forawrd     Whether fast forward
- * @param preview     Is there a preview
- */
-- (void)zf_playerDraggedTime:(NSInteger)draggedTime totalTime:(NSInteger)totalTime isForward:(BOOL)forawrd hasPreview:(BOOL)preview;
-
-/** 
- * Dragged end
- */
-- (void)zf_playerDraggedEnd;
-
-/**
- * Normal play
-
- * @param currentTime Current time for video
- * @param totalTime   Total Time for video
- * @param value       Slider value(0.0~1.0)
- */
-- (void)zf_playerCurrentTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)value;
-
-/** 
- * Progress display buffer
- */
-- (void)zf_playerSetProgress:(CGFloat)progress;
-
-/** 
- * Video load failure 
- */
-- (void)zf_playerItemStatusFailed:(NSError *)error;
-
-/**
- * Bottom shrink play
- */
-- (void)zf_playerBottomShrinkPlay;
-
-/**
- * play on cell
- */
-- (void)zf_playerCellPlay;
+```objc
+- (BOOL)shouldAutorotate {
+    return NO;
+}
 ```
 
 ### Picture demonstration
 
-![Picture effect](https://github.com/renzifeng/ZFPlayer/raw/master/screen.gif)
+![Picture effect](https://upload-images.jianshu.io/upload_images/635942-1b0e23b7f5eabd9e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![Sound adjustment demonstration](https://github.com/renzifeng/ZFPlayer/raw/master/volume.png)
+## Reference
+- https://github.com/Bilibili/ijkplayer
+- https://github.com/changsanjiang/SJVideoPlayer
+- https://github.com/ksvc/KSYMediaPlayer_iOS
 
-![Brightness adjustment demonstration](https://github.com/renzifeng/ZFPlayer/raw/master/brightness.png)
+## Author
 
-![Fast adjustment demonstration](https://github.com/renzifeng/ZFPlayer/raw/master/fast.png)
-
-![Progress adjustment demonstration](https://github.com/renzifeng/ZFPlayer/raw/master/progress.png)
-
-
-### Reference link：
-
-- [https://segmentfault.com/a/1190000004054258](https://segmentfault.com/a/1190000004054258)
-- [http://sky-weihao.github.io/2015/10/06/Video-streaming-and-caching-in-iOS/](http://sky-weihao.github.io/2015/10/06/Video-streaming-and-caching-in-iOS/)
-- [https://developer.apple.com/library/prerelease/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/02_Playback.html#//apple_ref/doc/uid/TP40010188-CH3-SW8](https://developer.apple.com/library/prerelease/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/02_Playback.html#//apple_ref/doc/uid/TP40010188-CH3-SW8)
-
----
-### Swift Player:
-See the [BMPlayer](https://github.com/BrikerMan/BMPlayer) please, thanks the BMPlayer author's open source.
-
----
-
-# Contact me
 - Weibo: [@任子丰](https://weibo.com/zifeng1300)
-- Email:  zifeng1300@gmail.com
-- QQ：459643690
-- QQ Group: 213376937（full） 213375947（add this）
+- Email: zifeng1300@gmail.com
+- QQ Group: 213375947（付费群,提供技术支持）
 
-# License
+## License
 
 ZFPlayer is available under the MIT license. See the LICENSE file for more info.
+
 

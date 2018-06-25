@@ -69,6 +69,7 @@ class VideoPlayCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -98,7 +99,7 @@ class VideoPlayCell: UITableViewCell {
         self.contentView.addSubview(self.videoCoverImageView)
         
         let x = SCREEN_WIDTH-15-44
-        let userHeadButtonY = CGFloat(233)
+        let userHeadButtonY = SCREEN_HEIGHT - (405 - 49 + TAB_BAR_HEIGHT)
         self.userHeadButton = UIButton.init(frame: CGRect.init(x: x, y: userHeadButtonY, width: 44, height: 44))
         self.userHeadButton.addTarget(self, action: #selector(userHeadButtonClicked(button:)), for: .touchUpInside)
         self.userHeadButton.layer.cornerRadius = 22
@@ -269,8 +270,10 @@ class VideoPlayCell: UITableViewCell {
     @objc func addFollowButtonRefresh(notification:Notification){
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
-                if let _is_attention = trendModel.is_attention{
-                    self.addFollowButton.isHidden = _is_attention
+                if self.videoTrendModel?.user_id == trendModel.user_id{
+                    if let _is_attention = trendModel.is_attention{
+                        self.addFollowButton.isHidden = _is_attention
+                    }
                 }
             }
         }

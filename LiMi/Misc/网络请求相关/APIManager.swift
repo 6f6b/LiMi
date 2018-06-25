@@ -51,10 +51,11 @@ extension LiMiAPI: TargetType {
             return target.task
         }
     }
-    public var validate: Bool {
+    public var validate: ValidationType {
         switch self {
         case .targetWith(let target):
-            return target.validate
+            return target.validationType
+            //return target.validate
         }
     }
     public var sampleData: Data {

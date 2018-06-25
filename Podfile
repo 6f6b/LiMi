@@ -49,7 +49,8 @@ target 'LiMi' do
 #    pod 'PageMenu'
 #    pod 'SPPageMenu'
 #   pod 'Moya/RxSwift'
-pod 'AliyunVideoSDKPro', '~> 3.5.0'
+pod 'AliyunVideoSDKPro'
+pod 'QuCore-ThirdParty', '~> 3.6.2'
 pod 'VODUpload'
 pod 'AliyunPlayer_iOS/AliyunVodPlayerSDK'
 end

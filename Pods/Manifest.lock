@@ -1,12 +1,11 @@
 PODS:
-  - Alamofire (4.6.0)
-  - AliyunOSSiOS (2.10.3)
-  - AliyunPlayer_iOS/AliyunPlayerSDK (3.4.4)
-  - AliyunPlayer_iOS/AliyunVodPlayerSDK (3.4.4):
+  - Alamofire (4.7.2)
+  - AliyunOSSiOS (2.10.4)
+  - AliyunPlayer_iOS/AliyunPlayerSDK (3.4.5)
+  - AliyunPlayer_iOS/AliyunVodPlayerSDK (3.4.5):
     - AliyunPlayer_iOS/AliyunPlayerSDK
   - AliyunVideoCore (1.0.1)
-  - AliyunVideoSDKPro (3.5.0.1):
-    - QuCore-ThirdParty (~> 3.4.0)
+  - AliyunVideoSDKPro (3.6.2)
   - Bugly (2.5.0)
   - CocoaLumberjack (3.2.1):
     - CocoaLumberjack/Default (= 3.2.1)
@@ -18,44 +17,44 @@ PODS:
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
-  - HappyDNS (0.3.12)
-  - IQKeyboardManagerSwift (5.0.7)
-  - Kingfisher (4.6.1)
+  - HappyDNS (0.3.14)
+  - IQKeyboardManagerSwift (6.0.4)
+  - Kingfisher (4.8.0)
   - M80AttributedLabel (1.6.3)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
-  - Moya/Core (10.0.2):
+  - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Moya/RxSwift (10.0.2):
+  - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
-  - ObjectMapper (3.1.0)
-  - Qiniu (7.2.3):
+  - ObjectMapper (3.3.0)
+  - Qiniu (7.2.4):
     - HappyDNS (~> 0.3)
   - QiniuUpload (3.0.0)
-  - QuCore-ThirdParty (3.4.0.1)
+  - QuCore-ThirdParty (3.6.2)
   - Reachability (3.2)
-  - Realm (3.1.0):
-    - Realm/Headers (= 3.1.0)
-  - Realm/Headers (3.1.0)
-  - RealmSwift (3.1.0):
-    - Realm (= 3.1.0)
+  - Realm (3.7.4):
+    - Realm/Headers (= 3.7.4)
+  - Realm/Headers (3.7.4)
+  - RealmSwift (3.7.4):
+    - Realm (= 3.7.4)
   - Result (3.2.4)
-  - RxSwift (4.1.1)
+  - RxSwift (4.2.0)
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
-  - SKPhotoBrowser (5.0.3)
+  - SKPhotoBrowser (5.1.0)
   - SnapKit (4.0.0)
   - SSZipArchive (1.8.1)
-  - SVProgressHUD (2.2.2)
-  - SwiftyJSON (4.0.0)
-  - SwiftyUserDefaults (3.0.0)
+  - SVProgressHUD (2.2.5)
+  - SwiftyJSON (4.1.0)
+  - SwiftyUserDefaults (3.0.1)
   - Toast (3.1.0)
-  - TZImagePickerController (2.0.0.4)
+  - TZImagePickerController (2.1.6)
   - VODUpload (1.3.0):
     - AliyunOSSiOS
     - AliyunVideoCore (~> 1.0.0)
@@ -63,12 +62,13 @@ PODS:
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
   - YYText (1.0.7)
-  - ZFPlayer (2.1.5):
-    - Masonry
+  - ZFPlayer (3.0.7):
+    - ZFPlayer/Core (= 3.0.7)
+  - ZFPlayer/Core (3.0.7)
 
 DEPENDENCIES:
   - AliyunPlayer_iOS/AliyunVodPlayerSDK
-  - AliyunVideoSDKPro (~> 3.5.0)
+  - AliyunVideoSDKPro
   - Bugly
   - CocoaLumberjack (~> 3.2.1)
   - DZNEmptyDataSet
@@ -77,12 +77,12 @@ DEPENDENCIES:
   - Kingfisher
   - M80AttributedLabel (~> 1.6.3)
   - Masonry
-  - MJRefresh
   - MJRefresh (~> 3.1.15.3)
   - Moya/RxSwift
   - ObjectMapper
   - Qiniu (~> 7.2.2)
   - QiniuUpload
+  - QuCore-ThirdParty (~> 3.6.2)
   - Reachability
   - RealmSwift
   - SDCycleScrollView (~> 1.75)
@@ -143,46 +143,46 @@ SPEC REPOS:
     - ZFPlayer
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AliyunOSSiOS: 46cba1f1a641fd2562fcd4c7110465a9408ad8b1
-  AliyunPlayer_iOS: ec6b88e78476803ad5c048a168345a8c63df60f3
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  AliyunOSSiOS: e5dcdba99963ca6b43fea863cead49423c5d4c75
+  AliyunPlayer_iOS: 8b73518e26c889d13ab95857d0bfe07eaa0c90db
   AliyunVideoCore: 5d588e3cca7943f0fc1ce1cee91c90043dbceac3
-  AliyunVideoSDKPro: 072ac2a3e00191984ff33103c47fe32fc7f5549c
+  AliyunVideoSDKPro: 59c542b25a66b8d29ec0139ce75928817c5693c2
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
-  HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
-  IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
+  IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
-  Qiniu: ae0fea1cc379fae1560d8748ac537e0fbeb8626e
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
   QiniuUpload: b1b3dda4883b9bacf9e2efc9e28978cdd6a26c70
-  QuCore-ThirdParty: 57ea35c76ec4d5d910ee33263bfb83aee0855189
+  QuCore-ThirdParty: eff903efae5684c06c73ff54321805174c6ffb35
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
-  RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
+  Realm: a469bb59e33f9926102ccaea4349822c53b9117e
+  RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
+  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
-  SKPhotoBrowser: 6de77f7004442e79059f19d86e2e7e6a03b43a13
+  SKPhotoBrowser: c20c1da34d737b4e3e101feead6c8dd92ebf860a
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
-  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
-  SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
-  TZImagePickerController: 0b45983cd9b31c6bd9eb95b11a932aa381f9cccf
+  TZImagePickerController: bc25e933c9d970a622d052f0d4de16202bbcd863
   VODUpload: e59dffe09707143bdcfc7d1ea38d7d898fb01a8c
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
+  ZFPlayer: ac6b5bda7002f7c22c961f282192e3e52a1e0e2d
 
-PODFILE CHECKSUM: aa9b8093ebd10efe7056013f5b66cc720181f4a5
+PODFILE CHECKSUM: 249fb1ee79414075a4c2cea273ea1534968039b5
 
 COCOAPODS: 1.5.0

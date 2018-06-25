@@ -22,9 +22,10 @@
 #import <AliyunVideoSDKPro/AliyunHttpClient.h>
 #import "FilterAndBeautyView.h"
 #import "AliyunRecordFocusView.h"
+#import "AliyunDBHelper.h"
 #import "LiMi-Swift.h"
 
-@interface AliyunRecordControlView ()
+@interface AliyunRecordControlView ()<FilterAndBeautyViewDelegate>
     /*底部*/
     @property (nonatomic, strong) UIButton *magicButton;//
     @property (nonatomic, strong) UIButton *recordButton;
@@ -33,7 +34,7 @@
     @property (nonatomic, strong) UIButton *photoLibraryButton;//?
     @property (nonatomic, strong) AliyunRateSelectView *rateView;
     @property (nonatomic, strong) FilterAndBeautyView *filterView;
-@property (nonatomic, strong) UILabel *durationLabel;
+    @property (nonatomic, strong) UILabel *durationLabel;
 
 
     @property (nonatomic, assign) BOOL recording;
@@ -55,21 +56,25 @@
     @property (nonatomic, strong) UIButton *nextButton;
 
     @property (nonatomic, assign) CGFloat currentRatio;
-@property (nonatomic, strong) AliyunRecordFocusView *focusView;
+    @property (nonatomic, strong) AliyunRecordFocusView *focusView;
 
     /*添加魔法*/
     @property (nonatomic, strong) MagicCameraView *magicCameraView;
-@property (nonatomic, assign) CGFloat lastPanY;
+    @property (nonatomic, assign) CGFloat lastPanY;
 
-/* 闪光灯模式 */
-@property (nonatomic, assign) AliyunIRecorderTorchMode torchMode;
-@property (nonatomic, assign) int selectedSegmentIndex;
+    /* 闪光灯模式 */
+    @property (nonatomic, assign) AliyunIRecorderTorchMode torchMode;
+    @property (nonatomic, assign) int selectedSegmentIndex;
 
+    //美颜滤镜相关
+    @property (nonatomic,strong) AliyunDBHelper *dbHelper;
+    @property (nonatomic,strong) NSMutableArray *filterDataArray;
+    @property (nonatomic, strong) UILabel *filterInfoLabel;
+@property (nonatomic,strong) NSTimer *timer;
 @end
 
 @implementation AliyunRecordControlView
     {
-        AliyunEffectPaster *_currentEffectPaster;
         CFTimeInterval _recordingDuration;
     }
     
@@ -79,10 +84,15 @@
         self.backgroundColor = [UIColor clearColor];
         [self setupSubviews];
         _currentRatio = 3/4.0;
+        _beautifyValue = 0;
+        _filterIndex = 0;
+        _dbHelper = [[AliyunDBHelper alloc] init];
+        _filterDataArray = [NSMutableArray new];
+        [self reloadDataWithEffectType:4];
     }
     return self;
 }
-    
+
 - (void)setupSubviews {
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
@@ -185,28 +195,98 @@
     _beautyButton.selected = YES;
     _ratioButton.hidden = NO;
 
+    _faceDetectFaildImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+    _faceDetectFaildImageView.image = [UIImage imageNamed:@"识别不到人脸"];
+    _faceDetectFaildImageView.center = CGPointMake(ScreenWidth*0.5, ScreenHeight*0.5-50);
+    [_faceDetectFaildImageView setHidden:YES];
+    [self addSubview:_faceDetectFaildImageView];
+
+    _faceDetectFaildInfo = [[UILabel alloc] initWithFrame:CGRectMake(_faceDetectFaildImageView.frame.origin.x-5, CGRectGetMaxY(_faceDetectFaildImageView.frame), 90, 15)];
+    _faceDetectFaildInfo.font = [UIFont systemFontOfSize:15];
+    _faceDetectFaildInfo.textColor = [UIColor whiteColor];
+    _faceDetectFaildInfo.text = @"未识别到人脸";
+    [_faceDetectFaildInfo sizeToFit];
+    _faceDetectFaildInfo.center = CGPointMake(ScreenWidth*0.5, CGRectGetMaxY(_faceDetectFaildImageView.frame)+8+10);
+    [_faceDetectFaildInfo setHidden:YES];
+    [self addSubview:_faceDetectFaildInfo];
+    
+    _filterInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, 90)];
+    _filterInfoLabel.font = [UIFont systemFontOfSize:23];
+    _filterInfoLabel.textAlignment = UITextAlignmentCenter;
+    _filterInfoLabel.textColor = [UIColor whiteColor];
+    _filterInfoLabel.text = @"";
+    _filterInfoLabel.center = CGPointMake(ScreenWidth*0.5, ScreenHeight*0.5);
+    _filterInfoLabel.alpha = 0;
+    [self addSubview:_filterInfoLabel];
+
 }
 
 - (void)addGesture {
     UITapGestureRecognizer *previewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewTapGesture:)];
-    previewTap.delegate = self;
         [self addGestureRecognizer:previewTap];
     
-    UIPanGestureRecognizer *previewPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(previewPanGesture:)];
-    previewPan.delegate = self;
-        [self addGestureRecognizer:previewPan];
-    
     UIPinchGestureRecognizer *previewPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(previewPinchGesture:)];
-    previewPinch.delegate = self;
         [self addGestureRecognizer:previewPinch];
-}
-
-//需要旋转 缩放同时起效 设置delegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     
-    return YES;
+    UISwipeGestureRecognizer *preViewLeftswipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previewSwipeGesture:)];
+    preViewLeftswipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:preViewLeftswipe];
+    
+    UISwipeGestureRecognizer *preViewRightswipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previewSwipeGesture:)];
+    preViewRightswipe.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:preViewRightswipe];
+    
+    UIPanGestureRecognizer *previewPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(previewPanGesture:)];
+    [previewPan requireGestureRecognizerToFail:preViewLeftswipe];
+    [previewPan requireGestureRecognizerToFail:preViewRightswipe];
+    [self addGestureRecognizer:previewPan];
 }
 
+- (void)setBeautifyValue:(int)beautifyValue{
+    _beautifyValue = beautifyValue;
+    _recoder.beautifyValue = beautifyValue;
+}
+
+- (void)setFilterIndex:(int)filterIndex{
+    if(filterIndex == _filterIndex){return;}
+    _filterIndex = filterIndex;
+    AliyunEffectInfo *currentEffect = _filterDataArray[filterIndex];
+    AliyunEffectFilter *filter =[[AliyunEffectFilter alloc] initWithFile:[currentEffect localFilterResourcePath]];
+    [self.filterInfoLabel.layer removeAllAnimations];
+    self.filterInfoLabel.alpha = 1;
+    self.filterInfoLabel.text = currentEffect.name;
+    __weak AliyunRecordControlView *weakSelf = self;
+    [UIView animateWithDuration:0.2 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
+        weakSelf.filterInfoLabel.alpha = 0;
+    } completion:nil];
+    [self.recoder applyFilter:filter];
+}
+
+- (void)reloadDataWithEffectType:(NSInteger)eType {
+    [_filterDataArray removeAllObjects];
+    [_dbHelper queryResourceWithEffecInfoType:eType success:^(NSArray *infoModelArray) {
+        for (AliyunEffectMvGroup *mvGroup in infoModelArray) {
+            [_filterDataArray addObject:mvGroup];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)previewSwipeGesture:(UISwipeGestureRecognizer *)gesture{
+    int tmpIndex = _filterIndex;
+    if(gesture.direction == UISwipeGestureRecognizerDirectionLeft){
+        if(tmpIndex >= self.filterDataArray.count-1){tmpIndex = 0;}else{
+            tmpIndex += 1;
+        }
+    }
+    if(gesture.direction == UISwipeGestureRecognizerDirectionRight){
+        if(tmpIndex <= 0){tmpIndex = self.filterDataArray.count-1;}else{
+            tmpIndex -= 1;;
+        }
+    }
+    self.filterIndex = tmpIndex;
+}
 
 - (void)previewTapGesture:(UITapGestureRecognizer *)gesture {
     CGPoint point = [gesture locationInView:self];
@@ -215,6 +295,7 @@
     [self.rateView setHidden:true];
     [_focusView refreshPosition];
 }
+
 
 - (void)previewPanGesture:(UIPanGestureRecognizer *)gesture {
     if (_focusView.alpha == 0 || gesture.numberOfTouches == 2) {
@@ -438,22 +519,7 @@
     [alertController addAction:okAction];
     UIViewController *controller = self.delegate;
     [controller presentViewController:alertController animated:true completion:nil];
-    
-//    NSLog(@"delete   %d", self.deleteButton.selected);
-//    buttonClick.selected = !buttonClick.selected;
-//    if (buttonClick.selected) {
-//        _progressView.selectedIndex = _progressView.videoCount - 1;
-//    } else {
-//        _progressView.videoCount--;
-//        [self bottomViewDeleteFinished];
-//        if (_progressView.videoCount <= 0) {
-//            if (![AliyunIConfig config].hiddenImportButton) {
-//                _photoLibraryButton.hidden = NO;
-//            }
-//            
-//            _deleteButton.hidden = YES;
-//        }
-//    }
+
 }
     
 - (void)deleteLastProgress {
@@ -571,10 +637,6 @@
             _filterView = [[[NSBundle mainBundle] loadNibNamed:@"FilterAndBeautyView" owner:nil options:nil] lastObject];
             _filterView.delegate = self;
             _filterView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-            
-//            _filterView = [[AliyunEffectFilterView alloc] initWithFrame:CGRectMake(0, ScreenHeight-142, ScreenWidth, 142)];
-//            _filterView.delegate = (id<AliyunEffectFilter2ViewDelegate>)self;
-//            [self addSubview:_filterView];
         }
         return _filterView;
     }
@@ -699,11 +761,7 @@
 
 
     - (void)beautyButtonClick:(UIButton *)button {
-        [self.filterView show];
-//        [self addSubview:self.filterView];
-//        [self.filterView setHidden:NO];
-//        _beautyButton.selected = !_beautyButton.selected;
-//    //[_delegate navigationBeautyDidChangedStatus:_beautyButton.selected];
+        [self.filterView showWithSelectedFilterIndex:_filterIndex filterDataArray:_filterDataArray];
 }
     
     - (void)musicButtonClick:(UIButton *)butotn{
@@ -830,47 +888,13 @@
 }
 
     
-#pragma mark - AliyunEffectFilter2ViewDelegate
-- (void)cancelButtonClick{
-    [self.filterView removeFromSuperview];
-}
-    
-- (void)animtionFilterButtonClick{
-    
-}
-    
-- (void)didSelectEffectFilter:(AliyunEffectFilterInfo *)filter{
-    AliyunEffectFilter *filter2 =[[AliyunEffectFilter alloc] initWithFile:[filter localFilterResourcePath]];
-    [self.recoder applyFilter:filter2];
+#pragma mark - FilterAndBeautyViewDelegate
+- (void)filterAndBeautyViewSelectedFilterIndex:(int)index{
+    self.filterIndex = index;
 }
 
-- (void)beautyValueChangedWith:(float)value{
+- (void)filterAndBeautyViewSeletedBeautifyValue:(CGFloat)value{
     self.recoder.beautifyValue = (int)value;
-}
-
-
-- (void)didSelectEffectMV:(AliyunEffectMvGroup *)mvGroup{
-    
-}
-    
-- (void)didSelectEffectMoreMv{
-    
-}
-    
-- (void)didBeganLongPressEffectFilter:(AliyunEffectFilterInfo *)animtinoFilter{
-    
-}
-    
-- (void)didEndLongPress{
-    
-}
-    
-- (void)didRevokeButtonClick{
-    
-}
-    
-- (void)didTouchingProgress{
-    
 }
     
 #pragma mark - 魔法（人脸识别）

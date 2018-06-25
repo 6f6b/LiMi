@@ -33,6 +33,7 @@ class ScanVideosController: ViewController {
     var isVisiable = true
     var isFirstIn = true
     var currentVideoPlayCell:VideoPlayCell?
+    var currentVideoTrend:VideoTrendModel?
     var player:AliyunVodPlayer!
     
     override func viewDidLoad() {
@@ -40,7 +41,7 @@ class ScanVideosController: ViewController {
         self.player = AliyunVodPlayer.init()
         self.player.displayMode = .fitWithCropping
         self.player.circlePlay = true
-        self.player.isAutoPlay = true
+        self.player.isAutoPlay = false
         self.player.delegate = self
         self.player.quality = .videoHD
         self.player.playerView.backgroundColor = UIColor.clear
@@ -59,13 +60,13 @@ class ScanVideosController: ViewController {
         
         self.tableView = UITableView.init(frame: SCREEN_RECT, style: .plain)
         self.tableView.separatorStyle = .none
-        self.tableView.backgroundColor = UIColor.init(red: 30, green: 30, blue: 30, alpha: 1)
+        self.tableView.backgroundColor = UIColor.init(red: 255, green: 30, blue: 30, alpha: 1)
         self.tableView.estimatedRowHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-        self.tableView.estimatedSectionHeaderHeight = 0
+//        self.tableView.estimatedSectionFooterHeight = 0
+//        self.tableView.estimatedSectionHeaderHeight = 0
         self.tableView.register(UINib.init(nibName: "VideoPlayCell", bundle: nil), forCellReuseIdentifier: "VideoPlayCell")
         self.tableView.register(UINib.init(nibName: "NoMoreDataViewCell", bundle: nil), forCellReuseIdentifier: "NoMoreDataViewCell")
-        
+        self.tableView.showsVerticalScrollIndicator = false
         self.tableView.isPagingEnabled = true
         self.tableViewContainView.addSubview(self.tableView)
         self.tableView.delegate = self
@@ -77,8 +78,17 @@ class ScanVideosController: ViewController {
             self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
         }
         
+        let footer  = MJRefreshBackNormalFooter.init(refreshingBlock: {[unowned self] in
+            self.tableView.mj_footer.endRefreshing()
+        })
+        footer?.state = .noMoreData
+        footer?.stateLabel.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+        footer?.stateLabel.font = UIFont.systemFont(ofSize: 15)
+        footer?.setTitle("无更多数据", for: .noMoreData)
+        self.tableView.mj_footer = footer
+        
         if self.delegate.dataArray.count > self.delegate.currentVideoTrendIndex{
-            self.reloadCollectionData()
+            self.reloadTableViewData()
         }else{
             self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
         }
@@ -87,10 +97,13 @@ class ScanVideosController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(leave), name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
         //进入播放页
         NotificationCenter.default.addObserver(self, selector: #selector(into), name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
     }
     
     @objc func appDidBecomeActive(){
@@ -108,10 +121,28 @@ class ScanVideosController: ViewController {
     @objc func appWillEnterForeground(){
         if self.isVisiable{self.player.resume()}
     }
+    
+    @objc func didVideoTrendMoreOperation(notification:Notification){
+        //删除并切换video
+        if let moreOprationModel = notification.userInfo![MORE_OPERATION_KEY] as? MoreOperationModel{
+            if moreOprationModel.operationType == .delete{
+                for i in 0 ..< self.delegate.dataArray.count{
+                    if self.delegate.dataArray[i].id == moreOprationModel.action_id{
+                        self.delegate.dataArray.remove(at: i)
+                        if self.delegate.dataArray.count != 0 && i >= self.delegate.dataArray.count{
+                            self.delegate.currentVideoTrendIndex = i - 1
+                        }
+                        self.reloadTableViewData()
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
         self.player.release()
@@ -145,42 +176,49 @@ class ScanVideosController: ViewController {
     }
     
     //刷新数据
-    func reloadCollectionData(){
-        if VideoCertificateManager.shared.playCertificateModel == nil{
-            VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
-                self.reloadCollectionData()
-            }
-        }
-        if self.delegate.pageIndex == 1{self.player.stop()}
+    func reloadTableViewData(){
+        //if self.delegate.pageIndex == 1{self.player.stop()}
         self.tableView.reloadData()
+        if self.delegate.dataArray.count == 0{self.navigationController?.popViewController(animated: true)}
+        if self.delegate.currentVideoTrendIndex >= self.delegate.dataArray.count{return}
         let indexPath = IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)
-        if self.delegate.dataArray.count <= indexPath.row{return}
         self.tableView.layoutIfNeeded()//这个必须先执行，否则没效果
         self.tableView.scrollToRow(at: indexPath, at: .none, animated: false)
-        if let currentPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: self.delegate.currentVideoTrendIndex, section: 0)) as? VideoPlayCell{
-            if (isFirstIn && self.delegate.dataArray.count > 0) || self.delegate.pageIndex == 1{
-                isFirstIn = false
-                self.player.reset()
-                let playerView = self.player.playerView
-                playerView?.frame = SCREEN_RECT
-                self.currentVideoPlayCell = currentPlayCell
-                currentPlayCell.addPlayerView(playerView: playerView!)
-                let videoTrendModel = self.delegate.dataArray[indexPath.row]
-                let vid = videoTrendModel.video ?? ""
-                let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
-                let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
-                let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
-                self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
-            }
+        //第一次进入
+        //刷新数据
+        //删除过后刷新
+        let currentIndex = self.delegate.currentVideoTrendIndex
+        let videoTrendModel = self.delegate.dataArray[currentIndex]
+        if videoTrendModel.id != self.currentVideoTrend?.id{
+            self.playWith(currentIndex: currentIndex)
         }
         self.tableView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(indexPath.row)), animated: false)
-        print("刷新了一盘数据")
+        print("刷新了一次数据")
+    }
+    
+    func playWith(currentIndex:Int){
+        if currentIndex >= self.delegate.dataArray.count{return}
+        if let currentVideoPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: currentIndex, section: 0)) as? VideoPlayCell{
+            self.currentVideoPlayCell = currentVideoPlayCell
+            self.player.reset()
+            let playerView = self.player.playerView
+            playerView?.frame = SCREEN_RECT
+            currentVideoPlayCell.addPlayerView(playerView: playerView!)
+            let videoTrendModel = self.delegate.dataArray[currentIndex]
+            self.currentVideoTrend = videoTrendModel
+            self.delegate.currentVideoTrendIndex = currentIndex
+            let vid = videoTrendModel.video ?? ""
+            let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
+            let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
+            let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
+            self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
+        }
     }
 }
 
 extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -204,7 +242,16 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
         videoPlayCell.configWith(videoTrendModel: videoModel)
         return videoPlayCell
     }
-
+    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 50
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let footerView = NoMoreDataFooterView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 50))
+//        return footerView
+//    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //这里面要做的工作
         //1.刷新播放状态
@@ -220,40 +267,13 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
             self.delegate.scanVideosControllerRequestDataWith(scanVideosController: self)
         }
         //重刷新播放状态
-        if let currentPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: index, section: 0)) as? VideoPlayCell{
-            self.currentVideoPlayCell = currentPlayCell
-            self.delegate.currentVideoTrendIndex = index
-            let videoTrendModel = self.delegate.dataArray[index]
-            let vid = videoTrendModel.video ?? ""
-            let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
-            let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
-            let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
-            self.player.reset()
-            let playerView = self.player.playerView
-            currentPlayCell.addPlayerView(playerView: playerView!)
-            self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
-        }
+        self.playWith(currentIndex: index)
+        
         UIView.animate(withDuration: 0.3) {
             self.tableView.contentOffset = CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(index))
         }
     }
-    
-    func videoFrameWith(height:Int?,width:Int?)->CGRect{
-        if let _height = height,let _width = width{
-            if _height >= _width{
-                return SCREEN_RECT
-            }else{
-                let vWidth = SCREEN_WIDTH
-                let vHeight = SCREEN_WIDTH*(CGFloat(CGFloat(_height)/CGFloat(_width)))
-                let vX = CGFloat(0)
-                let vY = (SCREEN_HEIGHT-vHeight)/2
-                return CGRect.init(x: vX, y: vY, width: vWidth, height: vHeight)
-            }
-        }else{
-            return SCREEN_RECT
-        }
-    }
-    
+
 }
 
 extension ScanVideosController:VideoPlayCellDelegate{
@@ -272,12 +292,20 @@ extension ScanVideosController:VideoPlayCellDelegate{
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let addAttention = AddAttention.init(attention_id: videoModel.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
-            let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
-            if personCenterModel?.commonInfoModel?.status == successState{
-                videoModel.is_attention = !videoModel.is_attention!
+            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+            if baseModel?.commonInfoModel?.status == successState{
+                if let _isAttention = videoModel.is_attention{
+                    let nowAttention = !_isAttention
+                    videoModel.is_attention = nowAttention
+                    for _videoAttention in self.delegate.dataArray{
+                        if _videoAttention.user_id == videoModel.user_id{
+                            _videoAttention.is_attention = nowAttention
+                        }
+                    }
+                }
                 NotificationCenter.default.post(name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
             }
-            Toast.showErrorWith(model: personCenterModel)
+            Toast.showErrorWith(model: baseModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
@@ -352,14 +380,19 @@ extension ScanVideosController{
     @objc func leave(){
         print("离开停止")
         self.isVisiable = false
+//        self.player.stop()
         self.player.pause()
-        //self.stopCollectionViewAllPlayCells()
     }
     
     @objc func into(){
         print("进入播放")
         self.isVisiable = true
-        self.player.resume()
+        if self.player.playerState() == .prepared{
+            self.player.start()
+        }else{
+//            self.player.resume()
+            self.player.resume()
+        }
     }
 }
 
@@ -382,23 +415,27 @@ extension ScanVideosController:MoreOperationControllerDelegate{
         //report black delete
         let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
         let videoTrendModel = self.delegate.dataArray[currentVideoTrendIndex]
+        var operationType:OperationType = .none
         if type == "report"{
             body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            operationType = .report
         }
         if type == "black"{
             body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            operationType = .defriend
         }
         if type == "delete"{
             body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            operationType = .delete
         }
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
-//                var moreOperationModel = MoreOperationModel()
-//                moreOperationModel.operationType = operationType
-//                moreOperationModel.action_id = trendModel?.action_id
-//                moreOperationModel.user_id = trendModel?.user_id
-//                NotificationCenter.default.post(name: DID_TOPIC_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
+                var moreOperationModel = MoreOperationModel()
+                moreOperationModel.operationType = operationType
+                moreOperationModel.action_id = videoTrendModel.id
+                moreOperationModel.user_id = videoTrendModel.user_id
+                NotificationCenter.default.post(name: DID_VIDEO_TREND_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
             }
             Toast.showResultWith(model: baseModel)
         }, onError: { (error) in
@@ -418,7 +455,9 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
         
         if event == .prepareDone{
             print("播放器状态变更--->准备完毕")
-            self.player.start()
+            if isVisiable{
+                self.player.start()
+            }
         }
         if event == .play{
             self.currentVideoPlayCell?.playButton.isHidden = true
@@ -433,6 +472,7 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
             self.currentVideoPlayCell?.playButton.isHidden = false
         }
         if event == .stop{
+//            self.currentVideoPlayCell?.playButton.isHidden = false
             print("播放器状态变更--->停止")
         }
         if event == .finish{
@@ -457,7 +497,9 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
      * 参数：errorModel 播放器报错时提供的错误信息对象
      */
     func vodPlayer(_ vodPlayer: AliyunVodPlayer!, playBack errorModel: AliyunPlayerVideoErrorModel!) {
-        
+        VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
+            self.playWith(currentIndex: self.delegate.currentVideoTrendIndex)
+        }
     }
     
     //@optional
@@ -496,7 +538,9 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
      *功能：播放器请求时，通知用户传入的参数鉴权过期。
      */
     func onTimeExpiredError(with vodPlayer: AliyunVodPlayer!) {
-        
+        VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
+            self.playWith(currentIndex: self.delegate.currentVideoTrendIndex)
+        }
     }
     /*
      *功能：播放地址将要过期时，提示用户当前播放地址过期。 （策略：当前播放器地址过期时间2小时，我们在播放地址差1分钟过期时提供回调；（7200-60）秒时发送）
@@ -505,6 +549,8 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
      *参数：videoDefinition：将过期时播放的清晰度，MPS播放方式时有效。
      */
     func vodPlayerPlaybackAddressExpired(withVideoId videoId: String!, quality: AliyunVodPlayerVideoQuality, videoDefinition: String!) {
-        
+        VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
+            self.playWith(currentIndex: self.delegate.currentVideoTrendIndex)
+        }
     }
 }

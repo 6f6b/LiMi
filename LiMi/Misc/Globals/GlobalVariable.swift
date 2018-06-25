@@ -80,6 +80,8 @@ let   SCREENING_CODITIONS_CHANGED = Notification.Name.init("SCREENING_CODITIONS_
 let    DID_MORE_OPERATION = Notification.Name.init("DID_MORE_OPERATION")
 ///对话题做出了更多操作通知：举报、删除、拉黑、聊天
 let    DID_TOPIC_MORE_OPERATION = Notification.Name.init("DID_TOPIC_MORE_OPERATION")
+///对视频做出了更多操作通知：举报、删除、拉黑、聊天
+let    DID_VIDEO_TREND_MORE_OPERATION = Notification.Name.init("DID_VIDEO_TREND_MORE_OPERATION")
 /// 抢了红包
 let     CATCHED_RED_PACKET_NOTIFICATION = Notification.Name.init("CATCHED_RED_PACKET_NOTIFICATION")
 /// 支付宝支付完毕

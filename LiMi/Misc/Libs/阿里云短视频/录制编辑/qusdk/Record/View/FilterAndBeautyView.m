@@ -28,7 +28,6 @@
 
     NSMutableArray *_dataArray;
     AliyunDBHelper *_dbHelper;
-    NSInteger _effectType;
     NSInteger _selectIndex;
     UIButton *_selectButton;
     NSTimer *_schedule;
@@ -52,7 +51,8 @@
     _selectIndex = -1;
     [self addSubViews];
     
-    [self reloadDataWithEffectType:4];
+    
+    //[self reloadDataWithEffectType:4];
 }
 
 - (void)addSubViews {
@@ -63,7 +63,6 @@
     
     
     _slider = [[UISlider alloc] initWithFrame:CGRectMake(20, 0, ScreenWidth-40, 102)];
-//    _slider.backgroundColor = UIColor.whiteColor;
     _slider.minimumValue = 0;
     _slider.maximumValue = 100;
     _slider.value = 0;
@@ -78,12 +77,6 @@
     _collectionView.dataSource = (id<UICollectionViewDataSource>)self;
     _collectionView.delegate = (id<UICollectionViewDelegate>)self;
     [self.scrollView addSubview:_collectionView];
-    
-    
-    //[self addSubview:_collectionView];
-//    UILongPressGestureRecognizer *longPressGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-//    [_collectionView addGestureRecognizer:longPressGes];
-//    CGFloat height = 34;
 }
     
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -105,6 +98,14 @@
 }
 
 
+- (void)showWithSelectedFilterIndex:(int)index filterDataArray:(NSMutableArray *)filterDataArray{
+    _selectIndex = index;
+    _dataArray = filterDataArray;
+    [_collectionView reloadData];
+    [self show];
+}
+
+
 - (void)show{
     [UIApplication.sharedApplication.keyWindow addSubview:self];
 }
@@ -114,7 +115,7 @@
 }
 
 - (void)sliderValueChanged:(UISlider *)slider{
-    [self.delegate beautyValueChangedWith:slider.value];
+    [self.delegate filterAndBeautyViewSeletedBeautifyValue:slider.value];
 }
 
 - (IBAction)clickBeautyButton:(id)sender {
@@ -137,70 +138,6 @@
     }];
 }
 
-/*滤镜*/
-    - (void)reloadDataWithEffectType:(NSInteger)eType {        
-        _effectType = eType;
-        if (_effectType == 7) {
-            _revokeButton.hidden = NO;
-        } else {
-            _revokeButton.hidden = YES;
-        }
-        [_dataArray removeAllObjects];
-        _selectIndex = -1;
-        [_dbHelper queryResourceWithEffecInfoType:eType success:^(NSArray *infoModelArray) {
-            for (AliyunEffectMvGroup *mvGroup in infoModelArray) {
-                [_dataArray addObject:mvGroup];
-                if (_selectedEffect) {
-                    if (mvGroup.eid == _selectedEffect.eid) {
-                        _selectIndex = [infoModelArray indexOfObject:mvGroup] + 1;
-                    }
-                }
-            }
-            if (eType == 3) {
-                [self insertDataArray];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_collectionView reloadData];
-                if (_selectIndex >= 0) {
-                    [_collectionView.delegate collectionView:_collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:_selectIndex inSection:0]];
-                }
-            });
-        } failure:^(NSError *error) {
-            
-        }];
-    }
-
-- (void)reloadLocalAnimationFilterData {
-    //[self animationFilterAction];
-    _effectType = 7;
-    _revokeButton.hidden = NO;
-    [_dataArray removeAllObjects];
-    //    _selectIndex = -1;
-    [_dbHelper queryResourceWithEffecInfoType:_effectType success:^(NSArray *infoModelArray) {
-        for (AliyunEffectMvGroup *mvGroup in infoModelArray) {
-            [_dataArray addObject:mvGroup];
-            //            if (_selectedEffect) {
-            //                if (mvGroup.eid == _selectedEffect.eid) {
-            //                    _selectIndex = [infoModelArray indexOfObject:mvGroup] + 1;
-            //                }
-            //            }
-        }
-        //        if (_effectType == 3) {
-        //            [self insertDataArray];
-        //        }
-        //
-        [self insertOrigin];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_collectionView reloadData];
-            //            if (_selectIndex >= 0) {
-            //                [_collectionView.delegate collectionView:_collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:_selectIndex inSection:0]];
-            //            }
-        });
-    } failure:^(NSError *error) {
-        
-    }];
-}
 - (void)insertOrigin {
     AliyunEffectInfo *effctOrigin = [[AliyunEffectInfo alloc] init];
     effctOrigin.name = @"";
@@ -235,52 +172,26 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     AliyunEffectFilterCell *cell = [[AliyunEffectFilterCell alloc] init];
-    
-    if (_effectType == 7) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunEffectFilterCell" forIndexPath:indexPath];
+
+    if (indexPath.row == 0 || indexPath.row == _dataArray.count - 1) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunEffectFilterFuncCell" forIndexPath:indexPath];
     } else {
-        if (indexPath.row == 0 || indexPath.row == _dataArray.count - 1) {
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunEffectFilterFuncCell" forIndexPath:indexPath];
-        } else {
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunEffectFilterCell" forIndexPath:indexPath];
-        }
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AliyunEffectFilterCell" forIndexPath:indexPath];
     }
     
     AliyunEffectInfo *effectInfo = _dataArray[indexPath.row];
     [cell cellModel:effectInfo];
-    if (_effectType != 7) {
-        if (indexPath.row == _selectIndex) {
-            [cell setSelected:YES];
-        }
+    if (indexPath.row == _selectIndex) {
+        [cell setSelected:YES];
     }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (_effectType != 7) {
-        AliyunEffectFilterCell *lastSelectCell = (AliyunEffectFilterCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:_selectIndex inSection:0]];
-        [lastSelectCell setSelected:NO];
-    }
+    AliyunEffectFilterCell *lastSelectCell = (AliyunEffectFilterCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:_selectIndex inSection:0]];
+    [lastSelectCell setSelected:NO];
     
-    AliyunEffectInfo *currentEffect = _dataArray[indexPath.row];
-    if (_effectType == 4) {
-        [_delegate didSelectEffectFilter:(AliyunEffectFilterInfo *)currentEffect];
-        
-    } else if (_effectType == 3) {
-        if ([currentEffect.name isEqualToString:@"更多"]) {
-            [_delegate didSelectEffectMoreMv];
-            return;
-        }
-        if (indexPath.row == 0) {
-            _selectIndex = -1;
-            _selectedEffect = nil;
-            [_delegate didSelectEffectMV:nil];
-            return;
-        }
-        _selectIndex = indexPath.row;
-        _selectedEffect = currentEffect;
-        [_delegate didSelectEffectMV:(AliyunEffectMvGroup *)currentEffect];
-    }
+    [_delegate filterAndBeautyViewSelectedFilterIndex:indexPath.row];
 }
 
 @end

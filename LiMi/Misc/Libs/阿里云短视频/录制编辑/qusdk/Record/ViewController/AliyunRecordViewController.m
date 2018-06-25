@@ -43,7 +43,8 @@
 @property (nonatomic, assign) BOOL isFirstLoad;
 @property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, assign) int cameraRotate;
-    
+@property (nonatomic, assign) BOOL isStatusBarHidden;
+
 @end
 
 @implementation AliyunRecordViewController
@@ -72,6 +73,7 @@
         self.beautifyStatus = YES;
         self.beautifyValue = 0;
         self.torchMode = 0;
+        //self.isStatusBarHidden = 
     }
     return self;
 }
@@ -95,7 +97,7 @@
 
     
     _previewView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    self.previewView.backgroundColor = UIColor.whiteColor;
+    self.previewView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_previewView];
     
     _recorder = [[AliyunIRecorder alloc] initWithDelegate:self videoSize:_quVideo.outputSize];
@@ -105,7 +107,10 @@
     _recorder.useFaceDetect = YES;
 //    _recorder.backCaptureSessionPreset = AVCaptureSessionPreset1280x720;
 //    _recorder.frontCaptureSessionPreset = AVCaptureSessionPreset1280x720;
-    _recorder.faceDetectCount = 2;
+    _recorder.faceDetectCount = 3;
+//    _recorder.faceNumbersCallback = ^(int num) {
+//        
+//    }
     _recorder.faceDectectSync = NO;
     _recorder.encodeMode = _quVideo.encodeMode;
     _recorder.GOP = _quVideo.gop;
@@ -296,33 +301,33 @@
     [_controlView updateNavigationStatusWithDuration:_clipManager.duration];
 }
 
-////接入faceunity
+//接入faceunity
 //- (NSInteger)recorderOutputVideoPixelBuffer:(CVPixelBufferRef)pixelBuffer textureName:(NSInteger)textureName {
 //    if (tmpItem == NULL) {
 //        NSLog(@"~~~~~~~~~~~环境未好");
 //        return textureName;
 //    }
-//    
+//
 //    CVPixelBufferLockBaseAddress(pixelBuffer, 0);
-//    
+//
 //    int h = (int)CVPixelBufferGetHeight(pixelBuffer);
 //    int w = (int)CVPixelBufferGetWidth(pixelBuffer);
 //    int stride = (int)CVPixelBufferGetBytesPerRow(pixelBuffer);
-//    
-//    TIOSDualInput input;
-//    input.p_BGRA = CVPixelBufferGetBaseAddress(pixelBuffer);
-//    input.tex_handle = (GLuint)textureName;
-//    input.format = FU_IDM_FORMAT_BGRA;
-//    input.stride_BGRA = stride;
-//    
-//    GLuint outHandle;
-//    fuRenderItemsEx(FU_FORMAT_RGBA_TEXTURE, &outHandle, FU_FORMAT_INTERNAL_IOS_DUAL_INPUT, &input, w, h, tmpFrameId, tmpItem, 1);
-//    tmpFrameId++;
-//    
-//    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-//    
-//    
-//    return outHandle;
+//    return textureName;
+////    TIOSDualInput input;
+////    input.p_BGRA = CVPixelBufferGetBaseAddress(pixelBuffer);
+////    input.tex_handle = (GLuint)textureName;
+////    input.format = FU_IDM_FORMAT_BGRA;
+////    input.stride_BGRA = stride;
+////
+////    GLuint outHandle;
+////    fuRenderItemsEx(FU_FORMAT_RGBA_TEXTURE, &outHandle, FU_FORMAT_INTERNAL_IOS_DUAL_INPUT, &input, w, h, tmpFrameId, tmpItem, 1);
+////    tmpFrameId++;
+////
+////    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+////
+////
+////    return outHandle;
 //}
 
 //- (CVPixelBufferRef)customRenderedPixelBufferWithRawSampleBuffer:(CMSampleBufferRef)sampleBuffer {
@@ -529,6 +534,22 @@
         _controlView = [[AliyunRecordControlView alloc] initWithFrame:rect];
         _controlView.backgroundColor = [UIColor clearColor];
         _controlView.recoder = self.recorder;
+        __weak AliyunRecordControlView *recordControlView = _controlView;
+        self.recorder.faceNumbersCallback = ^(int num) {
+            BOOL isHidden = YES;
+            if(recordControlView.currentEffectPaster != nil && num == 0){
+                isHidden = NO;
+            }
+            if(isHidden == recordControlView.faceDetectFaildImageView.isHidden){return;}
+            /*主线程*/
+            dispatch_queue_t queue = dispatch_get_main_queue();
+            dispatch_async(queue, ^{
+                [recordControlView.faceDetectFaildImageView setHidden:isHidden];
+                [recordControlView.faceDetectFaildInfo setHidden:isHidden];
+            });
+            NSLog(@"%@",isHidden ? @"隐藏警告" : @"显示警告");
+
+        };
         _controlView.clipManager = self.clipManager;
         _controlView.delegate = (id<AliyunRecordControlViewDelegate>)self;
         _controlView.minDuration = _quVideo.minDuration;

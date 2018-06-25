@@ -82,7 +82,7 @@ class VideoCommentListController: ViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
 //        UIApplication.shared.statusBarStyle = .lightContent
 //        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
 //        self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -99,7 +99,7 @@ class VideoCommentListController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared.enable = false
         UIApplication.shared.statusBarStyle = .default
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
         self.navigationController?.navigationBar.tintColor = UIColor.white

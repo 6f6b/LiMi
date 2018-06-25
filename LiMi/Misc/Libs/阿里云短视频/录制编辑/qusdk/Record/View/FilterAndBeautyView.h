@@ -16,13 +16,18 @@ typedef enum : NSUInteger {
     FilterAndBeautyViewTypeOnlyFilter
 } FilterAndBeautyViewType;
 
+@protocol FilterAndBeautyViewDelegate <NSObject>
+@required
+- (void)filterAndBeautyViewSelectedFilterIndex:(int)index;
+- (void)filterAndBeautyViewSeletedBeautifyValue:(CGFloat)value;
+@end
 
 @interface FilterAndBeautyView : UIView
-    @property (nonatomic, assign) id<AliyunEffectFilter2ViewDelegate> delegate;
+    @property (nonatomic, assign) id<FilterAndBeautyViewDelegate> delegate;
     
     @property (nonatomic, strong) AliyunEffectInfo *selectedEffect;
 
 - (void)showOnlyWithType:(FilterAndBeautyViewType)type;
-- (void)show;
+- (void)showWithSelectedFilterIndex:(int)index filterDataArray:(NSMutableArray *)filterDataArray;
 - (void)dismiss;
 @end

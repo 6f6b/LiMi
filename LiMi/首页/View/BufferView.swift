@@ -43,13 +43,15 @@ class BufferView: UIView {
     
     private func animation(){
         if !isAllowedToAnimation{return}
-        UIView.animate(withDuration: 0.5, animations: {[unowned self] in
+        UIView.animate(withDuration: 0.3, animations: {[unowned self] in
             self.animationView.frame = self.bounds
             self.animationView.backgroundColor = RGBA(r: 255, g: 255, b: 255, a: 0.2)
             self.backgroundColor = RGBA(r: 255, g: 255, b: 255, a: 0.3)
 
-        }) {[unowned self] (_) in
-            self.animationCompleted()
+        }) {[unowned self] (finished) in
+            if finished{
+                self.animationCompleted()
+            }
         }
 
     }
