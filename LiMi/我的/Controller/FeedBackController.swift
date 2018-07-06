@@ -14,7 +14,7 @@ import Qiniu
 import Moya
 import ObjectMapper
 
-class FeedBackController: ViewController {
+class FeedBackController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var tableView: UITableView!
@@ -127,11 +127,11 @@ class FeedBackController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+//        UIApplication.shared.statusBarStyle = .default
+//        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+//        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
     deinit {

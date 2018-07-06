@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MsgController: ViewController {
+class MsgController: UIViewController {
     var moreOperationBtn:UIButton?
     override func viewDidLoad() {
         super.viewDidLoad()

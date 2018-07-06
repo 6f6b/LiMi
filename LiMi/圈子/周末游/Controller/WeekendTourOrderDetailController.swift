@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class WeekendTourOrderDetailController: ViewController {
+class WeekendTourOrderDetailController: UIViewController {
     var weekendTourId:Int?
     //简介
     var weekendTourASimpleInfoInOrderCell:WeekendTourASimpleInfoInOrderCell!

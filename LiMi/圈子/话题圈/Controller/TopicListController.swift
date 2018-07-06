@@ -19,7 +19,7 @@ enum TopicType {
     case hottest
 }
 
-class TopicListController: ViewController {
+class TopicListController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var topicType:TopicType = .newest
     var pageIndex = 1

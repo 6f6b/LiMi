@@ -13,7 +13,7 @@ enum IdentityAuthState {
     case inProcessing
     case finished
 }
-class IdentityAuthStateController: ViewController {
+class IdentityAuthStateController: UIViewController {
     @IBOutlet weak var stateImg: UIImageView!
     @IBOutlet weak var stateInfo: UILabel!
     @IBOutlet weak var stateBtn: UIButton!

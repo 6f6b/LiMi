@@ -11,7 +11,7 @@ import IQKeyboardManagerSwift
 import Moya
 import ObjectMapper
 
-class ScanVideosContainController: ViewController {
+class ScanVideosContainController: UIViewController {
     override var prefersStatusBarHidden: Bool{return true}
     var navigationBarView:UIView!
     var backButton:UIButton!

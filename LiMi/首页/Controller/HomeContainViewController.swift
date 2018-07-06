@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-class HomeContainViewController: ViewController {
+class HomeContainViewController: UIViewController {
     var statusBarHidden:Bool = true
     override var prefersStatusBarHidden: Bool{return statusBarHidden}
     private var subControllerContainView:UIView!
@@ -151,7 +151,8 @@ class HomeContainViewController: ViewController {
             Defaults[.userSex] = personCenterModel?.user_info?.sex
             
             let tmpIdentityStatus = Defaults[.userCertificationState]
-            Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
+            Defaults[.userCertificationState] = 2
+            //Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
             if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
                 //发通知
                 NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
@@ -250,7 +251,6 @@ extension HomeContainViewController:SchoolListControllerDelegate{
     }
     
     func schoolListControllerCancelButtonClicked() {
-        self.dismiss(animated: true, completion: nil)
     }
 }
 

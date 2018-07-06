@@ -41,7 +41,7 @@ class PersonCenterController: UITableViewController {
     
     @IBOutlet weak var logOutBtn: UIButton!
     
-    var personCenterModel:PersonCenterModel?
+    var userInfoModel:UserInfoModel?
     var imagePickerVc:TZImagePickerController?
     
     override func viewDidLoad() {
@@ -63,13 +63,13 @@ class PersonCenterController: UITableViewController {
         let editBtn = UIButton.init()
         let cancelAttributeTitle = NSAttributedString.init(string: "编辑", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
         editBtn.setAttributedTitle(cancelAttributeTitle, for: .normal)
-        editBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 20)
-        editBtn.layer.cornerRadius = 10
-        editBtn.clipsToBounds = true
+        editBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 10)
         editBtn.layer.borderWidth = 1
         editBtn.layer.borderColor = UIColor.white.cgColor
         editBtn.addTarget(self, action: #selector(dealToEditInfo(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: editBtn)
+        editBtn.layer.cornerRadius = editBtn.frame.size.height*0.5
+//        editBtn.clipsToBounds = true
         
         self.coverView.isUserInteractionEnabled = true
         let tapG = UITapGestureRecognizer.init(target: self, action: #selector(dealTapBackImageView))
@@ -119,13 +119,13 @@ class PersonCenterController: UITableViewController {
                 if pictureResultModel?.commonInfoModel?.status == successState{
                     if type == "back"{
                         if let url = pictureResultModel?.url{
-                            self.personCenterModel?.user_info?.back_pic = url
+                            self.userInfoModel?.back_pic = url
                             self.backImageView.kf.setImage(with: URL.init(string: url), placeholder: image, options: nil, progressBlock: nil, completionHandler: nil)
                         }
                     }
                     if type == "head"{
                         if let url = pictureResultModel?.url{
-                            self.personCenterModel?.user_info?.head_pic = url
+                            self.userInfoModel?.head_pic = url
                             self.headImgBtn.kf.setImage(with: URL.init(string: url), for: .normal, placeholder: image, options: nil, progressBlock: nil, completionHandler: nil)
                         }
                     }
@@ -171,7 +171,7 @@ class PersonCenterController: UITableViewController {
         //查看大图、拍照、从相册中选择
         let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         let actionLookBigImage = UIAlertAction.init(title: "查看大图", style: .default) {[unowned self] (_) in
-            if let imgURL = self.personCenterModel?.user_info?.head_pic,let originImg = self.headImgBtn.imageView?.image{
+            if let imgURL = self.userInfoModel?.head_pic,let originImg = self.headImgBtn.imageView?.image{
                 SKPhotoBrowserOptions.displayCounterLabel = false                         // counter label will be hidden
                 SKPhotoBrowserOptions.displayBackAndForwardButton = false                 // back / forward button will be hidden
                 SKPhotoBrowserOptions.displayAction = true                               // action button will be hidden
@@ -238,7 +238,8 @@ class PersonCenterController: UITableViewController {
             let personCenterModel = Mapper<PersonCenterModel>().map(jsonData: response.data)
             
             let tmpIdentityStatus = Defaults[.userCertificationState]
-            Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
+            Defaults[.userCertificationState] = 2
+            //Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
             if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
                 //发通知
                 NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
@@ -254,12 +255,12 @@ class PersonCenterController: UITableViewController {
     
     //刷新界面
     func refreshUIWith(personCenterModel:PersonCenterModel?){
-        self.personCenterModel = personCenterModel
+        self.userInfoModel = personCenterModel?.user_info
         let model = personCenterModel?.user_info
         if let headPic = model?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        if model?.sex == "女"{
+        if model?.sex == 0{
             self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
             self.sexImg.image = UIImage.init(named: "ic_boy")
@@ -371,7 +372,7 @@ class PersonCenterController: UITableViewController {
             if indexPath.row == 0{
                 if !AppManager.shared.checkUserStatus(){return}
                 let myCashController = MyCashController()
-                myCashController.personCenterModel = self.personCenterModel
+                myCashController.userInfoModel = self.userInfoModel
                 self.navigationController?.pushViewController(myCashController, animated: true)
             }
             //我的动态
@@ -403,7 +404,8 @@ class PersonCenterController: UITableViewController {
             //关于粒米
             if indexPath.row == 5{
                 let aboutUsController = AboutUsController()
-                self.navigationController?.pushViewController(aboutUsController, animated: true)            }
+                self.navigationController?.pushViewController(aboutUsController, animated: true)
+            }
         }
 
         

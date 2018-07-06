@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-class VideoListController: ViewController {
+class VideoListController: UIViewController {
     var topBackGroundView:UIView!
     var collectionView:UICollectionView!
     var bottomBackGroundView:UIView!

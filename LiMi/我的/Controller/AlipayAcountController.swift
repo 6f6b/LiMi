@@ -11,7 +11,7 @@ import Moya
 import SVProgressHUD
 import ObjectMapper
 
-class AlipayAcountController: ViewController {
+class AlipayAcountController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var info: UILabel!

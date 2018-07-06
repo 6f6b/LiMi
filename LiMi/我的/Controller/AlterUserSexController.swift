@@ -11,7 +11,7 @@ import SVProgressHUD
 import ObjectMapper
 import Moya
 
-class AlterUserSexController: ViewController {
+class AlterUserSexController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var girlPreImg: UIImageView!
@@ -54,33 +54,33 @@ class AlterUserSexController: ViewController {
     //提交
     @objc func dealSumbit(){
         return
-        //判断是否选择了性别
-        if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
-            Toast.showErrorWith(msg: "请选择性别")
-            return
-        }
-        Toast.showStatusWith(text: nil)
-        var sex = "0"
-        if !self.boyPreImg.isHidden{
-            sex = "1"
-        }
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUsrInfo = EditUsrInfo.init(nickname: nil, signature: nil, sex: nil)
-        _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
-            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if resultModel?.commonInfoModel?.status == successState{
-                if let alterBlock = self.alterUserSexBlock{
-                    var sex = "女"
-                    if !self.boyPreImg.isHidden{
-                        sex = "男"
-                    }
-                    alterBlock(sex)
-                }
-            }
-            self.navigationController?.popViewController(animated: true)
-            Toast.showResultWith(model: resultModel)
-        }, onError: { (error) in
-            Toast.showErrorWith(msg: error.localizedDescription)
-        })
+//        //判断是否选择了性别
+//        if self.boyPreImg.isHidden == true && self.girlPreImg.isHidden == true{
+//            Toast.showErrorWith(msg: "请选择性别")
+//            return
+//        }
+//        Toast.showStatusWith(text: nil)
+//        var sex = "0"
+//        if !self.boyPreImg.isHidden{
+//            sex = "1"
+//        }
+//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//        let editUsrInfo = EditUsrInfo.init(nickname: nil, signature: nil, sex: nil)
+//        _ = moyaProvider.rx.request(.targetWith(target: editUsrInfo)).subscribe(onSuccess: { (response) in
+//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//            if resultModel?.commonInfoModel?.status == successState{
+//                if let alterBlock = self.alterUserSexBlock{
+//                    var sex = "女"
+//                    if !self.boyPreImg.isHidden{
+//                        sex = "男"
+//                    }
+//                    alterBlock(sex)
+//                }
+//            }
+//            self.navigationController?.popViewController(animated: true)
+//            Toast.showResultWith(model: resultModel)
+//        }, onError: { (error) in
+//            Toast.showErrorWith(msg: error.localizedDescription)
+//        })
     }
 }

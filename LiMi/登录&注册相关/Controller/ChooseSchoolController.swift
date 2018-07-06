@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class ChooseSchoolController: ViewController {
+class ChooseSchoolController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var placeHolderImage: UIImageView!

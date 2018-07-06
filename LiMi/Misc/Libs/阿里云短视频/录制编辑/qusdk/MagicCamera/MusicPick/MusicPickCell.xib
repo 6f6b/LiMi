@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,31 +13,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gTV-IL-0wX" customClass="MusicPickCell" customModule="LiMi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="112" height="170"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MusicPickCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="237" height="178"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="112" height="170"/>
+                <rect key="frame" x="0.0" y="0.0" width="237" height="178"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfy-rE-et6">
-                        <rect key="frame" x="0.0" y="0.0" width="112" height="104"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qfy-rE-et6">
+                        <rect key="frame" x="0.0" y="0.0" width="143" height="143"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="qfy-rE-et6" secondAttribute="height" id="eSb-32-rgA"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="music name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lL2-py-Jy9">
-                        <rect key="frame" x="0.0" y="120" width="68" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="music name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lL2-py-Jy9">
+                        <rect key="frame" x="0.0" y="151" width="68" height="14.5"/>
                         <color key="backgroundColor" red="0.1176470588" green="0.11764705882352941" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="zanting" translatesAutoresizingMaskIntoConstraints="NO" id="KWH-ne-gmq">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="zanting" translatesAutoresizingMaskIntoConstraints="NO" id="KWH-ne-gmq">
                         <rect key="frame" x="26" y="27" width="42" height="51"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxk-FP-1S3">
-                        <rect key="frame" x="5" y="80" width="32" height="10"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxk-FP-1S3">
+                        <rect key="frame" x="5" y="131" width="32" height="12"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="Yym-7w-N9b"/>
@@ -63,14 +63,14 @@
                 <constraint firstItem="sxk-FP-1S3" firstAttribute="bottom" secondItem="qfy-rE-et6" secondAttribute="bottom" id="lqf-RA-UcD"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="112" height="170"/>
+            <size key="customSize" width="237" height="178"/>
             <connections>
                 <outlet property="musicImageView" destination="qfy-rE-et6" id="XJ6-tG-p2a"/>
                 <outlet property="musicLength" destination="sxk-FP-1S3" id="T4q-rs-D3h"/>
                 <outlet property="musicName" destination="lL2-py-Jy9" id="Du2-ER-ysC"/>
                 <outlet property="zantingImageView" destination="KWH-ne-gmq" id="9oL-tP-7cL"/>
             </connections>
-            <point key="canvasLocation" x="-81" y="14"/>
+            <point key="canvasLocation" x="-18.5" y="18"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserAgreementController: ViewController {
+class UserAgreementController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     override func viewDidLoad() {
         super.viewDidLoad()

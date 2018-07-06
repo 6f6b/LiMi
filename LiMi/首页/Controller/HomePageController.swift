@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class HomePageController: ViewController {
+class HomePageController: UIViewController {
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
     var findTrendsListController:TrendsListController!
@@ -163,7 +163,8 @@ class HomePageController: ViewController {
             Defaults[.userSex] = personCenterModel?.user_info?.sex
             
             let tmpIdentityStatus = Defaults[.userCertificationState]
-            Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
+            Defaults[.userCertificationState] = 2
+            //Defaults[.userCertificationState] = personCenterModel?.user_info?.is_access
             if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
                 //发通知
                 NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)

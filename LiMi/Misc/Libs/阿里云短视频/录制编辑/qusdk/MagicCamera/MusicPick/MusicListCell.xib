@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="174" id="KGk-i7-Jjw" customClass="MusicListCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="448" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="448" height="173.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lg-vB-PoL">
+                        <rect key="frame" x="15" y="112" width="418" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="a0t-bY-Sx5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <state key="normal" title="使用音乐并开拍">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="clickedPickMusicButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="j6a-1y-kA4"/>
+                        </connections>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rPt-J5-hLs">
+                        <rect key="frame" x="15" y="25" width="72" height="72"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="72" id="fXY-fc-e14"/>
+                            <constraint firstAttribute="width" constant="72" id="ph8-cr-frL"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zanting" translatesAutoresizingMaskIntoConstraints="NO" id="Znh-L3-ahw">
+                        <rect key="frame" x="37" y="47" width="28" height="28"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lA4-RA-X5t">
+                        <rect key="frame" x="411" y="50" width="22" height="22"/>
+                        <state key="normal" image="music_ic_phb"/>
+                        <connections>
+                            <action selector="clickedRankButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Boh-OD-3C0"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOz-OK-dk5">
+                        <rect key="frame" x="369" y="50" width="22" height="22"/>
+                        <state key="normal" image="music_ic_likenor"/>
+                        <state key="selected" image="music_ic_likelight"/>
+                        <connections>
+                            <action selector="clickedCollectButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GEF-1O-iJj"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lp-WD-Ncn">
+                        <rect key="frame" x="327" y="50" width="22" height="22"/>
+                        <state key="normal" image="music_ic_cut"/>
+                        <connections>
+                            <action selector="clickedCutButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uuS-r4-T2n"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音乐名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikP-qX-30F">
+                        <rect key="frame" x="99" y="30.5" width="62" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lay-jw-mSd">
+                        <rect key="frame" x="99" y="53.5" width="25" height="15"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时长" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MV7-8p-CKA">
+                        <rect key="frame" x="99" y="73.5" width="25" height="15"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="Znh-L3-ahw" firstAttribute="centerX" secondItem="rPt-J5-hLs" secondAttribute="centerX" id="0oS-eL-ifT"/>
+                    <constraint firstItem="MV7-8p-CKA" firstAttribute="top" secondItem="Lay-jw-mSd" secondAttribute="bottom" constant="5" id="AqX-85-gOy"/>
+                    <constraint firstItem="Lay-jw-mSd" firstAttribute="top" secondItem="ikP-qX-30F" secondAttribute="bottom" constant="5" id="BW6-b9-E9S"/>
+                    <constraint firstItem="ikP-qX-30F" firstAttribute="leading" secondItem="rPt-J5-hLs" secondAttribute="trailing" constant="12" id="GFy-r8-RDK"/>
+                    <constraint firstItem="Lay-jw-mSd" firstAttribute="leading" secondItem="ikP-qX-30F" secondAttribute="leading" id="KyZ-Kg-AZ9"/>
+                    <constraint firstAttribute="trailing" secondItem="lA4-RA-X5t" secondAttribute="trailing" constant="15" id="OJF-qv-UhP"/>
+                    <constraint firstItem="lA4-RA-X5t" firstAttribute="trailing" secondItem="6lg-vB-PoL" secondAttribute="trailing" id="U2s-ma-f3M"/>
+                    <constraint firstItem="aOz-OK-dk5" firstAttribute="leading" secondItem="8lp-WD-Ncn" secondAttribute="trailing" constant="20" id="UWR-zh-3cu"/>
+                    <constraint firstItem="6lg-vB-PoL" firstAttribute="top" secondItem="rPt-J5-hLs" secondAttribute="bottom" constant="15" id="YAy-L7-IJM"/>
+                    <constraint firstItem="aOz-OK-dk5" firstAttribute="centerY" secondItem="Lay-jw-mSd" secondAttribute="centerY" id="aOE-q8-RGO"/>
+                    <constraint firstItem="Lay-jw-mSd" firstAttribute="centerY" secondItem="rPt-J5-hLs" secondAttribute="centerY" id="b5m-LA-Osu"/>
+                    <constraint firstItem="Znh-L3-ahw" firstAttribute="centerY" secondItem="rPt-J5-hLs" secondAttribute="centerY" id="gOB-bh-YIU"/>
+                    <constraint firstItem="lA4-RA-X5t" firstAttribute="leading" secondItem="aOz-OK-dk5" secondAttribute="trailing" constant="20" id="iPp-RW-Pss"/>
+                    <constraint firstItem="rPt-J5-hLs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="jDx-Pm-3uH"/>
+                    <constraint firstItem="6lg-vB-PoL" firstAttribute="leading" secondItem="rPt-J5-hLs" secondAttribute="leading" id="nWv-AM-NCe"/>
+                    <constraint firstItem="8lp-WD-Ncn" firstAttribute="centerY" secondItem="Lay-jw-mSd" secondAttribute="centerY" id="pk9-SY-bNY"/>
+                    <constraint firstItem="lA4-RA-X5t" firstAttribute="centerY" secondItem="Lay-jw-mSd" secondAttribute="centerY" id="sqU-Mh-J0D"/>
+                    <constraint firstItem="rPt-J5-hLs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="tDw-sB-3Kj"/>
+                    <constraint firstItem="MV7-8p-CKA" firstAttribute="leading" secondItem="ikP-qX-30F" secondAttribute="leading" id="xNy-au-Bh1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collectButton" destination="aOz-OK-dk5" id="Gok-iZ-Xqb"/>
+                <outlet property="cutButton" destination="8lp-WD-Ncn" id="fYu-8l-TPy"/>
+                <outlet property="musicName" destination="ikP-qX-30F" id="V6h-6L-D4b"/>
+                <outlet property="musicPicture" destination="rPt-J5-hLs" id="qpo-U4-dzp"/>
+                <outlet property="musicPlayStatus" destination="Znh-L3-ahw" id="Nn1-wp-IZ2"/>
+                <outlet property="musicTime" destination="MV7-8p-CKA" id="w40-Sa-q2A"/>
+                <outlet property="pickMusicButton" destination="6lg-vB-PoL" id="UYZ-jE-MzY"/>
+                <outlet property="rankButton" destination="lA4-RA-X5t" id="8lo-gP-BBL"/>
+                <outlet property="singerName" destination="Lay-jw-mSd" id="rSr-xO-0EY"/>
+            </connections>
+            <point key="canvasLocation" x="-30" y="44"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="music_ic_cut" width="22" height="22"/>
+        <image name="music_ic_likelight" width="22" height="22"/>
+        <image name="music_ic_likenor" width="22" height="22"/>
+        <image name="music_ic_phb" width="22" height="22"/>
+        <image name="zanting" width="28" height="28"/>
+    </resources>
+</document>

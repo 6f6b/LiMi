@@ -15,7 +15,7 @@ enum MyCenterVideoListType {
     case myVideo
     case iLikedVideo
 }
-class VideoListInMyCenterController: ViewController {
+class VideoListInMyCenterController: UIViewController {
     var type:MyCenterVideoListType = .myVideo
     var topBackGroundView:UIView!
     var collectionView:UICollectionView!

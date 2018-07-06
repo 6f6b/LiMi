@@ -23,7 +23,7 @@ enum OperationType {
     case cancelBlack
     case none
 }
-class TrendsListController: ViewController{
+class TrendsListController: UIViewController{
     var tableView: UITableView!
     var dataArray = [TrendModel]()
     var pageIndex:Int = 1

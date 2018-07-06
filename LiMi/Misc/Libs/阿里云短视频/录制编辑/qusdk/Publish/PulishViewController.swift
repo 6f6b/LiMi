@@ -10,7 +10,7 @@ import UIKit
 import Moya
 import ObjectMapper
 
-@objc class PulishViewController: ViewController {
+@objc class PulishViewController: UIViewController {
     @objc var backgroundImage:UIImage!
     @objc var taskPath:String!;
     @objc var config:AliyunMediaConfig!

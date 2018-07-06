@@ -13,7 +13,7 @@ import SVProgressHUD
 import ObjectMapper
 import MJRefresh
 
-class CommentsWithTrendController: ViewController {
+class CommentsWithTrendController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var inputBarContainView: UIView!

@@ -67,7 +67,7 @@ class FollowerCell: UITableViewCell {
         }
         
         var info = ""
-        if let college = model?.college{
+        if let college = model?.college?.name{
             info.append(college)
         }
         if let fansNum = model?.fans_num{

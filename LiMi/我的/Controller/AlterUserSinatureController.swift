@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 import Moya
 
-class AlterUserSinatureController: ViewController {
+class AlterUserSinatureController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var signature: UITextField!
@@ -39,7 +39,7 @@ class AlterUserSinatureController: ViewController {
     @objc func dealSumbit(){
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUserInfo = EditUsrInfo(nickname: nil, signature: self.signature.text,sex:nil)
+        let editUserInfo = EditUsrInfo.init(nickname: nil, signature: self.signature.text, sex: nil, birthday: nil, city_id: nil, province_id: nil,college_id:nil)
         _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{

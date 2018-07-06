@@ -10,7 +10,7 @@ import UIKit
 import Moya
 import ObjectMapper
 
-class AddFollowersController: ViewController {
+class AddFollowersController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var tableView: UITableView!

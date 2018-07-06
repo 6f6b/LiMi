@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class ChooseAcademyController: ViewController {
+class ChooseAcademyController: UIViewController {
     var tableView:UITableView!
     var collegeId:Int?
     var chooseAcademyBlock:((AcademyModel?)->Void)?

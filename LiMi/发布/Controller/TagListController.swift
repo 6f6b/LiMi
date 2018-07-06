@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class TagListController: ViewController {
+class TagListController: UIViewController {
     var topConverView:UIView!   //顶部半透明覆盖
     var bottomContainView:UIView!   //底部容器
     var infoLabel:UILabel!

@@ -97,6 +97,17 @@
     [self show];
 }
 
+- (void)showOnlyWithType:(FilterAndBeautyViewType)type Index:(int)index  filterDataArray:(NSMutableArray *)filterDataArray{
+    if(type == FilterAndBeautyViewTypeOnlyFilter){
+        self.beautyButtonWidthConstraint.constant = 0;
+        [self.beautyButton setHidden:YES];
+        [self.beautyBottomLine setHidden:YES];
+        [self.filterButton setTitleColor:rgba(127, 110, 241, 1) forState:UIControlStateNormal];
+        [self.filterBottomLine setHidden:NO];
+        self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    }
+    [self showWithSelectedFilterIndex:index filterDataArray:filterDataArray];
+}
 
 - (void)showWithSelectedFilterIndex:(int)index filterDataArray:(NSMutableArray *)filterDataArray{
     _selectIndex = index;

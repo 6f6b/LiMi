@@ -17,7 +17,7 @@ enum FollowType {
     case recentFollowers
 }
 
-class FollowerListController: ViewController {
+class FollowerListController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     var tableView: UITableView!

@@ -13,7 +13,7 @@ import ObjectMapper
 import SVProgressHUD
 import DZNEmptyDataSet
 
-class MyTrendListController: ViewController {
+class MyTrendListController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var tableView: UITableView!

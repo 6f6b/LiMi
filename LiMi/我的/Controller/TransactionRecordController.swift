@@ -13,7 +13,7 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-class TransactionRecordController: ViewController {
+class TransactionRecordController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var tableView: UITableView!

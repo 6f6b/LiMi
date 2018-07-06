@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://app.youhongtech.com/index.php/app1_4"
+let serverAddress = "http://testapp.youhongtech.com/index.php/app1_5"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -58,32 +58,6 @@ struct Login:TargetType,ParametersProtocol{
     }
 }
 
-////3 注册页面大学列表【川内】(弃用)
-
-//MARK: 4 注册时身份认证接口（已完成）
-struct RegisterForID:TargetType,ParametersProtocol{
-    var baseURL: URL { return URL.init(string: serverAddress)! }
-    //单元测试
-    var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: JSONEncoding.default) }
-    var validate: Bool { return true }
-    var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .post }
-    var path: String { return "/user/perfectUserInfo" }
-    
-    var college:String?
-    var school:String?
-    var grade:String?
-    
-    func parameters() -> [String : Any] {
-        let tmpParameters = [
-                             "college":college,
-                             "school":school,
-                             "grade":grade
-                             ]
-        return handleRequestParameters(parameters: tmpParameters)
-    }
-}
 
 //MARK: 5 个人中心—身份认证—保存身份认证信息（已完成）
 struct CenterPerfectUserInfo:TargetType,ParametersProtocol{
@@ -96,21 +70,12 @@ struct CenterPerfectUserInfo:TargetType,ParametersProtocol{
     var method: Moya.Method { return .post }
     var path: String { return "/user/perfectUserInfo" }
 
-     var type:String?   //0查看身份信息 1保存身份信息
-     var true_name:String?
-    
-    var college:Int?
-    var school:Int?
-    var grade:Int?
+//     var type:String?   //0查看身份信息 1保存身份信息
+
     var identity_pic:String?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
-            "type":type,
-            "true_name":true_name,
-            "college":college,
-            "school":school,
-            "grade":grade,
             "identity_pic":identity_pic
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
@@ -197,12 +162,20 @@ struct EditUsrInfo:TargetType,ParametersProtocol{
     var nickname:String?
     var signature:String?
     var sex:Int?
+    var birthday:Int?
+    var city_id:Int?
+    var province_id:Int?
+    var college_id:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "nickname":nickname,
             "signature":signature,
-            "sex":sex
+            "sex":sex,
+            "birthday":birthday,
+            "city_id":city_id,
+            "province_id":province_id,
+            "college_id":college_id
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -1769,30 +1742,6 @@ struct ClearMessage:TargetType,ParametersProtocol{
 }
 
 /*短视频部分*/
-struct MusicList:TargetType,ParametersProtocol{
-    var baseURL: URL { return URL.init(string: serverAddress)! }
-    //单元测试
-    var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
-    var validate: Bool { return true }
-    var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .get }
-    var path: String {
-        return "Music/musicList"
-    }
-    
-    var type:String?
-    var name:String?
-    var page:Int?
-    func parameters() -> [String : Any] {
-        let tmpParameters:[String:Any]? = [
-            "type":type,
-            "name":name,
-            "page":page
-            ]
-        return handleRequestParameters(parameters: tmpParameters)
-    }
-}
 
 //获取短视频授权
 struct ShortVideoCreateUploadCertificate:TargetType,ParametersProtocol{
@@ -2114,6 +2063,184 @@ struct DiscussClickAction:TargetType,ParametersProtocol{
         let tmpParameters = [
             "discuss_id":discuss_id
             
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct SetSchool:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "user/setSchool"
+    }
+    
+    var college_id:Int?    //
+    var id:Int?
+    var token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "college_id":college_id,
+            "id":id,
+            "token":token
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct PerfectUserBasicInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "user/perfectUserBasicInfo"
+    }
+    
+    var nickname:String?    //
+    var sex:Int?
+    var id:Int?
+    var token:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "nickname":nickname,
+            "sex":sex,
+            "id":id,
+            "token":token
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct PrivacyAction:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "user/privacyAction"
+    }
+    
+    var type:String?    //send,click,fans,attention
+    var value:Int?  //
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "type":type,
+            "value":value
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct ProvinceList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "User/provinceList"
+    }
+
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct CityList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "User/cityList"
+    }
+    
+    var provinceID:Int?  //
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "provinceID":provinceID,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct MusicTypeList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Music/musicType"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct MusicList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "Music/musicList"
+    }
+    
+    var page:Int?
+    var m_id:Int?
+    var type:Int?
+    var name:String?
+    
+//    page    页码    是    [string]
+//    查看
+//    m_id    请求的具体类别id    是    [string]
+//    查看
+//    type    0 音乐逻辑种类 1音乐本身种类    是    [int]
+//    查看
+//    id        是    [string]
+//    查看
+//    token        是    [string]
+//    查看
+//    name
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            "m_id":m_id,
+            "type":type,
+            "name":name,
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

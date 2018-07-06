@@ -18,7 +18,7 @@ let collectionViewLeftAndRightSpace = CGFloat(15.0)
 let collectionItemHorizontalSpace = CGFloat(15.0)
 let collectionItemVerticalSpace = CGFloat(15.0)
 
-class PeopleNearbyController: ViewController {
+class PeopleNearbyController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 //    var collectionView: UICollectionView!
     var dataArray = [UserInfoModel]()

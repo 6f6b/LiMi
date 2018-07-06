@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-class MyBlackListController: ViewController {
+class MyBlackListController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var tableView: UITableView!

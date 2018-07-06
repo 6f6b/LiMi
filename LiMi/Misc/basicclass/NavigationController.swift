@@ -21,7 +21,7 @@ class NavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true
             //替换ViewController的导航栏返回按钮
             let backBtn = UIButton.init(type: .custom)
-            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+            backBtn.setImage(UIImage.init(named: "back"), for: .normal)
             backBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
             backBtn.contentHorizontalAlignment = .left
             backBtn.addTarget(self, action: #selector(dealTapBack), for: .touchUpInside)

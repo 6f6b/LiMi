@@ -34,9 +34,9 @@ class MusicPickCell: UICollectionViewCell {
         self.musicModel = musicModel;
         self.musicImageView.setImageWith(imageURL: musicModel?.pic, placeholder: nil);
         self.musicName.text = musicModel?.name;
-        if let duration = musicModel?.duration{
-            self.musicLength.text = self.timeFormatted(totalSeconds: Int(duration))
-        }
+//        if let duration = musicModel?.duration{
+//            self.musicLength.text = self.timeFormatted(totalSeconds: Int(duration))
+//        }
     }
     
     func timeFormatted(totalSeconds:Int)->String{

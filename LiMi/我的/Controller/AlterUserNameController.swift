@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 import Moya
 
-class AlterUserNameController: ViewController {
+class AlterUserNameController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     var initialUserName:String?
@@ -41,21 +41,21 @@ class AlterUserNameController: ViewController {
     // MARK: - misc
     //提交
     @objc func dealSumbit(){
-        Toast.showStatusWith(text: nil)
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let editUserInfo = EditUsrInfo(nickname: self.userName.text, signature: nil,sex:nil)
-        _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: { (response) in
-            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if resultModel?.commonInfoModel?.status == successState{
-                if let alterBlock = self.alterUserNameBlock{
-                    alterBlock(self.userName.text)
-                }
-                self.navigationController?.popViewController(animated: true)
-            }
-            Toast.showResultWith(model: resultModel)
-        }, onError: { (error) in
-            Toast.showErrorWith(msg: error.localizedDescription)
-        })
+//        Toast.showStatusWith(text: nil)
+//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//        let editUserInfo = EditUsrInfo(nickname: self.userName.text, signature: nil,sex:nil)
+//        _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: { (response) in
+//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//            if resultModel?.commonInfoModel?.status == successState{
+//                if let alterBlock = self.alterUserNameBlock{
+//                    alterBlock(self.userName.text)
+//                }
+//                self.navigationController?.popViewController(animated: true)
+//            }
+//            Toast.showResultWith(model: resultModel)
+//        }, onError: { (error) in
+//            Toast.showErrorWith(msg: error.localizedDescription)
+//        })
     }
 
 }

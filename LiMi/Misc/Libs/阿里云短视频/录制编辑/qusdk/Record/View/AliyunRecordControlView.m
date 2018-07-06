@@ -70,7 +70,6 @@
     @property (nonatomic,strong) AliyunDBHelper *dbHelper;
     @property (nonatomic,strong) NSMutableArray *filterDataArray;
     @property (nonatomic, strong) UILabel *filterInfoLabel;
-@property (nonatomic,strong) NSTimer *timer;
 @end
 
 @implementation AliyunRecordControlView

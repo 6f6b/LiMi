@@ -82,6 +82,7 @@ class VideoCommentTopToolsContainView: CommentTopToolsContainView {
         super.configWith(commentModel: commentModel)
         self.commentModel = commentModel
         self.thumbsUpButton.setTitle(commentModel?.click_num?.suitableStringValue(), for: .normal)
+        self.thumbsUpButton.titleLabel?.textAlignment = .center
         self.thumbsUpButton.isSelected = (commentModel?.is_click)!
     }
     

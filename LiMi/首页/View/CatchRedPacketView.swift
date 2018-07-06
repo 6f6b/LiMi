@@ -289,7 +289,7 @@ class CatchRedPacketView: UIView {
     
     func checkSex()->SexStatus{
         if let _sex = Defaults[.userSex]{
-            return _sex == "男" ? .male : .female
+            return _sex == 1 ? .male : .female
         }else{
             return .notLogIn
         }

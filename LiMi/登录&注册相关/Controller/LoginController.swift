@@ -12,24 +12,37 @@ import ObjectMapper
 import Moya
 import IQKeyboardManagerSwift
 
-class LoginController: ViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+class LoginController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
+    
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var phoneNum: UITextField!
     @IBOutlet weak var veritificationCode: UITextField!
     @IBOutlet weak var errorMsg: UILabel!   //用来显示错误信息
     @IBOutlet weak var getVertificationCodeBtn: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gradientLayer = CAGradientLayer()
+        let alpha = CGFloat(1)
+        gradientLayer.colors = [RGBA(r: 255, g: 90, b: 0, a: alpha).cgColor,RGBA(r: 144, g: 0, b: 218, a: alpha).cgColor]
+        gradientLayer.locations = [0.0,1.0]
+        gradientLayer.startPoint = CGPoint.init(x: 1, y: 0)
+        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
+        gradientLayer.frame = SCREEN_RECT
+        self.view.layer.addSublayer(gradientLayer)
+
+        self.view.alpha = 0.9
+        self.view.bringSubview(toFront: self.scrollView)
+        
         self.heightConstraint.constant = SCREEN_HEIGHT-20
-        self.getVertificationCodeBtn.layer.cornerRadius = 12
-        self.getVertificationCodeBtn.clipsToBounds = true
-        self.getVertificationCodeBtn.layer.borderWidth = 1
-        self.getVertificationCodeBtn.layer.borderColor = RGBA(r: 47, g: 213, b: 233, a: 1).cgColor
         if let phoneNum = Defaults[.userPhone]{
             self.phoneNum.text = phoneNum
         }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,9 +108,8 @@ class LoginController: ViewController {
                     Defaults[.isMindedNotAuthenticated] = false
                     Defaults[.isMindedAuthenticatedFailed] = false
                 }
-                
-                Defaults[.userCertificationState] = loginModel?.identity_status
-                
+                Defaults[.userCertificationState] = 2
+                //Defaults[.userCertificationState] = loginModel?.identity_status
                 Defaults[.userPhone] = self.phoneNum.text
             }
             Toast.dismiss()
@@ -105,19 +117,30 @@ class LoginController: ViewController {
                 self.showErrorMsgOnLabelWith(msg: loginModel?.commonInfoModel?.msg)
                 return
             }
-            //判断是否已经完善了基本信息
-            if loginModel?.user_info_status == 0{
-                //跳转性别、姓名填写界面
-                let finishPersonInfoController = FinishPersonInfoController()
-                finishPersonInfoController.loginModel = loginModel
-                self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
-            }else{
+            if loginModel?.is_login == true{
                 //存储userid、token
                 Defaults[.userId] = loginModel?.id
                 Defaults[.userToken] = loginModel?.token
                 //进入主界面
                 LoginServiceToMainController(loginRootController: self.navigationController)
+            }else if loginModel?.user_info_status != 2{
+                let selectSchoolController = SelectSchoolController()
+                selectSchoolController.loginModel = loginModel
+                self.present(selectSchoolController, animated: true, completion: nil)
             }
+//            //判断是否已经完善了基本信息
+//            if loginModel?.user_info_status == 0{
+//                //跳转性别、姓名填写界面
+//                let finishPersonInfoController = FinishPersonInfoController()
+//                finishPersonInfoController.loginModel = loginModel
+//                self.navigationController?.pushViewController(finishPersonInfoController, animated: true)
+//            }else{
+//                //存储userid、token
+//                Defaults[.userId] = loginModel?.id
+//                Defaults[.userToken] = loginModel?.token
+//                //进入主界面
+//                LoginServiceToMainController(loginRootController: self.navigationController)
+//            }
         }, onError: { (error) in
             self.showErrorMsgOnLabelWith(msg: error.localizedDescription)
             Toast.dismiss()

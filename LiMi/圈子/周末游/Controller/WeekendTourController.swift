@@ -12,7 +12,7 @@ import ObjectMapper
 import SVProgressHUD
 import MJRefresh
 
-class WeekendTourController: ViewController {
+class WeekendTourController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     @IBOutlet weak var tableView: UITableView!
     var scrollArray = [String]()

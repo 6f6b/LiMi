@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-class NTESNewFollowersController: ViewController {
+class NTESNewFollowersController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
     @objc var session:NIMSession!
     var tableView:UITableView!

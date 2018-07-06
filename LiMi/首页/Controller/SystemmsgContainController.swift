@@ -10,7 +10,7 @@ import UIKit
 import Moya
 import ObjectMapper
 
-class SystemmsgContainController: ViewController {
+class SystemmsgContainController: UIViewController {
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
     var findTrendsListController:TrendsListController!

@@ -31,6 +31,7 @@ class UserDetailHeadView: UICollectionReusableView {
     
     //被点赞数
     @IBOutlet weak var beLikedNumLabel: UILabel!
+    weak var controller:UIViewController?
     
     var userInfoModel:UserInfoModel?
     override func awakeFromNib() {
@@ -38,12 +39,13 @@ class UserDetailHeadView: UICollectionReusableView {
         self.headImgBtn.addTarget(self, action: #selector(dealTap), for: .touchUpInside)
     }
     
-    func configWith(model:UserInfoModel?){
+    func configWith(model:UserInfoModel?,controller:UIViewController? = nil){
+        self.controller = controller
         self.userInfoModel = model
         if let headPic = model?.head_pic{
             self.headImgBtn.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        if model?.sex == "女"{
+        if model?.sex == 0{
             self.sexImg.image = UIImage.init(named: "ic_girl")
         }else{
             self.sexImg.image = UIImage.init(named: "ic_boy")
@@ -95,11 +97,12 @@ class UserDetailHeadView: UICollectionReusableView {
 
             let broswer = SKPhotoBrowser(originImage: originImg ?? GetImgWith(size: SCREEN_RECT.size, color: .clear), photos: images, animatedFromView: self.headImgBtn)
             broswer.initializePageIndex(0)
-            UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
-            
-//            let photoBroswer = XLPhotoBrowser.show(withCurrentImageIndex: 0, imageCount: 1, datasource: self)
-//            photoBroswer?.browserStyle = .indexLabel
-//            photoBroswer?.setActionSheeWith(self)
+            if let _controller = self.controller{
+                _controller.present(broswer, animated: true, completion: nil)
+            }else{
+                UIApplication.shared.keyWindow?.rootViewController?.present(broswer, animated: true, completion: nil)
+            }
+
         }
     }
 }

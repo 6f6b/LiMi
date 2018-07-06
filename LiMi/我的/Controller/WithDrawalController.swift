@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-class WithDrawalController: ViewController {
+class WithDrawalController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var withdrawalContainView: UIView!

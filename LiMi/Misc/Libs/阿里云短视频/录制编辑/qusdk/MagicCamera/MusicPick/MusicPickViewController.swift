@@ -28,58 +28,96 @@ enum PlayerStatus {
     func musicPickViewControllerSelected(musicId:Int,musicPath:String,startTime:Float,duration:Float);
 }
 
-class MusicPickViewController: ViewController {
+class MusicPickViewController: UIViewController {
     @IBOutlet weak var searchContainView: UIView!
     @IBOutlet weak var searchTextFeild: UITextField!
     @IBOutlet weak var searchImage: UIImageView!
     @IBOutlet weak var searchPlaceholder: UILabel!
-    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var musicListContainView: UIView!
     
-    @IBOutlet weak var hotMusicButton: UIButton!
-    @IBOutlet weak var newMusicButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
+//    @IBOutlet weak var hotMusicButton: UIButton!
+//    @IBOutlet weak var newMusicButton: UIButton!
+//    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var musicProgressContainView: UIView!
     @IBOutlet weak var musicProgressContainViewBottomConstraint: NSLayoutConstraint!
     override var prefersStatusBarHidden: Bool{return true}
-    var musics = [MusicModel]()
     var pageIndex = 1
     
     var selectedIndex:Int = NoneSelectedIndex
     var player:AVPlayer!
     var playerCurrentStatus:PlayerStatus = .pause
     var startTime:Float = 0;
+    
     @objc var delegate:MusicPickViewControllerDelegate!
     @objc var duration:Float = 30
 
-    //@property (nonatomic, strong) AVURLAsset *asset;
-    //@property (nonatomic, strong) AliyunCrop *musicCrop;
     var musicPickView:AliyunMusicPickView!
-    
     var recorder:AliyunIRecorder!
-    var musicType:MusicType = .hot
 
+    var musicTypes = [MusicTypeModel]()
+    var musicListControllers = [MusicListController]()
+    
+    var selectedControllerIndex:Int?
+    var selectedRowIndex:Int?
+    var selectedMusicModel:MusicModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1);
-        self.musicProgressContainViewBottomConstraint.constant = -160
+        
+        let clearButton = self.searchTextFeild.value(forKey: "_clearButton") as! UIButton
+        clearButton.setImage(UIImage.init(named: "shanchu"), for: .normal)
+
         self.setupSubviews()
         self.addNotification()
         self.player = AVPlayer.init()
-        self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
-            self.pageIndex = 1;
-            self.fetchRemoteMusic()
-        }
-        
-        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
-            self.pageIndex += 1;
-            self.fetchRemoteMusic()
-        }
-        self.setupData()
+
         
         self.searchTextFeild.addTarget(self, action: #selector(textFeildValueChanged(textFeild:)), for: .editingChanged)
         self.searchTextFeild.delegate = self;
+        
+        //请求音乐种类数据
+        self.requestMusicTypes()
     }
 
+    func loadSubControllersWith(musicTypes:[MusicTypeModel]){
+        if musicTypes.count <= 0{return}
+        var titles = [String]()
+        var views = [UIView]()
+        for i in 0..<musicTypes.count{
+            let musicTypeModel = musicTypes[i]
+            let vc = MusicListController()
+            vc.index = i
+            vc.delegate = self
+            vc.musicTypeModel = musicTypeModel
+            if i == 0{vc.autoLoadData = true}
+            let title = musicTypeModel.name ?? "种类"
+            let subV = vc.view
+            
+            titles.append(title)
+            views.append(subV!)
+            self.musicListControllers.append(vc)
+        }
+        let topSlideMenu = TopSlideMenu.init(frame: self.musicListContainView.bounds, titles: titles, childViews: views, delegate: self)
+        self.musicListContainView.addSubview(topSlideMenu)
+    }
+    
+    func requestMusicTypes(){
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let musicTypeList = MusicTypeList.init()
+        
+        _ = moyaProvider.rx.request(.targetWith(target: musicTypeList)).subscribe(onSuccess: {[unowned self] (response) in
+            let musicTypeListModel = Mapper<MusicTypeListModel>().map(jsonData: response.data)
+            if let data = musicTypeListModel?.data{
+                for musicTypeModel in data{
+                    self.musicTypes.append(musicTypeModel)
+                }
+            }
+            self.loadSubControllersWith(musicTypes: self.musicTypes)
+            Toast.showErrorWith(model: musicTypeListModel)
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
     
     deinit {
         self.removeNotification()
@@ -94,22 +132,18 @@ class MusicPickViewController: ViewController {
     }
     
     func setupSubviews(){
-        self.collectionView.register(UINib.init(nibName: "MusicPickCell", bundle: nil), forCellWithReuseIdentifier: "MusicPickCell")
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        
         self.musicPickView = AliyunMusicPickView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 160));
-        self.musicPickView.delegate = self;
-        self.musicProgressContainView.addSubview(self.musicPickView);
+        self.musicPickView.delegate = self
+        self.musicProgressContainView.addSubview(self.musicPickView)
     }
     
     @objc func playerItemDidReachEnd(){
-        self.playCurrentItem()
+        if let model = self.selectedMusicModel{
+            self.playWith(model: model)
+        }
     }
     
-    func playCurrentItem(){
-        if self.selectedIndex == NoneSelectedIndex{return}
-        let model = self.musics[self.selectedIndex];
+    func playWith(model:MusicModel){
         let composition = self.generateWith(path: model.music, start: self.startTime, duration: self.duration);
         self.player.replaceCurrentItem(with: AVPlayerItem.init(asset: composition!))
         self.player.play()
@@ -141,7 +175,7 @@ class MusicPickViewController: ViewController {
         self.player.pause();
         self.playerCurrentStatus = .pause;
         self.selectedIndex = NoneSelectedIndex;
-        self.hiddenMusicProgressView()
+        //self.hiddenMusicProgressView()
     }
     
     func switchCurrentItemPlayStatus()->Void{
@@ -159,7 +193,7 @@ class MusicPickViewController: ViewController {
             self.musicProgressContainView.layoutIfNeeded()
         }
     }
-    
+
     func showMusicProgressView(){
         UIView.animate(withDuration: 0.5) {
             self.musicProgressContainViewBottomConstraint.constant = 0;
@@ -167,62 +201,13 @@ class MusicPickViewController: ViewController {
         }
     }
     
-    func setupData(){
-        self.fetchRemoteMusic()
-    }
-    
-    //加载远程音乐数据
-    func fetchRemoteMusic(){
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let type = self.musicType == .hot ? "hot" : "new"
-        let target = MusicList.init(type: type, name: self.searchTextFeild.text, page: self.pageIndex)
-        
-        _ = moyaProvider.rx.request(.targetWith(target: target)).subscribe(onSuccess: { (response) in
-            let musicListModel = Mapper<MusicListModel>().map(jsonData: response.data)
-            if self.pageIndex == 1{self.musics.removeAll()}
-            if let datas = musicListModel?.data{
-                for data in datas{
-//                    let asset = AVURLAsset.init(url: URL.init(string: data.music!)!)
-//                    data.duration = Float(asset.avAssetVideoTrackDuration())
-//                    let asset = [AVURLAsset assetwiurl]
-//                    AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:path]];
-//                    AliyunMusicPickModel *model = [[AliyunMusicPickModel alloc] init];
-//                    model.name = content;
-//                    model.path = path;
-//                    model.duration = [asset avAssetVideoTrackDuration];
-//                    model.artist = [asset artist];
-//                    [self.musics addObject:model];
-                    self.musics.append(data)
-                }
-               // if datas.count > 0{self.collectionView.reloadData()}
-            }
-            self.collectionView.reloadData()
-            self.collectionView.mj_footer.endRefreshing()
-            self.collectionView.mj_header.endRefreshing()
-            Toast.showErrorWith(model: musicListModel)
-//            if self.tableView.emptyDataSetDelegate == nil{
-//                self.tableView.emptyDataSetDelegate = self
-//                self.tableView.emptyDataSetSource = self
-//                if self.dataArray.count == 0{self.tableView.reloadData()}
-//            }
-        }, onError: { (error) in
-//            self.tableView.mj_footer.endRefreshing()
-//            self.tableView.mj_header.endRefreshing()
-            Toast.showErrorWith(msg: error.localizedDescription)
-//            if self.tableView.emptyDataSetDelegate == nil{
-//                self.tableView.emptyDataSetDelegate = self
-//                self.tableView.emptyDataSetSource = self
-//                if self.dataArray.count == 0{self.tableView.reloadData()}
-//            }
-        })
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
     func refreshMusicList()-> Void {
-        self.fetchRemoteMusic()
+        //self.fetchRemoteMusic()
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {
@@ -235,119 +220,92 @@ class MusicPickViewController: ViewController {
         self.delegate?.musicPickViewControllerSelectedNone();
         self.navigationController?.popViewController(animated: true)
     }
+
+}
+
+extension MusicPickViewController: MusicListControllerDelegate{
+    func musicListController(_ musicListController: MusicListController, didSelectModel musicModel: MusicModel, rowIndex: Int?, controllerIndex: Int?) {
+        var isClickBeforeRow = false
+        if rowIndex == self.selectedRowIndex && controllerIndex == self.selectedControllerIndex{
+            isClickBeforeRow = true
+        }
+        self.selectedControllerIndex = controllerIndex
+        self.selectedRowIndex = rowIndex
+        self.selectedMusicModel = musicModel
+        
+        if isClickBeforeRow{
+            self.switchCurrentItemPlayStatus()
+        }else{
+            self.playWith(model: musicModel)
+        }
+        
+        for _musicListController in self.musicListControllers{
+            _musicListController.tableView.reloadData()
+        }
+    }
     
-    @IBAction func hotMusicButtonClicked(_ sender: Any) {
-        self.clearCurrentItem()
-        self.hotMusicButton.isSelected = true
-        self.newMusicButton.isSelected = false
-        self.musicType = .hot
-        self.refreshMusicList()
+    func musicListController(_ musicListController: MusicListController, didClickPickMusic musicModel: MusicModel, rowIndex: Int?,controllerIndex:Int?){
+        self.hiddenMusicProgressView()
     }
-    @IBAction func newMusicButtonClicked(_ sender: Any) {
-        self.clearCurrentItem()
-        self.hotMusicButton.isSelected = false
-        self.newMusicButton.isSelected = true
-        self.musicType = .new
-        self.refreshMusicList()
+    func musicListController(_ musicListController: MusicListController, didClickCutMusic musicModel: MusicModel, rowIndex: Int?,controllerIndex:Int?){
+        self.showMusicProgressView()
     }
-    @IBAction func clearButtonClicked(_ sender: Any) {
-        self.searchTextFeild.text = ""
+    
+    func currentSelectedMusicListControllerIndex() -> Int? {
+        return self.selectedControllerIndex
+    }
+    
+    func currentSelectedRowIndex() -> Int? {
+        return self.selectedRowIndex
+    }
+
+    
+    func selectedMusicStatus() -> PlayerStatus? {
+        return self.playerCurrentStatus
     }
 }
 
-extension MusicPickViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.musics.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let musicModel = self.musics[indexPath.row];
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MusicPickCell", for: indexPath) as! MusicPickCell
-        if selectedIndex == indexPath.row{
-            if self.playerCurrentStatus == .playing{
-                cell.configWith(musicModel: musicModel, state: .playing)
-            }
-            if self.playerCurrentStatus == .pause{
-                cell.configWith(musicModel: musicModel, state: .pause)
-            }
-        }else{
-            cell.configWith(musicModel: musicModel)
+extension MusicPickViewController : TopSlideMenuDelegate{
+    func topSlideMenuSelectedWith(index: Int) {
+        let musicListController = self.musicListControllers[index]
+        if musicListController.dataArray.count <= 0{
+            musicListController.loadInitialDataWith(keyWord: self.searchTextFeild.text)
         }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == self.selectedIndex{
-            self.switchCurrentItemPlayStatus()
-            collectionView.reloadData();
-            return;
-        }
-        self.showMusicProgressView()
-        self.selectedIndex = indexPath.row;
-        let model = self.musics[indexPath.row];
-        if let duration = model.duration{
-            self.musicPickView.configureMusicDuration(duration, pageDuration: 30)
-        }
-        collectionView.reloadData();
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = CGFloat(SCREEN_WIDTH - 9*4 - 1)/3.0
-        let height = width + 35
-        return CGSize.init(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 9
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0001
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.clearCurrentItem()
     }
 }
+
 
 extension MusicPickViewController:UITextFieldDelegate{
     @objc func textFeildValueChanged(textFeild:UITextField){
         self.clearCurrentItem();
-        
-        self.searchImage.isHidden = false;
+
+//        self.searchImage.isHidden = false;
         self.searchPlaceholder.isHidden = false;
-        self.clearButton.isHidden = true;
         if let _text = textFeild.text{
             if _text.lengthOfBytes(using: String.Encoding.utf8) > 0{
-                self.searchImage.isHidden = true;
+//                self.searchImage.isHidden = true;
                 self.searchPlaceholder.isHidden = true;
-                self.clearButton.isHidden = false;
             }
         }
 
         self.pageIndex = 1;
-        self.fetchRemoteMusic();
     }
-    
+
 }
 
 extension MusicPickViewController:AliyunMusicPickViewDelegate{
     func didSelectStartTime(_ startTime: CGFloat) {
         if self.selectedIndex == NoneSelectedIndex{return}
-        let model = self.musics[self.selectedIndex];
+        let model = selectedMusicModel;
         self.startTime = Float(startTime);
-        model.startTime = Float(startTime);
-        self.playCurrentItem();
+        model?.startTime = Float(startTime);
+        self.playWith(model: model!)
     }
+    
     func useButtonClicked(){
-        let model = self.musics[self.selectedIndex];
-        model.duration = self.duration;
-        
-        if let path = model.music,let startTime = model.startTime,let duration = model.duration,let musicId = model.id{
+        let model = self.selectedMusicModel
+
+        if let path = model?.music,let startTime = model?.startTime,let duration = model?.duration,let musicId = model?.music_id{
             Toast.showStatusWith(text: "正在下载..")
             self.download(filePath: path) { (outputPath) in
                 Toast.dismiss()
@@ -376,7 +334,7 @@ extension MusicPickViewController:AliyunMusicPickViewDelegate{
 //            }
         }
     }
-    
+
     func download(filePath:String,successBlock:@escaping ((String)->Void)){
         let fileManager = FileManager.default;
         let fileName = NSString.init(string: filePath).lastPathComponent
@@ -390,10 +348,10 @@ extension MusicPickViewController:AliyunMusicPickViewDelegate{
             do{
                 try fileManager.createDirectory(atPath: AliyunPathManager.creatMusicDownloadDir(), withIntermediateDirectories: true, attributes: nil);
             }catch{
-                
+
             }
         }
-        
+
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let dowloader = Downloader.init(filePath: filePath)
         _ = moyaProvider.rx.request(.targetWith(target: dowloader)).subscribe(onSuccess: { (response) in
@@ -409,7 +367,7 @@ extension MusicPickViewController:AliyunMusicPickViewDelegate{
         })
     }
 
- 
+
 }
 
 extension MusicPickViewController : AliyunCropDelegate{

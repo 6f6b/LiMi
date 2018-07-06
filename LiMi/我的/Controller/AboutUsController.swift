@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutUsController: ViewController {
+class AboutUsController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var versionNum: UILabel!

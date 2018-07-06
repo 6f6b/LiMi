@@ -12,7 +12,7 @@ import Moya
 import ObjectMapper
 import Dispatch
 
-class RechargeController: ViewController {
+class RechargeController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!

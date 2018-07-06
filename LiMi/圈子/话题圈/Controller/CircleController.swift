@@ -12,7 +12,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class CircleController: ViewController {
+class CircleController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [WeekendTourModel]()
     var circleHomeBannerCell:CircleHomeBannerCell!

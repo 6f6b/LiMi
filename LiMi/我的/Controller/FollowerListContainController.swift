@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FollowerListContainController: ViewController {
+class FollowerListContainController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     var slidingMenuBar:SlidingMenuBar!
@@ -27,7 +27,8 @@ class FollowerListContainController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.white
+        
         let addFollowersBtn = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
         addFollowersBtn.setImage(UIImage.init(named: "nav_ic_tjgz"), for: .normal)
         addFollowersBtn.addTarget(self, action: #selector(dealToAddFollowers), for: .touchUpInside)

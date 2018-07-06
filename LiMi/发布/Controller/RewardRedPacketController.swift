@@ -11,7 +11,7 @@ import SVProgressHUD
 import Moya
 import ObjectMapper
 
-class RewardRedPacketController: ViewController {
+class RewardRedPacketController: UIViewController {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var amountContainView: UIView!
     @IBOutlet weak var amount: UITextField!

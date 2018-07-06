@@ -16,7 +16,7 @@ enum SystemMsgListControllerType {
     case comment
 }
 
-class SystemMsgListController: ViewController {
+class SystemMsgListController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var pageIndex:Int = 1
     var type:SystemMsgListControllerType = .comment

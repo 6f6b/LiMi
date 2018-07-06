@@ -425,6 +425,18 @@
 		6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814A5FC2089D1B2002B3BBC /* FileUploadModel.swift */; };
 		6814A5FF2089D1FF002B3BBC /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814A5FE2089D1FF002B3BBC /* VideoModel.swift */; };
 		6819B9FA2060EDE800E026F9 /* PHAsset+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6819B9F92060EDE800E026F9 /* PHAsset+Utilities.m */; };
+		681C5C5420E9FE6500341D7D /* BasicUserInfoFinishController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5320E9FE6500341D7D /* BasicUserInfoFinishController.swift */; };
+		681C5C5620EA381100341D7D /* CityListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5520EA381100341D7D /* CityListModel.swift */; };
+		681C5C5820EA382200341D7D /* ProvinceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5720EA382200341D7D /* ProvinceListModel.swift */; };
+		681C5C5A20EB134500341D7D /* StudentCertificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5920EB134500341D7D /* StudentCertificationController.swift */; };
+		681C5C5D20EB2EC700341D7D /* ProvinceListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5B20EB2EC700341D7D /* ProvinceListController.swift */; };
+		681C5C5E20EB2EC700341D7D /* ProvinceListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C5C5C20EB2EC700341D7D /* ProvinceListController.xib */; };
+		681C5C6120EB2EDA00341D7D /* CityListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C5F20EB2EDA00341D7D /* CityListController.swift */; };
+		681C5C6220EB2EDA00341D7D /* CityListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C5C6020EB2EDA00341D7D /* CityListController.xib */; };
+		681C5C6520EB2FF500341D7D /* ProvinceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C6320EB2FF500341D7D /* ProvinceListCell.swift */; };
+		681C5C6620EB2FF500341D7D /* ProvinceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C5C6420EB2FF500341D7D /* ProvinceListCell.xib */; };
+		681C5C6920EB300700341D7D /* CityListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C5C6720EB300700341D7D /* CityListCell.swift */; };
+		681C5C6A20EB300700341D7D /* CityListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C5C6820EB300700341D7D /* CityListCell.xib */; };
 		681C95A92045366E009CDE3B /* CircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95932045366E009CDE3B /* CircleController.swift */; };
 		681C95AA2045366E009CDE3B /* CircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 681C95942045366E009CDE3B /* CircleController.xib */; };
 		681C95AB2045366E009CDE3B /* CreateTopicCircleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95952045366E009CDE3B /* CreateTopicCircleController.swift */; };
@@ -512,6 +524,14 @@
 		68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3B20170CA80003A0CD /* SlidingMenu.swift */; };
 		68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */; };
 		68282D4020171CBF0003A0CD /* SlidingMenuBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */; };
+		6829559120EDB3A800FE844C /* MusicListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829558F20EDB3A800FE844C /* MusicListController.swift */; };
+		6829559220EDB3A800FE844C /* MusicListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6829559020EDB3A800FE844C /* MusicListController.xib */; };
+		6829559520EDB42600FE844C /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829559320EDB42600FE844C /* MusicListCell.swift */; };
+		6829559620EDB42600FE844C /* MusicListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6829559420EDB42600FE844C /* MusicListCell.xib */; };
+		6829559C20EDB70000FE844C /* MusicTypeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829559B20EDB70000FE844C /* MusicTypeListModel.swift */; };
+		682955A120EDC99800FE844C /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829559E20EDC99800FE844C /* MenuItemCell.swift */; };
+		682955A220EDC99800FE844C /* TopSlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829559F20EDC99800FE844C /* TopSlideMenu.swift */; };
+		682955A320EDC99800FE844C /* MenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682955A020EDC99800FE844C /* MenuItemCell.xib */; };
 		682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */; };
 		682BD8B52080696B0088BEAC /* RecommendFollowerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */; };
 		682BD8B720859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B620859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift */; };
@@ -678,6 +698,12 @@
 		688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */; };
 		688A4C99200DD14100BB5DF7 /* AlterUserSexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */; };
 		688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */; };
+		689C96D920E4981D006E6032 /* MoreSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C96D720E4981D006E6032 /* MoreSettingController.swift */; };
+		689C96DA20E4981D006E6032 /* MoreSettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689C96D820E4981D006E6032 /* MoreSettingController.xib */; };
+		689C96DC20E498D1006E6032 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C96DB20E498D1006E6032 /* MenuCell.swift */; };
+		689C96DF20E4B235006E6032 /* PrivacySettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C96DD20E4B235006E6032 /* PrivacySettingController.swift */; };
+		689C96E020E4B235006E6032 /* PrivacySettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689C96DE20E4B235006E6032 /* PrivacySettingController.xib */; };
+		689C96E220E4B32B006E6032 /* MenuWithSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C96E120E4B32B006E6032 /* MenuWithSwitchCell.swift */; };
 		689D53882027FC2E009C771C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D53872027FC2E009C771C /* UIImageViewExtension.swift */; };
 		689D538B20280595009C771C /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 689D538A20280595009C771C /* NSString+MD5.m */; };
 		689D538E20284DC3009C771C /* SendRedPacketResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689D538D20284DC3009C771C /* SendRedPacketResultModel.swift */; };
@@ -1019,6 +1045,15 @@
 		68DFD19D20B401CD009B8373 /* MagicCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFD19C20B401CD009B8373 /* MagicCameraView.m */; };
 		68DFD1A020B421C8009B8373 /* FilterAndBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFD19F20B421C8009B8373 /* FilterAndBeautyView.m */; };
 		68DFD1A220B42306009B8373 /* FilterAndBeautyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DFD1A120B42306009B8373 /* FilterAndBeautyView.xib */; };
+		68E6B5CA20E4EA4C00FD208A /* UserDetailInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6B5C920E4EA4C00FD208A /* UserDetailInfoHeaderView.swift */; };
+		68E6B5CC20E4EA5900FD208A /* UserDetailInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E6B5CB20E4EA5900FD208A /* UserDetailInfoHeaderView.xib */; };
+		68E6B5D020E5E40E00FD208A /* UserInfoEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6B5CF20E5E40E00FD208A /* UserInfoEditController.swift */; };
+		68E6B5D320E9BD4300FD208A /* SelectSchoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6B5D120E9BD4300FD208A /* SelectSchoolController.swift */; };
+		68E6B5D420E9BD4300FD208A /* SelectSchoolController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E6B5D220E9BD4300FD208A /* SelectSchoolController.xib */; };
+		68E6B5D720E9C06D00FD208A /* SchoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6B5D520E9C06D00FD208A /* SchoolCell.swift */; };
+		68E6B5D820E9C06D00FD208A /* SchoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E6B5D620E9C06D00FD208A /* SchoolCell.xib */; };
+		68E6B5DB20E9CA9900FD208A /* SeletSchoolHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6B5D920E9CA9900FD208A /* SeletSchoolHeaderView.swift */; };
+		68E6B5DC20E9CA9900FD208A /* SeletSchoolHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E6B5DA20E9CA9900FD208A /* SeletSchoolHeaderView.xib */; };
 		68E7D81820CB765000A8CC98 /* VideoCommentTopToolsContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D81720CB765000A8CC98 /* VideoCommentTopToolsContainView.swift */; };
 		68E7D82320CC299300A8CC98 /* VideoPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */; };
 		68E7D82420CC299300A8CC98 /* VideoPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */; };
@@ -1866,6 +1901,18 @@
 		6814A5FE2089D1FF002B3BBC /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		6819B9F82060EDE700E026F9 /* PHAsset+Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utilities.h"; sourceTree = "<group>"; };
 		6819B9F92060EDE800E026F9 /* PHAsset+Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utilities.m"; sourceTree = "<group>"; };
+		681C5C5320E9FE6500341D7D /* BasicUserInfoFinishController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserInfoFinishController.swift; sourceTree = "<group>"; };
+		681C5C5520EA381100341D7D /* CityListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListModel.swift; sourceTree = "<group>"; };
+		681C5C5720EA382200341D7D /* ProvinceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceListModel.swift; sourceTree = "<group>"; };
+		681C5C5920EB134500341D7D /* StudentCertificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCertificationController.swift; sourceTree = "<group>"; };
+		681C5C5B20EB2EC700341D7D /* ProvinceListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceListController.swift; sourceTree = "<group>"; };
+		681C5C5C20EB2EC700341D7D /* ProvinceListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProvinceListController.xib; sourceTree = "<group>"; };
+		681C5C5F20EB2EDA00341D7D /* CityListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListController.swift; sourceTree = "<group>"; };
+		681C5C6020EB2EDA00341D7D /* CityListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityListController.xib; sourceTree = "<group>"; };
+		681C5C6320EB2FF500341D7D /* ProvinceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceListCell.swift; sourceTree = "<group>"; };
+		681C5C6420EB2FF500341D7D /* ProvinceListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProvinceListCell.xib; sourceTree = "<group>"; };
+		681C5C6720EB300700341D7D /* CityListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListCell.swift; sourceTree = "<group>"; };
+		681C5C6820EB300700341D7D /* CityListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityListCell.xib; sourceTree = "<group>"; };
 		681C95932045366E009CDE3B /* CircleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleController.swift; sourceTree = "<group>"; };
 		681C95942045366E009CDE3B /* CircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleController.xib; sourceTree = "<group>"; };
 		681C95952045366E009CDE3B /* CreateTopicCircleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTopicCircleController.swift; sourceTree = "<group>"; };
@@ -1959,6 +2006,14 @@
 		68282D3B20170CA80003A0CD /* SlidingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenu.swift; sourceTree = "<group>"; };
 		68282D3D20171CB20003A0CD /* SlidingMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingMenuBar.swift; sourceTree = "<group>"; };
 		68282D3F20171CBF0003A0CD /* SlidingMenuBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlidingMenuBar.xib; sourceTree = "<group>"; };
+		6829558F20EDB3A800FE844C /* MusicListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListController.swift; sourceTree = "<group>"; };
+		6829559020EDB3A800FE844C /* MusicListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicListController.xib; sourceTree = "<group>"; };
+		6829559320EDB42600FE844C /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
+		6829559420EDB42600FE844C /* MusicListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicListCell.xib; sourceTree = "<group>"; };
+		6829559B20EDB70000FE844C /* MusicTypeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeListModel.swift; sourceTree = "<group>"; };
+		6829559E20EDC99800FE844C /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
+		6829559F20EDC99800FE844C /* TopSlideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopSlideMenu.swift; sourceTree = "<group>"; };
+		682955A020EDC99800FE844C /* MenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemCell.xib; sourceTree = "<group>"; };
 		682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureResultModel.swift; sourceTree = "<group>"; };
 		682BD8B42080696B0088BEAC /* RecommendFollowerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFollowerHeaderView.swift; sourceTree = "<group>"; };
 		682BD8B620859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCommentWithSubCommentCell.swift; sourceTree = "<group>"; };
@@ -2135,6 +2190,12 @@
 		688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserNameController.xib; sourceTree = "<group>"; };
 		688A4C97200DD14100BB5DF7 /* AlterUserSexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterUserSexController.swift; sourceTree = "<group>"; };
 		688A4C98200DD14100BB5DF7 /* AlterUserSexController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlterUserSexController.xib; sourceTree = "<group>"; };
+		689C96D720E4981D006E6032 /* MoreSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingController.swift; sourceTree = "<group>"; };
+		689C96D820E4981D006E6032 /* MoreSettingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreSettingController.xib; sourceTree = "<group>"; };
+		689C96DB20E498D1006E6032 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		689C96DD20E4B235006E6032 /* PrivacySettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingController.swift; sourceTree = "<group>"; };
+		689C96DE20E4B235006E6032 /* PrivacySettingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacySettingController.xib; sourceTree = "<group>"; };
+		689C96E120E4B32B006E6032 /* MenuWithSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuWithSwitchCell.swift; sourceTree = "<group>"; };
 		689D53872027FC2E009C771C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		689D538920280595009C771C /* NSString+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		689D538A20280595009C771C /* NSString+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
@@ -2926,6 +2987,15 @@
 		68DFD19E20B421C8009B8373 /* FilterAndBeautyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterAndBeautyView.h; sourceTree = "<group>"; };
 		68DFD19F20B421C8009B8373 /* FilterAndBeautyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterAndBeautyView.m; sourceTree = "<group>"; };
 		68DFD1A120B42306009B8373 /* FilterAndBeautyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAndBeautyView.xib; sourceTree = "<group>"; };
+		68E6B5C920E4EA4C00FD208A /* UserDetailInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInfoHeaderView.swift; sourceTree = "<group>"; };
+		68E6B5CB20E4EA5900FD208A /* UserDetailInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailInfoHeaderView.xib; sourceTree = "<group>"; };
+		68E6B5CF20E5E40E00FD208A /* UserInfoEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEditController.swift; sourceTree = "<group>"; };
+		68E6B5D120E9BD4300FD208A /* SelectSchoolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSchoolController.swift; sourceTree = "<group>"; };
+		68E6B5D220E9BD4300FD208A /* SelectSchoolController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectSchoolController.xib; sourceTree = "<group>"; };
+		68E6B5D520E9C06D00FD208A /* SchoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCell.swift; sourceTree = "<group>"; };
+		68E6B5D620E9C06D00FD208A /* SchoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SchoolCell.xib; sourceTree = "<group>"; };
+		68E6B5D920E9CA9900FD208A /* SeletSchoolHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeletSchoolHeaderView.swift; sourceTree = "<group>"; };
+		68E6B5DA20E9CA9900FD208A /* SeletSchoolHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeletSchoolHeaderView.xib; sourceTree = "<group>"; };
 		68E7D81720CB765000A8CC98 /* VideoCommentTopToolsContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCommentTopToolsContainView.swift; sourceTree = "<group>"; };
 		68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayCell.swift; sourceTree = "<group>"; };
 		68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayCell.xib; sourceTree = "<group>"; };
@@ -5178,7 +5248,6 @@
 				681389C920568B9100F65623 /* SuspensionMenuAction.swift */,
 				681389CB2057695000F65623 /* SuspensionMenuItemCell.swift */,
 				68B55DC0207B0C2D00DF6FF7 /* SuspensionMenuItemWithImageCell.swift */,
-				68B3F33A204FB9120004C3D9 /* Toast */,
 			);
 			path = SuspensionExpandMenu;
 			sourceTree = "<group>";
@@ -5394,6 +5463,16 @@
 			path = SlidingMenu;
 			sourceTree = "<group>";
 		};
+		6829559D20EDC99800FE844C /* TopSlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				6829559F20EDC99800FE844C /* TopSlideMenu.swift */,
+				6829559E20EDC99800FE844C /* MenuItemCell.swift */,
+				682955A020EDC99800FE844C /* MenuItemCell.xib */,
+			);
+			path = TopSlideMenu;
+			sourceTree = "<group>";
+		};
 		6862E50E2019BC130058B878 /* inputBar&emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -5530,6 +5609,9 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				6829559D20EDC99800FE844C /* TopSlideMenu */,
+				6864AC3E20491E3200422CD8 /* 时间选择器 */,
+				68B3F33A204FB9120004C3D9 /* Toast */,
 				68A3EE03206E162C00BD3097 /* PopViews */,
 				68DF861120AACE9D009B8373 /* 阿里云短视频 */,
 				68A90892206A2E2400AE4362 /* 百度统计 */,
@@ -5688,6 +5770,16 @@
 			isa = PBXGroup;
 			children = (
 				689DF7C42005EE1F007FAE9C /* PersonCenterController.swift */,
+				689C96D720E4981D006E6032 /* MoreSettingController.swift */,
+				689C96D820E4981D006E6032 /* MoreSettingController.xib */,
+				689C96DD20E4B235006E6032 /* PrivacySettingController.swift */,
+				689C96DE20E4B235006E6032 /* PrivacySettingController.xib */,
+				68E6B5CF20E5E40E00FD208A /* UserInfoEditController.swift */,
+				681C5C5920EB134500341D7D /* StudentCertificationController.swift */,
+				681C5C5B20EB2EC700341D7D /* ProvinceListController.swift */,
+				681C5C5C20EB2EC700341D7D /* ProvinceListController.xib */,
+				681C5C5F20EB2EDA00341D7D /* CityListController.swift */,
+				681C5C6020EB2EDA00341D7D /* CityListController.xib */,
 				689DF7C62005F9C4007FAE9C /* PersonInfoController.swift */,
 				688A4C93200DD12E00BB5DF7 /* AlterUserNameController.swift */,
 				688A4C94200DD12E00BB5DF7 /* AlterUserNameController.xib */,
@@ -5741,6 +5833,8 @@
 				689D53FC202AE198009C771C /* AlipayResultContainModel.swift */,
 				6864AC5A20495A6200422CD8 /* WeekendTourOrderContainModel.swift */,
 				682BD8B2207DF3DC0088BEAC /* PictureResultModel.swift */,
+				681C5C5520EA381100341D7D /* CityListModel.swift */,
+				681C5C5720EA382200341D7D /* ProvinceListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5750,6 +5844,12 @@
 			children = (
 				689DF7C22005EBB6007FAE9C /* PersonalCenter.storyboard */,
 				688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */,
+				689C96DB20E498D1006E6032 /* MenuCell.swift */,
+				689C96E120E4B32B006E6032 /* MenuWithSwitchCell.swift */,
+				681C5C6320EB2FF500341D7D /* ProvinceListCell.swift */,
+				681C5C6420EB2FF500341D7D /* ProvinceListCell.xib */,
+				681C5C6720EB300700341D7D /* CityListCell.swift */,
+				681C5C6820EB300700341D7D /* CityListCell.xib */,
 				688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */,
 				68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */,
 				68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */,
@@ -5871,6 +5971,8 @@
 				682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */,
 				683107BA2024338A0060B109 /* EmptyCommentCell.swift */,
 				683107BB2024338A0060B109 /* EmptyCommentCell.xib */,
+				68E6B5C920E4EA4C00FD208A /* UserDetailInfoHeaderView.swift */,
+				68E6B5CB20E4EA5900FD208A /* UserDetailInfoHeaderView.xib */,
 				682548722015C46D0033410A /* UserDetailHeadView.swift */,
 				682548742015C47E0033410A /* UserDetailHeadView.xib */,
 				68B55D7A20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift */,
@@ -5967,6 +6069,9 @@
 			children = (
 				688808B62010331300BC6AE9 /* LoginController.swift */,
 				688808B72010331300BC6AE9 /* LoginController.xib */,
+				68E6B5D120E9BD4300FD208A /* SelectSchoolController.swift */,
+				68E6B5D220E9BD4300FD208A /* SelectSchoolController.xib */,
+				681C5C5320E9FE6500341D7D /* BasicUserInfoFinishController.swift */,
 				68D583F3204E3DD3002CE864 /* UserAgreementController.swift */,
 				68D583F4204E3DD3002CE864 /* UserAgreementController.xib */,
 				689DF7AC2004975A007FAE9C /* FinishPersonInfoController.swift */,
@@ -6002,6 +6107,10 @@
 				689DF7A62004793D007FAE9C /* LoginRegister.storyboard */,
 				689DFA312008B4E9007FAE9C /* CollegeCell.swift */,
 				689DFA322008B4E9007FAE9C /* CollegeCell.xib */,
+				68E6B5D520E9C06D00FD208A /* SchoolCell.swift */,
+				68E6B5D620E9C06D00FD208A /* SchoolCell.xib */,
+				68E6B5D920E9CA9900FD208A /* SeletSchoolHeaderView.swift */,
+				68E6B5DA20E9CA9900FD208A /* SeletSchoolHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6050,7 +6159,6 @@
 		68B3F33A204FB9120004C3D9 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				68B3F33B204FB92D0004C3D9 /* Toast.swift */,
 				68B3F33F204FBCD20004C3D9 /* ToastView.swift */,
 			);
@@ -6304,9 +6412,14 @@
 				68DFA83020AC1790009B8373 /* AliyunMusicLineView.h */,
 				6825703F20BBB144002E92C4 /* MusicPickViewController.swift */,
 				6825704020BBB144002E92C4 /* MusicPickViewController.xib */,
+				6829558F20EDB3A800FE844C /* MusicListController.swift */,
+				6829559020EDB3A800FE844C /* MusicListController.xib */,
+				6829559320EDB42600FE844C /* MusicListCell.swift */,
+				6829559420EDB42600FE844C /* MusicListCell.xib */,
 				6825704320BBE30A002E92C4 /* MusicPickCell.swift */,
 				6825704420BBE30A002E92C4 /* MusicPickCell.xib */,
 				6825704720BBF199002E92C4 /* MusicListModel.swift */,
+				6829559B20EDB70000FE844C /* MusicTypeListModel.swift */,
 			);
 			path = MusicPick;
 			sourceTree = "<group>";
@@ -7126,6 +7239,8 @@
 				68DFD18220B2BAE0009B8373 /* music in Resources */,
 				6825486320157CFF0033410A /* TagCollectionCell.xib in Resources */,
 				6801E0D4202C6EA900C106E1 /* README.txt in Resources */,
+				682955A320EDC99800FE844C /* MenuItemCell.xib in Resources */,
+				6829559220EDB3A800FE844C /* MusicListController.xib in Resources */,
 				681C95B22045366E009CDE3B /* TopicListController.xib in Resources */,
 				681C95F22047AD13009CDE3B /* WeekendTourDetailController.xib in Resources */,
 				6801E078202C6EA900C106E1 /* NTESTeamMeetingCallingViewController.xib in Resources */,
@@ -7143,8 +7258,10 @@
 				6801E062202C6EA900C106E1 /* NTESFileTransSelectViewController.xib in Resources */,
 				6864AC1F2048F02500422CD8 /* WeekendTourOrderDetailController.xib in Resources */,
 				6864AC3D2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib in Resources */,
+				689C96E020E4B235006E6032 /* PrivacySettingController.xib in Resources */,
 				68B55DBF207AFF5A00DF6FF7 /* BlackerCell.xib in Resources */,
 				6801E014202C6EA800C106E1 /* NTESJionTeamViewController.xib in Resources */,
+				681C5C6A20EB300700341D7D /* CityListCell.xib in Resources */,
 				681C95CD204542B0009CDE3B /* NearbyPeopleCollectionCell.xib in Resources */,
 				6824487A20C67388009D1AED /* VideoListCollectionViewCell.xib in Resources */,
 				6801E0AF202C6EA900C106E1 /* NTESUserInfoSettingViewController.xib in Resources */,
@@ -7164,9 +7281,11 @@
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				68E7D82A20CE308100A8CC98 /* NoMoreDataViewCell.xib in Resources */,
 				68C5F296203FF00200769A92 /* ContactWayInputCell.xib in Resources */,
+				6829559620EDB42600FE844C /* MusicListCell.xib in Resources */,
 				681C96022047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib in Resources */,
 				6801E106202DA6CE00C106E1 /* message.wav in Resources */,
 				6801E114202DA83700C106E1 /* NIMDemoChartlet.bundle in Resources */,
+				681C5C6620EB2FF500341D7D /* ProvinceListCell.xib in Resources */,
 				6801E0C7202C6EA900C106E1 /* AlipaySDK.bundle in Resources */,
 				6801E03E202C6EA900C106E1 /* NTESLoginViewController.xib in Resources */,
 				68B55D6B20747F4400DF6FF7 /* FollowerCell.xib in Resources */,
@@ -7176,12 +7295,15 @@
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				68DFAD1520AC1794009B8373 /* FilterResource.bundle in Resources */,
 				6801E0D2202C6EA900C106E1 /* SPaySDKResource.bundle in Resources */,
+				681C5C6220EB2EDA00341D7D /* CityListController.xib in Resources */,
+				689C96DA20E4981D006E6032 /* MoreSettingController.xib in Resources */,
 				68DFAD1A20AC1794009B8373 /* AliyunComponentViewController.xib in Resources */,
 				68DFCFF820B2AACC009B8373 /* LocalMV.json in Resources */,
 				681C95D320456D12009CDE3B /* EditAutographView.xib in Resources */,
 				68DFABBA20AC1792009B8373 /* tail.png in Resources */,
 				6801E046202C6EA900C106E1 /* NTESSystemNotificationCell.xib in Resources */,
 				6864AC272048F21600422CD8 /* WeekendTourOrderNumCell.xib in Resources */,
+				68E6B5D820E9C06D00FD208A /* SchoolCell.xib in Resources */,
 				68DFD0AA20B2AACD009B8373 /* LocalFont.json in Resources */,
 				68DFAB5F20AC1792009B8373 /* AliyunVideoSDK-opencore-amr in Resources */,
 				6801E0A1202C6EA900C106E1 /* NTESNoDisturbSettingViewController.xib in Resources */,
@@ -7258,6 +7380,7 @@
 				6801E0C9202C6EA900C106E1 /* JResource.bundle in Resources */,
 				681C95B62045366E009CDE3B /* CircleHomeBannerCell.xib in Resources */,
 				6801E0CF202C6EA900C106E1 /* WalletResource.bundle in Resources */,
+				68E6B5CC20E4EA5900FD208A /* UserDetailInfoHeaderView.xib in Resources */,
 				68DFABA620AC1792009B8373 /* AliyunEffectFilterCell.xib in Resources */,
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
 				6801D936202C44D000C106E1 /* FSActionSheet_cancel@3x.png in Resources */,
@@ -7265,7 +7388,10 @@
 				6864AC4B2049337400422CD8 /* PayResultController.xib in Resources */,
 				68DFD18120B2BAE0009B8373 /* haixiu in Resources */,
 				68254857201364450033410A /* RewardRedPacketController.xib in Resources */,
+				68E6B5D420E9BD4300FD208A /* SelectSchoolController.xib in Resources */,
+				681C5C5E20EB2EC700341D7D /* ProvinceListController.xib in Resources */,
 				681C95C92045381D009CDE3B /* PeopleNearbyController.xib in Resources */,
+				68E6B5DC20E9CA9900FD208A /* SeletSchoolHeaderView.xib in Resources */,
 				688809112011E5DB00BC6AE9 /* SetPayPasswordController.xib in Resources */,
 				6801E0FE202DA6CE00C106E1 /* BlizzardReg.ttf in Resources */,
 				681C95AE2045366E009CDE3B /* CreatTopicController.xib in Resources */,
@@ -7556,9 +7682,12 @@
 				6801E0AD202C6EA900C106E1 /* NTESSignSettingViewController.m in Sources */,
 				6801E03C202C6EA900C106E1 /* NTESLoginManager.m in Sources */,
 				6801E0A7202C6EA900C106E1 /* NTESAliasSettingViewController.m in Sources */,
+				681C5C5820EA382200341D7D /* ProvinceListModel.swift in Sources */,
 				6801E00A202C6EA800C106E1 /* NTESFPSLabel.m in Sources */,
+				68E6B5D320E9BD4300FD208A /* SelectSchoolController.swift in Sources */,
 				6864AC3C2048F36B00422CD8 /* WeekendTourOrderPayWayCell.swift in Sources */,
 				681C96062047E0FD009CDE3B /* iCarousel.m in Sources */,
+				689C96DF20E4B235006E6032 /* PrivacySettingController.swift in Sources */,
 				68DFAB6920AC1792009B8373 /* AliyunCompressManager.m in Sources */,
 				6801DFE3202C6EA800C106E1 /* NIMKitRobotTemplate.m in Sources */,
 				68DFAB7420AC1792009B8373 /* AliyunResourceDownloadManager.m in Sources */,
@@ -7605,6 +7734,7 @@
 				68DFD19920B3CE6E009B8373 /* MediaContainController.swift in Sources */,
 				68282CED2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.swift in Sources */,
 				6801E08B202C6EA900C106E1 /* mvp.vsh.c in Sources */,
+				681C5C5420E9FE6500341D7D /* BasicUserInfoFinishController.swift in Sources */,
 				6801E04C202C6EA900C106E1 /* NTESRedPacketAttachment.m in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
 				6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */,
@@ -7713,6 +7843,7 @@
 				68DFABB520AC1792009B8373 /* AliyunCoverPickView.m in Sources */,
 				68DFB03F20AEE261009B8373 /* ShotCountDownView.m in Sources */,
 				68DFAB5720AC1792009B8373 /* AliyunRecordParamTableViewCell.m in Sources */,
+				681C5C5620EA381100341D7D /* CityListModel.swift in Sources */,
 				6801DFBC202C6EA800C106E1 /* NIMSessionFileTransContentView.m in Sources */,
 				68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
@@ -7737,11 +7868,13 @@
 				6801E045202C6EA900C106E1 /* NTESSystemNotificationCell.m in Sources */,
 				6825703920BA98CD002E92C4 /* AliyunAuthorityChooseView.m in Sources */,
 				6801DFB5202C6EA800C106E1 /* NIMSessionInteractorImpl.m in Sources */,
+				6829559C20EDB70000FE844C /* MusicTypeListModel.swift in Sources */,
 				6801E090202C6EA900C106E1 /* NTESTeamMeetingCollectionViewCell.m in Sources */,
 				68A908B1206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift in Sources */,
 				6801DFA0202C6EA800C106E1 /* NIMMessageModel.m in Sources */,
 				6801E0D0202C6EA900C106E1 /* SVProgressHUD+Swizzling.m in Sources */,
 				68DFABA320AC1792009B8373 /* AliyunEffectFilterView.m in Sources */,
+				689C96DC20E498D1006E6032 /* MenuCell.swift in Sources */,
 				68DFAB6720AC1792009B8373 /* AliyunCropViewController.m in Sources */,
 				6801E013202C6EA800C106E1 /* NTESJionTeamViewController.m in Sources */,
 				6801DFFF202C6EA800C106E1 /* UIScrollView+NTESPullToRefresh.m in Sources */,
@@ -7754,6 +7887,7 @@
 				6801E083202C6EA900C106E1 /* yuv420sp.fsh.c in Sources */,
 				68DFABAB20AC1792009B8373 /* AliyunColorItemView.m in Sources */,
 				6801DFBD202C6EA800C106E1 /* NIMSessionImageContentView.m in Sources */,
+				689C96E220E4B32B006E6032 /* MenuWithSwitchCell.swift in Sources */,
 				68DFAB7C20AC1792009B8373 /* AliyunEffectMoreView.m in Sources */,
 				688A4C95200DD12E00BB5DF7 /* AlterUserNameController.swift in Sources */,
 				681C95B42045366E009CDE3B /* TopicsContainModel.swift in Sources */,
@@ -7797,6 +7931,7 @@
 				6801DFD6202C6EA800C106E1 /* NIMAdvancedTeamMemberCell.m in Sources */,
 				6801E0C0202C6EA900C106E1 /* NTESSDKConfigDelegate.m in Sources */,
 				6801E0BD202C6EA900C106E1 /* NTESDevice.m in Sources */,
+				682955A120EDC99800FE844C /* MenuItemCell.swift in Sources */,
 				6801E04E202C6EA900C106E1 /* NTESSnapchatAttachment.m in Sources */,
 				68DFAB4320AC1792009B8373 /* AliyunBlurFilter.m in Sources */,
 				68DFAB7A20AC1792009B8373 /* AliyunEffectMoreTableViewCell.m in Sources */,
@@ -7833,6 +7968,7 @@
 				688808E82011852500BC6AE9 /* TrendsImageCollectionCell.swift in Sources */,
 				6801E079202C6EA900C106E1 /* NTESTeamMeetingMutesViewController.m in Sources */,
 				682548732015C46D0033410A /* UserDetailHeadView.swift in Sources */,
+				6829559120EDB3A800FE844C /* MusicListController.swift in Sources */,
 				6801DF78202C6EA800C106E1 /* NIMKitDataProviderImpl.m in Sources */,
 				68B55DC3207B116400DF6FF7 /* PopViewForTrueNameNotify.swift in Sources */,
 				68A19F8620C98279008059F6 /* OtherUserDetailVideoAndLikedVideosController.swift in Sources */,
@@ -7854,11 +7990,13 @@
 				6801E009202C6EA800C106E1 /* NTESBadgeView.m in Sources */,
 				6801E00C202C6EA800C106E1 /* NTESPageView.m in Sources */,
 				6825485A20137BDC0033410A /* CommentsWithTrendController.swift in Sources */,
+				682955A220EDC99800FE844C /* TopSlideMenu.swift in Sources */,
 				688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */,
 				68358250201ED87C00798462 /* SexModel.swift in Sources */,
 				6801DFAC202C6EA800C106E1 /* NIMVideoContentConfig.m in Sources */,
 				6801E067202C6EA900C106E1 /* NTESSessionPeekViewController.m in Sources */,
 				6825705020BE4CA8002E92C4 /* PulishViewController.swift in Sources */,
+				681C5C6920EB300700341D7D /* CityListCell.swift in Sources */,
 				681C95E92047A5D5009CDE3B /* WeekendTourSeparateCell.swift in Sources */,
 				6801E03F202C6EA900C106E1 /* NTESRegisterViewController.m in Sources */,
 				6801E0B2202C6EA900C106E1 /* NTESSettingPortraitCell.m in Sources */,
@@ -7931,6 +8069,7 @@
 				68DFAD2820AC1794009B8373 /* FMDatabasePool.m in Sources */,
 				6801E0C5202C6EA900C106E1 /* NTESPinyinConverter.m in Sources */,
 				68DFABA120AC1792009B8373 /* AliyunEffectMusicView.m in Sources */,
+				681C5C6120EB2EDA00341D7D /* CityListController.swift in Sources */,
 				6801DFDC202C6EA800C106E1 /* NIMKitAuthorizationTool.m in Sources */,
 				68AE8A572094784100CB10B0 /* NTESNewFollowersController.swift in Sources */,
 				6801DF71202C6EA800C106E1 /* UIImage+NIMKit.m in Sources */,
@@ -7987,10 +8126,12 @@
 				68DFAB8C20AC1792009B8373 /* AliyunPasterTextAttributedManager.m in Sources */,
 				6801DF8C202C6EA800C106E1 /* NIMContactPickedView.m in Sources */,
 				688808F12011900100BC6AE9 /* TrendsWithVideoCell.swift in Sources */,
+				681C5C5A20EB134500341D7D /* StudentCertificationController.swift in Sources */,
 				68DFAB4620AC1792009B8373 /* AliyunVideoPreViewController.m in Sources */,
 				68DFAB8120AC1792009B8373 /* AliyunTimelineMediaInfo.m in Sources */,
 				6825704120BBB145002E92C4 /* MusicPickViewController.swift in Sources */,
 				68DFAB8020AC1792009B8373 /* AliyunTimelineItem.m in Sources */,
+				68E6B5CA20E4EA4C00FD208A /* UserDetailInfoHeaderView.swift in Sources */,
 				6888087F200DF19300BC6AE9 /* CommonInfoModel.swift in Sources */,
 				689DFA3A2008BB2C007FAE9C /* ChooseGradeController.swift in Sources */,
 				68DFAD4020AC1794009B8373 /* JSONAPI.m in Sources */,
@@ -8011,12 +8152,14 @@
 				68DFAD1E20AC1794009B8373 /* ioapi.c in Sources */,
 				6801DF96202C6EA800C106E1 /* NIMInputEmoticonManager.m in Sources */,
 				6801DFD3202C6EA800C106E1 /* NIMTeamMemberCardViewController.m in Sources */,
+				689C96D920E4981D006E6032 /* MoreSettingController.swift in Sources */,
 				68DFAB5C20AC1792009B8373 /* AliyunVideoRecordParam.m in Sources */,
 				681C95B52045366E009CDE3B /* CircleHomeBannerCell.swift in Sources */,
 				6801E00B202C6EA800C106E1 /* NTESMarginButton.m in Sources */,
 				68DFAD4220AC1794009B8373 /* QUProgressView.m in Sources */,
 				68DFAD1B20AC1794009B8373 /* QPSSZipArchive.m in Sources */,
 				68DFABB020AC1792009B8373 /* AliyunFontItemCell.m in Sources */,
+				68E6B5D020E5E40E00FD208A /* UserInfoEditController.swift in Sources */,
 				68B9740B20C7C03E00162547 /* VideoTrendCommentWithSubCommentCell.swift in Sources */,
 				68DFAB9C20AC1792009B8373 /* AliyunPasterShowView.m in Sources */,
 				687CA33D20C515FB0016FB4A /* ScanVideosController.swift in Sources */,
@@ -8038,6 +8181,7 @@
 				681C95BA2045366E009CDE3B /* TopicCircleWithPictureCell.swift in Sources */,
 				681C960A2047EED9009CDE3B /* WeekendTourDetailModel.swift in Sources */,
 				6801E073202C6EA900C106E1 /* NTESVideoDataTimeoutChecker.m in Sources */,
+				68E6B5D720E9C06D00FD208A /* SchoolCell.swift in Sources */,
 				68D583ED204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.swift in Sources */,
 				6801DF8E202C6EA800C106E1 /* NIMContactSelectTabView.m in Sources */,
 				6801E0B0202C6EA900C106E1 /* NTESBirthPickerView.m in Sources */,
@@ -8096,6 +8240,7 @@
 				689DFA28200731C8007FAE9C /* LoginModel.swift in Sources */,
 				6801E086202C6EA900C106E1 /* renderer_rgb.c in Sources */,
 				68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */,
+				681C5C5D20EB2EC700341D7D /* ProvinceListController.swift in Sources */,
 				68A19F8820CA18E7008059F6 /* ScanVideosContainController.swift in Sources */,
 				6801E02D202C6EA900C106E1 /* NTESSessionRobotContentView.m in Sources */,
 				6801E0A6202C6EA900C106E1 /* NTESSettingViewController.m in Sources */,
@@ -8119,6 +8264,7 @@
 				68DFAB7720AC1792009B8373 /* AliyunResourceFontRequest.m in Sources */,
 				68DFAB3C20AC1792009B8373 /* AliyunDownloadManager.m in Sources */,
 				688A4C88200C862100BB5DF7 /* PersonCenterModel.swift in Sources */,
+				68E6B5DB20E9CA9900FD208A /* SeletSchoolHeaderView.swift in Sources */,
 				6801DFB7202C6EA800C106E1 /* NIMSessionMsgDatasource.m in Sources */,
 				685E396A206A1BCA003B505E /* SecondaryConditionScreeningAcademy.swift in Sources */,
 				689D53FD202AE198009C771C /* AlipayResultContainModel.swift in Sources */,
@@ -8190,6 +8336,8 @@
 				6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
 				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
+				6829559520EDB42600FE844C /* MusicListCell.swift in Sources */,
+				681C5C6520EB2FF500341D7D /* ProvinceListCell.swift in Sources */,
 				68EFB907203FE53F00FE1A59 /* FeedBackController.swift in Sources */,
 				68B9740420C77EAD00162547 /* VideoCommentListController.swift in Sources */,
 				689DFA382008B728007FAE9C /* AcademyContainerModel.swift in Sources */,

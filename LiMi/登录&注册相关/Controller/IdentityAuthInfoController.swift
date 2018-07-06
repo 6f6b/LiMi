@@ -141,20 +141,20 @@ class IdentityAuthInfoController: UITableViewController {
             return
         }
         Toast.showStatusWith(text: nil)
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let perfectUserInfo = CenterPerfectUserInfo.init(type: "1", true_name: self.trueName.text, college: self.collegeModel?.coid, school: self.academyModel?.id, grade: self.gradeModel?.id, identity_pic: "/\(self.certificateImageUrl!)")
-        _ = moyaProvider.rx.request(.targetWith(target: perfectUserInfo)).subscribe(onSuccess: { (response) in
-            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if resultModel?.commonInfoModel?.status == successState{
-                Defaults[.userCertificationState] = 2
-                let identityAuthStateController = IdentityAuthStateController()
-                identityAuthStateController.isFromPersonCenter = false
-                self.navigationController?.popViewController(animated: true)
-            }
-            Toast.showErrorWith(model: resultModel)
-        }, onError: { (error) in
-            Toast.showErrorWith(msg: error.localizedDescription)
-        })
+//        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//        let perfectUserInfo = CenterPerfectUserInfo.init(type: "1", true_name: self.trueName.text, college: self.collegeModel?.coid, school: self.academyModel?.id, grade: self.gradeModel?.id, identity_pic: "/\(self.certificateImageUrl!)")
+//        _ = moyaProvider.rx.request(.targetWith(target: perfectUserInfo)).subscribe(onSuccess: { (response) in
+//            let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//            if resultModel?.commonInfoModel?.status == successState{
+//                Defaults[.userCertificationState] = 2
+//                let identityAuthStateController = IdentityAuthStateController()
+//                identityAuthStateController.isFromPersonCenter = false
+//                self.navigationController?.popViewController(animated: true)
+//            }
+//            Toast.showErrorWith(model: resultModel)
+//        }, onError: { (error) in
+//            Toast.showErrorWith(msg: error.localizedDescription)
+//        })
     }
     
     @objc func dealNotNow(){

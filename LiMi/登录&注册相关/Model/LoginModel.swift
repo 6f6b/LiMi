@@ -13,9 +13,10 @@ class LoginModel: BaseModel {
     var id:Int?
     var token:String?
 //    identity_status        0 ：未认证   1：认证中  2：认证完成  3：认证失败
-//    user_info_status     0:只注册了手机号  1：完善了性别真实姓名和头像  2：完善了身份认证
+//    "user_info_status": 0,只发送了验证码   1：点击了登录按钮   2：点击了登录按钮，并且填写了学校信息【即登录成功】证
     var user_info_status:Int?
     var identity_status:Int?
+    var is_login:Bool?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -23,15 +24,11 @@ class LoginModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
+        is_login<-map["data.is_login"]
         id<-map["data.id"]
         token<-map["data.token"]
         user_info_status<-map["data.user_info_status"]
         identity_status<-map["data.identity_status"]
-        
-//        if tmpIdentityStatus != 2 && Defaults[.userCertificationState] == 2{
-//            //发通知
-//            NotificationCenter.default.post(name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
-//        }
         
     }
 }

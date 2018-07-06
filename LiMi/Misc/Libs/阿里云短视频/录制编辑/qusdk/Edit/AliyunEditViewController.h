@@ -15,4 +15,6 @@
 @property (nonatomic,assign) NSInteger musicId;
 @property (nonatomic,assign) float startTime;
 @property (nonatomic,assign) float duration;
+
+@property (nonatomic,assign) int filterIndex;
 @end

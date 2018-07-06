@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class NTESLiMiWebController: ViewController {
+class NTESLiMiWebController: UIViewController {
     var _url:String?
     var wkWebView:WKWebView!
     @objc var url:String{

@@ -12,14 +12,14 @@ import SVProgressHUD
 import Moya
 //import
 
-class MyCashController: ViewController {
+class MyCashController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var balance: UILabel!
     @IBOutlet weak var rechargeBtn: UIButton!
     @IBOutlet weak var withdrawalBtn: UIButton!
     @IBOutlet weak var setPayPwdBtn: UIButton!
-    var personCenterModel:PersonCenterModel?
+    var userInfoModel:UserInfoModel?
     var mycashModel:MyCashModel?
     
     override func viewDidLoad() {

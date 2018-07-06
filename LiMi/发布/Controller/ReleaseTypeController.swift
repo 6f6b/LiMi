@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReleaseTypeController: ViewController {
+class ReleaseTypeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

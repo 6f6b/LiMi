@@ -12,7 +12,7 @@ import  SVProgressHUD
 import ObjectMapper
 //import <#module#>
 
-class CreateTopicCircleController: ViewController {
+class CreateTopicCircleController: UIViewController {
     @IBOutlet weak var containView: UIView!
     
     @IBOutlet weak var topicTitle: UITextField!

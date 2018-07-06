@@ -19,7 +19,7 @@ enum MediaType {
     case video
 }
 
-class ReleaseController: ViewController {
+class ReleaseController: UIViewController {
     var releaseBtn:UIButton!
     var tableView:UITableView!
     var releaseContentTextInputCell:ReleaseContentTextInputCell!

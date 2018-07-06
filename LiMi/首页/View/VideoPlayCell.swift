@@ -13,6 +13,8 @@ let clickDetectionTime = Float(0.3)
 @objc protocol VideoPlayCellDelegate {
     ///点击头像回调
     @objc func videoPlayCellUserHeadButtonClicked(button:UIButton)
+    ///点击用户名回调
+    @objc func videoPlayCellUserNameLabelClicked(label:UILabel)
     ///点击添加关注回调
     @objc func videoPlayCellAddFollowButtonClicked(button:UIButton)
     ///点击点赞回调
@@ -88,7 +90,8 @@ class VideoPlayCell: UITableViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(thumbsUpButtonRefresh(notification:)), name: THUMBS_UP_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addFollowButtonRefresh(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(commentSuccessed(notification:)), name: COMMENT_SUCCESS_NOTIFICATION, object: nil)
-        self.contentView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 30)
+        self.contentView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        self.selectedBackgroundView?.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         
         self.playerContainView = UIView.init(frame: SCREEN_RECT)
         self.contentView.addSubview(self.playerContainView)
@@ -156,6 +159,9 @@ class VideoPlayCell: UITableViewCell {
         self.contentView.addSubview(self.bottomMaskImageView!)
         
         self.userNameLabel = UILabel.init(frame: CGRect.init(x: 15, y: SCREEN_HEIGHT-bottomToolsHeight+13, width: 200, height: 16))
+        self.userNameLabel.isUserInteractionEnabled = true
+        let tapUserNameLabel = UITapGestureRecognizer.init(target: self, action: #selector(userNameLabelClicked(label:)))
+        self.userNameLabel.addGestureRecognizer(tapUserNameLabel)
         self.userNameLabel.textColor = UIColor.white
         self.userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         self.contentView.addSubview(self.userNameLabel)
@@ -208,6 +214,10 @@ class VideoPlayCell: UITableViewCell {
                 self.commentButton.setTitle(self.videoTrendModel?.discuss_num?.suitableStringValue(), for: .normal)
             }
         }
+    }
+    
+    @objc func userNameLabelClicked(label:UILabel){
+        self.delegate?.videoPlayCellUserNameLabelClicked(label: label)
     }
     
     @objc func userHeadButtonClicked(button:UIButton){
@@ -337,25 +347,23 @@ class VideoPlayCell: UITableViewCell {
         //音乐图标
         //音乐名字
         if let musicName = videoTrendModel?.music_name{
-            self.musicIcon.isHidden = false
-            self.musicNameLabel.isHidden = false
             self.musicNameLabel.text = musicName
-            self.musicNameLabel.sizeToFit()
-        }else{
-            self.musicIcon.isHidden = true
-            self.musicNameLabel.isHidden = true
+        }else if let _nickname = videoTrendModel?.user_nickname{
+            self.musicNameLabel.text = "@\(_nickname)的原创"
         }
+        self.musicNameLabel.sizeToFit()
+        
         //音乐封面
         if let musicPic = videoTrendModel?.music_pic{
-            self.musicCoverImageView.isHidden = false
             self.musicCoverImageView.kf.setImage(with: URL.init(string: musicPic))
-        }else{
-            self.musicCoverImageView.isHidden = true
+        }else if let headPic = videoTrendModel?.user_head_pic{
+            self.musicCoverImageView.kf.setImage(with: URL.init(string: headPic))
         }
     }
     
     func videoFrameWith(height:Int?,width:Int?)->CGRect{
         if let _height = height,let _width = width{
+            
             if _height >= _width{
                 return SCREEN_RECT
             }else{

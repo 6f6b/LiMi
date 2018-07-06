@@ -15,14 +15,14 @@ protocol SchoolListControllerDelegate {
     func schoolListControllerChoosedSchoolWith(model:CollegeModel)
     func schoolListControllerCancelButtonClicked()
 }
-class SchoolListController: ViewController {
+class SchoolListController: UIViewController {
     override var prefersStatusBarHidden: Bool{return true}
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var placeHolderImage: UIImageView!
     @IBOutlet weak var placeHolderText: UILabel!
-    @IBOutlet weak var clearSearchTextButton: UIButton!
+//    @IBOutlet weak var clearSearchTextButton: UIButton!
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
     
     var delegate:SchoolListControllerDelegate?
@@ -30,6 +30,10 @@ class SchoolListController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        
+        let clearButton = self.searchText.value(forKey: "_clearButton") as! UIButton
+        clearButton.setImage(UIImage.init(named: "shanchu"), for: .normal)
+        
         self.searchTopConstraint.constant = STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 1000
@@ -46,11 +50,8 @@ class SchoolListController: ViewController {
     }
     
     @IBAction func cancelButtonClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
         self.delegate?.schoolListControllerCancelButtonClicked()
-    }
-
-    @IBAction func clearSearchTextButtonClicked(_ sender: Any) {
-        self.searchText.text = ""
     }
     
     func requestData(){
@@ -98,9 +99,9 @@ extension SchoolListController:UITableViewDelegate,UITableViewDataSource{
 extension SchoolListController{
     @objc func textFieldValueChanged(textField:UITextField){
         let isTextFieldEmpty = IsEmpty(textField: textField)
-        self.placeHolderImage.isHidden = !isTextFieldEmpty
+//        self.placeHolderImage.isHidden = !isTextFieldEmpty
         self.placeHolderText.isHidden = !isTextFieldEmpty
-        self.clearSearchTextButton.isHidden = isTextFieldEmpty
+//        self.clearSearchTextButton.isHidden = isTextFieldEmpty
         print("开始执行搜索")
         if IsEmpty(textField: self.searchText){return }
         let moyaProvider = MoyaProvider<LiMiAPI>()

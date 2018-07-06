@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import IQKeyboardManagerSwift
 
-class CommentsWithParentCommentController: ViewController {
+class CommentsWithParentCommentController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var inputBarContainView: UIView!

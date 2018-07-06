@@ -89,7 +89,14 @@ class PersonInfoController: UITableViewController {
         self.userName.text = model?.true_name
         self.nickName.text = model?.nickname
         self.signature.text = self.userInfoModel?.signature == nil ? "个性签名空空如也~" : self.userInfoModel?.signature
-        self.sex.text = model?.sex
+        var sexStr:String?
+        if self.userInfoModel?.sex == 0{
+            sexStr = "女"
+        }
+        if self.userInfoModel?.sex == 1{
+            sexStr = "男"
+        }
+        self.sex.text = sexStr
         if self.userInfoModel?.is_access == 0{
             self.certificationState.text = "去认证"
             self.sexRightBar.isHidden = false
@@ -111,8 +118,8 @@ class PersonInfoController: UITableViewController {
             self.sexRightConstraint.constant = -7
             self.certificationRightConstraint.constant = -7
         }
-        self.school.text  = model?.college
-        self.academy.text = model?.school
+        self.school.text  = model?.college?.name
+        //self.academy.text = model?.school
         self.grade.text = model?.grade
     }
     
@@ -177,25 +184,25 @@ class PersonInfoController: UITableViewController {
     
     //去修改用户性别
     func dealToAlterUserSex(){
-        let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
-            if sex == self.userInfoModel?.sex{return}
-            var sexParameter = 1
-            if sex == "女"{sexParameter = 0}
-            Toast.showStatusWith(text: nil)
-            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-            let editUserInfo = EditUsrInfo(nickname: nil, signature: nil,sex:sexParameter)
-            _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: {[unowned self] (response) in
-                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
-                if resultModel?.commonInfoModel?.status == successState{
-                    self.userInfoModel?.sex = sex
-                    self.refreshUIWith(model: self.userInfoModel)
-                }
-                Toast.showResultWith(model: resultModel)
-            }, onError: { (error) in
-                Toast.showErrorWith(msg: error.localizedDescription)
-            })
-        }
-        dataPickerView?.toShow()
+//        let dataPickerView = DataPickerView(dataArray: ["男","女"], initialSelectRow: 0) { (sex) in
+//            if sex == self.userInfoModel?.sex{return}
+//            var sexParameter = 1
+//            if sex == "女"{sexParameter = 0}
+//            Toast.showStatusWith(text: nil)
+//            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+//            let editUserInfo = EditUsrInfo(nickname: nil, signature: nil,sex:sexParameter)
+//            _ = moyaProvider.rx.request(.targetWith(target: editUserInfo)).subscribe(onSuccess: {[unowned self] (response) in
+//                let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
+//                if resultModel?.commonInfoModel?.status == successState{
+//                    self.userInfoModel?.sex = sex
+//                    self.refreshUIWith(model: self.userInfoModel)
+//                }
+//                Toast.showResultWith(model: resultModel)
+//            }, onError: { (error) in
+//                Toast.showErrorWith(msg: error.localizedDescription)
+//            })
+//        }
+//        dataPickerView?.toShow()
     }
 
     func dealToAlterAutograph(){

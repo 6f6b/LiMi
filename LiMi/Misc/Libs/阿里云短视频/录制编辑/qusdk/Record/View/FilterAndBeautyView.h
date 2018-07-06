@@ -29,5 +29,6 @@ typedef enum : NSUInteger {
 
 - (void)showOnlyWithType:(FilterAndBeautyViewType)type;
 - (void)showWithSelectedFilterIndex:(int)index filterDataArray:(NSMutableArray *)filterDataArray;
+- (void)showOnlyWithType:(FilterAndBeautyViewType)type Index:(int)index  filterDataArray:(NSMutableArray *)filterDataArray;
 - (void)dismiss;
 @end

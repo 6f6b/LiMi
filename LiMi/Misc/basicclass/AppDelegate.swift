@@ -298,19 +298,22 @@ extension AppDelegate{
                 msg = _msg
             }
         }
+        let loginController = LoginController()
+        let logNav = NavigationController(rootViewController: loginController)
+        logNav.modalPresentationStyle = .overFullScreen
+        let rootViewController = self.window?.rootViewController
         if msg != nil{
             let alertVC = UIAlertController.init(title: msg, message: nil, preferredStyle: .alert)
             let actionOK = UIAlertAction.init(title: "确定", style: .default) {_ in
-                let loginController = LoginController()
-                let logNav = NavigationController(rootViewController: loginController)
-                self.window?.rootViewController?.present(logNav, animated: true, completion: nil)
+                rootViewController?.present(logNav, animated: true, completion: nil)
+//                let loginController = LoginController()
+//                let logNav = NavigationController(rootViewController: loginController)
+//                self.window?.rootViewController?.present(logNav, animated: true, completion: nil)
             }
             alertVC.addAction(actionOK)
             UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
         }else{
-            let loginController = LoginController()
-            let logNav = NavigationController(rootViewController: loginController)
-            self.window?.rootViewController?.present(logNav, animated: true, completion: nil)
+            rootViewController?.present(logNav, animated: true, completion: nil)
         }
     }
 }

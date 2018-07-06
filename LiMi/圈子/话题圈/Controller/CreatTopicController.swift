@@ -15,7 +15,7 @@ import Moya
 import ObjectMapper
 import SwiftyJSON
 
-class CreatTopicController: ViewController {
+class CreatTopicController: UIViewController {
     var releaseBtn:UIButton!
     var releaseContentTextInputCell:ReleaseContentTextInputCell!
     var releaseContentImgInputCell:ReleaseContentImgInputCell!

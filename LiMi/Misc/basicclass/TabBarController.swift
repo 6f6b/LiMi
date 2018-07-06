@@ -27,11 +27,15 @@ class TabBarController: UITabBarController {
         
         let msgController = MsgController()
          self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
-        let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
+
+        //let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
+        let personCenterController = UserDetailsController()
+        personCenterController.userInfoHeaderViewType = .inMyPersonCenter
         self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "home_ic_me", tbSelectedImg: "home_ic_mepre")
         self.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(registerFinished), name: REGISTER_FINISHED_NOTIFICATION, object: nil)
         
         //系统通知代理
         NIMSDK.shared().systemNotificationManager.add(self)
@@ -94,6 +98,7 @@ class TabBarController: UITabBarController {
     }
     
     func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!,imageInsets:UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: -5, right: 0)){
+        controller.loadViewIfNeeded()
         controller.title = title
         let navController = NavigationController(rootViewController: controller)
         navController.tabBarItem.image = UIImage.init(named: tbImg)?.withRenderingMode(.alwaysOriginal)
@@ -214,6 +219,11 @@ extension TabBarController{
     @objc func  customMessageUnreadCountChanged(){
         self.refreshMyMessageBadge()
     }
+    
+    @objc func registerFinished(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 

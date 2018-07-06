@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SchoolListController" customModule="LiMi" customModuleProvider="target">
             <connections>
-                <outlet property="clearSearchTextButton" destination="aNw-3i-Tx2" id="Xu9-nd-H3W"/>
                 <outlet property="placeHolderImage" destination="VGK-yx-JYC" id="Pbd-8V-vkU"/>
                 <outlet property="placeHolderText" destination="KAB-W2-Io9" id="5tj-E8-6P1"/>
                 <outlet property="searchText" destination="dWL-Od-hNU" id="YlE-K2-6j8"/>
@@ -33,38 +32,29 @@
                             <rect key="frame" x="15" y="9" width="22" height="22"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入学校名称搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAB-W2-Io9">
-                            <rect key="frame" x="47" y="11" width="122.5" height="18"/>
+                            <rect key="frame" x="37" y="11" width="122.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-Od-hNU">
-                            <rect key="frame" x="15" y="0.0" width="330" height="40"/>
+                        <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-Od-hNU">
+                            <rect key="frame" x="37" y="0.0" width="293" height="40"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNw-3i-Tx2">
-                            <rect key="frame" x="307" y="9" width="22" height="22"/>
-                            <state key="normal" image="shanchu"/>
-                            <connections>
-                                <action selector="clearSearchTextButtonClicked:" destination="-1" eventType="touchUpInside" id="vbE-QA-v2v"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="dWL-Od-hNU" secondAttribute="bottom" id="0qv-Kk-NPF"/>
-                        <constraint firstAttribute="trailing" secondItem="dWL-Od-hNU" secondAttribute="trailing" id="BBD-SS-3Jh"/>
+                        <constraint firstAttribute="trailing" secondItem="dWL-Od-hNU" secondAttribute="trailing" constant="15" id="BBD-SS-3Jh"/>
                         <constraint firstItem="VGK-yx-JYC" firstAttribute="centerY" secondItem="HOM-oV-1ja" secondAttribute="centerY" id="CJN-Qx-a2q"/>
-                        <constraint firstItem="dWL-Od-hNU" firstAttribute="leading" secondItem="HOM-oV-1ja" secondAttribute="leading" constant="15" id="VCC-bK-dqh"/>
                         <constraint firstAttribute="height" constant="40" id="e4T-aV-gcr"/>
                         <constraint firstItem="dWL-Od-hNU" firstAttribute="top" secondItem="HOM-oV-1ja" secondAttribute="top" id="g7Q-6X-U9U"/>
                         <constraint firstItem="VGK-yx-JYC" firstAttribute="leading" secondItem="HOM-oV-1ja" secondAttribute="leading" constant="15" id="hgJ-js-qsE"/>
-                        <constraint firstAttribute="trailing" secondItem="aNw-3i-Tx2" secondAttribute="trailing" constant="16" id="reU-X0-wWZ"/>
+                        <constraint firstItem="KAB-W2-Io9" firstAttribute="leading" secondItem="dWL-Od-hNU" secondAttribute="leading" id="iNO-BY-p7c"/>
+                        <constraint firstItem="dWL-Od-hNU" firstAttribute="leading" secondItem="VGK-yx-JYC" secondAttribute="trailing" id="pyL-rh-E7X"/>
                         <constraint firstItem="KAB-W2-Io9" firstAttribute="centerY" secondItem="VGK-yx-JYC" secondAttribute="centerY" id="sbe-f8-N3E"/>
-                        <constraint firstItem="KAB-W2-Io9" firstAttribute="leading" secondItem="VGK-yx-JYC" secondAttribute="trailing" constant="10" id="z8F-qd-OwN"/>
-                        <constraint firstItem="aNw-3i-Tx2" firstAttribute="centerY" secondItem="HOM-oV-1ja" secondAttribute="centerY" id="zu7-r3-JNt"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -104,6 +94,5 @@
     <resources>
         <image name="btn_close" width="25" height="25"/>
         <image name="search" width="22" height="22"/>
-        <image name="shanchu" width="22" height="22"/>
     </resources>
 </document>

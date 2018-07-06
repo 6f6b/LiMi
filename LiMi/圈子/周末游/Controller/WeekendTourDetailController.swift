@@ -11,7 +11,7 @@ import ObjectMapper
 import SVProgressHUD
 import MJRefresh
 
-class WeekendTourDetailController: ViewController {
+class WeekendTourDetailController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var _weekendId:Int?
     @objc var weekendId:Int{

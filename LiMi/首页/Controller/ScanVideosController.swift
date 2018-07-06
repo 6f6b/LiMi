@@ -24,7 +24,7 @@ protocol ScanVideosControllerDelegate :NSObjectProtocol{
     func scanVideosControllerRequestDataWith(scanVideosController:ScanVideosController)
 }
 
-class ScanVideosController: ViewController {
+class ScanVideosController: UIViewController {
     var tableViewContainView:UIView!
     var tableView:UITableView!
     weak var delegate:ScanVideosControllerDelegate!
@@ -60,10 +60,11 @@ class ScanVideosController: ViewController {
         
         self.tableView = UITableView.init(frame: SCREEN_RECT, style: .plain)
         self.tableView.separatorStyle = .none
+        self.tableView.allowsSelection = false
         self.tableView.backgroundColor = UIColor.init(red: 255, green: 30, blue: 30, alpha: 1)
         self.tableView.estimatedRowHeight = 0
-//        self.tableView.estimatedSectionFooterHeight = 0
-//        self.tableView.estimatedSectionHeaderHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.estimatedSectionHeaderHeight = 0
         self.tableView.register(UINib.init(nibName: "VideoPlayCell", bundle: nil), forCellReuseIdentifier: "VideoPlayCell")
         self.tableView.register(UINib.init(nibName: "NoMoreDataViewCell", bundle: nil), forCellReuseIdentifier: "NoMoreDataViewCell")
         self.tableView.showsVerticalScrollIndicator = false
@@ -82,6 +83,7 @@ class ScanVideosController: ViewController {
             self.tableView.mj_footer.endRefreshing()
         })
         footer?.state = .noMoreData
+        
         footer?.stateLabel.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
         footer?.stateLabel.font = UIFont.systemFont(ofSize: 15)
         footer?.setTitle("无更多数据", for: .noMoreData)
@@ -107,18 +109,27 @@ class ScanVideosController: ViewController {
     }
     
     @objc func appDidBecomeActive(){
+        print("appDidBecomeActive")
         if self.isVisiable{self.player.resume()}
     }
     
     @objc func appWillResignActive(){
-        self.player.pause()
+        print("appWillResignActive")
+        if self.player.playerState() != .pause{
+            self.player.pause()
+        }
     }
     
     @objc func appDidEnterBackground(){
-        self.player.pause()
+        print("appDidEnterBackground")
+        if self.player.playerState() != .pause{
+            self.player.pause()
+        }
     }
     
     @objc func appWillEnterForeground(){
+        print("appWillEnterForeground")
+
         if self.isVisiable{self.player.resume()}
     }
     
@@ -158,12 +169,12 @@ class ScanVideosController: ViewController {
         super.viewWillAppear(animated)
         self.isNavigationBarHidden = (self.navigationController?.navigationBar.isHidden)!
         self.navigationController?.navigationBar.isHidden = true
-        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let index = self.delegate.currentVideoTrendIndex
+        self.setNeedsStatusBarAppearanceUpdate()
         self.tableView.layoutIfNeeded()
         self.tableView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT*CGFloat(index)), animated: false)
     }
@@ -277,6 +288,16 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
 }
 
 extension ScanVideosController:VideoPlayCellDelegate{
+    func videoPlayCellUserNameLabelClicked(label: UILabel) {
+        
+        
+//        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
+//        let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
+//        let userDetailsController = UserDetailsController()
+//        userDetailsController.userId = videoModel.user_id!
+//        self.navigationController?.pushViewController(userDetailsController, animated: true)
+    }
+    
     func videoPlayCellUserHeadButtonClicked(button:UIButton){
         let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
         let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
@@ -320,13 +341,17 @@ extension ScanVideosController:VideoPlayCellDelegate{
         _ = moyaProvider.rx.request(.targetWith(target: videoClickAciton)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
-                videoModel.is_click = !videoModel.is_click!
-                if videoModel.is_click!{
-                    videoModel.click_num = videoModel.click_num! + 1
+                if let isClick = videoModel.is_click{
+                    videoModel.is_click = !videoModel.is_click!
+                    if videoModel.is_click!{
+                        videoModel.click_num = videoModel.click_num! + 1
+                    }else{
+                        videoModel.click_num = videoModel.click_num! - 1
+                    }
+                    NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
                 }else{
-                    videoModel.click_num = videoModel.click_num! - 1
+                    Toast.showErrorWith(msg: "点赞字段为空")
                 }
-                NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
             }
             Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in
@@ -343,7 +368,7 @@ extension ScanVideosController:VideoPlayCellDelegate{
         self.videoCommentListNavController = NavigationController.init(rootViewController: videoCommentListController)
         self.videoCommentListNavController?.navigationBar.isHidden = true
         self.videoCommentListNavController?.view.backgroundColor = UIColor.clear
-        self.definesPresentationContext = true
+        //self.definesPresentationContext = true
         self.videoCommentListNavController?.modalPresentationStyle = .overFullScreen
         self.present(self.videoCommentListNavController!, animated: true, completion: nil)
     }

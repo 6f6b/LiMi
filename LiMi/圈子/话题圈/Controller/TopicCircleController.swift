@@ -12,7 +12,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-class TopicCircleController: ViewController {
+class TopicCircleController: UIViewController {
     var tableView:UITableView!
     var dataArray = [TopicCircleModel]()
     var pageIndex = 1

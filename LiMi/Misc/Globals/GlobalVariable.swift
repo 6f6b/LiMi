@@ -37,6 +37,12 @@ let NAVIGATION_BAR_SEPARATE_LINE_HEIGHT = CGFloat(0.7)
 ///APP 主题色
 let APP_THEME_COLOR = RGBA(r: 47, g: 196, b: 233, a: 1)
 
+///APP 主题色 1 - RGBA(r: 30, g: 30, b: 30, a: 1)
+let APP_THEME_COLOR_1 = RGBA(r: 30, g: 30, b: 30, a: 1)
+
+///APP 主题色 2 - RGBA(r: 114, g: 0, b: 218, a: 1)
+let APP_THEME_COLOR_2 = RGBA(r: 114, g: 0, b: 218, a: 1)
+
 ///一级黑
 let FIRST_LEVEL_BLACK_COLOR = RGBA(r: 51, g: 51, b: 51, a: 1)
 
@@ -66,6 +72,8 @@ let APP_SCHEME = "LiMi20018"
 var AUTH_BTN_COUNT_DOWN_TIMER:Timer?
 var AUTH_BTN_COUNT_DOWN_TIME = 0
 
+///注册完毕
+let REGISTER_FINISHED_NOTIFICATION = Notification.Name.init("REGISTER_FINISHED_NOTIFICATION")
 ///动态发送成功通知
 let POST_TREND_SUCCESS_NOTIFICATION = Notification.Name.init("POST_TREND_SUCCESS_NOTIFICATION")
 ///话题发送成功通知

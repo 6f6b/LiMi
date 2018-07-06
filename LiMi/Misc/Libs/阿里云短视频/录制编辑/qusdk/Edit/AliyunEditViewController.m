@@ -97,6 +97,12 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //动效滤镜
 @property (nonatomic, strong) NSMutableArray *animationFilters;
 
+@property (nonatomic,strong) NSMutableArray *filterDataArray;
+@property (nonatomic, strong) UILabel *filterInfoLabel;
+@property (nonatomic, strong) AliyunDBHelper *filterDbHelper;
+
+
+
 @end
 
 @implementation AliyunEditViewController {
@@ -115,8 +121,13 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     _outputSize = [_config fixedSize];
     
     // Do any additional setup after loading the view.
-    
     self.view.backgroundColor =UIColor.blackColor;
+    _filterDataArray = [NSMutableArray new];
+    _filterIndex = 0;
+    _filterDbHelper = [[AliyunDBHelper alloc] init];
+
+    [self reloadDataWithEffectType:4];
+    
     [self addSubviews];
     
     // editor
@@ -159,7 +170,6 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [self updateSubViews];
     [self addNotifications];
     
-//    [self.view addSubview:self.staticImageButton];
 }
 
 - (UIButton *)staticImageButton {
@@ -170,6 +180,21 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
         [_staticImageButton setTitle:@"静态贴图" forState:UIControlStateNormal];
     }
     return _staticImageButton;
+}
+
+- (void)setFilterIndex:(int)filterIndex{
+    if(filterIndex == _filterIndex){return;}
+    _filterIndex = filterIndex;
+    AliyunEffectInfo *currentEffect = _filterDataArray[filterIndex];
+    AliyunEffectFilter *filter =[[AliyunEffectFilter alloc] initWithFile:[currentEffect localFilterResourcePath]];
+    [self.filterInfoLabel.layer removeAllAnimations];
+    self.filterInfoLabel.alpha = 1;
+    self.filterInfoLabel.text = currentEffect.name;
+    __weak AliyunEditViewController *weakSelf = self;
+    [UIView animateWithDuration:0.2 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
+        weakSelf.filterInfoLabel.alpha = 0;
+    } completion:nil];
+    [self.editor applyFilter:filter];
 }
 
 - (void)staticImageButtonTapped:(id)sender {
@@ -290,6 +315,11 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [self.player setActive:YES];
     [self.player play];
     [self forceFinishLastEditPasterView];
+}
+
+#pragma mark - FilterAndBeautyViewDelegate
+- (void)filterAndBeautyViewSelectedFilterIndex:(int)index{
+    self.filterIndex = index;
 }
 
 #pragma mark - AliyunIPlayerCallback -
@@ -467,6 +497,14 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [self.view addSubview:self.editButtonsView];
     self.editButtonsView.delegate = (id)self;
     
+    _filterInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, 90)];
+    _filterInfoLabel.font = [UIFont systemFontOfSize:23];
+    _filterInfoLabel.textAlignment = UITextAlignmentCenter;
+    _filterInfoLabel.textColor = [UIColor whiteColor];
+    _filterInfoLabel.text = @"";
+    _filterInfoLabel.center = CGPointMake(ScreenWidth*0.5, ScreenHeight*0.5);
+    _filterInfoLabel.alpha = 0;
+    [self.view addSubview:_filterInfoLabel];
     
 }
 
@@ -890,7 +928,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //滤镜
 - (void)filterButtonClicked{
     [self forceFinishLastEditPasterView];
-    [self.filterView showOnlyWithType:FilterAndBeautyViewTypeOnlyFilter];
+    [self.filterView showOnlyWithType:FilterAndBeautyViewTypeOnlyFilter Index:_filterIndex filterDataArray:self.filterDataArray];
 }
 //音乐
 - (void)musicButtonClicked {
@@ -903,6 +941,17 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 //    [self presentBackgroundButton];
 //    _editSouceClickType = AliyunEditSouceClickTypeMusic;
 //    [self showEffectView:self.musicView duration:0.2f];
+}
+
+- (void)reloadDataWithEffectType:(NSInteger)eType {
+    [_filterDataArray removeAllObjects];
+    [_filterDbHelper queryResourceWithEffecInfoType:eType success:^(NSArray *infoModelArray) {
+        for (AliyunEffectMvGroup *mvGroup in infoModelArray) {
+            [_filterDataArray addObject:mvGroup];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - MusicPickViewControllerDelegate

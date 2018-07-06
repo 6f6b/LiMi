@@ -11,7 +11,7 @@ import SVProgressHUD
 import Moya
 import ObjectMapper
 
-class SetPayPasswordController: ViewController {
+class SetPayPasswordController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
 
     @IBOutlet weak var info: UILabel!

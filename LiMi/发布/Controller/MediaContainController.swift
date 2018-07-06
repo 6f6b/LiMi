@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MediaContainController: ViewController {
+class MediaContainController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!

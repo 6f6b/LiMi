@@ -13,7 +13,7 @@ import TZImagePickerController
 import ObjectMapper
 import Kingfisher
 
-class FinishPersonInfoController: ViewController {
+class FinishPersonInfoController: UIViewController {
     @IBOutlet weak var nickName: UITextField!
     @IBOutlet weak var boyBtn: UIButton!
     @IBOutlet weak var girlBtn: UIButton!

@@ -9,6 +9,8 @@
 import UIKit
 
 class UserDetailSelectTrendsTypeView: UICollectionReusableView {
+    let normalColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+    let selectedColor = RGBA(r: 255, g: 255, b: 255, a: 1)
     var leftBtn:UIButton!
     var rightBtn:UIButton!
     var leftBottomLine:UIView!
@@ -24,14 +26,14 @@ class UserDetailSelectTrendsTypeView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.backgroundColor = UIColor.clear
 
         
         self.leftBtn = UIButton.init(type: .custom)
         self.leftBtn.addTarget(self, action: #selector(dealTapBtn(btn:)), for: .touchUpInside)
-        self.leftBtn.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
+        self.leftBtn.setTitleColor(normalColor, for: .normal)
         self.leftBtn.setTitle("作品", for: .normal)
-        self.leftBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        self.leftBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         self.addSubview(self.leftBtn)
         self.leftBtn.snp.makeConstraints {[unowned self] (make) in
             make.left.equalTo(self).offset(15)
@@ -40,32 +42,27 @@ class UserDetailSelectTrendsTypeView: UICollectionReusableView {
         
         self.rightBtn = UIButton.init(type: .custom)
         self.rightBtn.addTarget(self, action: #selector(dealTapBtn(btn:)), for: .touchUpInside)
-        self.rightBtn.setTitleColor(RGBA(r: 51, g: 51, b: 51, a: 1), for: .normal)
+        self.rightBtn.setTitleColor(normalColor, for: .normal)
         self.rightBtn.setTitle("喜欢", for: .normal)
-        self.rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        self.rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         self.addSubview(self.rightBtn)
         self.rightBtn.snp.makeConstraints {[unowned self] (make) in
-            make.left.equalTo(self.leftBtn.snp.right).offset(30)
+            make.left.equalTo(self.leftBtn.snp.right).offset(80)
             make.centerY.equalTo(self.leftBtn)
         }
         
         self.leftBottomLine = UIView.init()
-        self.leftBottomLine.backgroundColor = APP_THEME_COLOR
-        self.leftBottomLine.layer.cornerRadius = 1.5
-        self.leftBottomLine.clipsToBounds = true
+        self.leftBottomLine.backgroundColor = selectedColor
         self.addSubview(self.leftBottomLine)
         self.leftBottomLine.snp.makeConstraints {[unowned self] (make) in
             make.centerX.equalTo(self.leftBtn)
             make.width.equalTo(30)
             make.height.equalTo(3)
             make.top.equalTo(self.leftBtn.snp.bottom).offset(0)
-            make.bottom.equalTo(self)
         }
         
         self.rightBottomeLine = UIView.init()
-        self.rightBottomeLine.backgroundColor = APP_THEME_COLOR
-        self.rightBottomeLine.layer.cornerRadius = 1.5
-        self.rightBottomeLine.clipsToBounds = true
+        self.rightBottomeLine.backgroundColor = selectedColor
         self.addSubview(self.rightBottomeLine)
         self.rightBottomeLine.snp.makeConstraints {[unowned self] (make) in
             make.centerX.equalTo(self.rightBtn)
@@ -97,14 +94,14 @@ class UserDetailSelectTrendsTypeView: UICollectionReusableView {
     
     func refreshUIWith(selectedIndex:Int){
         if selectedIndex == 0{
-            self.leftBtn.setTitleColor(APP_THEME_COLOR, for: .normal)
-            self.rightBtn.setTitleColor(RGBA(r: 204, g: 204, b: 204, a: 1), for: .normal)
+            self.leftBtn.setTitleColor(selectedColor, for: .normal)
+            self.rightBtn.setTitleColor(normalColor, for: .normal)
             self.leftBottomLine.isHidden = false
             self.rightBottomeLine.isHidden = true
         }
         if selectedIndex == 1{
-            self.leftBtn.setTitleColor(RGBA(r: 204, g: 204, b: 204, a: 1), for: .normal)
-            self.rightBtn.setTitleColor(APP_THEME_COLOR, for: .normal)
+            self.leftBtn.setTitleColor(normalColor, for: .normal)
+            self.rightBtn.setTitleColor(selectedColor, for: .normal)
             self.leftBottomLine.isHidden = true
             self.rightBottomeLine.isHidden = false
         }

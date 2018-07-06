@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopicListContainController: ViewController {
+class TopicListContainController: UIViewController {
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
     var newestTopicListController:TopicListController!

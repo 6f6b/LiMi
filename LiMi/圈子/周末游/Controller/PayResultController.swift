@@ -9,7 +9,7 @@
 import UIKit
 import YYText
 
-class PayResultController: ViewController {
+class PayResultController: UIViewController {
     @IBOutlet weak var successContainView: UIView!
     @IBOutlet weak var successLabel: UILabel!
     var successInfo: YYLabel!

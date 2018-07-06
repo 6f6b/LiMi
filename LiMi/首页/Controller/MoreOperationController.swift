@@ -12,7 +12,7 @@ protocol MoreOperationControllerDelegate {
     func moreOperationBlackClicked()
     func moreOperationDeleteClicked()
 }
-class MoreOperationController: ViewController {
+class MoreOperationController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var deleteContainVIew: UIView!
     

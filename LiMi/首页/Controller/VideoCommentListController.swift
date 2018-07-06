@@ -13,7 +13,7 @@ import SVProgressHUD
 import ObjectMapper
 import MJRefresh
 
-class VideoCommentListController: ViewController {
+class VideoCommentListController: UIViewController {
     override var prefersStatusBarHidden: Bool{
         return true
     }
