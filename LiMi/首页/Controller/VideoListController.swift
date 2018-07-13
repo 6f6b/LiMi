@@ -73,6 +73,10 @@ class VideoListController: UIViewController {
                 for i in 0 ..< self.dataArray.count{
                     if self.dataArray[i].id == moreOprationModel.action_id{
                         self.dataArray.remove(at: i)
+                        if self.dataArray.count <= 0{
+                            self.collectionView.emptyDataSetDelegate = self
+                            self.collectionView.emptyDataSetSource = self
+                        }
                         self.collectionView.reloadData()
                         return
                     }
@@ -108,8 +112,12 @@ class VideoListController: UIViewController {
                 for trend in trends{
                     self.dataArray.append(trend)
                 }
-                self.collectionView.reloadData()
             }
+            if self.dataArray.count <= 0{
+                self.collectionView.emptyDataSetDelegate = self
+                self.collectionView.emptyDataSetSource = self
+            }
+            self.collectionView.reloadData()
             self.collectionView.mj_header.endRefreshing()
             self.collectionView.mj_footer.endRefreshing()
             Toast.showErrorWith(model: videoTrendListModel)
@@ -124,6 +132,22 @@ class VideoListController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension VideoListController : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "qsy")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "空空如也~"
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .center
+        let attributes = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 16),NSAttributedStringKey.foregroundColor:RGBA(r: 255, g: 255, b: 255, a: 1)]
+        return NSAttributedString.init(string: text, attributes: attributes)
+    }
 }
 
 extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSource{

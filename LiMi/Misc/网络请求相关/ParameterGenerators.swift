@@ -675,10 +675,12 @@ struct MyFansList:TargetType,ParametersProtocol{
         return "/user/myFansList"
     }
     var page:Int?
+    var id:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page,
+            "id":id
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -720,10 +722,12 @@ struct MyAttentionList:TargetType,ParametersProtocol{
         return "/user/myAttentionList"
     }
     var page:Int?
+    var id:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page,
+            "id":id
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -1795,7 +1799,7 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var music_id:Int?
     var music_start:Float?
     var music_duration:Float?
-    
+    var music_type:Int?
     func parameters() -> [String : Any] {
         let tmpParameters = ["title":title,
                              "video_addr":video_addr,
@@ -1803,7 +1807,8 @@ struct PublishVideo:TargetType,ParametersProtocol{
                             "video_cover":video_cover,
                             "music_id":music_id,
                             "music_start":music_start,
-                            "music_end":music_duration
+                            "music_end":music_duration,
+                            "music_type":music_type
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -2222,18 +2227,7 @@ struct MusicList:TargetType,ParametersProtocol{
     var m_id:Int?
     var type:Int?
     var name:String?
-    
-//    page    页码    是    [string]
-//    查看
-//    m_id    请求的具体类别id    是    [string]
-//    查看
-//    type    0 音乐逻辑种类 1音乐本身种类    是    [int]
-//    查看
-//    id        是    [string]
-//    查看
-//    token        是    [string]
-//    查看
-//    name
+
     
     func parameters() -> [String : Any] {
         let tmpParameters = [
@@ -2245,6 +2239,68 @@ struct MusicList:TargetType,ParametersProtocol{
         return handleRequestParameters(parameters: tmpParameters)
     }
 }
+
+struct MusicCollect:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Music/musicCollect"
+    }
+    
+    var music_id:Int?
+    var music_type:Int?
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "music_id":music_id,
+            "music_type":music_type
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+//同款视频列表
+//music_type    0:在线音乐 1：用户上传    是    [int]
+//查看
+//music_id        是    [int]
+//查看
+//page        是    [string]
+//查看
+//time
+struct GetSameVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/getSameVideoList"
+    }
+    
+    var music_id:Int?
+    var music_type:Int?
+    var page:Int?
+    var time:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "music_id":music_id,
+            "music_type":music_type,
+            "page":page,
+            "time":time,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{

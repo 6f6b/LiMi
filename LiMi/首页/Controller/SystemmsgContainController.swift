@@ -13,8 +13,6 @@ import ObjectMapper
 class SystemmsgContainController: UIViewController {
     var slidingMenuBar:SlidingMenuBar!
     var controllersContainScrollView:UIScrollView!
-    var findTrendsListController:TrendsListController!
-    var trendsListController:TrendsListController!
     
     var isNavigationBarHidden:Bool = false
     override func viewDidLoad() {

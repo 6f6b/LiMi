@@ -35,7 +35,6 @@ class UserInfoEditController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
         
         let saveButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
         saveButton.setTitle("保存", for: .normal)
@@ -55,12 +54,22 @@ class UserInfoEditController: UITableViewController {
         
         self.signatureTextFeild.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: .editingChanged)
         self.refreshUI()
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     func refreshUI(){
         if let headImage = self.userInfoModel?.head_pic{
             self.userHeadImageView.kf.setImage(with: URL.init(string: headImage), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
@@ -77,22 +86,41 @@ class UserInfoEditController: UITableViewController {
         self.school.text = self.userInfoModel?.college?.name
         if let birthday = self.userInfoModel?.birthday{
             let dateFormatter = DateFormatter.init()
-            dateFormatter.dateFormat = "yyyy-mm--dd"
-            let date = Date.init(timeIntervalSince1970: TimeInterval(birthday))
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = Date.init(timeIntervalSinceNow: TimeInterval.init(birthday))
             self.birthday.text = dateFormatter.string(from: date)
         }
         self.area.text = self.userInfoModel?.city?.name
         self.signatureTextFeild.text = self.userInfoModel?.signature
-        if self.userInfoModel?.is_access == 2{
-            self.authenticationButton.isHidden = true
-        }else{
-            self.authenticationButton.isHidden = false
+        
+        self.authenticationButton.isHidden = false
+        self.authenticationButton.isUserInteractionEnabled = true
+        var authenticationTitle = ""
+        if self.userInfoModel?.is_access == 0{
+            //未认证
+            authenticationTitle = "未认证"
         }
+        if self.userInfoModel?.is_access == 1{
+            //认证中
+            authenticationTitle = "认证中"
+            self.authenticationButton.isUserInteractionEnabled = false
+        }
+        if self.userInfoModel?.is_access == 2{
+            //认证通过
+            authenticationTitle = "认证通过"
+            self.authenticationButton.isUserInteractionEnabled = false
+        }
+        if self.userInfoModel?.is_access == 3{
+            //认证失败
+            authenticationTitle = "认证失败"
+        }
+        self.authenticationButton.setTitle(authenticationTitle, for: .normal)
+
         var signature = ""
         if let _sinature = self.signatureTextFeild.text{
             signature = _sinature
         }
-        self.signatureCharacterNum.text = "\(signature.lengthOfBytes(using: String.Encoding.utf8))/20"
+        self.signatureCharacterNum.text = "\(NSString.init(string: signature).length)/20"
     }
     
     func uploadImageWith(images:[UIImage]?,phAssets:[PHAsset]?){
@@ -128,16 +156,29 @@ class UserInfoEditController: UITableViewController {
     
     //MARK: - actions
     @objc func textFieldValueChanged(textField:UITextField!){
-        var text = ""
-        if let _text = textField.text{
-            text = _text
+        var text = NSString.init()
+        if let position = textField.markedTextRange{
+            //校验是否处在拼写期间
+            if let _ = textField.position(from: position.start, offset: 0){return}
+            if let _text = textField.text{
+                text = NSString.init(string: _text)
+            }
+            if text.length > 20{
+                text = NSString.init(string: text.substring(with: NSRange.init(location: 0, length: 20)))
+            }
+            textField.text = String.init(text)
+            self.signatureCharacterNum.text = "\(text.length)/20"
+        }else{
+            if let _text = textField.text{
+                text = NSString.init(string: _text)
+            }
+            if text.length > 20{
+                text = NSString.init(string: text.substring(with: NSRange.init(location: 0, length: 20)))
+            }
+            textField.text = String.init(text)
+            self.signatureCharacterNum.text = "\(text.length)/20"
         }
-        if text.lengthOfBytes(using: String.Encoding.utf8) > 20{
-            let nsText = NSString.init(string: text)
-            text = nsText.substring(with: NSRange.init(location: 0, length: 20))
-        }
-        textField.text = text
-        self.signatureCharacterNum.text = "\(text.lengthOfBytes(using: String.Encoding.utf8))/20"
+        
     }
     
     @objc func tapedUserHeadImageView(){
@@ -266,13 +307,13 @@ class UserInfoEditController: UITableViewController {
             datePickerView.datePicker.minimumDate = Date.init(timeIntervalSinceNow: -100*365*24*60*60)
             datePickerView.datePicker.maximumDate = Date.init(timeIntervalSinceNow: -18*365*24*60*60)
             if let _birthdayValue = self.birthdayValue{
-                datePickerView.datePicker.date = Date.init(timeIntervalSince1970: Double(_birthdayValue))
+                datePickerView.datePicker.date = Date.init(timeIntervalSinceNow: TimeInterval(_birthdayValue))
             }
             datePickerView.datePickerBlock = {[unowned self] (date) in
                 let dateForMatter = DateFormatter()
                 dateForMatter.dateFormat = "yyyy-MM-dd"
                 self.birthday.text = dateForMatter.string(from: date)
-                self.birthdayValue = Int(date.timeIntervalSince1970)
+                self.birthdayValue = Int(date.timeIntervalSinceNow)
             }
             UIApplication.shared.keyWindow?.addSubview(datePickerView)
         }
@@ -283,7 +324,6 @@ class UserInfoEditController: UITableViewController {
 }
 
 extension UserInfoEditController : UITextFieldDelegate{
-    
 }
 
 extension UserInfoEditController : TZImagePickerControllerDelegate{

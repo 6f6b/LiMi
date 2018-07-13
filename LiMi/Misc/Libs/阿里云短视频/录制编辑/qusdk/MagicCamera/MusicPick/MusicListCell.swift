@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MusicListCellDelegate {
+protocol MusicListCellDelegate:NSObjectProtocol {
     func musicListCell(_ musicListCell:MusicListCell,indexPath:IndexPath,clickedPickMusicButton pickMusicButton:UIButton)
     func musicListCell(_ musicListCell:MusicListCell,indexPath:IndexPath,clickedCutButton cutButton:UIButton)
     func musicListCell(_ musicListCell:MusicListCell,indexPath:IndexPath,clickedCollectButton collectButton:UIButton)
@@ -27,21 +27,20 @@ class MusicListCell: UITableViewCell {
     @IBOutlet weak var musicTime: UILabel!
     
     var indexPath:IndexPath?
-    var delegate:MusicListCellDelegate?
+    weak var delegate:MusicListCellDelegate?
     var musicModel:MusicModel?
     override func awakeFromNib() {
         super.awakeFromNib()
         let gradientLayer = CAGradientLayer()
         let alpha = CGFloat(1)
-        gradientLayer.colors = [RGBA(r: 255, g: 90, b: 0, a: alpha).cgColor,RGBA(r: 144, g: 0, b: 218, a: alpha).cgColor]
-        gradientLayer.locations = [0.0,1.0]
-        gradientLayer.startPoint = CGPoint.init(x: 1, y: 0)
-        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
+        gradientLayer.colors = [RGBA(r: 144, g: 0, b: 218, a: alpha).cgColor,RGBA(r: 255, g: 90, b: 0, a: alpha).cgColor]
+        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint.init(x: 1, y: 0.5)
         gradientLayer.frame = SCREEN_RECT
         self.pickMusicButton.layer.addSublayer(gradientLayer)
         self.selectionStyle = .none
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -71,7 +70,7 @@ class MusicListCell: UITableViewCell {
         let timeStr = String.init(format: "%02d:%02d", secondes/60,secondes%60)
         self.musicTime.text = timeStr
         
-        self.collectButton.isSelected = model.is_collect!
+        self.collectButton.isSelected = model.is_collect ?? false
     }
     
     //MARK: - actions

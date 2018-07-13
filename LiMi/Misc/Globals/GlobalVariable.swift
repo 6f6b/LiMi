@@ -131,6 +131,8 @@ let LEAVE_PLAY_PAGE_NOTIFICATION = Notification.Name.init("LEAVE_PLAY_PAGE_NOTIF
 ///进入播放页
 let INTO_PLAY_PAGE_NOTIFICATION = Notification.Name.init("INTO_PLAY_PAGE_NOTIFICATION")
 
+//收藏、取消收藏音乐成功通知
+let COLLECT_MUSIC_SUCCESS_NOTIFICATION = Notification.Name.init("COLLECT_MUSIC_SUCCESS_NOTIFICATION")
 ///获取cell的key
 let CELL_INSTANCE_KEY = "CELL_INSTANCE_KEY"
 /// 更多操作通知对象的key

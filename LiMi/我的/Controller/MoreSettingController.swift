@@ -29,14 +29,16 @@ class MoreSettingController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 
     //MARK: - action
-
     @IBAction func logoutButtonClicked(_ sender: Any) {
         let alertVC = UIAlertController.init(title: "确认退出登录？", message: nil, preferredStyle: .alert)
         let actionOK = UIAlertAction.init(title: "确定", style: .default) {_ in
             NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: self, userInfo: nil)
+            if let _tabController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
+                _tabController.selectedIndex = 0
+                _tabController.tabBar.backgroundColor = UIColor.clear
+            }
         }
         let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         alertVC.addAction(actionOK)

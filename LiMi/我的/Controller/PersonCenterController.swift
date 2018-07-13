@@ -79,10 +79,6 @@ class PersonCenterController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = nil
-        UIApplication.shared.statusBarStyle = .lightContent
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.barStyle = .blackTranslucent
-        self.navigationController?.navigationBar.shadowImage = UIImage()
         
         requestData()
     }
@@ -305,8 +301,8 @@ class PersonCenterController: UITableViewController {
         //0 ：未认证   1：认证中  2：认证完成  3：认证失败
         if let identityStatus = identityStatus{
             if identityStatus == 0{
-                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+//                let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+//                self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                 return
             }
             if identityStatus == 1{

@@ -11,6 +11,10 @@ import Qiniu
 import QiniuUpload
 
 //successBlock:((UIImage,String)->Void)?,failedBlock:(()->Void)?,completionBlock:(()->Void)?)
+enum MediaType {
+    case picture
+    case video
+}
 
 class FailedResult{
     var qnResponseInfo:QNResponseInfo?

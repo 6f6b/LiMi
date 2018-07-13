@@ -16,22 +16,19 @@ class TabBarController: UITabBarController {
         
         let homeContainViewController = HomeContainViewController()
         self.addControllerWith(controller: homeContainViewController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
-//        let homePageController = HomePageController()
-//        self.addControllerWith(controller: homePageController, title: "首页", tbImg: "home_ic_sy", tbSelectedImg: "home_ic_sypre")
         
         let circleController = CircleController()
          self.addControllerWith(controller: circleController, title: "圈子", tbImg: "home_ic_qz", tbSelectedImg: "home_ic_qzpre")
         
-        let blankController = ViewController()
+        let blankController = UIViewController()
         self.addControllerWith(controller: blankController, title: "", tbImg: "home_ps", tbSelectedImg: "home_ps",imageInsets: UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0))
         
         let msgController = MsgController()
          self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
 
-        //let personCenterController = GetViewControllerFrom(sbName: .personalCenter, sbID: "PersonCenterController")
         let personCenterController = UserDetailsController()
         personCenterController.userInfoHeaderViewType = .inMyPersonCenter
-        self.addControllerWith(controller: personCenterController, title: "我的", tbImg: "home_ic_me", tbSelectedImg: "home_ic_mepre")
+        self.addControllerWith(controller: personCenterController, title: "", tbImg: "home_ic_me", tbSelectedImg: "home_ic_mepre")
         self.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
@@ -100,7 +97,7 @@ class TabBarController: UITabBarController {
     func addControllerWith(controller:UIViewController!,title:String!,tbImg:String!,tbSelectedImg:String!,imageInsets:UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: -5, right: 0)){
         controller.loadViewIfNeeded()
         controller.title = title
-        let navController = NavigationController(rootViewController: controller)
+        let navController = CustomNavigationController.init(rootViewController: controller)
         navController.tabBarItem.image = UIImage.init(named: tbImg)?.withRenderingMode(.alwaysOriginal)
         navController.tabBarItem.selectedImage = UIImage.init(named: tbSelectedImg)?.withRenderingMode(.alwaysOriginal)
         navController.tabBarItem.title = nil
@@ -130,15 +127,9 @@ extension TabBarController:UITabBarControllerDelegate{
             print("\(NSDate.init())")
             let mediaContainController = MediaContainController()
             print("\(NSDate.init())")
-            let mediaContainControllerNav = NavigationController.init(rootViewController: mediaContainController)
+            let mediaContainControllerNav = CustomNavigationController.init(rootViewController: mediaContainController)
             self.present(mediaContainControllerNav, animated: true, completion: nil)
             return false
-        }
-        /*颜色改变*/
-        if viewController == self.viewControllers![0]{
-            tabBarController.tabBar.backgroundColor = UIColor.clear
-        }else{
-            tabBarController.tabBar.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
         }
         
         /*其他*/
@@ -153,6 +144,12 @@ extension TabBarController:UITabBarControllerDelegate{
                 NotificationCenter.default.post(name: LOGOUT_NOTIFICATION, object: nil)
                 return false
             }
+        }
+        /*颜色改变*/
+        if viewController == self.viewControllers![0]{
+            tabBarController.tabBar.backgroundColor = UIColor.clear
+        }else{
+            tabBarController.tabBar.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
         }
         return true
     }

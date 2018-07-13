@@ -423,7 +423,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="94" id="ZFm-z4-A4L"/>
                                                         <constraint firstItem="gih-CA-wz3" firstAttribute="centerX" secondItem="a9r-k6-ADv" secondAttribute="centerX" id="abI-Q3-KIG"/>
@@ -464,9 +464,9 @@
                                                         </textField>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xGw-pq-tHQ">
                                                             <rect key="frame" x="25" y="49.666666666666686" width="364" height="0.3333333333333357"/>
-                                                            <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="0.5" id="pch-fW-6Ha"/>
+                                                                <constraint firstAttribute="height" constant="0.20000000000000001" id="pch-fW-6Ha"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

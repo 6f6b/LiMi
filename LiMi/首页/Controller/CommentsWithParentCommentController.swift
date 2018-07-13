@@ -157,7 +157,7 @@ class CommentsWithParentCommentController: UIViewController {
                 }
             }
             if commentModel.video_id != nil{
-                if commentModel.video_id == self.videoTrendModel?.id && self.videoTrendModel?.user_id == Defaults[.userId]{
+                if commentModel.video_id == self.videoTrendModel?.id && self.videoTrendModel?.user?.user_id == Defaults[.userId]{
                     let alertController = UIAlertController.init(title: "确认删除该条评论吗？", message: nil, preferredStyle: .alert)
                     let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
                     let actionOK = UIAlertAction.init(title: "确定", style: .default, handler: {[unowned self] (_) in

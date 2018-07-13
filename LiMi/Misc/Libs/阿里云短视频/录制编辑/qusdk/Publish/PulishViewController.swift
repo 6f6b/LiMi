@@ -10,6 +10,8 @@ import UIKit
 import Moya
 import ObjectMapper
 
+
+
 @objc class PulishViewController: UIViewController {
     @objc var backgroundImage:UIImage!
     @objc var taskPath:String!;
@@ -19,6 +21,7 @@ import ObjectMapper
     @objc var musicId:NSInteger = 0;
     @objc var  startTime:Float = 0;
     @objc var duration:Float = 0;
+    @objc var musicType:Int = 1;//默认原声
     
     var containerView:UIView!;
     var topView:AliyunPublishTopView!;
@@ -46,6 +49,7 @@ import ObjectMapper
         super.viewDidLoad()
         self.addNotifications()
         self.setupSubviews()
+        self.navigationController?.navigationBar.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -250,7 +254,7 @@ import ObjectMapper
     //发布到服务器
     func pulishToServerWith(title:String?,videoId:String,viewAuth:Int,videoCover:String?){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration)
+        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration,music_type:self.musicType)
        // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)

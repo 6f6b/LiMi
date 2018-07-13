@@ -54,7 +54,14 @@ class SelectSchoolController: UIViewController {
     }
     
     @IBAction func dissMissButtonClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        let alertVC = UIAlertController.init(title: "关闭页面，将无法保存你的登录信息", message: nil, preferredStyle: .alert)
+        let actionOK = UIAlertAction.init(title: "关闭", style: .default) { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        alertVC.addAction(actionOK)
+        alertVC.addAction(actionCancel)
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {

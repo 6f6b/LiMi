@@ -11,9 +11,10 @@ import Moya
 import ObjectMapper
 import MJRefresh
 
-enum MusicType {
-    case hot
-    case new
+enum MusicType:NSInteger {
+    case online
+    case soundTrack
+    case none
 }
 
 let NoneSelectedIndex = 1000000;
@@ -21,11 +22,12 @@ let NoneSelectedIndex = 1000000;
 enum PlayerStatus {
     case playing
     case pause
+    case idle
 }
 
 @objc protocol MusicPickViewControllerDelegate {
     func musicPickViewControllerSelectedNone();
-    func musicPickViewControllerSelected(musicId:Int,musicPath:String,startTime:Float,duration:Float);
+    func musicPickViewControllerSelected(musicId:Int,musicPath:String,musicType:Int,startTime:Float,duration:Float);
 }
 
 class MusicPickViewController: UIViewController {
@@ -34,28 +36,33 @@ class MusicPickViewController: UIViewController {
     @IBOutlet weak var searchImage: UIImageView!
     @IBOutlet weak var searchPlaceholder: UILabel!
     @IBOutlet weak var musicListContainView: UIView!
+
     
-//    @IBOutlet weak var hotMusicButton: UIButton!
-//    @IBOutlet weak var newMusicButton: UIButton!
-//    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var topCoverView: UIView!
+    @IBOutlet weak var topCoverVIewTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var musicProgressContainView: UIView!
     @IBOutlet weak var musicProgressContainViewBottomConstraint: NSLayoutConstraint!
     override var prefersStatusBarHidden: Bool{return true}
-    var pageIndex = 1
     
     var selectedIndex:Int = NoneSelectedIndex
     var player:AVPlayer!
     var playerCurrentStatus:PlayerStatus = .pause
-    var startTime:Float = 0;
     
     @objc var delegate:MusicPickViewControllerDelegate!
-    @objc var duration:Float = 30
-
+    var startTime:Float = 0;
+    @objc var duration:Float{
+        get{
+            return 30
+        }
+    }
+    
     var musicPickView:AliyunMusicPickView!
     var recorder:AliyunIRecorder!
 
     var musicTypes = [MusicTypeModel]()
     var musicListControllers = [MusicListController]()
+    
+    var visiableControllerIndex:Int = 0
     
     var selectedControllerIndex:Int?
     var selectedRowIndex:Int?
@@ -66,17 +73,23 @@ class MusicPickViewController: UIViewController {
         
         let clearButton = self.searchTextFeild.value(forKey: "_clearButton") as! UIButton
         clearButton.setImage(UIImage.init(named: "shanchu"), for: .normal)
-
+        
+        let tapTopCoverView = UITapGestureRecognizer.init(target: self, action: #selector(cancelToCutMusic))
+        self.topCoverView.addGestureRecognizer(tapTopCoverView)
+        
+        self.topCoverVIewTopConstraints.constant = SCREEN_HEIGHT
+        self.musicProgressContainViewBottomConstraint.constant = -SCREEN_HEIGHT
+        
         self.setupSubviews()
         self.addNotification()
         self.player = AVPlayer.init()
 
         
-        self.searchTextFeild.addTarget(self, action: #selector(textFeildValueChanged(textFeild:)), for: .editingChanged)
-        self.searchTextFeild.delegate = self;
+        self.searchTextFeild.addTarget(self, action: #selector(textFeildEditingChanged(textFeild:)), for: .editingChanged)
         
         //请求音乐种类数据
         self.requestMusicTypes()
+        self.navigationController?.navigationBar.isHidden = true
     }
 
     func loadSubControllersWith(musicTypes:[MusicTypeModel]){
@@ -119,7 +132,13 @@ class MusicPickViewController: UIViewController {
         })
     }
     
+    @objc func cancelToCutMusic(){
+        self.clearCurrentItem()
+        self.hiddenMusicProgressView()
+    }
+    
     deinit {
+        print("MusicPickViewController销毁")
         self.removeNotification()
     }
     
@@ -161,7 +180,9 @@ class MusicPickViewController: UIViewController {
             let stopTime = CMTime.init(value: CMTimeValue(1000*(start+duration)), timescale: 1000)
             let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
             do{
-                try mutableCompositionAudioTrack?.insertTimeRange(exportTimeRange, of: audioTrack!, at: kCMTimeZero)
+                if let _audioTrack = audioTrack{
+                    try mutableCompositionAudioTrack?.insertTimeRange(exportTimeRange, of: _audioTrack, at: kCMTimeZero)
+                }
             }catch{
                 Toast.showErrorWith(msg: error.localizedDescription)
             }
@@ -174,8 +195,21 @@ class MusicPickViewController: UIViewController {
     func clearCurrentItem() -> Void {
         self.player.pause();
         self.playerCurrentStatus = .pause;
-        self.selectedIndex = NoneSelectedIndex;
-        //self.hiddenMusicProgressView()
+        self.resetMusicParameters()
+    }
+    
+    func resetMusicParameters(){
+        self.startTime = 0.0
+        self.selectedControllerIndex = nil
+        self.selectedRowIndex = nil
+        self.selectedMusicModel = nil
+        self.refreshAllMusicListControllers()
+    }
+    
+    func refreshAllMusicListControllers(){
+        for controller in self.musicListControllers{
+            controller.tableView.reloadData()
+        }
     }
     
     func switchCurrentItemPlayStatus()->Void{
@@ -189,15 +223,19 @@ class MusicPickViewController: UIViewController {
     
     func hiddenMusicProgressView(){
         UIView.animate(withDuration: 0.5) {
-            self.musicProgressContainViewBottomConstraint.constant = -160;
+            self.topCoverVIewTopConstraints.constant = SCREEN_HEIGHT
+            self.musicProgressContainViewBottomConstraint.constant = -SCREEN_HEIGHT;
             self.musicProgressContainView.layoutIfNeeded()
+            self.topCoverView.layoutIfNeeded()
         }
     }
 
     func showMusicProgressView(){
         UIView.animate(withDuration: 0.5) {
+            self.topCoverVIewTopConstraints.constant = 0
             self.musicProgressContainViewBottomConstraint.constant = 0;
             self.musicProgressContainView.layoutIfNeeded()
+            self.topCoverView.layoutIfNeeded()
         }
     }
     
@@ -224,6 +262,10 @@ class MusicPickViewController: UIViewController {
 }
 
 extension MusicPickViewController: MusicListControllerDelegate{
+    func musicKeyWord() -> String? {
+        return self.searchTextFeild.text
+    }
+    
     func musicListController(_ musicListController: MusicListController, didSelectModel musicModel: MusicModel, rowIndex: Int?, controllerIndex: Int?) {
         var isClickBeforeRow = false
         if rowIndex == self.selectedRowIndex && controllerIndex == self.selectedControllerIndex{
@@ -238,16 +280,30 @@ extension MusicPickViewController: MusicListControllerDelegate{
         }else{
             self.playWith(model: musicModel)
         }
-        
-        for _musicListController in self.musicListControllers{
-            _musicListController.tableView.reloadData()
-        }
+        self.refreshAllMusicListControllers()
+
     }
     
     func musicListController(_ musicListController: MusicListController, didClickPickMusic musicModel: MusicModel, rowIndex: Int?,controllerIndex:Int?){
-        self.hiddenMusicProgressView()
+        let model = self.selectedMusicModel
+        if let path = model?.music,let musicId = model?.music_id,let musicType = model?.music_type{
+            Toast.showStatusWith(text: "正在下载..")
+            self.download(filePath: path) {[unowned self] (outputPath) in
+                Toast.dismiss()
+                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: 0, duration: self.duration)
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.player.pause()
+        }
     }
+    
     func musicListController(_ musicListController: MusicListController, didClickCutMusic musicModel: MusicModel, rowIndex: Int?,controllerIndex:Int?){
+        //清空信息
+        self.clearCurrentItem()
+        self.selectedMusicModel = musicModel
+        
+        let _duration = Float(musicModel.time ?? 0)
+        self.musicPickView.configureMusicDuration(_duration, pageDuration: self.duration)
         self.showMusicProgressView()
     }
     
@@ -267,6 +323,9 @@ extension MusicPickViewController: MusicListControllerDelegate{
 
 extension MusicPickViewController : TopSlideMenuDelegate{
     func topSlideMenuSelectedWith(index: Int) {
+        self.searchTextFeild.text = nil
+        self.searchPlaceholder.isHidden = false
+        self.visiableControllerIndex = index
         let musicListController = self.musicListControllers[index]
         if musicListController.dataArray.count <= 0{
             musicListController.loadInitialDataWith(keyWord: self.searchTextFeild.text)
@@ -275,41 +334,38 @@ extension MusicPickViewController : TopSlideMenuDelegate{
 }
 
 
-extension MusicPickViewController:UITextFieldDelegate{
-    @objc func textFeildValueChanged(textFeild:UITextField){
-        self.clearCurrentItem();
-
-//        self.searchImage.isHidden = false;
+extension MusicPickViewController{
+    @objc func textFeildEditingChanged(textFeild:UITextField){
+        if self.selectedMusicModel != nil{
+            self.clearCurrentItem();
+        }
+        print(textFeild.text)
         self.searchPlaceholder.isHidden = false;
         if let _text = textFeild.text{
             if _text.lengthOfBytes(using: String.Encoding.utf8) > 0{
-//                self.searchImage.isHidden = true;
                 self.searchPlaceholder.isHidden = true;
             }
         }
-
-        self.pageIndex = 1;
+        let musicListController = self.musicListControllers[self.visiableControllerIndex]
+        musicListController.loadInitialDataWith(keyWord: self.searchTextFeild.text)
     }
 
 }
 
 extension MusicPickViewController:AliyunMusicPickViewDelegate{
     func didSelectStartTime(_ startTime: CGFloat) {
-        if self.selectedIndex == NoneSelectedIndex{return}
         let model = selectedMusicModel;
         self.startTime = Float(startTime);
-        model?.startTime = Float(startTime);
         self.playWith(model: model!)
     }
     
     func useButtonClicked(){
         let model = self.selectedMusicModel
-
-        if let path = model?.music,let startTime = model?.startTime,let duration = model?.duration,let musicId = model?.music_id{
+        if let path = model?.music,let musicId = model?.music_id,let musicType = model?.music_type{
             Toast.showStatusWith(text: "正在下载..")
-            self.download(filePath: path) { (outputPath) in
+            self.download(filePath: path) {[unowned self] (outputPath) in
                 Toast.dismiss()
-                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath, startTime: startTime, duration: duration)
+                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: self.startTime, duration: self.duration)
                 self.navigationController?.popViewController(animated: true)
             }
             self.player.pause()

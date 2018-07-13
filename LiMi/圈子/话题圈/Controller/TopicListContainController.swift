@@ -112,7 +112,7 @@ class TopicListContainController: UIViewController {
         if !AppManager.shared.checkUserStatus(){return}
         let creatTopicController = CreatTopicController()
         creatTopicController.topicCircleId = self.topicCircleId
-        let navCreatTopicController = NavigationController(rootViewController: creatTopicController)
+        let navCreatTopicController = CustomNavigationController(rootViewController: creatTopicController)
         self.present(navCreatTopicController, animated: true, completion: nil)
     }
     

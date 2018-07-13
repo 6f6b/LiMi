@@ -71,8 +71,10 @@
     if (self) {
         self.isCameraBack = NO;
         self.beautifyStatus = YES;
-        self.beautifyValue = 0;
+        self.beautifyValue = 60;
         self.torchMode = 0;
+        _musicType = 1;
+
         //self.isStatusBarHidden = 
     }
     return self;
@@ -111,6 +113,15 @@
 //    _recorder.faceNumbersCallback = ^(int num) {
 //        
 //    }
+    
+    if(self.musicPath != nil){
+        AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:self.musicPath];
+        effectMusic.startTime = 0;
+        float _duration = self.duration <= 0 ? 30 : self.duration;
+        effectMusic.duration = _duration;
+        [_recorder applyMusic:effectMusic];
+    }
+    
     _recorder.faceDectectSync = NO;
     _recorder.encodeMode = _quVideo.encodeMode;
     _recorder.GOP = _quVideo.gop;
@@ -364,10 +375,13 @@
     [_recorder applyMusic:effectMusic];
 }
 
-- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath musicType:(NSInteger)musicType startTime:(float)startTime duration:(float)duration{
+    //清空所有音乐
+    
     self.musicId = musicId;
     self.startTime = startTime;
     self.duration = duration;
+    self.musicType = musicType;
     
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
     effectMusic.startTime = startTime;
@@ -375,13 +389,13 @@
     [_recorder applyMusic:effectMusic];
 }
 
+
 #pragma mark --- AliyunRecordControlViewDelegate
 - (void)musicButtonClick{
     [self pausePreview];
     
     MusicPickViewController *musicPickViewController = [[MusicPickViewController alloc] init];
     musicPickViewController.delegate = self;
-    musicPickViewController.duration = (30);
     [self.navigationController pushViewController:musicPickViewController animated:true];
     
 //    AliyunMusicPickViewController *vc = [[AliyunMusicPickViewController alloc] init];

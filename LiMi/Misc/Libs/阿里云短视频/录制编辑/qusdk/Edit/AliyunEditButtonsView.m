@@ -17,6 +17,7 @@
     UIButton *_animationButton;
     UIButton *_meiyanButton;
     UIButton *_musicButton;
+    UIButton *_volumeButton;
 }
 
 /*
@@ -35,6 +36,7 @@
 //                           @"QPSDK.bundle/edit_mv.png",
                            @"music.png",
 //                           @"QPSDK.bundle/edit_paint.png"
+                           @"btn_yinliang"
                            ];
         _btnSelNames = @[@"filterButtonClicked:",
                          @"pasterButtonClicked:",
@@ -42,8 +44,9 @@
 //                         @"mvButtonClicked:",
                          @"musicButtonClicked:",
 //                         @"paintButtonClicked:"
+                         @"volumeButtonClicked:"
                          ];
-        _btnTitles = @[@"特效",@"滤镜",@"音乐"];
+        _btnTitles = @[@"特效",@"滤镜",@"音乐",@"音量"];
         [self addButtons];
         self.backgroundColor = UIColor.clearColor;
         //self.backgroundColor = [UIColor colorWithRed:27.0/255 green:33.0/255 blue:51.0/255 alpha:1];
@@ -79,6 +82,15 @@
     _musicButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [_musicButton sizeToFitTitleBelowImageWithDistance:8];
     [self addSubview:_musicButton];
+    
+    _volumeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _volumeButton.frame = CGRectMake(CGRectGetMaxX(_musicButton.frame)+46, 0, 24, 24);
+    [_volumeButton addTarget:self action:NSSelectorFromString(_btnSelNames[3]) forControlEvents:UIControlEventTouchUpInside];
+    [_volumeButton setTitle:_btnTitles[3] forState:UIControlStateNormal];
+    [_volumeButton setImage:[UIImage imageNamed:_btnImageNames[3]] forState:UIControlStateNormal];
+    _volumeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_volumeButton sizeToFitTitleBelowImageWithDistance:8];
+    [self addSubview:_volumeButton];
     
 //    CGFloat dlt = CGRectGetWidth(self.bounds) / ([_btnSelNames count] + 1);
 //    CGFloat cy = self.bounds.size.height / 2;
@@ -119,6 +131,10 @@
 
 - (void)musicButtonClicked:(id)sender {
     [self.delegate musicButtonClicked];
+}
+
+- (void)volumeButtonClicked:(id)sender{
+    [self.delegate volumeButtonClicked];
 }
 
 - (void)paintButtonClicked:(id)sender {

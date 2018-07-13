@@ -35,12 +35,17 @@ class LoginController: UIViewController {
         gradientLayer.frame = SCREEN_RECT
         self.view.layer.addSublayer(gradientLayer)
 
-        self.view.alpha = 0.9
+        self.view.alpha = 0.95
         self.view.bringSubview(toFront: self.scrollView)
         
         self.heightConstraint.constant = SCREEN_HEIGHT-20
         if let phoneNum = Defaults[.userPhone]{
             self.phoneNum.text = phoneNum
+        }
+        if self.phoneNum.text == nil{
+            self.phoneNum.becomeFirstResponder()
+        }else{
+            self.veritificationCode.becomeFirstResponder()
         }
         self.setNeedsStatusBarAppearanceUpdate()
     }

@@ -11,7 +11,7 @@ import UIKit
 class SchoolsVideosController: VideoListController {
     var collegeModel:CollegeModel?
     override var collegeId: Int?{
-        return self.collegeModel?.coid
+        return self.collegeModel?.id
     }
     override var type: Int? {
         get{return 1}

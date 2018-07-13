@@ -704,11 +704,11 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecV-ML-tHP">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecV-ML-tHP">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="DoH-Vx-tNF"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="DoH-Vx-tNF"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -750,11 +750,11 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MqV-2G-zJg">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MqV-2G-zJg">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="juq-qM-YRJ"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="juq-qM-YRJ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -785,7 +785,7 @@
                                                     <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择学校" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gb5-RT-rAH">
+                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择学校" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gb5-RT-rAH">
                                                     <rect key="frame" x="96" y="0.0" width="202" height="43"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -796,18 +796,19 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fa-sW-DZE">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fa-sW-DZE">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="xgo-Dx-byc"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="xgo-Dx-byc"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhI-UN-Ujr">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhI-UN-Ujr">
                                                     <rect key="frame" x="298" y="8.5" width="52" height="27"/>
                                                     <color key="backgroundColor" red="0.44705882349999998" green="0.0" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="52" id="PQL-n3-tgX"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="52" id="PQL-n3-tgX"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="SNw-27-w9W"/>
                                                         <constraint firstAttribute="height" constant="27" id="dh8-GL-P3A"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -865,11 +866,11 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-hs-Nu0">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-hs-Nu0">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="Pjx-pj-ipQ"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="Pjx-pj-ipQ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -911,11 +912,11 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsi-Kn-IPK">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsi-Kn-IPK">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="oAg-MI-n6f"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="oAg-MI-n6f"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -957,11 +958,11 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1J-Cb-yYu">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1J-Cb-yYu">
                                                     <rect key="frame" x="25" y="43" width="325" height="0.5"/>
                                                     <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.5" id="vae-iO-fhE"/>
+                                                        <constraint firstAttribute="height" constant="0.29999999999999999" id="vae-iO-fhE"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1128,7 +1129,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="Vrh-ct-Arr"/>
                                                     </constraints>
-                                                    <string key="text">上传身份证和学生证/校园卡/录取通知书照片</string>
+                                                    <string key="text">上传身份证和学生证/校园卡/录取通知书照片
+</string>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                     <color key="textColor" red="0.44705882349999998" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1152,7 +1154,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="qEd-Ft-Qeh"/>
                                                     </constraints>
-                                                    <string key="text">上传身份证和学生证/校园卡/录取通知书照片</string>
+                                                    <string key="text">上传身份证和学生证/校园卡/录取通知书照片
+</string>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                     <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>

@@ -56,7 +56,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="323" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+86" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9iU-gg-8Ph">
-                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="50"/>
+                                                            <rect key="frame" x="15" y="0.0" width="45" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="acG-g1-zA3"/>
                                                             </constraints>
@@ -65,10 +65,15 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAT-gZ-bHR">
-                                                            <rect key="frame" x="45" y="0.0" width="278" height="50"/>
+                                                            <rect key="frame" x="60" y="0.0" width="263" height="50"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                                                    <color key="value" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
@@ -80,8 +85,14 @@
                                                         <constraint firstAttribute="bottom" secondItem="aAT-gZ-bHR" secondAttribute="bottom" id="fyC-Yr-K4f"/>
                                                         <constraint firstAttribute="bottom" secondItem="9iU-gg-8Ph" secondAttribute="bottom" id="jRb-Gg-UfO"/>
                                                         <constraint firstAttribute="height" constant="50" id="liG-hb-4bl"/>
-                                                        <constraint firstItem="9iU-gg-8Ph" firstAttribute="leading" secondItem="ZXo-sJ-9DN" secondAttribute="leading" id="mEc-n6-0Sl"/>
+                                                        <constraint firstItem="9iU-gg-8Ph" firstAttribute="leading" secondItem="ZXo-sJ-9DN" secondAttribute="leading" constant="15" id="mEc-n6-0Sl"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9D-0h-8Qh">
                                                     <rect key="frame" x="0.0" y="66" width="323" height="50"/>
@@ -94,6 +105,11 @@
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                                                            <color key="value" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </textField>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,6 +119,12 @@
                                                                 <constraint firstItem="yuQ-wQ-oqp" firstAttribute="leading" secondItem="uSa-cq-VFU" secondAttribute="leading" constant="15" id="jWq-hj-yC4"/>
                                                                 <constraint firstAttribute="bottom" secondItem="yuQ-wQ-oqp" secondAttribute="bottom" id="o1u-po-qxC"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ee5-x2-ViK">
                                                             <rect key="frame" x="204" y="0.0" width="119" height="50"/>
@@ -111,6 +133,12 @@
                                                             <state key="normal" title="获取验证码">
                                                                 <color key="titleColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="dealRequestVertificationCode:" destination="-1" eventType="touchUpInside" id="rU1-HA-otQ"/>
                                                             </connections>
@@ -154,7 +182,7 @@
                                                 <constraint firstAttribute="width" constant="270" id="hK4-Kf-Smz"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.91764705879999997" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-dx-Z0Q">

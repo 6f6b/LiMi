@@ -13,6 +13,16 @@ import SVProgressHUD
 import ObjectMapper
 import SKPhotoBrowser
 
+enum OperationType {
+    case report
+    case delete
+    case defriend
+    case sendMsg
+    case notInteresting
+    case cancelBlack
+    case none
+}
+
 class UserDetailsController: UIViewController {
     override var prefersStatusBarHidden: Bool{
         return false
@@ -44,7 +54,6 @@ class UserDetailsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = nil
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(SingleInfoCollectionViewCell.self, forCellWithReuseIdentifier: "SingleInfoCollectionViewCell")
@@ -81,8 +90,8 @@ class UserDetailsController: UIViewController {
         
         loadData()
         //添加IM登录代理
-        NIMSDK.shared().loginManager.add(self)
         NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
+        self.title = nil
     }
     
     @objc func didVideoTrendMoreOperation(notification:Notification){
@@ -108,24 +117,23 @@ class UserDetailsController: UIViewController {
     }
     
     deinit {
-        NIMSDK.shared().loginManager.remove(self)
         NotificationCenter.default.removeObserver(self)
         print("详情界面销毁")
+    }
+    
+    override func rt_customBackItem(withTarget target: Any!, action: Selector!) -> UIBarButtonItem! {
+        let item = super.rt_customBackItem(withTarget: target, action: action)
+        return item!
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.barStyle = .blackTranslucent
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.isTranslucent = true
         
-        //替换ViewController的导航栏返回按钮
-        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
-            backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
-        }
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
         
         self.userDetailInfoHeaderView?.configWith(model: self.userInfoModel,type:self.userInfoHeaderViewType)
         if (self.navigationController?.navigationBar.isHidden)!{
@@ -136,9 +144,9 @@ class UserDetailsController: UIViewController {
                 self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
             }
             if SYSTEM_VERSION > 11.0{
-                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT
-                self.customNavigationBarTopConstraint.constant = 0
-                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+//                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT
+                self.customNavigationBarTopConstraint.constant = STATUS_BAR_HEIGHT
+//                self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
             }
         }else{
             self.customNavigationBar.isHidden = true
@@ -146,8 +154,18 @@ class UserDetailsController: UIViewController {
                 self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
             }
             if SYSTEM_VERSION > 11.0{
-                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
+//                self.collectionViewTopConstriant.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
                 self.collectionView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
+            }
+        }
+        
+        //如果为空
+        if self.userInfoModel == nil{
+            self.loadData()
+        }
+        if self.userInfoModel != nil{
+            if self.userInfoHeaderViewType == .inMyPersonCenter && self.userInfoModel?.user_id != Defaults[.userId]{
+                self.loadData()
             }
         }
     }
@@ -224,6 +242,7 @@ class UserDetailsController: UIViewController {
         }else{
             _userId = self.userId
         }
+        if _userId == nil || _userId == 0{return}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let pageIndex = self.type == .myVideo ? self.myVideoPageIndex : self.myLikedVideoPageIndex
         let videoPersonalDetails = VideoPersonalDetails.init(user_id: _userId, time: self.refreshTimeInterval, page: pageIndex, type: self.type.hashValue)
@@ -234,7 +253,6 @@ class UserDetailsController: UIViewController {
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
             Toast.showErrorWith(model: videoUserDetailModel)
             self.collectionView.mj_footer.endRefreshing()
-            print(videoUserDetailModel?.video_list)
             if let videoTrends = videoUserDetailModel?.video_list{
                 if self.type == .myVideo{
                     if self.myVideoPageIndex == 1{self.myVideoDataArray.removeAll()}
@@ -243,7 +261,7 @@ class UserDetailsController: UIViewController {
                     }
                 }
                 if self.type == .iLikedVideo{
-                    if self.myLikedVideoPageIndex == 1{self.myVideoDataArray.removeAll()}
+                    if self.myLikedVideoPageIndex == 1{self.myLikedVideoDataArray.removeAll()}
                     for videoTrend in videoTrends{
                         self.myLikedVideoDataArray.append(videoTrend)
                     }
@@ -415,7 +433,14 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
-        let otherUserDetailVideoAndLikedVideosController = OtherUserDetailVideoAndLikedVideosController.init(type: self.type.hashValue, currentVideoTrendIndex: indexPath.row, dataArray: dataArray, userId: self.userId)
+        var userId:Int? = 0
+        if self.userInfoHeaderViewType == .inOtherPersonCenter{
+            userId = self.userId
+        }
+        if self.userInfoHeaderViewType == .inMyPersonCenter{
+            userId = Defaults[.userId]
+        }
+        let otherUserDetailVideoAndLikedVideosController = OtherUserDetailVideoAndLikedVideosController.init(type: self.type.hashValue, currentVideoTrendIndex: indexPath.row, dataArray: dataArray, userId: userId)
         self.navigationController?.pushViewController(otherUserDetailVideoAndLikedVideosController, animated: true)
     }
     
@@ -457,17 +482,6 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
             let frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 230)
             self.userDetailHeadView?.backImageView?.frame = frame
         }
-    }
-}
-
-
-extension UserDetailsController:NIMLoginManagerDelegate{
-    func onLogin(_ step: NIMLoginStep) {
-        print(step)
-    }
-    
-    func onAutoLoginFailed(_ error: Error) {
-        Toast.showErrorWith(msg: error.localizedDescription)
     }
 }
 
@@ -518,14 +532,20 @@ extension UserDetailsController:UserDetailInfoHeaderViewDelegate{
         
     }
     func userDetailInfoHeaderView(followButtonBeClicked model:UserInfoModel?){
-                if !AppManager.shared.checkUserStatus(){return}
-                let followerListContainController = FollowerListContainController.init(initialIndex: 0)
-                self.navigationController?.pushViewController(followerListContainController, animated: true)
+        if !AppManager.shared.checkUserStatus(){return}
+        let followerListContainController = FollowerListContainController.init(initialIndex: 0)
+        followerListContainController.userId = self.userId == 0 ? nil : self.userId
+        self.navigationController?.pushViewController(followerListContainController, animated: true)
     }
     func userDetailInfoHeaderView(followerButtonBeClicked model:UserInfoModel?){
-            if !AppManager.shared.checkUserStatus(){return}
-            let followerListContainController = FollowerListContainController.init(initialIndex:1)
-            self.navigationController?.pushViewController(followerListContainController, animated: true)
+        if !AppManager.shared.checkUserStatus(){return}
+        let followerListContainController = FollowerListContainController.init(initialIndex:1)
+        followerListContainController.userId = self.userId == 0 ? nil : self.userId
+        self.navigationController?.pushViewController(followerListContainController, animated: true)
     }
     
+    func userDetailInfoHeaderView(tapedAuthenticateBackView model:UserInfoModel?){
+        let studentCertificationController = GetViewControllerFrom(sbName: .personalCenter, sbID: "StudentCertificationController") as! StudentCertificationController
+        self.navigationController?.pushViewController(studentCertificationController, animated: true)
+    }
 }

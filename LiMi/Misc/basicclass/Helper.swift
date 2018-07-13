@@ -37,6 +37,7 @@ class Helper {
     
     private init() {
     }
+    
 }
 
 enum ClearCacheType {

@@ -21,9 +21,12 @@ func handleRequestParameters(parameters:Any?)->[String:Any]{
         }
     }
     //加userid、token
-    if Defaults[.userId]?.stringValue() != nil{
+    if tmpParameters["id"] == nil && Defaults[.userId]?.stringValue() != nil{
         tmpParameters["id"] = Defaults[.userId]
     }
+//    if Defaults[.userId]?.stringValue() != nil{
+//        tmpParameters["id"] = Defaults[.userId]
+//    }
     if Defaults[.userToken] != nil{
         tmpParameters["token"] = Defaults[.userToken]
     }

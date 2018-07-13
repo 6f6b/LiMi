@@ -110,55 +110,16 @@ extension Int{
 extension Date{
     //根据时间获取年龄
     func getAge()->Int{
-        let currenDate = Date(timeIntervalSinceNow: 0)
-        let time = currenDate.timeIntervalSince(self)
-        let age = Int(time)/(3600*24*365)
+        let age = OCTools.getAge(self)
         return age
     }
     
-    //    //获取星座
-    //    func getConstellation()->String{
-    //        let nsDate = NSDate(timeInterval: 0, since: self)
-    //        switch nsDate.zodiacSign {
-    //        case .aquarius:
-    //            return "水瓶座"
-    //            break
-    //        case .pisces:
-    //            return "双鱼座"
-    //            break
-    //        case .aries:
-    //            return "白羊"
-    //            break
-    //        case .taurus:
-    //            return "金牛座"
-    //            break
-    //        case .gemini:
-    //            return "双子座"
-    //            break
-    //        case .cancer:
-    //            return "巨蟹座"
-    //            break
-    //        case .leo:
-    //            return "狮子座"
-    //            break
-    //        case .virgo:
-    //            return "处女座"
-    //            break
-    //        case .libra:
-    //            return "天秤座"
-    //            break
-    //        case .scorpio:
-    //            return "天蝎座"
-    //            break
-    //        case .sagittarius:
-    //            return "射手座"
-    //            break
-    //        case .capricorn:
-    //            return "摩羯座"
-    //            break
-    //        }
-    //        return ""
-    //    }
+    func getConstellation()->String{
+        let _constellation = OCTools.getConstellationInfo(self)
+        return _constellation!
+    }
+
+
 }
 
 extension CGPoint{

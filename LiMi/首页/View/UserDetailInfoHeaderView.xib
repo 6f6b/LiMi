@@ -104,7 +104,7 @@
                             <rect key="frame" x="4" y="4" width="10" height="10"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="18" id="3Pg-16-Jc1"/>
                         <constraint firstAttribute="height" constant="18" id="6Sy-Ud-zDQ"/>
@@ -128,7 +128,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="ZdA-bK-oGQ" firstAttribute="centerX" secondItem="x07-n9-ZoR" secondAttribute="centerX" id="DQa-sG-sJO"/>
                         <constraint firstItem="ZdA-bK-oGQ" firstAttribute="centerY" secondItem="x07-n9-ZoR" secondAttribute="centerY" id="SNM-w1-ysY"/>
@@ -151,7 +151,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="cCx-Rt-ryp" secondAttribute="trailing" constant="7" id="1Po-kU-GeO"/>
                         <constraint firstItem="cCx-Rt-ryp" firstAttribute="centerY" secondItem="fDD-qo-O2X" secondAttribute="centerY" id="78a-YA-bRk"/>
@@ -174,7 +174,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="QRQ-7b-R8j" firstAttribute="centerX" secondItem="myo-MA-3o3" secondAttribute="centerX" id="CBO-mz-AbK"/>
                         <constraint firstAttribute="trailing" secondItem="QRQ-7b-R8j" secondAttribute="trailing" constant="7" id="R7w-HP-Zze"/>
@@ -225,7 +225,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RF0-JE-D95">
                     <rect key="frame" x="324" y="129" width="36" height="36"/>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="36" id="iRX-KM-Vlz"/>
                         <constraint firstAttribute="height" constant="36" id="nLC-0x-xoQ"/>
@@ -243,7 +243,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fv-oz-0Cs">
                     <rect key="frame" x="229" y="129" width="80" height="36"/>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="K5j-4L-fHR"/>
                         <constraint firstAttribute="height" constant="36" id="ZT8-Nv-IHh"/>
@@ -283,7 +283,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjr-tW-kud">
                     <rect key="frame" x="171" y="173" width="94" height="36"/>
-                    <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="3Xq-iR-u53"/>
                         <constraint firstAttribute="width" constant="94" id="vAq-9d-mAy"/>
@@ -350,21 +350,29 @@
                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="ageContainView" destination="x07-n9-ZoR" id="GRp-0d-UoE"/>
                 <outlet property="ageLabel" destination="ZdA-bK-oGQ" id="ABJ-1t-aEO"/>
+                <outlet property="ageLeftConstraint" destination="j8A-Oa-2HH" id="QLm-iC-goO"/>
                 <outlet property="authenticationBackgroundView" destination="V0s-sN-O5z" id="NgR-hV-4W7"/>
                 <outlet property="authenticationIcon" destination="CNv-0X-VWR" id="FAD-3r-MeK"/>
                 <outlet property="authenticationStateLabel" destination="HdO-iF-arP" id="D0s-YI-1jU"/>
                 <outlet property="clickedNumButton" destination="4kO-8N-hLC" id="nZO-4d-iTy"/>
+                <outlet property="constellationContainView" destination="myo-MA-3o3" id="gyr-tx-NGm"/>
                 <outlet property="constellationLabel" destination="QRQ-7b-R8j" id="ScW-qF-0Mh"/>
+                <outlet property="constellationLeftConstraint" destination="cL7-Jx-PVk" id="FS3-XO-aAL"/>
                 <outlet property="editUserInfoButton" destination="9fv-oz-0Cs" id="FsX-z8-6ll"/>
                 <outlet property="followRelationshipButton" destination="ngc-Vu-nj0" id="L1A-kv-rXS"/>
+                <outlet property="followRelationshipWidhtConstraint" destination="r2w-qO-Ldw" id="tFH-fg-loj"/>
                 <outlet property="followedNumButton" destination="a4s-dJ-e9Z" id="Jae-B1-gfq"/>
                 <outlet property="followerNumButton" destination="HEl-yP-xed" id="Qir-4c-daf"/>
                 <outlet property="limiNumLabel" destination="VtL-5M-w6G" id="mgx-Oy-a6s"/>
                 <outlet property="moreSettingsButton" destination="RF0-JE-D95" id="lWq-nk-IIT"/>
                 <outlet property="reginLabel" destination="cCx-Rt-ryp" id="Pyu-vf-mDL"/>
+                <outlet property="regionContainView" destination="fDD-qo-O2X" id="diL-eT-FGf"/>
+                <outlet property="regionLeftConstraint" destination="S0E-ON-QNt" id="adE-WY-y19"/>
                 <outlet property="schoolNameLabel" destination="2KY-ax-NdG" id="n9N-kz-IX6"/>
                 <outlet property="sendMsgButton" destination="gjr-tW-kud" id="IcU-lm-XcS"/>
+                <outlet property="sexContainView" destination="tp2-1I-IKB" id="f0V-1c-5qK"/>
                 <outlet property="signatureLabel" destination="M3G-Cj-9Cn" id="7iY-i5-w0P"/>
                 <outlet property="userHeadImageView" destination="vXV-5X-5rV" id="IMj-cd-USA"/>
                 <outlet property="userNameLabel" destination="NIY-3A-eTO" id="5uK-4N-e17"/>

@@ -23,8 +23,11 @@
 @property (nonatomic, strong) AliyunIRecorder *recorder;
 
 @property (nonatomic,assign) NSInteger musicId;
+@property (nonatomic,copy) NSString *musicPath;
 @property (nonatomic,assign) float startTime;
 @property (nonatomic,assign) float duration;
+@property (nonatomic,assign) NSInteger musicType;
+
     
 /* 摄像头方向 */
 @property (nonatomic, assign) BOOL isCameraBack;

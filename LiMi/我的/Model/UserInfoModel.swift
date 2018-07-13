@@ -48,8 +48,10 @@ class UserInfoModel: BaseModel {
 
     var city:CityModel?
     var birthday:Int?
-    var constellation:String?
-    var age:Int?
+    
+//    var user_nickname:String?
+//    var user_head_pic:String?
+    
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -91,8 +93,13 @@ class UserInfoModel: BaseModel {
         attentionL_status <- map["attentionL_status"]
         city <- map["city"]
         birthday <- map["birthday"]
-        constellation <- map["constellation"]
-        age <- map["age"]
+        
+//        if self.head_pic == nil{
+//            user_head_pic <- map["user_head_pic"]
+//        }
+//        if self.nickname == nil{
+//            user_nickname <- map["user_nickname"]
+//        }
     }
 }
 

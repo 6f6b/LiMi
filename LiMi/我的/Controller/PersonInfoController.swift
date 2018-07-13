@@ -254,8 +254,6 @@ class PersonInfoController: UITableViewController {
         }
         if indexPath.section == 1{
             if Defaults[.userCertificationState] != 0{return}
-            let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-            self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
         }
     }
 }

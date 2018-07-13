@@ -10,64 +10,91 @@
 import UIKit
 
 let clickDetectionTime = Float(0.3)
-@objc protocol VideoPlayCellDelegate {
+protocol VideoPlayCellDelegate : class{
     ///点击头像回调
-    @objc func videoPlayCellUserHeadButtonClicked(button:UIButton)
+    func videoPlayCell(cell:VideoPlayCell,clickedUserHeadButton button:UIButton,withModel model:VideoTrendModel?)
     ///点击用户名回调
-    @objc func videoPlayCellUserNameLabelClicked(label:UILabel)
+    func videoPlayCell(cell:VideoPlayCell,clickedUserName label:UILabel,withModel model:VideoTrendModel?)
+
     ///点击添加关注回调
-    @objc func videoPlayCellAddFollowButtonClicked(button:UIButton)
+    func videoPlayCell(cell:VideoPlayCell,clickedAddFollowButton button:UIButton,withModel model:VideoTrendModel?)
+
     ///点击点赞回调
-     @objc func videoPlayCellThumbsUpButtonClicked(button:UIButton)
+    func videoPlayCell(cell:VideoPlayCell,clickedThumbsUpButton button:UIButton,withModel model:VideoTrendModel?)
+
     ///点击评论按钮回调
-    @objc func videoPlayCellCommentButtonClicked(button:UIButton)
+    func videoPlayCell(cell:VideoPlayCell,clickedCommentButton button:UIButton,withModel model:VideoTrendModel?)
+
     ///点击更多操作
-    @objc func videoPlayCellMoreOperationButtonClicked(button:UIButton)
+    func videoPlayCell(cell:VideoPlayCell,clickedMoreOperationButton button:UIButton,withModel model:VideoTrendModel?)
+
     ///单击了播放cell
-    @objc func videoPlayCellSingleClick(videoPlayCell:VideoPlayCell)
+    func videoPlayCell(cell:VideoPlayCell,singleClickWithModel model:VideoTrendModel?)
+
     ///双击了播放cell
-    @objc func videoPlayCellDoubleClick(videoPlayCell:VideoPlayCell)
+    func videoPlayCell(cell:VideoPlayCell,doubleClickWithModel model:VideoTrendModel?)
+
     ///左滑播放cell
-    @objc func videoPlayCellSwipeLeft(videoPlayCell:VideoPlayCell)
+    func videoPlayCell(cell:VideoPlayCell,swipeLeftWithModel model:VideoTrendModel?)
+
+    ///点击音乐封面图
+    func videoPlayCell(cell:VideoPlayCell,tapedMusicCoverView coverImageView:UIImageView,withModel model:VideoTrendModel?)
+
 }
 class VideoPlayCell: UITableViewCell {
     var videoTrendModel:VideoTrendModel?
-    var player:AliyunVodPlayer!
-    var indexPath:IndexPath?
+//    var player:AliyunVodPlayer!
+//    var indexPath:IndexPath?
     
     //用户头像
-    var userHeadButton:UIButton!
+    @IBOutlet weak var userHeadButton:UIButton!
     //加关注
-    var addFollowButton:UIButton!
-    //点赞
-    var thumbsUpButton:UIButton!
-    //评论
-    var commentButton:UIButton!
-    //更多操作
-    var moreOperationButton:UIButton!
+    @IBOutlet weak var addFollowButton:UIButton!
     
+    //点赞
+    @IBOutlet weak var thumbsUpButton:UIButton!
+    @IBOutlet weak var thumbsUpNumLabel: UILabel!
+    //评论
+    @IBOutlet weak var commentButton:UIButton!
+    @IBOutlet weak var commentNumLabel: UILabel!
+    //更多操作
+    @IBOutlet weak var moreOperationButton:UIButton!
+    
+    //学校名字
+    @IBOutlet weak var schoolName: UILabel!
     //用户名字
-    var userNameLabel:UILabel!
+    @IBOutlet weak var userNameLabel:UILabel!
     //视频title
-    var videoTitleLabel:UILabel!
+    @IBOutlet weak var videoTitleLabel:UILabel!
     //音乐图标
-    var musicIcon:UIImageView!
+    @IBOutlet weak var musicIcon:UIImageView!
     //音乐名称
-    var musicNameLabel:UILabel!
+    @IBOutlet weak var musicNameLabel:UILabel!
+    //
+    @IBOutlet weak var musicAnimationContainView: UIView!
     //音乐封面图
-    var musicCoverImageView:UIImageView!
-    var videoCoverImageView:UIImageView!
+    @IBOutlet weak var musicCoverImageView:UIImageView!
+    @IBOutlet weak var videoCoverImageView:UIImageView!
     //底部遮罩
-    var bottomMaskImageView:UIImageView?
+    @IBOutlet weak var bottomMaskView:UIView!
     //底部加载视图
+    
+    @IBOutlet weak var bufferContainView: UIView!
     var bottomBufferView:BufferView!
     
     weak var delegate:VideoPlayCellDelegate?
-    var playButton:UIButton!
+    @IBOutlet weak var playButton:UIButton!
     
-    var playerContainView:UIView!
-    
+    @IBOutlet weak var playerContainView:UIView!
     var clickedCount:Int = 0
+    
+    @IBOutlet weak var schoolInfoContainViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var schoolInfoContainView: UIView!
+    @IBOutlet weak var userNameTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var videoTitleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var musicIconTopConstraint: NSLayoutConstraint!
+    
+    var musicAnimationView:LOTAnimationView?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -86,6 +113,13 @@ class VideoPlayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.musicAnimationView = LOTAnimationView.init(name: "music_animation")
+        self.musicAnimationView?.frame = CGRect.init(x: 0, y: 0, width: 100, height: 100)
+        self.musicAnimationContainView.addSubview(self.musicAnimationView!)
+        self.musicAnimationContainView.bringSubview(toFront: self.musicCoverImageView)
+        self.musicAnimationView?.loopAnimation = true
+        self.musicAnimationView?.play()
+        
         //开始播放        
         NotificationCenter.default.addObserver(self, selector: #selector(thumbsUpButtonRefresh(notification:)), name: THUMBS_UP_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addFollowButtonRefresh(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
@@ -93,105 +127,34 @@ class VideoPlayCell: UITableViewCell {
         self.contentView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.selectedBackgroundView?.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         
-        self.playerContainView = UIView.init(frame: SCREEN_RECT)
-        self.contentView.addSubview(self.playerContainView)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [RGBA(r: 0, g: 0, b: 0, a: 0.5).cgColor,RGBA(r: 0, g: 0, b: 0, a: 0).cgColor]
+        gradientLayer.startPoint = CGPoint.init(x: 0, y: 1)
+        gradientLayer.endPoint = CGPoint.init(x: 0, y: 0)
+        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 190)
+        self.bottomMaskView.layer.addSublayer(gradientLayer)
         
-        self.videoCoverImageView = UIImageView.init(frame: SCREEN_RECT)
-        self.videoCoverImageView.contentMode = .scaleAspectFill
-        self.videoCoverImageView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
-        self.contentView.addSubview(self.videoCoverImageView)
-        
-        let x = SCREEN_WIDTH-15-44
-        let userHeadButtonY = SCREEN_HEIGHT - (405 - 49 + TAB_BAR_HEIGHT)
-        self.userHeadButton = UIButton.init(frame: CGRect.init(x: x, y: userHeadButtonY, width: 44, height: 44))
         self.userHeadButton.addTarget(self, action: #selector(userHeadButtonClicked(button:)), for: .touchUpInside)
-        self.userHeadButton.layer.cornerRadius = 22
-        self.userHeadButton.clipsToBounds = true
-        self.userHeadButton.setImage(UIImage.init(named: "touxiang"), for: .normal)
-        self.contentView.addSubview(self.userHeadButton)
         
-        self.addFollowButton = UIButton.init(frame: CGRect.init(x: x, y: self.userHeadButton.frame.maxY-10, width: 28, height: 16))
         self.addFollowButton.addTarget(self, action: #selector(addFollowButtonClicked(button:)), for: .touchUpInside)
-        self.addFollowButton.setImage(UIImage.init(named: "home_gz"), for: .normal)
-        self.calibrationCenterXWith(referButton: userHeadButton, calibrationButton: addFollowButton)
-        self.contentView.addSubview(self.addFollowButton)
-        
-        self.thumbsUpButton = UIButton.init(frame: CGRect.init(x: x, y: self.userHeadButton.frame.maxY+30, width: 36, height: 36))
+
         self.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonClicked(button:)), for: .touchUpInside)
-        self.thumbsUpButton.titleLabel?.textAlignment = .center
-        self.thumbsUpButton.setTitle("0", for: .normal)
-        self.thumbsUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.thumbsUpButton.setImage(UIImage.init(named: "home_like"), for: .normal)
-        self.thumbsUpButton.setImage(UIImage.init(named: "home_likepre"), for: .selected)
-        self.thumbsUpButton.sizeToFitTitleBelowImageWith(distance: 8)
-        self.calibrationCenterXWith(referButton: userHeadButton, calibrationButton: thumbsUpButton)
-        self.contentView.addSubview(self.thumbsUpButton)
-        
-        self.commentButton = UIButton.init(frame: CGRect.init(x: x, y: self.thumbsUpButton.frame.maxY+20, width: 36, height: 36))
+
         self.commentButton.addTarget(self, action: #selector(commentButtonClicked(button:)), for: .touchUpInside)
-        self.commentButton.titleLabel?.textAlignment = .center
-        self.commentButton.setTitle("1.1W", for: .normal)
-        self.commentButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.commentButton.setImage(UIImage.init(named: "home_pl"), for: .normal)
-        self.commentButton.sizeToFitTitleBelowImageWith(distance: 8)
-        self.calibrationCenterXWith(referButton: userHeadButton, calibrationButton: commentButton)
-        self.contentView.addSubview(self.commentButton)
-        
-        self.moreOperationButton = UIButton.init(frame: CGRect.init(x: x, y: self.commentButton.frame.maxY+20, width: 36, height: 36))
+
         self.moreOperationButton.addTarget(self, action: #selector(moreOperationButtonClicked(button:)), for: .touchUpInside)
-        self.moreOperationButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.moreOperationButton.setImage(UIImage.init(named: "home_more"), for: .normal)
-        self.calibrationCenterXWith(referButton: userHeadButton, calibrationButton: moreOperationButton)
-        self.contentView.addSubview(self.moreOperationButton)
-        
-        self.playButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
-        self.playButton.setImage(UIImage.init(named: "home_ic_bofang"), for: .normal)
-        self.playButton.center = CGPoint.init(x: SCREEN_WIDTH*0.5, y: SCREEN_HEIGHT*0.5)
-        self.playButton.isHidden = true
+
         self.playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
-        self.contentView.addSubview(self.playButton);
-        
-        let bottomToolsHeight = 140-49+TAB_BAR_HEIGHT
-        
-        self.bottomMaskImageView = UIImageView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-bottomToolsHeight, width: SCREEN_WIDTH, height: bottomToolsHeight))
-//        self.bottomMaskImageView?.backgroundColor = UIColor.red
-        self.bottomMaskImageView?.image = UIImage.init(named: "zhezhao_down")
-        self.contentView.addSubview(self.bottomMaskImageView!)
-        
-        self.userNameLabel = UILabel.init(frame: CGRect.init(x: 15, y: SCREEN_HEIGHT-bottomToolsHeight+13, width: 200, height: 16))
+
         self.userNameLabel.isUserInteractionEnabled = true
         let tapUserNameLabel = UITapGestureRecognizer.init(target: self, action: #selector(userNameLabelClicked(label:)))
         self.userNameLabel.addGestureRecognizer(tapUserNameLabel)
-        self.userNameLabel.textColor = UIColor.white
-        self.userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        self.contentView.addSubview(self.userNameLabel)
+
+        let tapMusicCoverImage = UITapGestureRecognizer.init(target: self, action: #selector(tapedMusicCoverImageView))
+        self.musicCoverImageView.addGestureRecognizer(tapMusicCoverImage)
         
-        self.videoTitleLabel = UILabel.init(frame: CGRect.init(x: 15, y: self.userNameLabel.frame.maxY+12,width: SCREEN_WIDTH-60-15, height: 13))
-        self.videoTitleLabel.textColor = UIColor.white
-        self.videoTitleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.videoTitleLabel.numberOfLines = 0
-        self.videoTitleLabel.lineBreakMode = .byWordWrapping
-        self.contentView.addSubview(self.videoTitleLabel)
-        
-        self.musicIcon = UIImageView.init(frame: CGRect.init(x: 15, y: self.videoTitleLabel.frame.maxY+8, width: 15, height: 15))
-        self.musicIcon.image = UIImage.init(named: "music")
-        self.contentView.addSubview(self.musicIcon)
-        
-        self.musicNameLabel = UILabel.init(frame: CGRect.init(x: self.musicIcon.frame.maxX+11, y: self.videoTitleLabel.frame.maxY+10, width: 200, height: 12))
-        self.musicNameLabel.textColor = UIColor.white
-        self.musicNameLabel.font = UIFont.systemFont(ofSize: 12)
-        var center = musicNameLabel.center
-        center.y = self.musicIcon.center.y
-        self.musicNameLabel.center = center
-        self.contentView.addSubview(self.musicNameLabel)
-        
-        self.musicCoverImageView = UIImageView.init(frame: CGRect.init(x: SCREEN_WIDTH-60, y: self.musicNameLabel.frame.maxY-44, width: 44, height: 44))
-        self.musicCoverImageView.layer.cornerRadius = 22
-        self.musicCoverImageView.clipsToBounds = true
-        self.contentView.addSubview(self.musicCoverImageView)
-        
-        self.bottomBufferView = BufferView.init(frame: CGRect.init(x: 0, y: SCREEN_HEIGHT-TAB_BAR_HEIGHT, width: SCREEN_WIDTH, height: 1))
-        self.contentView.addSubview(self.bottomBufferView)
+        self.bottomBufferView = BufferView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 1))
+        self.bufferContainView.addSubview(self.bottomBufferView)
         
         //添加单击手势
         let singleClick = UITapGestureRecognizer.init(target: self, action: #selector(clickedContentView))
@@ -211,30 +174,36 @@ class VideoPlayCell: UITableViewCell {
             if videoTrendModel.id == self.videoTrendModel?.id{
                 let discussNum = (self.videoTrendModel?.discuss_num)! + 1
                 self.videoTrendModel?.discuss_num = discussNum
-                self.commentButton.setTitle(self.videoTrendModel?.discuss_num?.suitableStringValue(), for: .normal)
+                if let _commentNum = self.videoTrendModel?.discuss_num{
+                    self.commentNumLabel.text = _commentNum.suitableStringValue()
+                }
             }
         }
     }
     
+    @objc func tapedMusicCoverImageView(){
+        self.delegate?.videoPlayCell(cell: self, tapedMusicCoverView: self.musicCoverImageView, withModel: self.videoTrendModel)
+    }
+    
     @objc func userNameLabelClicked(label:UILabel){
-        self.delegate?.videoPlayCellUserNameLabelClicked(label: label)
+        self.delegate?.videoPlayCell(cell: self, clickedUserName: self.userNameLabel, withModel: self.videoTrendModel)
     }
     
     @objc func userHeadButtonClicked(button:UIButton){
-        self.delegate?.videoPlayCellUserHeadButtonClicked(button: button)
+        self.delegate?.videoPlayCell(cell: self, clickedUserHeadButton: button, withModel: self.videoTrendModel)
     }
     @objc func addFollowButtonClicked(button:UIButton){
-        self.delegate?.videoPlayCellAddFollowButtonClicked(button: button)
+        self.delegate?.videoPlayCell(cell: self, clickedAddFollowButton: button, withModel: self.videoTrendModel)
     }
     @objc func thumbsUpButtonClicked(button:UIButton){
-        self.delegate?.videoPlayCellThumbsUpButtonClicked(button: button)
+        self.delegate?.videoPlayCell(cell: self, clickedThumbsUpButton: button, withModel: self.videoTrendModel)
         
     }
     @objc func commentButtonClicked(button:UIButton){
-        self.delegate?.videoPlayCellCommentButtonClicked(button: button)
+        self.delegate?.videoPlayCell(cell: self, clickedCommentButton: button, withModel: self.videoTrendModel)
     }
     @objc func moreOperationButtonClicked(button:UIButton){
-        self.delegate?.videoPlayCellMoreOperationButtonClicked(button: button)
+        self.delegate?.videoPlayCell(cell: self, clickedMoreOperationButton: button, withModel: self.videoTrendModel)
     }
     
     @objc func clickedContentView(){
@@ -256,22 +225,40 @@ class VideoPlayCell: UITableViewCell {
     }
     
     @objc func dealSingleClick(){
-        self.delegate?.videoPlayCellSingleClick(videoPlayCell: self)
+        self.delegate?.videoPlayCell(cell: self, singleClickWithModel: self.videoTrendModel)
     }
     
     @objc func dealDoubleClick(){
-        self.delegate?.videoPlayCellDoubleClick(videoPlayCell: self)
+        self.delegate?.videoPlayCell(cell: self, doubleClickWithModel: self.videoTrendModel)
     }
     @objc func dealSwipeLeft(gesture:UISwipeGestureRecognizer){
-        self.delegate?.videoPlayCellSwipeLeft(videoPlayCell: self)
+        self.delegate?.videoPlayCell(cell: self, swipeLeftWithModel: self.videoTrendModel)
     }
     
     @objc func thumbsUpButtonRefresh(notification:Notification){
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
                 if let _is_click = trendModel.is_click{
-                    self.thumbsUpButton.isSelected = _is_click
-                    self.thumbsUpButton.setTitle(trendModel.click_num?.suitableStringValue(), for: .normal)
+                    if _is_click{
+                        let animationView = LOTAnimationView.init(name: "favorite")
+                        let height = self.thumbsUpButton.frame.size.height
+                        let width = self.thumbsUpButton.frame.size.width
+                        let x = (CGFloat(width-130))*0.5
+                        let y = (CGFloat(height-130))*0.5
+                        animationView.frame = CGRect.init(x: x, y: y, width: 130, height: 130)
+                        animationView.animationSpeed = 1.5
+                        self.thumbsUpButton.addSubview(animationView)
+                        animationView.play {[unowned animationView] (complete) in
+                            self.thumbsUpButton.isSelected = _is_click
+                            animationView.isHidden = true
+                            animationView.removeFromSuperview()
+                        }
+                    }else{
+                        self.thumbsUpButton.isSelected = _is_click
+                    }
+                    if let _clickNum = trendModel.click_num{
+                        self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
+                    }
                 }
             }
         }
@@ -280,7 +267,7 @@ class VideoPlayCell: UITableViewCell {
     @objc func addFollowButtonRefresh(notification:Notification){
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
-                if self.videoTrendModel?.user_id == trendModel.user_id{
+                if self.videoTrendModel?.user?.user_id == trendModel.user?.user_id{
                     if let _is_attention = trendModel.is_attention{
                         self.addFollowButton.isHidden = _is_attention
                     }
@@ -298,23 +285,25 @@ class VideoPlayCell: UITableViewCell {
     func configWith(videoTrendModel:VideoTrendModel?){
         self.videoTrendModel = videoTrendModel
         self.reset()
-        self.videoCoverImageView.frame = self.videoFrameWith(height: videoTrendModel?.height, width: videoTrendModel?.width)
+        self.videoCoverImageView.frame = self.videoFrameWith(height: videoTrendModel?.video?.height, width: videoTrendModel?.video?.width)
         self.videoCoverImageView.image = nil
-        if let videoCoverImage = videoTrendModel?.video_cover{
+        if let videoCoverImage = videoTrendModel?.video?.cover{
             let url = URL.init(string: videoCoverImage)
             self.videoCoverImageView.kf.setImage(with: url)
         }else{
             self.videoCoverImageView.isHidden = true
         }
         
-        if let headPic = videoTrendModel?.user_head_pic{
+        if let headPic = videoTrendModel?.user?.head_pic{
             let url = URL.init(string: headPic)
             self.userHeadButton.kf.setImage(with: url, for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        self.commentButton.setTitle(videoTrendModel?.discuss_num?.suitableStringValue(), for: .normal)
-        self.commentButton.sizeToFitTitleBelowImageWith(distance: 8)
-        self.thumbsUpButton.setTitle(videoTrendModel?.click_num?.suitableStringValue(), for: .normal)
-        self.thumbsUpButton.sizeToFitTitleBelowImageWith(distance: 8)
+        if let _clickNum = videoTrendModel?.click_num{
+            self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
+        }
+        if let _commentNum = videoTrendModel?.discuss_num{
+            self.commentNumLabel.text = _commentNum.suitableStringValue()
+        }
         
         //加关注按钮
         if let _is_click = videoTrendModel?.is_click{
@@ -324,15 +313,27 @@ class VideoPlayCell: UITableViewCell {
             self.addFollowButton.isHidden = _is_attention
         }
         
-        if videoTrendModel?.user_id == Defaults[.userId]{
+        if videoTrendModel?.user?.user_id == Defaults[.userId]{
             self.addFollowButton.isHidden = true
         }
         
-        //用户姓名
-        if let userNickNmae = videoTrendModel?.user_nickname{
-            self.userNameLabel.isHidden = false
-            self.userNameLabel.text = userNickNmae
+        //学校
+        if let _collegeName = videoTrendModel?.user?.college?.name{
+            self.schoolInfoContainViewTopConstraint.constant = 18
+            self.schoolName.text = _collegeName
+            self.schoolInfoContainView.isHidden = false
         }else{
+            self.schoolInfoContainViewTopConstraint.constant = 0
+            self.schoolInfoContainView.isHidden = true
+        }
+        
+        //用户姓名
+        if let userNickNmae = videoTrendModel?.user?.nickname{
+            self.userNameTopConstraint.constant = 8
+            self.userNameLabel.isHidden = false
+            self.userNameLabel.text = "@\(userNickNmae)"
+        }else{
+            self.userNameTopConstraint.constant = 0
             self.userNameLabel.isHidden = true
         }
         
@@ -340,23 +341,27 @@ class VideoPlayCell: UITableViewCell {
         if let videoTitle = videoTrendModel?.title{
             self.videoTitleLabel.isHidden = false
             self.videoTitleLabel.text = videoTitle
+            self.videoTitleTopConstraint.constant = 8
+
         }else{
             self.videoTitleLabel.isHidden = true
+            self.videoTitleTopConstraint.constant = 0
+
         }
         
         //音乐图标
         //音乐名字
-        if let musicName = videoTrendModel?.music_name{
+        if let musicName = videoTrendModel?.music?.name{
             self.musicNameLabel.text = musicName
-        }else if let _nickname = videoTrendModel?.user_nickname{
+        }else if let _nickname = videoTrendModel?.user?.nickname{
             self.musicNameLabel.text = "@\(_nickname)的原创"
         }
         self.musicNameLabel.sizeToFit()
         
         //音乐封面
-        if let musicPic = videoTrendModel?.music_pic{
+        if let musicPic = videoTrendModel?.music?.pic{
             self.musicCoverImageView.kf.setImage(with: URL.init(string: musicPic))
-        }else if let headPic = videoTrendModel?.user_head_pic{
+        }else if let headPic = videoTrendModel?.user?.head_pic{
             self.musicCoverImageView.kf.setImage(with: URL.init(string: headPic))
         }
     }
@@ -379,7 +384,7 @@ class VideoPlayCell: UITableViewCell {
     }
     
     func addPlayerView(playerView:UIView){
-        playerView.frame = self.videoFrameWith(height: videoTrendModel?.height, width: videoTrendModel?.width)
+        playerView.frame = self.videoFrameWith(height: videoTrendModel?.video?.height, width: videoTrendModel?.video?.width)
         self.playerContainView.addSubview(playerView)
     }
     

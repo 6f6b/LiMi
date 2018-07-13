@@ -70,7 +70,7 @@ class VideoCommentListController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealDeleteCommentWith(notification:)), name: DELETE_COMMENT_SUCCESS_NOTIFICATION, object: nil)
         self.contentText.attributedPlaceholder = NSAttributedString.init(string: "说点什么...", attributes: [NSAttributedStringKey.foregroundColor:RGBA(r: 114, g: 114, b: 114, a: 15),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)])
-        self.navigationController?.navigationBar.isHidden = true
+        
     }
 
     @IBAction func closeButtonClicked(_ sender: Any) {
@@ -83,10 +83,6 @@ class VideoCommentListController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
-//        UIApplication.shared.statusBarStyle = .lightContent
-//        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-//        self.navigationController?.navigationBar.tintColor = UIColor.white
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
         NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
         NotificationCenter.default.removeObserver(self, name: TAPED_COMMENT_NOTIFICATION, object: nil)
@@ -100,10 +96,6 @@ class VideoCommentListController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared.enable = false
-        UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentPersonNameWith(notification:)), name: TAPED_COMMENT_PERSON_NAME_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dealTapCommentWith(notification:)), name: TAPED_COMMENT_NOTIFICATION, object: nil)
@@ -111,6 +103,9 @@ class VideoCommentListController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(dealCheckMoreSubCommentsWith(notification:)), name: CHECK_MORE_SUB_COMMENT_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.navigationController?.navigationBar.isHidden = true
+
     }
     
     deinit {

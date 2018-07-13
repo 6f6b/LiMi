@@ -99,8 +99,8 @@ class HomeContainViewController: UIViewController {
                 if Defaults[.isMindedNotAuthenticated] != true{
                     let popViewForUnAuthenticated = PopViewForUnAuthenticated.init(frame: SCREEN_RECT)
                     popViewForUnAuthenticated.tapRightBlock = {[unowned self] () in
-                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+//                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+//                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                     }
                     popViewForUnAuthenticated.show()
                     Defaults[.isMindedNotAuthenticated] = true
@@ -118,8 +118,8 @@ class HomeContainViewController: UIViewController {
                 if Defaults[.isMindedAuthenticatedFailed] != true{
                     let popViewForAuthenticateFaild = PopViewForAuthenticateFaild.init(frame: SCREEN_RECT)
                     popViewForAuthenticateFaild.tapRightBlock = {[unowned self] () in
-                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
-                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
+//                        let identityAuthInfoController = GetViewControllerFrom(sbName: .loginRegister ,sbID: "IdentityAuthInfoController") as! IdentityAuthInfoController
+//                        self.navigationController?.pushViewController(identityAuthInfoController, animated: true)
                     }
                     popViewForAuthenticateFaild.show()
                     Defaults[.isMindedAuthenticatedFailed] = true

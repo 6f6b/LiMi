@@ -28,7 +28,7 @@ class ScanVideosController: UIViewController {
     var tableViewContainView:UIView!
     var tableView:UITableView!
     weak var delegate:ScanVideosControllerDelegate!
-    var videoCommentListNavController:NavigationController?
+    var videoCommentListNavController:CustomNavigationController?
     var isNavigationBarHidden:Bool = true
     var isVisiable = true
     var isFirstIn = true
@@ -188,7 +188,10 @@ class ScanVideosController: UIViewController {
     
     //刷新数据
     func reloadTableViewData(){
-        //if self.delegate.pageIndex == 1{self.player.stop()}
+        if self.delegate.dataArray.count <= 0{
+            self.tableView.emptyDataSetSource = self
+            self.tableView.emptyDataSetDelegate = self
+        }
         self.tableView.reloadData()
         if self.delegate.dataArray.count == 0{self.navigationController?.popViewController(animated: true)}
         if self.delegate.currentVideoTrendIndex >= self.delegate.dataArray.count{return}
@@ -218,7 +221,7 @@ class ScanVideosController: UIViewController {
             let videoTrendModel = self.delegate.dataArray[currentIndex]
             self.currentVideoTrend = videoTrendModel
             self.delegate.currentVideoTrendIndex = currentIndex
-            let vid = videoTrendModel.video ?? ""
+            let vid = videoTrendModel.video?.video ?? ""
             let keyId = VideoCertificateManager.shared.playCertificateModel?.AccessKeyId ?? ""
             let keySecret = VideoCertificateManager.shared.playCertificateModel?.AccessKeySecret ?? ""
             let securityToken = VideoCertificateManager.shared.playCertificateModel?.SecurityToken ?? ""
@@ -288,38 +291,38 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
 }
 
 extension ScanVideosController:VideoPlayCellDelegate{
-    func videoPlayCellUserNameLabelClicked(label: UILabel) {
-        
-        
-//        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
-//        let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
-//        let userDetailsController = UserDetailsController()
-//        userDetailsController.userId = videoModel.user_id!
-//        self.navigationController?.pushViewController(userDetailsController, animated: true)
+    ///点击头像回调
+    func videoPlayCell(cell:VideoPlayCell,clickedUserHeadButton button:UIButton,withModel model:VideoTrendModel?){
+        if let userId = model?.user?.user_id{
+            let userDetailsController = UserDetailsController()
+            userDetailsController.userId = userId
+            self.navigationController?.pushViewController(userDetailsController, animated: true)
+        }
+    }
+    ///点击用户名回调
+    func videoPlayCell(cell:VideoPlayCell,clickedUserName label:UILabel,withModel model:VideoTrendModel?){
+        if let userId = model?.user?.user_id{
+            let userDetailsController = UserDetailsController()
+            userDetailsController.userId = userId
+            self.navigationController?.pushViewController(userDetailsController, animated: true)
+        }
     }
     
-    func videoPlayCellUserHeadButtonClicked(button:UIButton){
-        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
-        let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
-        let userDetailsController = UserDetailsController()
-        userDetailsController.userId = videoModel.user_id!
-        self.navigationController?.pushViewController(userDetailsController, animated: true)
-    }
-    func videoPlayCellAddFollowButtonClicked(button:UIButton){
+    ///点击添加关注回调
+    func videoPlayCell(cell:VideoPlayCell,clickedAddFollowButton button:UIButton,withModel model:VideoTrendModel?){
         if !AppManager.shared.checkUserStatus(){return}
-        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
-        let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
+        let videoModel = model
         
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let addAttention = AddAttention.init(attention_id: videoModel.user_id)
+        let addAttention = AddAttention.init(attention_id: videoModel?.user?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             if baseModel?.commonInfoModel?.status == successState{
-                if let _isAttention = videoModel.is_attention{
+                if let _isAttention = videoModel?.is_attention{
                     let nowAttention = !_isAttention
-                    videoModel.is_attention = nowAttention
+                    videoModel?.is_attention = nowAttention
                     for _videoAttention in self.delegate.dataArray{
-                        if _videoAttention.user_id == videoModel.user_id{
+                        if _videoAttention.user?.user_id == videoModel?.user?.user_id{
                             _videoAttention.is_attention = nowAttention
                         }
                     }
@@ -331,22 +334,23 @@ extension ScanVideosController:VideoPlayCellDelegate{
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
-    func videoPlayCellThumbsUpButtonClicked(button:UIButton){
-        //let VideoClickAction
+    
+    ///点击点赞回调
+    func videoPlayCell(cell:VideoPlayCell,clickedThumbsUpButton button:UIButton,withModel model:VideoTrendModel?){
         if !AppManager.shared.checkUserStatus(){return}
-        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
-        let videoModel = self.delegate.dataArray[currentVideoTrendIndex]
-        let videoClickAciton = VideoClickAction.init(video_id: videoModel.id)
+        let videoModel = model
+        let videoClickAciton = VideoClickAction.init(video_id: videoModel?.id)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: videoClickAciton)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
-                if let isClick = videoModel.is_click{
-                    videoModel.is_click = !videoModel.is_click!
-                    if videoModel.is_click!{
-                        videoModel.click_num = videoModel.click_num! + 1
+                
+                if let isClick = videoModel?.is_click{
+                    videoModel?.is_click = !isClick
+                    if !isClick{
+                        videoModel?.click_num = (videoModel?.click_num)! + 1
                     }else{
-                        videoModel.click_num = videoModel.click_num! - 1
+                        videoModel?.click_num = (videoModel?.click_num)! - 1
                     }
                     NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
                 }else{
@@ -358,46 +362,62 @@ extension ScanVideosController:VideoPlayCellDelegate{
             Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
-    func videoPlayCellCommentButtonClicked(button:UIButton){
+    
+    ///点击评论按钮回调
+    func videoPlayCell(cell:VideoPlayCell,clickedCommentButton button:UIButton,withModel model:VideoTrendModel?){
         if !AppManager.shared.checkUserStatus(){return}
         let videoCommentListController = VideoCommentListController()
         videoCommentListController.view.frame = SCREEN_RECT
-        let currentVideoTrendIndex = self.delegate.currentVideoTrendIndex
-        videoCommentListController.videoTrendModel = self.delegate.dataArray[currentVideoTrendIndex]
+        videoCommentListController.videoTrendModel = model
         videoCommentListController.loadData()
-        self.videoCommentListNavController = NavigationController.init(rootViewController: videoCommentListController)
-        self.videoCommentListNavController?.navigationBar.isHidden = true
+        self.videoCommentListNavController = CustomNavigationController.init(rootViewController: videoCommentListController)
         self.videoCommentListNavController?.view.backgroundColor = UIColor.clear
-        //self.definesPresentationContext = true
+        self.definesPresentationContext = true
         self.videoCommentListNavController?.modalPresentationStyle = .overFullScreen
         self.present(self.videoCommentListNavController!, animated: true, completion: nil)
     }
-    func videoPlayCellMoreOperationButtonClicked(button:UIButton){
+    
+    ///点击更多操作
+    func videoPlayCell(cell:VideoPlayCell,clickedMoreOperationButton button:UIButton,withModel model:VideoTrendModel?){
+        
         let moreOperationController = MoreOperationController()
         moreOperationController.statusBarHidden = true
-        moreOperationController.delegate = self
-        let index = self.delegate.currentVideoTrendIndex
-        moreOperationController.videoTrendModel = self.delegate.dataArray[index]
+        moreOperationController.videoTrendModel = model
         moreOperationController.modalPresentationStyle = .overFullScreen
+        moreOperationController.delegate = self
         self.definesPresentationContext = true
         self.present(moreOperationController, animated: true, completion: nil)
     }
+    
     ///单击了播放cell
-    @objc func videoPlayCellSingleClick(videoPlayCell:VideoPlayCell){
-            if self.player.playerState() == .pause{
-                self.player.resume()
-            }else{
-                self.player.pause()
-            }
+    func videoPlayCell(cell:VideoPlayCell,singleClickWithModel model:VideoTrendModel?){
+        if self.player.playerState() == .pause{
+            self.player.resume()
+        }else{
+            self.player.pause()
+        }
     }
+    
     ///双击了播放cell
-    @objc func videoPlayCellDoubleClick(videoPlayCell:VideoPlayCell){
-        self.videoPlayCellThumbsUpButtonClicked(button: videoPlayCell.thumbsUpButton)
+    func videoPlayCell(cell:VideoPlayCell,doubleClickWithModel model:VideoTrendModel?){
+        self.videoPlayCell(cell: cell, clickedThumbsUpButton: cell.thumbsUpButton, withModel: model)
     }
+    
     ///左滑播放cell
-    @objc func videoPlayCellSwipeLeft(videoPlayCell:VideoPlayCell){
-        self.videoPlayCellUserHeadButtonClicked(button: videoPlayCell.userHeadButton)
+    func videoPlayCell(cell:VideoPlayCell,swipeLeftWithModel model:VideoTrendModel?){
+        self.videoPlayCell(cell: cell, clickedUserHeadButton: cell.userHeadButton, withModel: model)
     }
+    
+    ///点击音乐封面图
+    func videoPlayCell(cell:VideoPlayCell,tapedMusicCoverView coverImageView:UIImageView,withModel model:VideoTrendModel?){
+        let sameParagraphVideoListController = SameParagraphVideoListController()
+        let musicModel = model?.music
+        sameParagraphVideoListController.musicId = musicModel?.music_id
+        sameParagraphVideoListController.musicType = musicModel?.music_type
+        
+        self.navigationController?.pushViewController(sameParagraphVideoListController, animated: true)
+    }
+
 }
 
 //mark: - 离开停止，进入播放
@@ -442,15 +462,15 @@ extension ScanVideosController:MoreOperationControllerDelegate{
         let videoTrendModel = self.delegate.dataArray[currentVideoTrendIndex]
         var operationType:OperationType = .none
         if type == "report"{
-            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user?.user_id)
             operationType = .report
         }
         if type == "black"{
-            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user?.user_id)
             operationType = .defriend
         }
         if type == "delete"{
-            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user_id)
+            body = VideoMultiFunction(type: type, video_id: videoTrendModel.id, user_id: videoTrendModel.user?.user_id)
             operationType = .delete
         }
         _ = moyaProvider.rx.request(.targetWith(target: body)).subscribe(onSuccess: { (response) in
@@ -459,7 +479,7 @@ extension ScanVideosController:MoreOperationControllerDelegate{
                 var moreOperationModel = MoreOperationModel()
                 moreOperationModel.operationType = operationType
                 moreOperationModel.action_id = videoTrendModel.id
-                moreOperationModel.user_id = videoTrendModel.user_id
+                moreOperationModel.user_id = videoTrendModel.user?.user_id
                 NotificationCenter.default.post(name: DID_VIDEO_TREND_MORE_OPERATION, object: nil, userInfo: [MORE_OPERATION_KEY:moreOperationModel])
             }
             Toast.showResultWith(model: baseModel)
@@ -468,6 +488,22 @@ extension ScanVideosController:MoreOperationControllerDelegate{
         })
     }
 
+}
+
+extension ScanVideosController : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "qsy")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "空空如也~"
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .center
+        let attributes = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 16),NSAttributedStringKey.foregroundColor:RGBA(r: 255, g: 255, b: 255, a: 1)]
+        return NSAttributedString.init(string: text, attributes: attributes)
+    }
 }
 
 extension ScanVideosController:AliyunVodPlayerDelegate{

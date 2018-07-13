@@ -36,7 +36,7 @@ class MoreOperationController: UIViewController {
         
         let tapTopView = UITapGestureRecognizer.init(target: self, action: #selector(clickedCancelButton(_:)))
         self.topView.addGestureRecognizer(tapTopView)
-        if self.videoTrendModel?.user_id != Defaults[.userId] || Defaults[.userId] == nil{
+        if self.videoTrendModel?.user?.user_id != Defaults[.userId] || Defaults[.userId] == nil{
             self.deleteContainVIew.removeFromSuperview()
         }
     }
@@ -50,17 +50,19 @@ class MoreOperationController: UIViewController {
     }
 
     @IBAction func reportButtonClicked(_ sender: Any) {
-        self.delegate?.moreOperationReportClicked()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.delegate?.moreOperationReportClicked()
+        }
     }
     @IBAction func blackButtonClicked(_ sender: Any) {
-        self.delegate?.moreOperationBlackClicked()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.delegate?.moreOperationBlackClicked()
+        }
 
     }
     @IBAction func deleteButtonClicked(_ sender: Any) {
-        self.delegate?.moreOperationDeleteClicked()
-        self.dismiss(animated: true, completion: nil)
-
+        self.dismiss(animated: true) {
+            self.delegate?.moreOperationDeleteClicked()
+        }
     }
 }

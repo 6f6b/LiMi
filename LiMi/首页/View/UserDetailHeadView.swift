@@ -52,7 +52,7 @@ class UserDetailHeadView: UICollectionReusableView {
         }
         self.nickName.text = model?.nickname
         self.signature.text = model?.signature
-        if let followsNum = model?.attention_num,let followersNum = model?.fans_num{
+        if let followsNum = model?.attention_num,let followersNum = model?.fans_num,let clickNum = model?.click_num{
             let followsNumAttr = NSMutableAttributedString.init(string: followsNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
             let followsNumLabel = NSAttributedString.init(string: "  关注", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
             followsNumAttr.append(followsNumLabel)
@@ -63,7 +63,7 @@ class UserDetailHeadView: UICollectionReusableView {
             followersNumAttr.append(followersNumLabel)
             self.followers.attributedText = followersNumAttr
             
-            let beLikedNumAttr = NSMutableAttributedString.init(string: followersNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
+            let beLikedNumAttr = NSMutableAttributedString.init(string: clickNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20),NSAttributedStringKey.foregroundColor:UIColor.white])
             let beLikedNumLabel = NSAttributedString.init(string: "  被赞", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.white])
             beLikedNumAttr.append(beLikedNumLabel)
             self.beLikedNumLabel.attributedText = beLikedNumAttr

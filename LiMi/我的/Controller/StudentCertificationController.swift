@@ -61,6 +61,7 @@ class StudentCertificationController: UITableViewController {
             if resultModel?.commonInfoModel?.status == successState{
             
                 Defaults[.userCertificationState] = 2
+                self.navigationController?.popViewController(animated: true)
 //                let identityAuthStateController = IdentityAuthStateController()
 //                identityAuthStateController.isFromPersonCenter = false
 //                self.navigationController?.popViewController(animated: true)

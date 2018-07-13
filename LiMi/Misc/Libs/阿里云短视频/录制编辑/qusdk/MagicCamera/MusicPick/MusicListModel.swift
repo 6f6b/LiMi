@@ -31,23 +31,9 @@ class MusicModel: BaseModel {
     var time:Int?
     var is_collect:Bool?
     var singer:String?
+    var down_num:Int?
     
-    var startTime:Float = 0
-    var duration:Float{
-        get{
-            let _time = self.time ?? 0
-            var _duration = (Float(_time) - startTime)
-            if _duration <= 0{_duration = 0.0}
-            return _duration
-        }
-    }
-//    "music_id":25,
-//    "music_type":0,
-//    "name":"G.G(张思源) - 给陌生的你听",
-//    "pic":"http://oss.youhongtech.com/music/pic/20180619/1529379747_9936.jpg",
-//    "music":"http://oss.youhongtech.com/music/music/20180619/1529379746_8283.mp3",
-//    "time":24,
-//    "is_collect":1
+
     
     required init?(map: Map) {
         super.init(map: map)
@@ -63,5 +49,6 @@ class MusicModel: BaseModel {
         time<-map["time"]
         is_collect<-map["is_collect"]
         singer <- map["singer"]
+        down_num <- map["down_num"]
     }
 }

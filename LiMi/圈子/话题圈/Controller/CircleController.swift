@@ -20,13 +20,8 @@ class CircleController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
-        self.tableViewTopConstraint.constant = -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT
         self.tableView.separatorStyle = .none
-        if SYSTEM_VERSION <= 11.0{
-            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-        }else{
-            self.tableView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
-        }
+
 
         self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
@@ -62,10 +57,7 @@ class CircleController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = nil
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.barStyle = .blackTranslucent
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,7 +66,6 @@ class CircleController: UIViewController {
     
     //Mark: - misc
     func loadData(){
-//        CircleList
         self.dataArray.removeAll()
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let circleList = CircleList()

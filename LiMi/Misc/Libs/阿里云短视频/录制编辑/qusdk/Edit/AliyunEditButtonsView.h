@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, AliyunEditButtonType) {
 - (void)pasterButtonClicked;
 - (void)subtitleButtonClicked;
 - (void)musicButtonClicked;
+- (void)volumeButtonClicked;
 - (void)paintButtonClicked;
 
 - (void)animationFilterButtonClicked;

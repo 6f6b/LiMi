@@ -16,10 +16,17 @@ class SlidingMenuBar: UIView {
     @IBOutlet weak var rightTop1: UILabel!
     @IBOutlet weak var rightTop2: UILabel!
     
+    let selectedTitleColor = UIColor.white
+    let bottomLineColor = UIColor.white
+    let desSelectedTitleColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+    
     var tapBlock:((Int)->Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.lineFirst.backgroundColor = bottomLineColor
+        self.lineSecond.backgroundColor = bottomLineColor
+        
         lineSecond.isHidden = true
         
         self.lineFirst.layer.cornerRadius = 1.5
@@ -33,16 +40,13 @@ class SlidingMenuBar: UIView {
         
         self.rightTop2.layer.cornerRadius = 7
         self.rightTop2.clipsToBounds = true
-        
-        self.lineFirst.backgroundColor = APP_THEME_COLOR
-        self.lineSecond.backgroundColor = APP_THEME_COLOR
     }
     
     func select(index:Int){
         lineFirst.isHidden = index == 0 ? false:true
         lineSecond.isHidden = index == 1 ? false:true
-        let btnFirstTitleColor = index == 0 ? APP_THEME_COLOR :RGBA(r: 51, g: 51, b: 51, a: 1)
-        let btnSecondTitleColor = index == 1 ? APP_THEME_COLOR  : RGBA(r: 51, g: 51, b: 51, a: 1)
+        let btnFirstTitleColor = index == 0 ? selectedTitleColor : desSelectedTitleColor
+        let btnSecondTitleColor = index == 1 ? selectedTitleColor  : desSelectedTitleColor
         self.btnFirst.setTitleColor(btnFirstTitleColor, for: .normal)
         self.btnSecond.setTitleColor(btnSecondTitleColor, for: .normal)
         

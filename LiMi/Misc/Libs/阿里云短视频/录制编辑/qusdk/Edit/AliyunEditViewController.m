@@ -41,6 +41,7 @@
 #import "AddAnimationFilterController.h"
 #import "FilterAndBeautyView.h"
 #import "AliyunPathManager.h"
+#import "SoundTrackAndMusicAdjustView.h"
 #import "LiMi-Swift.h"
 typedef enum : NSUInteger {
     AliyunEditSouceClickTypeNone = 0,
@@ -60,7 +61,7 @@ typedef struct _AliyunPasterRange {
 extern NSString * const AliyunEffectResourceDeleteNoti;
 
 //TODO:此类需再抽一层,否则会太庞大
-@interface AliyunEditViewController () <AliyunIExporterCallback, AliyunIPlayerCallback,MusicPickViewControllerDelegate>
+@interface AliyunEditViewController () <AliyunIExporterCallback, AliyunIPlayerCallback,MusicPickViewControllerDelegate,AliyunEditButtonsViewDelegate,SoundTrackAndMusicAdjustViewDelegate>
 
 @property (nonatomic, strong) UIView *movieView;
 @property (nonatomic, strong) AliyunTimelineView *timelineView;
@@ -101,6 +102,10 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 @property (nonatomic, strong) UILabel *filterInfoLabel;
 @property (nonatomic, strong) AliyunDBHelper *filterDbHelper;
 
+//混音权重
+@property (nonatomic, assign) int mixWeight;
+//声音大小
+@property (nonatomic, assign) int volume;
 
 
 @end
@@ -115,8 +120,17 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     AliyunTimelineFilterItem *_processAnimationFilterItem;
 }
 
+- (instancetype)init{
+    if (self = [super init]){
+        _musicType = 1;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _mixWeight = 50;
+    _volume = 100;
     // 校验视频分辨率，如果首段视频是横屏录制，则outputSize的width和height互换
     _outputSize = [_config fixedSize];
     
@@ -132,6 +146,8 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     
     // editor
     self.editor = [[AliyunEditor alloc] initWithPath:_taskPath preview:self.movieView];
+    [self.editor setVolume:_volume];
+    [self.editor setAudioMixWeight:_mixWeight];
     self.editor.delegate = (id)self;
 
     // player
@@ -169,7 +185,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     // update views
     [self updateSubViews];
     [self addNotifications];
-    
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (UIButton *)staticImageButton {
@@ -557,7 +573,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     pulishViewController.musicId = self.musicId;
     pulishViewController.startTime = self.startTime;
     pulishViewController.duration = self.duration;
-    
+    pulishViewController.musicType = self.musicType;
     [self.navigationController pushViewController:pulishViewController animated:true];
     
 //    AliyunPublishViewController *vc = [[AliyunPublishViewController alloc] init];
@@ -934,13 +950,27 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 - (void)musicButtonClicked {
     MusicPickViewController *musicPickViewController = [[MusicPickViewController alloc] init];
     musicPickViewController.delegate = self;
-    musicPickViewController.duration = (30);
     [self.navigationController pushViewController:musicPickViewController animated:true];
-    
-//    [self forceFinishLastEditPasterView];
-//    [self presentBackgroundButton];
-//    _editSouceClickType = AliyunEditSouceClickTypeMusic;
-//    [self showEffectView:self.musicView duration:0.2f];
+}
+
+- (void)volumeButtonClicked{
+    SoundTrackAndMusicAdjustView *soundTrackAndMusicAdjustView = [[SoundTrackAndMusicAdjustView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    soundTrackAndMusicAdjustView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    soundTrackAndMusicAdjustView.delegate = self;
+    [soundTrackAndMusicAdjustView showWith:_volume music:_mixWeight];
+}
+
+#pragma mark -  SoundTrackAndMusicAdjustViewDelegate
+- (void)soundTrackAndMusicAdjustView:(SoundTrackAndMusicAdjustView *)soundTrackAndMusicAdjustView changedMusicValue:(float)value{
+    _mixWeight = (int)value;
+    NSLog(@"混音值改变：%d",_mixWeight);
+    [self.editor setAudioMixWeight:_mixWeight];
+}
+
+- (void)soundTrackAndMusicAdjustView:(SoundTrackAndMusicAdjustView *)soundTrackAndMusicAdjustView changedSoundTrackValue:(float)value{
+    _volume = (int)value;
+    NSLog(@"音量值改变：%d",_volume);
+    [self.editor setVolume:_volume];
 }
 
 - (void)reloadDataWithEffectType:(NSInteger)eType {
@@ -957,6 +987,9 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 #pragma mark - MusicPickViewControllerDelegate
 - (void)musicPickViewControllerSelectedNone{
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:nil];
+    //清空所有音乐
+    [_editor removeMusics];
+    
     effectMusic.startTime = 0;
     effectMusic.duration = 0;
     self.musicId = 0;
@@ -965,16 +998,21 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [_editor applyMusic:effectMusic];
 }
 
-- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
+- (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath musicType:(NSInteger)musicType startTime:(float)startTime duration:(float)duration{
     self.musicId = musicId;
     self.startTime = startTime;
     self.duration = duration;
+    self.musicType = musicType;
+    
+    //清空所有音乐
+    [_editor removeMusics];
     
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
     effectMusic.startTime = startTime;
     effectMusic.duration = duration;
     [_editor applyMusic:effectMusic];
 }
+
 //- (void)musicPickViewControllerSelectedWithMusicPath:(NSString *)musicPath startTime:(float)startTime duration:(float)duration{
 //    AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
 //    effectMusic.startTime = startTime;

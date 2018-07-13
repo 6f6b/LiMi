@@ -92,7 +92,7 @@ class MyCashController: UIViewController {
     
     @IBAction func dealRecharge(_ sender: Any) {
         let rechargeController = RechargeController()
-        let rechargeNav = NavigationController(rootViewController: rechargeController)
+        let rechargeNav = CustomNavigationController(rootViewController: rechargeController)
         self.present(rechargeNav, animated: true, completion: nil)
     }
     
@@ -100,7 +100,7 @@ class MyCashController: UIViewController {
         if let _myCahsModel = self.mycashModel{
             let withDrawalController = WithDrawalController()
             withDrawalController.mycashModel = _myCahsModel
-            let withDrawalNav = NavigationController(rootViewController: withDrawalController)
+            let withDrawalNav = CustomNavigationController(rootViewController: withDrawalController)
             self.present(withDrawalNav, animated: true, completion: nil)
         }else{
             Toast.showInfoWith(text:"请稍后..")

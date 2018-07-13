@@ -16,6 +16,7 @@ class FollowerListContainController: UIViewController {
     var myFollowsController:FollowerListController!
     var myFollowersController:FollowerListController!
     var initialIndex = 0
+    var userId:Int?
     init(initialIndex:Int) {
         super.init(nibName: nil, bundle: nil)
         self.initialIndex = initialIndex
@@ -35,6 +36,7 @@ class FollowerListContainController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: addFollowersBtn)
         
         self.controllersContainScrollView = UIScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
+        self.controllersContainScrollView.backgroundColor = APP_THEME_COLOR_1
         self.controllersContainScrollView.isPagingEnabled = true
         self.controllersContainScrollView.delegate = self
         self.controllersContainScrollView.showsHorizontalScrollIndicator = false
@@ -52,6 +54,7 @@ class FollowerListContainController: UIViewController {
             })
         }
         let myFollowsController = FollowerListController.init(followType: .follows)
+        myFollowsController.user_id = self.userId
         self.myFollowsController = myFollowsController
         self.addChildViewController(myFollowsController)
         let myFollowsControllerView = myFollowsController.view
@@ -59,6 +62,7 @@ class FollowerListContainController: UIViewController {
         self.controllersContainScrollView.addSubview(myFollowsControllerView!)
         
         let myFollowersController = FollowerListController.init(followType: .followers)
+        myFollowersController.user_id = self.userId
         self.myFollowersController = myFollowersController
         self.addChildViewController(myFollowersController)
         let myFollowersControllerView = myFollowersController.view
@@ -81,7 +85,7 @@ class FollowerListContainController: UIViewController {
     //MARK: - misc
     @objc func dealToAddFollowers(){
         let addFollowersController = AddFollowersController()
-        let nav = NavigationController.init(rootViewController: addFollowersController)
+        let nav = CustomNavigationController.init(rootViewController: addFollowersController)
         self.present(nav, animated: true, completion: nil)
     }
 

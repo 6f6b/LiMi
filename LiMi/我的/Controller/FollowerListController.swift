@@ -24,6 +24,7 @@ class FollowerListController: UIViewController {
     var pageIndex = 1
     var followType:FollowType = .follows
     var dataArray = [UserInfoModel]()
+    var user_id:Int?
     
     init(followType:FollowType) {
         super.init(nibName: nil, bundle: nil)
@@ -98,14 +99,15 @@ class FollowerListController: UIViewController {
         if self.pageIndex == 1{self.dataArray.removeAll()}
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         var target:TargetType!
+        let userId = self.user_id ?? Defaults[.userId]
         if self.followType == .follows{
-            target = MyAttentionList(page: self.pageIndex)
+            target = MyAttentionList(page: self.pageIndex,id:userId)
         }
         if self.followType == .followers{
-            target = MyFansList(page: self.pageIndex)
+            target = MyFansList(page: self.pageIndex,id:userId)
         }
         if self.followType == .recentFollowers{
-            target = MyFansList(page: self.pageIndex)
+            target = MyFansList(page: self.pageIndex,id:userId)
         }
         _ = moyaProvider.rx.request(.targetWith(target: target)).subscribe(onSuccess: { (response) in
             let userInfoListModel = Mapper<UserInfoListModel>().map(jsonData: response.data)

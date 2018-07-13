@@ -15,6 +15,11 @@ class MediaContainController: UIViewController {
     @IBOutlet weak var bottomLineLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomToolsContainView: UIView!
     
+    var musicPath:String?
+    var musicId:Int?
+    var musicType:Int?
+
+    
     var recordViewController:AliyunRecordViewController!
     var photoViewController:PhotoViewController!
     override func viewDidLoad() {
@@ -28,6 +33,13 @@ class MediaContainController: UIViewController {
         self.scrollView.isScrollEnabled = false
         
         self.recordViewController = AliyunMediator.shared().recordViewController() as? AliyunRecordViewController
+        if let _musicId = self.musicId,let musicPath = self.musicPath,let musicType = self.musicType{
+            self.recordViewController.musicId = _musicId
+            self.recordViewController.musicPath = musicPath
+            self.recordViewController.musicType = musicType
+        }
+
+        
         let quVideo = AliyunMediaConfig.init()
         
         //2、获得scale：
@@ -215,6 +227,7 @@ extension MediaContainController:AliyunRecordViewControllerDelegate{
         editVC.musicId = recordVc.musicId
         editVC.startTime = recordVc.startTime
         editVC.duration = recordVc.duration
+        editVC.musicType = recordVc.musicType
         
         self.navigationController?.pushViewController(editVC, animated: true)
         print("结束录制")

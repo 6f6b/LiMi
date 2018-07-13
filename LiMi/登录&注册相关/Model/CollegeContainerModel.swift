@@ -24,8 +24,8 @@ class CollegeContainerModel: BaseModel {
     }
 }
 
-class CollegeModel:ScreeningConditionsBaseModel, Mappable {
-    var coid:Int?
+class CollegeModel:Mappable {
+    var id:Int?
     var name:String?
     var provinceID:Int?
     
@@ -34,9 +34,9 @@ class CollegeModel:ScreeningConditionsBaseModel, Mappable {
     }
     
     func mapping(map: Map) {
-        coid<-map["coid"]
+        id <- map["id"]
         name<-map["name"]
         provinceID<-map["provinceID"]
-        id = coid
+//        id = coid
     }
 }

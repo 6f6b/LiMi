@@ -59,7 +59,7 @@ class MsgController: UIViewController {
         actionToMyFollow.image = "nav_ic_wdgz"
         let actionAddFollow = SuspensionMenuAction.init(title: "添加关注") {
             let addFollowersController = AddFollowersController()
-            let nav = NavigationController.init(rootViewController: addFollowersController)
+            let nav = CustomNavigationController.init(rootViewController: addFollowersController)
             self.present(nav, animated: true, completion: nil)
         }
         actionAddFollow.image = "nav_ic_tjgz"

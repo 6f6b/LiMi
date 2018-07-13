@@ -53,4 +53,7 @@ pod 'AliyunVideoSDKPro'
 pod 'QuCore-ThirdParty', '~> 3.6.2'
 pod 'VODUpload'
 pod 'AliyunPlayer_iOS/AliyunVodPlayerSDK'
+pod 'RTRootNavigationController'
+pod 'lottie-ios'
+
 end

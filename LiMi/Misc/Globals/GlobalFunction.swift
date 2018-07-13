@@ -173,7 +173,7 @@ func LoginServiceToMainController(loginRootController:UIViewController?){
     //其余页面均返回原页面，个人中心页则返回首页
     if let tbController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
         
-        if let navController = tbController.selectedViewController as? NavigationController{
+        if let navController = tbController.selectedViewController as? CustomNavigationController{
             if let _ = navController.topViewController as? PersonCenterController{
                 tbController.selectedIndex = 0
             }
@@ -396,7 +396,7 @@ func ChatWith(toUserId:Int?,navigationController:UINavigationController? = nil){
                                 _navigationController.pushViewController(sessionVC!, animated: true)
                             }else{
                                 let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                                let nav = tbc.selectedViewController as! NavigationController
+                                let nav = tbc.selectedViewController as! CustomNavigationController
                                 nav.pushViewController(sessionVC!, animated: true)
                             }
                         }
@@ -425,7 +425,7 @@ func ChatWith(toUserId:Int?,navigationController:UINavigationController? = nil){
                         _navigationController.pushViewController(sessionVC!, animated: true)
                     }else{
                         let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                        let nav = tbc.selectedViewController as! NavigationController
+                        let nav = tbc.selectedViewController as! CustomNavigationController
                         nav.pushViewController(sessionVC!, animated: true)
                     }
                 }

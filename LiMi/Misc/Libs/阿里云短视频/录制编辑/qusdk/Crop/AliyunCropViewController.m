@@ -92,6 +92,7 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
         [self addNotification];
         _thumbnailView.avAsset = _avAsset;
     }
+    [self.navigationController.navigationBar setHidden:true];
 }
 
 - (BOOL)prefersStatusBarHidden {

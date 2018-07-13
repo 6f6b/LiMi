@@ -133,7 +133,7 @@ class TopicCircleController: UIViewController {
     @objc func dealCreat(){
         if !AppManager.shared.checkUserStatus(){return}
         let createTopicCircleController = CreateTopicCircleController()
-        let navCreatTopicCircleController = NavigationController.init(rootViewController: createTopicCircleController)
+        let navCreatTopicCircleController = CustomNavigationController.init(rootViewController: createTopicCircleController)
         self.present(navCreatTopicCircleController, animated: true, completion: nil)
     }
     

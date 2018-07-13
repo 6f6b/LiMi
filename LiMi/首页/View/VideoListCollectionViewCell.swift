@@ -21,18 +21,18 @@ class VideoListCollectionViewCell: UICollectionViewCell {
 
     func configWith(model:VideoTrendModel){
         self.model = model
-        if let headPic = model.user_head_pic{
+        if let headPic = model.user?.head_pic{
             self.userHeadButton.kf.setImage(with: URL.init(string: headPic), for: .normal, placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }else{
             self.userHeadButton.setImage(UIImage.init(named: "touxiang"), for: .normal)
         }
-        if let coverImage = model.video_cover{
+        if let coverImage = model.video?.cover{
             self.videoCoverImageView.kf.setImage(with: URL.init(string: coverImage), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
         }else{
             self.videoCoverImageView.image = nil
         }
-        self.userNameLabel.text = model.user_nickname
-        self.publishTimeLabel.text = model.v_create_time
+        self.userNameLabel.text = model.user?.nickname
+        self.publishTimeLabel.text = model.video?.v_create_time
     }
 }
 

@@ -22,7 +22,7 @@ class SchoolCell: UICollectionViewCell {
     func configWith(model:CollegeModel?,isLast:Bool,isSelected:Bool){
         self.arrow.isHidden = !isLast
         self.infoRightConstraint.constant = isLast ? 45 : 25
-        self.contentView.backgroundColor = isSelected ? APP_THEME_COLOR_2 : RGBA(r: 128, g: 128, b: 128, a: 1)
+        self.contentView.backgroundColor = isSelected ? APP_THEME_COLOR_2 : RGBA(r: 255, g: 255, b: 255, a: 0.1)
         self.collegeModel = model
         if let name = model?.name{
             self.shoolInfoLabel.text = name

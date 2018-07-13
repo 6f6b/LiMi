@@ -267,6 +267,9 @@
         for (AliyunEffectMvGroup *mvGroup in infoModelArray) {
             [_filterDataArray addObject:mvGroup];
         }
+        if (_filterDataArray.count >= 2){
+            self.filterIndex = 1;
+        }
     } failure:^(NSError *error) {
         
     }];
