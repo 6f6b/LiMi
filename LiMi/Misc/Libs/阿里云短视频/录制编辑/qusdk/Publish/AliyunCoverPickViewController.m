@@ -27,6 +27,11 @@
     });
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:true];
+}
+
 - (void)setupSubviews {
     self.topView = [[AliyunPublishTopView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, StatusBarHeight+44)];
     self.topView.nameLabel.hidden = true;

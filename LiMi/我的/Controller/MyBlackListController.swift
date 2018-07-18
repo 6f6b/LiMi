@@ -12,7 +12,7 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class MyBlackListController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var tableView: UITableView!
     var pageIndex = 1

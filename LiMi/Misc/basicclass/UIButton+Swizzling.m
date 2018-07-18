@@ -17,18 +17,7 @@
         Method m1 = class_getInstanceMethod([self class], @selector(swizzling_pointInside:withEvent:));
         Method m2 = class_getInstanceMethod([self class], @selector(pointInside:withEvent:));
         method_exchangeImplementations(m1, m2);
-        Method mm1 = class_getInstanceMethod([self class], @selector(sayHello1));
-        Method mm2 = class_getInstanceMethod([self class], @selector(sayHello2));
-        method_exchangeImplementations(mm1, mm2);
     });
-}
-
-- (void)sayHello1{
-    NSLog(@"Hello1");
-}
-
-- (void)sayHello2{
-    NSLog(@"Hello2");
 }
 
 

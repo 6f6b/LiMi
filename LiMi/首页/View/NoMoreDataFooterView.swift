@@ -14,7 +14,7 @@ class NoMoreDataFooterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.infoLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 50))
-        self.infoLabel.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+        self.infoLabel.textColor = APP_THEME_COLOR_1
         self.infoLabel.font = UIFont.systemFont(ofSize: 15)
         self.infoLabel.text = "无更多数据"
         self.addSubview(self.infoLabel)

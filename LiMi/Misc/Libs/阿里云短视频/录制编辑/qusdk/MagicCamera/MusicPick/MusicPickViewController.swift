@@ -171,7 +171,8 @@ class MusicPickViewController: UIViewController {
     
     func generateWith(path:String?,start:Float,duration:Float)->AVMutableComposition?{
         if let _path = path{
-            let url = URL.init(string: _path)
+            let percentURL = NSString.init(string: _path).addingPercentEscapes(using: String.Encoding.utf8.rawValue)
+            let url = URL.init(string: percentURL!)
             let asset = AVURLAsset.init(url: url!)
             let mutableComposition = AVMutableComposition()
             let mutableCompositionAudioTrack = mutableComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)

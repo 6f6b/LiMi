@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         statTracker?.enableDebugOn = false
         statTracker?.start(withAppId: "3572f7dc26")
         
-        self.window?.backgroundColor = UIColor.white
+        self.window?.backgroundColor = APP_THEME_COLOR_1
         UIApplication.shared.statusBarStyle = .lightContent
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setMinimumDismissTimeInterval(2)

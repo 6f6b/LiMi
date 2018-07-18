@@ -89,7 +89,7 @@ extension PrivacySettingController :UITableViewDataSource,UITableViewDelegate{
                     }
                     tableView.reloadData()
                 }
-                Toast.showResultWith(model: resultModel)
+//                Toast.showResultWith(model: resultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
             })

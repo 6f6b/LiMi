@@ -9,20 +9,26 @@
 import UIKit
 import Moya
 import ObjectMapper
+import UICollectionViewLeftAlignedLayout
 
 class SelectSchoolController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     var loginModel:LoginModel?
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionContainView: UIView!
+    var collectionView: UICollectionView!
     @IBOutlet weak var dissmissTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     
     var selectedModel:CollegeModel?
     var selectedIndex:Int?
     var dataArray = [CollegeModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let layOut = UICollectionViewLeftAlignedLayout.init()
+        self.collectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: 80, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-80), collectionViewLayout: layOut)
+        self.collectionView.backgroundColor = APP_THEME_COLOR_1
+        self.collectionContainView.addSubview(self.collectionView)
         self.collectionView.register(UINib.init(nibName: "SchoolCell", bundle: nil), forCellWithReuseIdentifier: "SchoolCell")
         self.collectionView.register(SeletSchoolHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "SeletSchoolHeaderView")
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 15, bottom: 0, right: 15)
@@ -136,6 +142,14 @@ extension SelectSchoolController:UICollectionViewDelegate,UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize.init(width: SCREEN_WIDTH, height: 60)
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout {
+//        
+//        //        UICollectionViewLeftAlignedLayout *leftAlignedLayout = [[UICollectionViewLeftAlignedLayout alloc] init];
+//        //        leftAlignedLayout.minimumLineSpacing = 10;                          //最小行间距
+//        //        leftAlignedLayout.minimumInteritemSpacing = 10;                     //最小列间距
+//        //        leftAlignedLayout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);  //网格上左下右间距
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if self.dataArray.count == 0{return CGSize.zero}

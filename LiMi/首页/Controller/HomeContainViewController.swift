@@ -14,6 +14,7 @@ import DZNEmptyDataSet
 class HomeContainViewController: UIViewController {
     var statusBarHidden:Bool = true
     override var prefersStatusBarHidden: Bool{return statusBarHidden}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     private var subControllerContainView:UIView!
     private var homeTopView:HomeTopView!
     private var choosedSchoolInfoLabel:UILabel?
@@ -31,6 +32,7 @@ class HomeContainViewController: UIViewController {
     private var timer:Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = APP_THEME_COLOR_1
         self.automaticallyAdjustsScrollViewInsets = false
         self.subControllerContainView = UIView.init(frame: SCREEN_RECT)
         self.view.addSubview(self.subControllerContainView)

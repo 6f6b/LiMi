@@ -15,7 +15,7 @@ import Moya
 import ObjectMapper
 
 class FeedBackController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var tableView: UITableView!
     var feedBackQuestionCategoryCell:FeedBackQuestionCategoryCell!

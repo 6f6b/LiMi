@@ -9,6 +9,7 @@
 import UIKit
 
 class MsgController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     var moreOperationBtn:UIButton?
     override func viewDidLoad() {
         super.viewDidLoad()

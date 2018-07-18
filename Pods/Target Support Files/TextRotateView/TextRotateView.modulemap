@@ -1,0 +1,6 @@
+framework module TextRotateView {
+  umbrella header "TextRotateView-umbrella.h"
+
+  export *
+  module * { export * }
+}

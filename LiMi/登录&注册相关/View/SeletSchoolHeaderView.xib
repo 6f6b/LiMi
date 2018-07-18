@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择你就读的大学" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRN-Vq-Yy3">
-                    <rect key="frame" x="26" y="0.0" width="227" height="34"/>
+                    <rect key="frame" x="15" y="0.0" width="227" height="34"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -26,7 +26,7 @@
             <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="hRN-Vq-Yy3" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="AUY-Mq-VCI"/>
-                <constraint firstItem="hRN-Vq-Yy3" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="26" id="dOt-SQ-vfc"/>
+                <constraint firstItem="hRN-Vq-Yy3" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="dOt-SQ-vfc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <userDefinedRuntimeAttributes>

@@ -198,30 +198,30 @@ class UserInfoEditController: UITableViewController {
     }
     
     @objc func saveButtonClicked(){
-        if IsEmpty(textField: self.nicknameTextFeild){
-            Toast.showErrorWith(msg: "昵称不能为空")
-            return
-        }
-        if self.sexValue == nil{
-            Toast.showErrorWith(msg: "性别不能为空")
-            return
-        }
+//        if IsEmpty(textField: self.nicknameTextFeild){
+//            Toast.showErrorWith(msg: "昵称不能为空")
+//            return
+//        }
+//        if self.sexValue == nil{
+//            Toast.showErrorWith(msg: "性别不能为空")
+//            return
+//        }
         if self.college == nil{
             Toast.showErrorWith(msg: "学校不能为空")
             return
         }
-        if self.cityModel == nil{
-            Toast.showErrorWith(msg: "地区不能为空")
-            return
-        }
-        if self.birthdayValue == nil{
-            Toast.showErrorWith(msg: "生日不能为空")
-            return
-        }
-        if IsEmpty(textField: self.signatureTextFeild){
-            Toast.showErrorWith(msg: "签名不能为空")
-            return
-        }
+//        if self.cityModel == nil{
+//            Toast.showErrorWith(msg: "地区不能为空")
+//            return
+//        }
+//        if self.birthdayValue == nil{
+//            Toast.showErrorWith(msg: "生日不能为空")
+//            return
+//        }
+//        if IsEmpty(textField: self.signatureTextFeild){
+//            Toast.showErrorWith(msg: "签名不能为空")
+//            return
+//        }
         Toast.showStatusWith(text: nil)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let editUserInfo = EditUsrInfo.init(nickname: self.nicknameTextFeild.text, signature: self.signatureTextFeild.text, sex: self.sexValue, birthday: self.birthdayValue, city_id: self.cityModel?.id, province_id: self.cityModel?.province?.id, college_id: self.college?.id)
@@ -286,6 +286,9 @@ class UserInfoEditController: UITableViewController {
         }
         //学校
         if indexPath.row == 3{
+            if self.userInfoModel?.is_access == 1 || self.userInfoModel?.is_access == 2{
+                return
+            }
             let schoolListController = SchoolListController()
             schoolListController.delegate = self
             self.present(schoolListController, animated: true, completion: nil)

@@ -12,7 +12,7 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class NTESNewFollowersController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @objc var session:NIMSession!
     var tableView:UITableView!
     var dataArray = [UserInfoModel]()

@@ -104,8 +104,8 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 //混音权重
 @property (nonatomic, assign) int mixWeight;
-//声音大小
-@property (nonatomic, assign) int volume;
+//主流权重
+@property (nonatomic, assign) int mainWeight;
 
 
 @end
@@ -130,7 +130,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mixWeight = 50;
-    _volume = 100;
+    _mainWeight = 50;
     // 校验视频分辨率，如果首段视频是横屏录制，则outputSize的width和height互换
     _outputSize = [_config fixedSize];
     
@@ -146,8 +146,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     
     // editor
     self.editor = [[AliyunEditor alloc] initWithPath:_taskPath preview:self.movieView];
-    [self.editor setVolume:_volume];
-    [self.editor setAudioMixWeight:_mixWeight];
+    [self adjustVolumeWithMainWeight:_mainWeight andMixWeight:_mixWeight];
     self.editor.delegate = (id)self;
 
     // player
@@ -188,6 +187,14 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [self.navigationController.navigationBar setHidden:YES];
 }
 
+- (void)adjustVolumeWithMainWeight:(int)mainWeight andMixWeight:(int)mixWeight{
+    
+    int volume = mainWeight+mixWeight;
+    int musicWeight = 100*((float)mixWeight/(float)(mixWeight+mainWeight));
+    [self.editor setVolume:volume];
+    [self.editor setAudioMixWeight:musicWeight];
+    NSLog(@"当前总音量：%d--配乐：%d--原声：%d",volume,musicWeight,100-musicWeight);
+}
 - (UIButton *)staticImageButton {
     if (!_staticImageButton) {
         _staticImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -957,20 +964,18 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     SoundTrackAndMusicAdjustView *soundTrackAndMusicAdjustView = [[SoundTrackAndMusicAdjustView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     soundTrackAndMusicAdjustView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     soundTrackAndMusicAdjustView.delegate = self;
-    [soundTrackAndMusicAdjustView showWith:_volume music:_mixWeight];
+    [soundTrackAndMusicAdjustView showWith:_mainWeight music:_mixWeight];
 }
 
 #pragma mark -  SoundTrackAndMusicAdjustViewDelegate
 - (void)soundTrackAndMusicAdjustView:(SoundTrackAndMusicAdjustView *)soundTrackAndMusicAdjustView changedMusicValue:(float)value{
     _mixWeight = (int)value;
-    NSLog(@"混音值改变：%d",_mixWeight);
-    [self.editor setAudioMixWeight:_mixWeight];
+    [self adjustVolumeWithMainWeight:_mainWeight andMixWeight:_mixWeight];
 }
 
 - (void)soundTrackAndMusicAdjustView:(SoundTrackAndMusicAdjustView *)soundTrackAndMusicAdjustView changedSoundTrackValue:(float)value{
-    _volume = (int)value;
-    NSLog(@"音量值改变：%d",_volume);
-    [self.editor setVolume:_volume];
+    _mainWeight = (int)value;
+    [self adjustVolumeWithMainWeight:_mainWeight andMixWeight:_mixWeight];
 }
 
 - (void)reloadDataWithEffectType:(NSInteger)eType {

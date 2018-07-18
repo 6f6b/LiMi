@@ -8,6 +8,8 @@
 //
 
 import UIKit
+import TextRotateView
+import ORCycleLabel
 
 let clickDetectionTime = Float(0.3)
 protocol VideoPlayCellDelegate : class{
@@ -68,6 +70,8 @@ class VideoPlayCell: UITableViewCell {
     @IBOutlet weak var videoTitleLabel:UILabel!
     //音乐图标
     @IBOutlet weak var musicIcon:UIImageView!
+    
+    @IBOutlet weak var musicNameContainView: UIView!
     //音乐名称
     @IBOutlet weak var musicNameLabel:UILabel!
     //
@@ -95,7 +99,8 @@ class VideoPlayCell: UITableViewCell {
     @IBOutlet weak var musicIconTopConstraint: NSLayoutConstraint!
     
     var musicAnimationView:LOTAnimationView?
-    
+    var textRoateView:TextRotateView?
+    var cycleLabel:ORCycleLabel?
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -119,6 +124,27 @@ class VideoPlayCell: UITableViewCell {
         self.musicAnimationContainView.bringSubview(toFront: self.musicCoverImageView)
         self.musicAnimationView?.loopAnimation = true
         self.musicAnimationView?.play()
+        
+        
+        
+        
+//        let textModel = TextModel.init(text: "内好啊")
+//        textModel?.textFont = 12
+//        textModel?.textColor = UIColor.white
+
+        let cycleLabel = ORCycleLabel.init(frame: CGRect.init(x: 0, y: 0, width: 200, height: 24))
+        cycleLabel.text = ""
+        cycleLabel.textColor = UIColor.white
+        cycleLabel.rate = 0.3
+        cycleLabel.font = UIFont.systemFont(ofSize: 12)
+        cycleLabel.style = ORTextCycleStyleAlways
+        self.musicNameContainView.addSubview(cycleLabel)
+        self.cycleLabel = cycleLabel
+        
+//        let textRotateView = TextRotateView.init(frame: CGRect.init(x: 0, y: 0, width: 200, height: 24), textModels: [textModel])
+//        self.musicNameContainView.addSubview(textRotateView!)
+//        self.textRoateView = textRotateView
+//        self.textRoateView?.start()
         
         //开始播放        
         NotificationCenter.default.addObserver(self, selector: #selector(thumbsUpButtonRefresh(notification:)), name: THUMBS_UP_NOTIFICATION, object: nil)
@@ -240,24 +266,30 @@ class VideoPlayCell: UITableViewCell {
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
                 if let _is_click = trendModel.is_click{
                     if _is_click{
+//                        self.thumbsUpButton.isHidden = true
                         let animationView = LOTAnimationView.init(name: "favorite")
                         let height = self.thumbsUpButton.frame.size.height
                         let width = self.thumbsUpButton.frame.size.width
-                        let x = (CGFloat(width-130))*0.5
-                        let y = (CGFloat(height-130))*0.5
-                        animationView.frame = CGRect.init(x: x, y: y, width: 130, height: 130)
-                        animationView.animationSpeed = 1.5
+                        let animationViewHeight = CGFloat(130*1.1)
+                        let animationViewWidth = CGFloat(130*1.1)
+                        let x = (CGFloat(width-CGFloat(animationViewWidth)))*0.5
+                        let y = (CGFloat(height-CGFloat(animationViewHeight)))*0.5
+                        animationView.frame = CGRect.init(x: x, y: y, width: animationViewWidth, height: animationViewHeight)
+                        animationView.animationSpeed = 1
                         self.thumbsUpButton.addSubview(animationView)
                         animationView.play {[unowned animationView] (complete) in
                             self.thumbsUpButton.isSelected = _is_click
                             animationView.isHidden = true
                             animationView.removeFromSuperview()
+                            if let _clickNum = trendModel.click_num{
+                                self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
+                            }
                         }
                     }else{
                         self.thumbsUpButton.isSelected = _is_click
-                    }
-                    if let _clickNum = trendModel.click_num{
-                        self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
+                        if let _clickNum = trendModel.click_num{
+                            self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
+                        }
                     }
                 }
             }
@@ -353,17 +385,30 @@ class VideoPlayCell: UITableViewCell {
         //音乐名字
         if let musicName = videoTrendModel?.music?.name{
             self.musicNameLabel.text = musicName
+            self.cycleLabel?.text = musicName
         }else if let _nickname = videoTrendModel?.user?.nickname{
             self.musicNameLabel.text = "@\(_nickname)的原创"
+            self.cycleLabel?.text =  "@\(_nickname)的原创"
         }
+        self.cycleLabel?.start()
         self.musicNameLabel.sizeToFit()
         
         //音乐封面
+        self.musicCoverImageView.layer.removeAllAnimations()
         if let musicPic = videoTrendModel?.music?.pic{
             self.musicCoverImageView.kf.setImage(with: URL.init(string: musicPic))
         }else if let headPic = videoTrendModel?.user?.head_pic{
             self.musicCoverImageView.kf.setImage(with: URL.init(string: headPic))
         }
+        let animation = CABasicAnimation.init(keyPath: "transform.rotation.z")
+        animation.fromValue = 0.0
+        animation.toValue = Double.pi*2
+        animation.duration = 3
+        animation.autoreverses = false
+        animation.fillMode = kCAFillModeForwards
+        animation.repeatCount = MAXFLOAT//如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
+        animation.isRemovedOnCompletion = false
+        self.musicCoverImageView.layer.add(animation, forKey: "transform.rotation.z")
     }
     
     func videoFrameWith(height:Int?,width:Int?)->CGRect{

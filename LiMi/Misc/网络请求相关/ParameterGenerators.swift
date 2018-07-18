@@ -527,7 +527,7 @@ struct UserDetails:TargetType,ParametersProtocol{
     }
 }
 
-//MARK: - 21 更多功能方法处理接口-举报-拉黑-聊天-删除
+////MARK: - 21 更多功能方法处理接口-举报-拉黑-聊天-删除
 struct MoreOperation:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
     //单元测试
@@ -537,7 +537,7 @@ struct MoreOperation:TargetType,ParametersProtocol{
     var headers: [String: String]? { return nil }
     var method: Moya.Method { return .post }
     var path: String {
-        return "/Action/multiFunction"
+        return "/video/multiFunction"
     }
     
     var type:String?

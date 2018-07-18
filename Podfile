@@ -55,5 +55,8 @@ pod 'VODUpload'
 pod 'AliyunPlayer_iOS/AliyunVodPlayerSDK'
 pod 'RTRootNavigationController'
 pod 'lottie-ios'
+pod 'UICollectionViewLeftAlignedLayout'
+pod 'TextRotateView', '~>1.1'
+pod 'ORCycleLabel'
 
 end

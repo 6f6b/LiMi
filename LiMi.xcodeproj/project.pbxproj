@@ -609,7 +609,6 @@
 		6867ABF720F5D8BD00F30F67 /* OCTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867ABF620F5D8BD00F30F67 /* OCTools.m */; };
 		6867ABFA20F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867ABF920F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m */; };
 		6867ABFC20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6867ABFB20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib */; };
-		6867AC0420F72EDC00F30F67 /* favorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 6867AC0320F72EDC00F30F67 /* favorite.json */; };
 		687CA33520C18A940016FB4A /* UIButton+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CA33420C18A940016FB4A /* UIButton+Swizzling.m */; };
 		687CA33720C515460016FB4A /* HomeContainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA33620C515460016FB4A /* HomeContainViewController.swift */; };
 		687CA33920C5159F0016FB4A /* MyFollowsVideosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CA33820C5159F0016FB4A /* MyFollowsVideosController.swift */; };
@@ -809,7 +808,6 @@
 		68C5F298203FF4E400769A92 /* FeedBackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */; };
 		68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */; };
 		68C5F2A8203FFC7600769A92 /* SubmitFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */; };
-		68C7661E20F75C8F00B24EA3 /* music_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 68C7661D20F75C8E00B24EA3 /* music_animation.json */; };
 		68C9857F20F455D0008BC899 /* SameParagraphScanVideoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9857E20F455D0008BC899 /* SameParagraphScanVideoListController.swift */; };
 		68C9ED1120B5258200A8F34D /* AddAnimationFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C9ED0F20B5258200A8F34D /* AddAnimationFilterController.m */; };
 		68C9ED1220B5258200A8F34D /* AddAnimationFilterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C9ED1020B5258200A8F34D /* AddAnimationFilterController.xib */; };
@@ -817,6 +815,10 @@
 		68D583EE204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583EC204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib */; };
 		68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D583F3204E3DD3002CE864 /* UserAgreementController.swift */; };
 		68D583F6204E3DD3002CE864 /* UserAgreementController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D583F4204E3DD3002CE864 /* UserAgreementController.xib */; };
+		68DB858920FC4067008C0F48 /* favorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 68DB858820FC4065008C0F48 /* favorite.json */; };
+		68DB858B20FC9F8C008C0F48 /* music_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 68DB858A20FC9F8B008C0F48 /* music_animation.json */; };
+		68DB858E20FDDE52008C0F48 /* EmptyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB858C20FDDE52008C0F48 /* EmptyCollectionCell.swift */; };
+		68DB858F20FDDE52008C0F48 /* EmptyCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DB858D20FDDE52008C0F48 /* EmptyCollectionCell.xib */; };
 		68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */; };
 		68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */; };
 		68DF85F520AA87B4009B8373 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8F120061630007FAE9C /* ImageIO.framework */; };
@@ -2083,7 +2085,6 @@
 		6867ABF820F604AE00F30F67 /* SoundTrackAndMusicAdjustView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundTrackAndMusicAdjustView.h; sourceTree = "<group>"; };
 		6867ABF920F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundTrackAndMusicAdjustView.m; sourceTree = "<group>"; };
 		6867ABFB20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SoundTrackAndMusicAdjustView.xib; sourceTree = "<group>"; };
-		6867AC0320F72EDC00F30F67 /* favorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite.json; sourceTree = "<group>"; };
 		687CA33320C18A930016FB4A /* UIButton+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Swizzling.h"; sourceTree = "<group>"; };
 		687CA33420C18A940016FB4A /* UIButton+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Swizzling.m"; sourceTree = "<group>"; };
 		687CA33620C515460016FB4A /* HomeContainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainViewController.swift; sourceTree = "<group>"; };
@@ -2574,7 +2575,6 @@
 		68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackHeaderView.swift; sourceTree = "<group>"; };
 		68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFeedbackCell.swift; sourceTree = "<group>"; };
 		68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmitFeedbackCell.xib; sourceTree = "<group>"; };
-		68C7661D20F75C8E00B24EA3 /* music_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = music_animation.json; sourceTree = "<group>"; };
 		68C9857E20F455D0008BC899 /* SameParagraphScanVideoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameParagraphScanVideoListController.swift; sourceTree = "<group>"; };
 		68C9ED0E20B5258200A8F34D /* AddAnimationFilterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAnimationFilterController.h; sourceTree = "<group>"; };
 		68C9ED0F20B5258200A8F34D /* AddAnimationFilterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAnimationFilterController.m; sourceTree = "<group>"; };
@@ -2583,6 +2583,10 @@
 		68D583EC204D4AE0002CE864 /* SystemMsgWithThumUpOrCommentsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMsgWithThumUpOrCommentsCell.xib; sourceTree = "<group>"; };
 		68D583F3204E3DD3002CE864 /* UserAgreementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementController.swift; sourceTree = "<group>"; };
 		68D583F4204E3DD3002CE864 /* UserAgreementController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserAgreementController.xib; sourceTree = "<group>"; };
+		68DB858820FC4065008C0F48 /* favorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite.json; sourceTree = "<group>"; };
+		68DB858A20FC9F8B008C0F48 /* music_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = music_animation.json; sourceTree = "<group>"; };
+		68DB858C20FDDE52008C0F48 /* EmptyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionCell.swift; sourceTree = "<group>"; };
+		68DB858D20FDDE52008C0F48 /* EmptyCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCollectionCell.xib; sourceTree = "<group>"; };
 		68DBD0A9201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailSelectTrendsTypeCell.swift; sourceTree = "<group>"; };
 		68DBD0AA201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailSelectTrendsTypeCell.xib; sourceTree = "<group>"; };
 		68DF860620AAB701009B8373 /* ReleaseTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTypeController.swift; sourceTree = "<group>"; };
@@ -5187,8 +5191,8 @@
 				689DF79E2004750A007FAE9C /* 登录&注册相关 */,
 				68880860200DF0F100BC6AE9 /* Info.plist */,
 				680E169F2003548C006CC5B9 /* Main.storyboard */,
-				6867AC0320F72EDC00F30F67 /* favorite.json */,
-				68C7661D20F75C8E00B24EA3 /* music_animation.json */,
+				68DB858820FC4065008C0F48 /* favorite.json */,
+				68DB858A20FC9F8B008C0F48 /* music_animation.json */,
 				680E16A22003548C006CC5B9 /* Assets.xcassets */,
 			);
 			path = LiMi;
@@ -5974,6 +5978,8 @@
 				68E7D82820CE308100A8CC98 /* NoMoreDataViewCell.xib */,
 				68FD414C20F359AF00AA0762 /* MusicInfoInCollectionViewCell.swift */,
 				68FD414D20F359AF00AA0762 /* MusicInfoInCollectionViewCell.xib */,
+				68DB858C20FDDE52008C0F48 /* EmptyCollectionCell.swift */,
+				68DB858D20FDDE52008C0F48 /* EmptyCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7234,6 +7240,7 @@
 				688808B92010331300BC6AE9 /* LoginController.xib in Resources */,
 				68E7D82A20CE308100A8CC98 /* NoMoreDataViewCell.xib in Resources */,
 				68C5F296203FF00200769A92 /* ContactWayInputCell.xib in Resources */,
+				68DB858B20FC9F8C008C0F48 /* music_animation.json in Resources */,
 				6829559620EDB42600FE844C /* MusicListCell.xib in Resources */,
 				681C96022047D0FF009CDE3B /* WeekendTourBookingInfoCell.xib in Resources */,
 				6801E106202DA6CE00C106E1 /* message.wav in Resources */,
@@ -7290,7 +7297,6 @@
 				689DF7AF2004975A007FAE9C /* FinishPersonInfoController.xib in Resources */,
 				68DFAB2D20AC1792009B8373 /* Localizable.strings in Resources */,
 				68DFD18020B2BAE0009B8373 /* filter in Resources */,
-				6867AC0420F72EDC00F30F67 /* favorite.json in Resources */,
 				6801E108202DA6CE00C106E1 /* video_chat_tip_HangUp.aac in Resources */,
 				6801E019202C6EA900C106E1 /* NTESSearchTeamViewController.xib in Resources */,
 				688809152011E64000BC6AE9 /* RechargeController.xib in Resources */,
@@ -7310,7 +7316,6 @@
 				6864AC232048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib in Resources */,
 				68DFCFC920B2AACB009B8373 /* LocalAnimationFilter.json in Resources */,
 				6864AC2B2048F24800422CD8 /* WeekendTourUnitPriceCell.xib in Resources */,
-				68C7661E20F75C8F00B24EA3 /* music_animation.json in Resources */,
 				6864AC64204D241C00422CD8 /* SystemMessageNumView.xib in Resources */,
 				6801E0A5202C6EA900C106E1 /* NTESAboutViewController.xib in Resources */,
 				6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */,
@@ -7341,6 +7346,7 @@
 				68DFABA620AC1792009B8373 /* AliyunEffectFilterCell.xib in Resources */,
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
 				6801D936202C44D000C106E1 /* FSActionSheet_cancel@3x.png in Resources */,
+				68DB858F20FDDE52008C0F48 /* EmptyCollectionCell.xib in Resources */,
 				6862E52D2019BC130058B878 /* btn_expression@3x.png in Resources */,
 				6864AC4B2049337400422CD8 /* PayResultController.xib in Resources */,
 				68DFD18120B2BAE0009B8373 /* haixiu in Resources */,
@@ -7380,6 +7386,7 @@
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 				6801E118202DA8AF00C106E1 /* NIMKitSettings.bundle in Resources */,
 				68DFD19020B2BB48009B8373 /* 150-xingzuo in Resources */,
+				68DB858920FC4067008C0F48 /* favorite.json in Resources */,
 				6801E107202DA6CE00C106E1 /* video_chat_push.mp3 in Resources */,
 				68282CEE2016CF600003A0CD /* CatchRedPacketSuccessPersonCell.xib in Resources */,
 				688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */,
@@ -7441,6 +7448,7 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/ORCycleLabel/ORCycleLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/QiniuUpload/QiniuUpload.framework",
@@ -7460,7 +7468,9 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/TextRotateView/TextRotateView.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/UICollectionViewLeftAlignedLayout/UICollectionViewLeftAlignedLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework",
@@ -7484,6 +7494,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ORCycleLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiniuUpload.framework",
@@ -7503,7 +7514,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextRotateView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICollectionViewLeftAlignedLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZFPlayer.framework",
@@ -8161,6 +8174,7 @@
 				68F9038B201610B700B3028B /* CatchRedPacketView.swift in Sources */,
 				6801E007202C6EA800C106E1 /* NTESNavigationHandler.m in Sources */,
 				689D5424202B2E55009C771C /* PayManager.swift in Sources */,
+				68DB858E20FDDE52008C0F48 /* EmptyCollectionCell.swift in Sources */,
 				683107C02024402C0060B109 /* EmptyTrendsCell.swift in Sources */,
 				68DFAB4D20AC1792009B8373 /* AliyunMusicPickCoverView.m in Sources */,
 				6801E06F202C6EA900C106E1 /* NTESMeetingMember.m in Sources */,

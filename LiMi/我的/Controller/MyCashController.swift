@@ -13,7 +13,7 @@ import Moya
 //import
 
 class MyCashController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var balance: UILabel!
     @IBOutlet weak var rechargeBtn: UIButton!

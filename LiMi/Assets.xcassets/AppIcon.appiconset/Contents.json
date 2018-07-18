@@ -51,13 +51,13 @@
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "Icon-Spotlight-20.png",
+      "filename" : "Icon-61.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "Icon-Spotlight-41.png",
+      "filename" : "Icon-Spotlight-42.png",
       "scale" : "2x"
     },
     {
@@ -75,7 +75,7 @@
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "Icon-Spotlight-42.png",
+      "filename" : "Icon-Spotlight-41.png",
       "scale" : "1x"
     },
     {
@@ -105,7 +105,7 @@
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "appicon.png",
+      "filename" : "logo1024.png",
       "scale" : "1x"
     }
   ],

@@ -13,7 +13,7 @@ import SVProgressHUD
 import MJRefresh
 
 class WeekendTourController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var tableView: UITableView!
     var scrollArray = [String]()
     var dataArray = [WeekendTourModel]()
@@ -47,7 +47,6 @@ class WeekendTourController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
     }
     

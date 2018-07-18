@@ -52,6 +52,7 @@
 {
     [super layoutSubviews];
     self.titleLabel.nim_centerX = self.nim_width * .5f;
+    self.titleLabel.nim_centerY = self.nim_height * .5f;
     self.subtitleLabel.nim_centerX = self.nim_width * .5f;
     self.subtitleLabel.nim_bottom  = self.nim_height;
 }

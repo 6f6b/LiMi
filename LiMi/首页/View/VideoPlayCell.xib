@@ -79,8 +79,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_music" translatesAutoresizingMaskIntoConstraints="NO" id="24S-Ew-4AD">
                                 <rect key="frame" x="15" y="105" width="15" height="15"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UID-Yd-Oc3">
-                                <rect key="frame" x="40" y="105" width="31.5" height="15"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UID-Yd-Oc3">
+                                <rect key="frame" x="40" y="105" width="328" height="15"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -117,6 +117,14 @@
                                     <constraint firstItem="02G-Yy-rQd" firstAttribute="centerX" secondItem="duX-W8-LSQ" secondAttribute="centerX" id="Kk5-Cr-LTi"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xth-b4-dra">
+                                <rect key="frame" x="40" y="100.5" width="200" height="24"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="AXE-l1-iGI"/>
+                                    <constraint firstAttribute="height" constant="24" id="xaa-Y7-QWq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -132,7 +140,9 @@
                             <constraint firstAttribute="trailing" secondItem="V8a-87-0wf" secondAttribute="trailing" constant="109" id="UIj-Kh-3Lh"/>
                             <constraint firstAttribute="trailing" secondItem="a0O-HF-rTk" secondAttribute="trailing" id="YeH-fK-1pu"/>
                             <constraint firstItem="DXL-ep-5De" firstAttribute="leading" secondItem="Atw-Ar-w16" secondAttribute="leading" id="aJv-rx-VaE"/>
+                            <constraint firstItem="Xth-b4-dra" firstAttribute="centerY" secondItem="24S-Ew-4AD" secondAttribute="centerY" id="cHd-6y-jk1"/>
                             <constraint firstAttribute="trailing" secondItem="02G-Yy-rQd" secondAttribute="trailing" constant="10" id="dTI-aJ-PFw"/>
+                            <constraint firstItem="Xth-b4-dra" firstAttribute="leading" secondItem="24S-Ew-4AD" secondAttribute="trailing" constant="10" id="dan-Q4-2nV"/>
                             <constraint firstItem="UID-Yd-Oc3" firstAttribute="leading" secondItem="24S-Ew-4AD" secondAttribute="trailing" constant="10" id="gLT-fs-EKc"/>
                             <constraint firstItem="UID-Yd-Oc3" firstAttribute="centerY" secondItem="24S-Ew-4AD" secondAttribute="centerY" id="oa5-aJ-XxO"/>
                             <constraint firstAttribute="bottom" secondItem="a0O-HF-rTk" secondAttribute="bottom" constant="50" id="x8G-xI-4yJ"/>
@@ -225,6 +235,7 @@
                 <outlet property="musicCoverImageView" destination="02G-Yy-rQd" id="umS-vu-cQh"/>
                 <outlet property="musicIcon" destination="24S-Ew-4AD" id="2Nh-Z5-jGZ"/>
                 <outlet property="musicIconTopConstraint" destination="Lbk-gk-n5R" id="ogG-7e-dbr"/>
+                <outlet property="musicNameContainView" destination="Xth-b4-dra" id="NBr-mw-uvo"/>
                 <outlet property="musicNameLabel" destination="UID-Yd-Oc3" id="JBK-lr-L7y"/>
                 <outlet property="playButton" destination="zlg-s5-1aZ" id="bGN-n0-tC3"/>
                 <outlet property="playerContainView" destination="VfW-K0-jaZ" id="9V2-I1-aEj"/>

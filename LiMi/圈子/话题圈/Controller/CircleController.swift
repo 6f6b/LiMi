@@ -13,6 +13,7 @@ import ObjectMapper
 import SVProgressHUD
 
 class CircleController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [WeekendTourModel]()
     var circleHomeBannerCell:CircleHomeBannerCell!
@@ -22,7 +23,8 @@ class CircleController: UIViewController {
         self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.tableView.separatorStyle = .none
 
-
+        self.tableViewTopConstraint.constant = -STATUS_BAR_HEIGHT
+        self.tableView.contentInset = UIEdgeInsets.init(top: -STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
         self.tableView.estimatedRowHeight = 1000
         self.tableView.delegate = self
         self.tableView.dataSource = self

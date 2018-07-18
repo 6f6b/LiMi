@@ -13,8 +13,8 @@ import ObjectMapper
 //import <#module#>
 
 class CreateTopicCircleController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var containView: UIView!
-    
     @IBOutlet weak var topicTitle: UITextField!
     
     @IBOutlet weak var placeHolder: UILabel!

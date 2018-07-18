@@ -52,16 +52,16 @@ class ScanVideosController: UIViewController {
         self.modalPresentationCapturesStatusBarAppearance = false;
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        self.view.backgroundColor = APP_THEME_COLOR_1
         
         self.tableViewContainView = UIView.init(frame: SCREEN_RECT)
-        self.tableViewContainView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+        self.tableViewContainView.backgroundColor = APP_THEME_COLOR_1
         self.view.addSubview(self.tableViewContainView)
         
         self.tableView = UITableView.init(frame: SCREEN_RECT, style: .plain)
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
-        self.tableView.backgroundColor = UIColor.init(red: 255, green: 30, blue: 30, alpha: 1)
+        self.tableView.backgroundColor = APP_THEME_COLOR_1
         self.tableView.estimatedRowHeight = 0
         self.tableView.estimatedSectionFooterHeight = 0
         self.tableView.estimatedSectionHeaderHeight = 0
@@ -173,6 +173,7 @@ class ScanVideosController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.isVisiable = true
         let index = self.delegate.currentVideoTrendIndex
         self.setNeedsStatusBarAppearanceUpdate()
         self.tableView.layoutIfNeeded()
@@ -181,6 +182,7 @@ class ScanVideosController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.isVisiable = false
         self.navigationController?.navigationBar.isHidden = self.isNavigationBarHidden
         NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
 
@@ -339,23 +341,37 @@ extension ScanVideosController:VideoPlayCellDelegate{
     func videoPlayCell(cell:VideoPlayCell,clickedThumbsUpButton button:UIButton,withModel model:VideoTrendModel?){
         if !AppManager.shared.checkUserStatus(){return}
         let videoModel = model
+        if let isClick = videoModel?.is_click{
+            videoModel?.is_click = !isClick
+            if !isClick{
+                videoModel?.click_num = (videoModel?.click_num)! + 1
+            }else{
+                videoModel?.click_num = (videoModel?.click_num)! - 1
+            }
+            NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
+        }else if  videoModel?.is_click == nil{
+            videoModel?.is_click = true
+            videoModel?.click_num = (videoModel?.click_num)! + 1
+            NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
+        }
+        
         let videoClickAciton = VideoClickAction.init(video_id: videoModel?.id)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: videoClickAciton)).subscribe(onSuccess: { (response) in
             let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
             if resultModel?.commonInfoModel?.status == successState{
                 
-                if let isClick = videoModel?.is_click{
-                    videoModel?.is_click = !isClick
-                    if !isClick{
-                        videoModel?.click_num = (videoModel?.click_num)! + 1
-                    }else{
-                        videoModel?.click_num = (videoModel?.click_num)! - 1
-                    }
-                    NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
-                }else{
-                    Toast.showErrorWith(msg: "点赞字段为空")
-                }
+//                if let isClick = videoModel?.is_click{
+//                    videoModel?.is_click = !isClick
+//                    if !isClick{
+//                        videoModel?.click_num = (videoModel?.click_num)! + 1
+//                    }else{
+//                        videoModel?.click_num = (videoModel?.click_num)! - 1
+//                    }
+//                    NotificationCenter.default.post(name: THUMBS_UP_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
+//                }else{
+//                    Toast.showErrorWith(msg: "点赞字段为空")
+//                }
             }
             Toast.showErrorWith(model: resultModel)
         }, onError: { (error) in

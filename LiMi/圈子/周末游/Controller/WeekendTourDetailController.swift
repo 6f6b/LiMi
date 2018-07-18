@@ -45,22 +45,15 @@ class WeekendTourDetailController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.barStyle = .blackTranslucent
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.barTintColor = RGBA(r: 30, g: 30, b: 30, a: 0)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        //替换ViewController的导航栏返回按钮
-        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
-            backBtn.setImage(UIImage.init(named: "xq_nav_back"), for: .normal)
-        }
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.isTranslucent = true
     }
-    
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-//        self.navigationController?.navigationBar.barStyle = .default
-//    }
+
     
     deinit {
         print("周末游详情销毁")

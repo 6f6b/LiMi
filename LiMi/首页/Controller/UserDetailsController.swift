@@ -61,9 +61,11 @@ class UserDetailsController: UIViewController {
 
         self.collectionView.register(UINib.init(nibName: "VideoListInPersonCenterCell", bundle: nil), forCellWithReuseIdentifier: "VideoListInPersonCenterCell")
         self.collectionView.register(UINib.init(nibName: "UserDetailInfoHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailInfoHeaderView")
+        self.collectionView.register(UINib.init(nibName: "EmptyCollectionCell", bundle: nil), forCellWithReuseIdentifier: "EmptyCollectionCell")
+
         self.collectionView.register(UserDetailChooseHiddenOrNotView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView")
         self.collectionView.register(UserDetailSelectTrendsTypeView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView")
-
+        
         self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
             
             if self.type == .myVideo{self.myVideoPageIndex += 1}
@@ -208,7 +210,8 @@ class UserDetailsController: UIViewController {
             ChatWith(toUserId: self.userId, navigationController: self.navigationController)
             return
         }
-        let moreOperation = MoreOperation(type: type, action_id: nil, user_id: self.userId)
+
+        let moreOperation = VideoMultiFunction(type: type, video_id: nil, user_id: self.userId)
         _ = moyaProvider.rx.request(.targetWith(target: moreOperation)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
             Toast.showResultWith(model: baseModel)
@@ -308,7 +311,7 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
         if section == 0{return 0}
         if section == 1{
             let dataArray = self.type == .myVideo ? self.myVideoDataArray :self.myLikedVideoDataArray
-            return dataArray.count
+            return dataArray.count == 0 ? 1 : dataArray.count
         }
         return 0
     }
@@ -323,18 +326,6 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
             userDetailInfoHeaderView.delegate = self
             return userDetailInfoHeaderView
         }
-//        if section == 1{
-//            let userDetailChooseHiddenOrNotView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView", for: indexPath) as! UserDetailChooseHiddenOrNotView
-//            userDetailChooseHiddenOrNotView.rightBtn.isSelected = self.isSpread
-//            print(self.isSpread)
-//            userDetailChooseHiddenOrNotView.tapBtnBlock = {[unowned self] (button) in
-//                self.isSpread = button.isSelected
-//                print(self.isSpread)
-//                print(button.isSelected)
-//                self.collectionView.reloadData()
-//            }
-//            return userDetailChooseHiddenOrNotView
-//        }
         if section == 1{
             let  userDetailSelectTrendsTypeView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView", for: indexPath) as! UserDetailSelectTrendsTypeView
             var initialIndex = 0
@@ -360,62 +351,32 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0{return CGSize.init(width: SCREEN_WIDTH, height: 360)}
-        if section == 1{return CGSize.init(width: SCREEN_WIDTH, height: 50)}
+        if section == 1{
+            return CGSize.init(width: SCREEN_WIDTH, height: 50)
+        }
         return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
                 if indexPath.section == 0{return UICollectionViewCell()}
-//                if indexPath.section == 1{
-//                    let infoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleInfoCollectionViewCell", for: indexPath) as! SingleInfoCollectionViewCell
-//                    if indexPath.row == 0{
-//                        var info = "学校  "
-//                        if let _college = self.userInfoModel?.college{
-//                            info.append(_college)
-//                        }
-//                        infoCell.infoLabel.text = info
-//                    }
-//                    if indexPath.row == 1{
-//                        var info = "学院  "
-//                        if let academy = self.userInfoModel?.school{
-//                            info.append(academy)
-//                        }
-//                        infoCell.infoLabel.text = info
-//                    }
-//                    if indexPath.row == 2{
-//                        var info = "年级  "
-//                        if let grade = self.userInfoModel?.grade{
-//                            info.append(grade)
-//                        }
-//                        infoCell.infoLabel.text = info
-//                    }
-//                    if indexPath.row == 3{
-//                        let userDetailSingleInfoWithQuestionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserDetailSingleInfoWithQuestionCell", for: indexPath) as! UserDetailSingleInfoWithQuestionCell
-//                        var info = "姓名  "
-//                        if let name = self.userInfoModel?.true_name{
-//                            info.append(name)
-//                            userDetailSingleInfoWithQuestionCell.questionBtn.isHidden = true
-//                        }else{
-//                            info.append("无法透露")
-//                            userDetailSingleInfoWithQuestionCell.questionBtn.isHidden = false
-//                        }
-//                        userDetailSingleInfoWithQuestionCell.infoLabel.text = info
-//                        return userDetailSingleInfoWithQuestionCell
-//                    }
-//                    return infoCell
-//                }
                 if indexPath.section == 1{
-                    let videoListInPersonCenterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListInPersonCenterCell", for: indexPath) as! VideoListInPersonCenterCell
                     let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
-                    let videoTrendModel = dataArray[indexPath.row]
-                    videoListInPersonCenterCell.configWith(model: videoTrendModel)
-                    return videoListInPersonCenterCell
+                    if dataArray.count <= 0{
+                        let emptyCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyCollectionCell", for: indexPath) as! EmptyCollectionCell
+                        return emptyCell
+                    }else{
+                        let videoListInPersonCenterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListInPersonCenterCell", for: indexPath) as! VideoListInPersonCenterCell
+                        let videoTrendModel = dataArray[indexPath.row]
+                        videoListInPersonCenterCell.configWith(model: videoTrendModel)
+                        return videoListInPersonCenterCell
+                    }
                 }
                 return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if indexPath.section == 1{return CGSize.init(width: SCREEN_WIDTH, height: 30)}
+        let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
+        if dataArray.count <= 0 {return CGSize.init(width: SCREEN_WIDTH, height: 260)}
         let width = (SCREEN_WIDTH-2.5)/3
         let height = width/0.75
         return CGSize.init(width: width, height: height)
@@ -433,6 +394,7 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataArray = self.type == .myVideo ? self.myVideoDataArray : self.myLikedVideoDataArray
+        if dataArray.count <= 0{return}
         var userId:Int? = 0
         if self.userInfoHeaderViewType == .inOtherPersonCenter{
             userId = self.userId

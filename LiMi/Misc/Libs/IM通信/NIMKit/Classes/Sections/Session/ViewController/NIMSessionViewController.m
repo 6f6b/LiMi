@@ -58,6 +58,10 @@
     _tableView.dataSource = nil;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //导航栏
@@ -807,6 +811,7 @@
         titleView = [[NIMKitTitleView alloc] initWithFrame:CGRectZero];
         self.navigationItem.titleView = titleView;
     }
+    titleView.titleLabel.textColor = [UIColor whiteColor];
     titleView.titleLabel.text = self.sessionTitle;
     titleView.subtitleLabel.text = self.sessionSubTitle;
     [titleView sizeToFit];

@@ -26,6 +26,9 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.phoneNum.inputAccessoryView = UIView()
+        self.veritificationCode.inputAccessoryView = UIView()
+        
         let gradientLayer = CAGradientLayer()
         let alpha = CGFloat(1)
         gradientLayer.colors = [RGBA(r: 255, g: 90, b: 0, a: alpha).cgColor,RGBA(r: 144, g: 0, b: 218, a: alpha).cgColor]

@@ -19,6 +19,7 @@ let collectionItemHorizontalSpace = CGFloat(15.0)
 let collectionItemVerticalSpace = CGFloat(15.0)
 
 class PeopleNearbyController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var collectionView: UICollectionView!
 //    var collectionView: UICollectionView!
     var dataArray = [UserInfoModel]()

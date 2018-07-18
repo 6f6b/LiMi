@@ -13,7 +13,7 @@ class IMModel: BaseModel {
     var token:String?
     var accid:String?
     var name:String?
-    
+    var private_message_status:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -23,9 +23,9 @@ class IMModel: BaseModel {
         token<-map["data.token"]
         accid<-map["data.accid"]
         name<-map["data.name"]
+        private_message_status <- map["data.private_message_status"]
+        //"private_message_status": 0    禁止发送私信
+        //"private_message_status": 1    允许发送私信
     }
 }
-//"token": "4a9621e6fe00906b585466f48b979fc5",
-//"accid": "4",
-//"name": "Feng"
 

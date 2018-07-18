@@ -389,15 +389,22 @@ func ChatWith(toUserId:Int?,navigationController:UINavigationController? = nil){
                     let imModel = Mapper<IMModel>().map(jsonData: response.data)
                     if imModel?.commonInfoModel?.status == successState{
                         if let _accid = imModel?.accid,let _ = imModel?.token{
-                            let session = NIMSession.init((_accid), type: .P2P)
-                            let sessionVC = NTESSessionViewController.init(session: session)
-                            sessionVC?.defaultTitle = imModel?.name
-                            if let _navigationController = navigationController{
-                                _navigationController.pushViewController(sessionVC!, animated: true)
+                            if imModel?.private_message_status == 0{
+                                let alertController = UIAlertController.init(title: nil, message: "对方暂不接受位关注者的消息", preferredStyle: .alert)
+                                let actionOK = UIAlertAction.init(title: "确定", style: .cancel, handler: nil)
+                                alertController.addAction(actionOK)
+                                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
                             }else{
-                                let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
-                                let nav = tbc.selectedViewController as! CustomNavigationController
-                                nav.pushViewController(sessionVC!, animated: true)
+                                let session = NIMSession.init((_accid), type: .P2P)
+                                let sessionVC = NTESSessionViewController.init(session: session)
+                                sessionVC?.defaultTitle = imModel?.name
+                                if let _navigationController = navigationController{
+                                    _navigationController.pushViewController(sessionVC!, animated: true)
+                                }else{
+                                    let tbc = UIApplication.shared.keyWindow?.rootViewController as! TabBarController
+                                    let nav = tbc.selectedViewController as! CustomNavigationController
+                                    nav.pushViewController(sessionVC!, animated: true)
+                                }
                             }
                         }
                     }

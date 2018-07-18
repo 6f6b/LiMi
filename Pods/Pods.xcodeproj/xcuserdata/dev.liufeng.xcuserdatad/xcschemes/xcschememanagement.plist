@@ -64,6 +64,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ORCycleLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -159,7 +164,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TextRotateView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Toast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>UICollectionViewLeftAlignedLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
