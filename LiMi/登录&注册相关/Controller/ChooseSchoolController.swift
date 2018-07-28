@@ -30,7 +30,6 @@ class ChooseSchoolController: UIViewController {
         dataArray = [CollegeModel]()
         self.requestData()
         self.searchText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
-//        self.searchText.delegate = self
     }
     
     

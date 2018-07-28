@@ -58,7 +58,7 @@ class MediaContainController: UIViewController {
         
         quVideo.outputSize = CGSize.init(width: width, height: height)
         quVideo.minDuration = 2
-        quVideo.maxDuration = 30
+        quVideo.maxDuration = CGFloat(FIRST_LEVEL_RECORD_TIME)
         quVideo.cutMode = .scaleAspectCut;
         quVideo.fps = 30;
         quVideo.bitrate = Int32(3.87*screenScale*CGFloat(width*height))

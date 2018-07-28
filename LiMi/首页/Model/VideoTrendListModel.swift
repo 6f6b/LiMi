@@ -30,22 +30,9 @@ class VideoTrendModel: BaseModel {
     var click_num:Int?//
     var discuss_num:Int?//
     var id:Int?//
-//    var music_id:Int?
-//    var music_name:String?
-//    var music_pic:String?
-//    var tags:String?
     var title:String?//
-//    var user_head_pic:String?
-//    var user_id:Int?
-//    var user_nickname:String?
-//    var video:String?
-//    var video_cover:String?
-//    var view_num:Int?
     var is_click:Bool?//
-//    var v_create_time:String?
     var is_attention:Bool?//
-//    var height:Int?
-//    var width:Int?
     var music:MusicModel?
     var user:UserInfoModel?
     var video:VideoInfoModel?
@@ -58,22 +45,9 @@ class VideoTrendModel: BaseModel {
         click_num<-map["click_num"]
         discuss_num<-map["discuss_num"]
         id<-map["id"]
-//        music_id<-map["music_id"]
-//        music_name<-map["music_name"]
-//        music_pic<-map["music_pic"]
-//        tags<-map["tags"]
         title<-map["title"]
-//        user_head_pic<-map["user_head_pic"]
-//        user_id<-map["user_id"]
-//        user_nickname<-map["user_nickname"]
-//        video<-map["video"]
-//        video_cover<-map["video_cover"]
-//        view_num<-map["view_num"]
         is_click <- map["is_click"]
-//        v_create_time <- map["v_create_time"]
         is_attention <- map["is_attention"]
-//        height <- map["height"]
-//        width <- map["width"]
         music <- map["music"]
         user <- map["user"]
         video <- map["video"]

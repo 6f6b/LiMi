@@ -49,20 +49,19 @@ class UserDetailsController: UIViewController {
     var myVideoDataArray = [VideoTrendModel]()
     var myLikedVideoDataArray = [VideoTrendModel]()
     @objc var userId:Int = 0
-    var emptyInfo = "太低调了，还没有发动态"
     var isSpread:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        
         self.collectionView.register(SingleInfoCollectionViewCell.self, forCellWithReuseIdentifier: "SingleInfoCollectionViewCell")
         self.collectionView.register(UserDetailSingleInfoWithQuestionCell.self, forCellWithReuseIdentifier: "UserDetailSingleInfoWithQuestionCell")
-
         self.collectionView.register(UINib.init(nibName: "VideoListInPersonCenterCell", bundle: nil), forCellWithReuseIdentifier: "VideoListInPersonCenterCell")
-        self.collectionView.register(UINib.init(nibName: "UserDetailInfoHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailInfoHeaderView")
         self.collectionView.register(UINib.init(nibName: "EmptyCollectionCell", bundle: nil), forCellWithReuseIdentifier: "EmptyCollectionCell")
 
+        self.collectionView.register(UINib.init(nibName: "UserDetailInfoHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailInfoHeaderView")
         self.collectionView.register(UserDetailChooseHiddenOrNotView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailChooseHiddenOrNotView")
         self.collectionView.register(UserDetailSelectTrendsTypeView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserDetailSelectTrendsTypeView")
         
@@ -91,9 +90,13 @@ class UserDetailsController: UIViewController {
         }
         
         loadData()
-        //添加IM登录代理
         NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pulishVideoSuccessed), name: PULISH_VIDEO_TREND_SUCCESS, object: nil)
         self.title = nil
+    }
+    
+    @objc func pulishVideoSuccessed(){
+        self.reloadData()
     }
     
     @objc func didVideoTrendMoreOperation(notification:Notification){
@@ -118,15 +121,19 @@ class UserDetailsController: UIViewController {
         }
     }
     
+    func reloadData(){
+        self.myVideoPageIndex = 1
+        self.myLikedVideoPageIndex = 1
+        self.myVideoDataArray.removeAll()
+        self.myLikedVideoDataArray.removeAll()
+        self.loadData()
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("详情界面销毁")
     }
-    
-    override func rt_customBackItem(withTarget target: Any!, action: Selector!) -> UIBarButtonItem! {
-        let item = super.rt_customBackItem(withTarget: target, action: action)
-        return item!
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -167,7 +174,7 @@ class UserDetailsController: UIViewController {
         }
         if self.userInfoModel != nil{
             if self.userInfoHeaderViewType == .inMyPersonCenter && self.userInfoModel?.user_id != Defaults[.userId]{
-                self.loadData()
+                self.reloadData()
             }
         }
     }
@@ -340,7 +347,6 @@ extension UserDetailsController:UICollectionViewDelegate,UICollectionViewDataSou
                 if self.type == .myVideo && index == 0{return}
                 if self.type == .iLikedVideo && index == 1{return}
                 self.type = index == 0 ? .myVideo : .iLikedVideo
-                self.emptyInfo = index == 0 ?  "太低调了，还没发动态" : "太低调了，还没发需求"
                 self.loadData()
                 self.collectionView.reloadData()
             }

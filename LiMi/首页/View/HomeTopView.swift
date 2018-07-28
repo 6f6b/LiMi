@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol HomeTopViewDelegate {
+protocol HomeTopViewDelegate: class {
     func homeTopViewSegmentButtonClicked(button:UIButton , index:Int) -> Bool
     func homeTopViewMsgButtonClicked()
 }
 class HomeTopView: UIView {
-    var delegate:HomeTopViewDelegate?
+    weak var delegate:HomeTopViewDelegate?
     var topMaskImageView:UIImageView!
 
     private var navigationBarView:UIView!

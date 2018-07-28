@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 import SVProgressHUD
 
-protocol SchoolListControllerDelegate {
+protocol SchoolListControllerDelegate : class{
     func schoolListControllerChoosedSchoolWith(model:CollegeModel)
     func schoolListControllerCancelButtonClicked()
 }
@@ -25,7 +25,7 @@ class SchoolListController: UIViewController {
 //    @IBOutlet weak var clearSearchTextButton: UIButton!
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
     
-    var delegate:SchoolListControllerDelegate?
+    weak var delegate:SchoolListControllerDelegate?
     var dataArray:[CollegeModel]!
     override func viewDidLoad() {
         super.viewDidLoad()

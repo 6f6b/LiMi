@@ -68,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         let conversationUnreadcount = AppManager.shared.conversationManager.allUnreadCount()
-//        let systemUnreadCount = AppManager.shared.systemNotificationManager.allUnreadCount()
-//        let customSystemUnreadCount = AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount()
         UIApplication.shared.applicationIconBadgeNumber = conversationUnreadcount
     }
 
@@ -229,6 +227,9 @@ extension AppDelegate:NIMLoginManagerDelegate{
         func onLogin(step:NIMLoginStep){
             print("####################")
             print(step)
+            if step == .loginOK{
+                NotificationCenter.default.post(name: LOGIN_IM_SUCCESS_NOTIFICATION, object: nil)
+            }
             print("*******************************")
         }
         

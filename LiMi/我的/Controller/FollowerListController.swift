@@ -101,7 +101,7 @@ class FollowerListController: UIViewController {
         var target:TargetType!
         let userId = self.user_id ?? Defaults[.userId]
         if self.followType == .follows{
-            target = MyAttentionList(page: self.pageIndex,id:userId)
+            target = MyAttentionList.init(page: self.pageIndex, id: userId, name: nil)
         }
         if self.followType == .followers{
             target = MyFansList(page: self.pageIndex,id:userId)

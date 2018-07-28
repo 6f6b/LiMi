@@ -389,7 +389,6 @@
 		6801E0DE202D803E00C106E1 /* IMModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6801E0DD202D803E00C106E1 /* IMModel.swift */; };
 		6801E0E5202DA33C00C106E1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8492006161B007FAE9C /* CoreAudio.framework */; };
 		6801E0E6202DA35E00C106E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689DF8B620061628007FAE9C /* AudioToolbox.framework */; };
-		6801E0FD202DA6CE00C106E1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6801E0E7202DA6CC00C106E1 /* Info.plist */; };
 		6801E0FE202DA6CE00C106E1 /* BlizzardReg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6801E0E9202DA6CC00C106E1 /* BlizzardReg.ttf */; };
 		6801E0FF202DA6CE00C106E1 /* d3.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6801E0EA202DA6CC00C106E1 /* d3.icns */; };
 		6801E100202DA6CE00C106E1 /* SetupOSX.mpq in Resources */ = {isa = PBXBuildFile; fileRef = 6801E0EB202DA6CC00C106E1 /* SetupOSX.mpq */; };
@@ -644,7 +643,6 @@
 		688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C12010744300BC6AE9 /* TransactionRecordController.xib */; };
 		688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808C42010749C00BC6AE9 /* TransactionRecordCell.swift */; };
 		688808C72010749C00BC6AE9 /* TransactionRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688808C52010749C00BC6AE9 /* TransactionRecordCell.xib */; };
-		688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CE201083BC00BC6AE9 /* TrendsCell.swift */; };
 		688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DA201084E800BC6AE9 /* TrendsWithTextCell.swift */; };
 		688808DD2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808DC2010850B00BC6AE9 /* TrendsWithTextAndPictrueCell.swift */; };
 		688808E12010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808E02010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift */; };
@@ -797,9 +795,45 @@
 		68B9745D20C917D400162547 /* VideoListInMyCenterPlayContainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B9745C20C917D400162547 /* VideoListInMyCenterPlayContainController.swift */; };
 		68B9745F20C91FEF00162547 /* VideoUserDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B9745E20C91FEF00162547 /* VideoUserDetailModel.swift */; };
 		68B9747620C9341800162547 /* SingleInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B9747420C9341800162547 /* SingleInfoCollectionViewCell.swift */; };
+		68BF918D2109A3DC0095CAD8 /* SubMsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF918C2109A3DC0095CAD8 /* SubMsgController.swift */; };
+		68BF918F2109A4D20095CAD8 /* NewFansMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF918E2109A4D20095CAD8 /* NewFansMsgListController.swift */; };
+		68BF91912109A4E90095CAD8 /* NewClickLikeMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91902109A4E90095CAD8 /* NewClickLikeMsgListController.swift */; };
+		68BF91932109A4FD0095CAD8 /* NewCommentMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91922109A4FD0095CAD8 /* NewCommentMsgListController.swift */; };
+		68BF91952109A5210095CAD8 /* NewRemindMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91942109A5210095CAD8 /* NewRemindMsgListController.swift */; };
+		68BF91982109A5F40095CAD8 /* CommentMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91962109A5F40095CAD8 /* CommentMsgCell.swift */; };
+		68BF91992109A5F40095CAD8 /* CommentMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF91972109A5F40095CAD8 /* CommentMsgCell.xib */; };
+		68BF919C2109A6060095CAD8 /* ClickLikeMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF919A2109A6060095CAD8 /* ClickLikeMsgCell.swift */; };
+		68BF919D2109A6060095CAD8 /* ClickLikeMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF919B2109A6060095CAD8 /* ClickLikeMsgCell.xib */; };
+		68BF91A02109A61E0095CAD8 /* NewFansMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF919E2109A61E0095CAD8 /* NewFansMsgCell.swift */; };
+		68BF91A12109A61E0095CAD8 /* NewFansMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF919F2109A61E0095CAD8 /* NewFansMsgCell.xib */; };
+		68BF91A42109A6550095CAD8 /* RemindMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91A22109A6550095CAD8 /* RemindMsgCell.swift */; };
+		68BF91A52109A6550095CAD8 /* RemindMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF91A32109A6550095CAD8 /* RemindMsgCell.xib */; };
+		68BF91A6210AB8F00095CAD8 /* TrendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688808CE201083BC00BC6AE9 /* TrendsCell.swift */; };
+		68BF91A8210ACCC30095CAD8 /* NewFansMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91A7210ACCC30095CAD8 /* NewFansMsgModel.swift */; };
+		68BF91AA210ACCE70095CAD8 /* ClickLikeMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */; };
+		68BF91AC210ACCF60095CAD8 /* CommentMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */; };
+		68BF91AE210ACD020095CAD8 /* RemindMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */; };
 		68C0FA7920B546630055AA8E /* AnimationFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C0FA7820B546630055AA8E /* AnimationFilterView.m */; };
 		68C0FA7D20B674FB0055AA8E /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C0FA7B20B674FB0055AA8E /* PhotoViewController.m */; };
 		68C0FA7E20B674FB0055AA8E /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C0FA7C20B674FB0055AA8E /* PhotoViewController.xib */; };
+		68C207812106C30700393E12 /* PulishMenuViewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207802106C30700393E12 /* PulishMenuViewItemView.swift */; };
+		68C207832106E19400393E12 /* ChooseFollowedToRemindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207822106E19400393E12 /* ChooseFollowedToRemindController.swift */; };
+		68C207852106E1C100393E12 /* MakeChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207842106E1C100393E12 /* MakeChallengeController.swift */; };
+		68C207872106E1D800393E12 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207862106E1D800393E12 /* ChooseLocationController.swift */; };
+		68C207892106FCA500393E12 /* PulishNextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207882106FCA500393E12 /* PulishNextController.swift */; };
+		68C2078E210721E700393E12 /* PublishContentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2078D210721E700393E12 /* PublishContentEditView.swift */; };
+		68C207932108220900393E12 /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C207922108220900393E12 /* CustomTextView.m */; };
+		68C2079821082E4300393E12 /* ChallengeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2079721082E4300393E12 /* ChallengeListModel.swift */; };
+		68C2079A21085A0400393E12 /* LocationListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2079921085A0400393E12 /* LocationListModel.swift */; };
+		68C2079D2108625200393E12 /* ChallengeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2079B2108625100393E12 /* ChallengeListCell.swift */; };
+		68C2079E2108625200393E12 /* ChallengeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C2079C2108625100393E12 /* ChallengeListCell.xib */; };
+		68C207A12108627100393E12 /* ChallengeInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2079F2108627100393E12 /* ChallengeInfoCell.swift */; };
+		68C207A22108627100393E12 /* ChallengeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C207A02108627100393E12 /* ChallengeInfoCell.xib */; };
+		68C207A52108628C00393E12 /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207A32108628C00393E12 /* LocationListCell.swift */; };
+		68C207A62108628C00393E12 /* LocationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C207A42108628C00393E12 /* LocationListCell.xib */; };
+		68C207A92108629B00393E12 /* LocationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207A72108629B00393E12 /* LocationInfoCell.swift */; };
+		68C207AA2108629B00393E12 /* LocationInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C207A82108629B00393E12 /* LocationInfoCell.xib */; };
+		68C207AC210971C800393E12 /* TopMsgContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C207AB210971C800393E12 /* TopMsgContainView.swift */; };
 		68C5F28E203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */; };
 		68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */; };
 		68C5F292203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */; };
@@ -883,7 +917,6 @@
 		68DFAB5E20AC1792009B8373 /* AliyunVideoBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFA85720AC1790009B8373 /* AliyunVideoBase.m */; };
 		68DFAB5F20AC1792009B8373 /* AliyunVideoSDK-opencore-amr in Resources */ = {isa = PBXBuildFile; fileRef = 68DFA85920AC1790009B8373 /* AliyunVideoSDK-opencore-amr */; };
 		68DFAB6020AC1792009B8373 /* VODUpload.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68DFA85C20AC1790009B8373 /* VODUpload.framework */; };
-		68DFAB6120AC1792009B8373 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68DFA85F20AC1790009B8373 /* Info.plist */; };
 		68DFAB6320AC1792009B8373 /* AliyunCropThumbnailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFA86220AC1790009B8373 /* AliyunCropThumbnailView.m */; };
 		68DFAB6420AC1792009B8373 /* AliyunCycleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFA86320AC1790009B8373 /* AliyunCycleProgressView.m */; };
 		68DFAB6520AC1792009B8373 /* AliyunCropViewBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DFA86420AC1790009B8373 /* AliyunCropViewBottomView.m */; };
@@ -2562,11 +2595,47 @@
 		68B9745C20C917D400162547 /* VideoListInMyCenterPlayContainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListInMyCenterPlayContainController.swift; sourceTree = "<group>"; };
 		68B9745E20C91FEF00162547 /* VideoUserDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUserDetailModel.swift; sourceTree = "<group>"; };
 		68B9747420C9341800162547 /* SingleInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		68BF918C2109A3DC0095CAD8 /* SubMsgController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMsgController.swift; sourceTree = "<group>"; };
+		68BF918E2109A4D20095CAD8 /* NewFansMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFansMsgListController.swift; sourceTree = "<group>"; };
+		68BF91902109A4E90095CAD8 /* NewClickLikeMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClickLikeMsgListController.swift; sourceTree = "<group>"; };
+		68BF91922109A4FD0095CAD8 /* NewCommentMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommentMsgListController.swift; sourceTree = "<group>"; };
+		68BF91942109A5210095CAD8 /* NewRemindMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRemindMsgListController.swift; sourceTree = "<group>"; };
+		68BF91962109A5F40095CAD8 /* CommentMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMsgCell.swift; sourceTree = "<group>"; };
+		68BF91972109A5F40095CAD8 /* CommentMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentMsgCell.xib; sourceTree = "<group>"; };
+		68BF919A2109A6060095CAD8 /* ClickLikeMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickLikeMsgCell.swift; sourceTree = "<group>"; };
+		68BF919B2109A6060095CAD8 /* ClickLikeMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClickLikeMsgCell.xib; sourceTree = "<group>"; };
+		68BF919E2109A61E0095CAD8 /* NewFansMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFansMsgCell.swift; sourceTree = "<group>"; };
+		68BF919F2109A61E0095CAD8 /* NewFansMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewFansMsgCell.xib; sourceTree = "<group>"; };
+		68BF91A22109A6550095CAD8 /* RemindMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindMsgCell.swift; sourceTree = "<group>"; };
+		68BF91A32109A6550095CAD8 /* RemindMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemindMsgCell.xib; sourceTree = "<group>"; };
+		68BF91A7210ACCC30095CAD8 /* NewFansMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFansMsgModel.swift; sourceTree = "<group>"; };
+		68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickLikeMsgModel.swift; sourceTree = "<group>"; };
+		68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMsgModel.swift; sourceTree = "<group>"; };
+		68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindMsgModel.swift; sourceTree = "<group>"; };
 		68C0FA7720B546630055AA8E /* AnimationFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationFilterView.h; sourceTree = "<group>"; };
 		68C0FA7820B546630055AA8E /* AnimationFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationFilterView.m; sourceTree = "<group>"; };
 		68C0FA7A20B674FB0055AA8E /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		68C0FA7B20B674FB0055AA8E /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		68C0FA7C20B674FB0055AA8E /* PhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
+		68C207802106C30700393E12 /* PulishMenuViewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulishMenuViewItemView.swift; sourceTree = "<group>"; };
+		68C207822106E19400393E12 /* ChooseFollowedToRemindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseFollowedToRemindController.swift; sourceTree = "<group>"; };
+		68C207842106E1C100393E12 /* MakeChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeChallengeController.swift; sourceTree = "<group>"; };
+		68C207862106E1D800393E12 /* ChooseLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationController.swift; sourceTree = "<group>"; };
+		68C207882106FCA500393E12 /* PulishNextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulishNextController.swift; sourceTree = "<group>"; };
+		68C2078D210721E700393E12 /* PublishContentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishContentEditView.swift; sourceTree = "<group>"; };
+		68C207912108220900393E12 /* CustomTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTextView.h; sourceTree = "<group>"; };
+		68C207922108220900393E12 /* CustomTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTextView.m; sourceTree = "<group>"; };
+		68C2079721082E4300393E12 /* ChallengeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeListModel.swift; sourceTree = "<group>"; };
+		68C2079921085A0400393E12 /* LocationListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListModel.swift; sourceTree = "<group>"; };
+		68C2079B2108625100393E12 /* ChallengeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeListCell.swift; sourceTree = "<group>"; };
+		68C2079C2108625100393E12 /* ChallengeListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeListCell.xib; sourceTree = "<group>"; };
+		68C2079F2108627100393E12 /* ChallengeInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoCell.swift; sourceTree = "<group>"; };
+		68C207A02108627100393E12 /* ChallengeInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeInfoCell.xib; sourceTree = "<group>"; };
+		68C207A32108628C00393E12 /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
+		68C207A42108628C00393E12 /* LocationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationListCell.xib; sourceTree = "<group>"; };
+		68C207A72108629B00393E12 /* LocationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoCell.swift; sourceTree = "<group>"; };
+		68C207A82108629B00393E12 /* LocationInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationInfoCell.xib; sourceTree = "<group>"; };
+		68C207AB210971C800393E12 /* TopMsgContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMsgContainView.swift; sourceTree = "<group>"; };
 		68C5F28D203FE76C00769A92 /* FeedBackQuestionCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCell.swift; sourceTree = "<group>"; };
 		68C5F28F203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackQuestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		68C5F290203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackQuestionCategoryCollectionCell.xib; sourceTree = "<group>"; };
@@ -5998,6 +6067,11 @@
 			isa = PBXGroup;
 			children = (
 				689DF79620045D7D007FAE9C /* MsgController.swift */,
+				68BF918C2109A3DC0095CAD8 /* SubMsgController.swift */,
+				68BF918E2109A4D20095CAD8 /* NewFansMsgListController.swift */,
+				68BF91902109A4E90095CAD8 /* NewClickLikeMsgListController.swift */,
+				68BF91922109A4FD0095CAD8 /* NewCommentMsgListController.swift */,
+				68BF91942109A5210095CAD8 /* NewRemindMsgListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6005,6 +6079,10 @@
 		689DF77C20045C34007FAE9C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				68BF91A7210ACCC30095CAD8 /* NewFansMsgModel.swift */,
+				68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */,
+				68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */,
+				68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6012,6 +6090,15 @@
 		689DF77D20045C34007FAE9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				68C207AB210971C800393E12 /* TopMsgContainView.swift */,
+				68BF919E2109A61E0095CAD8 /* NewFansMsgCell.swift */,
+				68BF919F2109A61E0095CAD8 /* NewFansMsgCell.xib */,
+				68BF919A2109A6060095CAD8 /* ClickLikeMsgCell.swift */,
+				68BF919B2109A6060095CAD8 /* ClickLikeMsgCell.xib */,
+				68BF91962109A5F40095CAD8 /* CommentMsgCell.swift */,
+				68BF91972109A5F40095CAD8 /* CommentMsgCell.xib */,
+				68BF91A22109A6550095CAD8 /* RemindMsgCell.swift */,
+				68BF91A32109A6550095CAD8 /* RemindMsgCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6121,6 +6208,36 @@
 				68B3F33F204FBCD20004C3D9 /* ToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		68C2079421082D9A00393E12 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				68DFA91320AC1790009B8373 /* AliyunPublishViewController.h */,
+				68DFA91720AC1790009B8373 /* AliyunPublishViewController.m */,
+				6825704F20BE4CA8002E92C4 /* PulishViewController.swift */,
+				68C207882106FCA500393E12 /* PulishNextController.swift */,
+				68C207822106E19400393E12 /* ChooseFollowedToRemindController.swift */,
+				68C207842106E1C100393E12 /* MakeChallengeController.swift */,
+				68C207862106E1D800393E12 /* ChooseLocationController.swift */,
+				68DFA91420AC1790009B8373 /* AliyunCoverPickViewController.h */,
+				68DFA91820AC1790009B8373 /* AliyunCoverPickViewController.m */,
+				68DFA92020AC1790009B8373 /* AliyunUploadViewController.h */,
+				68DFA91520AC1790009B8373 /* AliyunUploadViewController.m */,
+				6825703A20BABAEF002E92C4 /* AliyunVisibleChooseController.h */,
+				6825703B20BABAEF002E92C4 /* AliyunVisibleChooseController.m */,
+				6825703C20BABAEF002E92C4 /* AliyunVisibleChooseController.xib */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		68C2079621082DAF00393E12 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				68C2079721082E4300393E12 /* ChallengeListModel.swift */,
+				68C2079921085A0400393E12 /* LocationListModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		68DF861120AACE9D009B8373 /* 阿里云短视频 */ = {
@@ -6827,23 +6944,11 @@
 		68DFA91220AC1790009B8373 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
-				68DFA91320AC1790009B8373 /* AliyunPublishViewController.h */,
-				68DFA91720AC1790009B8373 /* AliyunPublishViewController.m */,
-				6825704F20BE4CA8002E92C4 /* PulishViewController.swift */,
-				68DFA91420AC1790009B8373 /* AliyunCoverPickViewController.h */,
-				68DFA91820AC1790009B8373 /* AliyunCoverPickViewController.m */,
-				68DFA92020AC1790009B8373 /* AliyunUploadViewController.h */,
-				68DFA91520AC1790009B8373 /* AliyunUploadViewController.m */,
-				6825703A20BABAEF002E92C4 /* AliyunVisibleChooseController.h */,
-				6825703B20BABAEF002E92C4 /* AliyunVisibleChooseController.m */,
-				6825703C20BABAEF002E92C4 /* AliyunVisibleChooseController.xib */,
+				68C2079621082DAF00393E12 /* Model */,
+				68C2079421082D9A00393E12 /* VC */,
 				68DFA91920AC1790009B8373 /* View */,
 				68DFA92120AC1790009B8373 /* AliyunPublishService.h */,
 				68DFA91620AC1790009B8373 /* AliyunPublishService.m */,
-				6825703420B83C64002E92C4 /* AliyunPublishContentEditView.h */,
-				6825703520B83C64002E92C4 /* AliyunPublishContentEditView.m */,
-				6825703720BA98CD002E92C4 /* AliyunAuthorityChooseView.h */,
-				6825703820BA98CD002E92C4 /* AliyunAuthorityChooseView.m */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -6857,6 +6962,22 @@
 				68DFA91D20AC1790009B8373 /* AliyunCoverPickView.h */,
 				68DFA91E20AC1790009B8373 /* AliyunPublishProgressView.m */,
 				68DFA91F20AC1790009B8373 /* AliyunPublishTopView.h */,
+				6825703420B83C64002E92C4 /* AliyunPublishContentEditView.h */,
+				6825703520B83C64002E92C4 /* AliyunPublishContentEditView.m */,
+				68C2078D210721E700393E12 /* PublishContentEditView.swift */,
+				68C207912108220900393E12 /* CustomTextView.h */,
+				68C207922108220900393E12 /* CustomTextView.m */,
+				6825703720BA98CD002E92C4 /* AliyunAuthorityChooseView.h */,
+				6825703820BA98CD002E92C4 /* AliyunAuthorityChooseView.m */,
+				68C207802106C30700393E12 /* PulishMenuViewItemView.swift */,
+				68C2079B2108625100393E12 /* ChallengeListCell.swift */,
+				68C2079C2108625100393E12 /* ChallengeListCell.xib */,
+				68C2079F2108627100393E12 /* ChallengeInfoCell.swift */,
+				68C207A02108627100393E12 /* ChallengeInfoCell.xib */,
+				68C207A32108628C00393E12 /* LocationListCell.swift */,
+				68C207A42108628C00393E12 /* LocationListCell.xib */,
+				68C207A72108629B00393E12 /* LocationInfoCell.swift */,
+				68C207A82108629B00393E12 /* LocationInfoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7195,6 +7316,7 @@
 				688808C32010744300BC6AE9 /* TransactionRecordController.xib in Resources */,
 				68A3EE02206DEE7600BD3097 /* ChooseSchoolController.xib in Resources */,
 				68DFD18F20B2BB48009B8373 /* 103-beautiful life in Resources */,
+				68C207A62108628C00393E12 /* LocationListCell.xib in Resources */,
 				6862E5262019BC130058B878 /* keyboard_btn_delete@3x.png in Resources */,
 				6825703E20BABAEF002E92C4 /* AliyunVisibleChooseController.xib in Resources */,
 				68DFD18220B2BAE0009B8373 /* music in Resources */,
@@ -7275,6 +7397,7 @@
 				68DFD19120B2BB48009B8373 /* 166-zimu in Resources */,
 				6801E10D202DA6CE00C106E1 /* video_connect_chat_tip_sender.aac in Resources */,
 				68DFD18320B2BAE0009B8373 /* hanfumei-800 in Resources */,
+				68BF91992109A5F40095CAD8 /* CommentMsgCell.xib in Resources */,
 				6801E102202DA6CE00C106E1 /* XMLTemplate.xml in Resources */,
 				681C95EA2047A5D5009CDE3B /* WeekendTourSeparateCell.xib in Resources */,
 				68DFD17F20B2BAE0009B8373 /* animation_filter in Resources */,
@@ -7284,6 +7407,7 @@
 				68DFCFF620B2AACC009B8373 /* yuanhao8.png in Resources */,
 				6864AC312048F30100422CD8 /* WeekendTourOrderContactWayCell.xib in Resources */,
 				68DFD19A20B3CE6F009B8373 /* MediaContainController.xib in Resources */,
+				68C207AA2108629B00393E12 /* LocationInfoCell.xib in Resources */,
 				682548752015C47E0033410A /* UserDetailHeadView.xib in Resources */,
 				68C0FA7E20B674FB0055AA8E /* PhotoViewController.xib in Resources */,
 				68C9ED1220B5258200A8F34D /* AddAnimationFilterController.xib in Resources */,
@@ -7316,9 +7440,11 @@
 				6864AC232048F1EC00422CD8 /* WeekendTourASimpleInfoInOrderCell.xib in Resources */,
 				68DFCFC920B2AACB009B8373 /* LocalAnimationFilter.json in Resources */,
 				6864AC2B2048F24800422CD8 /* WeekendTourUnitPriceCell.xib in Resources */,
+				68C207A22108627100393E12 /* ChallengeInfoCell.xib in Resources */,
 				6864AC64204D241C00422CD8 /* SystemMessageNumView.xib in Resources */,
 				6801E0A5202C6EA900C106E1 /* NTESAboutViewController.xib in Resources */,
 				6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */,
+				68BF91A52109A6550095CAD8 /* RemindMsgCell.xib in Resources */,
 				689DF7C32005EBB6007FAE9C /* PersonalCenter.storyboard in Resources */,
 				6862E5242019BC130058B878 /* emoji.json in Resources */,
 				6825485B20137BDC0033410A /* CommentsWithTrendController.xib in Resources */,
@@ -7326,8 +7452,7 @@
 				68DFAD1920AC1794009B8373 /* 版权信息.txt in Resources */,
 				6862E5282019BC130058B878 /* keyboard_preview_bg@3x.png in Resources */,
 				6814A5F620871F92002B3BBC /* CommentsWithParentCommentController.xib in Resources */,
-				6801E0FD202DA6CE00C106E1 /* Info.plist in Resources */,
-				68DFAB6120AC1792009B8373 /* Info.plist in Resources */,
+				68C2079E2108625200393E12 /* ChallengeListCell.xib in Resources */,
 				6864AC2D2048F2A900422CD8 /* WeekendTour.storyboard in Resources */,
 				68B55D75207489B300DF6FF7 /* AddFollowersController.xib in Resources */,
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
@@ -7342,6 +7467,7 @@
 				6801E0C9202C6EA900C106E1 /* JResource.bundle in Resources */,
 				681C95B62045366E009CDE3B /* CircleHomeBannerCell.xib in Resources */,
 				6801E0CF202C6EA900C106E1 /* WalletResource.bundle in Resources */,
+				68BF91A12109A61E0095CAD8 /* NewFansMsgCell.xib in Resources */,
 				68E6B5CC20E4EA5900FD208A /* UserDetailInfoHeaderView.xib in Resources */,
 				68DFABA620AC1792009B8373 /* AliyunEffectFilterCell.xib in Resources */,
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
@@ -7385,6 +7511,7 @@
 				68B55D7920748B8F00DF6FF7 /* MyBlackListController.xib in Resources */,
 				689DF7BB2004ACE9007FAE9C /* IdentityAuthStateController.xib in Resources */,
 				6801E118202DA8AF00C106E1 /* NIMKitSettings.bundle in Resources */,
+				68BF919D2109A6060095CAD8 /* ClickLikeMsgCell.xib in Resources */,
 				68DFD19020B2BB48009B8373 /* 150-xingzuo in Resources */,
 				68DB858920FC4067008C0F48 /* favorite.json in Resources */,
 				6801E107202DA6CE00C106E1 /* video_chat_push.mp3 in Resources */,
@@ -7583,14 +7710,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68BF91A6210AB8F00095CAD8 /* TrendsCell.swift in Sources */,
 				6801DFAD202C6EA800C106E1 /* NIMCellLayoutConfig.m in Sources */,
 				6801DFBE202C6EA800C106E1 /* NIMSessionLocationContentView.m in Sources */,
 				6867ABFA20F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m in Sources */,
 				6801E026202C6EA900C106E1 /* NTESChatroomListCell.m in Sources */,
 				68DFAB4720AC1792009B8373 /* AliyunBeibeiTexture.m in Sources */,
 				688808DB201084E800BC6AE9 /* TrendsWithTextCell.swift in Sources */,
+				68C207932108220900393E12 /* CustomTextView.m in Sources */,
 				687CA33520C18A940016FB4A /* UIButton+Swizzling.m in Sources */,
 				682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */,
+				68C2079D2108625200393E12 /* ChallengeListCell.swift in Sources */,
 				68AE8A4F20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m in Sources */,
 				6825486D2015B9180033410A /* CommentListHeaderView.swift in Sources */,
 				6801E015202C6EA800C106E1 /* NTESPersonalCardViewController.m in Sources */,
@@ -7646,6 +7776,7 @@
 				6801DF8D202C6EA800C106E1 /* NIMContactSelectConfig.m in Sources */,
 				6801E03D202C6EA900C106E1 /* NTESLoginViewController.m in Sources */,
 				6801DF9C202C6EA800C106E1 /* NIMKitEvent.m in Sources */,
+				68BF91AA210ACCE70095CAD8 /* ClickLikeMsgModel.swift in Sources */,
 				6801E0D7202C707900C106E1 /* NTESAppDelegate.m in Sources */,
 				68AE8A552094592A00CB10B0 /* NTESLiMiWebController.swift in Sources */,
 				68EFB903203FE1C600FE1A59 /* AboutUsController.swift in Sources */,
@@ -7671,12 +7802,15 @@
 				6801DFCA202C6EA800C106E1 /* NIMCardMemberItem.m in Sources */,
 				681389CA20568B9100F65623 /* SuspensionMenuAction.swift in Sources */,
 				6801D933202C44D000C106E1 /* FSActionSheetConfig.m in Sources */,
+				68C207A92108629B00393E12 /* LocationInfoCell.swift in Sources */,
 				6801DFAB202C6EA800C106E1 /* NIMUnsupportContentConfig.m in Sources */,
 				6801E042202C6EA900C106E1 /* NTESCustomNotificationObject.m in Sources */,
+				68BF91952109A5210095CAD8 /* NewRemindMsgListController.swift in Sources */,
 				681C960E20481060009CDE3B /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				68DFAB4420AC1792009B8373 /* AliyunMagicCameraView.m in Sources */,
 				68DFABA520AC1792009B8373 /* AliyunEffectMVView.m in Sources */,
 				6801E098202C6EA900C106E1 /* NTESClientsTableViewController.m in Sources */,
+				68C207832106E19400393E12 /* ChooseFollowedToRemindController.swift in Sources */,
 				68DFABB720AC1792009B8373 /* AliyunPublishProgressView.m in Sources */,
 				6864AC5B20495A6200422CD8 /* WeekendTourOrderContainModel.swift in Sources */,
 				6801DF87202C6EA800C106E1 /* NIMPageView.m in Sources */,
@@ -7692,6 +7826,7 @@
 				68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */,
 				6801DFD0202C6EA800C106E1 /* NIMCreateTeamAnnouncement.m in Sources */,
 				68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */,
+				68C207852106E1C100393E12 /* MakeChallengeController.swift in Sources */,
 				68B55DC6207B422900DF6FF7 /* AlterUserSinatureController.swift in Sources */,
 				6801E0B4202C6EA900C106E1 /* NTESSubscribeManager.m in Sources */,
 				6801DF9E202C6EA800C106E1 /* NIMKitInfoFetchOption.m in Sources */,
@@ -7709,6 +7844,7 @@
 				6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */,
 				6801E041202C6EA900C106E1 /* NTESCustomNotificationDB.m in Sources */,
 				68DFAB3120AC1792009B8373 /* AliyunIConfig.m in Sources */,
+				68C207AC210971C800393E12 /* TopMsgContainView.swift in Sources */,
 				6801DF9F202C6EA800C106E1 /* NIMMediaItem.m in Sources */,
 				6801E071202C6EA900C106E1 /* NTESTeamMeetingCalleeInfo.m in Sources */,
 				6801D930202C44D000C106E1 /* UIView+XLExtension.m in Sources */,
@@ -7734,6 +7870,7 @@
 				6801E05C202C6EA900C106E1 /* NTESSessionWhiteBoardContentView.m in Sources */,
 				6801DF99202C6EA800C106E1 /* NIMInputMoreContainerView.m in Sources */,
 				681389C320526D4800F65623 /* ThumbUpAndCommentMessageContainModel.swift in Sources */,
+				68C207812106C30700393E12 /* PulishMenuViewItemView.swift in Sources */,
 				68DFAB9620AC1792009B8373 /* AliyunEffectFilterInfo.m in Sources */,
 				6801DF82202C6EA800C106E1 /* NIMKitMediaFetcher.m in Sources */,
 				68DFAB9520AC1792009B8373 /* AliyunEffectFontInfo.m in Sources */,
@@ -7771,11 +7908,13 @@
 				6801DF95202C6EA800C106E1 /* NIMInputEmoticonContainerView.m in Sources */,
 				6801DFA3202C6EA800C106E1 /* NIMBaseSessionContentConfig.m in Sources */,
 				6801DF7B202C6EA800C106E1 /* NIMKitSetting.m in Sources */,
+				68C207872106E1D800393E12 /* ChooseLocationController.swift in Sources */,
 				68DFAB7020AC1792009B8373 /* AliyunEffectModelTransManager.m in Sources */,
 				682BD8B720859F1D0088BEAC /* TrendCommentWithSubCommentCell.swift in Sources */,
 				68B55DBE207AFF5A00DF6FF7 /* BlackerCell.swift in Sources */,
 				6801DF7D202C6EA800C106E1 /* NIMKit.m in Sources */,
 				6801E034202C6EA900C106E1 /* NTESContactUtilCell.m in Sources */,
+				68BF91912109A4E90095CAD8 /* NewClickLikeMsgListController.swift in Sources */,
 				6801DFAF202C6EA800C106E1 /* NIMKitMessageAtModel.m in Sources */,
 				6801DFB2202C6EA800C106E1 /* NIMKitAudioCenter.m in Sources */,
 				6801DF91202C6EA800C106E1 /* NIMGrowingTextView.m in Sources */,
@@ -7802,6 +7941,7 @@
 				6801DFE1202C6EA800C106E1 /* NIMKitUtil.m in Sources */,
 				6801DFA8202C6EA800C106E1 /* NIMRobotContentConfig.m in Sources */,
 				68DBD0AB201733B500684E76 /* UserDetailSelectTrendsTypeCell.swift in Sources */,
+				68BF91932109A4FD0095CAD8 /* NewCommentMsgListController.swift in Sources */,
 				68DFAD3D20AC1794009B8373 /* JSONModelError.m in Sources */,
 				682548772015D96A0033410A /* PayPasswordInputView.swift in Sources */,
 				68C5F291203FE98200769A92 /* FeedBackQuestionCategoryCollectionCell.swift in Sources */,
@@ -7815,6 +7955,7 @@
 				68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68DFAB6D20AC1792009B8373 /* AliyunCompositionPickCell.m in Sources */,
+				68C207A52108628C00393E12 /* LocationListCell.swift in Sources */,
 				68282D3C20170CA80003A0CD /* SlidingMenu.swift in Sources */,
 				68DFAB8D20AC1792009B8373 /* AliyunPaseterAnimationView.m in Sources */,
 				6862E5072019838D0058B878 /* ConditionScreeningHeaderView.swift in Sources */,
@@ -7840,6 +7981,7 @@
 				6801E090202C6EA900C106E1 /* NTESTeamMeetingCollectionViewCell.m in Sources */,
 				68A908B1206B859300AE4362 /* TrendsWithSingleImageAndTextCell.swift in Sources */,
 				6801DFA0202C6EA800C106E1 /* NIMMessageModel.m in Sources */,
+				68BF91982109A5F40095CAD8 /* CommentMsgCell.swift in Sources */,
 				6801E0D0202C6EA900C106E1 /* SVProgressHUD+Swizzling.m in Sources */,
 				68DFABA320AC1792009B8373 /* AliyunEffectFilterView.m in Sources */,
 				689C96DC20E498D1006E6032 /* MenuCell.swift in Sources */,
@@ -7857,6 +7999,7 @@
 				689C96E220E4B32B006E6032 /* MenuWithSwitchCell.swift in Sources */,
 				68DFAB7C20AC1792009B8373 /* AliyunEffectMoreView.m in Sources */,
 				688A4C95200DD12E00BB5DF7 /* AlterUserNameController.swift in Sources */,
+				68BF918D2109A3DC0095CAD8 /* SubMsgController.swift in Sources */,
 				681C95B42045366E009CDE3B /* TopicsContainModel.swift in Sources */,
 				6801DFD5202C6EA800C106E1 /* NIMTeamNotifyUpdateViewController.m in Sources */,
 				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
@@ -7877,7 +8020,6 @@
 				68DFABA220AC1792009B8373 /* AliyunEffectMusicCell.m in Sources */,
 				6867ABF720F5D8BD00F30F67 /* OCTools.m in Sources */,
 				681C95E32047A343009CDE3B /* WeekendBannerCell.swift in Sources */,
-				688808CF201083BC00BC6AE9 /* TrendsCell.swift in Sources */,
 				68DFABB220AC1792009B8373 /* AliyunPublishService.m in Sources */,
 				6801E031202C6EA900C106E1 /* NTESGroupedDataCollection.m in Sources */,
 				68B55D71207481A100DF6FF7 /* FollowerListContainController.swift in Sources */,
@@ -7916,6 +8058,7 @@
 				681C95B02045366E009CDE3B /* TopicListContainController.swift in Sources */,
 				68B55D7B20775F2B00DF6FF7 /* UserDetailChooseHiddenOrNotView.swift in Sources */,
 				68DFAB2E20AC1792009B8373 /* AliyunAlbumModel.m in Sources */,
+				68C207892106FCA500393E12 /* PulishNextController.swift in Sources */,
 				6801D937202C44D000C106E1 /* TAAbstractDotView.m in Sources */,
 				68B9740D20C7C06000162547 /* VideoTrendCommentCellFactory.swift in Sources */,
 				68DFAB8220AC1792009B8373 /* AliyunTimelineFilterItem.m in Sources */,
@@ -7978,6 +8121,7 @@
 				6864AC5220494A8B00422CD8 /* MyOrderListController.swift in Sources */,
 				68DFAB8820AC1792009B8373 /* AliyunPasterTextInputView.m in Sources */,
 				6801DFC1202C6EA800C106E1 /* NIMSessionNotificationContentView.m in Sources */,
+				68BF91A8210ACCC30095CAD8 /* NewFansMsgModel.swift in Sources */,
 				68DFAB3620AC1792009B8373 /* AliyunPhotoListViewCell.m in Sources */,
 				689D53AE20298AB6009C771C /* MoreOperationModel.swift in Sources */,
 				6888088B200DF1E600BC6AE9 /* MoyaExtension.swift in Sources */,
@@ -7986,6 +8130,7 @@
 				68DFAB7E20AC1792009B8373 /* AliyunEffectManagerView.m in Sources */,
 				6801DFC9202C6EA800C106E1 /* NIMSessionListCell.m in Sources */,
 				681C95DF2047A13D009CDE3B /* WeekendTourController.swift in Sources */,
+				68BF91A42109A6550095CAD8 /* RemindMsgCell.swift in Sources */,
 				681C95CF204553F5009CDE3B /* LocationManager.swift in Sources */,
 				6801E02F202C6EA900C106E1 /* NTESContactDataMember.m in Sources */,
 				6801DFDA202C6EA800C106E1 /* NIMTeamSwitchTableViewCell.m in Sources */,
@@ -8013,6 +8158,7 @@
 				68B973F320C6810400162547 /* FollowAndSchoolVideoContainController.swift in Sources */,
 				6801DFAA202C6EA800C106E1 /* NIMTipContentConfig.m in Sources */,
 				6801D93D202C44D000C106E1 /* XLZoomingScrollView.m in Sources */,
+				68C2079A21085A0400393E12 /* LocationListModel.swift in Sources */,
 				68DFAD1C20AC1794009B8373 /* unzip.c in Sources */,
 				6801DF7A202C6EA800C106E1 /* NIMKitProgressHUD.m in Sources */,
 				6801DF90202C6EA800C106E1 /* NIMGrowingInternalTextView.m in Sources */,
@@ -8101,6 +8247,7 @@
 				68B9745720C90B9900162547 /* VideoListInMyCenterController.swift in Sources */,
 				6801DFB0202C6EA800C106E1 /* NIMMessageCellFactory.m in Sources */,
 				6881034120D251C900A496CD /* BufferView.swift in Sources */,
+				68BF918F2109A4D20095CAD8 /* NewFansMsgListController.swift in Sources */,
 				68DFAB5020AC1792009B8373 /* AliyunMagicCameraViewController.m in Sources */,
 				689DFA1E20061C42007FAE9C /* NetWorkConfig.swift in Sources */,
 				68DFAD2520AC1794009B8373 /* FMDatabaseQueue.m in Sources */,
@@ -8204,6 +8351,7 @@
 				68A908AD206B829A00AE4362 /* TrendsWithSingleImageCell.swift in Sources */,
 				681C5C5D20EB2EC700341D7D /* ProvinceListController.swift in Sources */,
 				68A19F8820CA18E7008059F6 /* ScanVideosContainController.swift in Sources */,
+				68C2079821082E4300393E12 /* ChallengeListModel.swift in Sources */,
 				6801E02D202C6EA900C106E1 /* NTESSessionRobotContentView.m in Sources */,
 				6801E0A6202C6EA900C106E1 /* NTESSettingViewController.m in Sources */,
 				68282D3E20171CB30003A0CD /* SlidingMenuBar.swift in Sources */,
@@ -8248,6 +8396,7 @@
 				688A4C8E200C8FFB00BB5DF7 /* KingfisherExtension.swift in Sources */,
 				68AE8A382092BAD600CB10B0 /* NTESNewFlowersAttachment.m in Sources */,
 				6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */,
+				68C207A12108627100393E12 /* ChallengeInfoCell.swift in Sources */,
 				68DFAB9920AC1792009B8373 /* AliyunCaptionCollectionViewCell.m in Sources */,
 				6801E00D202C6EA800C106E1 /* NTESCellLayoutConfig.m in Sources */,
 				6801E05B202C6EA900C106E1 /* NTESSessionTipContentView.m in Sources */,
@@ -8256,6 +8405,7 @@
 				6801E056202C6EA900C106E1 /* NTESSessionChartletContentView.m in Sources */,
 				6801DFCC202C6EA800C106E1 /* NIMTeamCardRowItem.m in Sources */,
 				68A3EE11206E33D600BD3097 /* ImageUploadManager.swift in Sources */,
+				68BF91AE210ACD020095CAD8 /* RemindMsgModel.swift in Sources */,
 				68DFAB8A20AC1792009B8373 /* AliyunPasterTextStrokeView.m in Sources */,
 				68B973FB20C6834200162547 /* CutomWithNavigationBarAndStatusBarView.swift in Sources */,
 				68DFAB3420AC1792009B8373 /* AliyunMediaConfig.m in Sources */,
@@ -8288,12 +8438,15 @@
 				6801E08E202C6EA900C106E1 /* NTESGLView.m in Sources */,
 				6801D938202C44D000C106E1 /* TAAnimatedDotView.m in Sources */,
 				68DFAB5420AC1792009B8373 /* AliyunRecordFocusView.m in Sources */,
+				68BF919C2109A6060095CAD8 /* ClickLikeMsgCell.swift in Sources */,
 				688A4C8A200C866200BB5DF7 /* UserInfoModel.swift in Sources */,
 				6801E05D202C6EA900C106E1 /* NTESAudio2TextViewController.m in Sources */,
 				68B55DC1207B0C2D00DF6FF7 /* SuspensionMenuItemWithImageCell.swift in Sources */,
 				688808C62010749C00BC6AE9 /* TransactionRecordCell.swift in Sources */,
+				68C2078E210721E700393E12 /* PublishContentEditView.swift in Sources */,
 				6801E027202C6EA900C106E1 /* NTESChatroomMemberCell.m in Sources */,
 				681C95F92047CE40009CDE3B /* WeekendTourDetailCell.swift in Sources */,
+				68BF91AC210ACCF60095CAD8 /* CommentMsgModel.swift in Sources */,
 				6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */,
 				688809002011A7B600BC6AE9 /* ReleaseContentImgInputCell.swift in Sources */,
 				6862E52A2019BC130058B878 /* STEmojiCollectionView.m in Sources */,
@@ -8332,6 +8485,7 @@
 				6801E0B6202C6EA900C106E1 /* NTESDemoRegisterTask.m in Sources */,
 				6814A5FF2089D1FF002B3BBC /* VideoModel.swift in Sources */,
 				6801E09B202C6EA900C106E1 /* NTESLogUploader.m in Sources */,
+				68BF91A02109A61E0095CAD8 /* NewFansMsgCell.swift in Sources */,
 				6801E061202C6EA900C106E1 /* NTESFileTransSelectViewController.m in Sources */,
 				6801DFC5202C6EA800C106E1 /* NIMSessionVideoContentView.m in Sources */,
 				6801DF70202C6EA800C106E1 /* NSString+NIMKit.m in Sources */,
@@ -8647,7 +8801,7 @@
 				STRIP_PNG_TEXT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -8740,7 +8894,7 @@
 				STRIP_PNG_TEXT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "LiMi/Misc/basicclass/LiMi-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

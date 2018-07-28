@@ -106,7 +106,7 @@ let WITHDRAW_SUCCESSED_NOTIFICATION = Notification.Name.init("WITHDRAW_SUCCESSED
 let IDENTITY_STATUS_OK_NOTIFICATION = Notification.Name.init("IDENTITY_STATUS_OK_NOTIFICATION")
 ///点击了Tabbar通知
 let TAPED_TABBAR_NOTIFICATION = Notification.Name.init("TAPED_TABBAR_NOTIFICATION")
-
+let LOGIN_IM_SUCCESS_NOTIFICATION = Notification.Name.init("LOGIN_IM_SUCCESS_NOTIFICATION")
 ///评论短点击通知
 let TAPED_COMMENT_NOTIFICATION = Notification.Name.init("TAPED_COMMENT_NOTIFICATION")
 ///评论长按通知
@@ -127,10 +127,10 @@ let ADD_ATTENTION_SUCCESSED_NOTIFICATION = Notification.Name.init("ADD_ATTENTION
 
 ///离开播放页
 let LEAVE_PLAY_PAGE_NOTIFICATION = Notification.Name.init("LEAVE_PLAY_PAGE_NOTIFICATION")
-
 ///进入播放页
 let INTO_PLAY_PAGE_NOTIFICATION = Notification.Name.init("INTO_PLAY_PAGE_NOTIFICATION")
 
+let PULISH_VIDEO_TREND_SUCCESS = Notification.Name.init("PULISH_VIDEO_TREND_SUCCESS")
 //收藏、取消收藏音乐成功通知
 let COLLECT_MUSIC_SUCCESS_NOTIFICATION = Notification.Name.init("COLLECT_MUSIC_SUCCESS_NOTIFICATION")
 ///获取cell的key
@@ -162,5 +162,7 @@ let SYSTEM_VERSION = UIDevice.current.systemVersion.doubleValue()!
 
 ///联系电话
 var PHONE_NUMBER = "028-33010731"
+///一级最长拍摄时间
+var FIRST_LEVEL_RECORD_TIME = Float(15)
 
 

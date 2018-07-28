@@ -82,7 +82,7 @@
     [self.view addSubview:self.emptyTipLabel];
     
     self.emptyTipImageView = [[UIImageView alloc] init];
-    self.emptyTipImageView.image = [UIImage imageNamed:@"qsy_img_noxx"];
+    self.emptyTipImageView.image = [UIImage imageNamed:@"qsy"];
     [self.emptyTipImageView sizeToFit];
     self.emptyTipImageView.hidden = self.recentSessions.count;
     [self.view addSubview:self.emptyTipImageView];

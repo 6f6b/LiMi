@@ -10,10 +10,18 @@ import UIKit
 import RealmSwift
 import SwiftyJSON
 
-//public protocol CustomSystemMessageManager {
-//    ///自定义系统消息未读数改变了
-//    func customSystemMessageAllUnreadCountChanged()
-//}
+enum CustomSystemMessageType {
+    ///全部消息
+    case all
+    ///粉丝
+    case fans
+    ///评论
+    case comment
+    ///点赞
+    case thumbUp
+    ///@消息
+    case remind
+}
 let customSystemMessageUnreadCountChanged = Notification.Name.init("customSystemMessageUnreadCountChanged")
 
 class CustomSystemMessageManager: NSObject {
@@ -24,58 +32,62 @@ class CustomSystemMessageManager: NSObject {
         super.init()
     }
     
-    ///全部未读
-    func allCustomSystemMessageUnreadCount()->Int{
-        let models = self.realm.objects(CustomSystemMessageModel.self)
-        return models.count
-    }
-    
-    ///点赞消息未读数
-    func allThumbUpMessageUnreadCount()->Int{
-        let models = self.realm.objects(CustomSystemMessageModel.self).filter("type = 0")
-        return models.count
-    }
-    
-    ///评论消息未读数
-    func allCommentMessageUnreadCount()->Int{
-        let models = self.realm.objects(CustomSystemMessageModel.self).filter("type = 1")
-        return models.count
-    }
-    
-    ///标记全部系统消息已读
-    func markAllCustomSystemMessageRead(){
-        let tmpAllUnreadCount = self.allCustomSystemMessageUnreadCount()
-        try! self.realm.write {
-            self.realm.deleteAll()
+    func customSystemMessageUnreadCount(type:CustomSystemMessageType)->Int{
+        var filter = ""
+        if type == .all{
         }
-        if tmpAllUnreadCount != self.allCustomSystemMessageUnreadCount(){
-            NotificationCenter.default.post(name: customSystemMessageUnreadCountChanged, object: nil)
+        if type == .fans{
+            filter = "type = 3"
         }
+        if type == .comment{
+            filter = "type = 1"
+        }
+        if type == .thumbUp{
+            filter = "type = 0"
+        }
+        if type == .remind{
+            filter = "type = 2"
+        }
+        var models:Results<CustomSystemMessageModel>
+        if filter == ""{
+            models = self.realm.objects(CustomSystemMessageModel.self)
+        }else{
+            models = self.realm.objects(CustomSystemMessageModel.self).filter(filter)
+        }
+        return models.count
     }
     
-    ///标记所有点赞消息已读
-    func markAllThumbUpMessageRead(){
-        let tmpAllThumbUpUnreadCount = self.allThumbUpMessageUnreadCount()
+    func markCustomSystemMessageRead(type:CustomSystemMessageType){
+        var filter = ""
+        if type == .all{
+        }
+        if type == .fans{
+            filter = "type = 3"
+        }
+        if type == .comment{
+            filter = "type = 1"
+        }
+        if type == .thumbUp{
+            filter = "type = 0"
+        }
+        if type == .remind{
+            filter = "type = 2"
+        }
+        let tmpUnreadCount = self.customSystemMessageUnreadCount(type: type)
         try! self.realm.write {
-            let models = self.realm.objects(CustomSystemMessageModel.self).filter("type = 0")
+            var models:Results<CustomSystemMessageModel>
+            if filter == ""{
+                models = self.realm.objects(CustomSystemMessageModel.self)
+            }else{
+                models = self.realm.objects(CustomSystemMessageModel.self).filter(filter)
+            }
             self.realm.delete(models)
         }
-        if tmpAllThumbUpUnreadCount != self.allThumbUpMessageUnreadCount(){
+        if tmpUnreadCount != self.customSystemMessageUnreadCount(type: type){
             NotificationCenter.default.post(name: customSystemMessageUnreadCountChanged, object: nil)
         }
     }
     
-    ///标记所有评论消息已读
-    func markAllCommentMessageRead(){
-        let tmpAllCommentUnreadCount = self.allCommentMessageUnreadCount()
-        try! self.realm.write {
-            let models = self.realm.objects(CustomSystemMessageModel.self).filter("type = 1")
-            self.realm.delete(models)
-        }
-        if tmpAllCommentUnreadCount != self.allThumbUpMessageUnreadCount(){
-            NotificationCenter.default.post(name: customSystemMessageUnreadCountChanged, object: nil)
-        }
-    }
     
     ///添加一条系统消息进入本地数据库
     func addCustomSystemMessageWith(nimCustomSystemNotification:NIMCustomSystemNotification){

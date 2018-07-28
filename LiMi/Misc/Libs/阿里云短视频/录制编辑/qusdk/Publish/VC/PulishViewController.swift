@@ -23,14 +23,22 @@ import ObjectMapper
     @objc var duration:Float = 0;
     @objc var musicType:Int = 1;//默认原声
     
-    var containerView:UIView!;
+    var selectChallengeModel:ChallengeModel?
+    var selectLocationModel:LocationModel?
+    
+    
+    var containerView:UIScrollView!;
     var topView:AliyunPublishTopView!;
     var backgroundView:UIImageView!;
     var coverImageView:UIImageView!;
     var pickButton:UIButton!;
     var progressView:UIProgressView!;
     var publishProgressView:AliyunPublishProgressView!;
-    var aliyunAuthorityChooseView:AliyunAuthorityChooseView!
+    
+    var makeChallengeView:PulishMenuViewItemView!
+    var chooseLocationView:PulishMenuViewItemView!
+    var authorityChooseView:PulishMenuViewItemView!
+    
     var publishContentEditView:AliyunPublishContentEditView!;
     var pulishButton:UIButton!;
     var saveToLocalButton:UIButton!;
@@ -50,15 +58,18 @@ import ObjectMapper
         self.addNotifications()
         self.setupSubviews()
         self.navigationController?.navigationBar.isHidden = true
+        self.refreshUI()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func setupSubviews(){
-        self.containerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        self.containerView = UIScrollView.init(frame: CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT))
+        self.containerView.contentSize = self.containerView.frame.size
+        self.containerView.backgroundColor = APP_THEME_COLOR_1
+        self.containerView.bounces = true
         self.view.addSubview(self.containerView)
 
         // top
@@ -71,41 +82,17 @@ import ObjectMapper
         self.topView.finishButton.isEnabled = false;
         self.topView.finishButton.isHidden = true;
         self.topView.delegate = self
-        self.containerView.addSubview(self.topView)
+        self.view.addSubview(self.topView)
 
-
-        // middle
-        let middleHeight = SCREEN_HEIGHT * (240.0/667);
-        self.backgroundView = UIImageView.init(frame: CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+44, width: SCREEN_WIDTH, height: middleHeight))
-        self.backgroundView.image = self.backgroundImage;
-        self.backgroundView.isUserInteractionEnabled = true;
-        self.containerView.addSubview(self.backgroundView);
-        
-        let effect = UIBlurEffect.init(style: .light)
-        let effectView = UIVisualEffectView.init(effect: effect)
-        self.backgroundView.addSubview(effectView);
-        effectView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: middleHeight);
-
-        
-        // pick
-        let length = SCREEN_WIDTH*3/4.0;
-        let ratio = self.outputSize.width/self.outputSize.height;
-        var coverWidth:CGFloat = 0,coverHeight:CGFloat = 0;
-        coverHeight = middleHeight;
-        coverWidth = middleHeight*(SCREEN_WIDTH/SCREEN_HEIGHT)
-//        if ratio > 1{
-//            coverWidth = length;
-//            coverHeight = coverWidth/ratio
-//        }else{
-//            coverHeight = length;
-//            coverWidth = length * ratio;
-//        }
-        self.coverImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: coverWidth, height: coverHeight))
-        self.coverImageView.center = CGPoint.init(x: SCREEN_WIDTH/2, y: middleHeight/2)
+        let coverWidht = CGFloat(120)
+        let coverHeight = CGFloat(160)
+        self.coverImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 15, width: coverWidht, height: coverHeight))
+        self.coverImageView.backgroundColor = UIColor.white
+        self.coverImageView.tz_centerX = self.containerView.tz_centerX
         self.coverImageView.isUserInteractionEnabled = true;
-        effectView.contentView.addSubview(self.coverImageView);
+        self.containerView.addSubview(self.coverImageView)
         
-        self.pickButton = UIButton.init(frame: CGRect.init(x: 0, y: coverHeight-36, width: coverWidth, height: 36))
+        self.pickButton = UIButton.init(frame: CGRect.init(x: 0, y: coverHeight-24, width: coverWidht, height: 24))
         self.pickButton.backgroundColor = RGBA(r: 0, g: 0, b: 0, a: 0.5)
         self.pickButton.setTitleColor(UIColor.white, for: .normal);
         self.pickButton.setTitle("选择封面", for: .normal);
@@ -115,48 +102,77 @@ import ObjectMapper
         self.coverImageView.isHidden = true;
 
         // progress
-        self.publishProgressView = AliyunPublishProgressView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH))
-        effectView.contentView.addSubview(self.publishProgressView);
+        self.publishProgressView = AliyunPublishProgressView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: self.coverImageView.frame.maxY))
         self.progressView = UIProgressView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: 4))
         self.progressView.backgroundColor = RGBA(r: 0, g: 0, b: 0, a: 0.6)
         self.progressView.progressTintColor = RGBA(r: 127, g: 110, b: 241, a: 1)
-        effectView.isUserInteractionEnabled = true;
-        effectView.contentView.addSubview(self.progressView)
-        
+        self.containerView.addSubview(self.publishProgressView)
         
 
         // bottom
-        self.publishContentEditView = AliyunPublishContentEditView.init(frame: CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+44+middleHeight, width: SCREEN_WIDTH, height: 100))
+        self.publishContentEditView = AliyunPublishContentEditView.init(frame: CGRect.init(x: 15, y: self.coverImageView.frame.maxY+15, width: SCREEN_WIDTH-30, height: 100))
+        self.publishContentEditView.delegate = self
+        self.publishContentEditView.layer.cornerRadius = 4
+        self.publishContentEditView.clipsToBounds = true
         self.publishContentEditView.placeholder = "说点什么"
         self.publishContentEditView.maxCharacterNum = 30;
         self.containerView.addSubview(self.publishContentEditView)
 
-        self.aliyunAuthorityChooseView = AliyunAuthorityChooseView.init(frame: CGRect.init(x: 0, y: self.publishContentEditView.frame.maxY+8, width: SCREEN_WIDTH, height: 56))
-        self.aliyunAuthorityChooseView.rightInfoLabel.text = "所有人可见";
-        self.containerView.addSubview(self.aliyunAuthorityChooseView);
-        self.aliyunAuthorityChooseView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapAliyunAuthorityChooseView))
-        self.aliyunAuthorityChooseView.addGestureRecognizer(tap)
+        let makeChallengeView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: self.publishContentEditView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
+        self.makeChallengeView = makeChallengeView
+        makeChallengeView.addTarget(target: self, action: #selector(toMakeChallenge))
+        makeChallengeView.leftInfoLabel.text = "发起挑战"
+        //makeChallengeView.rightInfoLabel.text = "所有人可见"
+        makeChallengeView.layer.cornerRadius = 4
+        makeChallengeView.clipsToBounds = true
+        self.containerView.addSubview(makeChallengeView)
+        
+        let chooseLocationView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: makeChallengeView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
+        self.chooseLocationView = chooseLocationView
+        chooseLocationView.addTarget(target: self, action: #selector(toChooseLocation))
+        chooseLocationView.leftInfoLabel.text = "地理位置"
+        //chooseLocationView.rightInfoLabel.text = "所有人可见"
+        chooseLocationView.layer.cornerRadius = 4
+        chooseLocationView.clipsToBounds = true
+        self.containerView.addSubview(chooseLocationView)
+        
+        let authorityChooseView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: chooseLocationView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
+        self.authorityChooseView = authorityChooseView
+        authorityChooseView.addTarget(target: self, action: #selector(tapAliyunAuthorityChooseView))
+        authorityChooseView.leftInfoLabel.text = "谁可以看"
+        //authorityChooseView.rightInfoLabel.text = "所有人可见"
+        authorityChooseView.layer.cornerRadius = 4
+        authorityChooseView.clipsToBounds = true
+        self.containerView.addSubview(authorityChooseView)
 
-        let pulishButtonWidth = SCREEN_WIDTH*(200.0/375);
-        self.pulishButton = UIButton.init(frame: CGRect.init(x: SCREEN_WIDTH-pulishButtonWidth-15, y: SCREEN_HEIGHT-50-44, width: pulishButtonWidth, height: 44));
-        self.pulishButton.backgroundColor = RGBA(r: 127, g: 110, b: 241, a: 1)
-        self.pulishButton.layer.cornerRadius = 22;
+
+        
+        
+        let pulishButtonWidth = (SCREEN_WIDTH-30-12)*200/333.0
+        self.pulishButton = UIButton.init(frame: CGRect.init(x: SCREEN_WIDTH-pulishButtonWidth-15, y: authorityChooseView.frame.maxY+35, width: pulishButtonWidth, height: 44));
+        self.pulishButton.backgroundColor = APP_THEME_COLOR_2
+        self.pulishButton.layer.cornerRadius = 4;
         self.pulishButton.clipsToBounds = true;
         self.pulishButton.setTitle("发布", for: .normal)
+        self.pulishButton.setTitleColor(UIColor.white, for: .normal)
         self.pulishButton.addTarget(self, action: #selector(pulishButtonClicked), for: .touchUpInside)
-        self.pulishButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.pulishButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         self.containerView.addSubview(self.pulishButton)
         
-        self.saveToLocalButton = UIButton.init(frame: CGRect.init(x: 84, y: SCREEN_HEIGHT-69-28, width: 28, height: 28))
-        self.saveToLocalButton.setImage(UIImage.init(named: "btn_cbd"), for: .normal)
-        self.saveToLocalButton.setTitle("存本地", for: .normal)
-        self.saveToLocalButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        self.saveToLocalButton.titleLabel?.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
-        self.saveToLocalButton.sizeToFitTitleBelowImageWith(distance: 8)
+        self.saveToLocalButton = UIButton.init(frame: CGRect.init(x: 15, y: pulishButton.frame.origin.y, width: SCREEN_WIDTH-30-12-pulishButtonWidth, height: 44))
+        self.saveToLocalButton.layer.cornerRadius = 4;
+        self.saveToLocalButton.clipsToBounds = true;
+        self.saveToLocalButton.setTitle("保存", for: .normal)
+        self.saveToLocalButton.backgroundColor = UIColor.white
+        self.saveToLocalButton.setTitleColor(APP_THEME_COLOR_1, for: .normal)
+        self.saveToLocalButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         self.saveToLocalButton.addTarget(self, action: #selector(saveToLocalButtonClicked), for: .touchUpInside)
         self.containerView.addSubview(self.saveToLocalButton)
 
+        var contentSize = self.containerView.contentSize
+        contentSize.height = self.saveToLocalButton.frame.maxY
+        self.containerView.contentSize = contentSize
+        
         self.view.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
     }
@@ -200,18 +216,28 @@ import ObjectMapper
         visibleChooseController.visibleType = .all;
         visibleChooseController.chooseTypeBlock = {type in
             self.visiableType = type
-            if self.visiableType == .all{
-                self.aliyunAuthorityChooseView.rightInfoLabel.text = "所有人可见";
-            }
-            if self.visiableType == .followers{
-                self.aliyunAuthorityChooseView.rightInfoLabel.text = "粉丝可见";
-            }
-            if self.visiableType == .onlySelf{
-                self.aliyunAuthorityChooseView.rightInfoLabel.text = "自己可见";
-            }
+            self.refreshUI()
         }
         self.navigationController?.pushViewController(visibleChooseController, animated: true)
     }
+    
+    @objc func toChooseFollowedToRemind(){
+        let chooseFollowedToRemindController = ChooseFollowedToRemindController()
+        self.navigationController?.pushViewController(chooseFollowedToRemindController, animated: true)
+    }
+    @objc func toMakeChallenge(){
+        let makeChallengeController = MakeChallengeController()
+        makeChallengeController.delegate = self
+        self.navigationController?.pushViewController(makeChallengeController, animated: true)
+    }
+    
+    @objc func toChooseLocation(){
+        let chooseLocationController = ChooseLocationController()
+        chooseLocationController.delegate = self
+        self.navigationController?.pushViewController(chooseLocationController, animated: true)
+    }
+    
+    
     
     @objc func pulishButtonClicked(){
         if !self.finished && !failed{
@@ -262,8 +288,12 @@ import ObjectMapper
                 Toast.showSuccessWith(msg: baseModel?.commonInfoModel?.msg)
                 //延时1秒返回主界面
                 let delayTime : TimeInterval = 1.0
+                NotificationCenter.default.post(name: PULISH_VIDEO_TREND_SUCCESS, object: nil, userInfo: nil)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime) {
                     Toast.dismiss()
+                    if let tbc = UIApplication.shared.keyWindow?.rootViewController as? TabBarController{
+                        tbc.selectedIndex = tbc.childViewControllers.count-1
+                    }
                     UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
             }else{
@@ -357,6 +387,19 @@ import ObjectMapper
         return picture;
     }
 
+    func refreshUI(){
+        self.makeChallengeView.rightInfoLabel.text = self.selectChallengeModel?.challenge_name
+        self.chooseLocationView.rightInfoLabel.text = self.selectLocationModel?.name
+        if self.visiableType == .all{
+            self.authorityChooseView.rightInfoLabel.text = "所有人可见";
+        }
+        if self.visiableType == .followers{
+            self.authorityChooseView.rightInfoLabel.text = "粉丝可见";
+        }
+        if self.visiableType == .onlySelf{
+            self.authorityChooseView.rightInfoLabel.text = "自己可见";
+        }
+    }
 }
 
 extension PulishViewController:AliyunIExporterCallback{
@@ -456,6 +499,27 @@ extension PulishViewController:AliyunIUploadCallback{
     
     func uploadRetryResume() {
         
+    }
+}
+
+extension PulishViewController:AliyunPublishContentEditViewDelegate{
+    func aliyunPublishContentEditViewTapedRemind(_ editView: AliyunPublishContentEditView!) {
+        let chooseFollowedToRemindController = ChooseFollowedToRemindController()
+        self.navigationController?.pushViewController(chooseFollowedToRemindController, animated: true)
+    }
+}
+
+extension PulishViewController : MakeChallengeControllerDelegate{
+    func makeChallengeController(controller: MakeChallengeController, selectedChallenge model: ChallengeModel) {
+        self.selectChallengeModel = model
+        self.refreshUI()
+    }
+}
+
+extension PulishViewController : ChooseLocationControllerDelegate{
+    func chooseLocationController(controller: ChooseLocationController, selectedLocation model: LocationModel) {
+        self.selectLocationModel = model
+        self.refreshUI()
     }
 }
 

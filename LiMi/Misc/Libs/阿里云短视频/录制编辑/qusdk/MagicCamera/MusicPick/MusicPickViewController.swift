@@ -52,7 +52,7 @@ class MusicPickViewController: UIViewController {
     var startTime:Float = 0;
     @objc var duration:Float{
         get{
-            return 30
+            return FIRST_LEVEL_RECORD_TIME
         }
     }
     

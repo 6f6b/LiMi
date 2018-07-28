@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/app1_5"
+let serverAddress = "http://testapp.youhongtech.com/index.php/app1_6"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -723,7 +723,7 @@ struct MyAttentionList:TargetType,ParametersProtocol{
     }
     var page:Int?
     var id:Int?
-    
+    var name:String? = nil
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page,
@@ -2301,6 +2301,78 @@ struct GetSameVideoList:TargetType,ParametersProtocol{
     }
 }
 
+struct ChallengeList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/challengeList"
+    }
+    
+    var page:Int?
+    var name:String?
+    
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            "name":name
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct GetPoiData:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/getPositionData"
+    }
+    
+    var lng:Double?
+    var lat:Double?
+    var address:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "lng":lng,
+            "lat":lat,
+            "address":address
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct NoticeList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "message/noticeList"
+    }
+    
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{

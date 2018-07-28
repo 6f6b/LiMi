@@ -31,6 +31,11 @@
     [self.onlySelfContainView addGestureRecognizer:tapOnlySelf];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:true];
+}
+
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -46,16 +51,21 @@
 - (void)tapAllVisibleContainView{
     [self setVisibleType:VisibleChooseTypeAll];
     self.chooseTypeBlock(VisibleChooseTypeAll);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)tapAllFollowersContainView{
     [self setVisibleType:VisibleChooseTypeFollowers];
     self.chooseTypeBlock(VisibleChooseTypeFollowers);
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)tapOnlySelfContainView{
     [self setVisibleType:VisibleChooseTypeOnlySelf];
     self.chooseTypeBlock(VisibleChooseTypeOnlySelf);
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)setVisibleType:(VisibleChooseType)visibleType{

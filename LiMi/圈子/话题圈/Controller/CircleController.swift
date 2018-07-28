@@ -36,8 +36,12 @@ class CircleController: UIViewController {
                 if !AppManager.shared.checkUserStatus(){
                     return
                 }
-                let peopleNearbyController = PeopleNearbyController()
-                self.navigationController?.pushViewController(peopleNearbyController, animated: true)
+                
+                let pulishController = PulishViewController()
+                self.navigationController?.pushViewController(pulishController, animated: true)
+                
+//                let peopleNearbyController = PeopleNearbyController()
+//                self.navigationController?.pushViewController(peopleNearbyController, animated: true)
             }
             if circleMenuType == .weekendTour{
                 let weekendTourController = WeekendTourController()

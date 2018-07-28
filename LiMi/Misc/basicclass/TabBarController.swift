@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
         self.addControllerWith(controller: blankController, title: "", tbImg: "home_ps", tbSelectedImg: "home_ps",imageInsets: UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0))
         
         let msgController = MsgController()
-         self.addControllerWith(controller: msgController, title: "消息", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
+         self.addControllerWith(controller: msgController, title: "", tbImg: "home_ic_xx", tbSelectedImg: "home_ic_xxpre")
 
         let personCenterController = UserDetailsController()
         personCenterController.userInfoHeaderViewType = .inMyPersonCenter
@@ -33,7 +33,8 @@ class TabBarController: UITabBarController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(dealPostATrendSuccess), name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(registerFinished), name: REGISTER_FINISHED_NOTIFICATION, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshMyMessageBadge), name: LOGIN_IM_SUCCESS_NOTIFICATION, object: nil)
+
         //系统通知代理
         NIMSDK.shared().systemNotificationManager.add(self)
         //会话消息通知代理
@@ -49,8 +50,7 @@ class TabBarController: UITabBarController {
     }
 
     deinit{
-        NotificationCenter.default.removeObserver(self, name: POST_TREND_SUCCESS_NOTIFICATION, object: nil)
-        NotificationCenter.default.removeObserver(self, name: customSystemMessageUnreadCountChanged, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,34 +60,21 @@ class TabBarController: UITabBarController {
     //MARK: - misc
     
     ///刷新Tabbar上的未读数
-    func refreshMyMessageBadge(){
-        //自定义系统消息
-        if AppManager.shared.customSystemMessageManager.allCustomSystemMessageUnreadCount() == 0{
-            self.tabBar.hiddenBageOnItemAt(index: 0)
-        }else{
-            self.tabBar.showBadgeOnItemAt(index: 0)
-        }
-//        let homeNav = self.viewControllers![0] as! NavigationController
-//        if #available(iOS 10.0, *) {
-//            homeNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 80),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red,NSAttributedStringKey.backgroundColor.rawValue:UIColor.red], for: .normal)
-//        } else {
-//        }
-//        homeNav.tabBarItem.badgeValue = AppManager.shared.systemUnreadCount == 0 ? nil : " "
-
+    @objc func refreshMyMessageBadge(){
         //会话消息
-        if AppManager.shared.conversationManager.allUnreadCount() == 0{
+        let totoalUnreadCount = AppManager.shared.conversationManager.allUnreadCount() + AppManager.shared.customSystemMessageManager.customSystemMessageUnreadCount(type: .all)
+        if totoalUnreadCount == 0{
             self.tabBar.hiddenBageOnItemAt(index: 3)
         }else{
             self.tabBar.showBadgeOnItemAt(index: 3)
         }
-//        let mscNav = self.viewControllers![3] as! NavigationController
-//        if #available(iOS 10.0, *) {
-//            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 160),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red], for: .normal)
-//            mscNav.tabBarItem.badgeColor = RGBA(r: 255, g: 255, b: 255, a: 0)
-//        } else {
-//        }
-//        mscNav.tabBarItem.badgeValue = AppManager.shared.conversationUnreadCount == 0 ? nil : "."
-        //mscNav.tabBarItem.badgeValue = self.conversationUnreadCount == 0 ? nil : "\(self.conversationUnreadCount)"
+        let mscNav = self.viewControllers![3] as! CustomNavigationController
+        if #available(iOS 10.0, *) {
+            mscNav.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.font.rawValue:UIFont.systemFont(ofSize: 160),NSAttributedStringKey.foregroundColor.rawValue:UIColor.red], for: .normal)
+            mscNav.tabBarItem.badgeColor = RGBA(r: 255, g: 255, b: 255, a: 0)
+        } else {
+        }
+        //mscNav.tabBarItem.badgeValue = totoalUnreadCount == 0 ? nil : "\(totoalUnreadCount)"
     }
     
     @objc func dealPostATrendSuccess(){

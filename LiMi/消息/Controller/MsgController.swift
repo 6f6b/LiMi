@@ -20,9 +20,17 @@ class MsgController: UIViewController {
         moreOperationBtn.sizeToFit()
         moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: moreOperationBtn)
+    
+        let topMsgContainViewHeight = 176-NAVIGATION_BAR_HEIGHT - STATUS_BAR_HEIGHT
+        
+        let topMsgContainView = TopMsgContainView()
+        topMsgContainView.delegate = self
+        topMsgContainView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: topMsgContainViewHeight)
+        topMsgContainView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.view.addSubview(topMsgContainView)
         
         let sessionListController = NTESSessionListViewController()
-        sessionListController.view.frame = self.view.frame
+        sessionListController.view.frame = CGRect.init(x: 0, y: topMsgContainView.frame.maxY+10, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-topMsgContainView.frame.maxY-10)
         self.addChildViewController(sessionListController)
         self.view.addSubview(sessionListController.view)
         
@@ -45,7 +53,7 @@ class MsgController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: RGBA(r: 30, g: 30, b: 30, a: 1)), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: RGBA(r: 43, g: 43, b: 43, a: 1)), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 30, g: 30, b: 30, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
@@ -72,5 +80,27 @@ class MsgController: UIViewController {
         let actions = [actionToMyFollow,actionAddFollow,actionIgnore]
         let suspensionExpandMenu = SuspensionExpandMenu.init(actions: actions)
         suspensionExpandMenu.showAround(view: self.moreOperationBtn)
+    }
+}
+
+extension MsgController : TopMsgContainViewDelegate{
+    func topMsgContainView(containView: TopMsgContainView, clickedNewFansButton: UIButton) {
+        let newFansMsgListController = NewFansMsgListController()
+        self.navigationController?.pushViewController(newFansMsgListController, animated: true)
+    }
+    
+    func topMsgContainView(containView: TopMsgContainView, clickedClickLikeButton: UIButton) {
+        let newClickLikeMsgListController = NewClickLikeMsgListController()
+        self.navigationController?.pushViewController(newClickLikeMsgListController, animated: true)
+    }
+    
+    func topMsgContainView(containView: TopMsgContainView, clickedCommentButton: UIButton) {
+        let newCommentMsgListController = NewCommentMsgListController()
+        self.navigationController?.pushViewController(newCommentMsgListController, animated: true)
+    }
+    
+    func topMsgContainView(containView: TopMsgContainView, clickedRemindButton: UIButton) {
+        let newRemindMsgListController = NewRemindMsgListController()
+        self.navigationController?.pushViewController(newRemindMsgListController, animated: true)
     }
 }

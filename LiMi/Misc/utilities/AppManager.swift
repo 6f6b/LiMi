@@ -86,7 +86,6 @@ class AppManager:NSObject {
         if NIMSDK.shared().loginManager.isLogined(){return}
         guard let userAccount = Defaults[.userId],let userToken = Defaults[.userToken] else{return}
         if let imAccount = Defaults[.userAccid],let imToken = Defaults[.userImToken]{
-            print("IM掉线，进行自动登录")
             let data = NIMAutoLoginData.init()
             data.account = imAccount
             data.token = imToken

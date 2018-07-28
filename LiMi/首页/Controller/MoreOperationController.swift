@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol MoreOperationControllerDelegate {
+protocol MoreOperationControllerDelegate: class {
     func moreOperationReportClicked()
     func moreOperationBlackClicked()
     func moreOperationDeleteClicked()
@@ -24,7 +24,7 @@ class MoreOperationController: UIViewController {
     }
     var videoTrendModel:VideoTrendModel?
     
-    var delegate:MoreOperationControllerDelegate?
+   weak var delegate:MoreOperationControllerDelegate?
     
 //    var reportButton:UIButton!
 //    var blackButton:UIButton!

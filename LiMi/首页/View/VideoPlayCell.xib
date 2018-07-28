@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="1014.5" width="794" height="189"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Atw-Ar-w16">
-                                <rect key="frame" x="15" y="18" width="68" height="22"/>
+                                <rect key="frame" x="15" y="26" width="68" height="22"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_school" translatesAutoresizingMaskIntoConstraints="NO" id="LcC-oP-PLy">
                                         <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
@@ -65,22 +65,22 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXL-ep-5De">
-                                <rect key="frame" x="15" y="50" width="43" height="20"/>
+                                <rect key="frame" x="15" y="58" width="43" height="20"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8a-87-0wf">
-                                <rect key="frame" x="15" y="80" width="670" height="17"/>
+                                <rect key="frame" x="15" y="88" width="670" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_music" translatesAutoresizingMaskIntoConstraints="NO" id="24S-Ew-4AD">
-                                <rect key="frame" x="15" y="105" width="15" height="15"/>
+                                <rect key="frame" x="15" y="113" width="15" height="15"/>
                             </imageView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UID-Yd-Oc3">
-                                <rect key="frame" x="40" y="105" width="328" height="15"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UID-Yd-Oc3">
+                                <rect key="frame" x="40" y="113" width="31.5" height="15"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -93,7 +93,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duX-W8-LSQ">
-                                <rect key="frame" x="712" y="52" width="100" height="100"/>
+                                <rect key="frame" x="712" y="56" width="100" height="100"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="02G-Yy-rQd">
                                         <rect key="frame" x="28" y="28" width="44" height="44"/>
@@ -118,7 +118,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xth-b4-dra">
-                                <rect key="frame" x="40" y="100.5" width="200" height="24"/>
+                                <rect key="frame" x="40" y="108.5" width="200" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="AXE-l1-iGI"/>
@@ -131,7 +131,7 @@
                             <constraint firstItem="24S-Ew-4AD" firstAttribute="leading" secondItem="V8a-87-0wf" secondAttribute="leading" id="4mp-9m-cqa"/>
                             <constraint firstItem="V8a-87-0wf" firstAttribute="top" secondItem="DXL-ep-5De" secondAttribute="bottom" constant="10" id="7e4-RM-Sjj"/>
                             <constraint firstAttribute="height" constant="189" id="8FK-Gb-Piv"/>
-                            <constraint firstItem="Atw-Ar-w16" firstAttribute="top" secondItem="gsE-vn-0tc" secondAttribute="top" constant="18" id="9Sz-l3-Ug7"/>
+                            <constraint firstItem="02G-Yy-rQd" firstAttribute="bottom" secondItem="24S-Ew-4AD" secondAttribute="bottom" id="Dbh-hZ-7cB"/>
                             <constraint firstItem="V8a-87-0wf" firstAttribute="leading" secondItem="DXL-ep-5De" secondAttribute="leading" id="LNQ-iM-NbD"/>
                             <constraint firstItem="24S-Ew-4AD" firstAttribute="top" secondItem="V8a-87-0wf" secondAttribute="bottom" constant="8" id="Lbk-gk-n5R"/>
                             <constraint firstItem="DXL-ep-5De" firstAttribute="top" secondItem="Atw-Ar-w16" secondAttribute="bottom" constant="10" id="QBc-t2-tkk"/>
@@ -140,6 +140,7 @@
                             <constraint firstAttribute="trailing" secondItem="V8a-87-0wf" secondAttribute="trailing" constant="109" id="UIj-Kh-3Lh"/>
                             <constraint firstAttribute="trailing" secondItem="a0O-HF-rTk" secondAttribute="trailing" id="YeH-fK-1pu"/>
                             <constraint firstItem="DXL-ep-5De" firstAttribute="leading" secondItem="Atw-Ar-w16" secondAttribute="leading" id="aJv-rx-VaE"/>
+                            <constraint firstAttribute="bottom" secondItem="24S-Ew-4AD" secondAttribute="bottom" constant="61" id="aKh-em-3QY"/>
                             <constraint firstItem="Xth-b4-dra" firstAttribute="centerY" secondItem="24S-Ew-4AD" secondAttribute="centerY" id="cHd-6y-jk1"/>
                             <constraint firstAttribute="trailing" secondItem="02G-Yy-rQd" secondAttribute="trailing" constant="10" id="dTI-aJ-PFw"/>
                             <constraint firstItem="Xth-b4-dra" firstAttribute="leading" secondItem="24S-Ew-4AD" secondAttribute="trailing" constant="10" id="dan-Q4-2nV"/>
@@ -214,7 +215,6 @@
                     <constraint firstItem="dLX-Eu-DWk" firstAttribute="centerX" secondItem="7LL-gx-qBY" secondAttribute="centerX" id="fkH-HB-BOF"/>
                     <constraint firstItem="dLX-Eu-DWk" firstAttribute="top" secondItem="7LL-gx-qBY" secondAttribute="bottom" constant="35" id="kLx-6f-kIH"/>
                     <constraint firstAttribute="trailing" secondItem="gsE-vn-0tc" secondAttribute="trailing" id="l9u-Go-JjB"/>
-                    <constraint firstItem="02G-Yy-rQd" firstAttribute="top" secondItem="dLX-Eu-DWk" secondAttribute="bottom" constant="80" id="mY5-He-zg6"/>
                     <constraint firstItem="JUJ-Vl-LLJ" firstAttribute="bottom" secondItem="8O0-MS-CN7" secondAttribute="bottom" constant="8" id="mmZ-Br-4QD"/>
                     <constraint firstItem="7LL-gx-qBY" firstAttribute="centerX" secondItem="8O0-MS-CN7" secondAttribute="centerX" id="rwe-9f-zFu"/>
                     <constraint firstItem="zlg-s5-1aZ" firstAttribute="centerX" secondItem="VfW-K0-jaZ" secondAttribute="centerX" id="uSt-ur-klB"/>
@@ -234,13 +234,13 @@
                 <outlet property="musicAnimationContainView" destination="duX-W8-LSQ" id="jEw-a5-fAk"/>
                 <outlet property="musicCoverImageView" destination="02G-Yy-rQd" id="umS-vu-cQh"/>
                 <outlet property="musicIcon" destination="24S-Ew-4AD" id="2Nh-Z5-jGZ"/>
+                <outlet property="musicIconBottomConstraint" destination="aKh-em-3QY" id="9uK-Cx-H0x"/>
                 <outlet property="musicIconTopConstraint" destination="Lbk-gk-n5R" id="ogG-7e-dbr"/>
                 <outlet property="musicNameContainView" destination="Xth-b4-dra" id="NBr-mw-uvo"/>
                 <outlet property="musicNameLabel" destination="UID-Yd-Oc3" id="JBK-lr-L7y"/>
                 <outlet property="playButton" destination="zlg-s5-1aZ" id="bGN-n0-tC3"/>
                 <outlet property="playerContainView" destination="VfW-K0-jaZ" id="9V2-I1-aEj"/>
                 <outlet property="schoolInfoContainView" destination="Atw-Ar-w16" id="fE5-70-47v"/>
-                <outlet property="schoolInfoContainViewTopConstraint" destination="9Sz-l3-Ug7" id="ili-jH-O4j"/>
                 <outlet property="schoolName" destination="YbH-mF-3W1" id="8OI-ma-t4D"/>
                 <outlet property="thumbsUpButton" destination="bbR-Ki-x4Q" id="9Gk-yf-EhV"/>
                 <outlet property="thumbsUpNumLabel" destination="sDK-zx-6Fk" id="W9M-zZ-fxR"/>

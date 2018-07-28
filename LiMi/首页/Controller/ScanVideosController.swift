@@ -32,6 +32,7 @@ class ScanVideosController: UIViewController {
     var isNavigationBarHidden:Bool = true
     var isVisiable = true
     var isFirstIn = true
+    var isClickToPause = false
     var currentVideoPlayCell:VideoPlayCell?
     var currentVideoTrend:VideoTrendModel?
     var player:AliyunVodPlayer!
@@ -110,7 +111,11 @@ class ScanVideosController: UIViewController {
     
     @objc func appDidBecomeActive(){
         print("appDidBecomeActive")
-        if self.isVisiable{self.player.resume()}
+        if self.isVisiable{
+            if !isClickToPause{
+              self.player.resume()
+            }
+        }
     }
     
     @objc func appWillResignActive(){
@@ -130,7 +135,11 @@ class ScanVideosController: UIViewController {
     @objc func appWillEnterForeground(){
         print("appWillEnterForeground")
 
-        if self.isVisiable{self.player.resume()}
+        if self.isVisiable{
+            if !isClickToPause{
+                    self.player.resume()
+            }
+        }
     }
     
     @objc func didVideoTrendMoreOperation(notification:Notification){
@@ -216,7 +225,9 @@ class ScanVideosController: UIViewController {
         if currentIndex >= self.delegate.dataArray.count{return}
         if let currentVideoPlayCell = self.tableView.cellForRow(at: IndexPath.init(row: currentIndex, section: 0)) as? VideoPlayCell{
             self.currentVideoPlayCell = currentVideoPlayCell
+            self.player.stop()
             self.player.reset()
+            print("Reset:\(currentIndex)")
             let playerView = self.player.playerView
             playerView?.frame = SCREEN_RECT
             currentVideoPlayCell.addPlayerView(playerView: playerView!)
@@ -290,6 +301,13 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
         }
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.player.isPlaying{
+            print("滚动时----播放器处于播放状态")
+            //self.player.reset()
+        }
+    }
+    
 }
 
 extension ScanVideosController:VideoPlayCellDelegate{
@@ -408,8 +426,10 @@ extension ScanVideosController:VideoPlayCellDelegate{
     ///单击了播放cell
     func videoPlayCell(cell:VideoPlayCell,singleClickWithModel model:VideoTrendModel?){
         if self.player.playerState() == .pause{
+            self.isClickToPause = false
             self.player.resume()
         }else{
+            self.isClickToPause = true
             self.player.pause()
         }
     }
@@ -426,6 +446,14 @@ extension ScanVideosController:VideoPlayCellDelegate{
     
     ///点击音乐封面图
     func videoPlayCell(cell:VideoPlayCell,tapedMusicCoverView coverImageView:UIImageView,withModel model:VideoTrendModel?){
+        //如果是旧的视频都不跳转并作出提示
+        if model?.music?.music_id == 0 || model?.music?.music_id == nil{
+            let alertController = UIAlertController.init(title: "通过旧版上传的原创视频暂不支持拍同款", message: nil, preferredStyle: .alert)
+            let actionOK = UIAlertAction.init(title: "确定", style: .cancel, handler: nil)
+            alertController.addAction(actionOK)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
         let sameParagraphVideoListController = SameParagraphVideoListController()
         let musicModel = model?.music
         sameParagraphVideoListController.musicId = musicModel?.music_id
@@ -441,7 +469,6 @@ extension ScanVideosController{
     @objc func leave(){
         print("离开停止")
         self.isVisiable = false
-//        self.player.stop()
         self.player.pause()
     }
     
@@ -451,8 +478,9 @@ extension ScanVideosController{
         if self.player.playerState() == .prepared{
             self.player.start()
         }else{
-//            self.player.resume()
-            self.player.resume()
+            if !isClickToPause{
+                self.player.resume()
+            }
         }
     }
 }
@@ -543,13 +571,13 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
         if event == .firstFrame{
             print("播放器状态变更--->第一帧")
             self.currentVideoPlayCell?.videoCoverImageView.isHidden = true
+            self.isClickToPause = false
         }
         if event == .pause{
             print("播放器状态变更--->暂停")
-            self.currentVideoPlayCell?.playButton.isHidden = false
+            self.currentVideoPlayCell?.playButton.isHidden = !isClickToPause
         }
         if event == .stop{
-//            self.currentVideoPlayCell?.playButton.isHidden = false
             print("播放器状态变更--->停止")
         }
         if event == .finish{
@@ -574,8 +602,10 @@ extension ScanVideosController:AliyunVodPlayerDelegate{
      * 参数：errorModel 播放器报错时提供的错误信息对象
      */
     func vodPlayer(_ vodPlayer: AliyunVodPlayer!, playBack errorModel: AliyunPlayerVideoErrorModel!) {
-        VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
-            self.playWith(currentIndex: self.delegate.currentVideoTrendIndex)
+        if errorModel.errorCode == 4105{
+            VideoCertificateManager.shared.requestPlayCertificationWith {[unowned self] (_) in
+                self.playWith(currentIndex: self.delegate.currentVideoTrendIndex)
+            }
         }
     }
     

@@ -50,11 +50,11 @@ class SystemmsgContainController: UIViewController {
             })
             //0 标记所有评论为已读
             if index == 0{
-                AppManager.shared.customSystemMessageManager.markAllCommentMessageRead()
+                AppManager.shared.customSystemMessageManager.markCustomSystemMessageRead(type: .comment)
             }
             //1 标记所有点赞为已读
             if index == 1{
-                AppManager.shared.customSystemMessageManager.markAllThumbUpMessageRead()
+                AppManager.shared.customSystemMessageManager.markCustomSystemMessageRead(type: .thumbUp)
             }
         }
         
@@ -95,7 +95,7 @@ class SystemmsgContainController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
         //标记评论为已读
-        AppManager.shared.customSystemMessageManager.markAllCommentMessageRead()
+        AppManager.shared.customSystemMessageManager.markCustomSystemMessageRead(type: .all)
         self.refreshNum()
     }
     
@@ -119,7 +119,7 @@ class SystemmsgContainController: UIViewController {
             _ = moyaProvider.rx.request(.targetWith(target: clearMessage)).subscribe(onSuccess: { (response) in
                 let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
                 if baseModel?.commonInfoModel?.status == successState{
-                    AppManager.shared.customSystemMessageManager.markAllCustomSystemMessageRead()
+                    AppManager.shared.customSystemMessageManager.markCustomSystemMessageRead(type: .all)
                     NotificationCenter.default.post(name: CLEAR_COMMENTS_AND_THUMBUP_MESSAGE_SUCCESS, object: nil)
                 }
                 Toast.showErrorWith(model: baseModel)
@@ -133,8 +133,9 @@ class SystemmsgContainController: UIViewController {
     }
     
     func refreshNum(){
-        let commentUnreadCount = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount()
-        let thumbUpUnreadCount = AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+        
+        let commentUnreadCount = AppManager.shared.customSystemMessageManager.customSystemMessageUnreadCount(type: .comment)
+        let thumbUpUnreadCount = AppManager.shared.customSystemMessageManager.customSystemMessageUnreadCount(type: .thumbUp)
         self.slidingMenuBar.rightTop1.isHidden = commentUnreadCount == 0 ? true : false
         self.slidingMenuBar.rightTop2.isHidden = thumbUpUnreadCount == 0 ? true : false
 
@@ -157,7 +158,7 @@ extension SystemmsgContainController{
     @objc func  customMessageUnreadCountChanged(){
         self.refreshNum()
         if let systemMessageNumView = self.navigationItem.leftBarButtonItem?.customView as? SystemMessageNumView{
-            let num = AppManager.shared.customSystemMessageManager.allCommentMessageUnreadCount() + AppManager.shared.customSystemMessageManager.allThumbUpMessageUnreadCount()
+            let num = AppManager.shared.customSystemMessageManager.customSystemMessageUnreadCount(type: .comment) + AppManager.shared.customSystemMessageManager.customSystemMessageUnreadCount(type: .thumbUp)
             systemMessageNumView.showWith(unreadSystemMsgNum: num)
         }
     }

@@ -50,13 +50,13 @@
     _quVideo = [[AliyunMediaConfig alloc] init];
     _quVideo.outputSize = CGSizeMake(540, 720);
     _quVideo.minDuration = 2;
-    _quVideo.maxDuration = 30;
+    _quVideo.maxDuration = FIRST_LEVEL_RECORD_TIME;
 #else
     _quVideo = [[AliyunVideoRecordParam alloc] init];
     _quVideo.ratio = AliyunVideoVideoRatio3To4;
     _quVideo.size = AliyunVideoVideoSize540P;
     _quVideo.minDuration = 2;
-    _quVideo.maxDuration = 30;
+    _quVideo.maxDuration = FIRST_LEVEL_RECORD_TIME;
     _quVideo.position = AliyunCameraPositionFront;
     _quVideo.beautifyStatus = YES;
     _quVideo.beautifyValue = 100;

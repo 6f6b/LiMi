@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol TopSlideMenuDelegate {
+protocol TopSlideMenuDelegate : class {
     func topSlideMenuSelectedWith(index:Int)
 }
 
@@ -17,7 +17,7 @@ class TopSlideMenu: UIView {
     var selectedIndex:Int = 0
     var menuView:UICollectionView!
     var contentView: UIScrollView!
-    var delegate:TopSlideMenuDelegate?
+    weak var delegate:TopSlideMenuDelegate?
     
     convenience init(frame:CGRect,titles:[String],childViews:[UIView],delegate:TopSlideMenuDelegate?){
         self.init(frame: frame)

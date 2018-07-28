@@ -12,7 +12,7 @@ enum UserDetailInfoHeaderViewType {
     case inOtherPersonCenter
 }
 
-protocol UserDetailInfoHeaderViewDelegate {
+protocol UserDetailInfoHeaderViewDelegate : class{
     func userDetailInfoHeaderView(userHeadImageViewBeClicked model:UserInfoModel?,imageView:UIImageView)
     func userDetailInfoHeaderView(editButtonBeClicked model:UserInfoModel?)
     func userDetailInfoHeaderView(moreSettingButtonBeClicked model:UserInfoModel?)
@@ -60,7 +60,7 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
     
     private var type:UserDetailInfoHeaderViewType?
     private var userInfoModel:UserInfoModel?
-    var delegate:UserDetailInfoHeaderViewDelegate?
+    weak var delegate:UserDetailInfoHeaderViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

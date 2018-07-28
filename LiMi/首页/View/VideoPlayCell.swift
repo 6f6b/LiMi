@@ -92,7 +92,7 @@ class VideoPlayCell: UITableViewCell {
     @IBOutlet weak var playerContainView:UIView!
     var clickedCount:Int = 0
     
-    @IBOutlet weak var schoolInfoContainViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var musicIconBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var schoolInfoContainView: UIView!
     @IBOutlet weak var userNameTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var videoTitleTopConstraint: NSLayoutConstraint!
@@ -124,7 +124,8 @@ class VideoPlayCell: UITableViewCell {
         self.musicAnimationContainView.bringSubview(toFront: self.musicCoverImageView)
         self.musicAnimationView?.loopAnimation = true
         self.musicAnimationView?.play()
-        
+    
+        self.musicIconBottomConstraint.constant = TAB_BAR_HEIGHT + 15
         
         
         
@@ -320,6 +321,7 @@ class VideoPlayCell: UITableViewCell {
         self.videoCoverImageView.frame = self.videoFrameWith(height: videoTrendModel?.video?.height, width: videoTrendModel?.video?.width)
         self.videoCoverImageView.image = nil
         if let videoCoverImage = videoTrendModel?.video?.cover{
+            self.videoCoverImageView.image = nil
             let url = URL.init(string: videoCoverImage)
             self.videoCoverImageView.kf.setImage(with: url)
         }else{
@@ -351,21 +353,19 @@ class VideoPlayCell: UITableViewCell {
         
         //学校
         if let _collegeName = videoTrendModel?.user?.college?.name{
-            self.schoolInfoContainViewTopConstraint.constant = 18
             self.schoolName.text = _collegeName
             self.schoolInfoContainView.isHidden = false
         }else{
-            self.schoolInfoContainViewTopConstraint.constant = 0
             self.schoolInfoContainView.isHidden = true
         }
         
         //用户姓名
         if let userNickNmae = videoTrendModel?.user?.nickname{
-            self.userNameTopConstraint.constant = 8
+            self.videoTitleTopConstraint.constant = 8
             self.userNameLabel.isHidden = false
             self.userNameLabel.text = "@\(userNickNmae)"
         }else{
-            self.userNameTopConstraint.constant = 0
+            self.videoTitleTopConstraint.constant = -8
             self.userNameLabel.isHidden = true
         }
         
@@ -373,11 +373,11 @@ class VideoPlayCell: UITableViewCell {
         if let videoTitle = videoTrendModel?.title{
             self.videoTitleLabel.isHidden = false
             self.videoTitleLabel.text = videoTitle
-            self.videoTitleTopConstraint.constant = 8
+            self.musicIconTopConstraint.constant = 8
 
         }else{
             self.videoTitleLabel.isHidden = true
-            self.videoTitleTopConstraint.constant = 0
+            self.musicIconTopConstraint.constant = -8
 
         }
         
