@@ -813,6 +813,15 @@
 		68BF91AA210ACCE70095CAD8 /* ClickLikeMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */; };
 		68BF91AC210ACCF60095CAD8 /* CommentMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */; };
 		68BF91AE210ACD020095CAD8 /* RemindMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */; };
+		68BF91B1210EAB2D0095CAD8 /* IMLoginManagerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91B0210EAB2D0095CAD8 /* IMLoginManagerDelegate.m */; };
+		68BF91B3210EBBE50095CAD8 /* SingleVideoPlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91B2210EBBE50095CAD8 /* SingleVideoPlayController.swift */; };
+		68BF91B7210EE5C80095CAD8 /* VideoTrendDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91B6210EE5C80095CAD8 /* VideoTrendDetailModel.swift */; };
+		68BF91BA210F00D00095CAD8 /* ChooseToRemindUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91B8210F00D00095CAD8 /* ChooseToRemindUserCell.swift */; };
+		68BF91BB210F00D00095CAD8 /* ChooseToRemindUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF91B9210F00D00095CAD8 /* ChooseToRemindUserCell.xib */; };
+		68BF91BE210F044E0095CAD8 /* ChooseToRemindUserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91BC210F044E0095CAD8 /* ChooseToRemindUserInfoCell.swift */; };
+		68BF91BF210F044E0095CAD8 /* ChooseToRemindUserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68BF91BD210F044E0095CAD8 /* ChooseToRemindUserInfoCell.xib */; };
+		68BF91C22110014F0095CAD8 /* OCUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91C12110014F0095CAD8 /* OCUserInfoModel.m */; };
+		68BF91C5211001840095CAD8 /* TextExtraModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BF91C4211001840095CAD8 /* TextExtraModel.m */; };
 		68C0FA7920B546630055AA8E /* AnimationFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C0FA7820B546630055AA8E /* AnimationFilterView.m */; };
 		68C0FA7D20B674FB0055AA8E /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C0FA7B20B674FB0055AA8E /* PhotoViewController.m */; };
 		68C0FA7E20B674FB0055AA8E /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C0FA7C20B674FB0055AA8E /* PhotoViewController.xib */; };
@@ -2612,6 +2621,18 @@
 		68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickLikeMsgModel.swift; sourceTree = "<group>"; };
 		68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMsgModel.swift; sourceTree = "<group>"; };
 		68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindMsgModel.swift; sourceTree = "<group>"; };
+		68BF91AF210EAB2D0095CAD8 /* IMLoginManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMLoginManagerDelegate.h; sourceTree = "<group>"; };
+		68BF91B0210EAB2D0095CAD8 /* IMLoginManagerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMLoginManagerDelegate.m; sourceTree = "<group>"; };
+		68BF91B2210EBBE50095CAD8 /* SingleVideoPlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleVideoPlayController.swift; sourceTree = "<group>"; };
+		68BF91B6210EE5C80095CAD8 /* VideoTrendDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTrendDetailModel.swift; sourceTree = "<group>"; };
+		68BF91B8210F00D00095CAD8 /* ChooseToRemindUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseToRemindUserCell.swift; sourceTree = "<group>"; };
+		68BF91B9210F00D00095CAD8 /* ChooseToRemindUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseToRemindUserCell.xib; sourceTree = "<group>"; };
+		68BF91BC210F044E0095CAD8 /* ChooseToRemindUserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseToRemindUserInfoCell.swift; sourceTree = "<group>"; };
+		68BF91BD210F044E0095CAD8 /* ChooseToRemindUserInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseToRemindUserInfoCell.xib; sourceTree = "<group>"; };
+		68BF91C02110014F0095CAD8 /* OCUserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCUserInfoModel.h; sourceTree = "<group>"; };
+		68BF91C12110014F0095CAD8 /* OCUserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCUserInfoModel.m; sourceTree = "<group>"; };
+		68BF91C3211001840095CAD8 /* TextExtraModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextExtraModel.h; sourceTree = "<group>"; };
+		68BF91C4211001840095CAD8 /* TextExtraModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextExtraModel.m; sourceTree = "<group>"; };
 		68C0FA7720B546630055AA8E /* AnimationFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationFilterView.h; sourceTree = "<group>"; };
 		68C0FA7820B546630055AA8E /* AnimationFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationFilterView.m; sourceTree = "<group>"; };
 		68C0FA7A20B674FB0055AA8E /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
@@ -5599,6 +5620,8 @@
 			isa = PBXGroup;
 			children = (
 				68880873200DF19300BC6AE9 /* AppDelegate.swift */,
+				68BF91AF210EAB2D0095CAD8 /* IMLoginManagerDelegate.h */,
+				68BF91B0210EAB2D0095CAD8 /* IMLoginManagerDelegate.m */,
 				68880874200DF19300BC6AE9 /* BaseModel.swift */,
 				68880875200DF19300BC6AE9 /* CommonInfoModel.swift */,
 				68880876200DF19300BC6AE9 /* Helper.swift */,
@@ -6072,6 +6095,7 @@
 				68BF91902109A4E90095CAD8 /* NewClickLikeMsgListController.swift */,
 				68BF91922109A4FD0095CAD8 /* NewCommentMsgListController.swift */,
 				68BF91942109A5210095CAD8 /* NewRemindMsgListController.swift */,
+				68BF91B2210EBBE50095CAD8 /* SingleVideoPlayController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6083,6 +6107,7 @@
 				68BF91A9210ACCE70095CAD8 /* ClickLikeMsgModel.swift */,
 				68BF91AB210ACCF60095CAD8 /* CommentMsgModel.swift */,
 				68BF91AD210ACD020095CAD8 /* RemindMsgModel.swift */,
+				68BF91B6210EE5C80095CAD8 /* VideoTrendDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6236,6 +6261,10 @@
 			children = (
 				68C2079721082E4300393E12 /* ChallengeListModel.swift */,
 				68C2079921085A0400393E12 /* LocationListModel.swift */,
+				68BF91C02110014F0095CAD8 /* OCUserInfoModel.h */,
+				68BF91C12110014F0095CAD8 /* OCUserInfoModel.m */,
+				68BF91C3211001840095CAD8 /* TextExtraModel.h */,
+				68BF91C4211001840095CAD8 /* TextExtraModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6978,6 +7007,10 @@
 				68C207A42108628C00393E12 /* LocationListCell.xib */,
 				68C207A72108629B00393E12 /* LocationInfoCell.swift */,
 				68C207A82108629B00393E12 /* LocationInfoCell.xib */,
+				68BF91B8210F00D00095CAD8 /* ChooseToRemindUserCell.swift */,
+				68BF91B9210F00D00095CAD8 /* ChooseToRemindUserCell.xib */,
+				68BF91BC210F044E0095CAD8 /* ChooseToRemindUserInfoCell.swift */,
+				68BF91BD210F044E0095CAD8 /* ChooseToRemindUserInfoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7351,6 +7384,7 @@
 				688808E92011852500BC6AE9 /* TrendsImageCollectionCell.xib in Resources */,
 				6801E044202C6EA900C106E1 /* NTESCustomSysNotificationViewController.xib in Resources */,
 				68DFCFD020B2AACB009B8373 /* LocalFilter.json in Resources */,
+				68BF91BB210F00D00095CAD8 /* ChooseToRemindUserCell.xib in Resources */,
 				6862E5252019BC130058B878 /* keyboard_btn_delete@2x.png in Resources */,
 				68358257201F03A200798462 /* MyTrendListController.xib in Resources */,
 				6801D935202C44D000C106E1 /* FSActionSheet_cancel@2x.png in Resources */,
@@ -7422,6 +7456,7 @@
 				68DFAB2D20AC1792009B8373 /* Localizable.strings in Resources */,
 				68DFD18020B2BAE0009B8373 /* filter in Resources */,
 				6801E108202DA6CE00C106E1 /* video_chat_tip_HangUp.aac in Resources */,
+				68BF91BF210F044E0095CAD8 /* ChooseToRemindUserInfoCell.xib in Resources */,
 				6801E019202C6EA900C106E1 /* NTESSearchTeamViewController.xib in Resources */,
 				688809152011E64000BC6AE9 /* RechargeController.xib in Resources */,
 				6862E52F2019BC130058B878 /* btn_keyboard@3x.png in Resources */,
@@ -7720,6 +7755,7 @@
 				68C207932108220900393E12 /* CustomTextView.m in Sources */,
 				687CA33520C18A940016FB4A /* UIButton+Swizzling.m in Sources */,
 				682BD8B3207DF3DC0088BEAC /* PictureResultModel.swift in Sources */,
+				68BF91BE210F044E0095CAD8 /* ChooseToRemindUserInfoCell.swift in Sources */,
 				68C2079D2108625200393E12 /* ChallengeListCell.swift in Sources */,
 				68AE8A4F20930E4600CB10B0 /* NTESSessionLiMiSystemMsgContentView.m in Sources */,
 				6825486D2015B9180033410A /* CommentListHeaderView.swift in Sources */,
@@ -7828,6 +7864,7 @@
 				68B3F342204FFA340004C3D9 /* UITabBar+Extension.swift in Sources */,
 				68C207852106E1C100393E12 /* MakeChallengeController.swift in Sources */,
 				68B55DC6207B422900DF6FF7 /* AlterUserSinatureController.swift in Sources */,
+				68BF91C5211001840095CAD8 /* TextExtraModel.m in Sources */,
 				6801E0B4202C6EA900C106E1 /* NTESSubscribeManager.m in Sources */,
 				6801DF9E202C6EA800C106E1 /* NIMKitInfoFetchOption.m in Sources */,
 				6801D932202C44D000C106E1 /* FSActionSheetCell.m in Sources */,
@@ -7902,6 +7939,7 @@
 				6814A5F92089D026002B3BBC /* FileModel.swift in Sources */,
 				68B973FE20C68C9D00162547 /* SchoolListController.swift in Sources */,
 				68629ECF201AF86000D041CC /* CommentListModel.swift in Sources */,
+				68BF91B1210EAB2D0095CAD8 /* IMLoginManagerDelegate.m in Sources */,
 				6801E001202C6EA800C106E1 /* UINavigationBar+Swizzling.m in Sources */,
 				6801D943202C470900C106E1 /* XLPhotoBrowser+Extension.m in Sources */,
 				6864AC4A2049337400422CD8 /* PayResultController.swift in Sources */,
@@ -8001,6 +8039,7 @@
 				688A4C95200DD12E00BB5DF7 /* AlterUserNameController.swift in Sources */,
 				68BF918D2109A3DC0095CAD8 /* SubMsgController.swift in Sources */,
 				681C95B42045366E009CDE3B /* TopicsContainModel.swift in Sources */,
+				68BF91C22110014F0095CAD8 /* OCUserInfoModel.m in Sources */,
 				6801DFD5202C6EA800C106E1 /* NIMTeamNotifyUpdateViewController.m in Sources */,
 				689DF7BA2004ACE9007FAE9C /* IdentityAuthStateController.swift in Sources */,
 				681C95C82045381D009CDE3B /* PeopleNearbyController.swift in Sources */,
@@ -8143,6 +8182,7 @@
 				6801DF84202C6EA800C106E1 /* NIMKitTitleView.m in Sources */,
 				6801DF88202C6EA800C106E1 /* NIMContactDataCell.m in Sources */,
 				68DFAB3F20AC1792009B8373 /* AliyunResourceManager.m in Sources */,
+				68BF91B7210EE5C80095CAD8 /* VideoTrendDetailModel.swift in Sources */,
 				6862E5292019BC130058B878 /* STEmoji.m in Sources */,
 				68B3F340204FBCD20004C3D9 /* ToastView.swift in Sources */,
 				68A3EE15206E377700BD3097 /* VideoUploadManager.swift in Sources */,
@@ -8239,6 +8279,7 @@
 				68DFAB4620AC1792009B8373 /* AliyunVideoPreViewController.m in Sources */,
 				68DFAB8120AC1792009B8373 /* AliyunTimelineMediaInfo.m in Sources */,
 				6825704120BBB145002E92C4 /* MusicPickViewController.swift in Sources */,
+				68BF91B3210EBBE50095CAD8 /* SingleVideoPlayController.swift in Sources */,
 				68DFAB8020AC1792009B8373 /* AliyunTimelineItem.m in Sources */,
 				68E6B5CA20E4EA4C00FD208A /* UserDetailInfoHeaderView.swift in Sources */,
 				6888087F200DF19300BC6AE9 /* CommonInfoModel.swift in Sources */,
@@ -8503,6 +8544,7 @@
 				688808E12010855800BC6AE9 /* TrendsWithTextAndVideoCell.swift in Sources */,
 				6801E01E202C6EA900C106E1 /* NTESChatroomManager.m in Sources */,
 				6801E055202C6EA900C106E1 /* NTESSearchMessageEntraceCell.m in Sources */,
+				68BF91BA210F00D00095CAD8 /* ChooseToRemindUserCell.swift in Sources */,
 				68DFB03C20AEA62B009B8373 /* AliyunRecordControlView.m in Sources */,
 				6801D93C202C44D000C106E1 /* XLProgressView.m in Sources */,
 				6801E082202C6EA900C106E1 /* yuv420p.fsh.c in Sources */,

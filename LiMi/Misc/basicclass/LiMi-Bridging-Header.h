@@ -85,6 +85,7 @@
 #import <VODUpload/VODUploadClient.h>
 #import <VODUpload/VODUploadSVideoClient.h>
 #import <AliyunVodPlayerSDK/AliyunVodPlayerSDK.h>
+#import "IMLoginManagerDelegate.h"
 //#import <AliyunVideoSDKPro/AliyunVideoSDKPro.h>
 //#import "AliyunMediaConfig.h"
 //#import "AliyunRecordViewController.h"
@@ -93,4 +94,6 @@
 #import <RTRootNavigationController/RTRootNavigationController.h>
 #import "OCTools.h"
 #import <Lottie/Lottie.h>
+#import "OCUserInfoModel.h"
+#import "TextExtraModel.h"
 #endif /* LiMi_Bridging_Header_h */

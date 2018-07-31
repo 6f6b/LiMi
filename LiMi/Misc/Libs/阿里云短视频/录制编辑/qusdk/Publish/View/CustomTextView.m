@@ -11,9 +11,9 @@
 @implementation CustomTextView
 
 - (void)deleteBackward{
-//    if([self.customTextViewDelegate respondsToSelector:@selector(customTextViewClickedDelete:)]){
+    if([self.customTextViewDelegate respondsToSelector:@selector(customTextViewClickedDelete:)]){
         [self.customTextViewDelegate customTextViewClickedDelete:self];
-//    }
+    }
 }
 
 - (void)manualDelete{

@@ -21,7 +21,8 @@ let NTESNotificationLogout = Notification.Name.init("NTESNotificationLogout")
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var sdkConfigDelegate:NTESSDKConfigDelegate? = nil
     var window: UIWindow?
-
+    var imLoginManagerDelegate:NIMLoginManagerDelegate?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //腾讯统计
         Bugly.start(withAppId: "e0501ff656")
@@ -261,7 +262,8 @@ extension AppDelegate{
     
     func commonInitListenEvents(){
         NotificationCenter.default.addObserver(self, selector: #selector(logOut(notification:)), name: NTESNotificationLogout, object: nil)
-        NIMSDK.shared().loginManager.add(self)
+        self.imLoginManagerDelegate = IMLoginManagerDelegate.init() as! NIMLoginManagerDelegate
+        NIMSDK.shared().loginManager.add(self.imLoginManagerDelegate!)
     }
     
     func registerPushService(){

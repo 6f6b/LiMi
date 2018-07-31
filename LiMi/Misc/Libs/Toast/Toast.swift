@@ -65,7 +65,7 @@ class Toast: NSObject {
         }
     }
     //显示自定义错误信息
-    static func showErrorWith(msg:String?){
+    @objc static func showErrorWith(msg:String?){
         if let msg = msg{
             ToastView.shared.showErrorWith(text: msg)
         }else{

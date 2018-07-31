@@ -25,7 +25,7 @@ import ObjectMapper
     
     var selectChallengeModel:ChallengeModel?
     var selectLocationModel:LocationModel?
-    
+    var toBeRemindedModels = [UserInfoModel]()
     
     var containerView:UIScrollView!;
     var topView:AliyunPublishTopView!;
@@ -221,10 +221,6 @@ import ObjectMapper
         self.navigationController?.pushViewController(visibleChooseController, animated: true)
     }
     
-    @objc func toChooseFollowedToRemind(){
-        let chooseFollowedToRemindController = ChooseFollowedToRemindController()
-        self.navigationController?.pushViewController(chooseFollowedToRemindController, animated: true)
-    }
     @objc func toMakeChallenge(){
         let makeChallengeController = MakeChallengeController()
         makeChallengeController.delegate = self
@@ -240,6 +236,7 @@ import ObjectMapper
     
     
     @objc func pulishButtonClicked(){
+        
         if !self.finished && !failed{
             Toast.showErrorWith(msg: "合成还未结束")
             return
@@ -280,7 +277,9 @@ import ObjectMapper
     //发布到服务器
     func pulishToServerWith(title:String?,videoId:String,viewAuth:Int,videoCover:String?){
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration,music_type:self.musicType)
+        let textExtraModelsJson = self.publishContentEditView.textExtraModelsJsonString()
+        let uidsStrs = self.publishContentEditView.userIds()
+        let publishVideo = PublishVideo.init(title: self.publishContentEditView.textView.text, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration, music_type: self.musicType, challenge_name: self.selectChallengeModel?.challenge_name, challenge_id: self.selectChallengeModel?.challenge_id, notify_users: uidsStrs, publish_addr: "zhongguo", notify_extra: textExtraModelsJson)
        // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
@@ -505,7 +504,22 @@ extension PulishViewController:AliyunIUploadCallback{
 extension PulishViewController:AliyunPublishContentEditViewDelegate{
     func aliyunPublishContentEditViewTapedRemind(_ editView: AliyunPublishContentEditView!) {
         let chooseFollowedToRemindController = ChooseFollowedToRemindController()
+        chooseFollowedToRemindController.delegate = self
         self.navigationController?.pushViewController(chooseFollowedToRemindController, animated: true)
+    }
+    
+    
+    func aliyunPublishContentEditViewCurrentUserModels() -> [Any]! {
+        return self.toBeRemindedModels
+    }
+    
+    func aliyunPublishContentEditViewDelete(with userId: Int) {
+        for i in 0 ..< self.toBeRemindedModels.count{
+            if toBeRemindedModels[i].user_id == userId{
+                self.toBeRemindedModels.remove(at: i)
+                break
+            }
+        }
     }
 }
 
@@ -521,6 +535,24 @@ extension PulishViewController : ChooseLocationControllerDelegate{
         self.selectLocationModel = model
         self.refreshUI()
     }
+}
+
+extension PulishViewController : ChooseFollowedToRemindControllerDelegate{
+    func chooseFollowedToRemindController(controller: ChooseFollowedToRemindController, selectedUser model: UserInfoModel) {
+        for model in self.toBeRemindedModels{
+            if model.user_id == model.user_id{
+                Toast.showErrorWith(msg: "该用户已经存在")
+                return
+            }
+        }
+        if let _nickName = model.nickname,let _userId = model.user_id{
+            let ocUserInfoModel = OCUserInfoModel.init()
+            ocUserInfoModel.userId = _userId
+            ocUserInfoModel.nickName = "@\(_nickName)"
+            self.publishContentEditView.insert(with: ocUserInfoModel)
+        }
+    }
+    
 }
 
 

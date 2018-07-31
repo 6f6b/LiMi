@@ -25,7 +25,7 @@ import Foundation
 import SVProgressHUD
 
 class AppManager:NSObject {
-    static let shared = AppManager()
+    @objc static let shared = AppManager()
     
     ///会话消息管理
     var conversationManager = NIMSDK.shared().conversationManager
@@ -81,7 +81,7 @@ class AppManager:NSObject {
     }
     
 
-    func loginIM()->Void{
+    @objc func loginIM()->Void{
         if Defaults[.userCertificationState] != 2{return}
         if NIMSDK.shared().loginManager.isLogined(){return}
         guard let userAccount = Defaults[.userId],let userToken = Defaults[.userToken] else{return}

@@ -63,6 +63,25 @@ extension NewClickLikeMsgListController : UITableViewDelegate,UITableViewDataSou
         return 100
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ///0:动态  1：话题  2：短视频  3：关注     指定数据来源分类
+        let model = self.dataArray[indexPath.row]
+        if model.type == 0{
+            
+        }
+        if model.type == 1{
+            
+        }
+        if model.type == 2{
+            let singleVideoPlayController = SingleVideoPlayController()
+            singleVideoPlayController.videoTrendId = model.type_id
+            self.navigationController?.pushViewController(singleVideoPlayController, animated: true)
+        }
+        if model.type == 3{
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClickLikeMsgCell", for: indexPath) as! ClickLikeMsgCell
         let model = self.dataArray[indexPath.row]

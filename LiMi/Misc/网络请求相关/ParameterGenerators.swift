@@ -1800,6 +1800,13 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var music_start:Float?
     var music_duration:Float?
     var music_type:Int?
+    
+    var challenge_name:String?    //[string]    是    挑战名称
+    var challenge_id:Int?    //[int]    是    挑战id
+    var notify_users:String?    //[string]    是    @好友id 多个好友用英文逗号分割 ‘1,2,3’,最多10个
+    var publish_addr:String?    //[string]    是    视频发布用户地点 128个utf8字符
+    var notify_extra:String? //复
+    
     func parameters() -> [String : Any] {
         let tmpParameters = ["title":title,
                              "video_addr":video_addr,
@@ -1808,7 +1815,14 @@ struct PublishVideo:TargetType,ParametersProtocol{
                             "music_id":music_id,
                             "music_start":music_start,
                             "music_end":music_duration,
-                            "music_type":music_type
+                            "music_type":music_type,
+                            
+                            "challenge_name":challenge_name,
+                            "challenge_id":challenge_id,
+                            "notify_users":notify_users,
+                            "publish_addr":publish_addr,
+                            "notify_extra":notify_extra,
+
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }
@@ -2369,6 +2383,28 @@ struct NoticeList:TargetType,ParametersProtocol{
     func parameters() -> [String : Any] {
         let tmpParameters = [
             "page":page
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct VideoDetail:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "com/videoDetail"
+    }
+    
+    var video_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "video_id":video_id
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

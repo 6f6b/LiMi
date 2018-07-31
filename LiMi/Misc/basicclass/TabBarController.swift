@@ -40,7 +40,6 @@ class TabBarController: UITabBarController {
         //会话消息通知代理
         NIMSDK.shared().conversationManager.add(self)
         NotificationCenter.default.addObserver(self, selector: #selector(customMessageUnreadCountChanged), name: customSystemMessageUnreadCountChanged, object: nil)
-        self.refreshMyMessageBadge()
         
         self.tabBar.backgroundColor = UIColor.clear
         self.tabBar.barTintColor = UIColor.white
