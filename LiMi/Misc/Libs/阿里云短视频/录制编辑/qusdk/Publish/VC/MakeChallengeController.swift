@@ -22,7 +22,8 @@ class MakeChallengeController: PulishNextController {
         super.viewDidLoad()
         self.title = "发起挑战"
         self.searchTextField.placeholder = "输入挑战内容"
-        
+        self.searchTextField.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "ChallengeListCell", bundle: nil), forCellReuseIdentifier: "ChallengeListCell")

@@ -25,10 +25,20 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctV-fe-0Rm">
+                        <rect key="frame" x="15" y="43" width="290" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="kZ2-kN-dNt"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="kx6-en-AC5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2Xq-Ub-9jM"/>
                     <constraint firstItem="kx6-en-AC5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PVZ-Bc-a2X"/>
+                    <constraint firstAttribute="bottom" secondItem="ctV-fe-0Rm" secondAttribute="bottom" id="ZvC-G3-Aav"/>
+                    <constraint firstAttribute="trailing" secondItem="ctV-fe-0Rm" secondAttribute="trailing" constant="15" id="lUU-eU-iri"/>
+                    <constraint firstItem="ctV-fe-0Rm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="vat-eC-4Gr"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

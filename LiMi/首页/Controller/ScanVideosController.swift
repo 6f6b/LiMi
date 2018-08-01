@@ -462,6 +462,31 @@ extension ScanVideosController:VideoPlayCellDelegate{
         self.navigationController?.pushViewController(sameParagraphVideoListController, animated: true)
     }
 
+    func videoPlayCell(cell:VideoPlayCell,clickRemindUserWith userId:Int?){
+        if let _userId = userId{
+            let userDetailController = UserDetailsController()
+            userDetailController.userId = _userId
+            self.navigationController?.pushViewController(userDetailController, animated: true)
+        }
+    }
+
+    ///点击了地理位置
+    func videoPlayCell(cell:VideoPlayCell,tapedCreatedAddressWithModel model:VideoTrendModel?){
+        
+    }
+    ///点击了挑战名称
+    func videoPlayCell(cell:VideoPlayCell,tapedChallengeNameWithModel model:VideoTrendModel?){
+        if let _challengeId = model?.challenge_id,let _challengeName = model?.challenge{
+            let sameChallengeVideoListController = SameChallengeVideoListController()
+            sameChallengeVideoListController.challengeId = _challengeId
+            sameChallengeVideoListController.challengeName = _challengeName
+            self.navigationController?.pushViewController(sameChallengeVideoListController, animated: true)
+        }
+    }
+    ///点击了学校
+    func videoPlayCell(cell:VideoPlayCell,tapedSchoolNameWithModel model:VideoTrendModel?){
+        
+    }
 }
 
 //mark: - 离开停止，进入播放

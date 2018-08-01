@@ -2410,6 +2410,30 @@ struct VideoDetail:TargetType,ParametersProtocol{
     }
 }
 
+struct GetChallengeVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/getChallengeVideoList"
+    }
+    
+    var challenge_id:Int?
+    var page:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "challenge_id":challenge_id,
+            "page":page
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: filePath)! }

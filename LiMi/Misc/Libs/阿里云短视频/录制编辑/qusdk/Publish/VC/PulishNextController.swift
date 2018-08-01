@@ -25,13 +25,16 @@ class PulishNextController: UIViewController {
         
         self.searchTextField = UITextField.init(frame: CGRect.init(x: 18, y: 0, width: SCREEN_WIDTH-30-36, height: 36))
         self.searchTextField.borderStyle = .none
-        self.searchTextField.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
+        self.searchTextField.setValue(UIColor.red, forKeyPath: "_placeholderLabel.textColor")
         self.searchTextField.textColor = UIColor.white
         searchBarContainView.addSubview(self.searchTextField)
         
-        self.tableView = UITableView.init(frame: CGRect.init(x: 0, y: searchBarContainView.frame.maxY, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-searchBarContainView.frame.maxY), style: .plain)
+        self.tableView = UITableView.init(frame: CGRect.init(x: 0, y: searchBarContainView.frame.maxY, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-searchBarContainView.frame.maxY-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT), style: .plain)
+        self.tableView.separatorStyle = .none
         self.tableView.backgroundColor = APP_THEME_COLOR_1
         self.view.addSubview(self.tableView)
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     override func didReceiveMemoryWarning() {

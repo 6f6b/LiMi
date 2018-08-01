@@ -262,6 +262,14 @@ extension SingleVideoPlayController:UITableViewDelegate,UITableViewDataSource{
 }
 
 extension SingleVideoPlayController:VideoPlayCellDelegate{
+    func videoPlayCell(cell:VideoPlayCell,clickRemindUserWith userId:Int?){
+        if let _userId = userId{
+            let userDetailController = UserDetailsController()
+            userDetailController.userId = _userId
+            self.navigationController?.pushViewController(userDetailController, animated: true)
+        }
+    }
+    
     ///点击头像回调
     func videoPlayCell(cell:VideoPlayCell,clickedUserHeadButton button:UIButton,withModel model:VideoTrendModel?){
         if let userId = model?.user?.user_id{
@@ -413,6 +421,19 @@ extension SingleVideoPlayController:VideoPlayCellDelegate{
         self.navigationController?.pushViewController(sameParagraphVideoListController, animated: true)
     }
     
+    
+    ///点击了地理位置
+    func videoPlayCell(cell:VideoPlayCell,tapedCreatedAddressWithModel model:VideoTrendModel?){
+        
+    }
+    ///点击了挑战名称
+    func videoPlayCell(cell:VideoPlayCell,tapedChallengeNameWithModel model:VideoTrendModel?){
+        
+    }
+    ///点击了学校
+    func videoPlayCell(cell:VideoPlayCell,tapedSchoolNameWithModel model:VideoTrendModel?){
+        
+    }
 }
 
 //mark: - 离开停止，进入播放

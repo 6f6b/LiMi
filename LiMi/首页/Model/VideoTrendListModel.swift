@@ -36,6 +36,10 @@ class VideoTrendModel: BaseModel {
     var music:MusicModel?
     var user:UserInfoModel?
     var video:VideoInfoModel?
+    var notify_extra:[TextExtraModel]?
+    var publish_addr:String? //": "zhongguo",
+    var challenge_id:Int? //": 19,
+    var challenge:String? //": "\u5ddd\u5927\u6444\u5f71\u6bd4\u8d5b",
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -51,6 +55,10 @@ class VideoTrendModel: BaseModel {
         music <- map["music"]
         user <- map["user"]
         video <- map["video"]
+        notify_extra <- map["notify_extra"]
+        publish_addr <- map["publish_addr"]
+        challenge_id <- map["challenge_id"]
+        challenge <- map["challenge"]
     }
 }
 
@@ -73,4 +81,24 @@ class VideoInfoModel: BaseModel {
         v_create_time <- map["v_create_time"]
     }
 }
+
+class TextExtraModel: BaseModel {
+    var id:Int?
+    var text:String?
+    var type:Int?
+    required init?(map: Map) {
+        super.init(map: map)
+    }
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        id<-map["id"]
+        text<-map["text"]
+        type <- map["type"]
+    }
+}
+
+
+
+
 

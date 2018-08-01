@@ -22,6 +22,7 @@ class ChooseFollowedToRemindController: PulishNextController {
         super.viewDidLoad()
         self.title = "@好友"
         self.searchTextField.placeholder = "输入要@的好友昵称"
+        self.searchTextField.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         self.loadDataWith(name: nil)
         self.searchTextField.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
         self.tableView.delegate = self

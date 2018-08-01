@@ -31,12 +31,22 @@
                         <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LcO-mh-y9n">
+                        <rect key="frame" x="15" y="172" width="290" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="bbq-8O-5EC"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="epM-ve-jAs" secondAttribute="trailing" constant="15" id="64s-YK-Lhu"/>
+                    <constraint firstAttribute="trailing" secondItem="LcO-mh-y9n" secondAttribute="trailing" constant="15" id="BiG-GR-u2B"/>
                     <constraint firstItem="1qW-ET-9z7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CnC-SB-oNQ"/>
+                    <constraint firstAttribute="bottom" secondItem="LcO-mh-y9n" secondAttribute="bottom" id="Ium-KB-oAQ"/>
                     <constraint firstItem="1qW-ET-9z7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="MEV-Vi-Cur"/>
                     <constraint firstItem="epM-ve-jAs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UZ3-Yp-cGG"/>
+                    <constraint firstItem="LcO-mh-y9n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Y6j-5r-6BJ"/>
                     <constraint firstItem="epM-ve-jAs" firstAttribute="centerY" secondItem="1qW-ET-9z7" secondAttribute="centerY" id="tUy-qN-pbY"/>
                 </constraints>
             </tableViewCellContentView>

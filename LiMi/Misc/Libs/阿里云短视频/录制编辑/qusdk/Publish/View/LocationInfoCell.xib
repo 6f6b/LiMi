@@ -28,13 +28,23 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPB-C2-Vpp">
+                        <rect key="frame" x="15" y="43" width="290" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="XG1-cL-qkp"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="ErR-H6-71n" firstAttribute="centerY" secondItem="CjX-Yl-QxA" secondAttribute="centerY" id="3Ty-mG-iTo"/>
                     <constraint firstItem="CjX-Yl-QxA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ghK-uY-NeR"/>
                     <constraint firstItem="CjX-Yl-QxA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hBZ-6N-rA7"/>
+                    <constraint firstAttribute="trailing" secondItem="jPB-C2-Vpp" secondAttribute="trailing" constant="15" id="oVG-N0-E5e"/>
+                    <constraint firstItem="jPB-C2-Vpp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="rW8-aH-wfb"/>
                     <constraint firstItem="ErR-H6-71n" firstAttribute="leading" secondItem="CjX-Yl-QxA" secondAttribute="trailing" constant="8" id="sQH-IK-zid"/>
+                    <constraint firstAttribute="bottom" secondItem="jPB-C2-Vpp" secondAttribute="bottom" id="uxG-Jk-Cjl"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -29,7 +29,7 @@ import ObjectMapper
     
     var containerView:UIScrollView!;
     var topView:AliyunPublishTopView!;
-    var backgroundView:UIImageView!;
+    //var backgroundView:UIImageView!;
     var coverImageView:UIImageView!;
     var pickButton:UIButton!;
     var progressView:UIProgressView!;
@@ -205,7 +205,6 @@ import ObjectMapper
         vc.finishHandler = {(_image) in
             self.image = _image;
             self.coverImageView.image = _image;
-            self.backgroundView.image = _image;
         }
         self.navigationController?.pushViewController(vc, animated: true);
     }
@@ -428,7 +427,6 @@ extension PulishViewController:AliyunIExporterCallback{
         self.image = self.thumbnailWithVideoPath(videoPath: self.outputPath, outputSize: self.outputSize)
         self.publishProgressView.markAsFinihed()
         self.coverImageView.image = self.image;
-        self.backgroundView.image = self.image;
         self.coverImageView.isHidden = false;
         self.publishProgressView.isHidden = true;
     }

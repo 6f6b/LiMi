@@ -22,7 +22,7 @@ class ChooseLocationController: PulishNextController {
         super.viewDidLoad()
         self.title = "地理位置"
         self.searchTextField.placeholder = "搜索位置"
-        
+        self.searchTextField.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib.init(nibName: "LocationListCell", bundle: nil), forCellReuseIdentifier: "LocationListCell")
@@ -58,10 +58,10 @@ class ChooseLocationController: PulishNextController {
             self.tableView.reloadData()
             Toast.showErrorWith(model: locationListModel)
             self.tableView.mj_header.endRefreshing()
-            self.tableView.mj_footer.beginRefreshing()
+            self.tableView.mj_footer.endRefreshing()
             }, onError: { (error) in
                 self.tableView.mj_header.endRefreshing()
-                self.tableView.mj_footer.beginRefreshing()
+                self.tableView.mj_footer.endRefreshing()
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
@@ -76,6 +76,10 @@ extension ChooseLocationController{
 extension ChooseLocationController : UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

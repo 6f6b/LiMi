@@ -12,35 +12,45 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ChallengeListCell" customModule="LiMi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="172" id="KGk-i7-Jjw" customClass="ChallengeListCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="172"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="339" height="171.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olh-LH-Qmx">
-                        <rect key="frame" x="45" y="13" width="38.5" height="18"/>
+                        <rect key="frame" x="45" y="77" width="38.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_topic" translatesAutoresizingMaskIntoConstraints="NO" id="3L0-Ud-c8l">
-                        <rect key="frame" x="15" y="11" width="22" height="22"/>
+                        <rect key="frame" x="15" y="75" width="22" height="22"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUg-JI-LNt">
-                        <rect key="frame" x="273" y="14.5" width="32" height="15"/>
+                        <rect key="frame" x="292" y="78.5" width="32" height="15"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHk-GN-G6L">
+                        <rect key="frame" x="15" y="171" width="309" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="BBP-od-JKJ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="hUg-JI-LNt" secondAttribute="trailing" constant="15" id="1hY-Hv-Dam"/>
                     <constraint firstItem="3L0-Ud-c8l" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6pH-Ye-mtT"/>
                     <constraint firstItem="hUg-JI-LNt" firstAttribute="centerY" secondItem="olh-LH-Qmx" secondAttribute="centerY" id="Ezh-2J-qeE"/>
+                    <constraint firstItem="HHk-GN-G6L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="KrZ-WC-xKi"/>
+                    <constraint firstAttribute="bottom" secondItem="HHk-GN-G6L" secondAttribute="bottom" id="M7k-v9-tsV"/>
                     <constraint firstItem="olh-LH-Qmx" firstAttribute="centerY" secondItem="3L0-Ud-c8l" secondAttribute="centerY" id="O21-xu-qwC"/>
                     <constraint firstItem="3L0-Ud-c8l" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="krn-UU-iIE"/>
+                    <constraint firstAttribute="trailing" secondItem="HHk-GN-G6L" secondAttribute="trailing" constant="15" id="uDb-SL-E4B"/>
                     <constraint firstItem="olh-LH-Qmx" firstAttribute="leading" secondItem="3L0-Ud-c8l" secondAttribute="trailing" constant="8" id="yHl-9R-hLf"/>
                 </constraints>
             </tableViewCellContentView>
@@ -50,6 +60,7 @@
                 <outlet property="challengeInfo" destination="hUg-JI-LNt" id="yBb-ti-t2k"/>
                 <outlet property="challengeName" destination="olh-LH-Qmx" id="doW-Ng-dL8"/>
             </connections>
+            <point key="canvasLocation" x="44.5" y="118"/>
         </tableViewCell>
     </objects>
     <resources>

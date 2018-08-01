@@ -44,12 +44,22 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sII-Z1-o26">
+                        <rect key="frame" x="15" y="116" width="348" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="jY4-a6-Gnf"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="sII-Z1-o26" secondAttribute="bottom" id="0fQ-mm-YFk"/>
                     <constraint firstItem="iNU-Mz-4E7" firstAttribute="leading" secondItem="T3H-Cq-OQ8" secondAttribute="trailing" constant="16" id="47P-Ap-O0m"/>
                     <constraint firstItem="T3H-Cq-OQ8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Bt8-8U-yod"/>
                     <constraint firstItem="bLU-KU-vPx" firstAttribute="leading" secondItem="iNU-Mz-4E7" secondAttribute="leading" id="HHk-w9-UoS"/>
+                    <constraint firstAttribute="trailing" secondItem="sII-Z1-o26" secondAttribute="trailing" constant="15" id="V3I-fP-m8U"/>
+                    <constraint firstItem="sII-Z1-o26" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YQS-nb-qfb"/>
                     <constraint firstItem="iNU-Mz-4E7" firstAttribute="top" secondItem="T3H-Cq-OQ8" secondAttribute="top" constant="10" id="cXb-lI-5qJ"/>
                     <constraint firstItem="bLU-KU-vPx" firstAttribute="top" secondItem="iNU-Mz-4E7" secondAttribute="bottom" constant="5" id="y2b-aP-nwg"/>
                     <constraint firstItem="T3H-Cq-OQ8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="y7s-Pu-L5p"/>

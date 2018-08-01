@@ -124,7 +124,9 @@ typedef enum {
     NSMutableArray *arr = [NSMutableArray new];
     for(TextExtraModel *textExtraModel in textExtraModels){
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        [dic setValue:textExtraModel.text forKey:@"text"];
+        if (textExtraModel.userId == nil) {
+            [dic setValue:textExtraModel.text forKey:@"text"];
+        }
         NSInteger type = textExtraModel.type;
         [dic setValue:[NSNumber numberWithInteger:type] forKey:@"type"];
         [dic setValue:[NSNumber numberWithInteger:textExtraModel.userId] forKey:@"id"];
