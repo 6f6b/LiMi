@@ -15,6 +15,7 @@ class ReleaseContentTextInputCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentText.delegate = self
+        self.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

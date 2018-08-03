@@ -319,6 +319,10 @@ typedef enum {
 - (void)textViewDidEndEditing:(UITextView *)textView{}
 
 - (void)textViewDidChange:(UITextView *)textView{
+    UITextRange *position = textView.markedTextRange;
+    if([textView positionFromPosition:position.start offset:0]){return;}
+    
+    
     NSString *preCharacter = [textView.text substringWithRange:NSMakeRange(textView.selectedRange.location-1, 1)];
     NSMutableString *text = [NSMutableString stringWithString:textView.text];
     if([preCharacter isEqualToString:@"@"]){

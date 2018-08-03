@@ -22,11 +22,17 @@
 @property (nonatomic, weak) id<AliyunRecordViewControllerDelegate> delegate;
 @property (nonatomic, strong) AliyunIRecorder *recorder;
 
+//音乐
 @property (nonatomic,assign) NSInteger musicId;
 @property (nonatomic,copy) NSString *musicPath;
+@property (nonatomic,assign) NSInteger musicType;
+
+//挑战
+@property (nonatomic,assign) NSInteger challengeId;
+@property (nonatomic,copy) NSString *challengeName;
+
 @property (nonatomic,assign) float startTime;
 @property (nonatomic,assign) float duration;
-@property (nonatomic,assign) NSInteger musicType;
 
     
 /* 摄像头方向 */

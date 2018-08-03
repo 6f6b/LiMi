@@ -111,7 +111,7 @@ extension MyOrderListController:UITableViewDelegate,UITableViewDataSource{
 
 extension MyOrderListController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "zmy_img_nodd")
+        return UIImage(named: "qsy")
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {

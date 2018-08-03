@@ -534,6 +534,11 @@
 		682BD8B920859F970088BEAC /* SubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8B820859F970088BEAC /* SubCommentCell.swift */; };
 		682BD8BB20859FC60088BEAC /* CheckMoreSubCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */; };
 		682BD8BD2085A9730088BEAC /* TrendCommentCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BD8BC2085A9730088BEAC /* TrendCommentCellFactory.swift */; };
+		682FEF602113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FEF5F2113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift */; };
+		682FEF632113F9D300B8CBD2 /* ChallengeWithVideosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FEF612113F9D300B8CBD2 /* ChallengeWithVideosCell.swift */; };
+		682FEF642113F9D300B8CBD2 /* ChallengeWithVideosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682FEF622113F9D300B8CBD2 /* ChallengeWithVideosCell.xib */; };
+		682FEF672114045800B8CBD2 /* VideoInChallengeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FEF652114045800B8CBD2 /* VideoInChallengeCollectionCell.swift */; };
+		682FEF682114045800B8CBD2 /* VideoInChallengeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682FEF662114045800B8CBD2 /* VideoInChallengeCollectionCell.xib */; };
 		683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107B62024040A0060B109 /* TrendsCellFactory.swift */; };
 		683107BC2024338A0060B109 /* EmptyCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683107BA2024338A0060B109 /* EmptyCommentCell.swift */; };
 		683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683107BB2024338A0060B109 /* EmptyCommentCell.xib */; };
@@ -2050,6 +2055,11 @@
 		682BD8B820859F970088BEAC /* SubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCommentCell.swift; sourceTree = "<group>"; };
 		682BD8BA20859FC60088BEAC /* CheckMoreSubCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMoreSubCommentCell.swift; sourceTree = "<group>"; };
 		682BD8BC2085A9730088BEAC /* TrendCommentCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCommentCellFactory.swift; sourceTree = "<group>"; };
+		682FEF5F2113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWithVideosListModel.swift; sourceTree = "<group>"; };
+		682FEF612113F9D300B8CBD2 /* ChallengeWithVideosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWithVideosCell.swift; sourceTree = "<group>"; };
+		682FEF622113F9D300B8CBD2 /* ChallengeWithVideosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeWithVideosCell.xib; sourceTree = "<group>"; };
+		682FEF652114045800B8CBD2 /* VideoInChallengeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInChallengeCollectionCell.swift; sourceTree = "<group>"; };
+		682FEF662114045800B8CBD2 /* VideoInChallengeCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoInChallengeCollectionCell.xib; sourceTree = "<group>"; };
 		683107B62024040A0060B109 /* TrendsCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCellFactory.swift; sourceTree = "<group>"; };
 		683107BA2024338A0060B109 /* EmptyCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommentCell.swift; sourceTree = "<group>"; };
 		683107BB2024338A0060B109 /* EmptyCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyCommentCell.xib; sourceTree = "<group>"; };
@@ -5384,6 +5394,7 @@
 			children = (
 				681C959E2045366E009CDE3B /* TopicCircleContainModel.swift */,
 				681C959F2045366E009CDE3B /* TopicsContainModel.swift */,
+				682FEF5F2113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5398,6 +5409,10 @@
 				681C95A52045366E009CDE3B /* TopicCircleSummaryCell.xib */,
 				681C95A62045366E009CDE3B /* TopicCircleWithPictureCell.swift */,
 				681C95A72045366E009CDE3B /* TopicCircleWithTextCell.swift */,
+				682FEF612113F9D300B8CBD2 /* ChallengeWithVideosCell.swift */,
+				682FEF622113F9D300B8CBD2 /* ChallengeWithVideosCell.xib */,
+				682FEF652114045800B8CBD2 /* VideoInChallengeCollectionCell.swift */,
+				682FEF662114045800B8CBD2 /* VideoInChallengeCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7359,6 +7374,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				682FEF642113F9D300B8CBD2 /* ChallengeWithVideosCell.xib in Resources */,
 				6881034420D3A94900A496CD /* NIMKitEmoticon.bundle in Resources */,
 				688809052011A7DD00BC6AE9 /* ReleaseContentOtherInputCell.xib in Resources */,
 				68B973FF20C68C9D00162547 /* SchoolListController.xib in Resources */,
@@ -7536,6 +7552,7 @@
 				681C5C5E20EB2EC700341D7D /* ProvinceListController.xib in Resources */,
 				681C95C92045381D009CDE3B /* PeopleNearbyController.xib in Resources */,
 				68E6B5DC20E9CA9900FD208A /* SeletSchoolHeaderView.xib in Resources */,
+				682FEF682114045800B8CBD2 /* VideoInChallengeCollectionCell.xib in Resources */,
 				688809112011E5DB00BC6AE9 /* SetPayPasswordController.xib in Resources */,
 				6801E0FE202DA6CE00C106E1 /* BlizzardReg.ttf in Resources */,
 				681C95AE2045366E009CDE3B /* CreatTopicController.xib in Resources */,
@@ -7899,6 +7916,7 @@
 				6801E08B202C6EA900C106E1 /* mvp.vsh.c in Sources */,
 				681C5C5420E9FE6500341D7D /* BasicUserInfoFinishController.swift in Sources */,
 				6801E04C202C6EA900C106E1 /* NTESRedPacketAttachment.m in Sources */,
+				682FEF602113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
 				6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */,
 				6801E041202C6EA900C106E1 /* NTESCustomNotificationDB.m in Sources */,
@@ -8089,6 +8107,7 @@
 				6801E000202C6EA800C106E1 /* UIView+NTES.m in Sources */,
 				6801E005202C6EA800C106E1 /* NTESMainTabController.m in Sources */,
 				6801E069202C6EA900C106E1 /* NTESSessionViewController.m in Sources */,
+				682FEF672114045800B8CBD2 /* VideoInChallengeCollectionCell.swift in Sources */,
 				68DFAB5120AC1792009B8373 /* AliyunRecoderFilterPlugin.m in Sources */,
 				6801E0C2202C6EA900C106E1 /* NTESSessionUtil.m in Sources */,
 				68F1425C20E0860600236162 /* NoMoreDataFooterView.swift in Sources */,
@@ -8501,6 +8520,7 @@
 				6814A5F520871F92002B3BBC /* CommentsWithParentCommentController.swift in Sources */,
 				68AF8E48209AC891003C172D /* UIDeviceExtension.swift in Sources */,
 				6801E08E202C6EA900C106E1 /* NTESGLView.m in Sources */,
+				682FEF632113F9D300B8CBD2 /* ChallengeWithVideosCell.swift in Sources */,
 				6801D938202C44D000C106E1 /* TAAnimatedDotView.m in Sources */,
 				68DFAB5420AC1792009B8373 /* AliyunRecordFocusView.m in Sources */,
 				68BF919C2109A6060095CAD8 /* ClickLikeMsgCell.swift in Sources */,

@@ -15,10 +15,16 @@ class MediaContainController: UIViewController {
     @IBOutlet weak var bottomLineLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomToolsContainView: UIView!
     
+    //音乐
     var musicPath:String?
     var musicId:Int?
     var musicType:Int?
 
+    //挑战
+    var challengeName:String?
+    var challengeId:Int?
+    
+    //位置
     
     var recordViewController:AliyunRecordViewController!
     var photoViewController:PhotoViewController!
@@ -37,6 +43,11 @@ class MediaContainController: UIViewController {
             self.recordViewController.musicId = _musicId
             self.recordViewController.musicPath = musicPath
             self.recordViewController.musicType = musicType
+        }
+        
+        if let _challengeId = self.challengeId,let _challengeName = self.challengeName{
+            self.recordViewController.challengeId = _challengeId
+            self.recordViewController.challengeName = _challengeName
         }
 
         
@@ -66,6 +77,10 @@ class MediaContainController: UIViewController {
         recordViewController?.quVideo = quVideo
 
         self.photoViewController = PhotoViewController()
+        if let _challengeId = self.challengeId,let _challengeName = self.challengeName{
+            self.photoViewController.challengeName = _challengeName
+            self.photoViewController.challengeId = _challengeId
+        }
         self.photoViewController.minDuration = 2;
         self.photoViewController.maxDuration = 0;
         self.photoViewController.delegate = self
@@ -228,6 +243,8 @@ extension MediaContainController:AliyunRecordViewControllerDelegate{
         editVC.startTime = recordVc.startTime
         editVC.duration = recordVc.duration
         editVC.musicType = recordVc.musicType
+        editVC.challengeId = recordVc.challengeId
+        editVC.challengeName = recordVc.challengeName
         
         self.navigationController?.pushViewController(editVC, animated: true)
         print("结束录制")

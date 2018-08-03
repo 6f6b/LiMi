@@ -85,11 +85,12 @@
     _inputMaxLength = 1000;
     _nickFont  = [UIFont systemFontOfSize:13.0];
     _nickColor = [UIColor darkGrayColor];
-    _receiptFont  = [UIFont systemFontOfSize:13.0]; 
-    _receiptColor = [UIColor darkGrayColor];
+    _receiptFont  = [UIFont systemFontOfSize:13.0];
+    _receiptColor = [UIColor whiteColor];
+//    _receiptColor = [UIColor darkGrayColor];
     _avatarType = NIMKitAvatarTypeRounded;
     //Edit by LiuFeng   (NIM) 2018/3/22
-    _cellBackgroundColor = NIMKit_UIColorFromRGB(0xF2F2F2);
+    _cellBackgroundColor = rgba(30, 30, 30, 1);
     //_cellBackgroundColor = NIMKit_UIColorFromRGB(0xE4E7EC);
     _leftBubbleSettings  = [[NIMKitSettings alloc] init:NO];
     _rightBubbleSettings = [[NIMKitSettings alloc] init:YES];
@@ -174,7 +175,7 @@
 {
     _textSetting = [[NIMKitSetting alloc] init:_isRight];
     _textSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{11,11,9,15}") : UIEdgeInsetsFromString(@"{11,15,9,9}");
-    _textSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0xFFFFFF) : NIMKit_UIColorFromRGB(0x333333);
+    _textSetting.textColor = _isRight? [UIColor blackColor] : [UIColor whiteColor];
     _textSetting.font      = [UIFont systemFontOfSize:14];//日哦
     _textSetting.showAvatar = YES;
 }
@@ -183,7 +184,7 @@
 {
     _audioSetting = [[NIMKitSetting alloc] init:_isRight];
     _audioSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{8,12,9,14}") : UIEdgeInsetsFromString(@"{8,13,9,12}");
-    _audioSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0xFFFFFF) : NIMKit_UIColorFromRGB(0x000000);
+    _audioSetting.textColor = _isRight? [UIColor blackColor] : [UIColor whiteColor];
     _audioSetting.font      = [UIFont systemFontOfSize:14];
     _audioSetting.showAvatar = YES;
 }

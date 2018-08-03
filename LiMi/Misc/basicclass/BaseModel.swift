@@ -14,6 +14,10 @@ class BaseModel:Mappable{
     required init?(map: Map) {
     }
     
+    convenience init?() {
+        self.init(map: Map.init(mappingType: .fromJSON, JSON: ["":""]))!
+    }
+    
     func mapping(map: Map) {
         commonInfoModel = CommonInfoModel.init(map: map)
     }

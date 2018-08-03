@@ -30,6 +30,8 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
+        self.layer.cornerRadius = 5;
+        self.clipsToBounds = true;
         self.frame = CGRectMake(0, 0, NIMKit_ViewWidth, NIMKit_ViewHeight);
         _backgrounView = [[UIImageView alloc] initWithImage:[UIImage nim_imageInKit:@"icon_input_record_indicator"]];
         [self addSubview:_backgrounView];

@@ -13,12 +13,12 @@ class ContactWayInputCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contactInfo.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
+        contactInfo.placeholder = "选填，便于我们与您联系"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

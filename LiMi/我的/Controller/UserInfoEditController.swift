@@ -178,7 +178,6 @@ class UserInfoEditController: UITableViewController {
             textField.text = String.init(text)
             self.signatureCharacterNum.text = "\(text.length)/20"
         }
-        
     }
     
     @objc func tapedUserHeadImageView(){

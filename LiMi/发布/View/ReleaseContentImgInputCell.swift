@@ -17,11 +17,13 @@ class ReleaseContentImgInputCell: UITableViewCell {
     var heightConstraint:Constraint?
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+
         let collectionFrame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-16*2, height: 0)
         let layout = UICollectionViewFlowLayout()
         let itemWidth = (SCREEN_WIDTH-16*2-5*2)/3
@@ -31,7 +33,7 @@ class ReleaseContentImgInputCell: UITableViewCell {
         layout.minimumInteritemSpacing = 4
         layout.sectionInset = UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
         self.collectionView = UICollectionView.init(frame: collectionFrame, collectionViewLayout: layout)
-        self.collectionView.backgroundColor = UIColor.white
+        self.collectionView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ReleaseContentImgCollectionCell", bundle: nil), forCellWithReuseIdentifier: "ReleaseContentImgCollectionCell")

@@ -14,9 +14,11 @@ import DZNEmptyDataSet
 class SameChallengeScanVideoListController: ScanVideosContainController {
     var challengeId:Int?
     
-    init(challengeId:Int,currentVideoTrendIndex:Int,dataArray:[VideoTrendModel]){
+    init(challengeId:Int,currentVideoTrendIndex:Int,dataArray:[VideoTrendModel],pageIndex:Int){
         super.init(nibName: nil, bundle: nil)
+        self.challengeId = challengeId
         self.pageIndex = currentVideoTrendIndex
+        self.currentVideoTrendIndex = currentVideoTrendIndex
         for videoTrendModel in dataArray{
             self.dataArray.append(videoTrendModel)
         }
@@ -38,35 +40,44 @@ class SameChallengeScanVideoListController: ScanVideosContainController {
     
     /*函数*/
     override func scanVideosControllerRequestDataWith(scanVideosController: ScanVideosController) {
-        
-        let _time = self.time ?? Int(Date().timeIntervalSince1970)
         let getChallengeVideoList = GetChallengeVideoList.init(challenge_id: self.challengeId, page: self.pageIndex)
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         _ = moyaProvider.rx.request(.targetWith(target: getChallengeVideoList)).subscribe(onSuccess: {[unowned self] (response) in
-            let sameParagraphVideoListModel = Mapper<SameParagraphVideoListModel>().map(jsonData: response.data)
-            if let _time = sameParagraphVideoListModel?.time{
-                self.time = _time
-            }
-            
-            if self.pageIndex == 1{
-                self.dataArray.removeAll()
-                if let videoTrend = sameParagraphVideoListModel?.original_video?.first{
-                    self.dataArray.append(videoTrend)
-                }
-            }
-            if let _videos = sameParagraphVideoListModel?.video{
-                for videoTrend in _videos{
-                    self.dataArray.append(videoTrend)
+            let sameChallengeVideoListModel = Mapper<SameChallengeVideoListModel>().map(jsonData: response.data)
+            if self.pageIndex == 1{self.dataArray.removeAll()}
+            if let videos = sameChallengeVideoListModel?.video{
+                for video in videos{
+                    self.dataArray.append(video)
                 }
             }
             scanVideosController.reloadTableViewData()
             
             scanVideosController.tableView.mj_header.endRefreshing()
-            Toast.showErrorWith(model: sameParagraphVideoListModel)
+            Toast.showErrorWith(model: sameChallengeVideoListModel)
             }, onError: { (error) in
                 scanVideosController.tableView.mj_header.endRefreshing()
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
+    
+//    let sameChallengeVideoListModel = Mapper<SameChallengeVideoListModel>().map(jsonData: response.data)
+//    if self.pageIndex == 1{self.dataArray.removeAll()}
+//    if let videos = sameChallengeVideoListModel?.video{
+//        for video in videos{
+//            self.dataArray.append(video)
+//        }
+//    }
+//    if let challengeModel = sameChallengeVideoListModel?.challenge{
+//        self.challengeModel = challengeModel
+//    }
+//    self.refreshUI()
+//    Toast.showErrorWith(model: sameChallengeVideoListModel)
+//    self.collectionView.mj_header.endRefreshing()
+//    self.collectionView.mj_footer.endRefreshing()
+//}, onError: { (error) in
+//    self.collectionView.mj_header.endRefreshing()
+//    self.collectionView.mj_footer.endRefreshing()
+//    Toast.showErrorWith(msg: error.localizedDescription)
+//})
     
 }

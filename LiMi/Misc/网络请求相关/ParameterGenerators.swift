@@ -1666,10 +1666,11 @@ struct CircleList:TargetType,ParametersProtocol{
         return "/weekend/CircleList"
     }
 
+    var page:Int?
     
     func parameters() -> [String : Any] {
         let tmpParameters:[String:Any]? = [
-            "":"",
+            "page":page,
             ]
         return handleRequestParameters(parameters: tmpParameters)
     }

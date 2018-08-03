@@ -26,8 +26,7 @@ class ChallengeModel: BaseModel {
     var challenge_id:Int?
     var challenge_name:String?
     var use_num:Int?
-    var user:UserInfoModel?
-    
+    var creator:UserInfoModel?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -37,6 +36,6 @@ class ChallengeModel: BaseModel {
         challenge_id<-map["challenge_id"]
         challenge_name<-map["challenge_name"]
         use_num<-map["use_num"]
-        user <- map["user"]
+        creator <- map["creator"]
     }
 }

@@ -673,6 +673,9 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     AliyunEditViewController *editVC = (AliyunEditViewController *)AliyunMediator.shared.editViewController;
     editVC.taskPath = taskPath;
     editVC.config = self.cutInfo;
+    editVC.challengeName = self.challengeName;
+    editVC.challengeId = self.challengeId;
+    
     [self.navigationController pushViewController:editVC animated:true];
 }
 

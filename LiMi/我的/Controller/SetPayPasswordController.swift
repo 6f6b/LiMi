@@ -12,7 +12,7 @@ import Moya
 import ObjectMapper
 
 class SetPayPasswordController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var containView: UIView!
@@ -46,23 +46,24 @@ class SetPayPasswordController: UIViewController {
         
         self.authCodeContainView.layer.cornerRadius = 20
         self.authCodeContainView.clipsToBounds = true
-        self.authCodeContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.authCodeContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 1).cgColor
         self.authCodeContainView.layer.borderWidth = 1
+        self.authCode.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         
         self.passwordFirstContainView.layer.cornerRadius = 20
         self.passwordFirstContainView.clipsToBounds = true
-        self.passwordFirstContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.passwordFirstContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 1).cgColor
         self.passwordFirstContainView.layer.borderWidth = 1
+        self.passwordFisrt.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         
         self.passwordSecondContainView.layer.cornerRadius = 20
         self.passwordSecondContainView.clipsToBounds = true
-        self.passwordSecondContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.passwordSecondContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 1).cgColor
         self.passwordSecondContainView.layer.borderWidth = 1
-        
+        self.passwordSecond.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
+
         self.sumbitBtn.layer.cornerRadius = 20
         self.sumbitBtn.clipsToBounds = true
-        self.sumbitBtn.layer.borderColor = APP_THEME_COLOR.cgColor
-        self.sumbitBtn.layer.borderWidth = 1
         
         self.containView.layer.cornerRadius = 10
         self.containView.clipsToBounds = true
@@ -70,20 +71,10 @@ class SetPayPasswordController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        UIApplication.shared.statusBarStyle = .lightContent
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
     }
     
     deinit {

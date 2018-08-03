@@ -15,4 +15,8 @@
 @property (nonatomic, strong) AliyunMediaConfig *cutInfo;
 //@property (nonatomic, weak) id<AliyunCropViewControllerDelegate> delegate;
 @property (nonatomic, assign) BOOL fakeCrop; // 假裁剪，获取裁剪时间段，不真正裁剪视频
+
+//挑战
+@property (nonatomic,assign) NSInteger challengeId;
+@property (nonatomic,copy) NSString *challengeName;
 @end

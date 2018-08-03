@@ -11,13 +11,13 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
-protocol ChooseFollowedToRemindControllerDelegate {
+protocol ChooseFollowedToRemindControllerDelegate : class{
     func chooseFollowedToRemindController(controller:ChooseFollowedToRemindController, selectedUser model:UserInfoModel)
 }
 class ChooseFollowedToRemindController: PulishNextController {
     var pageIndex = 1
     var dataArray = [UserInfoModel]()
-    var delegate:ChooseFollowedToRemindControllerDelegate?
+    weak var delegate:ChooseFollowedToRemindControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "@好友"

@@ -29,9 +29,6 @@ class PeopleNearbyController: UIViewController {
         super.viewDidLoad()
         self.title = "附近的人"
 
-        if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
-            backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
-        }
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewLeftAndRightSpace, bottom: 0, right: collectionViewLeftAndRightSpace)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -49,8 +46,7 @@ class PeopleNearbyController: UIViewController {
         
         let moreOperationBtn = UIButton.init(type: .custom)
         moreOperationBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
-//        moreOperationBtn.backgroundColor = UIColor.red
-        moreOperationBtn.setImage(UIImage.init(named: "nav_btn_jubao_black"), for: .normal)
+        moreOperationBtn.setImage(UIImage.init(named: "home_more"), for: .normal)
         moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: moreOperationBtn),UIBarButtonItem.init(customView: UIButton())]
 //        self.navigationItem.rightBarButtonItem =
@@ -111,7 +107,7 @@ class PeopleNearbyController: UIViewController {
         IQKeyboardManager.shared.enable = false
         
         UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.view.backgroundColor = APP_THEME_COLOR_1
     }
 
     override func viewWillDisappear(_ animated: Bool) {

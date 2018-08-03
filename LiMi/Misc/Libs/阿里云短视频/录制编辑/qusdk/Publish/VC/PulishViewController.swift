@@ -18,10 +18,14 @@ import ObjectMapper
     @objc var config:AliyunMediaConfig!
     @objc var outputSize:CGSize = CGSize.zero
     
+    //音乐
     @objc var musicId:NSInteger = 0;
     @objc var  startTime:Float = 0;
     @objc var duration:Float = 0;
     @objc var musicType:Int = 1;//默认原声
+    
+    @objc var challengeId:NSInteger = 0
+    @objc var challengeName:String = ""
     
     var selectChallengeModel:ChallengeModel?
     var selectLocationModel:LocationModel?
@@ -58,6 +62,12 @@ import ObjectMapper
         self.addNotifications()
         self.setupSubviews()
         self.navigationController?.navigationBar.isHidden = true
+        if self.challengeId != 0 && self.challengeName != ""{
+            self.selectChallengeModel = ChallengeModel()
+            self.selectChallengeModel?.challenge_name = self.challengeName
+            self.selectChallengeModel?.challenge_id = self.challengeId
+        }
+
         self.refreshUI()
     }
 
@@ -441,7 +451,7 @@ extension PulishViewController:AliyunPublishTopViewDelegate{
             let actionCancel = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             let actionCofirm = UIAlertAction.init(title: "确定", style: .default) { (_) in
                 AliyunPublishService.share().cancelExport()
-                //self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
             alertController.addAction(actionCancel)
             alertController.addAction(actionCofirm)

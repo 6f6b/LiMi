@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="289" id="KGk-i7-Jjw" customClass="ChallengeWithVideosCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="530" height="289"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="530" height="288.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TxF-TY-ypa">
+                        <rect key="frame" x="15" y="0.0" width="500" height="263.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKP-vt-JTP">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="30"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_topic" translatesAutoresizingMaskIntoConstraints="NO" id="vVt-ci-XDJ">
+                                        <rect key="frame" x="0.0" y="4" width="22" height="22"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-+-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vk-BM-9gy">
+                                        <rect key="frame" x="30" y="6" width="24.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_ic_jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="50o-gF-Nv1">
+                                        <rect key="frame" x="484" y="7" width="16" height="16"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-+-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlp-oT-DPz">
+                                        <rect key="frame" x="454.5" y="6" width="24.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="0rg-fQ-5at"/>
+                                    <constraint firstItem="50o-gF-Nv1" firstAttribute="centerY" secondItem="TKP-vt-JTP" secondAttribute="centerY" id="5XP-AM-cJU"/>
+                                    <constraint firstItem="Tlp-oT-DPz" firstAttribute="centerY" secondItem="TKP-vt-JTP" secondAttribute="centerY" id="Mo3-cb-ONk"/>
+                                    <constraint firstItem="9Vk-BM-9gy" firstAttribute="leading" secondItem="vVt-ci-XDJ" secondAttribute="trailing" constant="8" id="RV1-6O-l52"/>
+                                    <constraint firstItem="50o-gF-Nv1" firstAttribute="leading" secondItem="Tlp-oT-DPz" secondAttribute="trailing" constant="5" id="XRd-x4-cnV"/>
+                                    <constraint firstItem="vVt-ci-XDJ" firstAttribute="centerY" secondItem="TKP-vt-JTP" secondAttribute="centerY" id="aGW-9o-dLA"/>
+                                    <constraint firstItem="9Vk-BM-9gy" firstAttribute="centerY" secondItem="TKP-vt-JTP" secondAttribute="centerY" id="ayb-qG-FzI"/>
+                                    <constraint firstAttribute="trailing" secondItem="50o-gF-Nv1" secondAttribute="trailing" id="gNd-O9-Qyc"/>
+                                    <constraint firstItem="vVt-ci-XDJ" firstAttribute="leading" secondItem="TKP-vt-JTP" secondAttribute="leading" id="wXt-tG-uv4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="TKP-vt-JTP" firstAttribute="leading" secondItem="TxF-TY-ypa" secondAttribute="leading" id="gOr-Mb-jKc"/>
+                            <constraint firstItem="TKP-vt-JTP" firstAttribute="top" secondItem="TxF-TY-ypa" secondAttribute="top" id="n1h-go-fbF"/>
+                            <constraint firstAttribute="trailing" secondItem="TKP-vt-JTP" secondAttribute="trailing" id="t97-Uh-pdg"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="TxF-TY-ypa" secondAttribute="trailing" constant="15" id="UbX-ng-Dti"/>
+                    <constraint firstItem="TxF-TY-ypa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zju-Z9-6dy"/>
+                    <constraint firstAttribute="bottom" secondItem="TxF-TY-ypa" secondAttribute="bottom" constant="25" id="sIM-TH-Iff"/>
+                    <constraint firstItem="TxF-TY-ypa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="uFl-Wc-3ig"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="challengeName" destination="9Vk-BM-9gy" id="gsZ-r1-CqR"/>
+                <outlet property="challengeUseNum" destination="Tlp-oT-DPz" id="6ro-wq-rqn"/>
+                <outlet property="contentContainView" destination="TxF-TY-ypa" id="fx3-rm-FTz"/>
+                <outlet property="topContentContainView" destination="TKP-vt-JTP" id="3b6-sG-aM4"/>
+            </connections>
+            <point key="canvasLocation" x="-71" y="15.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_topic" width="22" height="22"/>
+        <image name="school_ic_jiantou" width="16" height="16"/>
+    </resources>
+</document>

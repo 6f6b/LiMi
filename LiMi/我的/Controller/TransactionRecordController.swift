@@ -14,7 +14,7 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class TransactionRecordController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var tableView: UITableView!
     var dataArray = [TransactionModel]()
@@ -103,7 +103,7 @@ extension TransactionRecordController:UITableViewDelegate,UITableViewDataSource{
 
 extension TransactionRecordController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "qsy_img_nojl")
+        return UIImage(named: "qsy")
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {

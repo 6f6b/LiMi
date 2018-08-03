@@ -47,7 +47,7 @@
         self.messageLabel.backgroundColor = [UIColor clearColor];
         self.timeLabel.textColor = rgba(114, 114, 114, 1);
         self.timeLabel.backgroundColor = [UIColor clearColor];
-        self.contentView.backgroundColor = rgba(30, 30, 30, 1);
+        self.contentView.backgroundColor = rgba(43, 43, 43, 1);
         
         self.seperateView = [[UIView alloc] initWithFrame:CGRectMake(0, 68, ScreenWidth, 1)];
         self.seperateView.backgroundColor = rgba(58, 58, 58, 1);

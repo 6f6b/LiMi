@@ -358,10 +358,10 @@
     self.tableView.height = self.view.height - self.tableView.top;
     
     self.emptyTipLabel.centerX = self.view.width * .5f;
-    self.emptyTipLabel.centerY = self.tableView.height * .5f;
+    self.emptyTipLabel.centerY = self.tableView.height * .5f + 30;
     
     self.emptyTipImageView.centerX = self.emptyTipLabel.centerX;
-    self.emptyTipImageView.centerY = self.emptyTipLabel.centerY- self.emptyTipImageView.size.height*0.5-self.emptyTipLabel.size.height*0.5-15;
+    self.emptyTipImageView.centerY = self.emptyTipLabel.centerY- self.emptyTipImageView.size.height*0.5-self.emptyTipLabel.size.height*0.5-15 + 30;
 }
 
 - (UIView*)titleView:(NSString*)userID{

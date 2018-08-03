@@ -22,9 +22,12 @@
 //@property (nonatomic, assign) int videoQuality;
 //@property (nonatomic, assign) int fps;
 //@property (nonatomic, assign) int gop;
+
 @property (nonatomic,assign) int minDuration;
 @property (nonatomic,assign) int maxDuration;
 
-
+//挑战
+@property (nonatomic,assign) NSInteger challengeId;
+@property (nonatomic,copy) NSString *challengeName;
 @property (nonatomic, weak) id<PhotoViewControllerDelegate> delegate;
 @end

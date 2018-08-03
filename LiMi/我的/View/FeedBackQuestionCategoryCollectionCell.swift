@@ -14,14 +14,14 @@ class FeedBackQuestionCategoryCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.categoryInfo.layer.cornerRadius = 5
-        self.categoryInfo.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.categoryInfo.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 1).cgColor
         self.categoryInfo.layer.borderWidth = 1
     }
 
     func configWith(model:FeedBackQuestionModel){
         self.categoryInfo.text = model.info
-        let showColor = model.isSelect ? APP_THEME_COLOR : RGBA(r: 204, g: 204, b: 204, a: 1)
-        self.categoryInfo.textColor = showColor
+        let showColor = model.isSelect ? UIColor.white : RGBA(r: 53, g: 53, b: 53, a: 1)
+        self.categoryInfo.textColor = model.isSelect ? UIColor.white : RGBA(r: 114, g: 114, b: 114, a: 1)
         self.categoryInfo.layer.borderColor = showColor.cgColor
     }
 }

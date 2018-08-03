@@ -52,11 +52,11 @@
     UIImage * image;
     NSArray *animateNames;
     if (self.model.message.isOutgoingMsg){
-         image = [UIImage nim_imageInKit:@"im_icon_yuyin2"];
-         animateNames = @[@"im_icon_bfb1",@"im_icon_bfb2",@"im_icon_bfb3"];
+         image = [UIImage nim_imageInKit:@"yuyin_ic_hei3的副本"];
+         animateNames = @[@"yuyin_ic_hei1",@"yuyin_ic_hei2",@"yuyin_ic_hei3"];
     }else{
-        image = [UIImage nim_imageInKit:@"im_icon_yuyin1"];
-        animateNames = @[@"im_icon_bf1",@"im_icon_bf2",@"im_icon_bf3"];
+        image = [UIImage nim_imageInKit:@"yuyin_ic_bai3的副本"];
+        animateNames = @[@"yuyin_ic_bai1",@"yuyin_ic_bai2",@"yuyin_ic_bai3"];
 
     }
     _voiceImageView = [[UIImageView alloc] initWithImage:image];

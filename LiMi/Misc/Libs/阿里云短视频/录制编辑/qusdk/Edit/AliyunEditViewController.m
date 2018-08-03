@@ -581,6 +581,12 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     pulishViewController.startTime = self.startTime;
     pulishViewController.duration = self.duration;
     pulishViewController.musicType = self.musicType;
+    pulishViewController.challengeName = self.challengeName;
+    
+    pulishViewController.challengeId = self.challengeId;
+    if(self.challengeId && self.challengeName){
+        
+    }
     [self.navigationController pushViewController:pulishViewController animated:true];
     
 //    AliyunPublishViewController *vc = [[AliyunPublishViewController alloc] init];

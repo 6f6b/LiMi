@@ -176,6 +176,8 @@
             NSURL *url = (NSURL *)[[(AVURLAsset *)avAsset URL] fileReferenceURL];
             cutInfo.sourcePath = url.path;
             AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
+            cut.challengeName = self.challengeName;
+            cut.challengeId = self.challengeId;
             cut.cutInfo = cutInfo;
 //            cut.delegate = (id<AliyunCropViewControllerDelegate>)self;
             [self.navigationController pushViewController:cut animated:YES];

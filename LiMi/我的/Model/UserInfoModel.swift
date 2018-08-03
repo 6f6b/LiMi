@@ -16,6 +16,7 @@ class UserInfoModel: BaseModel {
     var attention_num:Int?
     var fans_num:Int?
     var click_num:Int?
+    ///is_attention=0 未 1 已关注 2 互关注
     var is_attention:Int?
     
     var true_name:String?

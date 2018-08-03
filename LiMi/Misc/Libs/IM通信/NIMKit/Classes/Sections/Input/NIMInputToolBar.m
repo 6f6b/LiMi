@@ -32,7 +32,8 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor whiteColor]];
+        self.backgroundColor = rgba(43, 43, 43, 1);
+//        [self setBackgroundColor:[UIColor whiteColor]];
         
         _voiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_voiceButton setImage:[UIImage nim_imageInKit:@"im_icon_yy"] forState:UIControlStateNormal];
@@ -67,10 +68,11 @@
         [_inputTextBkgImage setImage:[[UIImage nim_imageInKit:@"icon_input_text_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(15,80,15,80) resizingMode:UIImageResizingModeStretch]];
 
         _inputTextView = [[NIMGrowingTextView alloc] initWithFrame:CGRectZero];
-        _inputTextView.font = [UIFont systemFontOfSize:14.0f];
+        _inputTextView.backgroundColor = rgba(53, 53, 53, 1);
+        _inputTextView.font = [UIFont systemFontOfSize:15.0f];
         _inputTextView.maxNumberOfLines = _maxNumberOfInputLines?:4;
         _inputTextView.minNumberOfLines = 1;
-        _inputTextView.textColor = [UIColor blackColor];
+        _inputTextView.textColor = [UIColor whiteColor];
         _inputTextView.backgroundColor = [UIColor clearColor];
         _inputTextView.nim_size = [_inputTextView intrinsicContentSize];
         _inputTextView.textViewDelegate = self;
@@ -360,7 +362,7 @@
 
 - (void)setPlaceHolder:(NSString *)placeHolder
 {
-    self.inputTextView.placeholderAttributedText = [[NSAttributedString alloc] initWithString:placeHolder attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.inputTextView.placeholderAttributedText = [[NSAttributedString alloc] initWithString:placeHolder attributes:@{NSForegroundColorAttributeName:rgba(114, 114, 114, 1),NSFontAttributeName:[UIFont systemFontOfSize:15]}];
 }
 
 - (void)insertText:(NSString *)text

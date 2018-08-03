@@ -14,10 +14,10 @@ class FeedBackHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.groupTableViewBackground
+        self.backgroundColor = APP_THEME_COLOR_1
         
         self.infoLabel = UILabel()
-        self.infoLabel.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
+        self.infoLabel.textColor = UIColor.white
         self.infoLabel.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(self.infoLabel)
         self.infoLabel.snp.makeConstraints { (make) in

@@ -53,7 +53,7 @@
         _recordPhase = AudioRecordPhaseEnd;
         _atCache = [[NIMInputAtCache alloc] init];
         _inputConfig = config;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = rgba(43, 43, 43, 1);
     }
     return self;
 }
@@ -163,7 +163,6 @@
     if (!_toolBar)
     {
         _toolBar = [[NIMInputToolBar alloc] initWithFrame:CGRectMake(0, 0, self.nim_width, 0)];
-        
         [self addSubview:_toolBar];
         
         //设置placeholder
@@ -188,6 +187,7 @@
         _toolBar.nim_size = [_toolBar sizeThatFits:CGSizeMake(self.nim_width, CGFLOAT_MAX)];
         _toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_toolBar.recordButton setTitle:@"按住说话" forState:UIControlStateNormal];
+        [_toolBar.recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_toolBar.recordButton setHidden:YES];
         
         //设置最大输入字数

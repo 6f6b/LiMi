@@ -12,6 +12,7 @@ import Moya
 import ObjectMapper
 
 class SameParagraphVideoListController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var collectionView: UICollectionView!
     var pageIndex:Int = 1
     var time:Int? = Int(Date().timeIntervalSince1970)

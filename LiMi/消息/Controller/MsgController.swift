@@ -30,7 +30,10 @@ class MsgController: UIViewController {
         self.view.addSubview(topMsgContainView)
         
         let sessionListController = NTESSessionListViewController()
-        sessionListController.view.frame = CGRect.init(x: 0, y: topMsgContainView.frame.maxY+10, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-topMsgContainView.frame.maxY-10)
+        sessionListController.view.frame = CGRect.init(x: 0, y: topMsgContainView.frame.maxY+10, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-topMsgContainView.frame.maxY-49 - 10)
+        sessionListController.automaticallyAdjustsScrollViewInsets = false
+        sessionListController.tableView.frame = sessionListController.view.bounds
+        sessionListController.tableView.contentInset = UIEdgeInsets.init(top: STATUS_BAR_HEIGHT, left: 0, bottom: 0, right: 0)
         self.addChildViewController(sessionListController)
         self.view.addSubview(sessionListController.view)
         
@@ -52,7 +55,8 @@ class MsgController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.view.backgroundColor = APP_THEME_COLOR_1
+        //self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
         self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: RGBA(r: 43, g: 43, b: 43, a: 1)), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.tintColor = UIColor.white

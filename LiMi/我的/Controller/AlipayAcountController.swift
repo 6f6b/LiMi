@@ -12,7 +12,7 @@ import SVProgressHUD
 import ObjectMapper
 
 class AlipayAcountController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var containView: UIView!
@@ -41,23 +41,25 @@ class AlipayAcountController: UIViewController {
         
         self.authCodeContainView.layer.cornerRadius = 20
         self.authCodeContainView.clipsToBounds = true
-        self.authCodeContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.authCodeContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 53).cgColor
         self.authCodeContainView.layer.borderWidth = 1
+        self.authCode.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         
         self.alipayAcountContainView.layer.cornerRadius = 20
         self.alipayAcountContainView.clipsToBounds = true
-        self.alipayAcountContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.alipayAcountContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 53).cgColor
         self.alipayAcountContainView.layer.borderWidth = 1
+        self.alipayAcount.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
+
         
         self.alipayAcountNameContainView.layer.cornerRadius = 20
         self.alipayAcountNameContainView.clipsToBounds = true
-        self.alipayAcountNameContainView.layer.borderColor = APP_THEME_COLOR.cgColor
+        self.alipayAcountNameContainView.layer.borderColor = RGBA(r: 53, g: 53, b: 53, a: 53).cgColor
         self.alipayAcountNameContainView.layer.borderWidth = 1
+        self.alipayAcountName.setValue(RGBA(r: 114, g: 114, b: 114, a: 1), forKeyPath: "_placeholderLabel.textColor")
         
         self.sumbitBtn.layer.cornerRadius = 20
         self.sumbitBtn.clipsToBounds = true
-        self.sumbitBtn.layer.borderColor = APP_THEME_COLOR.cgColor
-        self.sumbitBtn.layer.borderWidth = 1
         
         self.containView.layer.cornerRadius = 10
         self.containView.clipsToBounds = true
@@ -65,20 +67,11 @@ class AlipayAcountController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: APP_THEME_COLOR), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
         
         if let backBtn = self.navigationItem.leftBarButtonItem?.customView as?  UIButton{
             backBtn.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)

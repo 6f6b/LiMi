@@ -307,19 +307,21 @@ class VideoPlayCell: UITableViewCell {
     @objc func thumbsUpButtonRefresh(notification:Notification){
         if let userInfo = notification.userInfo{
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
+                if trendModel.id != self.videoTrendModel?.id{return}
                 if let _is_click = trendModel.is_click{
                     if _is_click{
-//                        self.thumbsUpButton.isHidden = true
+//                        self.thumbsUpNumLabel.isHidden = true
+                        let buttonFrame = self.thumbsUpButton.frame
                         let animationView = LOTAnimationView.init(name: "favorite")
                         let height = self.thumbsUpButton.frame.size.height
                         let width = self.thumbsUpButton.frame.size.width
                         let animationViewHeight = CGFloat(130*1.1)
                         let animationViewWidth = CGFloat(130*1.1)
-                        let x = (CGFloat(width-CGFloat(animationViewWidth)))*0.5
-                        let y = (CGFloat(height-CGFloat(animationViewHeight)))*0.5
+                        let x = buttonFrame.origin.x + (CGFloat(height-CGFloat(animationViewWidth)))*0.5
+                        let y = buttonFrame.origin.y + (CGFloat(width-CGFloat(animationViewHeight)))*0.5
                         animationView.frame = CGRect.init(x: x, y: y, width: animationViewWidth, height: animationViewHeight)
                         animationView.animationSpeed = 1
-                        self.thumbsUpButton.addSubview(animationView)
+                        self.contentView.addSubview(animationView)
                         animationView.play {[unowned animationView] (complete) in
                             self.thumbsUpButton.isSelected = _is_click
                             animationView.isHidden = true
@@ -327,6 +329,7 @@ class VideoPlayCell: UITableViewCell {
                             if let _clickNum = trendModel.click_num{
                                 self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
                             }
+//                            self.thumbsUpNumLabel.isHidden = false
                         }
                     }else{
                         self.thumbsUpButton.isSelected = _is_click

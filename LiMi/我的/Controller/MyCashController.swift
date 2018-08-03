@@ -27,15 +27,9 @@ class MyCashController: UIViewController {
         self.title = "我的现金"
         
         self.balance.text = "0"
-        self.rechargeBtn.layer.cornerRadius = 20
-        self.rechargeBtn.clipsToBounds = true
-        self.withdrawalBtn.layer.cornerRadius = 20
-        self.withdrawalBtn.clipsToBounds = true
-        self.withdrawalBtn.layer.borderColor = APP_THEME_COLOR.cgColor
-        self.withdrawalBtn.layer.borderWidth = 1
         
         let transactionRecordBtn = UIButton.init(type: .custom)
-        let transactionRecordAttribute = NSAttributedString.init(string: "交易记录", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
+        let transactionRecordAttribute = NSAttributedString.init(string: "交易记录", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
         transactionRecordBtn.setAttributedTitle(transactionRecordAttribute, for: .normal)
         transactionRecordBtn.sizeToFit()
         transactionRecordBtn.addTarget(self, action: #selector(dealToTransactionRecord), for: .touchUpInside)

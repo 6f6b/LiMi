@@ -48,6 +48,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首发" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUG-ad-4Ry">
+                                <rect key="frame" x="275" y="12" width="31" height="16"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.12156862745098039" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Tcj-jY-euh"/>
+                                    <constraint firstAttribute="width" constant="31" id="UGv-6n-f34"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -57,6 +74,8 @@
                             <constraint firstItem="5KM-Pd-K7a" firstAttribute="centerY" secondItem="S6X-DT-Dw4" secondAttribute="centerY" id="Fg7-Ve-g04"/>
                             <constraint firstItem="S6X-DT-Dw4" firstAttribute="centerY" secondItem="yup-Lr-6Ex" secondAttribute="centerY" id="OKW-fJ-uip"/>
                             <constraint firstItem="cDK-f1-FOC" firstAttribute="top" secondItem="yup-Lr-6Ex" secondAttribute="top" id="PjO-h3-lqz"/>
+                            <constraint firstAttribute="trailing" secondItem="HUG-ad-4Ry" secondAttribute="trailing" constant="15" id="ZIJ-wb-hlo"/>
+                            <constraint firstItem="HUG-ad-4Ry" firstAttribute="centerY" secondItem="yup-Lr-6Ex" secondAttribute="centerY" id="klY-A0-Rjz"/>
                             <constraint firstAttribute="trailing" secondItem="cDK-f1-FOC" secondAttribute="trailing" id="lGv-d4-Bk3"/>
                             <constraint firstItem="S6X-DT-Dw4" firstAttribute="leading" secondItem="yup-Lr-6Ex" secondAttribute="leading" constant="8" id="mKL-3H-fZC"/>
                             <constraint firstAttribute="bottom" secondItem="cDK-f1-FOC" secondAttribute="bottom" id="pze-0K-Hzg"/>
@@ -83,6 +102,7 @@
             <size key="customSize" width="321" height="506"/>
             <connections>
                 <outlet property="clickNumLabel" destination="5KM-Pd-K7a" id="U5z-yA-6o9"/>
+                <outlet property="firstPulishLabel" destination="HUG-ad-4Ry" id="eLm-ow-0nx"/>
                 <outlet property="rankImageView" destination="cU4-07-38W" id="nZd-DQ-wg1"/>
                 <outlet property="videoCoverImage" destination="xKN-gv-0ga" id="1aE-Dr-bug"/>
             </connections>

@@ -40,6 +40,7 @@ class VideoTrendModel: BaseModel {
     var publish_addr:String? //": "zhongguo",
     var challenge_id:Int? //": 19,
     var challenge:String? //": "\u5ddd\u5927\u6444\u5f71\u6bd4\u8d5b",
+    var is_first:Bool?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -59,6 +60,7 @@ class VideoTrendModel: BaseModel {
         publish_addr <- map["publish_addr"]
         challenge_id <- map["challenge_id"]
         challenge <- map["challenge"]
+        is_first <- map["is_first"]
     }
 }
 
