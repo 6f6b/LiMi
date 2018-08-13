@@ -250,6 +250,7 @@ static CGSize const kDefaultDotSize = {8, 8};
         }
     } else if (self.dotImage && self.currentDotImage) {
         UIImageView *dotView = (UIImageView *)[self.dots objectAtIndex:index];
+        dotView.contentMode = UIViewContentModeScaleAspectFill;
         dotView.image = (active) ? self.currentDotImage : self.dotImage;
     }
 }

@@ -5,7 +5,7 @@ PODS:
   - AliyunPlayer_iOS/AliyunVodPlayerSDK (3.4.5):
     - AliyunPlayer_iOS/AliyunPlayerSDK
   - AliyunVideoCore (1.0.1)
-  - AliyunVideoSDKPro (3.6.2)
+  - AliyunVideoSDKPro (3.6.5)
   - Bugly (2.5.0)
   - CocoaLumberjack (3.2.1):
     - CocoaLumberjack/Default (= 3.2.1)
@@ -164,7 +164,7 @@ SPEC CHECKSUMS:
   AliyunOSSiOS: e5dcdba99963ca6b43fea863cead49423c5d4c75
   AliyunPlayer_iOS: 8b73518e26c889d13ab95857d0bfe07eaa0c90db
   AliyunVideoCore: 5d588e3cca7943f0fc1ce1cee91c90043dbceac3
-  AliyunVideoSDKPro: 59c542b25a66b8d29ec0139ce75928817c5693c2
+  AliyunVideoSDKPro: f40c70c2e51285077d224db8a7fffae1bed90374
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7

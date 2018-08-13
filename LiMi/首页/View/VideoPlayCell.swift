@@ -76,6 +76,8 @@ class VideoPlayCell: UITableViewCell {
         //挑战名称
     @IBOutlet weak var challengeName: UILabel!
     
+    
+    @IBOutlet weak var schoolIcon: UIImageView!
     //学校名字
     @IBOutlet weak var schoolName: UILabel!
     //用户名字
@@ -109,17 +111,20 @@ class VideoPlayCell: UITableViewCell {
     
     @IBOutlet weak var musicIconBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var schoolInfoContainView: UIView!
-    @IBOutlet weak var userNameTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var videoTitleTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var musicIconTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var schoolInfoBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var createdAddressBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var challengeInfoBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var userNameBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var videoTitleBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var createdAdressContainView: UIView!
     @IBOutlet weak var challengeInfoContainView: UIView!
-    @IBOutlet weak var challengeInfoBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var createdAddressBottomConstraint: NSLayoutConstraint!
-    
+
     var musicAnimationView:LOTAnimationView?
     var textRoateView:TextRotateView?
     var cycleLabel:ORCycleLabel?
+    
+//    var shoolInfoGradientLayer:CAGradientLayer!
+//    var maskLayer:CAShapeLayer!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -138,9 +143,23 @@ class VideoPlayCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        tempLabel = YYLabel()
-//        tempLabel.frame = CGRect.init(x: 100, y: 50, width: 200, height: 50)
-//        self.bottomMaskView.addSubview(tempLabel)
+//        shoolInfoGradientLayer = CAGradientLayer()
+//        let alpha = CGFloat(1)
+//        shoolInfoGradientLayer.colors = [RGBA(r: 255, g: 90, b: 0, a: alpha).cgColor,RGBA(r: 144, g: 0, b: 218, a: alpha).cgColor]
+//        shoolInfoGradientLayer.locations = [0.0,1.0]
+//        shoolInfoGradientLayer.startPoint = CGPoint.init(x: 0, y: 0.5)
+//        shoolInfoGradientLayer.endPoint = CGPoint.init(x: 1, y: 0.5)
+//        shoolInfoGradientLayer.frame = self.schoolInfoContainView.bounds
+//        self.schoolInfoContainView.layer.addSublayer(shoolInfoGradientLayer)
+//        self.schoolInfoContainView.bringSubview(toFront: self.schoolIcon)
+//        self.schoolInfoContainView.bringSubview(toFront: self.schoolName)
+//
+//
+//        let maskPath = UIBezierPath.init(roundedRect: self.schoolInfoContainView.bounds, byRoundingCorners: [.topRight,.bottomRight], cornerRadii: CGSize.init(width: 4, height: 4))
+//        maskLayer = CAShapeLayer.init()
+//        maskLayer.frame = self.schoolInfoContainView.bounds
+//        maskLayer.path = maskPath.cgPath
+//        self.schoolInfoContainView.layer.mask = maskLayer
         
         self.musicAnimationView = LOTAnimationView.init(name: "music_animation")
         self.musicAnimationView?.frame = CGRect.init(x: 0, y: 0, width: 100, height: 100)
@@ -402,7 +421,7 @@ class VideoPlayCell: UITableViewCell {
             self.createdAdressContainView.isHidden = false
             self.createdAdress.text = creatAddress
         }else{
-            self.createdAddressBottomConstraint.constant = -8
+            self.createdAddressBottomConstraint.constant = -22
             self.createdAdressContainView.isHidden = true
         }
         
@@ -412,7 +431,7 @@ class VideoPlayCell: UITableViewCell {
             self.challengeInfoContainView.isHidden = false
             self.challengeName.text = challengeName
         }else{
-            self.challengeInfoBottomConstraint.constant = -8
+            self.challengeInfoBottomConstraint.constant = -22
             self.challengeInfoContainView.isHidden = true
         }
         
@@ -420,33 +439,38 @@ class VideoPlayCell: UITableViewCell {
         if let _collegeName = videoTrendModel?.user?.college?.name{
             self.schoolName.text = _collegeName
             self.schoolInfoContainView.isHidden = false
+            self.schoolInfoBottomConstraint.constant = 8
         }else{
+            self.schoolInfoBottomConstraint.constant = -22
             self.schoolInfoContainView.isHidden = true
         }
+//        self.schoolInfoContainView.layoutIfNeeded()
+//        self.maskLayer.frame = self.schoolInfoContainView.bounds
+//        self.shoolInfoGradientLayer.frame = self.schoolInfoContainView.bounds
         
         //用户姓名
         if let userNickNmae = videoTrendModel?.user?.nickname{
-            self.videoTitleTopConstraint.constant = 6
+            self.userNameBottomConstraint.constant = 8
             self.userNameLabel.isHidden = false
             self.userNameLabel.text = "@\(userNickNmae)"
         }else{
-            self.videoTitleTopConstraint.constant = -6
+            self.userNameBottomConstraint.constant = -22
             self.userNameLabel.isHidden = true
         }
         
         //视频title
         if let textExtraModels = videoTrendModel?.notify_extra{
             self.yyVideoTitleLabel.isHidden = false
-            self.musicIconTopConstraint.constant = 6
+            self.videoTitleBottomConstraint.constant = 6
             self.setVideoTrendTitleWith(textExtraModels: textExtraModels)
         }else{
             if let videoTitle = videoTrendModel?.title{
                 self.yyVideoTitleLabel.isHidden = false
                 self.yyVideoTitleLabel.text = videoTitle
-                self.musicIconTopConstraint.constant = 6
+                self.videoTitleBottomConstraint.constant = 6
             }else{
                 self.yyVideoTitleLabel.isHidden = true
-                self.musicIconTopConstraint.constant = -6
+                self.videoTitleBottomConstraint.constant = -13
             }
         }
         self.yyVideoTitleLabel.sizeToFit()

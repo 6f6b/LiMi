@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ShoolHeatValueCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="222"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="461" height="222"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OkM-WX-W6D">
+                        <rect key="frame" x="15" y="15" width="431" height="192"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热气值 1024" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUm-mL-1ay">
+                                <rect key="frame" x="15" y="86" width="92" height="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wg-iA-BM6">
+                                <rect key="frame" x="119" y="86" width="19" height="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nst-bl-F0O">
+                                <rect key="frame" x="366" y="71" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Oet-zi-8vz"/>
+                                    <constraint firstAttribute="width" constant="50" id="llQ-0W-OlG"/>
+                                </constraints>
+                                <state key="normal" image="school_ic_zannor"/>
+                                <state key="selected" image="school_ic_zanpre"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="clickedThumbUpButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Pch-Wk-uNf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1Wg-iA-BM6" firstAttribute="leading" secondItem="MUm-mL-1ay" secondAttribute="trailing" constant="12" id="7xg-MP-Vfq"/>
+                            <constraint firstItem="MUm-mL-1ay" firstAttribute="centerY" secondItem="OkM-WX-W6D" secondAttribute="centerY" id="X7j-OX-dpu"/>
+                            <constraint firstAttribute="trailing" secondItem="nst-bl-F0O" secondAttribute="trailing" constant="15" id="arY-rK-Yty"/>
+                            <constraint firstItem="MUm-mL-1ay" firstAttribute="leading" secondItem="OkM-WX-W6D" secondAttribute="leading" constant="15" id="bDj-lP-5GD"/>
+                            <constraint firstItem="1Wg-iA-BM6" firstAttribute="centerY" secondItem="OkM-WX-W6D" secondAttribute="centerY" id="btF-Hr-2xs"/>
+                            <constraint firstItem="nst-bl-F0O" firstAttribute="centerY" secondItem="OkM-WX-W6D" secondAttribute="centerY" id="w0b-64-3w1"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="OkM-WX-W6D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="3dV-sw-q7p"/>
+                <constraint firstItem="OkM-WX-W6D" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="LFS-79-B88"/>
+                <constraint firstAttribute="trailing" secondItem="OkM-WX-W6D" secondAttribute="trailing" constant="15" id="Ml2-TU-Gpf"/>
+                <constraint firstAttribute="bottom" secondItem="OkM-WX-W6D" secondAttribute="bottom" constant="15" id="PZJ-eR-Zxe"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="461" height="222"/>
+            <connections>
+                <outlet property="addLabel" destination="1Wg-iA-BM6" id="WGw-Em-caT"/>
+                <outlet property="containView" destination="OkM-WX-W6D" id="Dzy-2e-9Tn"/>
+                <outlet property="heatValue" destination="MUm-mL-1ay" id="Kvr-BM-eDf"/>
+                <outlet property="thumbUpButton" destination="nst-bl-F0O" id="6T0-vU-Ndr"/>
+            </connections>
+            <point key="canvasLocation" x="-29.5" y="34"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="school_ic_zannor" width="28" height="28"/>
+        <image name="school_ic_zanpre" width="28" height="28"/>
+    </resources>
+</document>

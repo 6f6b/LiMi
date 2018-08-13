@@ -64,19 +64,29 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-5h-P2t">
+                        <rect key="frame" x="0.0" y="107" width="331" height="0.5"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="0tr-je-ijh"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="eLb-5h-P2t" secondAttribute="bottom" id="2e8-sw-FqE"/>
                     <constraint firstItem="vSQ-Lp-UX2" firstAttribute="leading" secondItem="xEa-9V-RiR" secondAttribute="trailing" constant="10" id="5EW-f9-Csb"/>
                     <constraint firstItem="HLC-yN-kSj" firstAttribute="leading" secondItem="vSQ-Lp-UX2" secondAttribute="trailing" constant="6" id="BYr-bt-qBy"/>
                     <constraint firstItem="cyC-pk-lGe" firstAttribute="leading" secondItem="vSQ-Lp-UX2" secondAttribute="leading" id="JK0-5i-kYK"/>
                     <constraint firstItem="HLC-yN-kSj" firstAttribute="centerY" secondItem="vSQ-Lp-UX2" secondAttribute="centerY" id="NK8-YY-l8Y"/>
                     <constraint firstItem="VE6-3O-juG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Pmu-3O-rIO"/>
                     <constraint firstItem="xEa-9V-RiR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Xnv-55-i3s"/>
+                    <constraint firstItem="eLb-5h-P2t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Zfb-Bh-HIj"/>
                     <constraint firstItem="xEa-9V-RiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="eny-Cc-13Q"/>
                     <constraint firstItem="vSQ-Lp-UX2" firstAttribute="top" secondItem="xEa-9V-RiR" secondAttribute="top" constant="5" id="hNp-zY-eZu"/>
                     <constraint firstItem="cyC-pk-lGe" firstAttribute="top" secondItem="vSQ-Lp-UX2" secondAttribute="bottom" constant="10" id="i2D-qD-YUT"/>
                     <constraint firstAttribute="trailing" secondItem="VE6-3O-juG" secondAttribute="trailing" constant="15" id="kWe-ce-du2"/>
+                    <constraint firstAttribute="trailing" secondItem="eLb-5h-P2t" secondAttribute="trailing" id="tWO-Pk-Ma6"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

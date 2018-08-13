@@ -47,7 +47,7 @@ class WeekendTourController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,8 +120,6 @@ extension WeekendTourController:UITableViewDelegate,UITableViewDataSource{
         }
         if 1 == indexPath.section{
             let weekendTourSeparateCell = tableView.dequeueReusableCell(withIdentifier: "WeekendTourSeparateCell", for: indexPath) as! WeekendTourSeparateCell
-            weekendTourSeparateCell.contentView.backgroundColor = UIColor.white
-            weekendTourSeparateCell.info.textColor = UIColor.black
             return weekendTourSeparateCell
         }
         if 2 == indexPath.section{

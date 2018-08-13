@@ -30,8 +30,13 @@ class CircleHomeBannerCell: UITableViewCell {
         let cycleScrollViewWidth = SCREEN_WIDTH - 30
         let cycleScrollViewHeight = cycleScrollViewWidth*194.0/345.0
         cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: cycleScrollViewWidth, height: cycleScrollViewHeight), delegate: self, placeholderImage: UIImage.init())
+        cycleScrollView.backgroundColor = APP_THEME_COLOR_1
         cycleScrollView.localizationImageNamesGroup = ["banner1","banner2","banner3"]
+        cycleScrollView.pageControlBottomOffset = -30*SCREEN_WIDTH/375.0
+        cycleScrollView.pageDotImage = UIImage.init(named: "qz_ic_lunboqinor")
+        cycleScrollView.currentPageDotImage = UIImage.init(named: "qz_ic_lunboqipre")
         self.bannerContainView.addSubview(self.cycleScrollView)
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

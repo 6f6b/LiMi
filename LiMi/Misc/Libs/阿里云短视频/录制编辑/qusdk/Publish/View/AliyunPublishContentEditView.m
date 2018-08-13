@@ -23,6 +23,8 @@ typedef enum {
 @interface AliyunPublishContentEditView ()<UITextViewDelegate,CustomTextViewDelegate>
 @property (nonatomic,strong) UILabel *placeholderLabel;
 @property (nonatomic,strong) UILabel *characterNumberLabel;
+@property (nonatomic,strong) UIButton *remindButton;
+
 @property (nonatomic,strong) NSMutableArray *remindedUsers;
 @end
 @implementation AliyunPublishContentEditView
@@ -51,8 +53,25 @@ typedef enum {
         _characterNumberLabel.textColor = rgba(114, 114, 114, 1);
         _characterNumberLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_characterNumberLabel];
+        
+        _remindButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.frame.size.height-22-10, 54, 22)];
+        [_remindButton addTarget:self action:@selector(remindButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_remindButton setTitle:@"@好友" forState:UIControlStateNormal];
+        _remindButton.titleLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+        _remindButton.titleLabel.textColor = [UIColor whiteColor];
+        _remindButton.backgroundColor = rgba(83, 83, 83, 1);
+        _remindButton.layer.cornerRadius = 11;
+        _remindButton.clipsToBounds = true;
+        [self addSubview:_remindButton];
     }
     return self;
+}
+
+- (void)remindButtonClicked{
+    if(!self.textView.isFirstResponder){
+        [self.textView becomeFirstResponder];
+    }
+    [self.delegate aliyunPublishContentEditViewTapedRemind:self];
 }
 
 - (NSArray *)seperateWith:(NSArray *)sourceArray andMarkArray:(NSMutableArray *)markArray{
@@ -139,6 +158,7 @@ typedef enum {
 
 ///返回@的用户id拼接成的字符串
 - (NSString *)userIds{
+    [self refreshRemindedUsers];
     NSMutableString *_userIds = [NSMutableString new];
     for(OCUserInfoModel *userInfo in _remindedUsers){
         [_userIds appendFormat:@"%d,",userInfo.userId];
@@ -274,9 +294,19 @@ typedef enum {
     }
     self.textView.attributedText = attrText;
     self.textView.selectedTextRange = selectedRange;
+    [self refreshRemindedUsers];
     NSLog(@"被@人数目：%d",self.remindedUsers.count);
     for(OCUserInfoModel *userInfoModel in self.remindedUsers){
         NSLog(@"***************\n被@的名字：%@",userInfoModel.nickName);
+    }
+}
+
+- (void)refreshRemindedUsers{
+    for(int i=0;i<_remindedUsers.count;i++){
+        OCUserInfoModel *user = _remindedUsers[i];
+        if([self.textView.text rangeOfString:user.nickName].length == 0){
+            [_remindedUsers removeObject:user];
+        }
     }
 }
 

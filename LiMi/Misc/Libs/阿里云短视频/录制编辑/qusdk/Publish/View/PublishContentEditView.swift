@@ -13,7 +13,6 @@ class PublishContentEditView: AliyunPublishContentEditView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.textView.customTextViewDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,16 +47,3 @@ class PublishContentEditView: AliyunPublishContentEditView {
     }
 }
 
-extension PublishContentEditView: CustomTextViewDelegate{
-//    func customTextViewClickedDelete(_ customTextView: CustomTextView!) {
-//        let nsTxt = NSString.init(string: customTextView.text)
-//        customTextView.manualDelete()
-//        //#pragma mark - CustomTextViewDelegate
-//        //- (void)customTextViewClickedDelete:(CustomTextView *)customTextView{
-//        //    NSRange range = [customTextView.text rangeOfString:@""];
-//        //    NSLocationInRange(<#NSUInteger loc#>, <#NSRange range#>)
-//        //    //判断是否需要选中整个@内容dsf
-//        //    [customTextView manualDelete];
-//        //}
-//    }
-}

@@ -16,6 +16,7 @@ import ObjectMapper
 import SwiftyJSON
 
 class CreatTopicController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     var releaseBtn:UIButton!
     var releaseContentTextInputCell:ReleaseContentTextInputCell!
     var releaseContentImgInputCell:ReleaseContentImgInputCell!
@@ -36,7 +37,7 @@ class CreatTopicController: UIViewController {
         self.tableView.estimatedRowHeight = 1000
 
         let cancelBtn = UIButton.init(type: .custom)
-        let cancelAttributeTitle = NSAttributedString.init(string: "取消", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+        let cancelAttributeTitle = NSAttributedString.init(string: "取消", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
         cancelBtn.setAttributedTitle(cancelAttributeTitle, for: .normal)
         cancelBtn.sizeToFit()
         cancelBtn.addTarget(self, action: #selector(dealCancel), for: .touchUpInside)
@@ -93,10 +94,10 @@ class CreatTopicController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
+//        UIApplication.shared.statusBarStyle = .default
+//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+//        self.navigationController?.navigationBar.barTintColor = UIColor.white
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
 
     }
     

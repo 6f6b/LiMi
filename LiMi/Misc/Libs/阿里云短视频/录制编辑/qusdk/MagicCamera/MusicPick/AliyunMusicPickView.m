@@ -109,8 +109,13 @@
     self.startLabel.frame = CGRectMake(15, CGRectGetMaxY(self.infoLabel.frame)+20, 100, 12);
     self.endLabel.frame = CGRectMake(width-36-15, CGRectGetMaxY(self.infoLabel.frame)+20, 36, 12);
     self.scrollView.contentSize = CGSizeMake(contentWidth, 50);
-    self.scrollView.frame = CGRectMake(15, CGRectGetMaxY(self.startLabel.frame)+14, width-30, 50);
-    self.coverView.frame = CGRectMake(15, CGRectGetMaxY(self.startLabel.frame)+14, width-30, 50);
+//    self.scrollView.frame = CGRectMake(15, CGRectGetMaxY(self.startLabel.frame)+14, width-30, 50);
+//    self.coverView.frame = CGRectMake(15, CGRectGetMaxY(self.startLabel.frame)+14, width-30, 50);
+    
+    self.scrollView.frame = CGRectMake(0, CGRectGetMaxY(self.startLabel.frame)+24, width, 50);
+    self.coverView.frame = CGRectMake(0, CGRectGetMaxY(self.startLabel.frame)+24, width, 50);
+
+    
 //    self.scrollView.frame = CGRectMake(0, 16, width, height-48);
 //    self.coverView.frame = CGRectMake(0, 16, width, height-48);
     self.lineView.frame =  CGRectMake(0, 0, contentWidth, 50);

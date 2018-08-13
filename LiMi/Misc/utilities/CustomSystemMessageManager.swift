@@ -95,6 +95,7 @@ class CustomSystemMessageManager: NSObject {
         let jsonData = nimCustomSystemNotification.content!.data(using: String.Encoding.utf8)
         let object = try! JSONSerialization.jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
         if let _ = object["msg_id"],let _ = object["type"]{
+            if object["msg_id"] == nil || object["type"] == nil{return}
             try! self.realm.write {
                 let _ = self.realm.create(CustomSystemMessageModel.self, value: object, update: true)
             }

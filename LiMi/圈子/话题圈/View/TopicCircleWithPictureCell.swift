@@ -39,7 +39,6 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
             make.height.equalTo(0)
         }
         
-        self.trendsContainViewBottomDivider.backgroundColor = UIColor.groupTableViewBackground
         self.trendsContainViewBottomDivider.snp.remakeConstraints {[unowned self]   (make) in
             make.top.equalTo(self.trendsContainView.snp.bottom)
             make.left.equalTo(self.contentView)
@@ -48,7 +47,6 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
             make.height.equalTo(7)
         }
         
-        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.white
         self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
             make.left.equalTo(self.trendsContainView)
@@ -59,6 +57,27 @@ class TopicCircleWithPictureCell: TrendsWithPictureCell {
         
         self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewMarginToTrendsContainView, bottom: 0, right: collectionViewMarginToTrendsContainView)
         
+//        self.collectionView.backgroundColor = UIColor.red
+//        self.trendsTopToolsContainView.userName.textColor = UIColor.purple
+//        self.trendsTopToolsContainView.releaseTime.textColor = UIColor.red
+//        self.trendsTopToolsContainView.userInfo.textColor = UIColor.yellow
+//        self.contentView.backgroundColor = UIColor.orange
+//        self.trendsContentContainView.backgroundColor = UIColor.yellow
+//        self.trendsTopToolsContainView.backgroundColor = UIColor.green
+//        self.trendsContainView.backgroundColor = UIColor.blue
+//        self.trendsContainViewBottomDivider.backgroundColor = UIColor.brown
+//        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.purple
+        
+        self.collectionView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.trendsTopToolsContainView.userName.textColor = UIColor.white
+        self.trendsTopToolsContainView.releaseTime.textColor = UIColor.red
+        self.trendsTopToolsContainView.userInfo.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+        self.contentView.backgroundColor = APP_THEME_COLOR_1
+        self.trendsContentContainView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.trendsTopToolsContainView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.trendsContainView.backgroundColor = UIColor.blue
+        self.trendsContainViewBottomDivider.backgroundColor = APP_THEME_COLOR_1
+        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {

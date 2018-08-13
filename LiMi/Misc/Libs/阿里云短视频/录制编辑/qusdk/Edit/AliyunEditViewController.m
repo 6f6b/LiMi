@@ -1011,7 +1011,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
 
 - (void)musicPickViewControllerSelectedWithMusicId:(NSInteger)musicId musicPath:(NSString *)musicPath musicType:(NSInteger)musicType startTime:(float)startTime duration:(float)duration{
     self.musicId = musicId;
-    self.startTime = startTime;
+    self.startTime = 0;
     self.duration = duration;
     self.musicType = musicType;
     
@@ -1019,7 +1019,7 @@ extern NSString * const AliyunEffectResourceDeleteNoti;
     [_editor removeMusics];
     
     AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:musicPath];
-    effectMusic.startTime = startTime;
+    effectMusic.startTime = 0;
     effectMusic.duration = duration;
     [_editor applyMusic:effectMusic];
 }

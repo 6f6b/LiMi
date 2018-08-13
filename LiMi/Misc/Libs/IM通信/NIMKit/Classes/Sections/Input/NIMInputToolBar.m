@@ -89,7 +89,8 @@
         
         //底部分割线
         _sep = [[UIView alloc] initWithFrame:CGRectZero];
-        _sep.backgroundColor = [UIColor lightGrayColor];
+        //_sep.backgroundColor = [UIColor lightGrayColor];
+        _sep.backgroundColor = UIColor.clearColor;
         [self addSubview:_sep];
         
         self.types = @[

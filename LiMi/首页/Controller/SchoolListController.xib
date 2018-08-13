@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="placeHolderImage" destination="VGK-yx-JYC" id="Pbd-8V-vkU"/>
                 <outlet property="placeHolderText" destination="KAB-W2-Io9" id="5tj-E8-6P1"/>
+                <outlet property="recommendSchoolsContainView" destination="9Vz-Ad-uOA" id="LKa-rl-S2x"/>
                 <outlet property="searchText" destination="dWL-Od-hNU" id="YlE-K2-6j8"/>
                 <outlet property="searchTopConstraint" destination="fVm-rw-H38" id="6t7-XC-pIC"/>
                 <outlet property="tableView" destination="X6a-am-M5f" id="V9v-fP-HfQ"/>
@@ -25,6 +26,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eme-Qy-D0F">
+                    <rect key="frame" x="15" y="40" width="25" height="25"/>
+                    <state key="normal" image="btn_close"/>
+                    <connections>
+                        <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="4E1-8M-l8e"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-oV-1ja">
                     <rect key="frame" x="15" y="84" width="345" height="40"/>
                     <subviews>
@@ -67,17 +75,18 @@
                     <rect key="frame" x="0.0" y="124" width="375" height="543"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eme-Qy-D0F">
-                    <rect key="frame" x="15" y="40" width="25" height="25"/>
-                    <state key="normal" image="btn_close"/>
-                    <connections>
-                        <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="4E1-8M-l8e"/>
-                    </connections>
-                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vz-Ad-uOA">
+                    <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="9Vz-Ad-uOA" firstAttribute="trailing" secondItem="X6a-am-M5f" secondAttribute="trailing" id="05Z-KC-lDI"/>
                 <constraint firstItem="X6a-am-M5f" firstAttribute="top" secondItem="HOM-oV-1ja" secondAttribute="bottom" id="3IE-cd-6tU"/>
+                <constraint firstItem="9Vz-Ad-uOA" firstAttribute="bottom" secondItem="X6a-am-M5f" secondAttribute="bottom" id="BEp-a3-HeG"/>
+                <constraint firstItem="9Vz-Ad-uOA" firstAttribute="top" secondItem="X6a-am-M5f" secondAttribute="top" id="KXU-hY-1tn"/>
+                <constraint firstItem="9Vz-Ad-uOA" firstAttribute="leading" secondItem="X6a-am-M5f" secondAttribute="leading" id="SSi-lc-mKS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="X6a-am-M5f" secondAttribute="bottom" id="UqG-8h-bbt"/>
                 <constraint firstItem="eme-Qy-D0F" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="Znu-lt-dId"/>
                 <constraint firstItem="X6a-am-M5f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bLd-7I-APz"/>

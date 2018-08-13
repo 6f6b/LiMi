@@ -20,7 +20,8 @@ class HomeContainViewController: UIViewController {
     private var choosedSchoolInfoLabel:UILabel?
     private var scanVideosController:ScanVideosController!
     private var myFollowsVideosController:MyFollowsVideosController!
-    private var schoolsVideosController:SchoolsVideosController!
+//    private var schoolsVideosController:SchoolsVideosController!
+    private var attendClassTypeVideosController:AttendClassTypeVideosController!
     var currentSelectedControllerIndex = 0
     
     /*变量*/
@@ -49,9 +50,13 @@ class HomeContainViewController: UIViewController {
         self.subControllerContainView.addSubview(self.myFollowsVideosController.view)
         self.addChildViewController(self.myFollowsVideosController)
         
-        self.schoolsVideosController = SchoolsVideosController()
-        self.subControllerContainView.addSubview(self.schoolsVideosController.view)
-        self.addChildViewController(self.schoolsVideosController)
+//        self.schoolsVideosController = SchoolsVideosController()
+//        self.subControllerContainView.addSubview(self.schoolsVideosController.view)
+//        self.addChildViewController(self.schoolsVideosController)
+        
+        self.attendClassTypeVideosController = AttendClassTypeVideosController()
+        self.subControllerContainView.addSubview(self.attendClassTypeVideosController.view)
+        self.addChildViewController(self.attendClassTypeVideosController)
         
         self.subControllerContainView.bringSubview(toFront: self.scanVideosController.view)
         
@@ -215,22 +220,26 @@ extension HomeContainViewController:HomeTopViewDelegate{
         if index == 1{
             if !AppManager.shared.checkUserStatus(){return false}
             self.statusBarHidden = false
-            self.subControllerContainView.bringSubview(toFront: self.myFollowsVideosController.view)
+            self.subControllerContainView.bringSubview(toFront: self.attendClassTypeVideosController.view)
             NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-
+//            if !AppManager.shared.checkUserStatus(){return false}
+//            if currentSelectedControllerIndex == 2{
+//                let schoolListController = SchoolListController()
+//                schoolListController.delegate = self
+//                self.present(schoolListController, animated: true, completion: nil)
+//            }else{
+//                self.statusBarHidden = false
+//                self.subControllerContainView.bringSubview(toFront: self.schoolsVideosController.view)
+//                NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+//
+//            }
         }
         if index == 2{
             if !AppManager.shared.checkUserStatus(){return false}
-            if currentSelectedControllerIndex == 2{
-                let schoolListController = SchoolListController()
-                schoolListController.delegate = self
-                self.present(schoolListController, animated: true, completion: nil)
-            }else{
-                self.statusBarHidden = false
-                self.subControllerContainView.bringSubview(toFront: self.schoolsVideosController.view)
-                NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+            self.statusBarHidden = false
+            self.subControllerContainView.bringSubview(toFront: self.myFollowsVideosController.view)
+            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
 
-            }
         }
         currentSelectedControllerIndex = index
         self.setNeedsStatusBarAppearanceUpdate()
@@ -243,18 +252,18 @@ extension HomeContainViewController:HomeTopViewDelegate{
     }
 }
 
-extension HomeContainViewController:SchoolListControllerDelegate{
-    func schoolListControllerChoosedSchoolWith(model: CollegeModel) {
-        self.choosedSchoolInfoLabel?.text = "当前选择为“\(model.name!)”"
-        self.showChoosedSchoolInfoLabel()
-        self.schoolsVideosController.collegeModel = model
-        self.schoolsVideosController.collectionView.mj_header.beginRefreshing()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func schoolListControllerCancelButtonClicked() {
-    }
-}
+//extension HomeContainViewController:SchoolListControllerDelegate{
+//    func schoolListControllerChoosedSchoolWith(model: CollegeModel) {
+//        self.choosedSchoolInfoLabel?.text = "当前选择为“\(model.name!)”"
+//        self.showChoosedSchoolInfoLabel()
+//        self.schoolsVideosController.collegeModel = model
+//        self.schoolsVideosController.collectionView.mj_header.beginRefreshing()
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//
+//    func schoolListControllerCancelButtonClicked() {
+//    }
+//}
 
 extension HomeContainViewController:ScanVideosControllerDelegate{
     var pageIndex: Int {

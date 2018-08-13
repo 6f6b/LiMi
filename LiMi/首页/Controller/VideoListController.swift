@@ -12,10 +12,13 @@ import ObjectMapper
 import DZNEmptyDataSet
 
 class VideoListController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     var topBackGroundView:UIView!
     var collectionView:UICollectionView!
     var bottomBackGroundView:UIView!
     var dataArray = [VideoTrendModel]()
+    var newCollegeModel:CollegeModel?
+    
     var pageIndex:Int = 1
     var time:Int? = Int(Date().timeIntervalSince1970)
     var type:Int?{
@@ -31,11 +34,12 @@ class VideoListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.topBackGroundView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT))
-        self.topBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
-        self.view.addSubview(self.topBackGroundView)
+//        self.topBackGroundView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT))
+//        self.topBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+//        self.view.addSubview(self.topBackGroundView)
         
-        let collectionFrame = CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT)
+//        let collectionFrame = CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT)
+        let collectionFrame = self.view.bounds
         let layOut = UICollectionViewFlowLayout.init()
         layOut.minimumLineSpacing = 1
         layOut.minimumInteritemSpacing = 1
@@ -44,6 +48,8 @@ class VideoListController: UIViewController {
         layOut.itemSize = CGSize.init(width: width, height: height)
         
         self.collectionView = UICollectionView.init(frame: collectionFrame, collectionViewLayout: layOut)
+        
+        self.collectionView.register(UINib.init(nibName: "ShoolHeatValueCell", bundle: nil), forCellWithReuseIdentifier: "ShoolHeatValueCell")
         self.collectionView.register(UINib.init(nibName: "VideoListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "VideoListCollectionViewCell")
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -102,6 +108,9 @@ class VideoListController: UIViewController {
         let indexVideoList = IndexVideoList.init(page: pageIndex, time: _time, type: type, college_id: collegeId)
         _ = moyaProvider.rx.request(.targetWith(target: indexVideoList)).subscribe(onSuccess: {[unowned self] (response) in
             let videoTrendListModel = Mapper<VideoTrendListModel>().map(jsonData: response.data)
+            if videoTrendListModel?.college != nil{
+                self.newCollegeModel = videoTrendListModel?.college
+            }
             if let _time = videoTrendListModel?.time{
                 self.time = _time
             }
@@ -150,16 +159,26 @@ extension VideoListController : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
     }
 }
 
-extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSource{
+extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0{
+            if self.newCollegeModel != nil && self.type == 1{return 1}
+            return 0
+        }
         return self.dataArray.count
     }
 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0{
+            let shoolHeatValueCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShoolHeatValueCell", for: indexPath) as! ShoolHeatValueCell
+            shoolHeatValueCell.configWith(model: self.newCollegeModel)
+            shoolHeatValueCell.delegate = self
+            return shoolHeatValueCell
+        }
         let videoListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListCollectionViewCell", for: indexPath) as! VideoListCollectionViewCell
         videoListCollectionViewCell.configWith(model: self.dataArray[indexPath.row])
         return videoListCollectionViewCell
@@ -168,5 +187,37 @@ extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let followAndSchoolVideoContainController = FollowAndSchoolVideoContainController.init(type: type, currentVideoTrendIndex: indexPath.row, dataArray: self.dataArray, collegeId: nil)
 //        self.navigationController?.pushViewController(followAndSchoolVideoContainController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0{return CGSize.init(width: SCREEN_WIDTH, height: 120)}
+        let width = (SCREEN_WIDTH-2)/2
+        let height = width/0.75
+        return CGSize.init(width: width, height: height)
+    }
+}
+
+extension VideoListController : ShoolHeatValueCellDelegate{
+    func shoolHeatValueCell(cell: ShoolHeatValueCell, clickedThumbUpButtonWith model: CollegeModel?) {
+        //点赞、发通知
+        if let _isClick = model?.is_click,let _collegeId = model?.id{
+            let moyaProvider = MoyaProvider<LiMiAPI>()
+            let clickCollege = ClickCollege.init(college_id: _collegeId)
+            _ = moyaProvider.rx.request(.targetWith(target: clickCollege)).subscribe(onSuccess: { (response) in
+                let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+                if baseModel?.commonInfoModel?.status == successState{
+                    model?.is_click = !_isClick
+                    var nowClickNum = 0
+                    if let preClickNum = model?.click_num{
+                        nowClickNum = !_isClick ? (preClickNum+1) : (preClickNum-1)
+                        model?.click_num = nowClickNum
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "CLICK_COLLEGE_NOTIFICATION"), object: nil, userInfo: ["collegeId":_collegeId,"isClick":!_isClick,"clickNum":nowClickNum])
+                }
+                Toast.showErrorWith(model: baseModel)
+            }, onError: { (error) in
+                Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }
     }
 }

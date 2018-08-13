@@ -70,6 +70,13 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRC-pg-acN">
+                        <rect key="frame" x="0.0" y="169" width="374" height="0.5"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="kKd-gV-k9v"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.16862745098039217" green="0.16862745100000001" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
@@ -79,6 +86,8 @@
                     <constraint firstItem="Nw8-CZ-ltN" firstAttribute="leading" secondItem="Ljq-KA-0Hl" secondAttribute="trailing" constant="6" id="Qef-g1-6ZU"/>
                     <constraint firstItem="O4r-rP-jCm" firstAttribute="leading" secondItem="xNY-ee-qzt" secondAttribute="leading" id="SPH-j8-SzX"/>
                     <constraint firstItem="eqV-VJ-uTJ" firstAttribute="leading" secondItem="O4r-rP-jCm" secondAttribute="trailing" constant="23" id="X61-C5-YkR"/>
+                    <constraint firstAttribute="bottom" secondItem="ZRC-pg-acN" secondAttribute="bottom" id="XJV-vz-t3Z"/>
+                    <constraint firstItem="ZRC-pg-acN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dNY-Nn-A7S"/>
                     <constraint firstAttribute="trailing" secondItem="eqV-VJ-uTJ" secondAttribute="trailing" constant="15" id="dga-mh-s0H"/>
                     <constraint firstItem="Ljq-KA-0Hl" firstAttribute="leading" secondItem="plQ-fK-jo0" secondAttribute="trailing" constant="10" id="jAK-Qc-e7J"/>
                     <constraint firstItem="eqV-VJ-uTJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nw8-CZ-ltN" secondAttribute="trailing" constant="10" id="jxx-C9-wTo"/>
@@ -88,6 +97,7 @@
                     <constraint firstItem="O4r-rP-jCm" firstAttribute="top" secondItem="xNY-ee-qzt" secondAttribute="bottom" constant="15" id="re6-3V-0ix"/>
                     <constraint firstItem="plQ-fK-jo0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ro8-my-HpX"/>
                     <constraint firstItem="xNY-ee-qzt" firstAttribute="top" secondItem="Ljq-KA-0Hl" secondAttribute="bottom" constant="10" id="t5w-FJ-w8i"/>
+                    <constraint firstAttribute="trailing" secondItem="ZRC-pg-acN" secondAttribute="trailing" id="wbQ-B2-i2W"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

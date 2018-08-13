@@ -51,6 +51,7 @@ class WeekendTourOrderDetailController: UIViewController {
         self.loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(handleAlipayResultWith(notification:)), name: FINISHED_ALIPAY_NOTIFICATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleWXPayResultWith(notificaton:)), name: FINISHED_WXPAY_NOTIFICATION, object: nil)
+        
     }
     
     deinit {
@@ -59,7 +60,20 @@ class WeekendTourOrderDetailController: UIViewController {
         print("周末游订单界面销毁")
 
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+    }
+    
+    override func rt_customBackItem(withTarget target: Any!, action: Selector!) -> UIBarButtonItem! {
+        let backButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 11, height: 20))
+        backButton.setImage(UIImage.init(named: "btn_back_hei"), for: .normal)
+        return UIBarButtonItem.init(customView: backButton)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

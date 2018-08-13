@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "cz_btn_pre.png",
       "scale" : "1x"
     },
     {

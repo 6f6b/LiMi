@@ -13,6 +13,7 @@ import ObjectMapper
 import SVProgressHUD
 
 class TopicCircleController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     var tableView:UITableView!
     var dataArray = [TopicCircleModel]()
     var pageIndex = 1
@@ -27,7 +28,7 @@ class TopicCircleController: UIViewController {
         }
         
         self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64), style:.plain)
-        self.tableView.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
+        self.tableView.backgroundColor = APP_THEME_COLOR_1
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 1000
@@ -45,7 +46,7 @@ class TopicCircleController: UIViewController {
         }
         
         let createTopicCircleBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "创建", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1)])
+        let sumBitAttributeTitle = NSAttributedString.init(string: "创建", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.white])
         createTopicCircleBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
         createTopicCircleBtn.sizeToFit()
         createTopicCircleBtn.addTarget(self, action: #selector(dealCreat), for: .touchUpInside)
@@ -66,12 +67,7 @@ class TopicCircleController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-    }
+ }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

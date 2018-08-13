@@ -24,7 +24,6 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
         self.trendsContentContainViewMarginToTrendsContainView = 15
         self.refreshUI()
         
-        self.trendsTopToolsContainView.userName.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         
         self.trendsContainView.layer.cornerRadius = 5
         self.trendsContainView.layer.masksToBounds = true
@@ -38,7 +37,6 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
             make.height.equalTo(0)
         }
         
-        self.trendsContainViewBottomDivider.backgroundColor = UIColor.groupTableViewBackground
         self.trendsContainViewBottomDivider.snp.remakeConstraints {[unowned self]   (make) in
             make.top.equalTo(self.trendsContainView.snp.bottom)
             make.left.equalTo(self.contentView)
@@ -47,7 +45,6 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
             make.height.equalTo(7)
         }
         
-        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.white
         self.trendsBottomToolsContainViewBottomDivider.snp.remakeConstraints { (make) in
             make.top.equalTo(self.trendsBottomToolsContainView.snp.bottom)
             make.left.equalTo(self.trendsContainView)
@@ -62,11 +59,31 @@ class TopicCircleWithTextCell: TrendsWithTextCell {
             make.bottom.equalTo(self.trendsContentContainView).offset(-15)
             make.right.equalTo(self.trendsContentContainView).offset(-12)
         }
-        self.contentText.textColor = RGBA(r: 153, g: 153, b: 153, a: 1)
         
-        self.trendsContentContainView.backgroundColor = RGBA(r: 250, g: 250, b: 250, a: 1)
         self.trendsContentContainView.layer.cornerRadius = 5
         self.trendsContentContainView.clipsToBounds = true
+
+            self.trendsTopToolsContainView.userName.textColor = UIColor.purple
+            self.trendsTopToolsContainView.releaseTime.textColor = UIColor.red
+            self.trendsTopToolsContainView.userInfo.textColor = UIColor.yellow
+            self.contentView.backgroundColor = UIColor.orange
+            self.trendsContentContainView.backgroundColor = UIColor.yellow
+            self.contentText.textColor = UIColor.white
+            self.trendsTopToolsContainView.backgroundColor = UIColor.green
+            self.trendsContainView.backgroundColor = UIColor.blue
+            self.trendsContainViewBottomDivider.backgroundColor = UIColor.brown
+            self.trendsBottomToolsContainViewBottomDivider.backgroundColor = UIColor.purple
+        
+        self.trendsTopToolsContainView.userName.textColor = UIColor.white
+        self.trendsTopToolsContainView.releaseTime.textColor = UIColor.red
+        self.trendsTopToolsContainView.userInfo.textColor = RGBA(r: 114, g: 114, b: 114, a: 1)
+        self.contentView.backgroundColor = APP_THEME_COLOR_1
+        self.trendsContentContainView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
+        self.contentText.textColor = UIColor.white
+        self.trendsTopToolsContainView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.trendsContainView.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
+        self.trendsContainViewBottomDivider.backgroundColor = APP_THEME_COLOR_1
+        self.trendsBottomToolsContainViewBottomDivider.backgroundColor = RGBA(r: 43, g: 43, b: 43, a: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,7 +121,7 @@ extension TopicCircleWithTextCell:TopicCircleCellProtocol{
 //        }
         if let _content = topicCircleModel?.content{
             text.append(NSMutableAttributedString.init(string: "\(_content)"))
+            self.contentText.text = _content
         }
-        self.contentText.attributedText = text
     }
 }

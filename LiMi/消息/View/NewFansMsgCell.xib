@@ -70,11 +70,20 @@
                             <action selector="clickRelationshipButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gb0-Xz-wpN"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSv-ti-azI">
+                        <rect key="frame" x="0.0" y="163.5" width="439" height="0.5"/>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="2t3-qb-5Xh"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="uSv-ti-azI" secondAttribute="trailing" id="1gs-v9-mbS"/>
                     <constraint firstItem="YpK-Cr-dJb" firstAttribute="leading" secondItem="CUD-8J-6Sg" secondAttribute="leading" id="79h-eq-QLG"/>
                     <constraint firstItem="YpK-Cr-dJb" firstAttribute="top" secondItem="CUD-8J-6Sg" secondAttribute="bottom" constant="10" id="94o-s3-if3"/>
+                    <constraint firstItem="uSv-ti-azI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EXZ-22-dYa"/>
                     <constraint firstItem="CUD-8J-6Sg" firstAttribute="leading" secondItem="dzD-E8-eYG" secondAttribute="trailing" constant="10" id="EzK-Nd-2iE"/>
                     <constraint firstAttribute="trailing" secondItem="aMq-f0-ImA" secondAttribute="trailing" constant="15" id="HAd-GD-Wma"/>
                     <constraint firstItem="CUD-8J-6Sg" firstAttribute="top" secondItem="dzD-E8-eYG" secondAttribute="top" constant="5" id="Pd4-UQ-rOu"/>
@@ -82,6 +91,7 @@
                     <constraint firstItem="dzD-E8-eYG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="doQ-E6-X5A"/>
                     <constraint firstItem="dzD-E8-eYG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="efb-ob-W7D"/>
                     <constraint firstItem="Mba-Gn-ZAq" firstAttribute="leading" secondItem="CUD-8J-6Sg" secondAttribute="trailing" constant="6" id="iCH-SH-LYB"/>
+                    <constraint firstAttribute="bottom" secondItem="uSv-ti-azI" secondAttribute="bottom" id="ibW-Qs-1YW"/>
                     <constraint firstItem="aMq-f0-ImA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lat-H7-P74"/>
                     <constraint firstItem="Mba-Gn-ZAq" firstAttribute="centerY" secondItem="CUD-8J-6Sg" secondAttribute="centerY" id="xew-N7-YtG"/>
                 </constraints>

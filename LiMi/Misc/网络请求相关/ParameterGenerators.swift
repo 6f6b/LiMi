@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/app1_6"
+let serverAddress = "http://testapp.youhongtech.com/index.php/app1_7"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -2430,6 +2430,74 @@ struct GetChallengeVideoList:TargetType,ParametersProtocol{
         let tmpParameters = [
             "challenge_id":challenge_id,
             "page":page
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct CollegesInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/collegesInfo"
+    }
+    
+    var college_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "college_id":college_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct ClickCollege:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/clickCollege"
+    }
+    
+    var college_id:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "college_id":college_id
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct GetStudyVideoList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "video/getStudyVideoList"
+    }
+    
+    var page:Int?
+    var time:Int?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "page":page,
+            "time":time
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

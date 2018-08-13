@@ -485,7 +485,10 @@ extension ScanVideosController:VideoPlayCellDelegate{
     }
     ///点击了学校
     func videoPlayCell(cell:VideoPlayCell,tapedSchoolNameWithModel model:VideoTrendModel?){
-        
+        let schoolListController = SchoolListController()
+        schoolListController.initiaSchoolModel = model?.user?.college
+        let navSchoolListController = CustomNavigationController.init(rootViewController: schoolListController)
+        self.present(navSchoolListController, animated: true, completion: nil)
     }
 }
 

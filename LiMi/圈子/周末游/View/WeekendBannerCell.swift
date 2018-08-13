@@ -18,10 +18,15 @@ class WeekendBannerCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
 
+        let cycleScrollViewHeight = (SCREEN_WIDTH-30)*194/345.0
         //配置icarouselView
-        cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_WIDTH*180/375.0), delegate: self, placeholderImage: UIImage())
+        cycleScrollView = SDCycleScrollView(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-30, height: cycleScrollViewHeight), delegate: self, placeholderImage: UIImage())
+        cycleScrollView.backgroundColor = APP_THEME_COLOR_1
         cycleScrollView.localizationImageNamesGroup = ["banner1","banner2","banner3"]
-
+        cycleScrollView.pageControlBottomOffset = -30*SCREEN_WIDTH/375.0
+        cycleScrollView.pageDotImage = UIImage.init(named: "qz_ic_lunboqinor")
+        cycleScrollView.currentPageDotImage = UIImage.init(named: "qz_ic_lunboqipre")
+        
         cycleScrollView.reloadInputViews()
         self.bannerContainView.addSubview(self.cycleScrollView)
     }

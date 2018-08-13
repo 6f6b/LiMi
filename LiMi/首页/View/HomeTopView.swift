@@ -48,9 +48,9 @@ class HomeTopView: UIView {
         self.navigationBarView.backgroundColor = UIColor.clear
         self.addSubview(self.navigationBarView)
         
-        self.recommendButton = self.addSegmentButtonWith(title: "推荐", frame: CGRect.init(x: 15, y: 0, width: 40, height: 20),tag: 0)
-        self.followsButton = self.addSegmentButtonWith(title: "关注", frame: CGRect.init(x: self.recommendButton.frame.maxX+5, y: 0, width: 40, height: 20),tag: 1)
-        self.schoolButton = self.addSegmentButtonWith(title: "学校", frame: CGRect.init(x: self.followsButton.frame.maxX + 5, y: 0, width: 40, height: 20),tag: 2)
+        self.recommendButton = self.addSegmentButtonWith(title: "下课", frame: CGRect.init(x: 15, y: 0, width: 40, height: 20),tag: 0)
+        self.followsButton = self.addSegmentButtonWith(title: "上课", frame: CGRect.init(x: self.recommendButton.frame.maxX+5, y: 0, width: 40, height: 20),tag: 1)
+        self.schoolButton = self.addSegmentButtonWith(title: "关注", frame: CGRect.init(x: self.followsButton.frame.maxX + 5, y: 0, width: 40, height: 20),tag: 2)
         
         self.downImageView = UIImageView.init(frame: CGRect.init(x: self.schoolButton.frame.maxX+5, y: 20, width: 10, height: 5 ))
         self.downImageView.image = UIImage.init(named: "sch_ic_xiala")
@@ -101,9 +101,9 @@ class HomeTopView: UIView {
             self.schoolButton.isSelected = false
             
             button.isSelected = true
-            if button.tag == 2{self.downImageView.isHidden = false}else{
-                self.downImageView.isHidden = true
-            }
+//            if button.tag == 2{self.downImageView.isHidden = false}else{
+//                self.downImageView.isHidden = true
+//            }
         }
     }
 }

@@ -22,8 +22,16 @@ class SchoolListController: UIViewController {
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var placeHolderImage: UIImageView!
     @IBOutlet weak var placeHolderText: UILabel!
-//    @IBOutlet weak var clearSearchTextButton: UIButton!
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var recommendSchoolsContainView: UIView!
+    lazy var collegeInfoContainView:CollegeInfoContainView = {
+        let collegeInfoContainView = GET_XIB_VIEW(nibName: "CollegeInfoContainView") as! CollegeInfoContainView
+        collegeInfoContainView.frame = self.recommendSchoolsContainView.bounds
+        collegeInfoContainView.delegate = self
+        self.recommendSchoolsContainView.addSubview(collegeInfoContainView)
+        return collegeInfoContainView
+    }()
+    var initiaSchoolModel:CollegeModel?
     
     weak var delegate:SchoolListControllerDelegate?
     var dataArray:[CollegeModel]!
@@ -43,8 +51,49 @@ class SchoolListController: UIViewController {
         dataArray = [CollegeModel]()
         self.requestData()
         self.searchText.addTarget(self, action: #selector(textFieldValueChanged(textField:)), for: UIControlEvents.editingChanged)
+        
+        self.recommendSchoolsContainView.isHidden = initiaSchoolModel == nil ? true : false
+        if let _collegeId = initiaSchoolModel?.id{
+            self.requestPrimaryCollegesWith(collegeId: _collegeId)
+        }else{
+            self.refreshUI()
+        }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func requestPrimaryCollegesWith(collegeId:Int){
+        let moyaProvider = MoyaProvider<LiMiAPI>()
+        let collegesInfo = CollegesInfo.init(college_id: collegeId)
+        _ = moyaProvider.rx.request(.targetWith(target: collegesInfo)).subscribe(onSuccess: { (response) in
+            let collegeVideoInfoListModel = Mapper<CollegeVideoInfoListModel>().map(jsonData: response.data)
+            var collegeVideoInfoModelsDataArray = [CollegeVideoInfoModel]()
+            if let collegeVideoInfoModels = collegeVideoInfoListModel?.data{
+                for collegeVideoInfoModel in collegeVideoInfoModels{
+                    collegeVideoInfoModelsDataArray.append(collegeVideoInfoModel)
+                }
+            }
+            self.refreshUI()
+            self.collegeInfoContainView.configWith(datas: collegeVideoInfoModelsDataArray)
+            Toast.showErrorWith(model: collegeVideoInfoListModel)
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
+    func refreshUI(){
+        var isRecommendSchoolsContainViewHidden = true
+        if let _text = self.searchText.text{
+            if _text.lengthOfBytes(using: String.Encoding.utf8) <= 0 && self.initiaSchoolModel != nil{
+                isRecommendSchoolsContainViewHidden = false
+            }
+        }
+        self.recommendSchoolsContainView.isHidden = isRecommendSchoolsContainViewHidden
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -99,6 +148,7 @@ extension SchoolListController:UITableViewDelegate,UITableViewDataSource{
 extension SchoolListController{
     @objc func textFieldValueChanged(textField:UITextField){
         let isTextFieldEmpty = IsEmpty(textField: textField)
+        self.refreshUI()
 //        self.placeHolderImage.isHidden = !isTextFieldEmpty
         self.placeHolderText.isHidden = !isTextFieldEmpty
 //        self.clearSearchTextButton.isHidden = isTextFieldEmpty
@@ -123,3 +173,32 @@ extension SchoolListController{
     }
 }
 
+extension SchoolListController : CollegeInfoContainViewDelegate{
+    func collegeInfoContainView(view: CollegeInfoContainView, clickCollegeWith model: CollegeVideoInfoModel?) {
+        let schoolsVideosController = SchoolsVideosController()
+        schoolsVideosController.collegeModel = model?.college
+        self.navigationController?.pushViewController(schoolsVideosController, animated: true)
+    }
+    
+    func collegeInfoContainView(view: CollegeInfoContainView, clickThumbUpWith model: CollegeVideoInfoModel?) {
+        //点赞、发通知
+        if let _isClick = model?.college?.is_click,let _collegeId = model?.college?.id{
+            let moyaProvider = MoyaProvider<LiMiAPI>()
+            let clickCollege = ClickCollege.init(college_id: model?.college?.id)
+            _ = moyaProvider.rx.request(.targetWith(target: clickCollege)).subscribe(onSuccess: { (response) in
+                let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
+                if baseModel?.commonInfoModel?.status == successState{
+                    model?.college?.is_click = !_isClick
+                    if let preClickNum = model?.college?.click_num{
+                        let nowClickNum = !_isClick ? (preClickNum+1) : (preClickNum-1)
+                        model?.college?.click_num = nowClickNum
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "CLICK_COLLEGE_NOTIFICATION"), object: nil, userInfo: ["collegeId":_collegeId,"isClick":!_isClick])
+                }
+                Toast.showErrorWith(model: baseModel)
+            }, onError: { (error) in
+                Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }
+    }
+}

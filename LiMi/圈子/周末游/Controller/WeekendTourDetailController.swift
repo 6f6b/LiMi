@@ -12,6 +12,7 @@ import SVProgressHUD
 import MJRefresh
 
 class WeekendTourDetailController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var tableView: UITableView!
     var _weekendId:Int?
     @objc var weekendId:Int{

@@ -259,6 +259,7 @@ import ObjectMapper
                 Toast.showErrorWith(msg: error.localizedDescription)
                 return
             }
+            Toast.showStatusWith(text: "上传进度:\(Int(0))%")
             let info = AliyunUploadSVideoInfo.init()
             info.title = "\(NSTimeIntervalSince1970).mp4"
             if let accessKeyId = uploadVideoCertificateModel.AccessKeyId,let accessKeySecret = uploadVideoCertificateModel.AccessKeySecret,let accessKeyToken = uploadVideoCertificateModel.SecurityToken{
@@ -288,7 +289,7 @@ import ObjectMapper
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let textExtraModelsJson = self.publishContentEditView.textExtraModelsJsonString()
         let uidsStrs = self.publishContentEditView.userIds()
-        let publishVideo = PublishVideo.init(title: self.publishContentEditView.textView.text, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration, music_type: self.musicType, challenge_name: self.selectChallengeModel?.challenge_name, challenge_id: self.selectChallengeModel?.challenge_id, notify_users: uidsStrs, publish_addr: "zhongguo", notify_extra: textExtraModelsJson)
+        let publishVideo = PublishVideo.init(title: self.publishContentEditView.textView.text, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration, music_type: self.musicType, challenge_name: self.selectChallengeModel?.challenge_name, challenge_id: self.selectChallengeModel?.challenge_id, notify_users: uidsStrs, publish_addr: self.selectLocationModel?.name, notify_extra: textExtraModelsJson)
        // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)

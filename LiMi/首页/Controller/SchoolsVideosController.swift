@@ -19,8 +19,12 @@ class SchoolsVideosController: VideoListController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.title = collegeModel?.name
+//        self.topBackGroundView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT))
+//        self.topBackGroundView.backgroundColor = RGBA(r: 30, g: 30, b: 30, a: 1)
+//        self.view.addSubview(self.topBackGroundView)
+//
+//        self.collectionView.frame = CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT)
     }
 
     override func didReceiveMemoryWarning() {

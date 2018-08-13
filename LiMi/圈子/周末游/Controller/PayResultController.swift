@@ -10,6 +10,7 @@ import UIKit
 import YYText
 
 class PayResultController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
     @IBOutlet weak var successContainView: UIView!
     @IBOutlet weak var successLabel: UILabel!
     var successInfo: YYLabel!
@@ -33,23 +34,23 @@ class PayResultController: UIViewController {
         
         self.failedThenRePayBtn.layer.cornerRadius = 5
         self.failedThenRePayBtn.clipsToBounds = true
-        self.failedThenRePayBtn.layer.borderWidth = 1
-        self.failedThenRePayBtn.layer.borderColor = APP_THEME_COLOR.cgColor
+//        self.failedThenRePayBtn.layer.borderWidth = 1
+//        self.failedThenRePayBtn.layer.borderColor = APP_THEME_COLOR.cgColor
         
         self.failedThenBackToHomeBtn.layer.cornerRadius = 5
         self.failedThenBackToHomeBtn.clipsToBounds = true
-        self.failedThenBackToHomeBtn.layer.borderWidth = 1
-        self.failedThenBackToHomeBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
+//        self.failedThenBackToHomeBtn.layer.borderWidth = 1
+//        self.failedThenBackToHomeBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
         
         self.successThenBackToHomeBtn.layer.cornerRadius = 5
         self.successThenBackToHomeBtn.clipsToBounds = true
-        self.successThenBackToHomeBtn.layer.borderWidth = 1
-        self.successThenBackToHomeBtn.layer.borderColor = APP_THEME_COLOR.cgColor
+//        self.successThenBackToHomeBtn.layer.borderWidth = 1
+//        self.successThenBackToHomeBtn.layer.borderColor = APP_THEME_COLOR.cgColor
         
         self.successThenCheckOrderBtn.layer.cornerRadius = 5
         self.successThenCheckOrderBtn.clipsToBounds = true
-        self.successThenCheckOrderBtn.layer.borderWidth = 1
-        self.successThenCheckOrderBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
+//        self.successThenCheckOrderBtn.layer.borderWidth = 1
+//        self.successThenCheckOrderBtn.layer.borderColor = RGBA(r: 153, g: 153, b: 153, a: 153).cgColor
         
         self.successInfo = YYLabel.init()
         self.successContainView.addSubview(self.successInfo)
@@ -68,9 +69,9 @@ class PayResultController: UIViewController {
         let phoneNumRange = nsPhoneText.range(of: PHONE_NUMBER)
         let attrPhoneText = NSMutableAttributedString.init(string: phoneText)
         attrPhoneText.yy_font = UIFont.systemFont(ofSize: 12)
-        attrPhoneText.yy_color = RGBA(r: 153, g: 153, b: 153, a: 1)
+        attrPhoneText.yy_color = RGBA(r: 114, g: 114, b: 114, a: 1)
         attrPhoneText.yy_alignment = .center
-        attrPhoneText.yy_setTextHighlight(phoneNumRange, color: APP_THEME_COLOR, backgroundColor: nil) { (view, str, range, rect) in
+        attrPhoneText.yy_setTextHighlight(phoneNumRange, color: APP_THEME_COLOR_2, backgroundColor: nil) { (view, str, range, rect) in
             UIApplication.shared.openURL(URL(string: "tel:\(PHONE_NUMBER)")!)
         }
         self.successInfo.preferredMaxLayoutWidth = SCREEN_WIDTH-40*2
@@ -88,14 +89,7 @@ class PayResultController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showWith(model: self.baseModel)
-
-        
-        UIApplication.shared.statusBarStyle = .default
-        self.view.backgroundColor = RGBA(r: 242, g: 242, b: 242, a: 1)
-        self.navigationController?.navigationBar.setBackgroundImage(GetNavBackImg(color: UIColor.white), for: .default)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:RGBA(r: 51, g: 51, b: 51, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17)]
-    }
+}
     
     func showWith(model:BaseModel?){
         if model?.commonInfoModel?.status == successState{

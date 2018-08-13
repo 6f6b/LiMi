@@ -30,7 +30,6 @@ class CircleController: UIViewController {
         leftTitleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         leftTitleLabel.textColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftTitleLabel)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 0
@@ -68,11 +67,13 @@ class CircleController: UIViewController {
             self.loadData()
         }
         self.loadData()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = nil
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func didReceiveMemoryWarning() {
@@ -134,7 +135,7 @@ extension CircleController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-            let height = 10 + (SCREEN_WIDTH-30)*194.0/345.0 + 20 + 50 + 20
+            let height = 10 + (SCREEN_WIDTH-30)*194.0/345.0 + 35 + 50 + 20
             return height
         }
         let videoTrendHeight = (SCREEN_WIDTH-15*2-3*2)/3*4/3

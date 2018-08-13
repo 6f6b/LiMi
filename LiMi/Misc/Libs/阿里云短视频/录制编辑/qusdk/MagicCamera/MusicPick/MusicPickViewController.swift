@@ -291,7 +291,9 @@ extension MusicPickViewController: MusicListControllerDelegate{
             Toast.showStatusWith(text: "正在下载..")
             self.download(filePath: path) {[unowned self] (outputPath) in
                 Toast.dismiss()
-                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: 0, duration: self.duration)
+                if let _time = model?.time{
+                    self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: 0, duration: Float(_time))
+                }
                 self.navigationController?.popViewController(animated: true)
             }
             self.player.pause()
@@ -304,7 +306,7 @@ extension MusicPickViewController: MusicListControllerDelegate{
         self.selectedMusicModel = musicModel
         
         let _duration = Float(musicModel.time ?? 0)
-        self.musicPickView.configureMusicDuration(_duration, pageDuration: self.duration)
+        self.musicPickView.configureMusicDuration(_duration, pageDuration: FIRST_LEVEL_RECORD_TIME)
         self.showMusicProgressView()
     }
     
@@ -366,7 +368,10 @@ extension MusicPickViewController:AliyunMusicPickViewDelegate{
             Toast.showStatusWith(text: "正在下载..")
             self.download(filePath: path) {[unowned self] (outputPath) in
                 Toast.dismiss()
-                self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: self.startTime, duration: self.duration)
+                if let _time = model?.time{
+                    let duration = Float(_time)-self.startTime
+                    self.delegate.musicPickViewControllerSelected(musicId:musicId,musicPath: outputPath,musicType:musicType, startTime: self.startTime, duration: duration)
+                }
                 self.navigationController?.popViewController(animated: true)
             }
             self.player.pause()

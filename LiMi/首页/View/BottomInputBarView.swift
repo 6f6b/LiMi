@@ -50,7 +50,7 @@ class BottomInputBarView: UIView {
         self.addSubview(self.textFeild)
         
         self.seperateLine = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 1))
-        self.seperateLine.backgroundColor = UIColor.white
+        self.seperateLine.backgroundColor = RGBA(r: 255, g: 255, b: 255, a: 0.5)
         self.addSubview(self.seperateLine)
     }
     

@@ -148,7 +148,12 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
         if let limiCode = model?.id_code{
             self.limiNumLabel.text = "粒米号：" + limiCode
         }
-        let signature = model?.signature ?? "暂无签名"
+        var signature = "暂无签名"
+        if let _signature = model?.signature{
+            if _signature.lengthOfBytes(using: String.Encoding.utf8) >= 1{
+                signature = _signature
+            }
+        }
         self.signatureLabel.text = signature
         if let followsNum = model?.attention_num,let followersNum = model?.fans_num,let clickNum = model?.click_num{
             let followsNumAttr = NSMutableAttributedString.init(string: followsNum.suitableStringValue(), attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 17, weight: .bold),NSAttributedStringKey.foregroundColor:UIColor.white])

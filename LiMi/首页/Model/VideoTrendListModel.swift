@@ -11,6 +11,7 @@ import ObjectMapper
 
 class VideoTrendListModel: BaseModel {
     var data:[VideoTrendModel]?
+    var college:CollegeModel?
     var time:Int?
     //var timestamp:Int?
     
@@ -23,6 +24,7 @@ class VideoTrendListModel: BaseModel {
         data<-map["data.data"]
         //time<-map["data.time"]
         time <- map["data.timestamp"]
+        college <- map["data.college"]
     }
 }
 

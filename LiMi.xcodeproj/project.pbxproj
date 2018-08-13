@@ -862,6 +862,16 @@
 		68C5F298203FF4E400769A92 /* FeedBackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */; };
 		68C5F2A7203FFC7500769A92 /* SubmitFeedbackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */; };
 		68C5F2A8203FFC7600769A92 /* SubmitFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */; };
+		68C6D6C4211AF9550068F479 /* AttendClassTypeVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6C2211AF9550068F479 /* AttendClassTypeVideoCell.swift */; };
+		68C6D6C5211AF9550068F479 /* AttendClassTypeVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C6D6C3211AF9550068F479 /* AttendClassTypeVideoCell.xib */; };
+		68C6D6C8211BEB4C0068F479 /* AttendClassTypeVideosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6C6211BEB4C0068F479 /* AttendClassTypeVideosController.swift */; };
+		68C6D6CF211C17FD0068F479 /* CollegeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6CE211C17FD0068F479 /* CollegeInfoView.swift */; };
+		68C6D6D1211C180E0068F479 /* CollegeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C6D6D0211C180E0068F479 /* CollegeInfoView.xib */; };
+		68C6D6D3211C19900068F479 /* CollegeInfoContainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6D2211C19900068F479 /* CollegeInfoContainView.swift */; };
+		68C6D6D5211C199B0068F479 /* CollegeInfoContainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C6D6D4211C199B0068F479 /* CollegeInfoContainView.xib */; };
+		68C6D6D7211C2EC20068F479 /* CollegeVideoInfoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6D6211C2EC10068F479 /* CollegeVideoInfoListModel.swift */; };
+		68C6D6DA211D7C640068F479 /* ShoolHeatValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6D6D8211D7C640068F479 /* ShoolHeatValueCell.swift */; };
+		68C6D6DB211D7C650068F479 /* ShoolHeatValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C6D6D9211D7C640068F479 /* ShoolHeatValueCell.xib */; };
 		68C9857F20F455D0008BC899 /* SameParagraphScanVideoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9857E20F455D0008BC899 /* SameParagraphScanVideoListController.swift */; };
 		68C9ED1120B5258200A8F34D /* AddAnimationFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C9ED0F20B5258200A8F34D /* AddAnimationFilterController.m */; };
 		68C9ED1220B5258200A8F34D /* AddAnimationFilterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C9ED1020B5258200A8F34D /* AddAnimationFilterController.xib */; };
@@ -2687,6 +2697,16 @@
 		68C5F297203FF4E400769A92 /* FeedBackHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackHeaderView.swift; sourceTree = "<group>"; };
 		68C5F2A5203FFC7500769A92 /* SubmitFeedbackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFeedbackCell.swift; sourceTree = "<group>"; };
 		68C5F2A6203FFC7500769A92 /* SubmitFeedbackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmitFeedbackCell.xib; sourceTree = "<group>"; };
+		68C6D6C2211AF9550068F479 /* AttendClassTypeVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendClassTypeVideoCell.swift; sourceTree = "<group>"; };
+		68C6D6C3211AF9550068F479 /* AttendClassTypeVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttendClassTypeVideoCell.xib; sourceTree = "<group>"; };
+		68C6D6C6211BEB4C0068F479 /* AttendClassTypeVideosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendClassTypeVideosController.swift; sourceTree = "<group>"; };
+		68C6D6CE211C17FD0068F479 /* CollegeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeInfoView.swift; sourceTree = "<group>"; };
+		68C6D6D0211C180E0068F479 /* CollegeInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollegeInfoView.xib; sourceTree = "<group>"; };
+		68C6D6D2211C19900068F479 /* CollegeInfoContainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeInfoContainView.swift; sourceTree = "<group>"; };
+		68C6D6D4211C199B0068F479 /* CollegeInfoContainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollegeInfoContainView.xib; sourceTree = "<group>"; };
+		68C6D6D6211C2EC10068F479 /* CollegeVideoInfoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeVideoInfoListModel.swift; sourceTree = "<group>"; };
+		68C6D6D8211D7C640068F479 /* ShoolHeatValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoolHeatValueCell.swift; sourceTree = "<group>"; };
+		68C6D6D9211D7C640068F479 /* ShoolHeatValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoolHeatValueCell.xib; sourceTree = "<group>"; };
 		68C9857E20F455D0008BC899 /* SameParagraphScanVideoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameParagraphScanVideoListController.swift; sourceTree = "<group>"; };
 		68C9ED0E20B5258200A8F34D /* AddAnimationFilterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAnimationFilterController.h; sourceTree = "<group>"; };
 		68C9ED0F20B5258200A8F34D /* AddAnimationFilterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAnimationFilterController.m; sourceTree = "<group>"; };
@@ -6007,6 +6027,7 @@
 				68B9741420C7C91300162547 /* MoreOperationController.swift */,
 				68B9741520C7C91300162547 /* MoreOperationController.xib */,
 				68A19F8520C98279008059F6 /* OtherUserDetailVideoAndLikedVideosController.swift */,
+				68C6D6C6211BEB4C0068F479 /* AttendClassTypeVideosController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6026,6 +6047,7 @@
 				687CA40720C666CB0016FB4A /* VideoTrendListModel.swift */,
 				68FD415020F35E0900AA0762 /* SameParagraphVideoListModel.swift */,
 				6894D12D2111BFA9009953F9 /* SameChallengeVideoListModel.swift */,
+				68C6D6D6211C2EC10068F479 /* CollegeVideoInfoListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6091,6 +6113,8 @@
 				687CA37A20C521500016FB4A /* HomeTopView.swift */,
 				68E7D82120CC299300A8CC98 /* VideoPlayCell.swift */,
 				68E7D82220CC299300A8CC98 /* VideoPlayCell.xib */,
+				68C6D6C2211AF9550068F479 /* AttendClassTypeVideoCell.swift */,
+				68C6D6C3211AF9550068F479 /* AttendClassTypeVideoCell.xib */,
 				6881034020D251C900A496CD /* BufferView.swift */,
 				687CA40320C63AB40016FB4A /* MusicInfoView.swift */,
 				6824487720C67388009D1AED /* VideoListCollectionViewCell.swift */,
@@ -6105,6 +6129,12 @@
 				68DB858D20FDDE52008C0F48 /* EmptyCollectionCell.xib */,
 				6894D1292111BF64009953F9 /* ChallengeInfoInCollectionViewCell.swift */,
 				6894D12A2111BF64009953F9 /* ChallengeInfoInCollectionViewCell.xib */,
+				68C6D6D2211C19900068F479 /* CollegeInfoContainView.swift */,
+				68C6D6D4211C199B0068F479 /* CollegeInfoContainView.xib */,
+				68C6D6CE211C17FD0068F479 /* CollegeInfoView.swift */,
+				68C6D6D0211C180E0068F479 /* CollegeInfoView.xib */,
+				68C6D6D8211D7C640068F479 /* ShoolHeatValueCell.swift */,
+				68C6D6D9211D7C640068F479 /* ShoolHeatValueCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7411,6 +7441,7 @@
 				6801E014202C6EA800C106E1 /* NTESJionTeamViewController.xib in Resources */,
 				681C5C6A20EB300700341D7D /* CityListCell.xib in Resources */,
 				681C95CD204542B0009CDE3B /* NearbyPeopleCollectionCell.xib in Resources */,
+				68C6D6C5211AF9550068F479 /* AttendClassTypeVideoCell.xib in Resources */,
 				6824487A20C67388009D1AED /* VideoListCollectionViewCell.xib in Resources */,
 				6801E0AF202C6EA900C106E1 /* NTESUserInfoSettingViewController.xib in Resources */,
 				6864AC5720494BD700422CD8 /* MyTourOrderCell.xib in Resources */,
@@ -7458,6 +7489,7 @@
 				68E6B5D820E9C06D00FD208A /* SchoolCell.xib in Resources */,
 				68DFD0AA20B2AACD009B8373 /* LocalFont.json in Resources */,
 				68DFAB5F20AC1792009B8373 /* AliyunVideoSDK-opencore-amr in Resources */,
+				68C6D6DB211D7C650068F479 /* ShoolHeatValueCell.xib in Resources */,
 				6801E0A1202C6EA900C106E1 /* NTESNoDisturbSettingViewController.xib in Resources */,
 				6801E03A202C6EA900C106E1 /* NTESContactViewController.xib in Resources */,
 				685E395E2063B375003B505E /* SystemMsgListController.xib in Resources */,
@@ -7529,6 +7561,7 @@
 				688A4C96200DD12E00BB5DF7 /* AlterUserNameController.xib in Resources */,
 				6801E017202C6EA900C106E1 /* NTESRobotCardViewController.xib in Resources */,
 				6801E05E202C6EA900C106E1 /* NTESAudio2TextViewController.xib in Resources */,
+				68C6D6D5211C199B0068F479 /* CollegeInfoContainView.xib in Resources */,
 				68DF860920AAB701009B8373 /* ReleaseTypeController.xib in Resources */,
 				681C95AC2045366E009CDE3B /* CreateTopicCircleController.xib in Resources */,
 				6801E10B202DA6CE00C106E1 /* video_chat_tip_receiver.aac in Resources */,
@@ -7603,6 +7636,7 @@
 				68DFAB2C20AC1792009B8373 /* LaunchScreen.strings in Resources */,
 				683107C12024402C0060B109 /* EmptyTrendsCell.xib in Resources */,
 				681389C12051652500F65623 /* WeekendTourOrderStatusView.xib in Resources */,
+				68C6D6D1211C180E0068F479 /* CollegeInfoView.xib in Resources */,
 				6867ABFC20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7842,6 +7876,7 @@
 				68DFABB420AC1792009B8373 /* AliyunCoverPickViewController.m in Sources */,
 				6801DF9B202C6EA800C106E1 /* NIMInputView.m in Sources */,
 				6801DFD8202C6EA800C106E1 /* NIMTeamCardHeaderCell.m in Sources */,
+				68C6D6DA211D7C640068F479 /* ShoolHeatValueCell.swift in Sources */,
 				68B973F920C6832200162547 /* CustomNavigationBarView.swift in Sources */,
 				6801DF6D202C6EA800C106E1 /* M80AttributedLabel+NIMKit.m in Sources */,
 				68DFAB7920AC1792009B8373 /* AliyunEffectMoreViewController.m in Sources */,
@@ -7858,6 +7893,7 @@
 				6801E0BE202C6EA900C106E1 /* NTESFileLocationHelper.m in Sources */,
 				6801E0AD202C6EA900C106E1 /* NTESSignSettingViewController.m in Sources */,
 				6801E03C202C6EA900C106E1 /* NTESLoginManager.m in Sources */,
+				68C6D6D3211C19900068F479 /* CollegeInfoContainView.swift in Sources */,
 				6801E0A7202C6EA900C106E1 /* NTESAliasSettingViewController.m in Sources */,
 				681C5C5820EA382200341D7D /* ProvinceListModel.swift in Sources */,
 				6801E00A202C6EA800C106E1 /* NTESFPSLabel.m in Sources */,
@@ -7918,6 +7954,7 @@
 				6801E04C202C6EA900C106E1 /* NTESRedPacketAttachment.m in Sources */,
 				682FEF602113F8CF00B8CBD2 /* ChallengeWithVideosListModel.swift in Sources */,
 				689DFA332008B4E9007FAE9C /* CollegeCell.swift in Sources */,
+				68C6D6C8211BEB4C0068F479 /* AttendClassTypeVideosController.swift in Sources */,
 				6814A5FD2089D1B2002B3BBC /* FileUploadModel.swift in Sources */,
 				6801E041202C6EA900C106E1 /* NTESCustomNotificationDB.m in Sources */,
 				68DFAB3120AC1792009B8373 /* AliyunIConfig.m in Sources */,
@@ -8061,6 +8098,7 @@
 				6801DFA0202C6EA800C106E1 /* NIMMessageModel.m in Sources */,
 				68BF91982109A5F40095CAD8 /* CommentMsgCell.swift in Sources */,
 				6801E0D0202C6EA900C106E1 /* SVProgressHUD+Swizzling.m in Sources */,
+				68C6D6D7211C2EC20068F479 /* CollegeVideoInfoListModel.swift in Sources */,
 				68DFABA320AC1792009B8373 /* AliyunEffectFilterView.m in Sources */,
 				689C96DC20E498D1006E6032 /* MenuCell.swift in Sources */,
 				68DFAB6720AC1792009B8373 /* AliyunCropViewController.m in Sources */,
@@ -8176,6 +8214,7 @@
 				6864AC5620494BD700422CD8 /* MyTourOrderCell.swift in Sources */,
 				683107B72024040A0060B109 /* TrendsCellFactory.swift in Sources */,
 				68DFAB2F20AC1792009B8373 /* AliyunPhotoLibraryManager.m in Sources */,
+				68C6D6C4211AF9550068F479 /* AttendClassTypeVideoCell.swift in Sources */,
 				6801E04B202C6EA900C106E1 /* NTESJanKenPonAttachment.m in Sources */,
 				6801E009202C6EA800C106E1 /* NTESBadgeView.m in Sources */,
 				6801E00C202C6EA800C106E1 /* NTESPageView.m in Sources */,
@@ -8210,6 +8249,7 @@
 				68DFAB7E20AC1792009B8373 /* AliyunEffectManagerView.m in Sources */,
 				6801DFC9202C6EA800C106E1 /* NIMSessionListCell.m in Sources */,
 				681C95DF2047A13D009CDE3B /* WeekendTourController.swift in Sources */,
+				68C6D6CF211C17FD0068F479 /* CollegeInfoView.swift in Sources */,
 				68BF91A42109A6550095CAD8 /* RemindMsgCell.swift in Sources */,
 				681C95CF204553F5009CDE3B /* LocationManager.swift in Sources */,
 				6801E02F202C6EA900C106E1 /* NTESContactDataMember.m in Sources */,
@@ -8827,6 +8867,10 @@
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/AliyunVideoBase",
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/qusdk/AliyunVideoBase",
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/SDK",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework/Release",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework/Debug",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LiMi/Misc/basicclass/LiMi-PrefixHeader.pch";
 				INFOPLIST_FILE = LiMi/Info.plist;
@@ -8920,6 +8964,10 @@
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/AliyunVideoBase",
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/qusdk/AliyunVideoBase",
 					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/SDK",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework/Release",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework",
+					"$(PROJECT_DIR)/LiMi/Misc/Libs/阿里云短视频/录制编辑/framework/Debug",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LiMi/Misc/basicclass/LiMi-PrefixHeader.pch";
 				INFOPLIST_FILE = LiMi/Info.plist;

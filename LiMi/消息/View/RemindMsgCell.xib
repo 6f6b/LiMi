@@ -64,6 +64,13 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-h5-Av0">
+                        <rect key="frame" x="0.0" y="95" width="379" height="0.5"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.29999999999999999" id="XiS-xs-bS6"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
@@ -71,8 +78,11 @@
                     <constraint firstItem="rpK-WI-UUZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4ZL-Kn-Jbk"/>
                     <constraint firstItem="DFX-td-sHT" firstAttribute="top" secondItem="Aob-xw-rno" secondAttribute="bottom" constant="10" id="5Xy-KK-R6V"/>
                     <constraint firstItem="DFX-td-sHT" firstAttribute="leading" secondItem="Aob-xw-rno" secondAttribute="leading" id="8fm-9H-5ZG"/>
+                    <constraint firstAttribute="trailing" secondItem="Xr6-h5-Av0" secondAttribute="trailing" id="BK6-wa-Buw"/>
                     <constraint firstItem="17R-a9-BbA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="OmH-Dm-bB8"/>
+                    <constraint firstAttribute="bottom" secondItem="Xr6-h5-Av0" secondAttribute="bottom" id="bGg-f5-jsi"/>
                     <constraint firstAttribute="trailing" secondItem="rpK-WI-UUZ" secondAttribute="trailing" constant="15" id="d6w-UI-S8k"/>
+                    <constraint firstItem="Xr6-h5-Av0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ewb-66-w3c"/>
                     <constraint firstItem="Aob-xw-rno" firstAttribute="leading" secondItem="17R-a9-BbA" secondAttribute="trailing" constant="10" id="hS4-uM-L5u"/>
                     <constraint firstItem="17R-a9-BbA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="haT-Bm-sG4"/>
                     <constraint firstItem="gQk-ka-NEM" firstAttribute="leading" secondItem="Aob-xw-rno" secondAttribute="trailing" constant="6" id="n5x-Pc-AZL"/>

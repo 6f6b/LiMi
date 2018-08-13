@@ -281,7 +281,8 @@
     UITableViewCell *cell  = (UITableViewCell *)view;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NIMRecentSession *recent = self.recentSessions[indexPath.row];
-    [self onSelectedAvatar:recent atIndexPath:indexPath];
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    //[self onSelectedAvatar:recent atIndexPath:indexPath];
 }
 
 
