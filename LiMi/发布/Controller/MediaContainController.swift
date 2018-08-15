@@ -118,7 +118,7 @@ class MediaContainController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])
 
     }
     

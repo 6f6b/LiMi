@@ -142,7 +142,8 @@ class UserDetailsController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.isTranslucent = true
         
-        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+        LEAVE_PLAY_PAGE_NOTIFICATION
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])
         
         self.userDetailInfoHeaderView?.configWith(model: self.userInfoModel,type:self.userInfoHeaderViewType)
         if (self.navigationController?.navigationBar.isHidden)!{

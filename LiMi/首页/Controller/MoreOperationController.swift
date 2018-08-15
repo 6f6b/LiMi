@@ -8,9 +8,9 @@
 
 import UIKit
 protocol MoreOperationControllerDelegate: class {
-    func moreOperationReportClicked()
-    func moreOperationBlackClicked()
-    func moreOperationDeleteClicked()
+    func moreOperationReportClicked(model:VideoTrendModel?)
+    func moreOperationBlackClicked(model:VideoTrendModel?)
+    func moreOperationDeleteClicked(model:VideoTrendModel?)
 }
 class MoreOperationController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
@@ -51,18 +51,18 @@ class MoreOperationController: UIViewController {
 
     @IBAction func reportButtonClicked(_ sender: Any) {
         self.dismiss(animated: true) {
-            self.delegate?.moreOperationReportClicked()
+            self.delegate?.moreOperationReportClicked(model: self.videoTrendModel)
         }
     }
     @IBAction func blackButtonClicked(_ sender: Any) {
         self.dismiss(animated: true) {
-            self.delegate?.moreOperationBlackClicked()
+            self.delegate?.moreOperationBlackClicked(model: self.videoTrendModel)
         }
 
     }
     @IBAction func deleteButtonClicked(_ sender: Any) {
         self.dismiss(animated: true) {
-            self.delegate?.moreOperationDeleteClicked()
+            self.delegate?.moreOperationDeleteClicked(model: self.videoTrendModel)
         }
     }
 }

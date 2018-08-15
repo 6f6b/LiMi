@@ -77,9 +77,9 @@ class SingleVideoPlayController: UIViewController {
         self.navigationBarView.addSubview(self.backButton)
         
         //离开播放页
-        NotificationCenter.default.addObserver(self, selector: #selector(leave), name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(leave(notification:)), name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
         //进入播放页
-        NotificationCenter.default.addObserver(self, selector: #selector(into), name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(into(notification:)), name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
@@ -197,8 +197,7 @@ class SingleVideoPlayController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.isVisiable = false
-        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-        
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])        
     }
     
     
@@ -437,14 +436,21 @@ extension SingleVideoPlayController:VideoPlayCellDelegate{
 }
 
 //mark: - 离开停止，进入播放
+//mark: - 离开停止，进入播放
 extension SingleVideoPlayController{
-    @objc func leave(){
+    @objc func leave(notification:Notification){
+        if let info = notification.userInfo{
+            if info[ControllerTypeKey] as? VideoPlayerControllerType == VideoPlayerControllerType.inClass{return}
+        }
         print("离开停止")
         self.isVisiable = false
         self.player.pause()
     }
     
-    @objc func into(){
+    @objc func into(notification:Notification){
+        if let info = notification.userInfo{
+            if info[ControllerTypeKey] as? VideoPlayerControllerType == VideoPlayerControllerType.inClass{return}
+        }
         print("进入播放")
         self.isVisiable = true
         if self.player.playerState() == .prepared{
@@ -458,15 +464,16 @@ extension SingleVideoPlayController{
 }
 
 extension SingleVideoPlayController:MoreOperationControllerDelegate{
-    func moreOperationReportClicked(){
+    func moreOperationReportClicked(model: VideoTrendModel?) {
         self.doMoreOperationWith(type: "report")
     }
-    func moreOperationBlackClicked(){
+    
+    func moreOperationBlackClicked(model: VideoTrendModel?) {
         self.doMoreOperationWith(type: "black")
     }
-    func moreOperationDeleteClicked(){
+    
+    func moreOperationDeleteClicked(model: VideoTrendModel?) {
         self.doMoreOperationWith(type: "delete")
-        
     }
     
     func doMoreOperationWith(type:String){

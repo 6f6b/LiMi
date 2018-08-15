@@ -11,6 +11,17 @@ import Moya
 import ObjectMapper
 import DZNEmptyDataSet
 
+enum VideoPlayerControllerType {
+    ///上课
+    case inClass
+    ///下课
+    case outClass
+    ///全部
+    case all
+}
+
+let ControllerTypeKey = "ControllerTypeKey"
+
 class HomeContainViewController: UIViewController {
     var statusBarHidden:Bool = true
     override var prefersStatusBarHidden: Bool{return statusBarHidden}
@@ -84,7 +95,10 @@ class HomeContainViewController: UIViewController {
         self.tabBarController?.tabBar.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.isHidden = true
         if self.subControllerContainView.subviews.last == self.scanVideosController.view{
-            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
+            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.outClass])
+        }
+        if self.subControllerContainView.subviews.last == self.attendClassTypeVideosController.view{
+            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.inClass])
         }
         
         //检测是否登录
@@ -145,7 +159,7 @@ class HomeContainViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])
     }
     
     // MARK: -misc
@@ -215,30 +229,21 @@ extension HomeContainViewController:HomeTopViewDelegate{
             self.navigationController?.navigationBar.isHidden = true
             self.statusBarHidden = true
             self.subControllerContainView.bringSubview(toFront: self.scanVideosController.view)
-            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil)
+            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.outClass])
+            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.inClass])
         }
         if index == 1{
             if !AppManager.shared.checkUserStatus(){return false}
             self.statusBarHidden = false
             self.subControllerContainView.bringSubview(toFront: self.attendClassTypeVideosController.view)
-            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-//            if !AppManager.shared.checkUserStatus(){return false}
-//            if currentSelectedControllerIndex == 2{
-//                let schoolListController = SchoolListController()
-//                schoolListController.delegate = self
-//                self.present(schoolListController, animated: true, completion: nil)
-//            }else{
-//                self.statusBarHidden = false
-//                self.subControllerContainView.bringSubview(toFront: self.schoolsVideosController.view)
-//                NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
-//
-//            }
+            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.outClass])
+            NotificationCenter.default.post(name: INTO_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.inClass])
         }
         if index == 2{
             if !AppManager.shared.checkUserStatus(){return false}
             self.statusBarHidden = false
             self.subControllerContainView.bringSubview(toFront: self.myFollowsVideosController.view)
-            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil)
+            NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])
 
         }
         currentSelectedControllerIndex = index

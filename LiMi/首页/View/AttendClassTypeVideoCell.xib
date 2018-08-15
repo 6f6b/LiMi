@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="342" id="KGk-i7-Jjw" customClass="AttendClassTypeVideoCell" customModule="LiMi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="430" height="342"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="394" id="KGk-i7-Jjw" customClass="AttendClassTypeVideoCell" customModule="LiMi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="394"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="430" height="341.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="430" height="393.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6K-Hw-tzr">
@@ -76,7 +76,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.44705882349999998" green="0.0" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9me-BZ-pEY" firstAttribute="leading" secondItem="rdW-X4-Rgv" secondAttribute="trailing" constant="10" id="2qj-Rh-Xae"/>
                             <constraint firstItem="flH-zl-Avt" firstAttribute="top" secondItem="9me-BZ-pEY" secondAttribute="bottom" constant="8" id="3uX-QM-Gtj"/>
@@ -92,19 +92,20 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIB-hI-VS1">
-                        <rect key="frame" x="0.0" y="297.5" width="430" height="44"/>
+                        <rect key="frame" x="0.0" y="329.5" width="430" height="44"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMH-yw-nwX">
                                 <rect key="frame" x="15" y="8" width="55" height="28"/>
                                 <state key="normal" title="101" image="school_ic_like">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <state key="selected" image="school_ic_likepre"/>
                                 <connections>
                                     <action selector="clickThumbUpButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yyK-3o-wJX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7N7-sj-Zlc">
-                                <rect key="frame" x="93" y="8" width="55" height="28"/>
+                                <rect key="frame" x="100" y="8" width="55" height="28"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="-2"/>
                                 <state key="normal" title="101" image="school_ic_pl">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -114,7 +115,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCl-7r-2Ez">
-                                <rect key="frame" x="182" y="8" width="28" height="28"/>
+                                <rect key="frame" x="190" y="8" width="28" height="28"/>
                                 <state key="normal" image="school_ic_more">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -123,42 +124,23 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.44705882349999998" green="0.0" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="QMH-yw-nwX" firstAttribute="leading" secondItem="HIB-hI-VS1" secondAttribute="leading" constant="15" id="1IW-R6-wjm"/>
-                            <constraint firstItem="7N7-sj-Zlc" firstAttribute="leading" secondItem="QMH-yw-nwX" secondAttribute="trailing" constant="23" id="7Z1-7E-Qj2"/>
                             <constraint firstItem="QMH-yw-nwX" firstAttribute="centerY" secondItem="HIB-hI-VS1" secondAttribute="centerY" id="RR0-oo-5sv"/>
                             <constraint firstAttribute="height" constant="44" id="SfP-IJ-8Kl"/>
-                            <constraint firstItem="dCl-7r-2Ez" firstAttribute="leading" secondItem="7N7-sj-Zlc" secondAttribute="trailing" constant="34" id="Ttg-0L-Pt6"/>
                             <constraint firstItem="dCl-7r-2Ez" firstAttribute="centerY" secondItem="HIB-hI-VS1" secondAttribute="centerY" id="ngM-g8-LJO"/>
+                            <constraint firstItem="dCl-7r-2Ez" firstAttribute="leading" secondItem="HIB-hI-VS1" secondAttribute="leading" constant="190" id="npv-iN-bgb"/>
                             <constraint firstItem="7N7-sj-Zlc" firstAttribute="centerY" secondItem="HIB-hI-VS1" secondAttribute="centerY" id="uok-2a-fmW"/>
+                            <constraint firstItem="7N7-sj-Zlc" firstAttribute="leading" secondItem="HIB-hI-VS1" secondAttribute="leading" constant="100" id="zhI-OR-gGq"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSc-kZ-dJ7">
                         <rect key="frame" x="15" y="59" width="240" height="128"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EpN-ea-IVq">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="f2d-xX-jxv"/>
-                                    <constraint firstAttribute="width" constant="240" id="isS-OR-mNA"/>
-                                </constraints>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music_ic_bofang" translatesAutoresizingMaskIntoConstraints="NO" id="bW5-VQ-lPM">
-                                <rect key="frame" x="208" y="96" width="22" height="22"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EpN-ea-IVq" firstAttribute="top" secondItem="pSc-kZ-dJ7" secondAttribute="top" id="CM7-sD-La4"/>
-                            <constraint firstAttribute="trailing" secondItem="EpN-ea-IVq" secondAttribute="trailing" id="JB8-Bx-TFY"/>
-                            <constraint firstAttribute="height" constant="128" id="Xci-1l-s5L"/>
-                            <constraint firstAttribute="trailing" secondItem="bW5-VQ-lPM" secondAttribute="trailing" constant="10" id="etT-Io-Nna"/>
-                            <constraint firstAttribute="bottom" secondItem="EpN-ea-IVq" secondAttribute="bottom" id="hN1-wB-ChX"/>
-                            <constraint firstItem="EpN-ea-IVq" firstAttribute="leading" secondItem="pSc-kZ-dJ7" secondAttribute="leading" id="nXi-oF-wiy"/>
-                            <constraint firstAttribute="width" constant="240" id="wTa-us-ta3"/>
-                            <constraint firstAttribute="bottom" secondItem="bW5-VQ-lPM" secondAttribute="bottom" constant="10" id="xe1-z7-ect"/>
+                            <constraint firstAttribute="width" constant="240" id="AHS-b6-Wzt"/>
+                            <constraint firstAttribute="height" constant="128" id="TPh-1h-2hQ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -168,7 +150,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF8-XY-U6o">
-                        <rect key="frame" x="15" y="268.5" width="400" height="17"/>
+                        <rect key="frame" x="15" y="300.5" width="400" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -182,7 +164,7 @@
                     <constraint firstItem="HIB-hI-VS1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DLC-PX-9IV"/>
                     <constraint firstItem="LF8-XY-U6o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Sst-Sl-6eP"/>
                     <constraint firstItem="C6K-Hw-tzr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Znr-1I-TRe"/>
-                    <constraint firstAttribute="bottom" secondItem="HIB-hI-VS1" secondAttribute="bottom" id="d6e-H2-WLo"/>
+                    <constraint firstAttribute="bottom" secondItem="HIB-hI-VS1" secondAttribute="bottom" constant="20" id="d6e-H2-WLo"/>
                     <constraint firstItem="HIB-hI-VS1" firstAttribute="top" secondItem="LF8-XY-U6o" secondAttribute="bottom" constant="12" id="fOt-Wm-o2s"/>
                     <constraint firstAttribute="trailing" secondItem="HIB-hI-VS1" secondAttribute="trailing" id="kNl-ic-den"/>
                     <constraint firstAttribute="trailing" secondItem="C6K-Hw-tzr" secondAttribute="trailing" id="zgn-xA-HVQ"/>
@@ -196,21 +178,20 @@
                 <outlet property="followButton" destination="dXA-fZ-HFg" id="sKu-bQ-Eko"/>
                 <outlet property="moreOperationButton" destination="dCl-7r-2Ez" id="k5c-iP-wEh"/>
                 <outlet property="nickName" destination="9me-BZ-pEY" id="9GR-Cz-ARl"/>
-                <outlet property="pauseImage" destination="bW5-VQ-lPM" id="BeS-ij-GOL"/>
                 <outlet property="school" destination="flH-zl-Avt" id="0AM-Q1-5SI"/>
                 <outlet property="userHeadImage" destination="rdW-X4-Rgv" id="4sV-s2-v4a"/>
-                <outlet property="videoContainView" destination="EpN-ea-IVq" id="jOM-TR-J9t"/>
-                <outlet property="videoContainViewHeight" destination="f2d-xX-jxv" id="81m-vd-0Bi"/>
-                <outlet property="videoContainViewWidth" destination="isS-OR-mNA" id="EwB-dl-kHq"/>
+                <outlet property="videoContainView" destination="pSc-kZ-dJ7" id="0gx-gO-qh5"/>
+                <outlet property="videoContainViewHeight" destination="TPh-1h-2hQ" id="NQj-5V-rcu"/>
+                <outlet property="videoContainViewWidth" destination="AHS-b6-Wzt" id="nw5-iL-1TI"/>
                 <outlet property="videoTrendContent" destination="LF8-XY-U6o" id="hnE-gr-Vt7"/>
             </connections>
-            <point key="canvasLocation" x="-21" y="128"/>
+            <point key="canvasLocation" x="-21" y="154"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="home_gz" width="28" height="16"/>
-        <image name="music_ic_bofang" width="22" height="22"/>
         <image name="school_ic_like" width="28" height="28"/>
+        <image name="school_ic_likepre" width="23" height="21"/>
         <image name="school_ic_more" width="28" height="28"/>
         <image name="school_ic_pl" width="28" height="28"/>
         <image name="touxiang" width="100" height="100"/>

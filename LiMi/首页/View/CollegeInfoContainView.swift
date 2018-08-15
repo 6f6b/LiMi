@@ -32,19 +32,9 @@ class CollegeInfoContainView: UIView {
         super.awakeFromNib()
 
         carousel.isPagingEnabled = true
-        carousel.type = .cylinder
+        carousel.type = .rotary
         carousel.delegate = self
         carousel.dataSource = self
-//        carousel.autoscroll = 10
-        carousel.scrollOffset = 20
-//        carousel.decelerationRate = 40
-//        carousel.scrollSpeed = 50
-        carousel.bounceDistance = 60
-
-//        nonatomic, assign) CGFloat perspective;
-//        @property (nonatomic, assign) CGFloat decelerationRate;
-//        @property (nonatomic, assign) CGFloat scrollSpeed;
-//        @property (nonatomic, assign) CGFloat bounceDistance;
         
         NotificationCenter.default.addObserver(self, selector: #selector(clickCollegeNotification(notification:)), name: NSNotification.Name.init(rawValue: "CLICK_COLLEGE_NOTIFICATION"), object: nil)
     }
@@ -103,12 +93,17 @@ extension CollegeInfoContainView : iCarouselDelegate,iCarouselDataSource{
     }
     
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
+        print(carousel.itemWidth)
         if carousel.currentItemIndex >= self.dataArray.count || self.dataArray.count == 0{return}
         let model = self.dataArray[carousel.currentItemIndex]
         if let isClick = model.college?.is_click{
             self.thumbUpButton.isSelected = isClick
         }
     }
+    
+//    func carouselItemWidth(_ carousel: iCarousel) -> CGFloat {
+//        return 400
+//    }
 }
 
 extension CollegeInfoContainView : CollegeInfoViewDelegate{
