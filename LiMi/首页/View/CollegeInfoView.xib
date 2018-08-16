@@ -27,7 +27,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_ic_xin" translatesAutoresizingMaskIntoConstraints="NO" id="kzV-Z8-oXr">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_ic_xin" highlightedImage="school_ic_xinpre" translatesAutoresizingMaskIntoConstraints="NO" id="kzV-Z8-oXr">
                             <rect key="frame" x="310" y="17.5" width="16" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="f9n-AZ-0Jd"/>
@@ -83,10 +83,11 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-Ih-Kwo">
                                             <rect key="frame" x="0.0" y="0.0" width="165" height="165"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-gw-nk8">
-                                            <rect key="frame" x="38" y="71.5" width="90" height="22"/>
-                                            <inset key="titleEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <inset key="imageEdgeInsets" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-gw-nk8">
+                                            <rect key="frame" x="0.0" y="0.0" width="165" height="165"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <inset key="titleEdgeInsets" minX="-40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="imageEdgeInsets" minX="97" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="查看更多" image="school_ic_jiantou-1">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
@@ -97,9 +98,13 @@
                                         <constraint firstAttribute="trailing" secondItem="ubb-Ih-Kwo" secondAttribute="trailing" id="7td-aI-pTc"/>
                                         <constraint firstItem="ubb-Ih-Kwo" firstAttribute="leading" secondItem="4yI-Dr-2JT" secondAttribute="leading" id="Bl6-nz-gBy"/>
                                         <constraint firstItem="TH8-gw-nk8" firstAttribute="centerY" secondItem="4yI-Dr-2JT" secondAttribute="centerY" id="Bnc-vx-Vfq"/>
+                                        <constraint firstAttribute="trailing" secondItem="TH8-gw-nk8" secondAttribute="trailing" id="IJL-va-oT9"/>
                                         <constraint firstAttribute="bottom" secondItem="ubb-Ih-Kwo" secondAttribute="bottom" id="Y66-2Q-NpK"/>
                                         <constraint firstItem="TH8-gw-nk8" firstAttribute="centerX" secondItem="4yI-Dr-2JT" secondAttribute="centerX" id="aC5-Hw-KrJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="TH8-gw-nk8" secondAttribute="bottom" id="mRz-ON-Czu"/>
                                         <constraint firstItem="ubb-Ih-Kwo" firstAttribute="top" secondItem="4yI-Dr-2JT" secondAttribute="top" id="qCN-L1-xfY"/>
+                                        <constraint firstItem="TH8-gw-nk8" firstAttribute="leading" secondItem="4yI-Dr-2JT" secondAttribute="leading" id="vDe-mz-DdY"/>
+                                        <constraint firstItem="TH8-gw-nk8" firstAttribute="top" secondItem="4yI-Dr-2JT" secondAttribute="top" id="wk3-B8-rNu"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -116,7 +121,7 @@
                             <rect key="frame" x="180" y="36" width="165" height="4"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXs-cA-Ea9">
-                                    <rect key="frame" x="0.0" y="0.0" width="82.5" height="4"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="83" height="4"/>
                                     <color key="backgroundColor" red="0.99215686270000003" green="0.1529411765" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -175,8 +180,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="boys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggH-Kg-CEe">
-                            <rect key="frame" x="180" y="14" width="28" height="14.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="girls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggH-Kg-CEe">
+                            <rect key="frame" x="180" y="14" width="25.5" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -246,6 +251,7 @@
                 <outlet property="imageView4ContentView" destination="4yI-Dr-2JT" id="mwT-NA-IXw"/>
                 <outlet property="schoolName" destination="4Bb-CX-oc6" id="y1Y-OX-YXH"/>
                 <outlet property="stackView" destination="Vnj-qZ-sdh" id="ZOf-Tb-pq2"/>
+                <outlet property="thumbUpImageView" destination="kzV-Z8-oXr" id="dLw-Xk-ayG"/>
                 <outletCollection property="imageViews" destination="kQp-Tc-WJO" collectionClass="NSMutableArray" id="wba-ER-NFc"/>
                 <outletCollection property="imageViews" destination="CZz-DC-fK6" collectionClass="NSMutableArray" id="Ggx-nV-TDc"/>
                 <outletCollection property="imageViews" destination="sfP-ce-Bj9" collectionClass="NSMutableArray" id="6df-77-rus"/>
@@ -257,5 +263,6 @@
     <resources>
         <image name="school_ic_jiantou-1" width="16" height="16"/>
         <image name="school_ic_xin" width="16" height="16"/>
+        <image name="school_ic_xinpre" width="16" height="16"/>
     </resources>
 </document>

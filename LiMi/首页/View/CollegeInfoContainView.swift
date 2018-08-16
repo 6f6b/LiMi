@@ -32,7 +32,7 @@ class CollegeInfoContainView: UIView {
         super.awakeFromNib()
 
         carousel.isPagingEnabled = true
-        carousel.type = .rotary
+        carousel.type = .custom
         carousel.delegate = self
         carousel.dataSource = self
         
@@ -101,9 +101,26 @@ extension CollegeInfoContainView : iCarouselDelegate,iCarouselDataSource{
         }
     }
     
-//    func carouselItemWidth(_ carousel: iCarousel) -> CGFloat {
-//        return 400
-//    }
+    func carousel(_ carousel: iCarousel, itemTransformForOffset offset: CGFloat, baseTransform transform: CATransform3D) -> CATransform3D {
+        let max_sacle = 1.0
+        let min_scale = 0.8
+        var _transform:CATransform3D!
+        if (offset <= 1 && offset >= -1) {
+            let tempScale = offset < 0 ? 1 + offset : 1-offset
+            let slope = (max_sacle-min_scale)/1
+            let scale = min_scale + slope * Double(tempScale)
+            _transform = CATransform3DScale(transform, CGFloat(scale), CGFloat(scale), 1)
+        }else{
+            _transform = CATransform3DScale(transform, CGFloat(min_scale), CGFloat(min_scale), 1)
+        }
+        return CATransform3DTranslate(_transform, offset*self.carousel.itemWidth*0.89, 0, 0)
+    }
+
+    
+    
+    func carouselItemWidth(_ carousel: iCarousel) -> CGFloat {
+        return 400
+    }
 }
 
 extension CollegeInfoContainView : CollegeInfoViewDelegate{

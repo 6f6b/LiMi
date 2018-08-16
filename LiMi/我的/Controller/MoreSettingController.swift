@@ -21,7 +21,7 @@ class MoreSettingController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(MenuCell.self, forCellReuseIdentifier: "MenuCell")
-        self.dataArray = ["我的现金","我的订单","黑名单","隐私设置","用户反馈","关于"]
+        self.dataArray = ["我的现金","我的订单","黑名单","申请认证","隐私设置","用户反馈","关于"]
         self.tableView.reloadData()
     }
 
@@ -90,20 +90,24 @@ extension MoreSettingController:UITableViewDelegate,UITableViewDataSource{
             let myBlackListController = MyBlackListController()
             self.navigationController?.pushViewController(myBlackListController, animated: true)
         }
-        //隐私设置
         if indexPath.row == 3{
+            let studentCertificationController = GetViewControllerFrom(sbName: .personalCenter, sbID: "StudentCertificationController") as! StudentCertificationController
+            self.navigationController?.pushViewController(studentCertificationController, animated: true)
+        }
+        //隐私设置
+        if indexPath.row == 4{
             let privacySettingController = PrivacySettingController()
             privacySettingController.userInfoModel = self.userInfoModel
             self.navigationController?.pushViewController(privacySettingController, animated: true)
         }
         //用户反馈
-        if indexPath.row == 4{
+        if indexPath.row == 5{
             if !AppManager.shared.checkUserStatus(){return}
             let feedBackController = FeedBackController()
             self.navigationController?.pushViewController(feedBackController, animated: true)
         }
         //关于粒米
-        if indexPath.row == 5{
+        if indexPath.row == 6{
             let aboutUsController = AboutUsController()
             self.navigationController?.pushViewController(aboutUsController, animated: true)
         }

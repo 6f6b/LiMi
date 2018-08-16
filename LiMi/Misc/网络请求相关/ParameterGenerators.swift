@@ -11,7 +11,7 @@ import Moya
 
 
 // MARK: - 相关参数体
-let serverAddress = "http://testapp.youhongtech.com/index.php/app1_7"
+let serverAddress = "http://app.youhongtech.com/index.php/app1_6"
 
 protocol ParametersProtocol {
     func parameters()->[String:Any]
@@ -1807,7 +1807,7 @@ struct PublishVideo:TargetType,ParametersProtocol{
     var notify_users:String?    //[string]    是    @好友id 多个好友用英文逗号分割 ‘1,2,3’,最多10个
     var publish_addr:String?    //[string]    是    视频发布用户地点 128个utf8字符
     var notify_extra:String? //复
-    
+    var video_type:Int? //上课 1 下课 0
     func parameters() -> [String : Any] {
         let tmpParameters = ["title":title,
                              "video_addr":video_addr,
@@ -1823,7 +1823,7 @@ struct PublishVideo:TargetType,ParametersProtocol{
                             "notify_users":notify_users,
                             "publish_addr":publish_addr,
                             "notify_extra":notify_extra,
-
+                            "video_type":video_type
             ] as [String : Any]
         return handleRequestParameters(parameters: tmpParameters)
     }

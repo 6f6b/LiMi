@@ -27,6 +27,7 @@ class CollegeInfoView: UIView {
     
     @IBOutlet weak var boysPercentConstraint: NSLayoutConstraint!
     @IBOutlet weak var girlsPercentConstrain: NSLayoutConstraint!
+    @IBOutlet weak var thumbUpImageView: UIImageView!
     
     weak var delegate:CollegeInfoViewDelegate?
     
@@ -59,6 +60,11 @@ class CollegeInfoView: UIView {
             if let _clickNum = model?.college?.click_num{
                 self.clickNum.text = "\(_clickNum.suitableStringValue())"
             }
+            if model?.college?.is_click == true{
+                self.thumbUpImageView.isHighlighted = true
+            }else{
+                self.thumbUpImageView.isHighlighted = false
+            }
         }
     }
     
@@ -89,9 +95,19 @@ class CollegeInfoView: UIView {
             self.boysPercentConstraint.setMultiplier(multiplier: 0.01*CGFloat(_boysPercent))
             self.girlsPercentConstrain.setMultiplier(multiplier: 0.01 * CGFloat(100 - _boysPercent))
         }
+        if model?.college?.is_click == true{
+            self.thumbUpImageView.isHighlighted = true
+        }else{
+            self.thumbUpImageView.isHighlighted = false
+        }
     }
     
     func refreshImageViewsStatusWith(picsNum:Int){
+        self.imageView1.image = nil
+        self.imageView2.image = nil
+        self.imageView3.image = nil
+        self.imageView4.image = nil
+        
         if picsNum <= 0{
             self.imageView1.isHidden = true
             self.imageView2.isHidden = true

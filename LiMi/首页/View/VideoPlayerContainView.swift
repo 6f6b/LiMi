@@ -19,18 +19,10 @@ class VideoPlayerContainView: UIView {
     weak var player:AliyunVodPlayer?
     weak var delegate:VideoPlayerContainViewDelegate?
     var videoPreImageView: UIImageView!
-    
+    var loadingView:LOTAnimationView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         player?.playerState()
-//        videoContainView = UIView.init(frame: frame)
-//        self.addSubview(videoContainView)
-//        videoContainView.snp.makeConstraints {[unowned self]  (make) in
-//            make.top.equalTo(self)
-//            make.left.equalTo(self)
-//            make.bottom.equalTo(self)
-//            make.right.equalTo(self)
-//        }
         
         self.videoPreImageView = UIImageView.init(frame: frame)
         self.addSubview(self.videoPreImageView)
@@ -62,6 +54,36 @@ class VideoPlayerContainView: UIView {
         //拖动手势
         let panG = UIPanGestureRecognizer.init(target: self, action: #selector(dealPanSelf(ges:)))
         self.addGestureRecognizer(panG)
+        
+        loadingView = LOTAnimationView.init(name: "sk_loading")
+        loadingView.isHidden = true
+        loadingView.loopAnimation = true
+        loadingView.animationSpeed = 1
+        
+        self.insertSubview(loadingView, at: 1)
+        self.loadingView.snp.makeConstraints {[unowned self] (make) in
+            make.center.equalTo(self.playButton)
+            make.height.equalTo(22)
+            make.width.equalTo(22)
+        }
+    }
+    
+    
+    /// 调整播放按钮的UI
+    ///
+    /// - Parameters:
+    ///   - isPlay: 是否播放，否则为暂停
+    ///   - isLoading: 是否加载
+    func refreshPlayButtonWith(isPlay:Bool,isLoading:Bool = false){
+        self.playButton.isSelected = isPlay
+        self.playButton.isHidden = isLoading
+        self.loadingView.isHidden = !isLoading
+        if isLoading{
+            if self.loadingView.isAnimationPlaying{return}
+            self.loadingView.play()
+        }else{
+            self.loadingView.stop()
+        }
     }
     
     @objc func dealTapSelf(){
@@ -80,7 +102,6 @@ class VideoPlayerContainView: UIView {
     }
     
     func installPlayerView(playerView:UIView){
-        //self.insertSubview(playerView, aboveSubview: self.videoPreImageView)
         self.insertSubview(playerView, at: 1)
         playerView.snp.makeConstraints {[unowned self] (make) in
             make.top.equalTo(self)

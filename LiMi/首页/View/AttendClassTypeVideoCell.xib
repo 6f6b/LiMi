@@ -149,9 +149,18 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF8-XY-U6o">
-                        <rect key="frame" x="15" y="300.5" width="400" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF8-XY-U6o">
+                        <rect key="frame" x="10" y="240" width="400" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一小时前" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eew-Y9-Y5Z">
+                        <rect key="frame" x="15" y="305" width="49.5" height="14.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="ZnJ-xL-j6j"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -163,10 +172,12 @@
                     <constraint firstItem="pSc-kZ-dJ7" firstAttribute="top" secondItem="C6K-Hw-tzr" secondAttribute="bottom" constant="15" id="CFm-s1-jmw"/>
                     <constraint firstItem="HIB-hI-VS1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DLC-PX-9IV"/>
                     <constraint firstItem="LF8-XY-U6o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Sst-Sl-6eP"/>
+                    <constraint firstItem="Eew-Y9-Y5Z" firstAttribute="top" secondItem="LF8-XY-U6o" secondAttribute="bottom" constant="12" id="UVf-M0-lVE"/>
                     <constraint firstItem="C6K-Hw-tzr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Znr-1I-TRe"/>
+                    <constraint firstItem="HIB-hI-VS1" firstAttribute="top" secondItem="Eew-Y9-Y5Z" secondAttribute="bottom" constant="10" id="bHY-VU-yWH"/>
                     <constraint firstAttribute="bottom" secondItem="HIB-hI-VS1" secondAttribute="bottom" constant="20" id="d6e-H2-WLo"/>
-                    <constraint firstItem="HIB-hI-VS1" firstAttribute="top" secondItem="LF8-XY-U6o" secondAttribute="bottom" constant="12" id="fOt-Wm-o2s"/>
                     <constraint firstAttribute="trailing" secondItem="HIB-hI-VS1" secondAttribute="trailing" id="kNl-ic-den"/>
+                    <constraint firstItem="Eew-Y9-Y5Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ut7-j9-dYs"/>
                     <constraint firstAttribute="trailing" secondItem="C6K-Hw-tzr" secondAttribute="trailing" id="zgn-xA-HVQ"/>
                 </constraints>
             </tableViewCellContentView>
@@ -179,6 +190,7 @@
                 <outlet property="moreOperationButton" destination="dCl-7r-2Ez" id="k5c-iP-wEh"/>
                 <outlet property="nickName" destination="9me-BZ-pEY" id="9GR-Cz-ARl"/>
                 <outlet property="school" destination="flH-zl-Avt" id="0AM-Q1-5SI"/>
+                <outlet property="timeLabel" destination="Eew-Y9-Y5Z" id="Ugi-xK-bfl"/>
                 <outlet property="userHeadImage" destination="rdW-X4-Rgv" id="4sV-s2-v4a"/>
                 <outlet property="videoContainView" destination="pSc-kZ-dJ7" id="0gx-gO-qh5"/>
                 <outlet property="videoContainViewHeight" destination="TPh-1h-2hQ" id="NQj-5V-rcu"/>

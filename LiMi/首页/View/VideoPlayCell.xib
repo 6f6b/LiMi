@@ -102,13 +102,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mjK-op-8Hr">
-                                <rect key="frame" x="15" y="58" width="117" height="22"/>
+                                <rect key="frame" x="15" y="58" width="116" height="22"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="home_ic_topic1" translatesAutoresizingMaskIntoConstraints="NO" id="fCW-Q5-L3Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="home_ic_position" translatesAutoresizingMaskIntoConstraints="NO" id="fCW-Q5-L3Z">
+                                        <rect key="frame" x="5" y="0.0" width="16" height="22"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="我是地理位置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAf-pR-LzH">
-                                        <rect key="frame" x="30" y="4" width="74" height="14.5"/>
+                                        <rect key="frame" x="29" y="4" width="74" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -116,12 +116,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="fCW-Q5-L3Z" secondAttribute="bottom" id="7uX-S5-C6e"/>
-                                    <constraint firstItem="fCW-Q5-L3Z" firstAttribute="leading" secondItem="mjK-op-8Hr" secondAttribute="leading" id="8Ps-yr-ygP"/>
+                                    <constraint firstItem="fCW-Q5-L3Z" firstAttribute="leading" secondItem="mjK-op-8Hr" secondAttribute="leading" constant="5" id="8Ps-yr-ygP"/>
                                     <constraint firstItem="fCW-Q5-L3Z" firstAttribute="centerY" secondItem="mjK-op-8Hr" secondAttribute="centerY" id="FUl-94-8ss"/>
+                                    <constraint firstAttribute="height" constant="22" id="Mp5-58-hvR"/>
                                     <constraint firstItem="kAf-pR-LzH" firstAttribute="leading" secondItem="fCW-Q5-L3Z" secondAttribute="trailing" constant="8" id="T9F-n9-cH7"/>
                                     <constraint firstItem="kAf-pR-LzH" firstAttribute="centerY" secondItem="mjK-op-8Hr" secondAttribute="centerY" id="W7S-3b-niM"/>
-                                    <constraint firstItem="fCW-Q5-L3Z" firstAttribute="top" secondItem="mjK-op-8Hr" secondAttribute="top" id="tAz-2u-F8F"/>
                                     <constraint firstAttribute="trailing" secondItem="kAf-pR-LzH" secondAttribute="trailing" constant="13" id="wUi-hI-6Ey"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -132,13 +131,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dc-0G-i2H">
-                                <rect key="frame" x="15" y="91" width="92.5" height="22"/>
+                                <rect key="frame" x="15" y="91" width="91.5" height="22"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="home_ic_topic" translatesAutoresizingMaskIntoConstraints="NO" id="nbt-SN-ns3">
-                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                        <rect key="frame" x="5" y="0.0" width="16" height="22"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="我是挑战" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlD-pC-E11">
-                                        <rect key="frame" x="30" y="4" width="49.5" height="14.5"/>
+                                        <rect key="frame" x="29" y="4" width="49.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -146,11 +145,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="nbt-SN-ns3" firstAttribute="top" secondItem="0Dc-0G-i2H" secondAttribute="top" id="6fn-je-F6x"/>
-                                    <constraint firstItem="nbt-SN-ns3" firstAttribute="leading" secondItem="0Dc-0G-i2H" secondAttribute="leading" id="Gap-og-t1w"/>
+                                    <constraint firstAttribute="height" constant="22" id="G0v-sJ-LpR"/>
+                                    <constraint firstItem="nbt-SN-ns3" firstAttribute="leading" secondItem="0Dc-0G-i2H" secondAttribute="leading" constant="5" id="Gap-og-t1w"/>
                                     <constraint firstAttribute="trailing" secondItem="WlD-pC-E11" secondAttribute="trailing" constant="13" id="KF0-yd-HRH"/>
                                     <constraint firstItem="WlD-pC-E11" firstAttribute="leading" secondItem="nbt-SN-ns3" secondAttribute="trailing" constant="8" id="YX7-9L-NDx"/>
-                                    <constraint firstAttribute="bottom" secondItem="nbt-SN-ns3" secondAttribute="bottom" id="dYz-VO-kPw"/>
                                     <constraint firstItem="nbt-SN-ns3" firstAttribute="centerY" secondItem="0Dc-0G-i2H" secondAttribute="centerY" id="gLu-13-AHR"/>
                                     <constraint firstItem="WlD-pC-E11" firstAttribute="centerY" secondItem="0Dc-0G-i2H" secondAttribute="centerY" id="jgP-2z-EVR"/>
                                 </constraints>
@@ -162,17 +160,17 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Atw-Ar-w16">
-                                <rect key="frame" x="0.0" y="28" width="74" height="22"/>
+                                <rect key="frame" x="0.0" y="28" width="78" height="22"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="home_pic_school" translatesAutoresizingMaskIntoConstraints="NO" id="K37-P0-h18">
-                                        <rect key="frame" x="-126" y="4" width="200" height="10"/>
+                                        <rect key="frame" x="-122" y="4" width="200" height="10"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="home_ic_school" translatesAutoresizingMaskIntoConstraints="NO" id="LcC-oP-PLy">
                                         <rect key="frame" x="6" y="0.0" width="22" height="22"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="学校" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbH-mF-3W1">
-                                        <rect key="frame" x="36" y="4" width="25" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <rect key="frame" x="36" y="4" width="29" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -333,9 +331,9 @@
     <resources>
         <image name="home_gz" width="28" height="16"/>
         <image name="home_ic_bofang" width="100" height="100"/>
+        <image name="home_ic_position" width="16" height="16"/>
         <image name="home_ic_school" width="22" height="22"/>
-        <image name="home_ic_topic" width="22" height="22"/>
-        <image name="home_ic_topic1" width="22" height="22"/>
+        <image name="home_ic_topic" width="16" height="16"/>
         <image name="home_like" width="36" height="36"/>
         <image name="home_likepre" width="36" height="36"/>
         <image name="home_more" width="36" height="36"/>

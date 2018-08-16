@@ -30,6 +30,8 @@ import ObjectMapper
     var selectChallengeModel:ChallengeModel?
     var selectLocationModel:LocationModel?
     var toBeRemindedModels = [UserInfoModel]()
+    //上课类型 0下课，1上课
+    var classType:Int = 0
     
     var containerView:UIScrollView!;
     var topView:AliyunPublishTopView!;
@@ -39,6 +41,7 @@ import ObjectMapper
     var progressView:UIProgressView!;
     var publishProgressView:AliyunPublishProgressView!;
     
+    var pulishWayView:PulishMenuViewItemView?
     var makeChallengeView:PulishMenuViewItemView!
     var chooseLocationView:PulishMenuViewItemView!
     var authorityChooseView:PulishMenuViewItemView!
@@ -66,6 +69,13 @@ import ObjectMapper
             self.selectChallengeModel = ChallengeModel()
             self.selectChallengeModel?.challenge_name = self.challengeName
             self.selectChallengeModel?.challenge_id = self.challengeId
+        }
+        //学霸
+        if Defaults[.userAuthenticateType] == 1{
+            self.classType = 1
+        }else{
+            //学生
+            self.classType = 0
         }
 
         self.refreshUI()
@@ -118,7 +128,6 @@ import ObjectMapper
         self.progressView.progressTintColor = RGBA(r: 127, g: 110, b: 241, a: 1)
         self.containerView.addSubview(self.publishProgressView)
         
-
         // bottom
         self.publishContentEditView = AliyunPublishContentEditView.init(frame: CGRect.init(x: 15, y: self.coverImageView.frame.maxY+15, width: SCREEN_WIDTH-30, height: 100))
         self.publishContentEditView.delegate = self
@@ -127,9 +136,19 @@ import ObjectMapper
         self.publishContentEditView.placeholder = "说点什么"
         self.publishContentEditView.maxCharacterNum = 30;
         self.containerView.addSubview(self.publishContentEditView)
-
-        let makeChallengeView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: self.publishContentEditView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
-        self.makeChallengeView = makeChallengeView
+        
+        var makeChallengeViewY = self.publishContentEditView.frame.maxY+8
+        if Defaults[.userAuthenticateType] == 1{
+            pulishWayView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: publishContentEditView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
+            pulishWayView?.addTarget(target: self, action: #selector(toChooseClassType))
+            pulishWayView?.leftInfoLabel.text = "发布至"
+            pulishWayView?.layer.cornerRadius = 4
+            pulishWayView?.clipsToBounds = true
+            self.containerView.addSubview(pulishWayView!)
+            makeChallengeViewY = (self.pulishWayView?.frame.maxY)! + 8
+        }
+        
+        makeChallengeView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: makeChallengeViewY, width: SCREEN_WIDTH-30, height: 56))
         makeChallengeView.addTarget(target: self, action: #selector(toMakeChallenge))
         makeChallengeView.leftInfoLabel.text = "发起挑战"
         //makeChallengeView.rightInfoLabel.text = "所有人可见"
@@ -137,8 +156,7 @@ import ObjectMapper
         makeChallengeView.clipsToBounds = true
         self.containerView.addSubview(makeChallengeView)
         
-        let chooseLocationView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: makeChallengeView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
-        self.chooseLocationView = chooseLocationView
+        chooseLocationView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: makeChallengeView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
         chooseLocationView.addTarget(target: self, action: #selector(toChooseLocation))
         chooseLocationView.leftInfoLabel.text = "地理位置"
         //chooseLocationView.rightInfoLabel.text = "所有人可见"
@@ -146,8 +164,7 @@ import ObjectMapper
         chooseLocationView.clipsToBounds = true
         self.containerView.addSubview(chooseLocationView)
         
-        let authorityChooseView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: chooseLocationView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
-        self.authorityChooseView = authorityChooseView
+        authorityChooseView = PulishMenuViewItemView.init(frame: CGRect.init(x: 15, y: chooseLocationView.frame.maxY+8, width: SCREEN_WIDTH-30, height: 56))
         authorityChooseView.addTarget(target: self, action: #selector(tapAliyunAuthorityChooseView))
         authorityChooseView.leftInfoLabel.text = "谁可以看"
         //authorityChooseView.rightInfoLabel.text = "所有人可见"
@@ -242,6 +259,11 @@ import ObjectMapper
         self.navigationController?.pushViewController(chooseLocationController, animated: true)
     }
     
+    @objc func toChooseClassType(){
+        let aliyunChooseClassTypeController = AliyunChooseClassTypeController()
+        aliyunChooseClassTypeController.delegate = self
+        self.navigationController?.pushViewController(aliyunChooseClassTypeController, animated: true)
+    }
     
     
     @objc func pulishButtonClicked(){
@@ -289,7 +311,7 @@ import ObjectMapper
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let textExtraModelsJson = self.publishContentEditView.textExtraModelsJsonString()
         let uidsStrs = self.publishContentEditView.userIds()
-        let publishVideo = PublishVideo.init(title: self.publishContentEditView.textView.text, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration, music_type: self.musicType, challenge_name: self.selectChallengeModel?.challenge_name, challenge_id: self.selectChallengeModel?.challenge_id, notify_users: uidsStrs, publish_addr: self.selectLocationModel?.name, notify_extra: textExtraModelsJson)
+        let publishVideo = PublishVideo.init(title: self.publishContentEditView.textView.text, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover, music_id: self.musicId, music_start: self.startTime, music_duration: self.duration, music_type: self.musicType, challenge_name: self.selectChallengeModel?.challenge_name, challenge_id: self.selectChallengeModel?.challenge_id, notify_users: uidsStrs, publish_addr: self.selectLocationModel?.name, notify_extra: textExtraModelsJson,video_type:self.classType)
        // let publishVideo = PublishVideo.init(title: title, video_addr: videoId, view_auth: viewAuth, video_cover: videoCover)
         _ = moyaProvider.rx.request(.targetWith(target: publishVideo)).subscribe(onSuccess: { (response) in
             let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
@@ -407,6 +429,14 @@ import ObjectMapper
         }
         if self.visiableType == .onlySelf{
             self.authorityChooseView.rightInfoLabel.text = "自己可见";
+        }
+        if Defaults[.userAuthenticateType] != 1{return
+        }else{
+            self.pulishWayView?.rightInfoLabel.text = self.classType == 0 ? "下课" : "上课"
+            let isHiddenBottom  = self.classType == 0 ? false : true
+            self.makeChallengeView.isHidden = isHiddenBottom
+            self.chooseLocationView.isHidden = isHiddenBottom
+            self.authorityChooseView.isHidden = isHiddenBottom
         }
     }
 }
@@ -562,6 +592,13 @@ extension PulishViewController : ChooseFollowedToRemindControllerDelegate{
         }
     }
     
+}
+
+extension PulishViewController : AliyunChooseClassTypeControllerDelegate{
+    func aliyunChooseClassTypeController(controller: AliyunChooseClassTypeController, classType: Int) {
+        self.classType = classType
+        self.refreshUI()
+    }
 }
 
 

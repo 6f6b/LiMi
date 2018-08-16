@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-oV-1ja">
-                    <rect key="frame" x="15" y="84" width="345" height="40"/>
+                    <rect key="frame" x="35" y="84" width="305" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="VGK-yx-JYC">
                             <rect key="frame" x="15" y="9" width="22" height="22"/>
@@ -46,7 +46,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-Od-hNU">
-                            <rect key="frame" x="37" y="0.0" width="293" height="40"/>
+                            <rect key="frame" x="37" y="0.0" width="253" height="40"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -86,15 +86,15 @@
                 <constraint firstItem="X6a-am-M5f" firstAttribute="top" secondItem="HOM-oV-1ja" secondAttribute="bottom" id="3IE-cd-6tU"/>
                 <constraint firstItem="9Vz-Ad-uOA" firstAttribute="bottom" secondItem="X6a-am-M5f" secondAttribute="bottom" id="BEp-a3-HeG"/>
                 <constraint firstItem="9Vz-Ad-uOA" firstAttribute="top" secondItem="X6a-am-M5f" secondAttribute="top" id="KXU-hY-1tn"/>
+                <constraint firstItem="HOM-oV-1ja" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="N0R-fJ-3Cc"/>
                 <constraint firstItem="9Vz-Ad-uOA" firstAttribute="leading" secondItem="X6a-am-M5f" secondAttribute="leading" id="SSi-lc-mKS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="X6a-am-M5f" secondAttribute="bottom" id="UqG-8h-bbt"/>
                 <constraint firstItem="eme-Qy-D0F" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="Znu-lt-dId"/>
                 <constraint firstItem="X6a-am-M5f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bLd-7I-APz"/>
                 <constraint firstItem="HOM-oV-1ja" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="64" id="fVm-rw-H38"/>
                 <constraint firstItem="eme-Qy-D0F" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="hSb-Ds-DsM"/>
-                <constraint firstItem="HOM-oV-1ja" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="jBo-9b-qAr"/>
+                <constraint firstItem="HOM-oV-1ja" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="jBo-9b-qAr"/>
                 <constraint firstAttribute="trailing" secondItem="X6a-am-M5f" secondAttribute="trailing" id="oHl-wr-JFy"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HOM-oV-1ja" secondAttribute="trailing" constant="15" id="rkO-37-ieG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="34.5" y="53.5"/>

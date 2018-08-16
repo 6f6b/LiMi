@@ -27,6 +27,7 @@ class AttendClassTypeVideoCell: UITableViewCell {
     @IBOutlet weak var clickNumButton: UIButton!
     @IBOutlet weak var commentNumButton: UIButton!
     @IBOutlet weak var moreOperationButton: UIButton!
+    @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var videoContainView: UIView!
     @IBOutlet weak var videoContainViewHeight: NSLayoutConstraint!
@@ -113,7 +114,7 @@ class AttendClassTypeVideoCell: UITableViewCell {
         if let _clickNum = model.click_num{
             self.clickNumButton.setTitle("  \(_clickNum.suitableStringValue())", for: .normal)
         }
-        
+                
         if let _is_click = model.is_click{
             self.clickNumButton.isSelected = _is_click
         }
@@ -125,9 +126,9 @@ class AttendClassTypeVideoCell: UITableViewCell {
 //        if let _videoImage = model.video?.cover{
 //            self.videoPreImageView.kf.setImage(with: URL.init(string: _videoImage))
 //        }
-        
-        var videoContainViewConstWidth = (SCREEN_WIDTH-15*2)*0.5
-        var videoContainViewConstHeight = videoContainViewConstWidth*(16.0/9.0)
+
+        var videoContainViewConstHeight = (SCREEN_HEIGHT-NAVIGATION_BAR_HEIGHT-STATUS_BAR_HEIGHT-TAB_BAR_HEIGHT)*0.8
+        var videoContainViewConstWidth = videoContainViewConstHeight*(9.0/16.0)
         if let videoWidth = model.video?.width,let videoHeight = model.video?.height{
             if videoWidth > videoHeight{
                 videoContainViewConstWidth = SCREEN_WIDTH-15*2

@@ -173,45 +173,56 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
         }
         self.schoolNameLabel.text = model?.college?.name
         
-//        var authenticationTitle = ""
-//        if self.userInfoModel?.is_access == 0{
-//            //未认证
-//            authenticationTitle = "未认证"
-//        }
-//        if self.userInfoModel?.is_access == 1{
-//            //认证中
-//            authenticationTitle = "认证中"
-//            self.authenticationButton.isUserInteractionEnabled = false
-//        }
-//        if self.userInfoModel?.is_access == 2{
-//            //认证通过
-//            authenticationTitle = "认证通过"
-//            self.authenticationButton.isUserInteractionEnabled = false
-//        }
-//        if self.userInfoModel?.is_access == 3{
-//            //认证失败
-//            authenticationTitle = "认证失败"
-//        }
-        
-        if model?.is_access == 0{
-            self.authenticationStateLabel.text = "未认证"
-            self.authenticationBackgroundView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
-            self.authenticationBackgroundView.isUserInteractionEnabled = true
-        }
-        if model?.is_access == 1{
-            self.authenticationStateLabel.text = "认证中"
-            self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
-            self.authenticationBackgroundView.isUserInteractionEnabled = false
-        }
-        if model?.is_access == 2{
-            self.authenticationStateLabel.text = "已认证"
-            self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
-            self.authenticationBackgroundView.isUserInteractionEnabled = false
-        }
-        if model?.is_access == 3{
-            self.authenticationStateLabel.text = "认证失败"
-            self.authenticationBackgroundView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
-            self.authenticationBackgroundView.isUserInteractionEnabled = true
+        if model?.identity_type == 0{
+            if model?.is_access == 0{
+                self.authenticationStateLabel.text = "未认证"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_v")
+                self.authenticationBackgroundView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
+                self.authenticationBackgroundView.isUserInteractionEnabled = true
+            }
+            if model?.is_access == 1{
+                self.authenticationStateLabel.text = "认证中"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_v")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
+            if model?.is_access == 2{
+                self.authenticationStateLabel.text = "已认证"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxs")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
+            if model?.is_access == 3{
+                self.authenticationStateLabel.text = "认证失败"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_v")
+                self.authenticationBackgroundView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
+                self.authenticationBackgroundView.isUserInteractionEnabled = true
+            }
+        }else if  model?.identity_type == 1{
+            if model?.is_access == 0{
+                self.authenticationStateLabel.text = "未认证"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxb")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_3
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
+            if model?.is_access == 1{
+                self.authenticationStateLabel.text = "认证中"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxb")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_3
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
+            if model?.is_access == 2{
+                self.authenticationStateLabel.text = "已认证"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxb")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_3
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
+            if model?.is_access == 3{
+                self.authenticationStateLabel.text = "认证失败"
+                self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxb")
+                self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_3
+                self.authenticationBackgroundView.isUserInteractionEnabled = false
+            }
         }
         
 //        if model?.is_access == 2{

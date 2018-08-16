@@ -58,6 +58,7 @@ class SchoolListController: UIViewController {
         }else{
             self.refreshUI()
         }
+        self.searchText.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,12 +87,16 @@ class SchoolListController: UIViewController {
     
     func refreshUI(){
         var isRecommendSchoolsContainViewHidden = true
-        if let _text = self.searchText.text{
-            if _text.lengthOfBytes(using: String.Encoding.utf8) <= 0 && self.initiaSchoolModel != nil{
-                isRecommendSchoolsContainViewHidden = false
+        if self.searchText.isFirstResponder{
+            self.recommendSchoolsContainView.isHidden = true
+        }else{
+            if let _text = self.searchText.text{
+                if _text.lengthOfBytes(using: String.Encoding.utf8) <= 0 && self.initiaSchoolModel != nil{
+                    isRecommendSchoolsContainViewHidden = false
+                }
             }
+            self.recommendSchoolsContainView.isHidden = isRecommendSchoolsContainViewHidden
         }
-        self.recommendSchoolsContainView.isHidden = isRecommendSchoolsContainViewHidden
     }
     
     override func didReceiveMemoryWarning() {
@@ -141,7 +146,14 @@ extension SchoolListController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.delegate?.schoolListControllerChoosedSchoolWith(model: self.dataArray[indexPath.row])
+        if self.initiaSchoolModel == nil{
+            self.delegate?.schoolListControllerChoosedSchoolWith(model: self.dataArray[indexPath.row])
+        }else{
+            let schoolsVideosController = SchoolsVideosController()
+            let model = self.dataArray[indexPath.row]
+            schoolsVideosController.collegeModel = model
+            self.navigationController?.pushViewController(schoolsVideosController, animated: true)
+        }
     }
 }
 
@@ -200,5 +212,15 @@ extension SchoolListController : CollegeInfoContainViewDelegate{
                 Toast.showErrorWith(msg: error.localizedDescription)
             })
         }
+    }
+}
+
+extension SchoolListController : UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.refreshUI()
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.refreshUI()
     }
 }

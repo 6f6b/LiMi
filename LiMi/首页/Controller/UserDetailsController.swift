@@ -142,7 +142,7 @@ class UserDetailsController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.isTranslucent = true
         
-        LEAVE_PLAY_PAGE_NOTIFICATION
+        
         NotificationCenter.default.post(name: LEAVE_PLAY_PAGE_NOTIFICATION, object: nil, userInfo: [ControllerTypeKey:VideoPlayerControllerType.all])
         
         self.userDetailInfoHeaderView?.configWith(model: self.userInfoModel,type:self.userInfoHeaderViewType)
@@ -261,6 +261,9 @@ class UserDetailsController: UIViewController {
             let videoUserDetailModel = Mapper<VideoUserDetailModel>().map(jsonData: response.data)
             self.refreshTimeInterval = videoUserDetailModel?.timestamp == nil ? self.refreshTimeInterval : videoUserDetailModel?.timestamp
             self.userInfoModel = videoUserDetailModel?.user
+            if self.userInfoModel?.user_id == Defaults[.userId],let _type = self.userInfoModel?.identity_type{
+                Defaults[.userAuthenticateType] = _type
+            }
             self.userDetailHeadView?.configWith(model: self.userInfoModel)
             Toast.showErrorWith(model: videoUserDetailModel)
             self.collectionView.mj_footer.endRefreshing()

@@ -63,8 +63,25 @@ typedef enum {
         _remindButton.layer.cornerRadius = 11;
         _remindButton.clipsToBounds = true;
         [self addSubview:_remindButton];
+        
+        [self.textView addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if([keyPath isEqualToString:@"text"]){
+        NSString *text = [change valueForKey:@"new"];
+        if(text.length> 0){
+            [self.placeholderLabel setHidden:true];
+        }else{
+            [self.placeholderLabel setHidden:false];
+        }
+    }
+}
+
+- (void)dealloc{
+    [self.textView removeObserver:self forKeyPath:@"text"];
 }
 
 - (void)remindButtonClicked{

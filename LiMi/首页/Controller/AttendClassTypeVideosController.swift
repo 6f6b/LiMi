@@ -119,9 +119,9 @@ class AttendClassTypeVideosController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.currentVideoPlayCell != nil && !isClickToPause{
-            self.player.resume()
-        }
+//        if self.currentVideoPlayCell != nil && !isClickToPause{
+//            self.player.resume()
+//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -256,16 +256,36 @@ extension AttendClassTypeVideosController : UITableViewDelegate,UITableViewDataS
             }
         }
         //滚动到既定位置暂不自动播放
-        
+        for visiableCell in self.tableView.visibleCells{
+            //播放条件--》cell中心位于window中间高度为40的区域
+            let videoContainViewConstWidth = SCREEN_WIDTH-15*2
+            let videoContainViewConstHeight = videoContainViewConstWidth*(9.0/16.0)
+    
+            //文字高度
+            let textContentHeight = CGFloat(0)
+            let playHeight = 44 + 15 + videoContainViewConstHeight + 12 + textContentHeight + 12 + 44 + 20
+            
+            let window = UIApplication.shared.keyWindow
+            let rect = visiableCell.convert(visiableCell.bounds, to: window)
+            let centerY = rect.size.height*0.5+rect.origin.y
+            if centerY > (SCREEN_WIDTH - playHeight)*0.5 && centerY < (SCREEN_WIDTH+playHeight)*0.5{
+                if currentVideoPlayCell != visiableCell{
+                    if let attendClassTypeVideoCell = visiableCell as? AttendClassTypeVideoCell,let indexPath = tableView.indexPath(for: visiableCell){
+                        self.playWith(cell: attendClassTypeVideoCell, model: dataArray[indexPath.row])
+                    }
+                }
+                break
+            }
+        }
     }
 }
 
 extension AttendClassTypeVideosController{
     func tableViewRowHeightWith(indexPath:IndexPath)->CGFloat{
         let model = self.dataArray[indexPath.row]
-        var videoContainViewConstWidth = (SCREEN_WIDTH-15*2)*0.5
-        //视频高度
-        var videoContainViewConstHeight = videoContainViewConstWidth*(16.0/9.0)
+        
+        var videoContainViewConstHeight = (SCREEN_HEIGHT-NAVIGATION_BAR_HEIGHT-STATUS_BAR_HEIGHT-TAB_BAR_HEIGHT)*0.8
+        var videoContainViewConstWidth = videoContainViewConstHeight*(9.0/16.0)
         if let videoWidth = model.video?.width,let videoHeight = model.video?.height{
             if videoWidth > videoHeight{
                 videoContainViewConstWidth = SCREEN_WIDTH-15*2
@@ -277,7 +297,7 @@ extension AttendClassTypeVideosController{
         if let _text = model.title{
             textContentHeight = NSString.init(string: _text).boundingRect(with: CGSize.init(width: SCREEN_WIDTH-30, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14)], context: nil).size.height
         }
-        return 44 + 15 + videoContainViewConstHeight + 12 + textContentHeight + 12 + 44 + 20
+        return 44 + 15 + videoContainViewConstHeight + 12 + textContentHeight + 12 + 44 + 20 + 25
     }
 }
 
@@ -418,18 +438,20 @@ extension AttendClassTypeVideosController : AliyunVodPlayerDelegate{
             }
         }
         if event == .play{
-            self.currentVideoPlayCell?.videoPlayerContainView?.playButton.isSelected = true
+            self.currentVideoPlayCell?.videoPlayerContainView?.refreshPlayButtonWith(isPlay: true)
             print("播放器状态变更--->播放中")
         }
         if event == .firstFrame{
             print("播放器状态变更--->第一帧")
-            self.currentVideoPlayCell?.videoPlayerContainView?.playButton.isSelected = true
+            self.currentVideoPlayCell?.videoPlayerContainView?.refreshPlayButtonWith(isPlay: true)
             vodPlayer.playerView.isHidden = false
             self.isClickToPause = false
         }
         if event == .pause{
             print("播放器状态变更--->暂停")
-            self.currentVideoPlayCell?.videoPlayerContainView?.playButton.isSelected = false
+            
+            self.currentVideoPlayCell?.videoPlayerContainView?.refreshPlayButtonWith(isPlay: false)
+
         }
         if event == .stop{
             print("播放器状态变更--->停止")
@@ -439,11 +461,11 @@ extension AttendClassTypeVideosController : AliyunVodPlayerDelegate{
         }
         if event == .beginLoading{
             print("播放器状态变更--->开始加载")
-//            self.currentVideoPlayCell?.bottomBufferView.startAnimation()
+            self.currentVideoPlayCell?.videoPlayerContainView?.refreshPlayButtonWith(isPlay: false, isLoading: true)
         }
         if event == .endLoading{
             print("播放器状态变更--->加载完毕")
-//            self.currentVideoPlayCell?.bottomBufferView.stopAnimation()
+            self.currentVideoPlayCell?.videoPlayerContainView?.refreshPlayButtonWith(isPlay: false, isLoading: true)
         }
         if event == .seekDone{
             print("播放器状态变更--->seekdone")

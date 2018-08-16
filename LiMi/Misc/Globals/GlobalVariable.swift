@@ -43,6 +43,9 @@ let APP_THEME_COLOR_1 = RGBA(r: 30, g: 30, b: 30, a: 1)
 ///APP 主题色 2 - RGBA(r: 114, g: 0, b: 218, a: 1)
 let APP_THEME_COLOR_2 = RGBA(r: 114, g: 0, b: 218, a: 1)
 
+///APP 主题色 3 - RGBA(240, 31, 99, 1)
+let APP_THEME_COLOR_3 = RGBA(r: 240, g: 31, b: 99, a: 1)
+
 ///一级黑
 let FIRST_LEVEL_BLACK_COLOR = RGBA(r: 51, g: 51, b: 51, a: 1)
 

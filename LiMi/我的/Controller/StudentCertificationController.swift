@@ -22,7 +22,7 @@ class StudentCertificationController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "学生认证"
-        self.tableView.estimatedRowHeight = 1000
+        self.tableView.estimatedRowHeight = 2000
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +77,7 @@ class StudentCertificationController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
 }

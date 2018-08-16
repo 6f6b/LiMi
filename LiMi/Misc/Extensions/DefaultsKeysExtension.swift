@@ -25,6 +25,7 @@ extension DefaultsKeys{
     static let userImToken = DefaultsKey<String?>("userImToken")
     ///用户accid
     static let userAccid = DefaultsKey<String?>("userAccid")
+    static let userAuthenticateType = DefaultsKey<Int?>("userAuthenticateType")
     
     ///是否提醒过设置附近的人个性签名
     static let isMindedToFinishSignatureInNearby = DefaultsKey<Bool?>("isMindedToFinishSignatureInNearby")

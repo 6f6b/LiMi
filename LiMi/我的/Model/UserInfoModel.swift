@@ -12,7 +12,10 @@ import ObjectMapper
 class UserInfoModel: BaseModel {
     var nickname:String?
     var signature:String?
+    ///0未认证 1认证中 2已认证 3 认证失败
     var is_access:Int?
+    ///0学生认证 1 学霸认证
+    var identity_type:Int?
     var attention_num:Int?
     var fans_num:Int?
     var click_num:Int?
@@ -65,7 +68,7 @@ class UserInfoModel: BaseModel {
         fans_num <- map["fans_num"]
 
         is_access <- map["is_access"]
-        
+        identity_type <- map["identity_type"]
         signature <- map["signature"]
         nickname<-map["nickname"]
         true_name<-map["true_name"]

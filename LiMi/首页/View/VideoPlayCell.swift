@@ -329,7 +329,6 @@ class VideoPlayCell: UITableViewCell {
                 if trendModel.id != self.videoTrendModel?.id{return}
                 if let _is_click = trendModel.is_click{
                     if _is_click{
-//                        self.thumbsUpNumLabel.isHidden = true
                         let buttonFrame = self.thumbsUpButton.frame
                         let animationView = LOTAnimationView.init(name: "favorite")
                         let height = self.thumbsUpButton.frame.size.height
@@ -348,7 +347,6 @@ class VideoPlayCell: UITableViewCell {
                             if let _clickNum = trendModel.click_num{
                                 self.thumbsUpNumLabel.text = _clickNum.suitableStringValue()
                             }
-//                            self.thumbsUpNumLabel.isHidden = false
                         }
                     }else{
                         self.thumbsUpButton.isSelected = _is_click
@@ -524,7 +522,7 @@ class VideoPlayCell: UITableViewCell {
                         //print("点击了\(textExtraModel.id)")
                         self.delegate?.videoPlayCell(cell: self, clickRemindUserWith: textExtraModel.id)
                     }
-                    attr.addAttributes([NSAttributedStringKey.foregroundColor:RGBA(r: 241, g: 30, b: 101, a: 1),NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15, weight: .bold)], range: range)
+                    attr.addAttributes([NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 16, weight: .bold)], range: range)
                 }
                 finalText.append(attr)
                 location += nsText.length

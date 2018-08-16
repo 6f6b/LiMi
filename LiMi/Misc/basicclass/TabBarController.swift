@@ -187,7 +187,7 @@ extension TabBarController:NIMSystemNotificationManagerDelegate{
         //AppManager.shared.systemUnreadCount = unreadCount
         self.refreshMyMessageBadge()
     }
-    
+
     ///收到自定义系统消息
     func onReceive(_ notification: NIMCustomSystemNotification) {
         AppManager.shared.customSystemMessageManager.addCustomSystemMessageWith(nimCustomSystemNotification: notification)

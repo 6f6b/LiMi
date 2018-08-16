@@ -610,6 +610,9 @@
 		6864AC62204D240D00422CD8 /* SystemMessageNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC61204D240D00422CD8 /* SystemMessageNumView.swift */; };
 		6864AC64204D241C00422CD8 /* SystemMessageNumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6864AC63204D241C00422CD8 /* SystemMessageNumView.xib */; };
 		6864AC66204D35D600422CD8 /* SystemmsgContainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */; };
+		68662F0D21240BD2003133CB /* sk_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 68662F0C21240BD0003133CB /* sk_loading.json */; };
+		68662F1021241958003133CB /* AliyunChooseClassTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68662F0E21241958003133CB /* AliyunChooseClassTypeController.swift */; };
+		68662F1121241958003133CB /* AliyunChooseClassTypeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68662F0F21241958003133CB /* AliyunChooseClassTypeController.xib */; };
 		6867ABF720F5D8BD00F30F67 /* OCTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867ABF620F5D8BD00F30F67 /* OCTools.m */; };
 		6867ABFA20F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867ABF920F604AE00F30F67 /* SoundTrackAndMusicAdjustView.m */; };
 		6867ABFC20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6867ABFB20F604BC00F30F67 /* SoundTrackAndMusicAdjustView.xib */; };
@@ -2150,6 +2153,9 @@
 		6864AC61204D240D00422CD8 /* SystemMessageNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageNumView.swift; sourceTree = "<group>"; };
 		6864AC63204D241C00422CD8 /* SystemMessageNumView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMessageNumView.xib; sourceTree = "<group>"; };
 		6864AC65204D35D600422CD8 /* SystemmsgContainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemmsgContainController.swift; sourceTree = "<group>"; };
+		68662F0C21240BD0003133CB /* sk_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sk_loading.json; sourceTree = "<group>"; };
+		68662F0E21241958003133CB /* AliyunChooseClassTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliyunChooseClassTypeController.swift; sourceTree = "<group>"; };
+		68662F0F21241958003133CB /* AliyunChooseClassTypeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliyunChooseClassTypeController.xib; sourceTree = "<group>"; };
 		6867ABF520F5D8BD00F30F67 /* OCTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCTools.h; sourceTree = "<group>"; };
 		6867ABF620F5D8BD00F30F67 /* OCTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCTools.m; sourceTree = "<group>"; };
 		6867ABF820F604AE00F30F67 /* SoundTrackAndMusicAdjustView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundTrackAndMusicAdjustView.h; sourceTree = "<group>"; };
@@ -5327,6 +5333,7 @@
 				689DF79E2004750A007FAE9C /* 登录&注册相关 */,
 				68880860200DF0F100BC6AE9 /* Info.plist */,
 				680E169F2003548C006CC5B9 /* Main.storyboard */,
+				68662F0C21240BD0003133CB /* sk_loading.json */,
 				68DB858820FC4065008C0F48 /* favorite.json */,
 				68DB858A20FC9F8B008C0F48 /* music_animation.json */,
 				680E16A22003548C006CC5B9 /* Assets.xcassets */,
@@ -6321,6 +6328,8 @@
 				6825703A20BABAEF002E92C4 /* AliyunVisibleChooseController.h */,
 				6825703B20BABAEF002E92C4 /* AliyunVisibleChooseController.m */,
 				6825703C20BABAEF002E92C4 /* AliyunVisibleChooseController.xib */,
+				68662F0E21241958003133CB /* AliyunChooseClassTypeController.swift */,
+				68662F0F21241958003133CB /* AliyunChooseClassTypeController.xib */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -7441,6 +7450,7 @@
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
 				6801E062202C6EA900C106E1 /* NTESFileTransSelectViewController.xib in Resources */,
 				6864AC1F2048F02500422CD8 /* WeekendTourOrderDetailController.xib in Resources */,
+				68662F1121241958003133CB /* AliyunChooseClassTypeController.xib in Resources */,
 				6864AC3D2048F36B00422CD8 /* WeekendTourOrderPayWayCell.xib in Resources */,
 				689C96E020E4B235006E6032 /* PrivacySettingController.xib in Resources */,
 				68B55DBF207AFF5A00DF6FF7 /* BlackerCell.xib in Resources */,
@@ -7513,6 +7523,7 @@
 				68DFCFF620B2AACC009B8373 /* yuanhao8.png in Resources */,
 				6864AC312048F30100422CD8 /* WeekendTourOrderContactWayCell.xib in Resources */,
 				68DFD19A20B3CE6F009B8373 /* MediaContainController.xib in Resources */,
+				68662F0D21240BD2003133CB /* sk_loading.json in Resources */,
 				68C207AA2108629B00393E12 /* LocationInfoCell.xib in Resources */,
 				682548752015C47E0033410A /* UserDetailHeadView.xib in Resources */,
 				68C0FA7E20B674FB0055AA8E /* PhotoViewController.xib in Resources */,
@@ -8473,6 +8484,7 @@
 				6801E08C202C6EA900C106E1 /* ijksdl_timer.c in Sources */,
 				68DFAB3020AC1792009B8373 /* AliyunImage.m in Sources */,
 				68A3EE13206E373B00BD3097 /* FileUploadManager.swift in Sources */,
+				68662F1021241958003133CB /* AliyunChooseClassTypeController.swift in Sources */,
 				68DFAB6E20AC1792009B8373 /* AliyunCompositionViewController.m in Sources */,
 				6801DF83202C6EA800C106E1 /* NIMKitNotificationFirer.m in Sources */,
 				6801DF80202C6EA800C106E1 /* NIMCustomLeftBarView.m in Sources */,
