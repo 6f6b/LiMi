@@ -165,7 +165,5 @@ let SYSTEM_VERSION = UIDevice.current.systemVersion.doubleValue()!
 
 ///联系电话
 var PHONE_NUMBER = "028-33010731"
-///一级最长拍摄时间
-var FIRST_LEVEL_RECORD_TIME = Float(15)
-
-
+///一级最长拍摄时间 普通用户
+//var FIRST_LEVEL_RECORD_TIME = Float(15)

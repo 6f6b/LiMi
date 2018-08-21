@@ -137,7 +137,7 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSc-kZ-dJ7">
                         <rect key="frame" x="15" y="59" width="240" height="128"/>
-                        <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="240" id="AHS-b6-Wzt"/>
                             <constraint firstAttribute="height" constant="128" id="TPh-1h-2hQ"/>
@@ -187,6 +187,7 @@
                 <outlet property="clickNumButton" destination="QMH-yw-nwX" id="eAo-t3-EDc"/>
                 <outlet property="commentNumButton" destination="7N7-sj-Zlc" id="EAV-HY-iFx"/>
                 <outlet property="followButton" destination="dXA-fZ-HFg" id="sKu-bQ-Eko"/>
+                <outlet property="goodStudentTag" destination="mru-OA-zty" id="eZO-T8-cMm"/>
                 <outlet property="moreOperationButton" destination="dCl-7r-2Ez" id="k5c-iP-wEh"/>
                 <outlet property="nickName" destination="9me-BZ-pEY" id="9GR-Cz-ARl"/>
                 <outlet property="school" destination="flH-zl-Avt" id="0AM-Q1-5SI"/>

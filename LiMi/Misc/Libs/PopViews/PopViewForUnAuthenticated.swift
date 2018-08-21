@@ -63,7 +63,7 @@ class PopViewForUnAuthenticated: PopView {
         self.authenticateNowBtn.addTarget(self, action: #selector(dealAuthenticateNow), for: .touchUpInside)
         self.authenticateNowBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         self.authenticateNowBtn.titleLabel?.textColor = UIColor.white
-        self.authenticateNowBtn.backgroundColor = APP_THEME_COLOR
+        self.authenticateNowBtn.backgroundColor = APP_THEME_COLOR_2
         self.authenticateNowBtn.layer.cornerRadius = 20
         self.authenticateNowBtn.clipsToBounds = true
         self.authenticateNowBtn.setTitle("快速认证", for: .normal)

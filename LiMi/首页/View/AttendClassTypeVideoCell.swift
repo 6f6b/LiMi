@@ -32,6 +32,9 @@ class AttendClassTypeVideoCell: UITableViewCell {
     @IBOutlet weak var videoContainView: UIView!
     @IBOutlet weak var videoContainViewHeight: NSLayoutConstraint!
     @IBOutlet weak var videoContainViewWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var goodStudentTag: UILabel!
+    
     var videoPlayerContainView:VideoPlayerContainView?
     weak var playerView:UIView?
     weak var delegate:AttendClassTypeVideoCellDelegate?
@@ -65,7 +68,7 @@ class AttendClassTypeVideoCell: UITableViewCell {
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
                 if self.model?.user?.user_id == trendModel.user?.user_id{
                     if let _is_attention = trendModel.is_attention{
-                        self.followButton.isHidden = _is_attention
+                        self.followButton.isHidden = _is_attention == 0 ? false : true
                     }
                 }
             }
@@ -102,14 +105,15 @@ class AttendClassTypeVideoCell: UITableViewCell {
         self.model = model
         self.playerView?.removeFromSuperview()
         if let _headPic = model.user?.head_pic{
+            self.userHeadImage.setImage(nil, for: .normal)
             self.userHeadImage.kf.setImage(with: URL.init(string: _headPic), for: .normal)
         }
         self.nickName.text = model.user?.nickname
         self.school.text = model.user?.college?.name
-        if model.is_attention == true{
-            self.followButton.isHidden = true
-        }else{
+        if model.is_attention == 0{
             self.followButton.isHidden = false
+        }else{
+            self.followButton.isHidden = true
         }
         if let _clickNum = model.click_num{
             self.clickNumButton.setTitle("  \(_clickNum.suitableStringValue())", for: .normal)
@@ -142,6 +146,9 @@ class AttendClassTypeVideoCell: UITableViewCell {
         self.videoPlayerContainView?.configWith(model: model)
         
         self.videoTrendContent.text = model.title
+        
+        self.timeLabel.text = model.publish_time
+        self.goodStudentTag.text = model.user?.identity_name ?? "学霸"
     }
     
     func installPlayerViewWith(playerView:UIView){

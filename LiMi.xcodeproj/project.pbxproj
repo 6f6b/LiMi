@@ -560,6 +560,14 @@
 		6840881920410B7100D22885 /* APPUpgradeRemindingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */; };
 		6840881B20410B8300D22885 /* APPUpgradeRemindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */; };
 		6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881C2041125B00D22885 /* AppUpgradeModel.swift */; };
+		685010A72125648700F0E1EF /* AttentionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010A62125648700F0E1EF /* AttentionResultModel.swift */; };
+		685010A92126718D00F0E1EF /* NearbyPurposeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */; };
+		685010AB212671AD00F0E1EF /* NearbyPurposeListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */; };
+		685010AE2126755100F0E1EF /* PurposeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010AC2126755100F0E1EF /* PurposeItemCell.swift */; };
+		685010AF2126755100F0E1EF /* PurposeItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010AD2126755100F0E1EF /* PurposeItemCell.xib */; };
+		685010B12126796100F0E1EF /* NearbyPurposeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */; };
+		685010B421267D7600F0E1EF /* ChooseNearbyPurposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */; };
+		685010B521267D7600F0E1EF /* ChooseNearbyPurposeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */; };
 		685E395D2063B375003B505E /* SystemMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E395B2063B375003B505E /* SystemMsgListController.swift */; };
 		685E395E2063B375003B505E /* SystemMsgListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E395C2063B375003B505E /* SystemMsgListController.xib */; };
 		68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECC201AC6E500D041CC /* TrendListModel.swift */; };
@@ -2098,6 +2106,14 @@
 		6840881820410B7100D22885 /* APPUpgradeRemindingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPUpgradeRemindingView.xib; sourceTree = "<group>"; };
 		6840881A20410B8300D22885 /* APPUpgradeRemindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPUpgradeRemindingView.swift; sourceTree = "<group>"; };
 		6840881C2041125B00D22885 /* AppUpgradeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpgradeModel.swift; sourceTree = "<group>"; };
+		685010A62125648700F0E1EF /* AttentionResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionResultModel.swift; sourceTree = "<group>"; };
+		685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPurposeListView.swift; sourceTree = "<group>"; };
+		685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyPurposeListView.xib; sourceTree = "<group>"; };
+		685010AC2126755100F0E1EF /* PurposeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeItemCell.swift; sourceTree = "<group>"; };
+		685010AD2126755100F0E1EF /* PurposeItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurposeItemCell.xib; sourceTree = "<group>"; };
+		685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPurposeListModel.swift; sourceTree = "<group>"; };
+		685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNearbyPurposeController.swift; sourceTree = "<group>"; };
+		685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseNearbyPurposeController.xib; sourceTree = "<group>"; };
 		685E395B2063B375003B505E /* SystemMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgListController.swift; sourceTree = "<group>"; };
 		685E395C2063B375003B505E /* SystemMsgListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMsgListController.xib; sourceTree = "<group>"; };
 		68629ECC201AC6E500D041CC /* TrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendListModel.swift; sourceTree = "<group>"; };
@@ -5463,6 +5479,8 @@
 			children = (
 				681C95C62045381D009CDE3B /* PeopleNearbyController.swift */,
 				681C95C72045381D009CDE3B /* PeopleNearbyController.xib */,
+				685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */,
+				685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5474,6 +5492,10 @@
 				681C95CB204542B0009CDE3B /* NearbyPeopleCollectionCell.xib */,
 				681C95D42045701F009CDE3B /* EditAutographView.swift */,
 				681C95D220456D12009CDE3B /* EditAutographView.xib */,
+				685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */,
+				685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */,
+				685010AC2126755100F0E1EF /* PurposeItemCell.swift */,
+				685010AD2126755100F0E1EF /* PurposeItemCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5483,6 +5505,7 @@
 			children = (
 				681C95D020455C2B009CDE3B /* PeopleNearbyContainModel.swift */,
 				681C95DB20479BEC009CDE3B /* AutographModel.swift */,
+				685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6059,6 +6082,7 @@
 				68FD415020F35E0900AA0762 /* SameParagraphVideoListModel.swift */,
 				6894D12D2111BFA9009953F9 /* SameChallengeVideoListModel.swift */,
 				68C6D6D6211C2EC10068F479 /* CollegeVideoInfoListModel.swift */,
+				685010A62125648700F0E1EF /* AttentionResultModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7446,6 +7470,7 @@
 				68C5F2A8203FFC7600769A92 /* SubmitFeedbackCell.xib in Resources */,
 				6864AC4F20493FD600422CD8 /* WeekendTourSubjectInCircleHomePageCell.xib in Resources */,
 				6864AC5320494A8B00422CD8 /* MyOrderListController.xib in Resources */,
+				685010AF2126755100F0E1EF /* PurposeItemCell.xib in Resources */,
 				6801E113202DA83700C106E1 /* Settings.bundle in Resources */,
 				688A4C9A200DD14100BB5DF7 /* AlterUserSexController.xib in Resources */,
 				6801E062202C6EA900C106E1 /* NTESFileTransSelectViewController.xib in Resources */,
@@ -7585,6 +7610,7 @@
 				6801E064202C6EA900C106E1 /* NTESGalleryViewController.xib in Resources */,
 				6801E100202DA6CE00C106E1 /* SetupOSX.mpq in Resources */,
 				681C95E02047A13D009CDE3B /* WeekendTourController.xib in Resources */,
+				685010B521267D7600F0E1EF /* ChooseNearbyPurposeController.xib in Resources */,
 				6801E0C9202C6EA900C106E1 /* JResource.bundle in Resources */,
 				681C95B62045366E009CDE3B /* CircleHomeBannerCell.xib in Resources */,
 				6801E0CF202C6EA900C106E1 /* WalletResource.bundle in Resources */,
@@ -7647,6 +7673,7 @@
 				6801E06E202C6EA900C106E1 /* NTESVideoViewController.xib in Resources */,
 				6864AC4720492B8700422CD8 /* DatePickerView.xib in Resources */,
 				68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */,
+				685010AB212671AD00F0E1EF /* NearbyPurposeListView.xib in Resources */,
 				6801E07A202C6EA900C106E1 /* NTESTeamMeetingMutesViewController.xib in Resources */,
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
 				683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */,
@@ -8000,6 +8027,7 @@
 				681389C820568B6C00F65623 /* SuspensionExpandMenu.swift in Sources */,
 				6801E05C202C6EA900C106E1 /* NTESSessionWhiteBoardContentView.m in Sources */,
 				6801DF99202C6EA800C106E1 /* NIMInputMoreContainerView.m in Sources */,
+				685010B421267D7600F0E1EF /* ChooseNearbyPurposeController.swift in Sources */,
 				681389C320526D4800F65623 /* ThumbUpAndCommentMessageContainModel.swift in Sources */,
 				68C207812106C30700393E12 /* PulishMenuViewItemView.swift in Sources */,
 				68DFAB9620AC1792009B8373 /* AliyunEffectFilterInfo.m in Sources */,
@@ -8052,6 +8080,7 @@
 				6801DFB2202C6EA800C106E1 /* NIMKitAudioCenter.m in Sources */,
 				6801DF91202C6EA800C106E1 /* NIMGrowingTextView.m in Sources */,
 				6801D931202C44D000C106E1 /* FSActionSheet.m in Sources */,
+				685010B12126796100F0E1EF /* NearbyPurposeListModel.swift in Sources */,
 				6824487920C67388009D1AED /* VideoListCollectionViewCell.swift in Sources */,
 				6801E097202C6EA900C106E1 /* NTESTextHeaderView.m in Sources */,
 				6801E05A202C6EA900C106E1 /* NTESSessionSnapchatContentView.m in Sources */,
@@ -8085,6 +8114,7 @@
 				68DFAB5720AC1792009B8373 /* AliyunRecordParamTableViewCell.m in Sources */,
 				681C5C5620EA381100341D7D /* CityListModel.swift in Sources */,
 				6801DFBC202C6EA800C106E1 /* NIMSessionFileTransContentView.m in Sources */,
+				685010A72125648700F0E1EF /* AttentionResultModel.swift in Sources */,
 				68D583F5204E3DD3002CE864 /* UserAgreementController.swift in Sources */,
 				689DF79720045D7D007FAE9C /* MsgController.swift in Sources */,
 				68DFAB6D20AC1792009B8373 /* AliyunCompositionPickCell.m in Sources */,
@@ -8104,6 +8134,7 @@
 				6801DFE6202C6EA800C106E1 /* NIMSpellingCenter.m in Sources */,
 				68880895200DF45100BC6AE9 /* UIKitExtension.swift in Sources */,
 				68DFD19D20B401CD009B8373 /* MagicCameraView.m in Sources */,
+				685010A92126718D00F0E1EF /* NearbyPurposeListView.swift in Sources */,
 				68C9857F20F455D0008BC899 /* SameParagraphScanVideoListController.swift in Sources */,
 				6801DF9D202C6EA800C106E1 /* NIMKitInfo.m in Sources */,
 				6801DFDB202C6EA800C106E1 /* NIMTimePickerView.m in Sources */,
@@ -8323,6 +8354,7 @@
 				681C5C6120EB2EDA00341D7D /* CityListController.swift in Sources */,
 				6801DFDC202C6EA800C106E1 /* NIMKitAuthorizationTool.m in Sources */,
 				68AE8A572094784100CB10B0 /* NTESNewFollowersController.swift in Sources */,
+				685010AE2126755100F0E1EF /* PurposeItemCell.swift in Sources */,
 				6801DF71202C6EA800C106E1 /* UIImage+NIMKit.m in Sources */,
 				6801DFE5202C6EA800C106E1 /* NIMPinyinConverter.m in Sources */,
 				6801DFD4202C6EA800C106E1 /* NIMTeamMemberListViewController.m in Sources */,

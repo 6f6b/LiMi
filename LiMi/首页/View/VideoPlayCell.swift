@@ -364,7 +364,7 @@ class VideoPlayCell: UITableViewCell {
             if let trendModel = userInfo[TREND_MODEL_KEY] as? VideoTrendModel{
                 if self.videoTrendModel?.user?.user_id == trendModel.user?.user_id{
                     if let _is_attention = trendModel.is_attention{
-                        self.addFollowButton.isHidden = _is_attention
+                        self.addFollowButton.isHidden = _is_attention == 0 ? false : true
                     }
                 }
             }
@@ -406,7 +406,7 @@ class VideoPlayCell: UITableViewCell {
             self.thumbsUpButton.isSelected = _is_click
         }
         if let _is_attention = videoTrendModel?.is_attention{
-            self.addFollowButton.isHidden = _is_attention
+            self.addFollowButton.isHidden = _is_attention == 0 ? false : true
         }
         
         if videoTrendModel?.user?.user_id == Defaults[.userId]{

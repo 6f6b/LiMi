@@ -21,7 +21,7 @@ class StudentCertificationController: UITableViewController {
     var imagePickerVC:TZImagePickerController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "学生认证"
+        self.title = "申请认证"
         self.tableView.estimatedRowHeight = 2000
     }
 

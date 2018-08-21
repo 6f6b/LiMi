@@ -82,7 +82,6 @@
 
 - (void)loadView{
     [super loadView];
-
     //self.view = self.magicCameraView;
 }
     
@@ -117,7 +116,7 @@
     if(self.musicPath != nil){
         AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:self.musicPath];
         effectMusic.startTime = 0;
-        float _duration = self.duration <= 0 ? FIRST_LEVEL_RECORD_TIME : self.duration;
+        float _duration = self.duration <= 0 ? AppManager.shared.videoRecordTime : self.duration;
         effectMusic.duration = _duration;
         [_recorder applyMusic:effectMusic];
     }

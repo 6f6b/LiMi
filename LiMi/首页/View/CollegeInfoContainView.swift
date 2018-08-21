@@ -102,6 +102,8 @@ extension CollegeInfoContainView : iCarouselDelegate,iCarouselDataSource{
     }
     
     func carousel(_ carousel: iCarousel, itemTransformForOffset offset: CGFloat, baseTransform transform: CATransform3D) -> CATransform3D {
+//        return transform
+//        return CATransform3DScale(transform, 1, 1, 1)
         let max_sacle = 1.0
         let min_scale = 0.8
         var _transform:CATransform3D!

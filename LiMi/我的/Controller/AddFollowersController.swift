@@ -11,7 +11,7 @@ import Moya
 import ObjectMapper
 
 class AddFollowersController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle{return .default}
+    override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UITextField!

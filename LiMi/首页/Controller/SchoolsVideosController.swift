@@ -34,6 +34,7 @@ class SchoolsVideosController: VideoListController {
     
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.dataArray.count <= 0{return}
         let followAndSchoolVideoContainController = FollowAndSchoolVideoContainController.init(type: type, currentVideoTrendIndex: indexPath.row, dataArray: self.dataArray, collegeId: self.collegeModel?.id)
         self.navigationController?.pushViewController(followAndSchoolVideoContainController, animated: true)
     }

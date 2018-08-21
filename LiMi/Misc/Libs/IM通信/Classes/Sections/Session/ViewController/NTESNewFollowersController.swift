@@ -24,7 +24,7 @@ class NTESNewFollowersController: UIViewController {
         NIMSDK.shared().conversationManager.markAllMessagesRead(in: self.session)
         
         let sumbitBtn = UIButton.init(type: .custom)
-        let sumBitAttributeTitle = NSAttributedString.init(string: "清空", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR])
+        let sumBitAttributeTitle = NSAttributedString.init(string: "清空", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:APP_THEME_COLOR_2])
         sumbitBtn.setAttributedTitle(sumBitAttributeTitle, for: .normal)
         sumbitBtn.sizeToFit()
         sumbitBtn.addTarget(self, action: #selector(dealClear), for: .touchUpInside)

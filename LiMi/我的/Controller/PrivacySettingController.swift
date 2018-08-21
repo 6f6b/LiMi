@@ -76,16 +76,16 @@ extension PrivacySettingController :UITableViewDataSource,UITableViewDelegate{
                 let resultModel = Mapper<BaseModel>().map(jsonData: response.data)
                 if resultModel?.commonInfoModel?.status == successState{
                     if _indexPath?.row == 0,let status = self.userInfoModel?.send_status{
-                        self.userInfoModel?.send_status = !status
+                        self.userInfoModel?.send_status = status == 1 ? 0 : 1
                     }
                     if _indexPath?.row == 1,let status = self.userInfoModel?.clickVL_status{
-                        self.userInfoModel?.clickVL_status = !status
+                        self.userInfoModel?.clickVL_status = status == 1 ? 0 : 1
                     }
                     if _indexPath?.row == 2,let status = self.userInfoModel?.fansL_status{
-                        self.userInfoModel?.fansL_status = !status
+                        self.userInfoModel?.fansL_status = status == 1 ? 0 : 1
                     }
                     if _indexPath?.row == 3,let status = self.userInfoModel?.attentionL_status{
-                        self.userInfoModel?.attentionL_status = !status
+                        self.userInfoModel?.attentionL_status = status == 1 ? 0 : 1
                     }
                     tableView.reloadData()
                 }

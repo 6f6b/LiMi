@@ -30,6 +30,14 @@ class AttendClassTypeVideosController: UIViewController {
         let tableViewFrame = CGRect.init(x: 0, y: STATUS_BAR_HEIGHT+NAVIGATION_BAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-STATUS_BAR_HEIGHT-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT)
         
         self.tableView = UITableView.init(frame: tableViewFrame)
+        self.tableView.estimatedRowHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.estimatedSectionHeaderHeight = 0
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         self.tableView.separatorStyle = .none
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -147,12 +155,20 @@ class AttendClassTypeVideosController: UIViewController {
                 }
             }
             self.tableView.reloadData()
-            self.tableView.mj_header.endRefreshing()
-            self.tableView.mj_footer.endRefreshing()
+//            self.tableView.mj_header.endRefreshing()
+//            self.tableView.mj_footer.endRefreshing()
+            if self.pageIndex == 1{
+                self.tableView.mj_header.endRefreshing()
+            }else{
+                self.tableView.mj_footer.endRefreshing()
+            }
             Toast.showErrorWith(model: videoTrendListModel)
             }, onError: { (error) in
-                self.tableView.mj_header.endRefreshing()
-                self.tableView.mj_footer.endRefreshing()
+                if self.pageIndex == 1{
+                    self.tableView.mj_header.endRefreshing()
+                }else{
+                    self.tableView.mj_footer.endRefreshing()
+                }
                 Toast.showErrorWith(msg: error.localizedDescription)
         })
     }
@@ -316,10 +332,10 @@ extension AttendClassTypeVideosController : AttendClassTypeVideoCellDelegate{
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let addAttention = AddAttention.init(attention_id: videoModel?.user?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
-            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if baseModel?.commonInfoModel?.status == successState{
-                if let _isAttention = videoModel?.is_attention{
-                    let nowAttention = !_isAttention
+            let attentionResultModel = Mapper<AttentionResultModel>().map(jsonData: response.data)
+            if attentionResultModel?.commonInfoModel?.status == successState{
+                if let _isAttention = attentionResultModel?.is_attention{
+                    let nowAttention = _isAttention
                     videoModel?.is_attention = nowAttention
                     for _videoAttention in self.dataArray{
                         if _videoAttention.user?.user_id == videoModel?.user?.user_id{
@@ -329,7 +345,7 @@ extension AttendClassTypeVideosController : AttendClassTypeVideoCellDelegate{
                 }
                 NotificationCenter.default.post(name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
             }
-            Toast.showErrorWith(model: baseModel)
+            Toast.showErrorWith(model: attentionResultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
         })

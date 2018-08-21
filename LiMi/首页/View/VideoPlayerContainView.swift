@@ -20,6 +20,7 @@ class VideoPlayerContainView: UIView {
     weak var delegate:VideoPlayerContainViewDelegate?
     var videoPreImageView: UIImageView!
     var loadingView:LOTAnimationView!
+    var panG:UIPanGestureRecognizer?
     override init(frame: CGRect) {
         super.init(frame: frame)
         player?.playerState()
@@ -51,9 +52,6 @@ class VideoPlayerContainView: UIView {
         //点击手势
         let tapG = UITapGestureRecognizer.init(target: self, action: #selector(dealTapSelf))
         self.addGestureRecognizer(tapG)
-        //拖动手势
-        let panG = UIPanGestureRecognizer.init(target: self, action: #selector(dealPanSelf(ges:)))
-        self.addGestureRecognizer(panG)
         
         loadingView = LOTAnimationView.init(name: "sk_loading")
         loadingView.isHidden = true
@@ -68,6 +66,20 @@ class VideoPlayerContainView: UIView {
         }
     }
     
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+        
+        if let _ = newSuperview as? WindowLevelView{
+            //拖动手势
+            panG = UIPanGestureRecognizer.init(target: self, action: #selector(dealPanSelf(ges:)))
+            self.addGestureRecognizer(panG!)
+        }else{
+            if let _panG = self.panG{
+                self.removeGestureRecognizer(_panG)
+            }
+        }
+    }
     
     /// 调整播放按钮的UI
     ///

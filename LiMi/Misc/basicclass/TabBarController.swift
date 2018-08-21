@@ -185,6 +185,7 @@ extension TabBarController:NIMSystemNotificationManagerDelegate{
     ///系统通知数量变化
     func onSystemNotificationCountChanged(_ unreadCount: Int) {
         //AppManager.shared.systemUnreadCount = unreadCount
+        
         self.refreshMyMessageBadge()
     }
 

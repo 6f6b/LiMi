@@ -36,7 +36,7 @@ class UserInfoEditController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "申请认证"
+        self.title = "编辑资料"
         
         let saveButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
         saveButton.setTitle("保存", for: .normal)

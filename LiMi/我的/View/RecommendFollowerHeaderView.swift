@@ -15,12 +15,12 @@ class RecommendFollowerHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = APP_THEME_COLOR_1
         
         self.leftLabel = UILabel.init()
         self.leftLabel.text = "推荐"
-        self.leftLabel.textColor = APP_THEME_COLOR
-        self.leftLabel.font = UIFont.systemFont(ofSize: 17)
+        self.leftLabel.textColor = UIColor.white
+        self.leftLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         self.addSubview(self.leftLabel)
         self.leftLabel.snp.makeConstraints {[unowned self] (make) in
             make.top.equalTo(self).offset(15)
@@ -29,7 +29,7 @@ class RecommendFollowerHeaderView: UIView {
         }
         
         let bottomeLine = UIView()
-        bottomeLine.backgroundColor = RGBA(r: 228, g: 228, b: 228, a: 1)
+        bottomeLine.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
         self.addSubview(bottomeLine)
         bottomeLine.snp.makeConstraints {[unowned self] (make) in
             make.bottom.equalTo(self)

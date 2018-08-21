@@ -7,7 +7,7 @@
 //
 
 #import "AliyunVideoRecordParam.h"
-
+#import "LiMi-Swift.h"
 @implementation AliyunVideoRecordParam
 
 
@@ -23,7 +23,7 @@
         _size = AliyunVideoVideoSize540P;
         _ratio = AliyunVideoVideoRatio3To4;
         _minDuration = 2.0;
-        _maxDuration = FIRST_LEVEL_RECORD_TIME;
+        _maxDuration = AppManager.shared.videoRecordTime;
         _videoQuality = AliyunVideoQualityHight;
         _encodeMode = AliyunVideoEncodeModeHardH264;
         _fps = 25;

@@ -294,10 +294,10 @@ extension SingleVideoPlayController:VideoPlayCellDelegate{
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let addAttention = AddAttention.init(attention_id: videoModel?.user?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
-            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if baseModel?.commonInfoModel?.status == successState{
-                if let _isAttention = videoModel?.is_attention{
-                    let nowAttention = !_isAttention
+            let attentionResultModel = Mapper<AttentionResultModel>().map(jsonData: response.data)
+            if attentionResultModel?.commonInfoModel?.status == successState{
+                if let _isAttention = attentionResultModel?.is_attention{
+                    let nowAttention = _isAttention
                     videoModel?.is_attention = nowAttention
                     for _videoAttention in self.dataArray{
                         if _videoAttention.user?.user_id == videoModel?.user?.user_id{
@@ -307,7 +307,7 @@ extension SingleVideoPlayController:VideoPlayCellDelegate{
                 }
                 NotificationCenter.default.post(name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
             }
-            Toast.showErrorWith(model: baseModel)
+            Toast.showErrorWith(model: attentionResultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
         })

@@ -34,7 +34,7 @@ class VideoTrendModel: BaseModel {
     var id:Int?//
     var title:String?//
     var is_click:Bool?//
-    var is_attention:Bool?//
+    var is_attention:Int?//
     var music:MusicModel?
     var user:UserInfoModel?
     var video:VideoInfoModel?
@@ -43,6 +43,8 @@ class VideoTrendModel: BaseModel {
     var challenge_id:Int? //": 19,
     var challenge:String? //": "\u5ddd\u5927\u6444\u5f71\u6bd4\u8d5b",
     var is_first:Bool?
+    var video_type:Int? //是否为 上课视频，1上课 2下课
+    var publish_time:String?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -63,6 +65,8 @@ class VideoTrendModel: BaseModel {
         challenge_id <- map["challenge_id"]
         challenge <- map["challenge"]
         is_first <- map["is_first"]
+        video_type <- map["video_type"]
+        publish_time <- map["publish_time"]
     }
 }
 

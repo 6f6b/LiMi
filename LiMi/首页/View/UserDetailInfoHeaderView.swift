@@ -86,10 +86,17 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
         self.type = type
     
         let isInOtherPersonCenter = type == .inOtherPersonCenter ? true : false
-        self.sendMsgButton.isHidden = !isInOtherPersonCenter
-        self.followRelationshipButton.isHidden = !isInOtherPersonCenter
-        self.editUserInfoButton.isHidden = isInOtherPersonCenter
-        self.moreSettingsButton.isHidden = isInOtherPersonCenter
+        if self.userInfoModel?.user_id == Defaults[.userId]{
+            self.sendMsgButton.isHidden = true
+            self.followRelationshipButton.isHidden = true
+            self.editUserInfoButton.isHidden = isInOtherPersonCenter
+            self.moreSettingsButton.isHidden = isInOtherPersonCenter
+        }else{
+            self.sendMsgButton.isHidden = !isInOtherPersonCenter
+            self.followRelationshipButton.isHidden = !isInOtherPersonCenter
+            self.editUserInfoButton.isHidden = isInOtherPersonCenter
+            self.moreSettingsButton.isHidden = isInOtherPersonCenter
+        }
         
         if let headPic = model?.head_pic{
             self.userHeadImageView.kf.setImage(with: URL.init(string: headPic), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
@@ -148,7 +155,7 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
         if let limiCode = model?.id_code{
             self.limiNumLabel.text = "粒米号：" + limiCode
         }
-        var signature = "暂无签名"
+        var signature = "我还在想一句能嗨翻全场的自我介绍"
         if let _signature = model?.signature{
             if _signature.lengthOfBytes(using: String.Encoding.utf8) >= 1{
                 signature = _signature
@@ -187,7 +194,7 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
                 self.authenticationBackgroundView.isUserInteractionEnabled = false
             }
             if model?.is_access == 2{
-                self.authenticationStateLabel.text = "已认证"
+                self.authenticationStateLabel.text = "高校学生"
                 self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxs")
                 self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
                 self.authenticationBackgroundView.isUserInteractionEnabled = false
@@ -212,7 +219,7 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
                 self.authenticationBackgroundView.isUserInteractionEnabled = false
             }
             if model?.is_access == 2{
-                self.authenticationStateLabel.text = "已认证"
+                self.authenticationStateLabel.text = model?.identity_name ?? "学霸"
                 self.authenticationIcon.image = UIImage.init(named: "me_ic_bqxb")
                 self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_3
                 self.authenticationBackgroundView.isUserInteractionEnabled = false
@@ -224,14 +231,7 @@ class UserDetailInfoHeaderView: UICollectionReusableView {
                 self.authenticationBackgroundView.isUserInteractionEnabled = false
             }
         }
-        
-//        if model?.is_access == 2{
-//            self.authenticationStateLabel.text = "已认证"
-//            self.authenticationBackgroundView.backgroundColor = APP_THEME_COLOR_2
-//        }else{
-//            self.authenticationStateLabel.text = "未认证"
-//            self.authenticationBackgroundView.backgroundColor = RGBA(r: 53, g: 53, b: 53, a: 1)
-//        }
+
         
         self.followRelationshipWidhtConstraint.constant = 80
         if model?.is_attention == 0{

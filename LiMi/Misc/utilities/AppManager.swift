@@ -33,7 +33,7 @@ class AppManager:NSObject {
     var systemNotificationManager = NIMSDK.shared().systemNotificationManager
     ///自定义系统消息管理
     var customSystemMessageManager = CustomSystemMessageManager.shared
-
+    
     
     override init() {
         super.init()
@@ -43,6 +43,15 @@ class AppManager:NSObject {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: IDENTITY_STATUS_OK_NOTIFICATION, object: nil)
+    }
+    
+    
+    /// 返回视频录制时间限制
+    ///
+    /// - Returns: 如果是学霸则为60，普通用户为30秒
+    @objc func videoRecordTime()->Float{
+        if Defaults[.userAuthenticateType] == 1{return 60}
+        return 15
     }
     
     /// 当前APP 登录状态以及 IM的登录状态

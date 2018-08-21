@@ -51,6 +51,8 @@ class VideoListController: UIViewController {
         
         self.collectionView.register(UINib.init(nibName: "ShoolHeatValueCell", bundle: nil), forCellWithReuseIdentifier: "ShoolHeatValueCell")
         self.collectionView.register(UINib.init(nibName: "VideoListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "VideoListCollectionViewCell")
+        self.collectionView.register(UINib.init(nibName: "EmptyCollectionCell", bundle: nil), forCellWithReuseIdentifier: "EmptyCollectionCell")
+
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
@@ -168,7 +170,8 @@ extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSourc
             if self.newCollegeModel != nil && self.type == 1{return 1}
             return 0
         }
-        return self.dataArray.count
+        
+        return self.dataArray.count <= 0 ? 1 : self.dataArray.count
     }
 
     
@@ -178,6 +181,10 @@ extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSourc
             shoolHeatValueCell.configWith(model: self.newCollegeModel)
             shoolHeatValueCell.delegate = self
             return shoolHeatValueCell
+        }
+        if indexPath.section == 1 && self.dataArray.count <= 0{
+            let emptyCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyCollectionCell", for: indexPath) as! EmptyCollectionCell
+            return emptyCollectionCell
         }
         let videoListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoListCollectionViewCell", for: indexPath) as! VideoListCollectionViewCell
         videoListCollectionViewCell.configWith(model: self.dataArray[indexPath.row])
@@ -191,6 +198,9 @@ extension VideoListController:UICollectionViewDelegate,UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0{return CGSize.init(width: SCREEN_WIDTH, height: 120)}
+        if indexPath.section == 1 && self.dataArray.count <= 0{
+            return CGSize.init(width: SCREEN_WIDTH, height: SCREEN_WIDTH)
+        }
         let width = (SCREEN_WIDTH-2)/2
         let height = width/0.75
         return CGSize.init(width: width, height: height)

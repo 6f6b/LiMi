@@ -66,14 +66,15 @@ class FollowerCell: UITableViewCell {
             self.headPic.kf.setImage(with: URL.init(string: headPic), placeholder: UIImage.init(named: "touxiang"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
-        var info = ""
-        if let college = model?.college?.name{
-            info.append(college)
-        }
-        if let fansNum = model?.fans_num{
-            info.append("  粉丝  \(fansNum)")
-        }
-        self.infoLabel.text = info
+//        var info = ""
+//        if let college = model?.college?.name{
+//            info.append(college)
+//        }
+//        if let fansNum = model?.fans_num{
+//            info.append("  粉丝  \(fansNum)")
+//        }
+//        self.infoLabel.text = info
+        self.infoLabel.text = model?.signature ?? "我还在想一句能嗨翻全场的自我介绍"
         self.refreshRelationshipBtnWith(userInfoModel: model)
     }
     
@@ -83,7 +84,7 @@ class FollowerCell: UITableViewCell {
             if _isAttention == 0{
                 self.relationshipBtn.setTitleColor(UIColor.white, for: .normal)
                 self.relationshipBtn.setImage(UIImage.init(named: "ic_tjgz"), for: .normal)
-                self.relationshipBtn.backgroundColor = APP_THEME_COLOR
+                self.relationshipBtn.backgroundColor = APP_THEME_COLOR_2
                 self.relationshipBtn.setTitle("关注", for: .normal)
                 self.relationshipBtn.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -5, bottom: 0, right: 0)
                 self.relationshipBtn.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 0)

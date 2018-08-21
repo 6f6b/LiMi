@@ -84,11 +84,25 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pstk_ic_first" translatesAutoresizingMaskIntoConstraints="NO" id="cU4-07-38W">
                         <rect key="frame" x="140" y="-15" width="40" height="20"/>
                     </imageView>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zzA-SK-meq">
+                        <rect key="frame" x="5" y="5" width="30" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="上课" backgroundImage="me_pic_xb">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                 </subviews>
             </view>
             <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="xKN-gv-0ga" secondAttribute="bottom" id="3Ho-lh-COD"/>
+                <constraint firstItem="zzA-SK-meq" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="3yT-1i-OGT"/>
                 <constraint firstAttribute="bottom" secondItem="yup-Lr-6Ex" secondAttribute="bottom" id="Cui-AO-vGP"/>
                 <constraint firstAttribute="trailing" secondItem="yup-Lr-6Ex" secondAttribute="trailing" id="Hjf-1a-VSC"/>
                 <constraint firstItem="cU4-07-38W" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Mis-nj-0va"/>
@@ -96,6 +110,7 @@
                 <constraint firstItem="xKN-gv-0ga" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ZEu-2g-8uw"/>
                 <constraint firstAttribute="trailing" secondItem="xKN-gv-0ga" secondAttribute="trailing" id="aB7-rx-sKf"/>
                 <constraint firstItem="cU4-07-38W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-15" id="bxn-3G-z8p"/>
+                <constraint firstItem="zzA-SK-meq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="kWn-xo-q1g"/>
                 <constraint firstItem="yup-Lr-6Ex" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tza-yb-qPt"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -103,6 +118,7 @@
             <connections>
                 <outlet property="clickNumLabel" destination="5KM-Pd-K7a" id="U5z-yA-6o9"/>
                 <outlet property="firstPulishLabel" destination="HUG-ad-4Ry" id="eLm-ow-0nx"/>
+                <outlet property="goodStudent" destination="zzA-SK-meq" id="gre-lV-OuJ"/>
                 <outlet property="rankImageView" destination="cU4-07-38W" id="nZd-DQ-wg1"/>
                 <outlet property="videoCoverImage" destination="xKN-gv-0ga" id="1aE-Dr-bug"/>
             </connections>
@@ -111,6 +127,7 @@
     </objects>
     <resources>
         <image name="home_gz_zhezhao" width="187" height="40"/>
+        <image name="me_pic_xb" width="30" height="16"/>
         <image name="pstk_ic_first" width="40" height="20"/>
         <image name="xqy_ic_like" width="16" height="16"/>
     </resources>

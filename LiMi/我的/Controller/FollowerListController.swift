@@ -39,6 +39,7 @@ class FollowerListController: UIViewController {
         super.viewDidLoad()
         
         self.tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
+        self.tableView.backgroundColor = APP_THEME_COLOR_1
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib.init(nibName: "FollowerCell", bundle: nil), forCellReuseIdentifier: "FollowerCell")

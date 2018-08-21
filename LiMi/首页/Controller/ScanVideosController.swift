@@ -240,6 +240,25 @@ class ScanVideosController: UIViewController {
             self.player.prepare(withVid: vid, accessKeyId: keyId, accessKeySecret: keySecret, securityToken: securityToken)
         }
     }
+    
+    func checkToUserDetailControllerWith(userId:Int?){
+        if let _userId = userId{
+            if let subViewControllers = self.navigationController?.viewControllers{
+                if subViewControllers.count >= 2{
+                    if let _userDetailController = subViewControllers[subViewControllers.count-2] as? UserDetailsController{
+                        if _userDetailController.userId == _userId{
+                            self.navigationController?.popViewController(animated: true)
+                            return
+                        }
+                    }
+                }
+            }
+            
+            let userDetailsController = UserDetailsController()
+            userDetailsController.userId = _userId
+            self.navigationController?.pushViewController(userDetailsController, animated: true)
+        }
+    }
 }
 
 extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
@@ -312,19 +331,21 @@ extension ScanVideosController:UITableViewDelegate,UITableViewDataSource{
 extension ScanVideosController:VideoPlayCellDelegate{
     ///点击头像回调
     func videoPlayCell(cell:VideoPlayCell,clickedUserHeadButton button:UIButton,withModel model:VideoTrendModel?){
-        if let userId = model?.user?.user_id{
-            let userDetailsController = UserDetailsController()
-            userDetailsController.userId = userId
-            self.navigationController?.pushViewController(userDetailsController, animated: true)
-        }
+        self.checkToUserDetailControllerWith(userId: model?.user?.user_id)
+//        if let userId = model?.user?.user_id{
+//            let userDetailsController = UserDetailsController()
+//            userDetailsController.userId = userId
+//            self.navigationController?.pushViewController(userDetailsController, animated: true)
+//        }
     }
     ///点击用户名回调
     func videoPlayCell(cell:VideoPlayCell,clickedUserName label:UILabel,withModel model:VideoTrendModel?){
-        if let userId = model?.user?.user_id{
-            let userDetailsController = UserDetailsController()
-            userDetailsController.userId = userId
-            self.navigationController?.pushViewController(userDetailsController, animated: true)
-        }
+        self.checkToUserDetailControllerWith(userId: model?.user?.user_id)
+//        if let userId = model?.user?.user_id{
+//            let userDetailsController = UserDetailsController()
+//            userDetailsController.userId = userId
+//            self.navigationController?.pushViewController(userDetailsController, animated: true)
+//        }
     }
     
     ///点击添加关注回调
@@ -335,10 +356,10 @@ extension ScanVideosController:VideoPlayCellDelegate{
         let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
         let addAttention = AddAttention.init(attention_id: videoModel?.user?.user_id)
         _ = moyaProvider.rx.request(.targetWith(target: addAttention)).subscribe(onSuccess: {[unowned self] (response) in
-            let baseModel = Mapper<BaseModel>().map(jsonData: response.data)
-            if baseModel?.commonInfoModel?.status == successState{
-                if let _isAttention = videoModel?.is_attention{
-                    let nowAttention = !_isAttention
+            let attentionResultModel = Mapper<AttentionResultModel>().map(jsonData: response.data)
+            if attentionResultModel?.commonInfoModel?.status == successState{
+                if let _isAttention = attentionResultModel?.is_attention{
+                    let nowAttention = _isAttention
                     videoModel?.is_attention = nowAttention
                     for _videoAttention in self.delegate.dataArray{
                         if _videoAttention.user?.user_id == videoModel?.user?.user_id{
@@ -348,7 +369,7 @@ extension ScanVideosController:VideoPlayCellDelegate{
                 }
                 NotificationCenter.default.post(name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil, userInfo: [TREND_MODEL_KEY:videoModel])
             }
-            Toast.showErrorWith(model: baseModel)
+            Toast.showErrorWith(model: attentionResultModel)
             }, onError: { (error) in
                 Toast.showErrorWith(msg: error.localizedDescription)
         })

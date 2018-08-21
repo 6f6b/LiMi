@@ -13,6 +13,7 @@ class VideoListInPersonCenterCell: UICollectionViewCell {
     @IBOutlet weak var clickNumLabel: UILabel!
     @IBOutlet weak var rankImageView: UIImageView!
     @IBOutlet weak var firstPulishLabel: UILabel!
+    @IBOutlet weak var goodStudent: UIButton!
     
     var model:VideoTrendModel?
     override func awakeFromNib() {
@@ -43,6 +44,11 @@ class VideoListInPersonCenterCell: UICollectionViewCell {
         }
         self.clickNumLabel.text = model.click_num?.suitableStringValue()
         self.firstPulishLabel.isHidden = model.is_first == true ? false : true
+        if model.video_type == 1{
+            self.goodStudent.isHidden = false
+        }else{
+            self.goodStudent.isHidden = true
+        }
     }
 
 }

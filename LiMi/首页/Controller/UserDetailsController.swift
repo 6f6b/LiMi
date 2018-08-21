@@ -49,8 +49,7 @@ class UserDetailsController: UIViewController {
     var myVideoDataArray = [VideoTrendModel]()
     var myLikedVideoDataArray = [VideoTrendModel]()
     @objc var userId:Int = 0
-    var isSpread:Bool = false
-    
+    var isNeedToReloadData = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
@@ -92,11 +91,16 @@ class UserDetailsController: UIViewController {
         loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(didVideoTrendMoreOperation(notification:)), name: DID_VIDEO_TREND_MORE_OPERATION, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pulishVideoSuccessed), name: PULISH_VIDEO_TREND_SUCCESS, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddAttentionWith(notification:)), name: ADD_ATTENTION_SUCCESSED_NOTIFICATION, object: nil)
         self.title = nil
     }
     
     @objc func pulishVideoSuccessed(){
-        self.reloadData()
+        self.isNeedToReloadData = true
+    }
+    
+    @objc func didAddAttentionWith(notification:Notification){
+        self.isNeedToReloadData = true
     }
     
     @objc func didVideoTrendMoreOperation(notification:Notification){
@@ -178,6 +182,9 @@ class UserDetailsController: UIViewController {
                 self.reloadData()
             }
         }
+        if isNeedToReloadData{
+            self.reloadData()
+        }
     }
 
     
@@ -247,6 +254,7 @@ class UserDetailsController: UIViewController {
     }
     
     func loadData(){
+        self.isNeedToReloadData = false
         var _userId:Int?
         if self.userInfoHeaderViewType == .inMyPersonCenter{
             _userId = Defaults[.userId]
@@ -486,7 +494,12 @@ extension UserDetailsController:UserDetailInfoHeaderViewDelegate{
         self.navigationController?.pushViewController(moreSettingController, animated: true)
     }
     func userDetailInfoHeaderView(sentMsgButtonBeClicked model:UserInfoModel?){
-        self.dealMoreOperationWith(operationType: .sendMsg)
+        //
+        if model?.send_status == 1{
+            self.dealMoreOperationWith(operationType: .sendMsg)
+        }else{
+            Toast.showInfoWith(text: "对方暂不接收您的消息")
+        }
     }
     func userDetailInfoHeaderView(followRelationshipBeClicked model:UserInfoModel?,followRelationshipButton:UIButton){
         if !AppManager.shared.checkUserStatus(){return}

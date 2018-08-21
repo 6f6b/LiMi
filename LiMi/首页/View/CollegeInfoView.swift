@@ -28,6 +28,7 @@ class CollegeInfoView: UIView {
     @IBOutlet weak var boysPercentConstraint: NSLayoutConstraint!
     @IBOutlet weak var girlsPercentConstrain: NSLayoutConstraint!
     @IBOutlet weak var thumbUpImageView: UIImageView!
+    @IBOutlet weak var emptyDataView: UIView!
     
     weak var delegate:CollegeInfoViewDelegate?
     
@@ -107,6 +108,9 @@ class CollegeInfoView: UIView {
         self.imageView2.image = nil
         self.imageView3.image = nil
         self.imageView4.image = nil
+
+        self.emptyDataView.isHidden = picsNum <= 0 ? false : true
+//        self.stackView.isHidden = picsNum <= 0 ? true : false
         
         if picsNum <= 0{
             self.imageView1.isHidden = true
@@ -114,25 +118,25 @@ class CollegeInfoView: UIView {
             self.imageView3.isHidden = true
             self.imageView4ContentView.isHidden = true
         }
-        if picsNum == 1{
+        else if picsNum == 1{
             self.imageView1.isHidden = false
             self.imageView2.isHidden = true
             self.imageView3.isHidden = true
             self.imageView4ContentView.isHidden = true
         }
-        if picsNum == 2{
+        else if picsNum == 2{
             self.imageView1.isHidden = false
             self.imageView2.isHidden = false
             self.imageView3.isHidden = true
             self.imageView4ContentView.isHidden = true
         }
-        if picsNum == 3{
+        else if picsNum == 3{
             self.imageView1.isHidden = false
             self.imageView2.isHidden = false
             self.imageView3.isHidden = false
             self.imageView4ContentView.isHidden = true
         }
-        if picsNum >= 4{
+        else if picsNum >= 4{
             self.imageView1.isHidden = false
             self.imageView2.isHidden = false
             self.imageView3.isHidden = false

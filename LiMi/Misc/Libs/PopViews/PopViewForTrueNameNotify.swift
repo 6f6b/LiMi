@@ -23,7 +23,7 @@ class PopViewForTrueNameNotify: PopViewForUnAuthenticated {
         self.okBtn = UIButton.init()
         self.okBtn.setTitle("好的", for: .normal)
         self.okBtn.setTitleColor(UIColor.white, for: .normal)
-        self.okBtn.backgroundColor = APP_THEME_COLOR
+        self.okBtn.backgroundColor = APP_THEME_COLOR_2
         self.okBtn.layer.cornerRadius = 20
         self.okBtn.clipsToBounds = true
         self.okBtn.addTarget(self, action: #selector(dealOK), for: .touchUpInside)

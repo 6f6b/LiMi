@@ -39,11 +39,13 @@ class MenuWithSwitchCell: MenuCell {
         }
     }
     
-    func configWith(title: String,isOn:Bool?,indexPath:IndexPath) {
+    func configWith(title: String,isOn:Int?,indexPath:IndexPath) {
         super.configWith(title: title)
         self.indexPath = indexPath
-        if let _isOn = isOn{
-            self.switchView.isOn = _isOn
+        if isOn == 1{
+            self.switchView.isOn = true
+        }else{
+            self.switchView.isOn = false
         }
     }
     

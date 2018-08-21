@@ -52,7 +52,7 @@ class MusicPickViewController: UIViewController {
     var startTime:Float = 0;
     @objc var duration:Float{
         get{
-            return FIRST_LEVEL_RECORD_TIME
+            return AppManager.shared.videoRecordTime()
         }
     }
     
@@ -306,7 +306,7 @@ extension MusicPickViewController: MusicListControllerDelegate{
         self.selectedMusicModel = musicModel
         
         let _duration = Float(musicModel.time ?? 0)
-        self.musicPickView.configureMusicDuration(_duration, pageDuration: FIRST_LEVEL_RECORD_TIME)
+        self.musicPickView.configureMusicDuration(_duration, pageDuration: AppManager.shared.videoRecordTime())
         self.showMusicProgressView()
     }
     

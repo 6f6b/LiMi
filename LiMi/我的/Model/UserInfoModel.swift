@@ -16,6 +16,8 @@ class UserInfoModel: BaseModel {
     var is_access:Int?
     ///0学生认证 1 学霸认证
     var identity_type:Int?
+    ///认证的标签名
+    var identity_name:String?
     var attention_num:Int?
     var fans_num:Int?
     var click_num:Int?
@@ -45,10 +47,10 @@ class UserInfoModel: BaseModel {
     
     var time:String?
     var id_code:String?
-    var send_status:Bool? //1,允许未关注的人发送消息  0相反
-    var clickVL_status:Bool?//1,公开喜欢的视频         0相反
-    var fansL_status:Bool?//1,公开粉丝列表           0 相反
-    var attentionL_status:Bool?//1,   公开关注列表    0 相反
+    var send_status:Int? //1,允许未关注的人发送消息  0相反
+    var clickVL_status:Int?//1,公开喜欢的视频         0相反
+    var fansL_status:Int?//1,公开粉丝列表           0 相反
+    var attentionL_status:Int?//1,   公开关注列表    0 相反
 
     var city:CityModel?
     var birthday:Int?
@@ -69,6 +71,7 @@ class UserInfoModel: BaseModel {
 
         is_access <- map["is_access"]
         identity_type <- map["identity_type"]
+        identity_name <- map["identity_name"]
         signature <- map["signature"]
         nickname<-map["nickname"]
         true_name<-map["true_name"]
