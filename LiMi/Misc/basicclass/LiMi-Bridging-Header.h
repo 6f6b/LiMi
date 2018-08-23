@@ -96,4 +96,6 @@
 #import <Lottie/Lottie.h>
 #import "OCUserInfoModel.h"
 #import "TextExtraModel.h"
+
+#import "JLSliderView.h"
 #endif /* LiMi_Bridging_Header_h */

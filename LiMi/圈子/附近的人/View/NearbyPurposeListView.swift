@@ -9,17 +9,31 @@
 import UIKit
 
 protocol NearbyPurposeListViewDelegate : class{
-    func nearbyPurposeListView(view:NearbyPurposeListView,selectedWith model:NearbyPurposeModel) -> Bool
+    func nearbyPurposeListView(view:NearbyPurposeListView,selectedWith purposes:String) -> Bool
 }
 
 class NearbyPurposeListView: UIView {
-    @IBOutlet weak var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
     var dataArray = [NearbyPurposeModel]()
     weak var delegate:NearbyPurposeListViewDelegate?
-    var selectedIndex:Int?
-    
+    var maxSelectedNum = 1
+    var selectedModels = [NearbyPurposeModel]()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let layOut = UICollectionViewFlowLayout.init()
+        self.collectionView = UICollectionView.init(frame: self.bounds, collectionViewLayout: layOut)
+        self.collectionView.showsVerticalScrollIndicator = false
+        self.collectionView.backgroundColor = APP_THEME_COLOR_1
+        self.addSubview(self.collectionView)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(UINib.init(nibName: "PurposeItemCell", bundle: nil), forCellWithReuseIdentifier: "PurposeItemCell")
+        self.backgroundColor = APP_THEME_COLOR_1
+    }
+    
+    convenience init(frame: CGRect,maxSelectedNum:Int=1) {
+        self.init(frame: frame)
+        self.maxSelectedNum = maxSelectedNum
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,9 +42,56 @@ class NearbyPurposeListView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.register(UINib.init(nibName: "PurposeItemCell", bundle: nil), forCellWithReuseIdentifier: "PurposeItemCell")
+    }
+    
+    func reloadDataWith(models:[NearbyPurposeModel]){
+        self.dataArray = models
+        for model in models{
+            if model.selected == true{
+                self.selectedModels.append(model)
+            }
+        }
+        self.collectionView.reloadData()
+    }
+    
+    func clickedItemWith(clickedModel:NearbyPurposeModel?)->String{
+        var currentSelectedPurposes = ""
+        //先判断在不在数组中
+        var isInArray = false
+        if selectedModels.count >= 1{
+            for i in 0 ..< self.selectedModels.count{
+                let model = self.selectedModels[i]
+                if model.id == clickedModel?.id{
+                    isInArray = true
+                    clickedModel?.selected = false
+                    self.selectedModels.remove(at: i)
+                    break
+                }
+            }
+        }
+        if !isInArray && clickedModel != nil{
+            //没在数组中
+            let errorInfo = "最多只能选择\(maxSelectedNum)个"
+            if self.selectedModels.count >= self.maxSelectedNum{
+                Toast.showErrorWith(msg: errorInfo)
+            }else{
+                if let _model = clickedModel{
+                    _model.selected = true
+                    self.selectedModels.append(_model)
+                }
+            }
+        }
+        self.collectionView.reloadData()
+        for model in self.selectedModels{
+            if let id = model.id{
+                currentSelectedPurposes.append("\(id),")
+            }
+        }
+        if currentSelectedPurposes.lengthOfBytes(using: String.Encoding.utf8) > 1{
+            let nsCurrentSelectedPurposes = NSString.init(string: currentSelectedPurposes)
+             currentSelectedPurposes = nsCurrentSelectedPurposes.substring(to: nsCurrentSelectedPurposes.length-1)
+        }
+        return currentSelectedPurposes
     }
 }
 
@@ -40,26 +101,21 @@ extension NearbyPurposeListView : UICollectionViewDelegate,UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return self.dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row >= self.dataArray.count{return }
         let model = self.dataArray[indexPath.row]
-        let isSelected = self.delegate?.nearbyPurposeListView(view: self, selectedWith: model)
-
-        if isSelected == true{
-            self.selectedIndex = indexPath.row
-            collectionView.reloadData()
-        }
+        let selectedPurpose = self.clickedItemWith(clickedModel: model)
+        _ = self.delegate?.nearbyPurposeListView(view: self, selectedWith: selectedPurpose)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let purposeItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PurposeItemCell", for: indexPath) as! PurposeItemCell
         if indexPath.row >= self.dataArray.count{return purposeItemCell}
         let model = self.dataArray[indexPath.row]
-        let isSelected = indexPath.row == self.selectedIndex ? true : false
-        purposeItemCell.configWith(model: model, isSelected: isSelected)
+        purposeItemCell.configWith(model: model)
         return purposeItemCell
     }
 

@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class PeopleNearbyContainModel: BaseModel {
-    var data:[UserInfoModel]?
+    var data:[FoolishUserInfoModel]?
 
     required init?(map: Map) {
         super.init(map: map)

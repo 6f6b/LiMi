@@ -23,8 +23,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQl-WH-K5i">
                         <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="aNS-Or-kXS">
-                                <rect key="frame" x="62.5" y="62" width="100" height="100"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="aNS-Or-kXS">
+                                <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fjr_ic_xuanzhong" translatesAutoresizingMaskIntoConstraints="NO" id="WXW-bG-u5t">
                                 <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
@@ -32,6 +38,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HG2-wz-Apg">
                                 <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <constraints>
@@ -44,7 +56,11 @@
                             <constraint firstAttribute="width" secondItem="DQl-WH-K5i" secondAttribute="height" id="d2Y-AV-MQ0"/>
                             <constraint firstAttribute="bottom" secondItem="WXW-bG-u5t" secondAttribute="bottom" id="i89-Nr-E1u"/>
                             <constraint firstItem="HG2-wz-Apg" firstAttribute="leading" secondItem="DQl-WH-K5i" secondAttribute="leading" id="p2o-x5-XGx"/>
+                            <constraint firstItem="aNS-Or-kXS" firstAttribute="leading" secondItem="DQl-WH-K5i" secondAttribute="leading" id="pvY-Tr-tlF"/>
+                            <constraint firstItem="aNS-Or-kXS" firstAttribute="top" secondItem="DQl-WH-K5i" secondAttribute="top" id="sgZ-wj-IeC"/>
+                            <constraint firstAttribute="trailing" secondItem="aNS-Or-kXS" secondAttribute="trailing" id="uUq-5G-EQ3"/>
                             <constraint firstAttribute="bottom" secondItem="HG2-wz-Apg" secondAttribute="bottom" id="uvE-Nk-ja1"/>
+                            <constraint firstAttribute="bottom" secondItem="aNS-Or-kXS" secondAttribute="bottom" id="y73-U7-X60"/>
                             <constraint firstItem="WXW-bG-u5t" firstAttribute="leading" secondItem="DQl-WH-K5i" secondAttribute="leading" id="z7o-Rq-wez"/>
                         </constraints>
                     </view>
@@ -56,7 +72,7 @@
                     </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.11764705882352941" green="0.1176470588" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Mxs-vS-qd5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="H9F-ze-Q6t"/>
                 <constraint firstAttribute="trailing" secondItem="DQl-WH-K5i" secondAttribute="trailing" id="Jzl-Oi-QdF"/>

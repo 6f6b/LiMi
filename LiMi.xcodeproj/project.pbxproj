@@ -562,12 +562,23 @@
 		6840881D2041125B00D22885 /* AppUpgradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840881C2041125B00D22885 /* AppUpgradeModel.swift */; };
 		685010A72125648700F0E1EF /* AttentionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010A62125648700F0E1EF /* AttentionResultModel.swift */; };
 		685010A92126718D00F0E1EF /* NearbyPurposeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */; };
-		685010AB212671AD00F0E1EF /* NearbyPurposeListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */; };
 		685010AE2126755100F0E1EF /* PurposeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010AC2126755100F0E1EF /* PurposeItemCell.swift */; };
 		685010AF2126755100F0E1EF /* PurposeItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010AD2126755100F0E1EF /* PurposeItemCell.xib */; };
 		685010B12126796100F0E1EF /* NearbyPurposeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */; };
 		685010B421267D7600F0E1EF /* ChooseNearbyPurposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */; };
 		685010B521267D7600F0E1EF /* ChooseNearbyPurposeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */; };
+		685C3961212BB49100451D90 /* NearbyPeoplePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3960212BB49100451D90 /* NearbyPeoplePhotoView.swift */; };
+		685C3966212BC68D00451D90 /* NearbyPeopleDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3964212BC68D00451D90 /* NearbyPeopleDetailsController.swift */; };
+		685C3967212BC68D00451D90 /* NearbyPeopleDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685C3965212BC68D00451D90 /* NearbyPeopleDetailsController.xib */; };
+		685C396A212BCAEC00451D90 /* PurposeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3968212BCAEC00451D90 /* PurposeCollectionViewCell.swift */; };
+		685C396B212BCAEC00451D90 /* PurposeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685C3969212BCAEC00451D90 /* PurposeCollectionViewCell.xib */; };
+		685C396E212BCB6700451D90 /* PurposeScreeningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C396C212BCB6700451D90 /* PurposeScreeningController.swift */; };
+		685C396F212BCB6700451D90 /* PurposeScreeningController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685C396D212BCB6700451D90 /* PurposeScreeningController.xib */; };
+		685C3985212C114400451D90 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C397F212C114400451D90 /* UIView+Frame.m */; };
+		685C3986212C114400451D90 /* JLSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C3980212C114400451D90 /* JLSliderView.m */; };
+		685C3987212C114400451D90 /* JLSliderMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C3981212C114400451D90 /* JLSliderMoveView.m */; };
+		685C3989212D37A000451D90 /* CheckUserStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3988212D37A000451D90 /* CheckUserStatusModel.swift */; };
+		685C398B212D4AAA00451D90 /* ScreeningFiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C398A212D4AAA00451D90 /* ScreeningFiltersModel.swift */; };
 		685E395D2063B375003B505E /* SystemMsgListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E395B2063B375003B505E /* SystemMsgListController.swift */; };
 		685E395E2063B375003B505E /* SystemMsgListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E395C2063B375003B505E /* SystemMsgListController.xib */; };
 		68629ECD201AC6E500D041CC /* TrendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68629ECC201AC6E500D041CC /* TrendListModel.swift */; };
@@ -2108,12 +2119,26 @@
 		6840881C2041125B00D22885 /* AppUpgradeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpgradeModel.swift; sourceTree = "<group>"; };
 		685010A62125648700F0E1EF /* AttentionResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionResultModel.swift; sourceTree = "<group>"; };
 		685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPurposeListView.swift; sourceTree = "<group>"; };
-		685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyPurposeListView.xib; sourceTree = "<group>"; };
 		685010AC2126755100F0E1EF /* PurposeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeItemCell.swift; sourceTree = "<group>"; };
 		685010AD2126755100F0E1EF /* PurposeItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurposeItemCell.xib; sourceTree = "<group>"; };
 		685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPurposeListModel.swift; sourceTree = "<group>"; };
 		685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNearbyPurposeController.swift; sourceTree = "<group>"; };
 		685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseNearbyPurposeController.xib; sourceTree = "<group>"; };
+		685C3960212BB49100451D90 /* NearbyPeoplePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPeoplePhotoView.swift; sourceTree = "<group>"; };
+		685C3964212BC68D00451D90 /* NearbyPeopleDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPeopleDetailsController.swift; sourceTree = "<group>"; };
+		685C3965212BC68D00451D90 /* NearbyPeopleDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyPeopleDetailsController.xib; sourceTree = "<group>"; };
+		685C3968212BCAEC00451D90 /* PurposeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeCollectionViewCell.swift; sourceTree = "<group>"; };
+		685C3969212BCAEC00451D90 /* PurposeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurposeCollectionViewCell.xib; sourceTree = "<group>"; };
+		685C396C212BCB6700451D90 /* PurposeScreeningController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeScreeningController.swift; sourceTree = "<group>"; };
+		685C396D212BCB6700451D90 /* PurposeScreeningController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurposeScreeningController.xib; sourceTree = "<group>"; };
+		685C397F212C114400451D90 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		685C3980212C114400451D90 /* JLSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLSliderView.m; sourceTree = "<group>"; };
+		685C3981212C114400451D90 /* JLSliderMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLSliderMoveView.m; sourceTree = "<group>"; };
+		685C3982212C114400451D90 /* JLSliderMoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLSliderMoveView.h; sourceTree = "<group>"; };
+		685C3983212C114400451D90 /* JLSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLSliderView.h; sourceTree = "<group>"; };
+		685C3984212C114400451D90 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		685C3988212D37A000451D90 /* CheckUserStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserStatusModel.swift; sourceTree = "<group>"; };
+		685C398A212D4AAA00451D90 /* ScreeningFiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningFiltersModel.swift; sourceTree = "<group>"; };
 		685E395B2063B375003B505E /* SystemMsgListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgListController.swift; sourceTree = "<group>"; };
 		685E395C2063B375003B505E /* SystemMsgListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMsgListController.xib; sourceTree = "<group>"; };
 		68629ECC201AC6E500D041CC /* TrendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendListModel.swift; sourceTree = "<group>"; };
@@ -5481,6 +5506,10 @@
 				681C95C72045381D009CDE3B /* PeopleNearbyController.xib */,
 				685010B221267D7600F0E1EF /* ChooseNearbyPurposeController.swift */,
 				685010B321267D7600F0E1EF /* ChooseNearbyPurposeController.xib */,
+				685C3964212BC68D00451D90 /* NearbyPeopleDetailsController.swift */,
+				685C3965212BC68D00451D90 /* NearbyPeopleDetailsController.xib */,
+				685C396C212BCB6700451D90 /* PurposeScreeningController.swift */,
+				685C396D212BCB6700451D90 /* PurposeScreeningController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5493,9 +5522,11 @@
 				681C95D42045701F009CDE3B /* EditAutographView.swift */,
 				681C95D220456D12009CDE3B /* EditAutographView.xib */,
 				685010A82126718D00F0E1EF /* NearbyPurposeListView.swift */,
-				685010AA212671AD00F0E1EF /* NearbyPurposeListView.xib */,
 				685010AC2126755100F0E1EF /* PurposeItemCell.swift */,
 				685010AD2126755100F0E1EF /* PurposeItemCell.xib */,
+				685C3968212BCAEC00451D90 /* PurposeCollectionViewCell.swift */,
+				685C3969212BCAEC00451D90 /* PurposeCollectionViewCell.xib */,
+				685C3960212BB49100451D90 /* NearbyPeoplePhotoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5506,6 +5537,8 @@
 				681C95D020455C2B009CDE3B /* PeopleNearbyContainModel.swift */,
 				681C95DB20479BEC009CDE3B /* AutographModel.swift */,
 				685010B02126796100F0E1EF /* NearbyPurposeListModel.swift */,
+				685C3988212D37A000451D90 /* CheckUserStatusModel.swift */,
+				685C398A212D4AAA00451D90 /* ScreeningFiltersModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5617,6 +5650,19 @@
 				682955A020EDC99800FE844C /* MenuItemCell.xib */,
 			);
 			path = TopSlideMenu;
+			sourceTree = "<group>";
+		};
+		685C397E212C114400451D90 /* JLSliderView */ = {
+			isa = PBXGroup;
+			children = (
+				685C397F212C114400451D90 /* UIView+Frame.m */,
+				685C3980212C114400451D90 /* JLSliderView.m */,
+				685C3981212C114400451D90 /* JLSliderMoveView.m */,
+				685C3982212C114400451D90 /* JLSliderMoveView.h */,
+				685C3983212C114400451D90 /* JLSliderView.h */,
+				685C3984212C114400451D90 /* UIView+Frame.h */,
+			);
+			path = JLSliderView;
 			sourceTree = "<group>";
 		};
 		6862E50E2019BC130058B878 /* inputBar&emoji */ = {
@@ -5760,6 +5806,7 @@
 		6888089D200F1E0300BC6AE9 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				685C397E212C114400451D90 /* JLSliderView */,
 				6829559D20EDC99800FE844C /* TopSlideMenu */,
 				6864AC3E20491E3200422CD8 /* 时间选择器 */,
 				68B3F33A204FB9120004C3D9 /* Toast */,
@@ -7488,6 +7535,7 @@
 				6864AC5720494BD700422CD8 /* MyTourOrderCell.xib in Resources */,
 				68DFAB2B20AC1792009B8373 /* watermark.png in Resources */,
 				688808E92011852500BC6AE9 /* TrendsImageCollectionCell.xib in Resources */,
+				685C3967212BC68D00451D90 /* NearbyPeopleDetailsController.xib in Resources */,
 				6801E044202C6EA900C106E1 /* NTESCustomSysNotificationViewController.xib in Resources */,
 				68DFCFD020B2AACB009B8373 /* LocalFilter.json in Resources */,
 				68BF91BB210F00D00095CAD8 /* ChooseToRemindUserCell.xib in Resources */,
@@ -7514,6 +7562,7 @@
 				68FD414F20F359AF00AA0762 /* MusicInfoInCollectionViewCell.xib in Resources */,
 				689DF7A72004793D007FAE9C /* LoginRegister.storyboard in Resources */,
 				6862E52C2019BC130058B878 /* btn_expression@2x.png in Resources */,
+				685C396F212BCB6700451D90 /* PurposeScreeningController.xib in Resources */,
 				68DBD0AC201733B500684E76 /* UserDetailSelectTrendsTypeCell.xib in Resources */,
 				680E16A32003548C006CC5B9 /* Assets.xcassets in Resources */,
 				68DFAD1520AC1794009B8373 /* FilterResource.bundle in Resources */,
@@ -7620,6 +7669,7 @@
 				688808FD2011A78F00BC6AE9 /* ReleaseContentTextInputCell.xib in Resources */,
 				6801D936202C44D000C106E1 /* FSActionSheet_cancel@3x.png in Resources */,
 				68DB858F20FDDE52008C0F48 /* EmptyCollectionCell.xib in Resources */,
+				685C396B212BCAEC00451D90 /* PurposeCollectionViewCell.xib in Resources */,
 				6862E52D2019BC130058B878 /* btn_expression@3x.png in Resources */,
 				6864AC4B2049337400422CD8 /* PayResultController.xib in Resources */,
 				68DFD18120B2BAE0009B8373 /* haixiu in Resources */,
@@ -7673,7 +7723,6 @@
 				6801E06E202C6EA900C106E1 /* NTESVideoViewController.xib in Resources */,
 				6864AC4720492B8700422CD8 /* DatePickerView.xib in Resources */,
 				68282CF32016DC0A0003A0CD /* CommentView.xib in Resources */,
-				685010AB212671AD00F0E1EF /* NearbyPurposeListView.xib in Resources */,
 				6801E07A202C6EA900C106E1 /* NTESTeamMeetingMutesViewController.xib in Resources */,
 				6825486B2015B6EF0033410A /* UserDetailsController.xib in Resources */,
 				683107BD2024338A0060B109 /* EmptyCommentCell.xib in Resources */,
@@ -7910,8 +7959,10 @@
 				6864AC4520491FE500422CD8 /* DatePickerView.swift in Sources */,
 				68DFAB5B20AC1792009B8373 /* AliyunVideoCropParam.m in Sources */,
 				68DFAB4A20AC1792009B8373 /* AliyunMusicLineView.m in Sources */,
+				685C3987212C114400451D90 /* JLSliderMoveView.m in Sources */,
 				6825486520159D260033410A /* TrendCommentCell.swift in Sources */,
 				68DFAB6420AC1792009B8373 /* AliyunCycleProgressView.m in Sources */,
+				685C3989212D37A000451D90 /* CheckUserStatusModel.swift in Sources */,
 				6801DFD7202C6EA800C106E1 /* NIMTeamAnnouncementListCell.m in Sources */,
 				68DFAD1720AC1794009B8373 /* AliyunCopyrightInfoViewController.m in Sources */,
 				688809102011E5DB00BC6AE9 /* SetPayPasswordController.swift in Sources */,
@@ -7970,6 +8021,7 @@
 				6801DF87202C6EA800C106E1 /* NIMPageView.m in Sources */,
 				68DFAD2220AC1794009B8373 /* UIView+Progress.m in Sources */,
 				6840881720400C1600D22885 /* FeedBackQuestionModel.swift in Sources */,
+				685C3966212BC68D00451D90 /* NearbyPeopleDetailsController.swift in Sources */,
 				6801DFCF202C6EA800C106E1 /* NIMAdvancedTeamCardViewController.m in Sources */,
 				6801E09C202C6EA900C106E1 /* NTESLogViewController.m in Sources */,
 				68DFAB8920AC1792009B8373 /* AliyunEditZoneView.m in Sources */,
@@ -8086,6 +8138,7 @@
 				6801E05A202C6EA900C106E1 /* NTESSessionSnapchatContentView.m in Sources */,
 				6801E066202C6EA900C106E1 /* NTESSessionLocalHistoryViewController.m in Sources */,
 				6801E09A202C6EA900C106E1 /* NTESLogManager.m in Sources */,
+				685C396A212BCAEC00451D90 /* PurposeCollectionViewCell.swift in Sources */,
 				68B9745D20C917D400162547 /* VideoListInMyCenterPlayContainController.swift in Sources */,
 				68AE8A372092BAD600CB10B0 /* NTESLiMiSystemMsgAttachment.m in Sources */,
 				6801E004202C6EA800C106E1 /* UIViewController+Swizzling.m in Sources */,
@@ -8184,6 +8237,7 @@
 				68DFAD3C20AC1794009B8373 /* JSONModel.m in Sources */,
 				6801E039202C6EA900C106E1 /* NTESContactViewController.m in Sources */,
 				68DFABA220AC1792009B8373 /* AliyunEffectMusicCell.m in Sources */,
+				685C3986212C114400451D90 /* JLSliderView.m in Sources */,
 				6867ABF720F5D8BD00F30F67 /* OCTools.m in Sources */,
 				681C95E32047A343009CDE3B /* WeekendBannerCell.swift in Sources */,
 				68DFABB220AC1792009B8373 /* AliyunPublishService.m in Sources */,
@@ -8272,6 +8326,7 @@
 				688808C22010744300BC6AE9 /* TransactionRecordController.swift in Sources */,
 				6801DFAC202C6EA800C106E1 /* NIMVideoContentConfig.m in Sources */,
 				6801E067202C6EA900C106E1 /* NTESSessionPeekViewController.m in Sources */,
+				685C396E212BCB6700451D90 /* PurposeScreeningController.swift in Sources */,
 				6825705020BE4CA8002E92C4 /* PulishViewController.swift in Sources */,
 				681C5C6920EB300700341D7D /* CityListCell.swift in Sources */,
 				681C95E92047A5D5009CDE3B /* WeekendTourSeparateCell.swift in Sources */,
@@ -8284,6 +8339,7 @@
 				68DFAB3720AC1792009B8373 /* AliyunAlbumTableViewCell.m in Sources */,
 				6801DFE4202C6EA800C106E1 /* NIMKitRobotTemplateLayout.m in Sources */,
 				68DFAB3220AC1792009B8373 /* AliyunPathManager.m in Sources */,
+				685C398B212D4AAA00451D90 /* ScreeningFiltersModel.swift in Sources */,
 				6801E0AB202C6EA900C106E1 /* NTESMobileSettingViewController.m in Sources */,
 				6801E06C202C6EA900C106E1 /* NTESWhiteboardDrawView.m in Sources */,
 				6864AC5220494A8B00422CD8 /* MyOrderListController.swift in Sources */,
@@ -8382,6 +8438,7 @@
 				689DFA2E20074572007FAE9C /* TmpAuthCodeModel.swift in Sources */,
 				6801DFFD202C6EA800C106E1 /* UIResponder+NTESFirstResponder.m in Sources */,
 				6864AC66204D35D600422CD8 /* SystemmsgContainController.swift in Sources */,
+				685C3985212C114400451D90 /* UIView+Frame.m in Sources */,
 				68DFAB5820AC1792009B8373 /* AliyunRecordParamViewController.m in Sources */,
 				6801E058202C6EA900C106E1 /* NTESSessionRedPacketContentView.m in Sources */,
 				6894D1272111BDD4009953F9 /* SameChallengeVideoListController.swift in Sources */,
@@ -8533,6 +8590,7 @@
 				6801DFFB202C6EA800C106E1 /* UIImage+NTES.m in Sources */,
 				6801DF7E202C6EA800C106E1 /* NIMAvatarImageView.m in Sources */,
 				6894D1302111C447009953F9 /* SameChallengeScanVideoListController.swift in Sources */,
+				685C3961212BB49100451D90 /* NearbyPeoplePhotoView.swift in Sources */,
 				6801E01F202C6EA900C106E1 /* NTESChatroomListViewController.m in Sources */,
 				6801E051202C6EA900C106E1 /* NTESCustomAttachmentDecoder.m in Sources */,
 				68DFAD2620AC1794009B8373 /* FMDatabaseAdditions.m in Sources */,

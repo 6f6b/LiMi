@@ -20,46 +20,66 @@ let collectionItemVerticalSpace = CGFloat(15.0)
 
 class PeopleNearbyController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{return .lightContent}
-    @IBOutlet weak var collectionView: UICollectionView!
-//    var collectionView: UICollectionView!
-    var dataArray = [UserInfoModel]()
+    @IBOutlet weak var topContainView: UIView!
+    @IBOutlet weak var userNickName: UILabel!
+    @IBOutlet weak var sexImageView: UIImageView!
+    @IBOutlet weak var age: UILabel!
+    @IBOutlet weak var distance: UILabel!
+    @IBOutlet weak var time: UILabel!
+    var isAdjustFrame = false
+    @IBOutlet weak var carousel: iCarousel!
+    //    var collectionView: UICollectionView!
+    var dataArray = [FoolishUserInfoModel]()
     var pageIndex = 1
     var sex:Int? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "附近的人"
+        //self.title = "附近的人"
+        
+        carousel.isPagingEnabled = true
+        carousel.type = .invertedTimeMachine
+        
+        let filterButton = UIButton.init(type: .custom)
+        filterButton.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
+        filterButton.setImage(UIImage.init(named: "fjr_ic_shaixuan"), for: .normal)
+        filterButton.addTarget(self, action: #selector(dealToChooseFilterCondition), for: .touchUpInside)
 
-        self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: collectionViewLeftAndRightSpace, bottom: 0, right: collectionViewLeftAndRightSpace)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.mj_header = mjGifHeaderWith {[unowned self] in
-            self.pageIndex = 1
-            self.loadData()
-        }
+        let fillInformationButton = UIButton.init(type: .custom)
+        fillInformationButton.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
+        fillInformationButton.setImage(UIImage.init(named: "fjr_ic_xgzl"), for: .normal)
+        fillInformationButton.addTarget(self, action: #selector(dealToEditPurpose), for: .touchUpInside)
+
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: filterButton),UIBarButtonItem.init(customView: fillInformationButton)]
         
-        self.collectionView.mj_footer = mjGifFooterWith {[unowned self] in
-            self.pageIndex += 1
-            self.loadData()
-        }
-        self.collectionView.register(UINib.init(nibName: "NearbyPeopleCollectionCell", bundle: nil), forCellWithReuseIdentifier: "NearbyPeopleCollectionCell")
-        
-        
-        let moreOperationBtn = UIButton.init(type: .custom)
-        moreOperationBtn.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
-        moreOperationBtn.setImage(UIImage.init(named: "home_more"), for: .normal)
-        moreOperationBtn.addTarget(self, action: #selector(dealMoreOperation), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: moreOperationBtn),UIBarButtonItem.init(customView: UIButton())]
-//        self.navigationItem.rightBarButtonItem =
-        
-        self.loadData()
         if Defaults[.isMindedToFinishSignatureInNearby] != true{
             Defaults[.isMindedToFinishSignatureInNearby] = true
-            let editAutographView = GET_XIB_VIEW(nibName: "EditAutographView") as! EditAutographView
-            editAutographView.frame = SCREEN_RECT
-            UIApplication.shared.keyWindow?.addSubview(editAutographView)
         }
+        
+        self.refreshUI()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isAdjustFrame{return}
+        isAdjustFrame = true
+        let width = SCREEN_WIDTH - 60
+        let height = (SCREEN_WIDTH-60) * (420.0/315.0)
+        self.carousel.frame = CGRect.init(x: 15, y: self.topContainView.frame.maxY+15, width: width, height: height)
+    }
+    
+    //编辑我的purpose
+    @objc func dealToEditPurpose(){
+        let chooseNearbyPurposeController = ChooseNearbyPurposeController()
+        chooseNearbyPurposeController.delegate = self
+        self.present(chooseNearbyPurposeController, animated: true, completion: nil)
+    }
+    
+    //编辑我的筛选条件
+    @objc func dealToChooseFilterCondition(){
+        let purposeScreeningController = PurposeScreeningController()
+        self.present(purposeScreeningController, animated: true, completion: nil)
+    }
+    
     @objc func dealMoreOperation(){
         //只看女生、只看男生、查看全部人、编辑我的个性签名、清除我的位置信息并退出
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -108,6 +128,10 @@ class PeopleNearbyController: UIViewController {
         
         UIApplication.shared.statusBarStyle = .default
         self.view.backgroundColor = APP_THEME_COLOR_1
+        
+        if self.dataArray.count == 0{
+            self.checkUserStatus()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,42 +147,60 @@ class PeopleNearbyController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    func checkUserStatus(){
+        if self.pageIndex == 1{self.dataArray.removeAll()}
+        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+        let checkUserInfo = CheckUserInfo.init()
+        _ = moyaProvider.rx.request(.targetWith(target: checkUserInfo)).subscribe(onSuccess: {[unowned self] (response) in
+            let checkUserStatusModel = Mapper<CheckUserStatusModel>().map(jsonData: response.data)
+            if checkUserStatusModel?.status == 0{
+                self.loadData()
+            }else{
+                let chooseNearbyPurposeController = ChooseNearbyPurposeController()
+                self.present(chooseNearbyPurposeController, animated: true, completion: nil)
+            }
+        }, onError: { (error) in
+            Toast.showErrorWith(msg: error.localizedDescription)
+        })
+    }
+    
     //MARK: - misc
     func loadData(){
-        if nil == LocationManager.shared.location{
-            LocationManager.shared.startLocateWith(success: {[weak self] (_) in
-                self?.requestData()
-            }, failed: { (error) in
-                Toast.showErrorWith(msg: error.localizedDescription)
-            })
-        }else{
             requestData()
-        }
     }
     
     func requestData(){
-        //        NearUserList
-        if self.pageIndex == 1{self.dataArray.removeAll()}
-        let latitude = LocationManager.shared.location?.coordinate.latitude.stringValue()
-        let longitude = LocationManager.shared.location?.coordinate.longitude.stringValue()
-        let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
-        let nearUserList = NearUserList(lat: latitude, lng: longitude, page: pageIndex, sex: sex)
-        _ = moyaProvider.rx.request(.targetWith(target: nearUserList)).subscribe(onSuccess: { (response) in
-            let peopleNearbyContainModel = Mapper<PeopleNearbyContainModel>().map(jsonData: response.data)
-            if let userInfoModels = peopleNearbyContainModel?.data{
-                for userInfoModel in userInfoModels{
-                    self.dataArray.append(userInfoModel)
+        self.dataArray.removeAll()
+        LocationManager.shared.startLocateWith(success: { (location) in
+            let latitude = location?.coordinate.latitude as? Double
+            let longitude = location?.coordinate.longitude as? Double
+            let moyaProvider = MoyaProvider<LiMiAPI>(manager: DefaultAlamofireManager.sharedManager)
+            let nearUserList = NearUserList.init(lng: longitude, lat: latitude)
+            _ = moyaProvider.rx.request(.targetWith(target: nearUserList)).subscribe(onSuccess: { (response) in
+                let peopleNearbyContainModel = Mapper<PeopleNearbyContainModel>().map(jsonData: response.data)
+                if let userInfoModels = peopleNearbyContainModel?.data{
+                    for userInfoModel in userInfoModels{
+                        self.dataArray.append(userInfoModel)
+                    }
                 }
-            }
-            self.collectionView.reloadData()
-            self.collectionView.mj_footer.endRefreshing()
-            self.collectionView.mj_header.endRefreshing()
-            Toast.showErrorWith(model: peopleNearbyContainModel)
-        }, onError: { (error) in
-            self.collectionView.mj_footer.endRefreshing()
-            self.collectionView.mj_header.endRefreshing()
+                self.refreshUI()
+                self.carousel.reloadData()
+                Toast.showErrorWith(model: peopleNearbyContainModel)
+            }, onError: { (error) in
+                Toast.showErrorWith(msg: error.localizedDescription)
+            })
+        }) { (error) in
             Toast.showErrorWith(msg: error.localizedDescription)
-        })
+        }
+    }
+    
+    func refreshUI(){
+        let isEmptyData = self.dataArray.count == 0 ? true : false
+        self.userNickName.isHidden = isEmptyData
+        self.distance.isHidden = isEmptyData
+        self.time.isHidden = isEmptyData
+        self.sexImageView.isHidden = isEmptyData
+        self.age.isHidden = isEmptyData
     }
     
     //退出并清除位置信息
@@ -184,52 +226,69 @@ class PeopleNearbyController: UIViewController {
     
 }
 
-extension PeopleNearbyController:UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+extension PeopleNearbyController : iCarouselDelegate,iCarouselDataSource{
+    func numberOfItems(in carousel: iCarousel) -> Int {
+        return self.dataArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if 0 == section{return 0}
-       return  self.dataArray.count
-    }
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        let width = SCREEN_WIDTH - 60
+        let height = (SCREEN_WIDTH-60) * (420.0/315.0)
         
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemWith = (SCREEN_WIDTH-collectionItemHorizontalSpace-collectionViewLeftAndRightSpace*2-1)/2.0
-        let itemHeight = itemWith + 60
-        return CGSize.init(width: itemWith, height: itemHeight)
+        let nearbyPeoplePhotoView = NearbyPeoplePhotoView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: height))
+        let model = self.dataArray[index]
+        nearbyPeoplePhotoView.configWith(model: model)
+        return nearbyPeoplePhotoView
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return collectionItemVerticalSpace
+    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
+        let index = carousel.currentItemIndex
+        if self.dataArray.count == 0 || index >= self.dataArray.count{return}
+        let model = self.dataArray[index]
+        self.userNickName.text = model.nickname
+        if model.sex == 0{
+            self.sexImageView.image = UIImage.init(named: "me_ic_boy")
+        }else{
+            self.sexImageView.image = UIImage.init(named: "me_ic_girl")
+        }
+        if let _age = model.age{
+            self.age.text = "\(_age)岁"
+        }
+        self.distance.text = model.distance
+        self.time.text = model.active_time
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return collectionItemHorizontalSpace
+    func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+        let nearbyPeopleDetailsController = NearbyPeopleDetailsController()
+        let model = self.dataArray[index]
+        nearbyPeopleDetailsController.userInfoModel = model
+        let navNearbyPeopleDetailsController = CustomNavigationController.init(rootViewController: nearbyPeopleDetailsController)
+        self.present(navNearbyPeopleDetailsController, animated: true, completion: nil)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if 0 == section{
-            return CGSize.init(width: 0, height: collectionViewTopAndBottomSpace)
+
+    func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+        switch option {
+        case .wrap:
+            return 0
+        case .spacing:
+            return value*0.7
+        case .fadeMax:
+            if self.carousel.type == .custom{
+                return 0.0
+            }else{
+                return value
+            }
+        default:
+            return value
         }
-        return CGSize.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if 1 == section{
-            return CGSize.init(width: 0, height: collectionViewTopAndBottomSpace)
-        }
-        return CGSize.zero
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let nearbyPeopleCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NearbyPeopleCollectionCell", for: indexPath) as! NearbyPeopleCollectionCell
-        nearbyPeopleCollectionCell.configWith(model: self.dataArray[indexPath.row])
-        return nearbyPeopleCollectionCell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let userDetailsController = UserDetailsController()
-        userDetailsController.userId = self.dataArray[indexPath.row].user_id!
-        self.navigationController?.pushViewController(userDetailsController, animated: true)
     }
 }
+
+extension PeopleNearbyController : ChooseNearbyPurposeControllerDelegate{
+    func chooseNearbyPurposeControllerClickedCancel() {
+        if self.dataArray.count == 0{self.navigationController?.popViewController(animated: true)}
+        return
+    }
+}
+

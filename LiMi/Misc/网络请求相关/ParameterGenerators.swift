@@ -1432,56 +1432,35 @@ struct DiscussList:TargetType,ParametersProtocol{
 
 //MARK: - /*********************附近的人****************************/
 //MARK: - 5-1附近的用户信息列表
-struct NearUserList:TargetType,ParametersProtocol{
-    var baseURL: URL { return URL.init(string: serverAddress)! }
-    //单元测试
-    var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
-    var validate: Bool { return true }
-    var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .get }
-    var path: String {
-        return "/near/nearUserList"
-    }
-    
-    var lat:String?
-    var lng:String?
-    var page:Int?
-    var sex:Int?
-
-    func parameters() -> [String : Any] {
-        let tmpParameters:[String:Any]? = [
-            "lat":lat,
-            "lng":lng,
-            "page":page,
-            "sex":sex
-        ]
-        return handleRequestParameters(parameters: tmpParameters)
-    }
-}
+//struct NearUserList:TargetType,ParametersProtocol{
+//    var baseURL: URL { return URL.init(string: serverAddress)! }
+//    //单元测试
+//    var sampleData: Data { return "".data(using: .utf8)! }
+//    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+//    var validate: Bool { return true }
+//    var headers: [String: String]? { return nil }
+//    var method: Moya.Method { return .get }
+//    var path: String {
+//        return "/near/nearUserList"
+//    }
+//
+//    var lat:String?
+//    var lng:String?
+//    var page:Int?
+//    var sex:Int?
+//
+//    func parameters() -> [String : Any] {
+//        let tmpParameters:[String:Any]? = [
+//            "lat":lat,
+//            "lng":lng,
+//            "page":page,
+//            "sex":sex
+//        ]
+//        return handleRequestParameters(parameters: tmpParameters)
+//    }
+//}
 
 //MARK: - 5-3清除位置信息
-struct ClearLocation:TargetType,ParametersProtocol{
-    var baseURL: URL { return URL.init(string: serverAddress)! }
-    //单元测试
-    var sampleData: Data { return "".data(using: .utf8)! }
-    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
-    var validate: Bool { return true }
-    var headers: [String: String]? { return nil }
-    var method: Moya.Method { return .get }
-    var path: String {
-        return "/near/clearLocation"
-    }
-    
-    
-    func parameters() -> [String : Any] {
-        let tmpParameters:[String:Any]? = [
-            "":""
-        ]
-        return handleRequestParameters(parameters: tmpParameters)
-    }
-}
-
 //MARK: - 5-4编辑个性签名
 struct UpdateContent:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: serverAddress)! }
@@ -2503,6 +2482,192 @@ struct GetStudyVideoList:TargetType,ParametersProtocol{
     }
 }
 
+
+struct SetUserPicture:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/setUserPicture"
+    }
+    
+    var images:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "images":images,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct SetUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/setUserInfo"
+    }
+    
+    var lat:Double?
+    var lng:Double?
+    var target:String?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "lat":lat,
+            "lng":lng,
+            "target":target,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct GetSelfInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "Near/getSelfInfo"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct NearUserList:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .get }
+    var path: String {
+        return "Near/nearUserList"
+    }
+    
+    var lng:Double?
+    var lat:Double?
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "lng":lng,
+            "lat":lat
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct UpdateUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/updateUserInfo"
+    }
+    
+    var lat:Double?
+    var lng:Double?
+    var target_age:String?
+    var target_distance:Int?
+    var target_sex:Int?
+    var target_target:Int?
+
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "lat":lat,
+            "lng":lng,
+            "target_age":target_age,
+            "target_distance":target_distance,
+            "target_sex":target_sex,
+            "target_target":target_target,
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct ClearLocation:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/clearLocation"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+
+struct GetUpdateUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/getUpdateUserInfo"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
+
+struct CheckUserInfo:TargetType,ParametersProtocol{
+    var baseURL: URL { return URL.init(string: serverAddress)! }
+    //单元测试
+    var sampleData: Data { return "".data(using: .utf8)! }
+    var task: Task { return .requestParameters(parameters: self.parameters(), encoding: URLEncoding.default) }
+    var validate: Bool { return true }
+    var headers: [String: String]? { return nil }
+    var method: Moya.Method { return .post }
+    var path: String {
+        return "Near/checkUserInfo"
+    }
+    
+    func parameters() -> [String : Any] {
+        let tmpParameters = [
+            "":"",
+            ] as [String : Any]
+        return handleRequestParameters(parameters: tmpParameters)
+    }
+}
 /*下载*/
 struct Downloader:TargetType,ParametersProtocol{
     var baseURL: URL { return URL.init(string: filePath)! }

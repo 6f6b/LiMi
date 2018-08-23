@@ -9,6 +9,24 @@
 import Foundation
 import ObjectMapper
 
+//"target_list":Array[10],
+//"user":Object{...}
+
+class NearbyPurposeInfo: BaseModel {
+    var target_list:[NearbyPurposeModel]?
+    var user:UserInfoModel?
+    
+    required init?(map: Map) {
+        super.init(map: map)
+    }
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        target_list<-map["data.target_list"]
+        user<-map["data.user"]
+    }
+}
+
 class NearbyPurposeListModel: BaseModel {
     var autograph:String?
     
@@ -23,7 +41,11 @@ class NearbyPurposeListModel: BaseModel {
 }
 
 class NearbyPurposeModel: BaseModel {
-    var autograph:String?
+    var id:Int?
+    var name:String?
+    var image:String?
+    var selected:Bool?
+
     
     required init?(map: Map) {
         super.init(map: map)
@@ -31,6 +53,10 @@ class NearbyPurposeModel: BaseModel {
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        autograph<-map["data"]
+        id<-map["id"]
+        name<-map["name"]
+        image<-map["image"]
+        selected<-map["selected"]
+
     }
 }

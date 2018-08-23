@@ -19,10 +19,16 @@ class PurposeItemCell: UICollectionViewCell {
         // Initialization code
     }
 
-    func configWith(model:NearbyPurposeModel,isSelected:Bool){
-        self.circleImage.isHidden = !isSelected
-        self.coverView.isHidden = isSelected
-        self.purposeName.textColor = isSelected ? UIColor.white : RGBA(r: 114, g: 114, b: 114, a: 1)
+    func configWith(model:NearbyPurposeModel){
+        if let _selected = model.selected{
+            self.circleImage.isHidden = !_selected
+            self.coverView.isHidden = _selected
+            self.purposeName.textColor = _selected ? UIColor.white : RGBA(r: 114, g: 114, b: 114, a: 1)
+        }
+        if let image = model.image{
+            self.purposeIcon.kf.setImage(with: URL.init(string: image))
+        }
+        self.purposeName.text = model.name
 
     }
 }

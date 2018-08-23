@@ -54,10 +54,9 @@ class UserInfoModel: BaseModel {
 
     var city:CityModel?
     var birthday:Int?
-    
-//    var user_nickname:String?
-//    var user_head_pic:String?
-    
+    var photo:String?
+    var target:[String]?
+    var age:Int?
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -100,16 +99,48 @@ class UserInfoModel: BaseModel {
         attentionL_status <- map["attentionL_status"]
         city <- map["city"]
         birthday <- map["birthday"]
+        photo <- map["photo"]
+        target <- map["target"]
+        age <- map["age"]
         
-//        if self.head_pic == nil{
-//            user_head_pic <- map["user_head_pic"]
-//        }
-//        if self.nickname == nil{
-//            user_nickname <- map["user_nickname"]
-//        }
     }
 }
 
-//class AreaModel: BaseModel? {
-//    var city:C
+//class FuckingUserInfoModel : UserInfoModel{
+//
 //}
+
+class FoolishUserInfoModel: BaseModel {
+    var age:Int?
+    var city:String?
+    var college:String?
+    var constellation:String?
+    var distance:String?
+    var nickname:String?
+    var photo:String?
+    var sex:Int?
+    var signature:String?
+    var target:[String]?
+    var user_id:Int?
+    var active_time:String?
+    
+    required init?(map: Map) {
+        super.init(map: map)
+        
+    }
+
+    override func mapping(map: Map) {
+        age <- map["age"]
+        city <- map["city"]
+        college <- map["college"]
+        constellation <- map["constellation"]
+        distance <- map["distance"]
+        nickname <- map["nickname"]
+        photo <- map["photo"]
+        sex <- map["sex"]
+        signature <- map["signature"]
+        target <- map["target"]
+        user_id <- map["user_id"]
+        active_time <- map["active_time"]
+    }
+}

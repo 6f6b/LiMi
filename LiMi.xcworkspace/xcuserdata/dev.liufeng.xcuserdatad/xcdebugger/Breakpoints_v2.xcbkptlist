@@ -282,12 +282,12 @@
                   moduleName = "LiMi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/utilities/CustomSystemMessageManager.swift"
-                  timestampString = "556164871.9023499"
+                  timestampString = "556716688.694524"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
                   endingLineNumber = "99"
-                  offsetFromSymbolStart = "2191">
+                  offsetFromSymbolStart = "1580">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -297,12 +297,12 @@
                   moduleName = "LiMi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/FengLiu/LiMi/LiMi/Misc/utilities/CustomSystemMessageManager.swift"
-                  timestampString = "556164871.906291"
+                  timestampString = "556716688.697806"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "100"
                   endingLineNumber = "100"
-                  offsetFromSymbolStart = "18">
+                  offsetFromSymbolStart = "40">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -426,7 +426,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiMi/&#x9996;&#x9875;/View/CollegeInfoContainView.swift"
-            timestampString = "556164871.825485"
+            timestampString = "556514851.451149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
@@ -464,6 +464,262 @@
             startingLineNumber = "166"
             endingLineNumber = "166"
             landmarkName = "numberOfSections(in:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/RangeSliderView.swift"
+            timestampString = "556595124.174003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "refreshUI()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/RangeSliderView.swift"
+            timestampString = "556595124.174077"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/Controller/ChooseNearbyPurposeController.swift"
+            timestampString = "556716687.971947"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "loadData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.972654"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973164"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973363"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973555"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973684"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973805"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.973917"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.9740649"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.974178"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/View/NearbyPurposeListView.swift"
+            timestampString = "556716687.974287"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "clickedItemWith(clickedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/Controller/PurposeScreeningController.swift"
+            timestampString = "556716687.974394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "refreshUIWith(model:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/Controller/PurposeScreeningController.swift"
+            timestampString = "556716687.974568"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "refreshUIWith(model:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiMi/&#x5708;&#x5b50;/&#x9644;&#x8fd1;&#x7684;&#x4eba;/Controller/PeopleNearbyController.swift"
+            timestampString = "556716687.9749579"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "requestData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

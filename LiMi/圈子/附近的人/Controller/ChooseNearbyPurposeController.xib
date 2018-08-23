@@ -14,6 +14,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChooseNearbyPurposeController" customModule="LiMi" customModuleProvider="target">
             <connections>
+                <outlet property="photo" destination="zGm-Ek-lLH" id="4p5-Fx-pAD"/>
+                <outlet property="purposeContainView" destination="2WI-Fa-K5y" id="LvP-nP-pve"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,20 +27,29 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qM9-Pw-L6W">
                     <rect key="frame" x="15" y="40" width="22" height="22"/>
                     <state key="normal" image="sign_ic_close"/>
+                    <connections>
+                        <action selector="dealClose:" destination="-1" eventType="touchUpInside" id="U5S-dy-TCt"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KPw-ZE-Xry">
                     <rect key="frame" x="335" y="40" width="25" height="25"/>
                     <state key="normal" image="fjr_ic_baocun"/>
+                    <connections>
+                        <action selector="dealSave:" destination="-1" eventType="touchUpInside" id="75W-r1-y7m"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itc-An-lX3">
                     <rect key="frame" x="107.5" y="82" width="160" height="240"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zGm-Ek-lLH">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zGm-Ek-lLH">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="240"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3i-A8-WYR">
                             <rect key="frame" x="-0.5" y="0.0" width="160" height="240"/>
                             <state key="normal" image="+"/>
+                            <connections>
+                                <action selector="dealToChoosePhoto:" destination="-1" eventType="touchUpInside" id="HgJ-At-3cC"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,7 +84,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2WI-Fa-K5y">
-                    <rect key="frame" x="0.0" y="414" width="375" height="253"/>
+                    <rect key="frame" x="20" y="414" width="335" height="233"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
@@ -83,15 +94,15 @@
                 <constraint firstItem="KPw-ZE-Xry" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="1jo-Z6-6cL"/>
                 <constraint firstItem="1Wr-Rr-9jH" firstAttribute="top" secondItem="7oZ-C9-xGn" secondAttribute="bottom" constant="30" id="7lc-YZ-A5S"/>
                 <constraint firstItem="7oZ-C9-xGn" firstAttribute="centerX" secondItem="itc-An-lX3" secondAttribute="centerX" id="7qq-re-fJN"/>
-                <constraint firstItem="2WI-Fa-K5y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="DmJ-7C-Rlm"/>
+                <constraint firstItem="2WI-Fa-K5y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="DmJ-7C-Rlm"/>
                 <constraint firstItem="1Wr-Rr-9jH" firstAttribute="centerX" secondItem="7oZ-C9-xGn" secondAttribute="centerX" id="EkC-OE-2fP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KPw-ZE-Xry" secondAttribute="trailing" constant="15" id="Eks-ND-hYt"/>
                 <constraint firstItem="qM9-Pw-L6W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="GFA-Km-pOz"/>
                 <constraint firstItem="2WI-Fa-K5y" firstAttribute="top" secondItem="1Wr-Rr-9jH" secondAttribute="bottom" constant="20" id="KmG-qm-wPf"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2WI-Fa-K5y" secondAttribute="bottom" id="RdC-5c-aEe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2WI-Fa-K5y" secondAttribute="bottom" constant="20" id="RdC-5c-aEe"/>
                 <constraint firstItem="7oZ-C9-xGn" firstAttribute="top" secondItem="itc-An-lX3" secondAttribute="bottom" constant="10" id="XOA-DI-uPc"/>
                 <constraint firstItem="itc-An-lX3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="160:375" id="bvT-da-wCQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2WI-Fa-K5y" secondAttribute="trailing" id="dTi-lr-IPS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2WI-Fa-K5y" secondAttribute="trailing" constant="20" id="dTi-lr-IPS"/>
                 <constraint firstItem="itc-An-lX3" firstAttribute="top" secondItem="qM9-Pw-L6W" secondAttribute="bottom" constant="20" id="db2-c6-8EH"/>
                 <constraint firstItem="itc-An-lX3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="m9N-uY-xbM"/>
             </constraints>
